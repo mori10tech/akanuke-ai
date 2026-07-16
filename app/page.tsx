@@ -21,9 +21,12 @@ export default function Home() {
           「4週間垢抜けプラン」を提案します。
         </p>
 
-        <button className="mt-12 rounded-2xl bg-blue-600 py-4 text-xl font-bold text-white hover:bg-blue-700">
-          診断スタート
-        </button>
+        <a
+  href="/upload"
+  className="mt-12 rounded-2xl bg-blue-600 py-4 text-center text-xl font-bold text-white hover:bg-blue-700"
+>
+  診断スタート
+</a>
 
         <p className="mt-5 text-center text-sm text-gray-400">
           登録不要・完全無料

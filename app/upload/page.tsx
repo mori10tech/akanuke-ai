@@ -78,11 +78,11 @@ export default function UploadPage() {
           )}
 
           <input
-            type="file"
-            accept="image/jpeg,image/png,image/webp"
-            onChange={handleImage}
-            className="hidden"
-          />
+             type="file"
+             accept="image/*"
+             onChange={handleImage}
+             className="hidden"
+           />
         </label>
 
         <section className="mt-5 rounded-2xl bg-blue-50 p-5">

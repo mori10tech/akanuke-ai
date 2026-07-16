@@ -7,7 +7,7 @@ export default function Home() {
           AKANUKE.AI
         </p>
 
-        <h1 className="mt-8 text-center text-5xl font-extrabold leading-tight">
+        <h1 className="mt-8 text-center text-5xl font-extrabold leading-tight text-slate-950">
           第一印象は、
           <br />
           <span className="text-blue-600">変えられる。</span>

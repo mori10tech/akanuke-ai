@@ -1,5 +1,3 @@
-import BottomNav from "../components/BottomNav";
-
 const salonSteps = [
   {
     step: 1,
@@ -104,7 +102,6 @@ export default function SalonPage() {
         </section>
       </div>
 
-      <BottomNav />
     </main>
   );
 }

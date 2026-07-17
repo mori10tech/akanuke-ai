@@ -1,5 +1,3 @@
-import BottomNav from "../components/BottomNav";
-
 const products = [
   {
     category: "日焼け止め",
@@ -80,7 +78,6 @@ export default function ProductsPage() {
 
       </div>
 
-      <BottomNav />
     </main>
   );
 }

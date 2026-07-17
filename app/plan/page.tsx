@@ -1,3 +1,4 @@
+import BottomNav from "../components/BottomNav";
 const weeklyPlans = [
   {
     week: 1,
@@ -154,6 +155,7 @@ export default function PlanPage() {
           別の写真で診断し直す
         </a>
       </div>
+      <BottomNav />
     </main>
   );
 }

@@ -1,116 +1,107 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 
-const analysisSteps = [
-  "顔の輪郭を確認しています",
-  "眉毛と髪型を分析しています",
-  "肌の清潔感を確認しています",
-  "4週間プランを作成しています",
+const steps = [
+  "顔の輪郭を解析しています...",
+  "眉毛を解析しています...",
+  "髪型を解析しています...",
+  "肌を解析しています...",
+  "おすすめプランを生成しています...",
 ];
 
-export default function AnalyzingPage() {
-  const router = useRouter();
-
-  const [progress, setProgress] = useState(10);
-  const [stepIndex, setStepIndex] = useState(0);
+export default function AnalyzePage() {
+  const [progress, setProgress] = useState(0);
+  const [step, setStep] = useState(0);
   const [image, setImage] = useState<string | null>(null);
 
   useEffect(() => {
     const savedImage = sessionStorage.getItem("akanukeImage");
 
     if (!savedImage) {
-      router.replace("/upload");
+      window.location.href = "/upload";
       return;
     }
 
     setImage(savedImage);
 
     const timer = window.setInterval(() => {
-      setProgress((currentProgress) => {
-        const nextProgress = currentProgress + 10;
+      setProgress((prev) => {
+        const next = prev + 4;
 
-        if (nextProgress >= 100) {
+        if (next >= 100) {
           window.clearInterval(timer);
 
           window.setTimeout(() => {
-            router.push("/result");
-          }, 600);
+            window.location.href = "/result";
+          }, 500);
 
           return 100;
         }
 
-        return nextProgress;
-      });
+        setStep(Math.min(Math.floor(next / 20), steps.length - 1));
 
-      setStepIndex((currentStep) =>
-        Math.min(currentStep + 1, analysisSteps.length - 1),
-      );
-    }, 500);
+        return next;
+      });
+    }, 120);
 
     return () => window.clearInterval(timer);
-  }, [router]);
+  }, []);
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-white p-6">
-      <div className="w-full max-w-md text-center">
-        <p className="text-sm font-bold tracking-[0.25em] text-blue-600">
-          AI ANALYZING
+    <main className="flex min-h-screen items-center justify-center bg-slate-50 px-6 py-10">
+      <div className="w-full max-w-md rounded-3xl bg-white p-8 shadow-lg">
+        <p className="text-center text-sm font-bold tracking-[0.3em] text-blue-600">
+          AKANUKE.AI
         </p>
 
-        <h1 className="mt-5 text-3xl font-bold text-slate-950">
-          印象を解析中...
+        <h1 className="mt-6 text-center text-3xl font-bold text-slate-950">
+          AI診断中
         </h1>
 
-        <p className="mt-3 text-slate-500">
-          改善効果の高いポイントを整理しています。
+        <p className="mt-3 text-center text-slate-500">
+          数秒で診断が完了します。
         </p>
 
         {image && (
-          <div className="relative mx-auto mt-8 h-56 w-56 overflow-hidden rounded-3xl bg-slate-100">
+          <div className="relative mx-auto mt-8 h-64 w-full overflow-hidden rounded-3xl bg-slate-100">
             <img
               src={image}
               alt="解析中の顔写真"
               className="h-full w-full object-cover"
             />
 
-            <div className="absolute inset-0 border-4 border-blue-500/70" />
-
-            <div className="absolute left-0 right-0 top-0 h-1 bg-blue-500 shadow-[0_0_16px_rgba(37,99,235,0.9)] animate-[scan_2s_ease-in-out_infinite]" />
+            <div className="absolute inset-0 rounded-3xl border-4 border-blue-500/70" />
+            <div className="scan-line" />
           </div>
         )}
 
-        <div className="mt-8 h-3 overflow-hidden rounded-full bg-slate-100">
+        <div className="mt-8 h-4 overflow-hidden rounded-full bg-slate-200">
           <div
-            className="h-full rounded-full bg-blue-600 transition-all duration-500"
+            className="h-full rounded-full bg-blue-600 transition-all duration-300"
             style={{ width: `${progress}%` }}
           />
         </div>
 
-        <p className="mt-3 font-bold text-blue-600">
+        <p className="mt-3 text-center text-lg font-bold text-blue-600">
           {progress}%
         </p>
 
-        <div className="mt-8 space-y-3 text-left">
-          {analysisSteps.map((step, index) => (
+        <div className="mt-8 rounded-2xl bg-slate-50 p-5">
+          {steps.map((item, index) => (
             <div
-              key={step}
-              className={`rounded-2xl border p-4 ${
-                index <= stepIndex
-                  ? "border-blue-200 bg-blue-50"
-                  : "border-slate-100 bg-white"
-              }`}
+              key={item}
+              className="mb-3 flex items-center gap-3 last:mb-0"
             >
-              <span className="mr-3">
-                {index < stepIndex
-                  ? "✓"
-                  : index === stepIndex
-                    ? "●"
-                    : "○"}
-              </span>
+              {index < step ? (
+                <span>✅</span>
+              ) : index === step ? (
+                <span>🔄</span>
+              ) : (
+                <span>⚪</span>
+              )}
 
-              {step}
+              <span className="text-slate-700">{item}</span>
             </div>
           ))}
         </div>

@@ -10,6 +10,25 @@ const scores = [
   { label: "表情", score: 74 },
 ];
 
+const analysisItems = [
+  {
+    label: "眉毛",
+    description: "眉の形と左右差",
+  },
+  {
+    label: "髪型",
+    description: "前髪と輪郭の相性",
+  },
+  {
+    label: "肌",
+    description: "清潔感と明るさ",
+  },
+  {
+    label: "表情",
+    description: "親しみやすさ",
+  },
+];
+
 const priorities = [
   {
     rank: 1,
@@ -42,10 +61,13 @@ const priorities = [
 
 export default function ResultPage() {
   const [image, setImage] = useState<string | null>(null);
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
 
   useEffect(() => {
-    const savedImage = sessionStorage.getItem("akanukeImage");
+    const savedImage = window.sessionStorage.getItem("akanukeImage");
+
     setImage(savedImage);
+    setIsImageLoaded(true);
   }, []);
 
   return (
@@ -55,7 +77,7 @@ export default function ResultPage() {
           AKANUKE.AI
         </p>
 
-        <div className="mt-4 flex items-center justify-between">
+        <div className="mt-4 flex items-center justify-between gap-4">
           <div>
             <p className="text-sm text-slate-500">AI診断レポート</p>
 
@@ -64,7 +86,7 @@ export default function ResultPage() {
             </h1>
           </div>
 
-          <span className="rounded-full bg-green-100 px-3 py-2 text-xs font-bold text-green-700">
+          <span className="shrink-0 rounded-full bg-green-100 px-3 py-2 text-xs font-bold text-green-700">
             診断完了
           </span>
         </div>
@@ -76,49 +98,91 @@ export default function ResultPage() {
             </p>
           </div>
 
-          {image ? (
-            <div className="relative h-80 w-full overflow-hidden bg-slate-100">
-              <img
-                src={image}
-                alt="診断した顔写真"
-                className="h-full w-full object-cover"
-              />
+          {!isImageLoaded ? (
+            <div className="flex min-h-64 items-center justify-center bg-slate-100 px-6 text-center">
+              <p className="text-sm font-bold text-slate-400">
+                写真を読み込んでいます...
+              </p>
+            </div>
+          ) : image ? (
+            <>
+              <div className="relative w-full overflow-hidden bg-slate-100">
+                <img
+                  src={image}
+                  alt="診断した顔写真"
+                  className="block h-auto w-full"
+                />
 
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent" />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/20 via-transparent to-transparent" />
 
-              <div className="absolute left-4 top-[30%] rounded-full border border-white/70 bg-slate-950/70 px-3 py-2 text-xs font-bold text-white backdrop-blur">
-                眉毛を分析
-              </div>
-
-              <div className="absolute right-4 top-[15%] rounded-full border border-white/70 bg-slate-950/70 px-3 py-2 text-xs font-bold text-white backdrop-blur">
-                前髪を分析
-              </div>
-
-              <div className="absolute bottom-[22%] right-4 rounded-full border border-white/70 bg-slate-950/70 px-3 py-2 text-xs font-bold text-white backdrop-blur">
-                肌の清潔感
-              </div>
-
-              <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between rounded-2xl bg-white/90 px-4 py-3 backdrop-blur">
-                <div>
-                  <p className="text-xs text-slate-500">解析項目</p>
-                  <p className="font-bold text-slate-950">眉・髪・肌・表情</p>
+                <div className="pointer-events-none absolute left-4 top-[32%] rounded-full border border-white/70 bg-slate-950/70 px-3 py-2 text-xs font-bold text-white shadow-lg backdrop-blur">
+                  眉毛を分析
                 </div>
 
-                <span className="rounded-full bg-blue-600 px-3 py-2 text-xs font-bold text-white">
-                  解析済み
-                </span>
+                <div className="pointer-events-none absolute right-4 top-[14%] rounded-full border border-white/70 bg-slate-950/70 px-3 py-2 text-xs font-bold text-white shadow-lg backdrop-blur">
+                  前髪を分析
+                </div>
+
+                <div className="pointer-events-none absolute bottom-[12%] right-4 rounded-full border border-white/70 bg-slate-950/70 px-3 py-2 text-xs font-bold text-white shadow-lg backdrop-blur">
+                  肌の清潔感
+                </div>
               </div>
-            </div>
+
+              <div className="border-t border-slate-100 p-5">
+                <div className="flex items-center justify-between gap-4">
+                  <div>
+                    <p className="text-sm font-bold text-slate-500">
+                      解析項目
+                    </p>
+
+                    <p className="mt-1 text-xs text-slate-400">
+                      顔の印象を4項目で確認しました
+                    </p>
+                  </div>
+
+                  <span className="shrink-0 rounded-full bg-blue-600 px-3 py-2 text-xs font-bold text-white">
+                    解析済み
+                  </span>
+                </div>
+
+                <div className="mt-4 grid grid-cols-2 gap-3">
+                  {analysisItems.map((item) => (
+                    <div
+                      key={item.label}
+                      className="rounded-2xl border border-slate-100 bg-slate-50 p-4"
+                    >
+                      <div className="flex items-center gap-2">
+                        <span className="flex h-6 w-6 items-center justify-center rounded-full bg-blue-100 text-xs font-black text-blue-600">
+                          ✓
+                        </span>
+
+                        <p className="text-sm font-bold text-slate-800">
+                          {item.label}
+                        </p>
+                      </div>
+
+                      <p className="mt-2 text-xs leading-5 text-slate-500">
+                        {item.description}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </>
           ) : (
-            <div className="flex h-64 items-center justify-center bg-slate-100 px-6 text-center">
+            <div className="flex min-h-64 items-center justify-center bg-slate-100 px-6 text-center">
               <div>
-                <p className="font-bold text-slate-600">
+                <p className="font-bold text-slate-700">
                   写真が見つかりませんでした
+                </p>
+
+                <p className="mt-2 text-sm leading-6 text-slate-500">
+                  写真アップロード画面から、もう一度診断してください。
                 </p>
 
                 <a
                   href="/upload"
-                  className="mt-4 inline-block text-sm font-bold text-blue-600"
+                  className="mt-5 inline-block rounded-2xl bg-blue-600 px-5 py-3 text-sm font-bold text-white"
                 >
                   写真を選び直す
                 </a>
@@ -202,7 +266,7 @@ export default function ResultPage() {
         </section>
 
         <section className="mt-8">
-          <div className="flex items-end justify-between">
+          <div className="flex items-end justify-between gap-4">
             <div>
               <p className="text-sm font-bold text-blue-600">
                 PRIORITY
@@ -213,7 +277,9 @@ export default function ResultPage() {
               </h2>
             </div>
 
-            <p className="text-xs text-slate-400">効果が高い順</p>
+            <p className="shrink-0 text-xs text-slate-400">
+              効果が高い順
+            </p>
           </div>
 
           <div className="mt-4 space-y-4">
@@ -227,16 +293,14 @@ export default function ResultPage() {
                     {item.rank}
                   </span>
 
-                  <div className="flex-1">
-                    <div>
-                      <h3 className="text-xl font-bold text-slate-950">
-                        {item.title}
-                      </h3>
+                  <div className="min-w-0 flex-1">
+                    <h3 className="text-xl font-bold text-slate-950">
+                      {item.title}
+                    </h3>
 
-                      <span className="mt-2 inline-block rounded-full bg-amber-50 px-3 py-1 text-xs font-bold text-amber-700">
-                        {item.impact}
-                      </span>
-                    </div>
+                    <span className="mt-2 inline-block rounded-full bg-amber-50 px-3 py-1 text-xs font-bold text-amber-700">
+                      {item.impact}
+                    </span>
 
                     <p className="mt-3 text-sm leading-7 text-slate-600">
                       {item.description}
@@ -244,7 +308,7 @@ export default function ResultPage() {
 
                     <a
                       href={item.href}
-                      className="mt-4 block w-full rounded-2xl bg-slate-100 px-4 py-3 text-center text-sm font-bold text-slate-700"
+                      className="mt-4 block w-full rounded-2xl bg-slate-100 px-4 py-3 text-center text-sm font-bold text-slate-700 transition hover:bg-slate-200"
                     >
                       {item.action} →
                     </a>
@@ -257,7 +321,7 @@ export default function ResultPage() {
 
         <a
           href="/preview"
-          className="mt-8 block rounded-2xl bg-blue-600 px-6 py-4 text-center text-lg font-bold text-white shadow-lg shadow-blue-200"
+          className="mt-8 block rounded-2xl bg-blue-600 px-6 py-4 text-center text-lg font-bold text-white shadow-lg shadow-blue-200 transition hover:bg-blue-700"
         >
           4週間後の変化を見る
         </a>

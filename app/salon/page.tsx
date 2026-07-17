@@ -1,3 +1,5 @@
+import BottomNav from "../components/BottomNav";
+
 const salonSteps = [
   {
     step: 1,
@@ -47,7 +49,7 @@ export default function SalonPage() {
               key={item.step}
               className="rounded-3xl bg-white p-6 shadow-sm"
             >
-              <div className="flex items-start justify-between">
+              <div className="flex items-start justify-between gap-4">
                 <div>
                   <p className="text-xs font-bold tracking-[0.15em] text-blue-600">
                     STEP {item.step}
@@ -62,7 +64,7 @@ export default function SalonPage() {
                   </h2>
                 </div>
 
-                <span className="text-sm text-amber-500">
+                <span className="shrink-0 text-sm text-amber-500">
                   {item.rating}
                 </span>
               </div>
@@ -80,7 +82,7 @@ export default function SalonPage() {
                 href={item.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-5 block rounded-2xl bg-slate-950 px-5 py-4 text-center font-bold text-white"
+                className="mt-5 block rounded-2xl bg-slate-950 px-5 py-4 text-center font-bold text-white transition hover:bg-slate-800"
               >
                 {item.buttonText}
               </a>
@@ -102,6 +104,7 @@ export default function SalonPage() {
         </section>
       </div>
 
+      <BottomNav />
     </main>
   );
 }

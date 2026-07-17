@@ -58,32 +58,47 @@ export default function UploadPage() {
           正面から撮影した、顔全体が分かる写真を1枚選択してください。
         </p>
 
-        <label className="mt-8 flex min-h-72 cursor-pointer items-center justify-center overflow-hidden rounded-3xl border-2 border-dashed border-slate-200 bg-slate-50">
+        <label className="mt-8 block cursor-pointer overflow-hidden rounded-3xl border-2 border-dashed border-slate-200 bg-slate-50">
           {preview ? (
             <img
               src={preview}
               alt="選択した顔写真"
-              className="max-h-96 w-full object-contain"
+              className="block h-auto w-full"
             />
           ) : (
-            <div className="px-6 text-center">
-              <p className="text-lg font-bold text-slate-700">
-                タップして写真を選択
-              </p>
+            <div className="flex min-h-72 items-center justify-center px-6 text-center">
+              <div>
+                <p className="text-lg font-bold text-slate-700">
+                  タップして写真を選択
+                </p>
 
-              <p className="mt-2 text-sm text-slate-400">
-                JPG・PNG・WEBP／最大10MB
-              </p>
+                <p className="mt-2 text-sm text-slate-400">
+                  JPG・PNG・WEBP／最大10MB
+                </p>
+              </div>
             </div>
           )}
 
           <input
-             type="file"
-             accept="image/*"
-             onChange={handleImage}
-             className="hidden"
-           />
+            type="file"
+            accept="image/*"
+            onChange={handleImage}
+            className="hidden"
+          />
         </label>
+
+        {preview && (
+          <button
+            type="button"
+            onClick={() => {
+              setPreview(null);
+              sessionStorage.removeItem("akanukeImage");
+            }}
+            className="mt-3 w-full py-2 text-sm font-bold text-slate-500"
+          >
+            別の写真を選ぶ
+          </button>
+        )}
 
         <section className="mt-5 rounded-2xl bg-blue-50 p-5">
           <p className="text-sm font-bold text-blue-700">

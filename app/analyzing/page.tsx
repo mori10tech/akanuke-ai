@@ -26,10 +26,10 @@ export default function AnalyzePage() {
     setImage(savedImage);
 
     const timer = window.setInterval(() => {
-      setProgress((prev) => {
-        const next = prev + 4;
+      setProgress((previousProgress) => {
+        const nextProgress = previousProgress + 4;
 
-        if (next >= 100) {
+        if (nextProgress >= 100) {
           window.clearInterval(timer);
 
           window.setTimeout(() => {
@@ -39,9 +39,14 @@ export default function AnalyzePage() {
           return 100;
         }
 
-        setStep(Math.min(Math.floor(next / 20), steps.length - 1));
+        setStep(
+          Math.min(
+            Math.floor(nextProgress / 20),
+            steps.length - 1,
+          ),
+        );
 
-        return next;
+        return nextProgress;
       });
     }, 120);
 
@@ -64,15 +69,18 @@ export default function AnalyzePage() {
         </p>
 
         {image && (
-          <div className="relative mx-auto mt-8 h-64 w-full overflow-hidden rounded-3xl bg-slate-100">
+          <div className="relative mx-auto mt-8 w-full overflow-hidden rounded-3xl bg-slate-100">
             <img
               src={image}
               alt="解析中の顔写真"
-              className="h-full w-full object-cover"
+              className="block h-auto w-full"
             />
 
-            <div className="absolute inset-0 rounded-3xl border-4 border-blue-500/70" />
-            <div className="scan-line" />
+            <div className="scan-area">
+              <div className="scan-line" />
+            </div>
+
+            <div className="pointer-events-none absolute inset-0 z-20 rounded-3xl border-4 border-blue-500/70" />
           </div>
         )}
 
@@ -101,7 +109,9 @@ export default function AnalyzePage() {
                 <span>⚪</span>
               )}
 
-              <span className="text-slate-700">{item}</span>
+              <span className="text-slate-700">
+                {item}
+              </span>
             </div>
           ))}
         </div>

@@ -109,27 +109,40 @@ export default function WeekCard({
         </div>
       </div>
 
-      <div className="relative aspect-[4/5] overflow-hidden bg-slate-100 sm:aspect-[16/11]">
-        {image ? (
-          <img
-            src={image}
-            alt={`${data.week}週目の変化予測`}
-            className="h-full w-full object-cover transition-all duration-700"
-            style={{ filter: data.imageFilter }}
-          />
-        ) : (
-          <div className="flex h-full items-center justify-center px-8 text-center">
-            <div>
-              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-slate-200 text-2xl">
-                📷
-              </div>
+      {/* ---------- 画像エリア ---------- */}
 
-              <p className="mt-4 font-bold text-slate-700">
-                写真が見つかりません
-              </p>
+      <div className="relative overflow-hidden bg-gradient-to-b from-sky-400 to-sky-500">
+        <div className="flex justify-center px-6 py-8">
+          {image ? (
+            <img
+              src={image}
+              alt={`${data.week}週目の変化予測`}
+              className="
+                w-auto
+                max-w-full
+                max-h-[340px]
+                rounded-2xl
+                object-contain
+                drop-shadow-[0_24px_48px_rgba(0,0,0,0.28)]
+                transition-all
+                duration-700
+              "
+              style={{ filter: data.imageFilter }}
+            />
+          ) : (
+            <div className="flex h-[340px] w-full items-center justify-center">
+              <div className="text-center">
+                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-white/30 text-2xl backdrop-blur">
+                  📷
+                </div>
+
+                <p className="mt-4 font-bold text-white">
+                  写真が見つかりません
+                </p>
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
 
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/45 via-transparent to-transparent" />
 
@@ -154,7 +167,7 @@ export default function WeekCard({
         </div>
       </div>
 
-      <div className="p-5 sm:p-6">
+            <div className="p-5 sm:p-6">
         <div className="rounded-2xl border border-blue-100 bg-blue-50 p-4">
           <div className="flex items-start gap-3">
             <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-blue-600 text-[11px] font-black text-white">
@@ -186,7 +199,7 @@ export default function WeekCard({
             {data.actions.map((action, index) => (
               <div
                 key={action}
-                className="flex items-start gap-3 rounded-2xl bg-slate-50 p-4"
+                className="flex items-start gap-3 rounded-2xl bg-slate-50 p-4 transition-colors hover:bg-slate-100"
               >
                 <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-blue-100 text-xs font-black text-blue-700">
                   {index + 1}

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import BottomNav from "../components/BottomNav";
 
@@ -96,36 +97,27 @@ const IMPRESSIONS: Impression[] = [
 const IMPRESSION_ALIASES: Record<string, ImpressionId> = {
   fresh: "fresh",
   爽やか: "fresh",
-
   mature: "mature",
   大人っぽい: "mature",
-
   clean: "clean",
   cleanliness: "clean",
   清潔感: "clean",
-
   attractive: "attractive",
   dating: "attractive",
   異性ウケ: "attractive",
-
   business: "business",
   ビジネス向き: "business",
-
   korean: "korean",
   韓国系: "korean",
-
   masculine: "masculine",
   manly: "masculine",
   男らしい: "masculine",
-
   gentle: "gentle",
   優しそう: "gentle",
-
   intelligent: "intelligent",
   smart: "intelligent",
   知的スマート: "intelligent",
   "知的・スマート": "intelligent",
-
   ai: "ai-recommend",
   recommend: "ai-recommend",
   "ai-recommend": "ai-recommend",
@@ -165,8 +157,6 @@ const priorities = [
     impact: "効果：非常に高い",
     description:
       "眉下の余分な毛を整え、眉尻を少し細くすると、顔全体の清潔感が大きく上がります。",
-    href: "/salon",
-    action: "眉毛サロンを確認する",
   },
   {
     rank: 2,
@@ -174,8 +164,6 @@ const priorities = [
     impact: "効果：非常に高い",
     description:
       "前髪を軽くして額を少し見せると、幼い印象が抑えられ、爽やかに見えます。",
-    href: "/salon",
-    action: "美容室用オーダーを見る",
   },
   {
     rank: 3,
@@ -183,24 +171,27 @@ const priorities = [
     impact: "効果：高い",
     description:
       "洗顔と日焼け止めを毎日続けることで、テカリや肌の印象を整えやすくなります。",
-    href: "/products",
-    action: "おすすめ商品を見る",
   },
 ];
 
 const DEFAULT_RESULT_MESSAGE: ResultMessage = {
-  headline: "眉毛と前髪を変えるだけで、第一印象は大きく変わります。",
+  headline:
+    "眉毛と前髪を変えるだけで、第一印象は大きく変わります。",
   description:
     "現在は少し幼く見えやすい印象です。最初に眉毛を整え、その後に髪型を変えることで、短期間でも清潔感を高められます。",
-  eyebrow: "自然な太さを残しながら眉下を整え、清潔感のある形を目指します。",
+  eyebrow:
+    "自然な太さを残しながら眉下を整え、清潔感のある形を目指します。",
   hairstyle:
     "前髪に軽さを作り、額を少し見せることで顔全体を明るく見せます。",
   skin: "洗顔・保湿・日焼け止めを基本に、肌の清潔感を整えます。",
 };
 
-const RESULT_MESSAGES: Partial<Record<ImpressionId, ResultMessage>> = {
+const RESULT_MESSAGES: Partial<
+  Record<ImpressionId, ResultMessage>
+> = {
   fresh: {
-    headline: "爽やかさを引き出すだけで、第一印象はもっと明るくなります。",
+    headline:
+      "爽やかさを引き出すだけで、第一印象はもっと明るくなります。",
     description:
       "眉毛の輪郭を整え、前髪に軽さを出すスタイルがおすすめです。額を少し見せて肌の清潔感を高めることで、自然体のまま好印象を作れます。",
     eyebrow:
@@ -209,9 +200,9 @@ const RESULT_MESSAGES: Partial<Record<ImpressionId, ResultMessage>> = {
       "重い前髪を避け、束感と軽さを作って額を少し見せるスタイルがおすすめです。",
     skin: "テカリを抑えながら明るさを保つことで、清潔で爽やかな印象になります。",
   },
-
   mature: {
-    headline: "落ち着きのある大人っぽさを、眉と髪型から引き出せます。",
+    headline:
+      "落ち着きのある大人っぽさを、眉と髪型から引き出せます。",
     description:
       "眉尻をすっきり整え、前髪を上げるか横へ流すことで、幼く見えやすい印象を抑えられます。色数を抑えた服装との相性も良い方向性です。",
     eyebrow:
@@ -220,9 +211,9 @@ const RESULT_MESSAGES: Partial<Record<ImpressionId, ResultMessage>> = {
       "額を見せるアップバングや、横へ流す前髪で落ち着きを演出します。",
     skin: "過度なツヤを抑え、均一で落ち着いた肌印象を目指します。",
   },
-
   clean: {
-    headline: "清潔感を最優先に整えることで、顔全体の印象が安定します。",
+    headline:
+      "清潔感を最優先に整えることで、顔全体の印象が安定します。",
     description:
       "眉まわり、前髪、肌の3点を丁寧に整えることが最も効果的です。派手な変化よりも、細かな身だしなみの積み重ねが垢抜けにつながります。",
     eyebrow:
@@ -231,9 +222,9 @@ const RESULT_MESSAGES: Partial<Record<ImpressionId, ResultMessage>> = {
       "耳まわりと襟足をすっきりさせ、前髪が目にかからない状態を保ちます。",
     skin: "洗顔・保湿・日焼け止めを習慣化し、テカリと乾燥の両方を防ぎます。",
   },
-
   attractive: {
-    headline: "親しみやすさと清潔感を整えると、魅力がさらに伝わります。",
+    headline:
+      "親しみやすさと清潔感を整えると、魅力がさらに伝わります。",
     description:
       "作り込みすぎるより、自然な眉毛、軽さのある髪型、健康的な肌を意識するのがおすすめです。表情も含めて柔らかい印象を作りましょう。",
     eyebrow:
@@ -242,9 +233,9 @@ const RESULT_MESSAGES: Partial<Record<ImpressionId, ResultMessage>> = {
       "顔まわりに軽い動きを出し、清潔感と自然な華やかさを両立させます。",
     skin: "乾燥やテカリを抑え、健康的で触れたくなるような肌印象を目指します。",
   },
-
   business: {
-    headline: "爽やかさと信頼感を両立できる顔立ちです。",
+    headline:
+      "爽やかさと信頼感を両立できる顔立ちです。",
     description:
       "眉毛を整えて前髪に軽さを出すことで、仕事の場でも信頼されやすい印象になります。派手さよりも、輪郭の整った清潔なスタイルが適しています。",
     eyebrow:
@@ -253,9 +244,9 @@ const RESULT_MESSAGES: Partial<Record<ImpressionId, ResultMessage>> = {
       "額を少し見せ、サイドをすっきりまとめることでビジネス向きになります。",
     skin: "テカリを抑え、疲れて見えにくい明るく均一な肌状態を目指します。",
   },
-
   korean: {
-    headline: "韓国系スタイルを取り入れると、洗練された印象を作れます。",
+    headline:
+      "韓国系スタイルを取り入れると、洗練された印象を作れます。",
     description:
       "前髪の束感、自然に整えた平行眉、肌の透明感が重要です。髪型と眉毛を同時に変えることで、スタイル全体に統一感が生まれます。",
     eyebrow:
@@ -264,9 +255,9 @@ const RESULT_MESSAGES: Partial<Record<ImpressionId, ResultMessage>> = {
       "センターパートや軽いマッシュをベースに、前髪へ束感を作ります。",
     skin: "保湿と日焼け止めを重視し、明るく均一な肌の見え方を目指します。",
   },
-
   masculine: {
-    headline: "骨格を活かした、力強く清潔なスタイルが似合います。",
+    headline:
+      "骨格を活かした、力強く清潔なスタイルが似合います。",
     description:
       "眉の存在感を適度に残し、髪型は顔まわりをすっきり見せるのがおすすめです。無骨になりすぎないよう、肌と身だしなみの清潔感も同時に整えます。",
     eyebrow:
@@ -275,9 +266,9 @@ const RESULT_MESSAGES: Partial<Record<ImpressionId, ResultMessage>> = {
       "サイドを締め、トップに高さを出すことで輪郭を男らしく見せます。",
     skin: "ヒゲやテカリを整え、清潔感のある健康的な肌印象を作ります。",
   },
-
   gentle: {
-    headline: "柔らかさを活かすことで、自然に親しみやすい印象になります。",
+    headline:
+      "柔らかさを活かすことで、自然に親しみやすい印象になります。",
     description:
       "眉毛の角度を強くしすぎず、髪型にも丸みと軽さを残すのがおすすめです。表情と肌の清潔感を整えることで、優しい雰囲気がより伝わります。",
     eyebrow:
@@ -286,9 +277,9 @@ const RESULT_MESSAGES: Partial<Record<ImpressionId, ResultMessage>> = {
       "顔まわりに丸みを残しつつ、重く見えないよう適度な軽さを作ります。",
     skin: "保湿を重視し、乾燥や赤みが目立ちにくい穏やかな肌状態を目指します。",
   },
-
   intelligent: {
-    headline: "顔まわりを整理すると、知的でスマートな印象が際立ちます。",
+    headline:
+      "顔まわりを整理すると、知的でスマートな印象が際立ちます。",
     description:
       "眉の輪郭を整え、額や目元が見える髪型にすることで、すっきりとした知的な雰囲気になります。シンプルで端正なスタイルが適しています。",
     eyebrow:
@@ -297,9 +288,9 @@ const RESULT_MESSAGES: Partial<Record<ImpressionId, ResultMessage>> = {
       "額と目元が見えるように前髪を整理し、シルエットをコンパクトにします。",
     skin: "目元の疲れやテカリを抑え、均一で整った肌の見え方を作ります。",
   },
-
   "ai-recommend": {
-    headline: "AI分析では、清潔感を軸に爽やかさを伸ばす方向がおすすめです。",
+    headline:
+      "AI分析では、清潔感を軸に爽やかさを伸ばす方向がおすすめです。",
     description:
       "顔全体のバランスを見ると、最初に眉毛と前髪を整えることで大きな変化が期待できます。その後、肌と表情を整える順番が効率的です。",
     eyebrow:
@@ -310,7 +301,9 @@ const RESULT_MESSAGES: Partial<Record<ImpressionId, ResultMessage>> = {
   },
 };
 
-function normalizeImpressionValue(value: unknown): ImpressionId | null {
+function normalizeImpressionValue(
+  value: unknown,
+): ImpressionId | null {
   if (typeof value !== "string") {
     return null;
   }
@@ -324,7 +317,9 @@ function normalizeImpressionValue(value: unknown): ImpressionId | null {
   return IMPRESSION_ALIASES[normalizedValue] ?? null;
 }
 
-function parseSavedImpressions(savedValue: string | null): ImpressionId[] {
+function parseSavedImpressions(
+  savedValue: string | null,
+): ImpressionId[] {
   if (!savedValue) {
     return [];
   }
@@ -338,23 +333,34 @@ function parseSavedImpressions(savedValue: string | null): ImpressionId[] {
 
     return parsedValue
       .map(normalizeImpressionValue)
-      .filter((value): value is ImpressionId => value !== null)
-      .filter((value, index, array) => array.indexOf(value) === index)
+      .filter(
+        (value): value is ImpressionId => value !== null,
+      )
+      .filter(
+        (value, index, array) =>
+          array.indexOf(value) === index,
+      )
       .slice(0, 2);
   } catch {
     return savedValue
       .split(",")
       .map(normalizeImpressionValue)
-      .filter((value): value is ImpressionId => value !== null)
-      .filter((value, index, array) => array.indexOf(value) === index)
+      .filter(
+        (value): value is ImpressionId => value !== null,
+      )
+      .filter(
+        (value, index, array) =>
+          array.indexOf(value) === index,
+      )
       .slice(0, 2);
   }
 }
 
 function getImpressionById(id: ImpressionId): Impression {
   return (
-    IMPRESSIONS.find((impression) => impression.id === id) ??
-    IMPRESSIONS[IMPRESSIONS.length - 1]
+    IMPRESSIONS.find(
+      (impression) => impression.id === id,
+    ) ?? IMPRESSIONS[IMPRESSIONS.length - 1]
   );
 }
 
@@ -366,24 +372,30 @@ function createCombinedMessage(
   }
 
   if (impressionIds.includes("ai-recommend")) {
-    return RESULT_MESSAGES["ai-recommend"] ?? DEFAULT_RESULT_MESSAGE;
+    return (
+      RESULT_MESSAGES["ai-recommend"] ??
+      DEFAULT_RESULT_MESSAGE
+    );
   }
 
   const primaryId = impressionIds[0];
   const secondaryId = impressionIds[1];
 
   const primaryMessage =
-    RESULT_MESSAGES[primaryId] ?? DEFAULT_RESULT_MESSAGE;
+    RESULT_MESSAGES[primaryId] ??
+    DEFAULT_RESULT_MESSAGE;
 
   if (!secondaryId) {
     return primaryMessage;
   }
 
   const secondaryMessage =
-    RESULT_MESSAGES[secondaryId] ?? DEFAULT_RESULT_MESSAGE;
+    RESULT_MESSAGES[secondaryId] ??
+    DEFAULT_RESULT_MESSAGE;
 
   const primaryImpression = getImpressionById(primaryId);
-  const secondaryImpression = getImpressionById(secondaryId);
+  const secondaryImpression =
+    getImpressionById(secondaryId);
 
   return {
     headline: `${primaryImpression.shortLabel}さと${secondaryImpression.shortLabel}さを両立することで、あなたらしい好印象を作れます。`,
@@ -391,25 +403,35 @@ function createCombinedMessage(
     eyebrow: primaryMessage.eyebrow,
     hairstyle: secondaryMessage.hairstyle,
     skin:
-      secondaryId === "clean" || primaryId === "clean"
-        ? RESULT_MESSAGES.clean?.skin ?? primaryMessage.skin
+      secondaryId === "clean" ||
+      primaryId === "clean"
+        ? RESULT_MESSAGES.clean?.skin ??
+          primaryMessage.skin
         : primaryMessage.skin,
   };
 }
 
 export default function ResultPage() {
   const [image, setImage] = useState<string | null>(null);
-  const [impressionIds, setImpressionIds] = useState<ImpressionId[]>([]);
-  const [isDataLoaded, setIsDataLoaded] = useState(false);
+  const [impressionIds, setImpressionIds] = useState<
+    ImpressionId[]
+  >([]);
+  const [isDataLoaded, setIsDataLoaded] =
+    useState(false);
 
   useEffect(() => {
-    const savedImage = window.sessionStorage.getItem("akanukeImage");
-    const savedImpressions = window.sessionStorage.getItem(
-      "akanukeDesiredImpressions",
-    );
+    const savedImage =
+      window.sessionStorage.getItem("akanukeImage");
+
+    const savedImpressions =
+      window.sessionStorage.getItem(
+        "akanukeDesiredImpressions",
+      );
 
     setImage(savedImage);
-    setImpressionIds(parseSavedImpressions(savedImpressions));
+    setImpressionIds(
+      parseSavedImpressions(savedImpressions),
+    );
     setIsDataLoaded(true);
   }, []);
 
@@ -442,7 +464,9 @@ export default function ResultPage() {
 
         <div className="mt-4 flex items-center justify-between gap-4">
           <div>
-            <p className="text-sm text-slate-500">AI診断レポート</p>
+            <p className="text-sm text-slate-500">
+              AI診断レポート
+            </p>
 
             <h1 className="mt-1 text-3xl font-bold text-slate-950">
               診断結果
@@ -479,15 +503,20 @@ export default function ResultPage() {
 
             {selectedImpressions.length > 0 ? (
               <div className="mt-5 flex flex-wrap gap-2">
-                {selectedImpressions.map((impression) => (
-                  <span
-                    key={impression.id}
-                    className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm font-bold backdrop-blur"
-                  >
-                    <span aria-hidden="true">{impression.icon}</span>
-                    {impression.label}
-                  </span>
-                ))}
+                {selectedImpressions.map(
+                  (impression) => (
+                    <span
+                      key={impression.id}
+                      className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm font-bold backdrop-blur"
+                    >
+                      <span aria-hidden="true">
+                        {impression.icon}
+                      </span>
+
+                      {impression.label}
+                    </span>
+                  ),
+                )}
               </div>
             ) : (
               <div className="mt-5 rounded-2xl border border-white/10 bg-white/10 p-4 backdrop-blur">
@@ -598,12 +627,12 @@ export default function ResultPage() {
                   写真アップロード画面から、もう一度診断してください。
                 </p>
 
-                <a
+                <Link
                   href="/upload"
                   className="mt-5 inline-block rounded-2xl bg-blue-600 px-5 py-3 text-sm font-bold text-white"
                 >
                   写真を選び直す
-                </a>
+                </Link>
               </div>
             </div>
           )}
@@ -628,8 +657,13 @@ export default function ResultPage() {
 
           <div className="mt-5 flex items-center justify-between rounded-2xl bg-white/10 px-4 py-4">
             <div>
-              <p className="text-xs text-slate-400">4週間後の目標</p>
-              <p className="mt-1 text-2xl font-bold">84点</p>
+              <p className="text-xs text-slate-400">
+                4週間後の目標
+              </p>
+
+              <p className="mt-1 text-2xl font-bold">
+                84点
+              </p>
             </div>
 
             <div className="rounded-full bg-blue-500 px-4 py-2 text-sm font-bold">
@@ -663,7 +697,8 @@ export default function ResultPage() {
             </p>
 
             <p className="mt-2 text-sm leading-6 text-slate-600">
-              「{desiredImpressionText}」を基準に、変化を実感しやすい順番で改善プランを作成しています。
+              「{desiredImpressionText}
+              」を基準に、変化を実感しやすい順番で改善プランを作成しています。
             </p>
           </div>
         </section>
@@ -689,7 +724,9 @@ export default function ResultPage() {
                 <div className="mt-2 h-2 overflow-hidden rounded-full bg-slate-100">
                   <div
                     className="h-full rounded-full bg-blue-600"
-                    style={{ width: `${item.score}%` }}
+                    style={{
+                      width: `${item.score}%`,
+                    }}
                   />
                 </div>
               </div>
@@ -698,15 +735,13 @@ export default function ResultPage() {
         </section>
 
         <section className="mt-8">
-          <div>
-            <p className="text-sm font-bold text-blue-600">
-              PERSONAL ANALYSIS
-            </p>
+          <p className="text-sm font-bold text-blue-600">
+            PERSONAL ANALYSIS
+          </p>
 
-            <h2 className="mt-1 text-xl font-bold text-slate-950">
-              希望の印象に近づくポイント
-            </h2>
-          </div>
+          <h2 className="mt-1 text-xl font-bold text-slate-950">
+            希望の印象に近づくポイント
+          </h2>
 
           <div className="mt-4 space-y-3">
             <article className="rounded-3xl bg-white p-5 shadow-sm">
@@ -716,7 +751,10 @@ export default function ResultPage() {
                 </span>
 
                 <div>
-                  <h3 className="font-bold text-slate-950">眉毛</h3>
+                  <h3 className="font-bold text-slate-950">
+                    眉毛
+                  </h3>
+
                   <p className="mt-2 text-sm leading-7 text-slate-600">
                     {resultMessage.eyebrow}
                   </p>
@@ -731,7 +769,10 @@ export default function ResultPage() {
                 </span>
 
                 <div>
-                  <h3 className="font-bold text-slate-950">髪型</h3>
+                  <h3 className="font-bold text-slate-950">
+                    髪型
+                  </h3>
+
                   <p className="mt-2 text-sm leading-7 text-slate-600">
                     {resultMessage.hairstyle}
                   </p>
@@ -746,7 +787,10 @@ export default function ResultPage() {
                 </span>
 
                 <div>
-                  <h3 className="font-bold text-slate-950">肌</h3>
+                  <h3 className="font-bold text-slate-950">
+                    肌
+                  </h3>
+
                   <p className="mt-2 text-sm leading-7 text-slate-600">
                     {resultMessage.skin}
                   </p>
@@ -796,13 +840,6 @@ export default function ResultPage() {
                     <p className="mt-3 text-sm leading-7 text-slate-600">
                       {item.description}
                     </p>
-
-                    <a
-                      href={item.href}
-                      className="mt-4 block w-full rounded-2xl bg-slate-100 px-4 py-3 text-center text-sm font-bold text-slate-700 transition hover:bg-slate-200"
-                    >
-                      {item.action} →
-                    </a>
                   </div>
                 </div>
               </article>
@@ -810,26 +847,47 @@ export default function ResultPage() {
           </div>
         </section>
 
-        <a
-          href="/preview"
-          className="mt-8 block rounded-2xl bg-blue-600 px-6 py-4 text-center text-lg font-bold text-white shadow-lg shadow-blue-200 transition hover:bg-blue-700"
-        >
-          4週間後の変化を見る
-        </a>
+        <section className="mt-8 rounded-3xl border border-blue-100 bg-white p-6 text-center shadow-sm">
+          <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-50 text-xl">
+            ✨
+          </span>
 
-        <a
+          <p className="mt-4 text-xs font-bold tracking-[0.16em] text-blue-600">
+            NEXT STEP
+          </p>
+
+          <h2 className="mt-2 text-xl font-bold leading-8 text-slate-950">
+            次は、4週間後の変化を
+            <br />
+            確認してみましょう。
+          </h2>
+
+          <p className="mt-3 text-sm leading-7 text-slate-500">
+            美容院や商品を選ぶ前に、どのように変わっていくのかを週ごとに確認できます。
+          </p>
+
+          <Link
+            href="/preview"
+            className="mt-6 flex min-h-14 w-full items-center justify-center rounded-2xl bg-blue-600 px-6 py-4 text-base font-bold text-white shadow-lg shadow-blue-200 transition hover:bg-blue-700"
+          >
+            4週間後の変化を見る
+            <span className="ml-2">→</span>
+          </Link>
+        </section>
+
+        <Link
           href="/preferences"
           className="mt-3 block py-3 text-center text-sm font-bold text-blue-600"
         >
           なりたい印象を変更する
-        </a>
+        </Link>
 
-        <a
+        <Link
           href="/upload"
           className="block py-3 text-center text-sm font-bold text-slate-500"
         >
           別の写真で診断し直す
-        </a>
+        </Link>
       </div>
 
       <BottomNav />

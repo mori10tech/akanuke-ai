@@ -1,421 +1,418 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import BottomNav from "../components/BottomNav";
+import FinalCTA from "../components/preview/FinalCTA";
+import PreviewHero from "../components/preview/PreviewHero";
+import WeekCard, {
+  type WeekData,
+} from "../components/preview/WeekCard";
+import WeeklySummary, {
+  type WeeklySummaryItem,
+} from "../components/preview/WeeklySummary";
 
-type PreviewMode = "before" | "after";
+type ImpressionId =
+  | "fresh"
+  | "mature"
+  | "clean"
+  | "attractive"
+  | "business"
+  | "korean"
+  | "masculine"
+  | "gentle"
+  | "intelligent"
+  | "ai-recommend";
 
-const changes = [
+const IMPRESSION_LABELS: Record<ImpressionId, string> = {
+  fresh: "爽やか",
+  mature: "大人っぽい",
+  clean: "清潔感",
+  attractive: "異性ウケ",
+  business: "ビジネス向き",
+  korean: "韓国系",
+  masculine: "男らしい",
+  gentle: "優しそう",
+  intelligent: "知的・スマート",
+  "ai-recommend": "AIおすすめ",
+};
+
+const IMPRESSION_ALIASES: Record<string, ImpressionId> = {
+  fresh: "fresh",
+  爽やか: "fresh",
+
+  mature: "mature",
+  大人っぽい: "mature",
+
+  clean: "clean",
+  cleanliness: "clean",
+  清潔感: "clean",
+
+  attractive: "attractive",
+  dating: "attractive",
+  異性ウケ: "attractive",
+
+  business: "business",
+  ビジネス向き: "business",
+
+  korean: "korean",
+  韓国系: "korean",
+
+  masculine: "masculine",
+  manly: "masculine",
+  男らしい: "masculine",
+
+  gentle: "gentle",
+  優しそう: "gentle",
+
+  intelligent: "intelligent",
+  smart: "intelligent",
+  知的スマート: "intelligent",
+  "知的・スマート": "intelligent",
+
+  ai: "ai-recommend",
+  recommend: "ai-recommend",
+  "ai-recommend": "ai-recommend",
+  "AIにおすすめしてもらう": "ai-recommend",
+};
+
+const WEEK_DATA: WeekData[] = [
   {
-    number: "01",
-    category: "EYEBROW",
-    title: "眉毛を自然に整える",
-    description:
-      "眉下の余分な毛を整え、眉尻を少し細くすることで、目元がすっきりした印象になります。",
-    score: "+6",
+    week: 1,
+    label: "清潔感の土台を作る",
+    subtitle: "スキンケア・眉毛・生活習慣",
+    previousScore: 68,
+    score: 72,
+    progress: 25,
+    accentLabel: "土台づくり",
+    imageFilter: "brightness(1.015) contrast(1.01) saturate(0.98)",
+    aiComment:
+      "最初の1週間は、大きく変えすぎず、毎日の清潔感を安定させる期間です。小さな習慣だけでも、顔色と目元の印象が整い始めます。",
+    impressionChange:
+      "肌のトーンが少し明るくなり、清潔感のある印象へ。",
+    actions: [
+      "朝晩の洗顔・保湿を習慣化する",
+      "眉下の余分な毛だけを自然に整える",
+      "睡眠時間と水分補給を意識する",
+    ],
   },
   {
-    number: "02",
-    category: "HAIR",
-    title: "前髪を軽くする",
-    description:
-      "額を少し見せることで、幼い印象を抑えながら爽やかさを引き出します。",
-    score: "+5",
+    week: 2,
+    label: "顔まわりを整える",
+    subtitle: "眉毛・前髪・ヘアスタイル",
+    previousScore: 72,
+    score: 77,
+    progress: 50,
+    accentLabel: "顔まわり改善",
+    imageFilter: "brightness(1.03) contrast(1.025) saturate(0.97)",
+    aiComment:
+      "2週目は、第一印象に最も影響しやすい眉毛と髪型を整えます。前髪に軽さが出ることで、顔全体がすっきり見え始めます。",
+    impressionChange:
+      "顔全体がすっきりして、爽やかで軽やかな印象へ。",
+    actions: [
+      "眉の左右差を整えて自然な形に近づける",
+      "前髪を軽くし、額を少し見せる",
+      "サイドと襟足を清潔に整える",
+    ],
   },
   {
-    number: "03",
-    category: "SKIN",
-    title: "肌の清潔感を整える",
-    description:
-      "テカリや乾燥を抑え、肌全体を自然で明るい印象へ近づけます。",
-    score: "+5",
+    week: 3,
+    label: "魅力を定着させる",
+    subtitle: "肌・質感・表情",
+    previousScore: 77,
+    score: 81,
+    progress: 75,
+    accentLabel: "周囲が気づく変化",
+    imageFilter: "brightness(1.045) contrast(1.035) saturate(0.96)",
+    aiComment:
+      "3週目には、眉毛・髪型・肌のバランスが整い、周囲から変化に気づかれやすくなります。自然な表情も意識しましょう。",
+    impressionChange:
+      "垢抜け感が増し、周囲から変化に気づかれる印象へ。",
+    actions: [
+      "保湿と日焼け止めを継続して肌を安定させる",
+      "ヘアワックスで自然な束感を作る",
+      "口元を緩め、自然な表情を意識する",
+    ],
+  },
+  {
+    week: 4,
+    label: "理想の印象を完成させる",
+    subtitle: "眉・髪・肌・表情の最終調整",
+    previousScore: 81,
+    score: 84,
+    progress: 100,
+    accentLabel: "完成イメージ",
+    imageFilter: "brightness(1.06) contrast(1.045) saturate(0.95)",
+    aiComment:
+      "4週間の積み重ねにより、清潔感・髪型・眉毛・表情のバランスが整います。無理な変化ではなく、あなたらしさを残した理想形です。",
+    impressionChange:
+      "清潔感・好印象・自信が自然にそろった理想の状態へ。",
+    actions: [
+      "自分に似合う髪型とセット方法を定着させる",
+      "眉毛とスキンケアを無理なく継続する",
+      "服装と姿勢まで含めて全体の印象を整える",
+    ],
+    isFinal: true,
   },
 ];
 
-const scoreItems = [
-  {
-    label: "眉毛",
-    before: 62,
-    after: 82,
-  },
-  {
-    label: "髪型",
-    before: 65,
-    after: 81,
-  },
-  {
-    label: "肌の清潔感",
-    before: 71,
-    after: 84,
-  },
-  {
-    label: "総合印象",
-    before: 68,
-    after: 84,
-  },
-];
+function normalizeImpression(
+  value: unknown,
+): ImpressionId | null {
+  if (typeof value !== "string") {
+    return null;
+  }
+
+  const normalizedValue = value.trim();
+
+  if (!normalizedValue) {
+    return null;
+  }
+
+  return IMPRESSION_ALIASES[normalizedValue] ?? null;
+}
+
+function parseSavedImpressions(
+  savedValue: string | null,
+): ImpressionId[] {
+  if (!savedValue) {
+    return [];
+  }
+
+  try {
+    const parsedValue: unknown = JSON.parse(savedValue);
+
+    if (!Array.isArray(parsedValue)) {
+      return [];
+    }
+
+    return parsedValue
+      .map(normalizeImpression)
+      .filter(
+        (value): value is ImpressionId => value !== null,
+      )
+      .filter(
+        (value, index, array) =>
+          array.indexOf(value) === index,
+      )
+      .slice(0, 2);
+  } catch {
+    return savedValue
+      .split(",")
+      .map(normalizeImpression)
+      .filter(
+        (value): value is ImpressionId => value !== null,
+      )
+      .filter(
+        (value, index, array) =>
+          array.indexOf(value) === index,
+      )
+      .slice(0, 2);
+  }
+}
 
 export default function PreviewPage() {
   const [image, setImage] = useState<string | null>(null);
-  const [isImageLoaded, setIsImageLoaded] = useState(false);
-  const [previewMode, setPreviewMode] = useState<PreviewMode>("before");
+  const [impressionIds, setImpressionIds] = useState<
+    ImpressionId[]
+  >([]);
+  const [isDataLoaded, setIsDataLoaded] = useState(false);
+
+  const weekSectionRefs = useRef<
+    Record<number, HTMLElement | null>
+  >({});
 
   useEffect(() => {
-    const savedImage = window.sessionStorage.getItem("akanukeImage");
+    const savedImage =
+      window.sessionStorage.getItem("akanukeImage");
+
+    const savedImpressions =
+      window.sessionStorage.getItem(
+        "akanukeDesiredImpressions",
+      );
 
     setImage(savedImage);
-    setIsImageLoaded(true);
+    setImpressionIds(
+      parseSavedImpressions(savedImpressions),
+    );
+    setIsDataLoaded(true);
   }, []);
 
-  const isAfter = previewMode === "after";
+  const desiredImpression = useMemo(() => {
+    if (impressionIds.length === 0) {
+      return "清潔感 × 爽やか";
+    }
+
+    if (impressionIds.includes("ai-recommend")) {
+      return "AIおすすめ：清潔感 × 爽やか";
+    }
+
+    return impressionIds
+      .map((id) => IMPRESSION_LABELS[id])
+      .join(" × ");
+  }, [impressionIds]);
+
+  const summaryItems = useMemo<WeeklySummaryItem[]>(
+    () =>
+      WEEK_DATA.map((week) => ({
+        week: week.week,
+        label: week.accentLabel,
+        score: week.score,
+        progress: week.progress,
+        imageFilter: week.imageFilter,
+        isFinal: week.isFinal,
+      })),
+    [],
+  );
+
+  const handleSelectWeek = (week: number) => {
+    const target = weekSectionRefs.current[week];
+
+    if (!target) {
+      return;
+    }
+
+    target.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
 
   return (
     <main className="min-h-screen bg-slate-50 px-5 pb-32 pt-8">
-      <div className="mx-auto max-w-md">
-        <header>
-          <p className="text-sm font-bold tracking-[0.2em] text-blue-600">
+      <div className="mx-auto max-w-2xl">
+        <div className="mb-5 flex items-center justify-between gap-4">
+          <Link
+            href="/result"
+            className="inline-flex min-h-10 items-center rounded-full bg-white px-4 py-2 text-sm font-bold text-slate-600 shadow-sm transition hover:bg-slate-100"
+          >
+            ← 診断結果
+          </Link>
+
+          <p className="text-sm font-bold tracking-[0.18em] text-blue-600">
             AKANUKE.AI
           </p>
-
-          <div className="mt-5 flex items-start justify-between gap-4">
-            <div>
-              <p className="text-sm font-bold text-slate-500">
-                4週間後の変化予測
-              </p>
-
-              <h1 className="mt-1 text-3xl font-bold leading-tight text-slate-950">
-                Before
-                <span className="mx-2 text-blue-600">→</span>
-                After
-              </h1>
-            </div>
-
-            <span className="shrink-0 rounded-full border border-blue-100 bg-blue-50 px-3 py-2 text-xs font-bold text-blue-700">
-              AI PREVIEW
-            </span>
-          </div>
-
-          <p className="mt-4 leading-7 text-slate-500">
-            診断結果に沿って行動した場合の、4週間後の印象変化を確認できます。
-          </p>
-        </header>
-
-        <section className="mt-7 overflow-hidden rounded-[32px] bg-white shadow-sm">
-          <div className="p-3">
-            <div className="grid grid-cols-2 rounded-2xl bg-slate-100 p-1">
-              <button
-                type="button"
-                onClick={() => setPreviewMode("before")}
-                className={`rounded-xl px-4 py-3 text-sm font-bold transition ${
-                  previewMode === "before"
-                    ? "bg-white text-slate-950 shadow-sm"
-                    : "text-slate-400"
-                }`}
-              >
-                BEFORE
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setPreviewMode("after")}
-                className={`rounded-xl px-4 py-3 text-sm font-bold transition ${
-                  previewMode === "after"
-                    ? "bg-blue-600 text-white shadow-sm"
-                    : "text-slate-400"
-                }`}
-              >
-                AFTER
-              </button>
-            </div>
-          </div>
-
-          <div className="relative overflow-hidden bg-slate-100">
-            {!isImageLoaded ? (
-              <div className="flex min-h-96 items-center justify-center px-6 text-center">
-                <div>
-                  <div className="mx-auto h-8 w-8 animate-spin rounded-full border-4 border-slate-200 border-t-blue-600" />
-
-                  <p className="mt-4 text-sm font-bold text-slate-500">
-                    写真を読み込んでいます
-                  </p>
-                </div>
-              </div>
-            ) : image ? (
-              <>
-                <img
-                  src={image}
-                  alt={
-                    isAfter
-                      ? "4週間後の変化予測プレビュー"
-                      : "診断時の写真"
-                  }
-                  className="block h-auto w-full transition-all duration-700"
-                  style={
-                    isAfter
-                      ? {
-                          filter:
-                            "brightness(1.05) contrast(1.04) saturate(0.94)",
-                        }
-                      : {
-                          filter: "none",
-                        }
-                  }
-                />
-
-                {isAfter && (
-                  <>
-                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-blue-950/20 via-transparent to-blue-50/10" />
-
-                    <div className="pointer-events-none absolute inset-x-5 top-5 flex items-center justify-between">
-                      <span className="rounded-full border border-white/70 bg-slate-950/70 px-3 py-2 text-xs font-bold text-white shadow-lg backdrop-blur-md">
-                        4週間後予測
-                      </span>
-
-                      <span className="rounded-full border border-white/70 bg-blue-600/90 px-3 py-2 text-xs font-bold text-white shadow-lg backdrop-blur-md">
-                        +16 POINT
-                      </span>
-                    </div>
-
-                    <div className="pointer-events-none absolute bottom-5 left-5 right-5 rounded-2xl border border-white/50 bg-slate-950/65 p-4 text-white shadow-xl backdrop-blur-md">
-                      <p className="text-xs font-bold tracking-[0.15em] text-blue-200">
-                        AFTER IMAGE
-                      </p>
-
-                      <p className="mt-1 text-sm font-bold">
-                        眉・前髪・肌の清潔感を改善したイメージ
-                      </p>
-                    </div>
-                  </>
-                )}
-
-                {!isAfter && (
-                  <div className="pointer-events-none absolute left-5 top-5 rounded-full border border-white/70 bg-slate-950/70 px-3 py-2 text-xs font-bold text-white shadow-lg backdrop-blur-md">
-                    現在の写真
-                  </div>
-                )}
-              </>
-            ) : (
-              <div className="flex min-h-96 items-center justify-center px-6 text-center">
-                <div>
-                  <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-slate-200 text-2xl">
-                    📷
-                  </div>
-
-                  <p className="mt-4 font-bold text-slate-800">
-                    写真が見つかりませんでした
-                  </p>
-
-                  <p className="mt-2 text-sm leading-6 text-slate-500">
-                    写真アップロード画面から、もう一度診断してください。
-                  </p>
-
-                  <Link
-                    href="/upload"
-                    className="mt-5 inline-block rounded-2xl bg-blue-600 px-5 py-3 text-sm font-bold text-white"
-                  >
-                    写真をアップロードする
-                  </Link>
-                </div>
-              </div>
-            )}
-          </div>
-
-          <div className="border-t border-slate-100 p-5">
-            <div className="flex items-center justify-between gap-5">
-              <div className="flex-1">
-                <p className="text-xs font-bold tracking-[0.15em] text-slate-400">
-                  {isAfter ? "AFTER SCORE" : "CURRENT SCORE"}
-                </p>
-
-                <div className="mt-2 flex items-end gap-2">
-                  <span
-                    className={`text-5xl font-black ${
-                      isAfter ? "text-blue-600" : "text-slate-950"
-                    }`}
-                  >
-                    {isAfter ? "84" : "68"}
-                  </span>
-
-                  <span className="pb-1 text-sm font-bold text-slate-400">
-                    / 100
-                  </span>
-                </div>
-              </div>
-
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-slate-100 text-xl font-bold text-slate-400">
-                →
-              </div>
-
-              <div className="flex-1 text-right">
-                <p className="text-xs font-bold tracking-[0.15em] text-blue-500">
-                  IMPROVEMENT
-                </p>
-
-                <p className="mt-2 text-3xl font-black text-blue-600">
-                  +16
-                </p>
-              </div>
-            </div>
-
-            <div className="mt-5 h-2.5 overflow-hidden rounded-full bg-slate-100">
-              <div
-                className={`h-full rounded-full transition-all duration-700 ${
-                  isAfter ? "w-[84%] bg-blue-600" : "w-[68%] bg-slate-800"
-                }`}
-              />
-            </div>
-          </div>
-        </section>
-
-        <div className="mt-4 rounded-2xl border border-amber-100 bg-amber-50 px-4 py-4">
-          <div className="flex items-start gap-3">
-            <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-amber-100 text-sm">
-              i
-            </span>
-
-            <div>
-              <p className="text-sm font-bold text-amber-900">
-                現在は表示確認用のプレビューです
-              </p>
-
-              <p className="mt-1 text-xs leading-5 text-amber-800/80">
-                実際の眉毛や髪型を反映したAfter画像は、画像生成API接続後に生成されます。
-              </p>
-            </div>
-          </div>
         </div>
 
-        <section className="mt-9">
-          <div className="flex items-end justify-between gap-4">
+        <PreviewHero
+          desiredImpression={desiredImpression}
+          currentScore={68}
+          targetScore={84}
+        />
+
+        {!isDataLoaded ? (
+          <section className="mt-6 flex min-h-72 items-center justify-center rounded-[32px] bg-white shadow-sm">
+            <div className="text-center">
+              <div className="mx-auto h-9 w-9 animate-spin rounded-full border-4 border-slate-200 border-t-blue-600" />
+
+              <p className="mt-4 text-sm font-bold text-slate-500">
+                4週間の変化を準備しています
+              </p>
+            </div>
+          </section>
+        ) : !image ? (
+          <section className="mt-6 flex min-h-72 items-center justify-center rounded-[32px] bg-white px-6 text-center shadow-sm">
             <div>
-              <p className="text-sm font-bold tracking-[0.15em] text-blue-600">
-                CHANGE POINTS
+              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-slate-100 text-2xl">
+                📷
+              </div>
+
+              <h2 className="mt-4 text-xl font-bold text-slate-950">
+                診断した写真が見つかりません
+              </h2>
+
+              <p className="mt-2 text-sm leading-7 text-slate-500">
+                写真アップロード画面から、もう一度診断を開始してください。
               </p>
 
-              <h2 className="mt-1 text-2xl font-bold text-slate-950">
-                変化する3つのポイント
-              </h2>
-            </div>
-
-            <p className="shrink-0 text-xs font-bold text-slate-400">
-              合計 +16点
-            </p>
-          </div>
-
-          <div className="mt-5 space-y-4">
-            {changes.map((item) => (
-              <article
-                key={item.number}
-                className="rounded-3xl border border-slate-100 bg-white p-5 shadow-sm"
+              <Link
+                href="/upload"
+                className="mt-5 inline-flex min-h-12 items-center justify-center rounded-2xl bg-blue-600 px-6 py-3 text-sm font-bold text-white"
               >
-                <div className="flex items-start gap-4">
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-slate-950 text-sm font-black text-white">
-                    {item.number}
-                  </div>
+                写真をアップロードする
+              </Link>
+            </div>
+          </section>
+        ) : (
+          <>
+            <WeeklySummary
+              image={image}
+              items={summaryItems}
+              onSelectWeek={handleSelectWeek}
+            />
 
-                  <div className="min-w-0 flex-1">
-                    <div className="flex items-center justify-between gap-3">
-                      <p className="text-xs font-bold tracking-[0.15em] text-blue-600">
-                        {item.category}
-                      </p>
+            <div className="mt-4 rounded-2xl border border-amber-100 bg-amber-50 p-4">
+              <div className="flex items-start gap-3">
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-amber-100 text-sm font-black text-amber-800">
+                  i
+                </span>
 
-                      <span className="shrink-0 rounded-full bg-blue-50 px-3 py-1 text-xs font-bold text-blue-700">
-                        {item.score}点
-                      </span>
-                    </div>
-
-                    <h3 className="mt-2 text-lg font-bold text-slate-950">
-                      {item.title}
-                    </h3>
-
-                    <p className="mt-2 text-sm leading-7 text-slate-600">
-                      {item.description}
-                    </p>
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section className="mt-9">
-          <p className="text-sm font-bold tracking-[0.15em] text-blue-600">
-            SCORE COMPARISON
-          </p>
-
-          <h2 className="mt-1 text-2xl font-bold text-slate-950">
-            項目別の変化予測
-          </h2>
-
-          <div className="mt-5 space-y-6 rounded-3xl bg-white p-6 shadow-sm">
-            {scoreItems.map((item) => (
-              <div key={item.label}>
-                <div className="flex items-center justify-between gap-4">
-                  <p className="text-sm font-bold text-slate-700">
-                    {item.label}
+                <div>
+                  <p className="text-sm font-bold text-amber-950">
+                    現在は表示確認用の変化予測です
                   </p>
 
-                  <div className="flex items-center gap-2 text-sm font-bold">
-                    <span className="text-slate-400">
-                      {item.before}
-                    </span>
-
-                    <span className="text-slate-300">
-                      →
-                    </span>
-
-                    <span className="text-blue-600">
-                      {item.after}
-                    </span>
-                  </div>
-                </div>
-
-                <div className="relative mt-3 h-2.5 overflow-hidden rounded-full bg-slate-100">
-                  <div
-                    className="absolute inset-y-0 left-0 rounded-full bg-slate-300"
-                    style={{ width: `${item.before}%` }}
-                  />
-
-                  <div
-                    className="absolute inset-y-0 left-0 rounded-full bg-blue-600/70"
-                    style={{ width: `${item.after}%` }}
-                  />
+                  <p className="mt-1 text-xs leading-5 text-amber-800/80">
+                    各週の眉毛・髪型・肌を実際に変化させた画像は、画像生成API接続後に生成されます。
+                  </p>
                 </div>
               </div>
-            ))}
-          </div>
-        </section>
+            </div>
 
-        <section className="mt-9 overflow-hidden rounded-3xl bg-slate-950 p-6 text-white shadow-xl">
-          <p className="text-sm font-bold tracking-[0.15em] text-blue-300">
-            NEXT ACTION
-          </p>
+            <section className="mt-10">
+              <div>
+                <p className="text-xs font-bold tracking-[0.18em] text-blue-600">
+                  WEEKLY DETAILS
+                </p>
 
-          <h2 className="mt-3 text-2xl font-bold leading-9">
-            この変化を、
-            <br />
-            4週間で現実に。
-          </h2>
+                <h2 className="mt-1 text-2xl font-bold text-slate-950">
+                  週ごとの変化と行動
+                </h2>
 
-          <p className="mt-3 text-sm leading-7 text-slate-300">
-            眉毛・髪型・スキンケアを、効果が出やすい順番で進めるプランを確認しましょう。
-          </p>
+                <p className="mt-2 text-sm leading-7 text-slate-500">
+                  一度に大きく変えるのではなく、毎週の小さな行動を積み重ねて理想の印象へ近づきます。
+                </p>
+              </div>
 
-          <Link
-            href="/plan"
-            className="mt-6 block rounded-2xl bg-blue-600 px-6 py-4 text-center text-base font-bold text-white transition hover:bg-blue-700"
-          >
-            4週間プランを確認する
-          </Link>
-        </section>
+              <div className="mt-5 space-y-6">
+                {WEEK_DATA.map((week) => (
+                  <div
+                    key={week.week}
+                    ref={(element) => {
+                      weekSectionRefs.current[week.week] =
+                        element;
+                    }}
+                  >
+                    <WeekCard
+                      data={week}
+                      image={image}
+                    />
+                  </div>
+                ))}
+              </div>
+            </section>
 
-        <Link
-          href="/result"
-          className="mt-3 block py-4 text-center text-sm font-bold text-slate-500"
-        >
-          診断結果に戻る
-        </Link>
+            <section className="mt-8 rounded-[32px] border border-slate-100 bg-white p-6 shadow-sm">
+              <p className="text-xs font-bold tracking-[0.18em] text-blue-600">
+                IMPORTANT POINT
+              </p>
+
+              <h2 className="mt-2 text-xl font-bold leading-8 text-slate-950">
+                大きく変えるのではなく、
+                <br />
+                小さな積み重ねで自然に垢抜ける。
+              </h2>
+
+              <p className="mt-3 text-sm leading-7 text-slate-600">
+                無理な加工や別人のような変化ではなく、現在の魅力を活かしながら、清潔感・髪型・眉毛・表情を順番に整えることがポイントです。
+              </p>
+            </section>
+
+            <FinalCTA
+              desiredImpression={desiredImpression}
+            />
+          </>
+        )}
       </div>
 
       <BottomNav />

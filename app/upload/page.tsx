@@ -40,7 +40,7 @@ export default function UploadPage() {
       return;
     }
 
-    router.push("/analyzing");
+    router.push("/preferences");
   };
 
   return (
@@ -93,6 +93,7 @@ export default function UploadPage() {
             onClick={() => {
               setPreview(null);
               sessionStorage.removeItem("akanukeImage");
+              sessionStorage.removeItem("akanukeDesiredImpressions");
             }}
             className="mt-3 w-full py-2 text-sm font-bold text-slate-500"
           >
@@ -116,9 +117,9 @@ export default function UploadPage() {
           type="button"
           onClick={handleDiagnosis}
           disabled={!preview}
-          className="mt-8 w-full rounded-2xl bg-blue-600 py-4 text-lg font-bold text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-slate-300"
+          className="mt-8 w-full rounded-2xl bg-blue-600 py-4 text-lg font-bold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-slate-300"
         >
-          この写真で診断する
+          この写真で次へ
         </button>
       </div>
     </main>

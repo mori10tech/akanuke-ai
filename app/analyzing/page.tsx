@@ -7,7 +7,7 @@ const steps = [
   "眉毛を解析しています...",
   "髪型を解析しています...",
   "肌を解析しています...",
-  "おすすめプランを生成しています...",
+  "理想の印象に合わせて提案を生成しています...",
 ];
 
 export default function AnalyzePage() {
@@ -23,7 +23,18 @@ export default function AnalyzePage() {
       return;
     }
 
-    setImage(savedImage);
+    const savedImpressions = sessionStorage.getItem(
+      "akanukeDesiredImpressions",
+    );
+
+    if (!savedImpressions) {
+      window.location.href = "/preferences";
+      return;
+    }
+
+    window.setTimeout(() => {
+      setImage(savedImage);
+    }, 0);
 
     const timer = window.setInterval(() => {
       setProgress((previousProgress) => {
@@ -65,7 +76,7 @@ export default function AnalyzePage() {
         </h1>
 
         <p className="mt-3 text-center text-slate-500">
-          数秒で診断が完了します。
+          写真と理想の印象を組み合わせて分析しています。
         </p>
 
         {image && (

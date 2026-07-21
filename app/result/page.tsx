@@ -31,6 +31,26 @@ type ResultMessage = {
   description: string;
 };
 
+type AnalysisPoint = {
+  key: "eyebrow" | "hairstyle" | "skin";
+  label: string;
+  shortLabel: string;
+  icon: string;
+  title: string;
+};
+
+type PriorityItem = {
+  rank: number;
+  title: string;
+  category: string;
+  effectLabel: string;
+  effectScore: number;
+  scoreUp: string;
+  time: string;
+  cost: string;
+  description: string;
+};
+
 const IMPRESSIONS: Impression[] = [
   {
     id: "fresh",
@@ -125,10 +145,22 @@ const IMPRESSION_ALIASES: Record<string, ImpressionId> = {
 };
 
 const scores = [
-  { label: "眉毛", score: 82 },
-  { label: "髪型", score: 76 },
-  { label: "肌の清潔感", score: 71 },
-  { label: "表情", score: 74 },
+  {
+    label: "眉毛",
+    score: 82,
+  },
+  {
+    label: "髪型",
+    score: 76,
+  },
+  {
+    label: "肌の清潔感",
+    score: 71,
+  },
+  {
+    label: "表情",
+    score: 74,
+  },
 ];
 
 const analysisItems = [
@@ -150,27 +182,66 @@ const analysisItems = [
   },
 ];
 
-const priorities = [
+const analysisPoints: AnalysisPoint[] = [
+  {
+    key: "eyebrow",
+    label: "眉毛",
+    shortLabel: "眉",
+    icon: "01",
+    title: "眉まわりの輪郭が少しぼやけています",
+  },
+  {
+    key: "hairstyle",
+    label: "髪型",
+    shortLabel: "髪",
+    icon: "02",
+    title: "前髪によって目元が隠れやすい状態です",
+  },
+  {
+    key: "skin",
+    label: "肌",
+    shortLabel: "肌",
+    icon: "03",
+    title: "肌の明るさと質感をさらに整えられます",
+  },
+];
+
+const priorities: PriorityItem[] = [
   {
     rank: 1,
-    title: "眉毛",
-    impact: "効果：非常に高い",
+    title: "眉毛の形を整える",
+    category: "眉毛",
+    effectLabel: "効果：非常に高い",
+    effectScore: 5,
+    scoreUp: "+6点",
+    time: "約30分",
+    cost: "4,000〜6,000円",
     description:
-      "眉下の余分な毛を整え、眉尻を少し細くすると、顔全体の清潔感が大きく上がります。",
+      "眉下と眉間の余分な毛を処理し、眉尻を少し細く整えます。顔の輪郭がはっきりし、短時間でも清潔感を出しやすい改善です。",
   },
   {
     rank: 2,
-    title: "髪型",
-    impact: "効果：非常に高い",
+    title: "前髪を軽くして額を見せる",
+    category: "髪型",
+    effectLabel: "効果：非常に高い",
+    effectScore: 5,
+    scoreUp: "+5点",
+    time: "約60分",
+    cost: "5,000〜8,000円",
     description:
-      "前髪を軽くして額を少し見せると、幼い印象が抑えられ、爽やかに見えます。",
+      "前髪の量を軽くし、額が少し見える髪型へ変更します。目元が明るくなり、幼く見えやすい印象を抑えられます。",
   },
   {
     rank: 3,
-    title: "肌の清潔感",
-    impact: "効果：高い",
+    title: "基本のスキンケアを毎日続ける",
+    category: "肌",
+    effectLabel: "効果：高い",
+    effectScore: 4,
+    scoreUp: "+3点",
+    time: "朝夜3分",
+    cost: "月2,000〜4,000円",
     description:
-      "洗顔と日焼け止めを毎日続けることで、テカリや肌の印象を整えやすくなります。",
+      "洗顔・保湿・日焼け止めの3つを習慣にします。テカリと乾燥の両方を抑え、肌の清潔感を安定させます。",
   },
 ];
 
@@ -180,25 +251,23 @@ const DEFAULT_RESULT_MESSAGE: ResultMessage = {
   description:
     "現在は少し幼く見えやすい印象です。最初に眉毛を整え、その後に髪型を変えることで、短期間でも清潔感を高められます。",
   eyebrow:
-    "自然な太さを残しながら眉下を整え、清潔感のある形を目指します。",
+    "眉毛そのものの形は自然ですが、眉下と眉尻の輪郭が少し曖昧です。余分な毛を整理すると、目元がすっきり見えます。",
   hairstyle:
-    "前髪に軽さを作り、額を少し見せることで顔全体を明るく見せます。",
-  skin: "洗顔・保湿・日焼け止めを基本に、肌の清潔感を整えます。",
+    "前髪にやや重さがあり、目元と額が隠れやすい状態です。顔まわりに軽さを出すと、表情が明るく見えます。",
+  skin: "大きな肌荒れは目立ちませんが、光の当たり方によってテカリや色むらが見えやすい状態です。保湿と紫外線対策で印象を整えられます。",
 };
 
-const RESULT_MESSAGES: Partial<
-  Record<ImpressionId, ResultMessage>
-> = {
+const RESULT_MESSAGES: Partial<Record<ImpressionId, ResultMessage>> = {
   fresh: {
     headline:
       "爽やかさを引き出すだけで、第一印象はもっと明るくなります。",
     description:
       "眉毛の輪郭を整え、前髪に軽さを出すスタイルがおすすめです。額を少し見せて肌の清潔感を高めることで、自然体のまま好印象を作れます。",
     eyebrow:
-      "眉下の余分な毛を整え、直線的すぎない自然な眉にすると爽やかさが高まります。",
+      "現在の眉毛は自然な太さがありますが、眉下に細かな毛が残っているため、輪郭が少しぼやけて見えます。眉下を整えると、目元の爽やかさが強まります。",
     hairstyle:
-      "重い前髪を避け、束感と軽さを作って額を少し見せるスタイルがおすすめです。",
-    skin: "テカリを抑えながら明るさを保つことで、清潔で爽やかな印象になります。",
+      "前髪に重さがあり、額と目元が隠れやすい状態です。前髪へ束感と隙間を作ると、顔全体が明るく爽やかに見えます。",
+    skin: "肌状態は比較的安定していますが、部分的なテカリによって清潔感が弱く見えることがあります。保湿と皮脂対策を両立すると、爽やかさを高められます。",
   },
   mature: {
     headline:
@@ -206,10 +275,10 @@ const RESULT_MESSAGES: Partial<
     description:
       "眉尻をすっきり整え、前髪を上げるか横へ流すことで、幼く見えやすい印象を抑えられます。色数を抑えた服装との相性も良い方向性です。",
     eyebrow:
-      "眉尻を少しシャープに整え、輪郭を明確にすると大人っぽく見えます。",
+      "眉の太さは十分ありますが、眉尻の輪郭が柔らかいため、少し幼く見えやすい状態です。眉尻を整えると落ち着いた印象になります。",
     hairstyle:
-      "額を見せるアップバングや、横へ流す前髪で落ち着きを演出します。",
-    skin: "過度なツヤを抑え、均一で落ち着いた肌印象を目指します。",
+      "前髪が額を覆っているため、顔立ちが柔らかく見えています。額を見せることで、骨格が際立ち大人っぽさが強まります。",
+    skin: "肌のツヤが部分的に強く見えるため、ややカジュアルな印象になっています。テカリを抑えると、落ち着いた雰囲気へ近づきます。",
   },
   clean: {
     headline:
@@ -217,10 +286,10 @@ const RESULT_MESSAGES: Partial<
     description:
       "眉まわり、前髪、肌の3点を丁寧に整えることが最も効果的です。派手な変化よりも、細かな身だしなみの積み重ねが垢抜けにつながります。",
     eyebrow:
-      "眉間と眉下の余分な毛を処理し、左右差を整えることを優先します。",
+      "眉間と眉下に細かな毛が残っているため、近くで見たときに輪郭がぼやけやすい状態です。左右差も整えると、より清潔に見えます。",
     hairstyle:
-      "耳まわりと襟足をすっきりさせ、前髪が目にかからない状態を保ちます。",
-    skin: "洗顔・保湿・日焼け止めを習慣化し、テカリと乾燥の両方を防ぎます。",
+      "前髪が目元へ近く、髪のまとまりによって少し重く見えています。耳まわりと前髪をすっきりさせると清潔感が高まります。",
+    skin: "大きな肌トラブルは目立ちませんが、乾燥とテカリが混在して見えます。洗顔後の保湿を安定させると、肌全体が整って見えます。",
   },
   attractive: {
     headline:
@@ -228,10 +297,10 @@ const RESULT_MESSAGES: Partial<
     description:
       "作り込みすぎるより、自然な眉毛、軽さのある髪型、健康的な肌を意識するのがおすすめです。表情も含めて柔らかい印象を作りましょう。",
     eyebrow:
-      "角度をつけすぎず、自然な太さを残すことで親しみやすさを作ります。",
+      "眉毛は自然で親しみやすい一方、輪郭が少し曖昧なため、目元の印象が弱く見えます。自然な太さを残して周囲だけ整えるのが適しています。",
     hairstyle:
-      "顔まわりに軽い動きを出し、清潔感と自然な華やかさを両立させます。",
-    skin: "乾燥やテカリを抑え、健康的で触れたくなるような肌印象を目指します。",
+      "前髪にまとまりがありますが、顔まわりの動きが少ないため、少し平面的に見えています。軽い束感を作ると華やかさが増します。",
+    skin: "肌は比較的落ち着いていますが、乾燥やテカリがあると健康的な印象が弱くなります。水分感のある肌状態を目指すのがおすすめです。",
   },
   business: {
     headline:
@@ -239,10 +308,10 @@ const RESULT_MESSAGES: Partial<
     description:
       "眉毛を整えて前髪に軽さを出すことで、仕事の場でも信頼されやすい印象になります。派手さよりも、輪郭の整った清潔なスタイルが適しています。",
     eyebrow:
-      "眉尻を整え、左右差を減らすことで誠実で安定感のある印象を作ります。",
+      "眉毛の形は自然ですが、眉尻と眉下の輪郭が少し曖昧です。左右差を整えると、誠実で安定感のある印象になります。",
     hairstyle:
-      "額を少し見せ、サイドをすっきりまとめることでビジネス向きになります。",
-    skin: "テカリを抑え、疲れて見えにくい明るく均一な肌状態を目指します。",
+      "前髪が目元に近いため、ややカジュアルに見えています。額を少し見せ、サイドを整えると仕事向きの印象が強まります。",
+    skin: "部分的なテカリや疲れた印象が見えやすい状態です。皮脂を抑えながら保湿すると、健康的で信頼感のある肌に見えます。",
   },
   korean: {
     headline:
@@ -250,10 +319,10 @@ const RESULT_MESSAGES: Partial<
     description:
       "前髪の束感、自然に整えた平行眉、肌の透明感が重要です。髪型と眉毛を同時に変えることで、スタイル全体に統一感が生まれます。",
     eyebrow:
-      "角度を抑えた自然な平行眉に整えると、韓国系の雰囲気に近づきます。",
+      "現在の眉毛には自然な太さがありますが、形に少し角度があります。輪郭を整えて平行に近づけると、韓国系の雰囲気が強まります。",
     hairstyle:
-      "センターパートや軽いマッシュをベースに、前髪へ束感を作ります。",
-    skin: "保湿と日焼け止めを重視し、明るく均一な肌の見え方を目指します。",
+      "前髪のまとまりが強く、束感が少ない状態です。センターパートや軽いマッシュへ寄せると、洗練された印象になります。",
+    skin: "肌の明るさはありますが、質感に少しばらつきが見えます。保湿と日焼け止めを続けると、透明感を演出しやすくなります。",
   },
   masculine: {
     headline:
@@ -261,10 +330,10 @@ const RESULT_MESSAGES: Partial<
     description:
       "眉の存在感を適度に残し、髪型は顔まわりをすっきり見せるのがおすすめです。無骨になりすぎないよう、肌と身だしなみの清潔感も同時に整えます。",
     eyebrow:
-      "細くしすぎず、眉尻と輪郭だけを整えて力強さを残します。",
+      "眉毛の太さは顔立ちに合っていますが、輪郭が少し曖昧です。細くしすぎず周囲を整えると、力強さが際立ちます。",
     hairstyle:
-      "サイドを締め、トップに高さを出すことで輪郭を男らしく見せます。",
-    skin: "ヒゲやテカリを整え、清潔感のある健康的な肌印象を作ります。",
+      "トップとサイドの差が小さいため、顔の輪郭が柔らかく見えています。サイドを締めてトップに高さを出すと、男らしく見えます。",
+    skin: "ヒゲや皮脂の見え方によっては、少し無骨な印象が強くなります。肌とヒゲを整えることで、力強さと清潔感を両立できます。",
   },
   gentle: {
     headline:
@@ -272,10 +341,10 @@ const RESULT_MESSAGES: Partial<
     description:
       "眉毛の角度を強くしすぎず、髪型にも丸みと軽さを残すのがおすすめです。表情と肌の清潔感を整えることで、優しい雰囲気がより伝わります。",
     eyebrow:
-      "角を作りすぎず、自然なカーブを残して柔らかい印象に整えます。",
+      "眉毛の自然な太さが優しい印象につながっています。一方で眉尻が少し曖昧なため、輪郭だけを整えると柔らかさを保ったまま洗練されます。",
     hairstyle:
-      "顔まわりに丸みを残しつつ、重く見えないよう適度な軽さを作ります。",
-    skin: "保湿を重視し、乾燥や赤みが目立ちにくい穏やかな肌状態を目指します。",
+      "髪型には丸みがありますが、前髪が少し重く見えます。丸みを残しつつ軽さを出すと、親しみやすい印象になります。",
+    skin: "肌に乾燥や赤みが見えると、疲れた印象につながります。刺激の少ない保湿を続けることで、穏やかな印象を保てます。",
   },
   intelligent: {
     headline:
@@ -283,10 +352,10 @@ const RESULT_MESSAGES: Partial<
     description:
       "眉の輪郭を整え、額や目元が見える髪型にすることで、すっきりとした知的な雰囲気になります。シンプルで端正なスタイルが適しています。",
     eyebrow:
-      "眉尻を丁寧に整え、少し直線的な形にすると知的な印象になります。",
+      "眉毛の輪郭が少し柔らかいため、目元の印象がぼやけています。眉尻を整えて直線的に見せると、知的さが強まります。",
     hairstyle:
-      "額と目元が見えるように前髪を整理し、シルエットをコンパクトにします。",
-    skin: "目元の疲れやテカリを抑え、均一で整った肌の見え方を作ります。",
+      "前髪によって目元と額が隠れ、顔全体が柔らかく見えています。前髪を整理すると、すっきりした印象になります。",
+    skin: "目元の疲れや部分的なテカリが見えると、スマートさが弱まります。保湿と皮脂対策で均一な肌印象を作るのがおすすめです。",
   },
   "ai-recommend": {
     headline:
@@ -294,10 +363,10 @@ const RESULT_MESSAGES: Partial<
     description:
       "顔全体のバランスを見ると、最初に眉毛と前髪を整えることで大きな変化が期待できます。その後、肌と表情を整える順番が効率的です。",
     eyebrow:
-      "現在の形を活かしながら眉下と眉尻を整え、左右差を抑えます。",
+      "現在の眉毛には自然な太さがありますが、眉下と眉尻の輪郭が少し曖昧です。周囲を整えるだけでも目元がはっきり見えます。",
     hairstyle:
-      "顔型とのバランスを見ながら、前髪に軽さを作って明るく見せます。",
-    skin: "基本の洗顔・保湿・日焼け止めから始め、清潔感を安定させます。",
+      "前髪の重さによって目元が隠れやすく、顔全体が少し暗く見えています。軽さを作ると明るい印象になります。",
+    skin: "大きな肌トラブルは目立ちませんが、部分的な乾燥やテカリがあります。基本のケアを安定させると清潔感が高まります。",
   },
 };
 
@@ -409,6 +478,52 @@ function createCombinedMessage(
           primaryMessage.skin
         : primaryMessage.skin,
   };
+}
+
+function getAnalysisDescription(
+  key: AnalysisPoint["key"],
+  resultMessage: ResultMessage,
+) {
+  switch (key) {
+    case "eyebrow":
+      return resultMessage.eyebrow;
+
+    case "hairstyle":
+      return resultMessage.hairstyle;
+
+    case "skin":
+      return resultMessage.skin;
+
+    default:
+      return "";
+  }
+}
+
+function EffectStars({
+  score,
+}: {
+  score: number;
+}) {
+  return (
+    <div
+      className="flex items-center gap-0.5"
+      aria-label={`効果 ${score}段階`}
+    >
+      {Array.from({ length: 5 }).map((_, index) => (
+        <span
+          key={index}
+          className={
+            index < score
+              ? "text-amber-400"
+              : "text-slate-200"
+          }
+          aria-hidden="true"
+        >
+          ★
+        </span>
+      ))}
+    </div>
+  );
 }
 
 export default function ResultPage() {
@@ -735,110 +850,148 @@ export default function ResultPage() {
         </section>
 
         <section className="mt-8">
-          <p className="text-sm font-bold text-blue-600">
-            PERSONAL ANALYSIS
-          </p>
+          <div>
+            <p className="text-xs font-bold tracking-[0.15em] text-blue-600">
+              AI FACE ANALYSIS
+            </p>
 
-          <h2 className="mt-1 text-xl font-bold text-slate-950">
-            希望の印象に近づくポイント
-          </h2>
+            <h2 className="mt-1 text-xl font-bold text-slate-950">
+              AIが顔を分析した結果
+            </h2>
 
-          <div className="mt-4 space-y-3">
-            <article className="rounded-3xl bg-white p-5 shadow-sm">
-              <div className="flex items-start gap-4">
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-blue-50 text-lg">
-                  眉
-                </span>
+            <p className="mt-2 text-sm leading-6 text-slate-500">
+              現在の顔写真から、印象に影響しているポイントを分析しました。
+            </p>
+          </div>
 
-                <div>
-                  <h3 className="font-bold text-slate-950">
-                    眉毛
-                  </h3>
+          <div className="mt-5 space-y-3">
+            {analysisPoints.map((item) => (
+              <article
+                key={item.key}
+                className="rounded-3xl border border-slate-100 bg-white p-5 shadow-sm"
+              >
+                <div className="flex items-start gap-4">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-blue-50 text-xs font-black text-blue-600">
+                    {item.icon}
+                  </div>
 
-                  <p className="mt-2 text-sm leading-7 text-slate-600">
-                    {resultMessage.eyebrow}
-                  </p>
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-center gap-2">
+                      <span className="rounded-full bg-slate-100 px-2.5 py-1 text-[10px] font-bold text-slate-500">
+                        {item.label}
+                      </span>
+                    </div>
+
+                    <h3 className="mt-3 text-base font-bold leading-7 text-slate-950">
+                      {item.title}
+                    </h3>
+
+                    <p className="mt-2 text-sm leading-7 text-slate-600">
+                      {getAnalysisDescription(
+                        item.key,
+                        resultMessage,
+                      )}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </article>
-
-            <article className="rounded-3xl bg-white p-5 shadow-sm">
-              <div className="flex items-start gap-4">
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-blue-50 text-lg">
-                  髪
-                </span>
-
-                <div>
-                  <h3 className="font-bold text-slate-950">
-                    髪型
-                  </h3>
-
-                  <p className="mt-2 text-sm leading-7 text-slate-600">
-                    {resultMessage.hairstyle}
-                  </p>
-                </div>
-              </div>
-            </article>
-
-            <article className="rounded-3xl bg-white p-5 shadow-sm">
-              <div className="flex items-start gap-4">
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-blue-50 text-lg">
-                  肌
-                </span>
-
-                <div>
-                  <h3 className="font-bold text-slate-950">
-                    肌
-                  </h3>
-
-                  <p className="mt-2 text-sm leading-7 text-slate-600">
-                    {resultMessage.skin}
-                  </p>
-                </div>
-              </div>
-            </article>
+              </article>
+            ))}
           </div>
         </section>
 
-        <section className="mt-8">
+        <section className="mt-10">
           <div className="flex items-end justify-between gap-4">
             <div>
-              <p className="text-sm font-bold text-blue-600">
-                PRIORITY
+              <p className="text-xs font-bold tracking-[0.15em] text-blue-600">
+                YOUR ACTION PLAN
               </p>
 
               <h2 className="mt-1 text-xl font-bold text-slate-950">
-                最初に改善する3項目
+                まず改善すべき3つ
               </h2>
+
+              <p className="mt-2 text-sm leading-6 text-slate-500">
+                変化を実感しやすい順に、具体的な行動へ落とし込みました。
+              </p>
             </div>
 
-            <p className="shrink-0 text-xs text-slate-400">
+            <p className="shrink-0 pb-1 text-xs text-slate-400">
               効果が高い順
             </p>
           </div>
 
-          <div className="mt-4 space-y-4">
+          <div className="mt-5 space-y-4">
             {priorities.map((item) => (
               <article
                 key={item.rank}
-                className="rounded-3xl bg-white p-6 shadow-sm"
+                className="overflow-hidden rounded-3xl border border-slate-100 bg-white shadow-sm"
               >
-                <div className="flex items-start gap-4">
-                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-blue-600 text-lg font-black text-white">
-                    {item.rank}
-                  </span>
-
-                  <div className="min-w-0 flex-1">
-                    <h3 className="text-xl font-bold text-slate-950">
-                      {item.title}
-                    </h3>
-
-                    <span className="mt-2 inline-block rounded-full bg-amber-50 px-3 py-1 text-xs font-bold text-amber-700">
-                      {item.impact}
+                <div className="p-5">
+                  <div className="flex items-start gap-4">
+                    <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-blue-600 text-lg font-black text-white shadow-lg shadow-blue-100">
+                      {item.rank}
                     </span>
 
-                    <p className="mt-3 text-sm leading-7 text-slate-600">
-                      {item.description}
+                    <div className="min-w-0 flex-1">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <span className="rounded-full bg-blue-50 px-2.5 py-1 text-[10px] font-bold text-blue-700">
+                          {item.category}
+                        </span>
+
+                        {item.rank === 1 ? (
+                          <span className="rounded-full bg-amber-50 px-2.5 py-1 text-[10px] font-bold text-amber-700">
+                            AIおすすめ No.1
+                          </span>
+                        ) : null}
+                      </div>
+
+                      <h3 className="mt-3 text-lg font-bold leading-7 text-slate-950">
+                        {item.title}
+                      </h3>
+
+                      <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-2">
+                        <EffectStars score={item.effectScore} />
+
+                        <span className="text-xs font-bold text-amber-700">
+                          {item.effectLabel}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <p className="mt-4 text-sm leading-7 text-slate-600">
+                    {item.description}
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-3 divide-x divide-slate-100 border-t border-slate-100 bg-slate-50">
+                  <div className="px-2 py-4 text-center">
+                    <p className="text-[10px] font-bold text-slate-400">
+                      期待スコア
+                    </p>
+
+                    <p className="mt-1 text-sm font-black text-blue-600">
+                      {item.scoreUp}
+                    </p>
+                  </div>
+
+                  <div className="px-2 py-4 text-center">
+                    <p className="text-[10px] font-bold text-slate-400">
+                      所要時間
+                    </p>
+
+                    <p className="mt-1 text-sm font-bold text-slate-800">
+                      {item.time}
+                    </p>
+                  </div>
+
+                  <div className="px-2 py-4 text-center">
+                    <p className="text-[10px] font-bold text-slate-400">
+                      目安費用
+                    </p>
+
+                    <p className="mt-1 text-xs font-bold leading-5 text-slate-800">
+                      {item.cost}
                     </p>
                   </div>
                 </div>
@@ -857,20 +1010,20 @@ export default function ResultPage() {
           </p>
 
           <h2 className="mt-2 text-xl font-bold leading-8 text-slate-950">
-            次は、4週間後の変化を
+            次は、4週間後の自分を
             <br />
             確認してみましょう。
           </h2>
 
           <p className="mt-3 text-sm leading-7 text-slate-500">
-            美容院や商品を選ぶ前に、どのように変わっていくのかを週ごとに確認できます。
+            今回の改善プランを続けた場合、どのように変わっていくのかを週ごとに確認できます。
           </p>
 
           <Link
             href="/preview"
             className="mt-6 flex min-h-14 w-full items-center justify-center rounded-2xl bg-blue-600 px-6 py-4 text-base font-bold text-white shadow-lg shadow-blue-200 transition hover:bg-blue-700"
           >
-            4週間後の変化を見る
+            4週間後の自分を見る
             <span className="ml-2">→</span>
           </Link>
         </section>

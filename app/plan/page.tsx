@@ -193,7 +193,7 @@ const weeklyPlans = [
     advice:
       "最終日は点数だけでなく、続けやすかった習慣も確認しましょう。4週間後も残す習慣を3つ選ぶと、変化を維持できます。",
   },
-] as const;
+];
 
 
 function ArrowLeftIcon() {

@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState, type ReactNode } from "react";
-import AppHeader from "../components/AppHeader";
 import BottomNav from "../components/BottomNav";
 
 const STORAGE_KEY = "akanukePlanCompletedTasks";
@@ -196,6 +195,25 @@ const weeklyPlans = [
   },
 ] as const;
 
+
+function ArrowLeftIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      className="h-[21px] w-[21px]"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M19 12H5" />
+      <path d="m12 19-7-7 7-7" />
+    </svg>
+  );
+}
+
 function Icon({
   name,
   className = "h-5 w-5",
@@ -388,10 +406,26 @@ export default function PlanPage() {
   return (
     <main className="min-h-screen bg-white text-[#111111]">
       <div className="mx-auto min-h-screen w-full max-w-[480px] overflow-hidden bg-white shadow-[0_0_50px_rgba(22,22,18,0.09)]">
-        <AppHeader
-          backHref="/preview"
-          backLabel="4週間後プレビューへ戻る"
-        />
+        <header className="sticky top-0 z-40 border-b border-black/[0.06] bg-white/95 backdrop-blur-xl">
+          <div className="grid h-[68px] grid-cols-[44px_1fr_44px] items-center px-4">
+            <Link
+              href="/preview"
+              aria-label="4週間後プレビューへ戻る"
+              className="flex h-10 w-10 items-center justify-center rounded-full transition hover:bg-black/[0.05] active:scale-95"
+            >
+              <ArrowLeftIcon />
+            </Link>
+
+            <Link
+              href="/"
+              className="text-center text-[20px] font-black leading-none tracking-[-0.035em] text-black"
+            >
+              AKANUKE.AI
+            </Link>
+
+            <div aria-hidden="true" />
+          </div>
+        </header>
 
         <div className="pb-32">
           <section className="px-5 pb-6 pt-7 text-center">

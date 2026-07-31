@@ -159,17 +159,17 @@ export default function ResultPage() {
   const impressionLabel = useMemo(() => impressions.length > 0 ? impressions.join("・") : "爽やか・清潔感", [impressions]);
 
   if (!isReady) {
-    return <main className="flex min-h-screen items-center justify-center bg-[#f4f3ef]"><div className="h-9 w-9 animate-spin rounded-full border-[3px] border-neutral-200 border-t-[#b88323]" /></main>;
+    return <main className="flex min-h-screen items-center justify-center bg-white"><div className="h-9 w-9 animate-spin rounded-full border-[3px] border-neutral-200 border-t-[#b88323]" /></main>;
   }
 
   return (
-    <main className="min-h-screen bg-[#efeee9] text-[#111111]">
-      <div className="mx-auto min-h-screen w-full max-w-[480px] overflow-hidden bg-[#fbfaf7] shadow-[0_0_50px_rgba(22,22,18,0.09)]">
-        <header className="sticky top-0 z-40 border-b border-black/[0.06] bg-[#fbfaf7]/92 backdrop-blur-xl">
+    <main className="min-h-screen bg-white text-[#111111]">
+      <div className="mx-auto min-h-screen w-full max-w-[480px] overflow-hidden bg-white shadow-[0_0_50px_rgba(22,22,18,0.09)]">
+        <header className="sticky top-0 z-40 border-b border-black/[0.06] bg-white/95 backdrop-blur-xl">
           <div className="grid h-[66px] grid-cols-[44px_1fr_44px] items-center px-3">
             <Link href="/upload" aria-label="写真選択へ戻る" className="flex h-10 w-10 items-center justify-center rounded-full transition hover:bg-black/[0.05] active:scale-95"><Icon name="arrowLeft" className="h-[21px] w-[21px]" /></Link>
-            <Link href="/" className="text-center text-[19px] font-black tracking-[-0.035em]">AKANUKE<span className="text-[#b88323]">.AI</span></Link>
-            <div className="flex justify-end"><span className="flex h-9 items-center gap-1.5 rounded-full border border-black/[0.07] bg-white px-2.5 text-[9px] font-black text-neutral-600"><span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />完了</span></div>
+            <Link href="/" className="text-center text-[19px] font-black tracking-[-0.035em]">AKANUKE.AI</Link>
+            <div aria-hidden="true" />
           </div>
         </header>
 
@@ -185,7 +185,7 @@ export default function ResultPage() {
             <div className="grid grid-cols-[42%_58%]">
               <div className="relative min-h-[282px] overflow-hidden bg-neutral-800">
                 {image ? <img src={image} alt="今回診断した顔写真" className="h-full w-full object-cover" /> : <div className="flex h-full min-h-[282px] items-center justify-center px-4 text-center text-white/60"><div><p className="text-[11px] font-bold">写真が見つかりません</p><Link href="/upload" className="mt-2 inline-block text-[10px] font-black text-[#e3c368]">選び直す</Link></div></div>}
-                {image && <><div className="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-black/15" /><span className="absolute left-2 top-[25%] rounded-full border border-white/20 bg-black/50 px-2 py-1 text-[8px] font-black text-white backdrop-blur">眉</span><span className="absolute right-2 top-[10%] rounded-full border border-white/20 bg-black/50 px-2 py-1 text-[8px] font-black text-white backdrop-blur">髪</span><span className="absolute bottom-[19%] right-2 rounded-full border border-white/20 bg-black/50 px-2 py-1 text-[8px] font-black text-white backdrop-blur">肌</span><div className="absolute bottom-3 left-3 flex items-center gap-1.5 rounded-full bg-white/92 px-2.5 py-1.5 text-[8px] font-black text-black backdrop-blur"><Icon name="check" className="h-3 w-3" />AI解析済み</div></>}
+                {image && <><div className="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-black/15" /><span className="absolute left-2 top-[25%] rounded-full border border-white/20 bg-black/50 px-2 py-1 text-[8px] font-black text-white backdrop-blur">眉</span><span className="absolute right-2 top-[10%] rounded-full border border-white/20 bg-black/50 px-2 py-1 text-[8px] font-black text-white backdrop-blur">髪</span><span className="absolute bottom-[19%] right-2 rounded-full border border-white/20 bg-black/50 px-2 py-1 text-[8px] font-black text-white backdrop-blur">肌</span><div className="absolute bottom-3 left-3 flex items-center gap-1.5 rounded-full bg-white/95 px-2.5 py-1.5 text-[8px] font-black text-black backdrop-blur"><Icon name="check" className="h-3 w-3" />AI解析済み</div></>}
               </div>
 
               <div className="flex flex-col items-center justify-center px-3 py-5">
@@ -229,7 +229,7 @@ export default function ResultPage() {
             <Link href="/preview" className="mt-5 flex min-h-[52px] items-center justify-center gap-2 rounded-[14px] bg-white px-5 text-[13px] font-black text-black transition hover:bg-[#f2f0e9] active:scale-[0.99]">4週間後の変化イメージを見る<span aria-hidden="true">→</span></Link>
           </section>
 
-          <div className="px-4 pt-4"><Link href="/upload" className="flex min-h-12 items-center justify-center gap-2 rounded-[14px] border border-black/[0.08] bg-white px-4 text-[11px] font-black transition hover:bg-neutral-50"><Icon name="refresh" className="h-4 w-4" />別の写真で診断し直す</Link><aside className="mt-4 flex items-start gap-2.5 rounded-[14px] bg-[#efeee9] px-4 py-3 text-neutral-500"><Icon name="lock" className="mt-0.5 h-4 w-4 shrink-0" /><p className="text-[9px] leading-4">診断画像は現在のブラウザ内でのみ一時的に保持されます。表示されるスコアや改善効果はAIによる参考情報であり、結果には個人差があります。</p></aside></div>
+          <div className="px-4 pt-4"><Link href="/upload" className="flex min-h-12 items-center justify-center gap-2 rounded-[14px] border border-black/[0.08] bg-white px-4 text-[11px] font-black transition hover:bg-neutral-50"><Icon name="refresh" className="h-4 w-4" />別の写真で診断し直す</Link><aside className="mt-4 flex items-start gap-2.5 rounded-[14px] bg-white px-4 py-3 text-neutral-500"><Icon name="lock" className="mt-0.5 h-4 w-4 shrink-0" /><p className="text-[9px] leading-4">診断画像は現在のブラウザ内でのみ一時的に保持されます。表示されるスコアや改善効果はAIによる参考情報であり、結果には個人差があります。</p></aside></div>
         </div>
 
         <BottomNav />

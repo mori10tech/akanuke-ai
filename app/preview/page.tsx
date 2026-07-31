@@ -255,16 +255,16 @@ export default function PreviewPage() {
 
   if (!isReady) {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-[#efeee9]">
+      <main className="flex min-h-screen items-center justify-center bg-white">
         <div className="h-9 w-9 animate-spin rounded-full border-[3px] border-neutral-200 border-t-[#b88323]" />
       </main>
     );
   }
 
   return (
-    <main className="min-h-screen bg-[#efeee9] text-[#111111]">
-      <div className="mx-auto min-h-screen w-full max-w-[480px] overflow-hidden bg-[#fbfaf7] shadow-[0_0_50px_rgba(22,22,18,0.09)]">
-        <header className="sticky top-0 z-40 border-b border-black/[0.06] bg-[#fbfaf7]/92 backdrop-blur-xl">
+    <main className="min-h-screen bg-white text-[#111111]">
+      <div className="mx-auto min-h-screen w-full max-w-[480px] overflow-hidden bg-white shadow-[0_0_50px_rgba(22,22,18,0.09)]">
+        <header className="sticky top-0 z-40 border-b border-black/[0.06] bg-white/95 backdrop-blur-xl">
           <div className="grid h-[66px] grid-cols-[44px_1fr_44px] items-center px-3">
             <Link
               href="/result"
@@ -275,15 +275,10 @@ export default function PreviewPage() {
             </Link>
 
             <Link href="/" className="text-center text-[19px] font-black tracking-[-0.035em]">
-              AKANUKE<span className="text-[#b88323]">.AI</span>
+              AKANUKE.AI
             </Link>
 
-            <div className="flex justify-end">
-              <span className="flex h-9 items-center gap-1.5 rounded-full border border-black/[0.07] bg-white px-2.5 text-[9px] font-black text-neutral-600">
-                <span className="h-1.5 w-1.5 rounded-full bg-[#b88323]" />
-                予測
-              </span>
-            </div>
+            <div aria-hidden="true" />
           </div>
         </header>
 
@@ -645,7 +640,7 @@ export default function PreviewPage() {
               診断結果に戻る
             </Link>
 
-            <aside className="mt-4 flex items-start gap-2.5 rounded-[14px] bg-[#efeee9] px-4 py-3 text-neutral-500">
+            <aside className="mt-4 flex items-start gap-2.5 rounded-[14px] bg-white px-4 py-3 text-neutral-500">
               <Icon name="shield" className="mt-0.5 h-4 w-4 shrink-0" />
               <p className="text-[9px] leading-4">このページの変化予測は、診断結果から作成した参考情報です。生活習慣や施術内容により、実際の変化には個人差があります。</p>
             </aside>

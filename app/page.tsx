@@ -151,7 +151,7 @@ export default function Home() {
               <FlowStep step="STEP 1" icon="upload" label="顔写真をアップロード" />
               <FlowStep step="STEP 2" icon="brain" label="AIがあなたの特徴を分析" />
               <FlowStep step="STEP 3" icon="document" label="改善ポイントを提案" />
-              <FlowStep step="STEP 4" icon="calendar" label="4週間のプランで理想の自分へ" />
+              <FlowStep step="STEP 4" icon="calendar" label="AIが専用の垢抜けプランを作成" />
             </div>
             <div className="mt-3 grid grid-cols-2 gap-3 rounded-2xl bg-blue-50 px-5 py-4 text-center text-sm font-bold text-blue-700">
               <span>診断時間　<strong className="text-xl">約1分</strong></span>
@@ -164,7 +164,7 @@ export default function Home() {
       <section className="section-border py-16">
         <div className="site-container text-center">
           <Link href="/upload" className="primary-button mx-auto mb-6 w-full max-w-sm">無料で診断をはじめる <span aria-hidden>›</span></Link>
-          <SectionTitle centered>4週間で、理想の自分へ近づくプラン</SectionTitle>
+          <SectionTitle centered>自分のペースで、理想の自分へ近づくプラン</SectionTitle>
           <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
             <WeekCard image="/lp/week1.png" week="Week 1" title="土台を整える" description="髪型・眉毛・肌のベースを整え、清潔感のある印象をつくる。" darker />
             <WeekCard image="/lp/week2.png" week="Week 2" title="印象をアップデート" description="改善ポイントを実践し、垢抜けた印象をつくる。" darker />
@@ -182,7 +182,7 @@ export default function Home() {
             <p className="text-2xl font-black leading-snug">いつでもどこでも、<br />あなたのポケットにAIを。</p>
             <div className="mt-6 grid gap-3 text-sm font-semibold text-slate-700">
               <CheckItem>診断結果をいつでも確認</CheckItem>
-              <CheckItem>4週間プランの進捗を管理</CheckItem>
+              <CheckItem>やることリストの進捗を管理</CheckItem>
               <CheckItem>おすすめ商品・サロンをチェック</CheckItem>
               <CheckItem>再診断で変化を可視化</CheckItem>
             </div>

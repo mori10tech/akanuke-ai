@@ -53,22 +53,22 @@ const faqs = [
 
 export default function Home() {
   return (
-    <main className="overflow-hidden bg-white text-slate-950">
-      <header className="sticky top-0 z-50 border-b border-slate-100/90 bg-white/90 backdrop-blur-xl">
+    <main className="overflow-hidden bg-white text-[#111111]">
+      <header className="sticky top-0 z-50 border-b border-black/10 bg-white/90 backdrop-blur-xl">
         <div className="site-container flex h-18 items-center justify-between gap-4">
           <a href="#top" className="leading-none">
-            <span className="block text-[18px] font-black tracking-[0.16em] text-slate-900 sm:text-[20px]">AKANUKE.AI</span>
-            <span className="mt-1 block text-[8px] font-bold tracking-[0.3em] text-blue-500">MEN&apos;S AI BEAUTY</span>
+            <span className="block text-[18px] font-black tracking-[0.16em] text-[#111111] sm:text-[20px]">AKANUKE.AI</span>
+            <span className="mt-1 block text-[8px] font-bold tracking-[0.3em] text-[#1677FF]">MEN&apos;S AI BEAUTY</span>
           </a>
-          <nav className="hidden items-center gap-8 text-sm font-semibold text-slate-700 lg:flex">
+          <nav className="hidden items-center gap-8 text-sm font-semibold text-black/70 lg:flex">
             <a className="nav-link" href="#about">サービスについて</a>
             <a className="nav-link" href="#flow">診断の流れ</a>
             <a className="nav-link" href="#features">できること</a>
             <a className="nav-link" href="#faq">FAQ</a>
           </nav>
           <div className="flex items-center gap-4">
-            <a href="#" className="hidden text-sm font-bold text-blue-600 sm:inline">ログイン</a>
-            <Link href="/upload" className="primary-button compact-button">無料でAI診断をはじめる</Link>
+            <a href="#" className="hidden text-sm font-bold text-[#1677FF] sm:inline">ログイン</a>
+            <Link href="/upload" className="primary-button compact-button">無料で診断をはじめる</Link>
           </div>
         </div>
       </header>
@@ -78,20 +78,20 @@ export default function Home() {
         <div className="hero-glow hero-glow-right" />
         <div className="site-container grid min-h-[660px] items-center gap-8 py-14 lg:grid-cols-[0.78fr_1.22fr] lg:gap-4 lg:py-16">
           <div className="relative z-10 max-w-[520px] lg:pb-4">
-            <h1 className="text-balance text-[50px] font-black leading-[1.08] tracking-[-0.065em] text-slate-950 sm:text-[64px] lg:text-[76px]">
+            <h1 className="text-balance text-[50px] font-black leading-[1.08] tracking-[-0.065em] text-[#111111] sm:text-[64px] lg:text-[72px]">
               第一印象は、<br />変えられる。
             </h1>
-            <div className="mt-4 flex gap-12" aria-hidden="true"><span className="h-[3px] w-10 rounded-full bg-blue-500"/><span className="h-[3px] w-10 rounded-full bg-blue-500"/></div>
+            <div className="mt-4 flex gap-12" aria-hidden="true"><span className="h-[3px] w-10 rounded-full bg-[#1677FF]"/><span className="h-[3px] w-10 rounded-full bg-[#1677FF]"/></div>
             <p className="mt-8 text-[25px] font-black leading-[1.55] tracking-[-0.035em] sm:text-[30px] lg:text-[33px]">
-              <span className="text-blue-600">AI</span>が、あなただけの<br />垢抜けプランを提案。
+              <span className="text-[#1677FF]">AI</span>が、あなただけの<br />垢抜けプランを作成。
             </p>
-            <p className="mt-6 text-[15px] font-semibold leading-[2] text-slate-600 sm:text-[16px]">
+            <p className="mt-6 text-[15px] font-semibold leading-[2] text-black/60 sm:text-[16px]">
               顔写真をもとに、AIがあなたの魅力を分析。<br />
               髪型・眉毛・肌・印象まで、<br />
-              あなただけの垢抜けプランを提案します。
+              あなただけの垢抜けプランを作成します。
             </p>
             <Link href="/upload" className="primary-button mt-8 w-full max-w-[355px]">無料で診断をはじめる <span aria-hidden>›</span></Link>
-            <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm font-bold text-slate-700">
+            <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm font-bold text-black/70">
               <MiniBenefit icon="clock" label="約1分で完了" />
               <MiniBenefit icon="yen" label="完全無料" />
               <MiniBenefit icon="user" label="メンズ専用" />
@@ -136,12 +136,12 @@ export default function Home() {
         <div className="site-container grid items-stretch gap-10 lg:grid-cols-2">
           <div className="flex h-full flex-col">
             <SectionTitle>診断結果のサンプル</SectionTitle>
-            <div className="mt-6 grid flex-1 gap-3 rounded-3xl border border-slate-200 bg-white p-4 shadow-sm sm:grid-cols-[1fr_1fr_0.7fr]">
+            <div className="mt-6 grid flex-1 gap-3 rounded-3xl border border-black/10 bg-white p-4 shadow-sm sm:grid-cols-[1fr_1fr_0.7fr]">
               <ResultList title="あなたの改善優先度" items={["髪型 82/100", "眉毛 78/100", "肌 76/100", "印象・バランス 72/100"]} />
-              <ResultList title="今週やること" items={["髪型の方向性を整える", "眉の形を整える", "肌の保湿ケアを徹底する", "印象をより洗練させる"]} checks />
-              <div className="flex flex-col items-center justify-center rounded-2xl bg-blue-50 p-4 text-center">
-                <span className="text-sm font-bold text-slate-600">総合スコア</span>
-                <div className="score-ring mt-3"><span className="text-3xl font-black text-slate-900">78</span><span className="text-[10px] text-slate-500">/100</span></div>
+              <ResultList title="あなたがやること" items={["髪型の方向性を整える", "眉の形を整える", "肌の保湿ケアを徹底する", "印象をより洗練させる"]} checks />
+              <div className="flex flex-col items-center justify-center rounded-2xl bg-[#EEF6FF] p-4 text-center">
+                <span className="text-sm font-bold text-black/60">総合スコア</span>
+                <div className="score-ring mt-3"><span className="text-3xl font-black text-[#111111]">78</span><span className="text-[10px] text-black/50">/100</span></div>
               </div>
             </div>
           </div>
@@ -151,9 +151,9 @@ export default function Home() {
               <FlowStep step="STEP 1" icon="upload" label="顔写真をアップロード" />
               <FlowStep step="STEP 2" icon="brain" label="AIがあなたの特徴を分析" />
               <FlowStep step="STEP 3" icon="document" label="改善ポイントを提案" />
-              <FlowStep step="STEP 4" icon="calendar" label="AIが専用の垢抜けプランを作成" />
+              <FlowStep step="STEP 4" icon="calendar" label="垢抜けプランを作成" />
             </div>
-            <div className="mt-3 grid grid-cols-2 gap-3 rounded-2xl bg-blue-50 px-5 py-4 text-center text-sm font-bold text-blue-700">
+            <div className="mt-3 grid grid-cols-2 gap-3 rounded-2xl bg-[#EEF6FF] px-5 py-4 text-center text-sm font-bold text-[#1677FF]">
               <span>診断時間　<strong className="text-xl">約1分</strong></span>
               <span>料金　<strong className="text-xl">0円</strong>（完全無料）</span>
             </div>
@@ -166,10 +166,10 @@ export default function Home() {
           <Link href="/upload" className="primary-button mx-auto mb-6 w-full max-w-sm">無料で診断をはじめる <span aria-hidden>›</span></Link>
           <SectionTitle centered>自分のペースで、理想の自分へ近づくプラン</SectionTitle>
           <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-            <WeekCard image="/lp/week1.png" week="Week 1" title="土台を整える" description="髪型・眉毛・肌のベースを整え、清潔感のある印象をつくる。" darker />
-            <WeekCard image="/lp/week2.png" week="Week 2" title="印象をアップデート" description="改善ポイントを実践し、垢抜けた印象をつくる。" darker />
-            <WeekCard image="/lp/week3.png" week="Week 3" title="魅力を引き出す" description="細部までこだわり、あなたらしい魅力を最大化する。" />
-            <WeekCard image="/lp/week4.png" week="Week 4" title="理想の自分を完成へ" description="習慣化して魅力を定着させ、理想の自分へ。" />
+           <WeekCard image="/lp/week1.png" week="Step 1" title="土台を整える" description="髪型・眉毛・肌のベースを整え、清潔感のある印象をつくる。" darker />
+<WeekCard image="/lp/week2.png" week="Step 2" title="印象をアップデート" description="改善ポイントを実践し、垢抜けた印象をつくる。" darker />
+<WeekCard image="/lp/week3.png" week="Step 3" title="魅力を引き出す" description="細部までこだわり、あなたらしい魅力を最大化する。" />
+<WeekCard image="/lp/week4.png" week="Step 4" title="理想の自分を完成へ" description="習慣化して魅力を定着させ、理想の自分へ。" />
           </div>
         </div>
       </section>
@@ -178,17 +178,17 @@ export default function Home() {
         <div className="site-container grid gap-8 lg:grid-cols-3">
           <RecommendationCard title="あなたに合う商品を提案" image="/lp/products.png" alt="スキンケアやスタイリング商品のイメージ">スキンケア・スタイリング剤・眉毛ケア用品など、診断結果に合わせて必要なアイテムを厳選。</RecommendationCard>
           <RecommendationCard title="あなたに合うサロンを提案" image="/lp/salon.png" alt="メンズ美容室や眉毛サロンのイメージ">メンズ美容室・眉毛サロン・肌ケアサロンなど、厳選サロンをご紹介。</RecommendationCard>
-          <div className="rounded-3xl bg-gradient-to-br from-blue-50 to-white p-6">
+          <div className="rounded-3xl bg-gradient-to-br from-[#EEF6FF] to-white p-6">
             <p className="text-2xl font-black leading-snug">いつでもどこでも、<br />あなたのポケットにAIを。</p>
-            <div className="mt-6 grid gap-3 text-sm font-semibold text-slate-700">
+            <div className="mt-6 grid gap-3 text-sm font-semibold text-black/70">
               <CheckItem>診断結果をいつでも確認</CheckItem>
               <CheckItem>やることリストの進捗を管理</CheckItem>
               <CheckItem>おすすめ商品・サロンをチェック</CheckItem>
               <CheckItem>再診断で変化を可視化</CheckItem>
             </div>
-            <div className="mt-7 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-              <div className="flex items-center gap-3"><span className="h-10 w-10 rounded-full bg-blue-100"/><div className="h-2.5 w-24 rounded-full bg-slate-200"/></div>
-              <div className="mt-4 h-24 rounded-xl bg-gradient-to-r from-blue-50 to-slate-50" />
+            <div className="mt-7 rounded-2xl border border-black/10 bg-white p-4 shadow-sm">
+              <div className="flex items-center gap-3"><span className="h-10 w-10 rounded-full bg-[#EEF6FF]"/><div className="h-2.5 w-24 rounded-full bg-black/10"/></div>
+              <div className="mt-4 h-24 rounded-xl bg-gradient-to-r from-[#EEF6FF] to-white" />
             </div>
           </div>
         </div>
@@ -196,7 +196,7 @@ export default function Home() {
 
       <section id="faq" className="section-border py-16">
         <div className="site-container grid items-center gap-10 lg:grid-cols-[0.7fr_1.3fr]">
-          <div className="overflow-hidden rounded-[32px] bg-blue-50">
+          <div className="overflow-hidden rounded-[32px] bg-[#EEF6FF]">
             <Image src="/lp/faq-man.png" width={245} height={175} alt="スマートフォンでAKANUKE.AIを利用する男性" className="h-full w-full object-cover" />
           </div>
           <div>
@@ -214,25 +214,25 @@ export default function Home() {
       </section>
 
       <section className="px-4 pb-5 pt-4">
-        <div className="site-container overflow-hidden rounded-[28px] bg-gradient-to-r from-blue-50 via-white to-blue-100 px-6 py-8 sm:px-10">
+        <div className="site-container overflow-hidden rounded-[28px] bg-gradient-to-r from-[#EEF6FF] via-white to-[#EEF6FF] px-6 py-8 sm:px-10">
           <div className="grid items-center gap-6 lg:grid-cols-[1fr_auto_0.55fr]">
             <div>
               <p className="text-2xl font-black leading-snug sm:text-3xl">変わりたい。その最初の一歩を、<br />AKANUKE.AIと始めよう。</p>
-              <div className="mt-4 flex flex-wrap gap-4 text-xs font-bold text-slate-600">
+              <div className="mt-4 flex flex-wrap gap-4 text-xs font-bold text-black/60">
                 <MiniBenefit icon="clock" label="約1分で完了" /><MiniBenefit icon="yen" label="完全無料" /><MiniBenefit icon="user" label="メンズ専用" />
               </div>
             </div>
-            <Link href="/upload" className="primary-button min-w-[280px]">無料でAI診断をはじめる <span aria-hidden>›</span></Link>
+            <Link href="/upload" className="primary-button min-w-[280px]">無料で診断をはじめる <span aria-hidden>›</span></Link>
             <Image src="/lp/hero-man.png" width={390} height={470} alt="AKANUKE.AIを始める男性" className="hidden h-40 w-full object-cover object-top mix-blend-multiply lg:block" />
           </div>
         </div>
       </section>
 
-      <footer className="border-t border-slate-100 py-8">
+      <footer className="border-t border-black/10 py-8">
         <div className="site-container flex flex-col items-center justify-between gap-5 text-center md:flex-row md:text-left">
-          <div><p className="font-black tracking-[0.14em]">AKANUKE.AI</p><p className="text-[8px] font-bold tracking-[0.25em] text-blue-500">MEN&apos;S AI BEAUTY</p></div>
-          <div className="flex flex-wrap justify-center gap-x-7 gap-y-3 text-xs font-medium text-slate-600"><a href="#">利用規約</a><a href="#">プライバシーポリシー</a><a href="#">お問い合わせ</a><a href="#">運営会社</a><a href="#">ログイン</a></div>
-          <p className="text-[11px] text-slate-400">© AKANUKE.AI All Rights Reserved.</p>
+          <div><p className="font-black tracking-[0.14em]">AKANUKE.AI</p><p className="text-[8px] font-bold tracking-[0.25em] text-[#1677FF]">MEN&apos;S AI BEAUTY</p></div>
+          <div className="flex flex-wrap justify-center gap-x-7 gap-y-3 text-xs font-medium text-black/60"><a href="#">利用規約</a><a href="#">プライバシーポリシー</a><a href="#">お問い合わせ</a><a href="#">運営会社</a><a href="#">ログイン</a></div>
+          <p className="text-[11px] text-black/40">© AKANUKE.AI All Rights Reserved.</p>
         </div>
       </footer>
     </main>
@@ -240,11 +240,11 @@ export default function Home() {
 }
 
 function MiniBenefit({ icon, label }: { icon: IconName; label: string }) {
-  return <span className="inline-flex items-center gap-2"><span className="grid h-7 w-7 place-items-center rounded-full border border-blue-400 text-blue-600"><Icon name={icon} className="h-4 w-4" /></span>{label}</span>;
+  return <span className="inline-flex items-center gap-2"><span className="grid h-7 w-7 place-items-center rounded-full border border-[#1677FF] text-[#1677FF]"><Icon name={icon} className="h-4 w-4" /></span>{label}</span>;
 }
 
 function ScoreRow({ icon, label, score, note, last = false }: { icon: IconName; label: string; score: string; note: string; last?: boolean }) {
-  return <div className={`grid grid-cols-[36px_1fr] gap-3 py-4 ${last ? "" : "border-b border-slate-100"}`}><span className="grid h-9 w-9 place-items-center rounded-xl bg-blue-50 text-blue-600"><Icon name={icon} className="h-5 w-5" /></span><div><div className="flex items-baseline justify-between gap-3"><span className="text-[10px] font-black tracking-wide text-blue-600">{label}</span><span className="text-xl font-black text-blue-600">{score}<small className="text-[9px]">/100</small></span></div><p className="mt-1 text-[10px] leading-4 text-slate-600">{note}</p></div></div>;
+  return <div className={`grid grid-cols-[36px_1fr] gap-3 py-4 ${last ? "" : "border-b border-black/10"}`}><span className="grid h-9 w-9 place-items-center rounded-xl bg-[#EEF6FF] text-[#1677FF]"><Icon name={icon} className="h-5 w-5" /></span><div><div className="flex items-baseline justify-between gap-3"><span className="text-[10px] font-black tracking-wide text-[#1677FF]">{label}</span><span className="text-xl font-black text-[#1677FF]">{score}<small className="text-[9px]">/100</small></span></div><p className="mt-1 text-[10px] leading-4 text-black/60">{note}</p></div></div>;
 }
 
 function SectionTitle({ children, centered = false }: { children: React.ReactNode; centered?: boolean }) {
@@ -252,25 +252,25 @@ function SectionTitle({ children, centered = false }: { children: React.ReactNod
 }
 
 function CheckItem({ children }: { children: React.ReactNode }) {
-  return <span className="flex items-start gap-2.5"><span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full border border-blue-500 text-blue-600"><Icon name="check" className="h-3 w-3" /></span><span>{children}</span></span>;
+  return <span className="flex items-start gap-2.5"><span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full border border-[#1677FF] text-[#1677FF]"><Icon name="check" className="h-3 w-3" /></span><span>{children}</span></span>;
 }
 
 function FeatureIcon({ icon, label }: { icon: IconName; label: string }) {
-  return <div className="text-center"><div className="mx-auto grid aspect-square max-w-24 place-items-center rounded-2xl border border-slate-200 bg-white text-blue-600 shadow-sm"><Icon name={icon} className="h-9 w-9" /></div><p className="mt-3 text-xs font-bold sm:text-sm">{label}</p></div>;
+  return <div className="text-center"><div className="mx-auto grid aspect-square max-w-24 place-items-center rounded-2xl border border-black/10 bg-white text-[#1677FF] shadow-sm"><Icon name={icon} className="h-9 w-9" /></div><p className="mt-3 text-xs font-bold sm:text-sm">{label}</p></div>;
 }
 
 function ResultList({ title, items, checks = false }: { title: string; items: string[]; checks?: boolean }) {
-  return <div className="rounded-2xl bg-slate-50 p-4"><p className="text-sm font-black">{title}</p><ul className="mt-4 space-y-3 text-xs font-semibold text-slate-700">{items.map((item, index) => <li key={item} className="flex gap-2">{checks ? <span className="text-blue-600">✓</span> : <span className="w-5 font-black text-slate-400">0{index + 1}</span>}<span>{item}</span></li>)}</ul></div>;
+  return <div className="rounded-2xl bg-[#EEF6FF] p-4"><p className="text-sm font-black">{title}</p><ul className="mt-4 space-y-3 text-xs font-semibold text-black/70">{items.map((item, index) => <li key={item} className="flex gap-2">{checks ? <span className="text-[#1677FF]">✓</span> : <span className="w-5 font-black text-black/40">0{index + 1}</span>}<span>{item}</span></li>)}</ul></div>;
 }
 
 function FlowStep({ step, icon, label }: { step: string; icon: IconName; label: string }) {
-  return <div className="rounded-2xl border border-slate-200 bg-white p-4 text-center shadow-sm"><p className="text-[10px] font-black text-blue-600">{step}</p><Icon name={icon} className="mx-auto mt-4 h-8 w-8 text-blue-600" /><p className="mt-4 text-xs font-bold leading-5">{label}</p></div>;
+  return <div className="rounded-2xl border border-black/10 bg-white p-4 text-center shadow-sm"><p className="text-[10px] font-black text-[#1677FF]">{step}</p><Icon name={icon} className="mx-auto mt-4 h-8 w-8 text-[#1677FF]" /><p className="mt-4 text-xs font-bold leading-5">{label}</p></div>;
 }
 
 function WeekCard({ image, week, title, description, darker = false }: { image: string; week: string; title: string; description: string; darker?: boolean }) {
-  return <article className="overflow-hidden rounded-3xl border border-slate-200 bg-white text-left shadow-sm transition-transform duration-300 hover:-translate-y-1"><div className={`relative h-44 overflow-hidden ${darker ? "bg-slate-300" : "bg-blue-50"}`}><Image src={image} alt={`${week} ${title}`} fill className={`object-cover ${darker ? "brightness-75 saturate-75" : ""}`} /></div><div className="p-5"><p className="text-xs font-black text-blue-600">{week}</p><h3 className="mt-2 text-lg font-black">{title}</h3><p className="mt-3 text-sm leading-6 text-slate-600">{description}</p></div></article>;
+  return <article className="overflow-hidden rounded-3xl border border-black/10 bg-white text-left shadow-sm transition-transform duration-300 hover:-translate-y-1"><div className={`relative h-44 overflow-hidden ${darker ? "bg-black/15" : "bg-[#EEF6FF]"}`}><Image src={image} alt={`${week} ${title}`} fill sizes="(max-width: 639px) 100vw, (max-width: 1279px) 50vw, 25vw" className={darker ? "brightness-75 saturate-75" : ""} /></div><div className="p-5"><p className="text-xs font-black text-[#1677FF]">{week}</p><h3 className="mt-2 text-lg font-black">{title}</h3><p className="mt-3 text-sm leading-6 text-black/60">{description}</p></div></article>;
 }
 
 function RecommendationCard({ title, image, alt, children }: { title: string; image: string; alt: string; children: React.ReactNode }) {
-  return <article><h3 className="text-xl font-black">{title}</h3><div className="mt-5 overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm"><Image src={image} alt={alt} width={285} height={120} className="h-44 w-full object-cover" /><p className="p-5 text-sm leading-7 text-slate-600">{children}</p></div></article>;
+  return <article><h3 className="text-xl font-black">{title}</h3><div className="mt-5 overflow-hidden rounded-3xl border border-black/10 bg-white shadow-sm"><Image src={image} alt={alt} width={285} height={120} className="h-44 w-full object-cover" /><p className="p-5 text-sm leading-7 text-black/60">{children}</p></div></article>;
 }

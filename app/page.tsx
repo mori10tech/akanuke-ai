@@ -313,7 +313,7 @@ export default function Home() {
   />
 </div>
 
-  <HeroAnalysisCard />
+<HeroAnalysisCard />
 </div>
         </div>
       </section>

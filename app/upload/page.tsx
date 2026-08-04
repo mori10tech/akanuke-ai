@@ -325,9 +325,9 @@ export default function UploadPage() {
 
   if (!isLoaded) {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-[#f3f4f6]">
+      <main className="flex min-h-screen items-center justify-center bg-[#EEF6FF]">
         <div
-          className="h-9 w-9 animate-spin rounded-full border-[3px] border-neutral-200 border-t-[#c99416]"
+          className="h-9 w-9 animate-spin rounded-full border-[3px] border-black/10 text-[#1677FF]"
           aria-label="読み込み中"
         />
       </main>
@@ -335,14 +335,14 @@ export default function UploadPage() {
   }
 
   return (
-    <main className="min-h-screen bg-[#f3f4f6] text-[#111111]">
-      <div className="mx-auto min-h-screen w-full max-w-[480px] bg-[#fafafa] shadow-[0_0_40px_rgba(15,23,42,0.08)]">
-        <header className="sticky top-0 z-40 border-b border-[#e5e5e5] bg-white/95 backdrop-blur-xl">
+    <main className="min-h-screen bg-[#EEF6FF] text-[#111111]">
+      <div className="mx-auto min-h-screen w-full max-w-[480px] bg-white shadow-[0_0_40px_rgba(0,0,0,0.08)]">
+        <header className="sticky top-0 z-40 border-b border-black/10 bg-white/95 backdrop-blur-xl">
           <div className="grid h-[68px] grid-cols-[48px_1fr_48px] items-center px-3">
             <Link
               href="/"
               aria-label="トップページへ戻る"
-              className="flex h-11 w-11 items-center justify-center rounded-full transition hover:bg-neutral-100 active:scale-95"
+              className="flex h-11 w-11 items-center justify-center rounded-full transition hover:bg-[#EEF6FF] active:scale-95"
             >
               <ArrowLeftIcon />
             </Link>
@@ -357,7 +357,7 @@ export default function UploadPage() {
             <button
               type="button"
               aria-label="メニューを開く"
-              className="flex h-11 w-11 items-center justify-center rounded-full transition hover:bg-neutral-100 active:scale-95"
+              className="flex h-11 w-11 items-center justify-center rounded-full transition hover:bg-[#EEF6FF] active:scale-95"
             >
               <MenuIcon />
             </button>
@@ -367,7 +367,7 @@ export default function UploadPage() {
         <div className="px-4 pb-36 pt-5">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-[11px] font-black tracking-[0.14em] text-[#b77c00]">
+              <p className="text-[11px] font-black tracking-[0.14em] text-[#1677FF]">
                 AI BEAUTY DIAGNOSIS
               </p>
 
@@ -378,42 +378,42 @@ export default function UploadPage() {
               </h1>
             </div>
 
-            <div className="flex h-16 w-16 items-center justify-center rounded-full border border-[#eadfbd] bg-[#fff9e9] text-[#bd8205]">
+            <div className="flex h-16 w-16 items-center justify-center rounded-full border border-[#1677FF]/20 bg-[#FFF9D9] text-[#1677FF]">
               <SparkleIcon />
             </div>
           </div>
 
-          <p className="mt-4 text-[13px] leading-6 text-neutral-500">
+          <p className="mt-4 text-[13px] leading-6 text-black/60">
             顔写真となりたい印象をもとに、髪型・眉毛・肌・全体の印象をAIが分析します。
           </p>
 
           <div className="mt-5 flex items-center gap-2">
-            <div className="h-1.5 flex-1 rounded-full bg-[#c99416]" />
+            <div className="h-1.5 flex-1 rounded-full text-[#1677FF]" />
             <div
               className={`h-1.5 flex-1 rounded-full transition-colors ${
-                preview ? "bg-[#c99416]" : "bg-neutral-200"
+                preview ? "text-[#1677FF]" : "bg-neutral-200"
               }`}
             />
           </div>
 
-          <section className="mt-5 overflow-hidden rounded-[18px] border border-[#dedede] bg-white shadow-[0_6px_22px_rgba(15,23,42,0.05)]">
-            <div className="flex items-center gap-3 border-b border-[#eeeeee] px-4 py-4">
+          <section className="mt-5 overflow-hidden rounded-[18px] border border-black/10 bg-white shadow-[0_6px_22px_rgba(0,0,0,0.05)]">
+            <div className="flex items-center gap-3 border-b border-black/10 px-4 py-4">
               <span className="flex h-8 w-8 items-center justify-center rounded-full bg-black text-[12px] font-black text-white">
                 1
               </span>
 
               <div>
                 <h2 className="text-[16px] font-black">顔写真を選択</h2>
-                <p className="mt-0.5 text-[10px] text-neutral-500">
+                <p className="mt-0.5 text-[10px] text-black/60">
                   JPG・PNG・WEBP／最大10MB
                 </p>
               </div>
             </div>
 
             <div className="p-4">
-              <label className="block cursor-pointer overflow-hidden rounded-[16px] border border-dashed border-[#cfcfcf] bg-[#fafafa] transition hover:border-[#c99416]">
+              <label className="block cursor-pointer overflow-hidden rounded-[16px] border border-dashed border-black/20 bg-white transition text-[#1677FF]">
                 {preview ? (
-                  <div className="relative bg-neutral-100">
+                  <div className="relative bg-[#EEF6FF]">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={preview}
@@ -434,17 +434,17 @@ export default function UploadPage() {
                         <CameraIcon />
                       </span>
 
-                      <p className="mt-5 text-[17px] font-black">
+                      <p className="mt-5 text-[17px] font-black text-[#111111]">
                         タップして写真を選択
                       </p>
 
-                      <p className="mt-2 text-[12px] leading-5 text-neutral-500">
+                      <p className="mt-2 text-[12px] leading-5 text-black/60">
                         顔全体がはっきり見える
                         <br />
                         正面の写真がおすすめです
                       </p>
 
-                      <span className="mt-5 inline-flex rounded-full bg-[#fff4d8] px-3 py-1.5 text-[10px] font-black text-[#b77c00]">
+                      <span className="mt-5 inline-flex rounded-full bg-[#FFF9D9] px-3 py-1.5 text-[10px] font-black text-[#1677FF]">
                         写真は診断以外には使用しません
                       </span>
                     </div>
@@ -463,14 +463,14 @@ export default function UploadPage() {
                 <button
                   type="button"
                   onClick={handleResetImage}
-                  className="mt-3 w-full rounded-[10px] border border-[#dedede] py-3 text-[12px] font-black transition hover:bg-neutral-50"
+                  className="mt-3 w-full rounded-[10px] border border-black/10 py-3 text-[12px] font-black transition hover:bg-[#EEF6FF]"
                 >
                   写真を削除して選び直す
                 </button>
               )}
 
-              <div className="mt-4 rounded-[14px] bg-[#fff9e9] p-4">
-                <p className="text-[12px] font-black text-[#b77c00]">
+              <div className="mt-4 rounded-[14px] bg-[#FFF9D9] p-4">
+                <p className="text-[12px] font-black text-[#1677FF]">
                   きれいに診断するためのポイント
                 </p>
 
@@ -482,9 +482,9 @@ export default function UploadPage() {
                   ].map((item) => (
                     <li
                       key={item}
-                      className="flex items-center gap-2 text-[11px] text-neutral-700"
+                      className="flex items-center gap-2 text-[11px] text-black/70"
                     >
-                      <span className="flex h-5 w-5 items-center justify-center rounded-full bg-white text-[#bd8205]">
+                      <span className="flex h-5 w-5 items-center justify-center rounded-full bg-white text-[#1677FF]">
                         <CheckIcon />
                       </span>
                       {item}
@@ -500,8 +500,8 @@ export default function UploadPage() {
               ref={preferenceSectionRef}
               className="scroll-mt-24 pt-5"
             >
-              <div className="overflow-hidden rounded-[18px] border border-[#dedede] bg-white shadow-[0_6px_22px_rgba(15,23,42,0.05)]">
-                <div className="flex items-center gap-3 border-b border-[#eeeeee] px-4 py-4">
+              <div className="overflow-hidden rounded-[18px] border border-black/10 bg-white shadow-[0_6px_22px_rgba(0,0,0,0.05)]">
+                <div className="flex items-center gap-3 border-b border-black/10 px-4 py-4">
                   <span className="flex h-8 w-8 items-center justify-center rounded-full bg-black text-[12px] font-black text-white">
                     2
                   </span>
@@ -510,24 +510,24 @@ export default function UploadPage() {
                     <h2 className="text-[16px] font-black">
                       なりたい印象を選択
                     </h2>
-                    <p className="mt-0.5 text-[10px] text-neutral-500">
+                    <p className="mt-0.5 text-[10px] text-black/60">
                       最大2つまで選択できます
                     </p>
                   </div>
                 </div>
 
                 <div className="p-4">
-                  <div className="rounded-[14px] bg-[#fff9e9] p-4">
+                  <div className="rounded-[14px] bg-[#FFF9D9] p-4">
                     <div className="flex gap-3">
-                      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white text-[#bd8205] shadow-sm">
+                      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white text-[#1677FF] shadow-sm">
                         <SparkleIcon />
                       </span>
 
                       <div>
-                        <p className="text-[12px] font-black text-[#b77c00]">
+                        <p className="text-[12px] font-black text-[#1677FF]">
                           AIからのアドバイス
                         </p>
-                        <p className="mt-1 text-[11px] leading-5 text-neutral-700">
+                        <p className="mt-1 text-[11px] leading-5 text-black/70">
                           選んだ印象を、髪型・眉毛・肌・商品・サロンの提案内容に反映します。
                         </p>
                       </div>
@@ -552,12 +552,12 @@ export default function UploadPage() {
                             isSelected
                               ? "border-black bg-black text-white shadow-lg"
                               : isRecommended
-                                ? "border-[#d6a11d] bg-[#fff9e9] text-black"
-                                : "border-[#dedede] bg-white text-black hover:border-neutral-400"
+                                ? "border-[#FFD400] bg-[#FFF9D9] text-black"
+                                : "border-black/10 bg-white text-black hover:border-[#1677FF]"
                           }`}
                         >
                           {isSelected && (
-                            <span className="absolute right-3 top-3 flex h-6 w-6 items-center justify-center rounded-full bg-[#d6a11d] text-[10px] font-black text-white">
+                            <span className="absolute right-3 top-3 flex h-6 w-6 items-center justify-center rounded-full bg-[#FFD400] text-[10px] font-black text-[#111111]">
                               {selectionNumber}
                             </span>
                           )}
@@ -566,7 +566,7 @@ export default function UploadPage() {
                             className={`flex h-9 w-9 items-center justify-center rounded-full text-[17px] ${
                               isSelected
                                 ? "bg-white/15"
-                                : "bg-[#f3f3f3] text-[#b77c00]"
+                                : "bg-[#EEF6FF] text-[#1677FF]"
                             }`}
                           >
                             {option.icon}
@@ -580,7 +580,7 @@ export default function UploadPage() {
                             className={`mt-1.5 text-[10px] leading-4 ${
                               isSelected
                                 ? "text-white/65"
-                                : "text-neutral-500"
+                                : "text-black/60"
                             }`}
                           >
                             {option.description}
@@ -596,11 +596,11 @@ export default function UploadPage() {
                         {notice}
                       </p>
                     ) : selectedLabels.length > 0 ? (
-                      <p className="text-[11px] font-black text-[#b77c00]">
+                      <p className="text-[11px] font-black text-[#1677FF]">
                         選択中：{selectedLabels.join(" × ")}
                       </p>
                     ) : (
-                      <p className="text-[11px] text-neutral-400">
+                      <p className="text-[11px] text-black/40">
                         1〜2つ選択してください
                       </p>
                     )}
@@ -611,13 +611,13 @@ export default function UploadPage() {
           )}
         </div>
 
-        <div className="fixed inset-x-0 bottom-0 z-50 border-t border-[#dedede] bg-white/95 px-4 pb-[max(14px,env(safe-area-inset-bottom))] pt-3 backdrop-blur-xl">
+        <div className="fixed inset-x-0 bottom-0 z-50 border-t border-black/10 bg-white/95 px-4 pb-[max(14px,env(safe-area-inset-bottom))] pt-3 backdrop-blur-xl">
           <div className="mx-auto w-full max-w-[448px]">
             <button
               type="button"
               onClick={handleDiagnosis}
               disabled={!preview || selectedIds.length === 0}
-              className="min-h-[52px] w-full rounded-[11px] bg-black px-4 text-[14px] font-black text-white shadow-lg transition hover:bg-neutral-800 active:scale-[0.99] disabled:cursor-not-allowed disabled:bg-neutral-200 disabled:text-neutral-400 disabled:shadow-none"
+              className="min-h-[52px] w-full rounded-[11px] bg-black px-4 text-[14px] font-black text-white shadow-lg transition hover:bg-black/85 active:scale-[0.99] disabled:cursor-not-allowed disabled:bg-black/10 disabled:text-black/40 disabled:shadow-none"
             >
               無料でAI診断をはじめる
               <span className="ml-2" aria-hidden="true">
@@ -625,7 +625,7 @@ export default function UploadPage() {
               </span>
             </button>
 
-            <p className="mt-2 text-center text-[9px] font-bold text-neutral-400">
+            <p className="mt-2 text-center text-[9px] font-bold text-black/40">
               約1分・完全無料
             </p>
           </div>

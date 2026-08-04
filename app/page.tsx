@@ -166,8 +166,8 @@ export default function Home() {
           <Link href="/upload" className="primary-button mx-auto mb-6 w-full max-w-sm">無料で診断をはじめる <span aria-hidden>›</span></Link>
           <SectionTitle centered>自分のペースで、理想の自分へ近づくプラン</SectionTitle>
           <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-           <WeekCard image="/lp/week1.png" week="Step 1" title="土台を整える" description="髪型・眉毛・肌のベースを整え、清潔感のある印象をつくる。" darker />
-<WeekCard image="/lp/week2.png" week="Step 2" title="印象をアップデート" description="改善ポイントを実践し、垢抜けた印象をつくる。" darker />
+           <WeekCard image="/lp/week1.png" week="Step 1" title="土台を整える" description="髪型・眉毛・肌のベースを整え、清潔感のある印象をつくる。" />
+<WeekCard image="/lp/week2.png" week="Step 2" title="印象をアップデート" description="改善ポイントを実践し、垢抜けた印象をつくる。" />
 <WeekCard image="/lp/week3.png" week="Step 3" title="魅力を引き出す" description="細部までこだわり、あなたらしい魅力を最大化する。" />
 <WeekCard image="/lp/week4.png" week="Step 4" title="理想の自分を完成へ" description="習慣化して魅力を定着させ、理想の自分へ。" />
           </div>
@@ -194,7 +194,10 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="faq" className="section-border py-16">
+      <section
+  id="faq"
+  className="section-border bg-[#FAFCFF] py-16"
+>
         <div className="site-container grid items-center gap-10 lg:grid-cols-[0.7fr_1.3fr]">
           <div className="overflow-hidden rounded-[32px] bg-[#EEF6FF]">
             <Image src="/lp/faq-man.png" width={245} height={175} alt="スマートフォンでAKANUKE.AIを利用する男性" className="h-full w-full object-cover" />
@@ -214,7 +217,7 @@ export default function Home() {
       </section>
 
       <section className="px-4 pb-5 pt-4">
-        <div className="site-container overflow-hidden rounded-[28px] bg-gradient-to-r from-[#EEF6FF] via-white to-[#EEF6FF] px-6 py-8 sm:px-10">
+        <div className="site-container overflow-hidden rounded-[28px] bg-[#EEF6FF] px-6 py-8 sm:px-10">
           <div className="grid items-center gap-6 lg:grid-cols-[1fr_auto_0.55fr]">
             <div>
               <p className="text-2xl font-black leading-snug sm:text-3xl">変わりたい。その最初の一歩を、<br />AKANUKE.AIと始めよう。</p>
@@ -268,9 +271,9 @@ function FlowStep({ step, icon, label }: { step: string; icon: IconName; label: 
 }
 
 function WeekCard({ image, week, title, description, darker = false }: { image: string; week: string; title: string; description: string; darker?: boolean }) {
-  return <article className="overflow-hidden rounded-3xl border border-black/10 bg-white text-left shadow-sm transition-transform duration-300 hover:-translate-y-1"><div className={`relative h-44 overflow-hidden ${darker ? "bg-black/15" : "bg-[#EEF6FF]"}`}><Image src={image} alt={`${week} ${title}`} fill sizes="(max-width: 639px) 100vw, (max-width: 1279px) 50vw, 25vw" className={darker ? "brightness-75 saturate-75" : ""} /></div><div className="p-5"><p className="text-xs font-black text-[#1677FF]">{week}</p><h3 className="mt-2 text-lg font-black">{title}</h3><p className="mt-3 text-sm leading-6 text-black/60">{description}</p></div></article>;
+  return <article className="overflow-hidden rounded-3xl border border-black/10 bg-white text-left shadow-sm transition-transform duration-300 hover:-translate-y-1"><div className={`relative h-44 overflow-hidden ${darker ? "bg-[#EEF6FF]" : "bg-[#EEF6FF]"}`}><Image src={image} alt={`${week} ${title}`} fill sizes="(max-width: 639px) 100vw, (max-width: 1279px) 50vw, 25vw" className={darker ? "brightness-75 saturate-75" : ""} /></div><div className="p-5"><p className="text-xs font-black text-[#1677FF]">{week}</p><h3 className="mt-2 text-lg font-black">{title}</h3><p className="mt-3 text-sm leading-6 text-black/60">{description}</p></div></article>;
 }
 
 function RecommendationCard({ title, image, alt, children }: { title: string; image: string; alt: string; children: React.ReactNode }) {
-  return <article><h3 className="text-xl font-black">{title}</h3><div className="mt-5 overflow-hidden rounded-3xl border border-black/10 bg-white shadow-sm"><Image src={image} alt={alt} width={285} height={120} className="h-44 w-full object-cover" /><p className="p-5 text-sm leading-7 text-black/60">{children}</p></div></article>;
+  return <article><h3 className="text-xl font-black">{title}</h3><div className="mt-5 overflow-hidden rounded-3xl border border-black/10 bg-white shadow-sm"><Image src={image} alt={alt} width={285} height={120} className="h-40 w-full object-cover" /><p className="p-5 text-sm leading-7 text-black/60">{children}</p></div></article>;
 }

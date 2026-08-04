@@ -162,84 +162,59 @@ a {
   min-height: 585px;
   align-items: flex-end;
   justify-content: center;
-  overflow: hidden;
+  overflow: visible;
 }
 
-/* 人物画像を配置する領域 */
+/* 人物画像 */
 .hero-person-wrap {
   position: absolute;
-  right: 235px;
-  bottom: -56px;
-  width: min(70%, 590px);
-  height: 650px;
-  overflow: hidden;
+  right: 225px;
+  bottom: -10px;
+  width: min(88%, 740px);
+  height: 720px;
   pointer-events: none;
-}
 
-/* 人物画像の四角い境界を薄くする */
-.hero-person-wrap::after {
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(
-      90deg,
-      rgba(238, 246, 255, 0.72) 0%,
-      rgba(238, 246, 255, 0.18) 13%,
-      transparent 25%,
-      transparent 78%,
-      rgba(238, 246, 255, 0.38) 90%,
-      rgba(238, 246, 255, 0.82) 100%
-    ),
-    linear-gradient(
-      180deg,
-      rgba(238, 246, 255, 0.44) 0%,
-      transparent 16%,
-      transparent 72%,
-      rgba(238, 246, 255, 0.98) 100%
-    );
-  content: "";
-  pointer-events: none;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    #000000 0%,
+    #000000 86%,
+    rgba(0, 0, 0, 0.92) 91%,
+    rgba(0, 0, 0, 0.45) 97%,
+    transparent 100%
+  );
+
+  mask-image: linear-gradient(
+    to bottom,
+    #000000 0%,
+    #000000 86%,
+    rgba(0, 0, 0, 0.92) 91%,
+    rgba(0, 0, 0, 0.45) 97%,
+    transparent 100%
+  );
 }
 
 .hero-person-image {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: 50% 9%;
-  filter: drop-shadow(0 22px 42px rgba(22, 119, 255, 0.08));
-  mix-blend-mode: multiply;
-
-  -webkit-mask-image: radial-gradient(
-    ellipse 90% 95% at 50% 47%,
-    #000000 68%,
-    rgba(0, 0, 0, 0.94) 77%,
-    rgba(0, 0, 0, 0.5) 90%,
-    transparent 100%
-  );
-
-  mask-image: radial-gradient(
-    ellipse 90% 95% at 50% 47%,
-    #000000 68%,
-    rgba(0, 0, 0, 0.94) 77%,
-    rgba(0, 0, 0, 0.5) 90%,
-    transparent 100%
-  );
+  object-fit: contain;
+  object-position: center bottom;
+  filter: drop-shadow(0 24px 48px rgba(22, 119, 255, 0.08));
 }
 
 /* AI分析カード */
 .analysis-panel {
   position: absolute;
   z-index: 20;
-  top: 58px;
-  right: 0;
-  width: 295px;
+  top: 34px;
+  right: -10px;
+  width: 345px;
   border: 1px solid rgba(22, 119, 255, 0.18);
-  border-radius: 22px;
-  background: rgba(255, 255, 255, 0.97);
-  padding: 20px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.98);
+  padding: 24px;
   box-shadow:
-    0 24px 65px rgba(22, 119, 255, 0.14),
-    0 5px 18px rgba(17, 17, 17, 0.05);
+    0 28px 72px rgba(22, 119, 255, 0.15),
+    0 6px 22px rgba(17, 17, 17, 0.05);
   backdrop-filter: blur(18px);
 }
 
@@ -367,21 +342,21 @@ a {
   .hero-visual-wrap {
     min-height: 560px;
     justify-content: center;
-    overflow: hidden;
+    overflow: visible;
   }
 
   .hero-person-wrap {
-    right: 170px;
-    bottom: -42px;
-    width: min(72%, 550px);
-    height: 610px;
+    right: 190px;
+    bottom: -5px;
+    width: min(84%, 650px);
+    height: 650px;
   }
 
   .analysis-panel {
-    top: 62px;
+    top: 48px;
     right: 0;
-    width: 270px;
-    padding: 17px;
+    width: 300px;
+    padding: 19px;
   }
 }
 
@@ -407,7 +382,7 @@ a {
   .hero-visual-wrap {
     min-height: 650px;
     margin-top: 0;
-    overflow: hidden;
+    overflow: visible;
   }
 
   .hero-person-wrap {
@@ -415,45 +390,14 @@ a {
     right: auto;
     bottom: auto;
     left: 50%;
-    width: 108%;
+    width: 100%;
     height: 430px;
-    transform: translateX(-61%);
-  }
-
-  .hero-person-wrap::after {
-    background:
-      linear-gradient(
-        90deg,
-        rgba(238, 246, 255, 0.72) 0%,
-        transparent 18%,
-        transparent 82%,
-        rgba(238, 246, 255, 0.72) 100%
-      ),
-      linear-gradient(
-        180deg,
-        rgba(238, 246, 255, 0.38) 0%,
-        transparent 18%,
-        transparent 68%,
-        rgba(238, 246, 255, 0.98) 100%
-      );
+    transform: translateX(-55%);
   }
 
   .hero-person-image {
-    object-position: 50% 9%;
-
-    -webkit-mask-image: radial-gradient(
-      ellipse 92% 94% at 50% 46%,
-      #000000 66%,
-      rgba(0, 0, 0, 0.88) 78%,
-      transparent 100%
-    );
-
-    mask-image: radial-gradient(
-      ellipse 92% 94% at 50% 46%,
-      #000000 66%,
-      rgba(0, 0, 0, 0.88) 78%,
-      transparent 100%
-    );
+    object-fit: contain;
+    object-position: center bottom;
   }
 
   .analysis-panel {

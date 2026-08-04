@@ -207,31 +207,25 @@ export default function AnalyzingPage() {
     <main className="min-h-screen bg-[#EEF6FF] text-[#111111]">
       <div className="mx-auto min-h-screen w-full max-w-[480px] bg-white shadow-[0_0_40px_rgba(15,23,42,0.08)]">
         <header className="sticky top-0 z-40 border-b border-black/10 bg-white/95 backdrop-blur-xl">
-          <div className="grid h-[68px] grid-cols-[48px_1fr_48px] items-center px-3">
-            <Link
-              href="/upload"
-              aria-label="写真選択へ戻る"
-              className="flex h-11 w-11 items-center justify-center rounded-full transition hover:bg-neutral-100 active:scale-95"
-            >
-              <ArrowLeftIcon />
-            </Link>
+  <div className="grid h-[68px] grid-cols-[48px_1fr_48px] items-center px-3">
+    <Link
+      href="/upload"
+      aria-label="写真選択画面へ戻る"
+      className="flex h-11 w-11 items-center justify-center rounded-full transition hover:bg-[#EEF6FF] active:scale-95"
+    >
+      <ArrowLeftIcon />
+    </Link>
 
-            <Link
-              href="/"
-              className="text-center text-[21px] font-black tracking-[-0.03em]"
-            >
-              AKANUKE.AI
-            </Link>
+    <Link
+      href="/"
+      className="text-center text-[21px] font-black tracking-[-0.03em]"
+    >
+      AKANUKE.AI
+    </Link>
 
-            <button
-              type="button"
-              aria-label="メニューを開く"
-              className="flex h-11 w-11 items-center justify-center rounded-full transition hover:bg-neutral-100 active:scale-95"
-            >
-              <MenuIcon />
-            </button>
-          </div>
-        </header>
+    <div aria-hidden="true" />
+  </div>
+</header>
 
         <div className="px-4 pb-10 pt-6">
           <div className="text-center">

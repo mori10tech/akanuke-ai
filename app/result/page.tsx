@@ -64,8 +64,8 @@ function CircularScore({ score }: { score: number }) {
         <circle cx="64" cy="64" r={radius} fill="none" stroke="url(#scoreGradient)" strokeWidth="7" strokeLinecap="round" strokeDasharray={circumference} strokeDashoffset={offset} className="transition-[stroke-dashoffset] duration-1000 ease-out" />
         <defs>
           <linearGradient id="scoreGradient" x1="0" y1="0" x2="128" y2="128">
-            <stop offset="0%" stopColor="#f2d782" />
-            <stop offset="100%" stopColor="#bd8214" />
+           <stop offset="0%" stopColor="#FFE45C" />
+              <stop offset="100%" stopColor="#FFD400" />
           </linearGradient>
         </defs>
       </svg>
@@ -124,7 +124,7 @@ export default function ResultPage() {
   );
 
   if (!isReady) {
-    return <main className="flex min-h-screen items-center justify-center bg-white"><div className="h-9 w-9 animate-spin rounded-full border-[3px] border-neutral-200 border-t-[#b88323]" /></main>;
+    return <main className="flex min-h-screen items-center justify-center bg-white"><div className="h-9 w-9 animate-spin rounded-full border-[3px] border-neutral-200 border-t-[#1677FF]" /></main>;
   }
 
   return (
@@ -140,46 +140,46 @@ export default function ResultPage() {
 
         <div className="pb-32">
           <section className="px-5 pb-6 pt-7 text-center">
-            <div className="mx-auto flex h-11 w-11 items-center justify-center rounded-full border border-[#e8d8af] bg-[#fff8e8] text-[#ae7714]"><Icon name="sparkle" className="h-[22px] w-[22px]" /></div>
-            <p className="mt-4 text-[10px] font-black tracking-[0.18em] text-[#a97212]">PERSONAL BEAUTY REPORT</p>
+            <p className="mt-4 text-[10px] font-black tracking-[0.18em] text-[#1677FF]">PERSONAL BEAUTY REPORT</p>
             <h1 className="mt-2 text-[29px] font-black tracking-[-0.045em]">あなたの診断結果</h1>
             <p className="mx-auto mt-2 max-w-[320px] text-[12px] leading-5 text-neutral-500">現在の印象と理想像を比較し、改善効果の高い順番をAIが整理しました。</p>
           </section>
 
-          <section className="mx-4 overflow-hidden rounded-[24px] bg-[#11110f] shadow-[0_18px_45px_rgba(17,17,15,0.22)]">
+          <section className="mx-4 overflow-hidden rounded-[24px] bg-[#111111] shadow-[0_18px_45px_rgba(17,17,17,0.22)]">
             <div className="grid grid-cols-[42%_58%]">
               <div className="relative min-h-[282px] overflow-hidden bg-neutral-800">
-                {image ? <img src={image} alt="今回診断した顔写真" className="h-full w-full object-cover" /> : <div className="flex h-full min-h-[282px] items-center justify-center px-4 text-center text-white/60"><div><p className="text-[11px] font-bold">写真が見つかりません</p><Link href="/upload" className="mt-2 inline-block text-[10px] font-black text-[#e3c368]">選び直す</Link></div></div>}
+                {image ? <img src={image} alt="今回診断した顔写真" className="h-full w-full object-cover" /> : <div className="flex h-full min-h-[282px] items-center justify-center px-4 text-center text-white/60"><div><p className="text-[11px] font-bold">写真が見つかりません</p><Link href="/upload" className="mt-2 inline-block text-[10px] font-black text-[#FFD400]">選び直す</Link></div></div>}
                 {image && <><div className="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-black/15" /><span className="absolute bottom-3 left-3 flex items-center gap-1.5 rounded-full bg-white/95 px-2.5 py-1.5 text-[8px] font-black text-black"><Icon name="check" className="h-3 w-3" />AI解析済み</span></>}
               </div>
               <div className="flex flex-col items-center justify-center px-3 py-5">
                 <CircularScore score={displayScore} />
                 <div className="mt-2 w-full rounded-[15px] border border-white/10 bg-white/[0.06] px-3 py-3 text-white">
                   <p className="text-[8px] font-bold tracking-[0.1em] text-white/40">GOAL SCORE</p>
-                  <div className="mt-1 flex items-center justify-between gap-2"><p className="text-[22px] font-black tracking-[-0.04em]">{GOAL_SCORE}点</p><span className="rounded-full bg-[#d5a63c] px-2.5 py-1.5 text-[9px] font-black text-black">+{GOAL_SCORE - CURRENT_SCORE}</span></div>
+                  <div className="mt-1 flex items-center justify-between gap-2"><p className="text-[22px] font-black tracking-[-0.04em]">{GOAL_SCORE}点</p><span className="rounded-full bg-[#FFD400] px-2.5 py-1.5 text-[9px] font-black text-black">+{GOAL_SCORE - CURRENT_SCORE}</span></div>
                   <p className="mt-1 text-[9px] text-white/45">自分のペースで目指す理想値</p>
                 </div>
               </div>
             </div>
           </section>
 
-          <section className="mx-4 mt-5 rounded-[20px] border border-[#eadfbd] bg-[#fff9e9] p-5">
-            <div className="flex items-center gap-2 text-[#b77c00]"><Icon name="sparkle" /><p className="text-[12px] font-black">AI総合コメント</p></div>
+          <section className="mx-4 mt-5 rounded-[20px] border border-[#FFD400]/40 bg-[#FFF9D9] p-5">
+            <div className="flex items-center gap-2 text-[#1677FF]"><Icon name="sparkle" /><p className="text-[12px] font-black">AI総合コメント</p></div>
             <h2 className="mt-3 text-[20px] font-black leading-[1.5] tracking-[-0.03em]">髪型と眉毛を整えるだけで、第一印象は大きく変わります。</h2>
             <p className="mt-3 text-[12px] leading-6 text-neutral-700">現在は親しみやすく柔らかい印象です。一方で、前髪と眉毛の形によって少し幼く見えやすい傾向があります。目指す印象は「{impressionLabel}」。髪型・眉毛・肌の順に整えるのがおすすめです。</p>
           </section>
 
           <section className="mx-4 mt-7">
-            <p className="text-[10px] font-black tracking-[0.16em] text-[#a97212]">BEFORE / AFTER</p>
+            <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">BEFORE / AFTER</p>
             <h2 className="mt-1 text-[21px] font-black tracking-[-0.035em]">理想イメージ</h2>
             <p className="mt-2 text-[11px] leading-5 text-neutral-500">現在の状態と、改善後に目指す印象を比較できます。</p>
             <div className="mt-4 grid grid-cols-2 gap-3">
-              <div className="overflow-hidden rounded-[18px] border border-[#dedede] bg-white">
+              <div className="overflow-hidden rounded-[18px] border border-black/10 bg-white">
                 <div className="relative aspect-[4/5] bg-neutral-100">{image ? <img src={image} alt="Before" className="h-full w-full object-cover" /> : null}<span className="absolute left-3 top-3 rounded-full bg-black px-2.5 py-1 text-[9px] font-black text-white">Before</span></div>
                 <div className="p-3"><p className="text-[11px] font-black">現在の印象</p><p className="mt-1 text-[9px] leading-4 text-neutral-500">親しみやすい一方、髪型と眉毛に改善余地があります。</p></div>
               </div>
-              <div className="overflow-hidden rounded-[18px] border border-[#d9bb70] bg-[#fffaf0]">
-                <div className="relative aspect-[4/5] bg-neutral-100">{image ? <img src={image} alt="Afterイメージ" className="h-full w-full scale-[1.03] object-cover brightness-[1.06] contrast-[1.04] saturate-[0.92]" /> : null}<div className="absolute inset-0 bg-gradient-to-t from-[#c99416]/15 to-transparent" /><span className="absolute left-3 top-3 rounded-full bg-[#c99416] px-2.5 py-1 text-[9px] font-black text-white">After</span></div>
+              <div className="overflow-hidden rounded-[18px] border border-[#FFD400] bg-[#FFF9D9]">
+                <div className="relative aspect-[4/5] bg-neutral-100">{image ? <img src={image} alt="Afterイメージ" className="h-full w-full object-cover 
+                " /> : null}<span className="absolute left-3 top-3 rounded-full bg-[#FFD400] px-2.5 py-1 text-[9px] font-black text-black">After</span></div>
                 <div className="p-3"><p className="text-[11px] font-black">理想の印象</p><p className="mt-1 text-[9px] leading-4 text-neutral-500">爽やかさと清潔感が自然に伝わる状態を目指します。</p></div>
               </div>
             </div>
@@ -187,26 +187,26 @@ export default function ResultPage() {
           </section>
 
           <section className="mx-4 mt-7">
-            <p className="text-[10px] font-black tracking-[0.16em] text-[#a97212]">PRIORITY</p>
+            <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">PRIORITY</p>
             <h2 className="mt-1 text-[21px] font-black tracking-[-0.035em]">改善優先順位</h2>
             <div className="mt-4 space-y-3">
-              {priorities.map((item) => <article key={item.rank} className="rounded-[18px] border border-[#dedede] bg-white p-4 shadow-[0_6px_22px_rgba(15,23,42,0.04)]"><div className="flex items-start gap-3"><span className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-[13px] text-[17px] font-black ${item.rank === 1 ? "bg-black text-white" : "bg-[#f1f1f1] text-black"}`}>{item.rank}</span><div className="min-w-0 flex-1"><div className="flex items-start justify-between gap-3"><div><h3 className="text-[16px] font-black">{item.title}</h3><span className="mt-1.5 inline-flex rounded-full bg-[#fff4d8] px-2.5 py-1 text-[8px] font-black text-[#b77c00]">{item.impact}</span></div><p className="shrink-0 text-[17px] font-black text-[#b77c00]">+{item.point}点</p></div><p className="mt-3 text-[11px] leading-5 text-neutral-600">{item.description}</p></div></div></article>)}
+              {priorities.map((item) => <article key={item.rank} className="rounded-[18px] border border-black/10 bg-white p-4 shadow-[0_6px_22px_rgba(15,23,42,0.04)]"><div className="flex items-start gap-3"><span className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-[13px] text-[17px] font-black ${item.rank === 1 ? "bg-black text-white": "bg-[#EEF6FF] text-black"}`}>{item.rank}</span><div className="min-w-0 flex-1"><div className="flex items-start justify-between gap-3"><div><h3 className="text-[16px] font-black">{item.title}</h3><span className="mt-1.5 inline-flex rounded-full bg-[#FFF9D9] px-2.5 py-1 text-[8px] font-black text-[#1677FF]">{item.impact}</span></div><p className="shrink-0 text-[17px] font-black text-[#1677FF]">+{item.point}点</p></div><p className="mt-3 text-[11px] leading-5 text-neutral-600">{item.description}</p></div></div></article>)}
             </div>
           </section>
 
-          <section className="mx-4 mt-7 rounded-[22px] bg-[#11110f] p-5 text-white">
-            <p className="text-[9px] font-black tracking-[0.16em] text-[#dfc16d]">YOUR PERSONAL PLAN</p>
+          <section className="mx-4 mt-7 rounded-[22px] bg-[#111111] p-5 text-white">
+            <p className="text-[9px] font-black tracking-[0.16em] text-[#FFD400]">YOUR PERSONAL PLAN</p>
             <h2 className="mt-2 text-[23px] font-black tracking-[-0.04em]">自分のペースで進める<br />垢抜けプラン</h2>
             <p className="mt-3 text-[11px] leading-5 text-white/55">週ごとの期限はありません。優先順位の高い項目から、自分のタイミングで進められます。</p>
-            <Link href="/plan" className="mt-5 flex min-h-[52px] items-center justify-center gap-2 rounded-[14px] bg-white px-5 text-[13px] font-black text-black transition hover:bg-[#f2f0e9] active:scale-[0.99]">垢抜けプランを見る<span aria-hidden="true">→</span></Link>
+            <Link href="/plan" className="mt-5 flex min-h-[52px] items-center justify-center gap-2 rounded-[14px] bg-white px-5 text-[13px] font-black text-black transition hover:bg-[#EEF6FF] active:scale-[0.99]">垢抜けプランを見る<span aria-hidden="true">→</span></Link>
           </section>
 
           <div className="mx-4 mt-4 grid grid-cols-2 gap-3">
-            <Link href="/products" className="rounded-[16px] border border-[#dedede] bg-white p-4"><p className="text-[12px] font-black">おすすめ商品</p><p className="mt-1 text-[9px] leading-4 text-neutral-500">改善内容に合う商品を見る</p></Link>
-            <Link href="/salon" className="rounded-[16px] border border-[#dedede] bg-white p-4"><p className="text-[12px] font-black">おすすめサロン</p><p className="mt-1 text-[9px] leading-4 text-neutral-500">髪型・眉毛の相談先を見る</p></Link>
+            <Link href="/products" className="rounded-[16px] border border-black/10 bg-white p-4"><p className="text-[12px] font-black">おすすめ商品</p><p className="mt-1 text-[9px] leading-4 text-neutral-500">改善内容に合う商品を見る</p></Link>
+            <Link href="/salon" className="rounded-[16px] border border-black/10 bg-white p-4"><p className="text-[12px] font-black">おすすめサロン</p><p className="mt-1 text-[9px] leading-4 text-neutral-500">髪型・眉毛の相談先を見る</p></Link>
           </div>
 
-          <Link href="/upload" className="mx-4 mt-4 flex min-h-12 items-center justify-center gap-2 rounded-[12px] border border-[#dedede] bg-white px-4 text-[11px] font-black"><Icon name="refresh" className="h-4 w-4" />別の写真で診断し直す</Link>
+          <Link href="/upload" className="mx-4 mt-4 flex min-h-12 items-center justify-center gap-2 rounded-[12px] border border-black/10 bg-white px-4 text-[11px] font-black"><Icon name="refresh" className="h-4 w-4" />別の写真で診断し直す</Link>
         </div>
         <BottomNav />
       </div>

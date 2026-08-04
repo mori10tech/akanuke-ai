@@ -204,9 +204,9 @@ export default function AnalyzingPage() {
     analysisSteps[activeStepIndex];
 
   return (
-    <main className="min-h-screen bg-[#f3f4f6] text-[#111111]">
-      <div className="mx-auto min-h-screen w-full max-w-[480px] bg-[#fafafa] shadow-[0_0_40px_rgba(15,23,42,0.08)]">
-        <header className="sticky top-0 z-40 border-b border-[#e5e5e5] bg-white/95 backdrop-blur-xl">
+    <main className="min-h-screen bg-[#EEF6FF] text-[#111111]">
+      <div className="mx-auto min-h-screen w-full max-w-[480px] bg-white shadow-[0_0_40px_rgba(15,23,42,0.08)]">
+        <header className="sticky top-0 z-40 border-b border-black/10 bg-white/95 backdrop-blur-xl">
           <div className="grid h-[68px] grid-cols-[48px_1fr_48px] items-center px-3">
             <Link
               href="/upload"
@@ -235,11 +235,9 @@ export default function AnalyzingPage() {
 
         <div className="px-4 pb-10 pt-6">
           <div className="text-center">
-            <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full border border-[#eadfbd] bg-[#fff9e9] text-[#bd8205]">
-              <SparkleIcon className="h-6 w-6" />
-            </div>
+            
 
-            <p className="mt-4 text-[11px] font-black tracking-[0.15em] text-[#b77c00]">
+            <p className="mt-4 text-[11px] font-black tracking-[0.15em] text-[#1677FF]">
               AI BEAUTY ANALYSIS
             </p>
 
@@ -271,17 +269,17 @@ export default function AnalyzingPage() {
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/5 via-transparent to-black/45" />
 
               <div className="pointer-events-none absolute inset-[7%] rounded-[24px] border border-white/70">
-                <span className="absolute -left-px -top-px h-8 w-8 rounded-tl-[24px] border-l-2 border-t-2 border-[#d6a11d]" />
+                <span className="absolute -left-px -top-px h-8 w-8 rounded-tl-[24px] border-l-2 border-t-2 border-[#FFD400]" />
 
-                <span className="absolute -right-px -top-px h-8 w-8 rounded-tr-[24px] border-r-2 border-t-2 border-[#d6a11d]" />
+                <span className="absolute -right-px -top-px h-8 w-8 rounded-tr-[24px] border-r-2 border-t-2 border-[#FFD400]" />
 
-                <span className="absolute -bottom-px -left-px h-8 w-8 rounded-bl-[24px] border-b-2 border-l-2 border-[#d6a11d]" />
+                <span className="absolute -bottom-px -left-px h-8 w-8 rounded-bl-[24px] border-b-2 border-l-2 border-[#FFD400]" />
 
-                <span className="absolute -bottom-px -right-px h-8 w-8 rounded-br-[24px] border-b-2 border-r-2 border-[#d6a11d]" />
+                <span className="absolute -bottom-px -right-px h-8 w-8 rounded-br-[24px] border-b-2 border-r-2 border-[#FFD400]" />
               </div>
 
               <div
-                className="pointer-events-none absolute inset-x-[7%] z-10 h-px bg-gradient-to-r from-transparent via-[#f0c65a] to-transparent shadow-[0_0_18px_rgba(240,198,90,0.9)] transition-[top] duration-100 ease-linear"
+                className="pointer-events-none absolute inset-x-[7%] z-10 h-px bg-gradient-to-r from-transparent via-[#FFD400] to-transparent shadow-[0_0_18px_rgba(255,212,0,0.9)] transition-[top] duration-100 ease-linear"
                 style={{
                   top: `${
                     10 + ((progress * 0.8) % 80)
@@ -301,7 +299,7 @@ export default function AnalyzingPage() {
                     </p>
                   </div>
 
-                  <span className="shrink-0 text-[25px] font-black tracking-[-0.04em] text-[#f0c65a]">
+                  <span className="shrink-0 text-[25px] font-black tracking-[-0.04em] text-[#FFD400]">
                     {progress}%
                   </span>
                 </div>
@@ -311,7 +309,7 @@ export default function AnalyzingPage() {
             <div className="p-4">
               <div className="h-2 overflow-hidden rounded-full bg-[#ececec]">
                 <div
-                  className="h-full rounded-full bg-gradient-to-r from-[#b77c00] to-[#e0b342] transition-[width] duration-200 ease-out"
+                  className="h-full rounded-full bg-gradient-to-r bg-[#1677FF] transition-[width] duration-200 ease-out"
                   style={{
                     width: `${progress}%`,
                   }}
@@ -319,7 +317,7 @@ export default function AnalyzingPage() {
               </div>
 
               <div className="mt-3 flex items-center justify-between gap-3">
-                <p className="text-[11px] font-black text-[#b77c00]">
+                <p className="text-[11px] font-black text-[#1677FF]">
                   {progress === 100
                     ? "分析が完了しました"
                     : activeStep.description}
@@ -363,14 +361,14 @@ export default function AnalyzingPage() {
                           isComplete
                             ? "bg-black text-white"
                             : isActive
-                              ? "bg-[#fff3d2] text-[#b77c00]"
+                              ? "bg-[#EEF6FF] text-[#1677FF]"
                               : "bg-[#f3f3f3] text-neutral-400"
                         }`}
                       >
                         {isComplete ? (
                           <CheckIcon />
                         ) : isActive ? (
-                          <span className="h-2.5 w-2.5 animate-pulse rounded-full bg-[#c99416]" />
+                          <span className="h-2.5 w-2.5 animate-pulse rounded-full bg-[#1677FF]" />
                         ) : (
                           index + 1
                         )}
@@ -394,7 +392,7 @@ export default function AnalyzingPage() {
                               isComplete
                                 ? "text-black"
                                 : isActive
-                                  ? "text-[#b77c00]"
+                                  ? "text-[#1677FF]"
                                   : "text-neutral-300"
                             }`}
                           >
@@ -417,14 +415,14 @@ export default function AnalyzingPage() {
             </div>
           </section>
 
-          <aside className="mt-5 rounded-[14px] bg-[#fff9e9] px-4 py-4">
+          <aside className="mt-5 rounded-[14px] bg-[#FFF9D9] px-4 py-4">
             <div className="flex items-start gap-3">
-              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white text-[#bd8205] shadow-sm">
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white text-[#1677FF] shadow-sm">
                 <LockIcon />
               </span>
 
               <div>
-                <p className="text-[12px] font-black text-[#b77c00]">
+                <p className="text-[12px] font-black text-[#1677FF]">
                   写真は安全に処理されます
                 </p>
 

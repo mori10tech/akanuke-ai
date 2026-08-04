@@ -365,7 +365,7 @@ export default function UploadPage() {
         </header>
 
         <div className="px-4 pb-36 pt-5">
-          <div className="flex items-center justify-between">
+          <div        >
             <div>
               <p className="text-[11px] font-black tracking-[0.14em] text-[#1677FF]">
                 AI BEAUTY DIAGNOSIS
@@ -378,10 +378,7 @@ export default function UploadPage() {
               </h1>
             </div>
 
-            <div className="flex h-16 w-16 items-center justify-center rounded-full border border-[#1677FF]/20 bg-[#FFF9D9] text-[#1677FF]">
-              <SparkleIcon />
-            </div>
-          </div>
+                  </div>
 
           <p className="mt-4 text-[13px] leading-6 text-black/60">
             顔写真となりたい印象をもとに、髪型・眉毛・肌・全体の印象をAIが分析します。

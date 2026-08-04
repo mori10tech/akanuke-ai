@@ -263,7 +263,7 @@ export default function SalonPage() {
 
           <section className="mt-4 overflow-hidden rounded-[18px] border border-[#dedede] bg-white shadow-[0_6px_22px_rgba(15,23,42,0.05)]">
             <div className="grid grid-cols-[45%_55%]">
-              <div className="relative min-h-[235px] overflow-hidden bg-[#eef3f7]">
+              <div className="relative min-h-[235px] overflow-hidden bg-[#EEF6FF]">
                 <Image
                   src={recommendedSalon.image}
                   alt={`${recommendedSalon.name}のスタイルイメージ`}
@@ -280,17 +280,17 @@ export default function SalonPage() {
                 </span>
 
                 <div className="mt-2 flex items-end gap-1">
-                  <span className="text-[38px] font-black leading-none text-[#c99416]">
+                  <span className="text-[38px] font-black leading-none text-[#FFD400]">
                     {recommendedSalon.score}
                   </span>
-                  <span className="pb-1 text-lg font-black text-[#c99416]">
+                  <span className="pb-1 text-lg font-black text-[#FFD400]">
                     %
                   </span>
                 </div>
 
                 <div className="mt-1.5 flex items-center gap-1.5">
                   <span
-                    className="text-[13px] tracking-[0.05em] text-[#d6a11d]"
+                    className="text-[13px] tracking-[0.05em] text-[#FFD400]"
                     aria-label="星5つ"
                   >
                     ★★★★★
@@ -313,7 +313,7 @@ export default function SalonPage() {
                   {recommendedSalon.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="rounded-md bg-[#eee8de] px-2 py-1 text-[9px] font-black text-neutral-700"
+                      className="rounded-md bg-[#EEF6FF] px-2 py-1 text-[9px] font-black text-[#1677FF]"
                     >
                       {tag}
                     </span>
@@ -322,7 +322,7 @@ export default function SalonPage() {
               </div>
             </div>
 
-            <div className="space-y-3 border-t border-[#e5e5e5] px-4 py-4 text-[11px] text-neutral-700">
+            <div className="space-y-3 border-t border-black/10 px-4 py-4 text-[11px] text-black/70">
               <div className="flex items-start gap-2.5">
                 <span className="mt-0.5 shrink-0">
                   <LocationIcon />
@@ -353,8 +353,8 @@ export default function SalonPage() {
             </div>
 
             <div className="px-4 pb-4">
-              <div className="rounded-[14px] bg-[#fff8e8] p-4">
-                <div className="flex items-center gap-2 text-[#bd8205]">
+              <div className="rounded-[14px] bg-[#FFF9D9] p-4">
+                <div className="flex items-center gap-2 text-[#1677FF]">
                   <SparkleIcon />
 
                   <h2 className="text-[13px] font-black">
@@ -362,7 +362,7 @@ export default function SalonPage() {
                   </h2>
                 </div>
 
-                <p className="mt-2 text-[11px] leading-[1.75] text-neutral-700">
+                <p className="mt-2 text-[11px] leading-[1.75] text-black/70">
                   あなたの輪郭や髪質、目指す「爽やか」な印象に最も近づけられる
                   スタイルを得意とするサロンです。センターパートや自然な
                   マッシュが特におすすめです。
@@ -400,9 +400,9 @@ export default function SalonPage() {
               {otherSalons.map((salon) => (
                 <article
                   key={salon.id}
-                  className="min-w-0 overflow-hidden rounded-[14px] border border-[#dfdfdf] bg-white shadow-[0_4px_12px_rgba(15,23,42,0.03)]"
+                  className="min-w-0 overflow-hidden rounded-[14px] border border-black/10 bg-white shadow-[0_4px_12px_rgba(15,23,42,0.03)]"
                 >
-                  <div className="relative h-[116px] overflow-hidden bg-[#eef3f7]">
+                  <div className="relative h-[116px] overflow-hidden bg-[#EEF6FF]">
                     <Image
                       src={salon.image}
                       alt={`${salon.name}のスタイルイメージ`}
@@ -425,7 +425,7 @@ export default function SalonPage() {
                     </p>
 
                     <div className="mt-2 flex items-center gap-1">
-                      <span className="text-[8px] tracking-[-0.05em] text-[#d6a11d]">
+                      <span className="text-[8px] tracking-[-0.05em] text-[#FFD400]">
                         ★★★★★
                       </span>
 
@@ -439,14 +439,14 @@ export default function SalonPage() {
                     </p>
 
                     <div className="mt-2">
-                      <span className="inline-flex rounded bg-[#f2f2f2] px-1.5 py-1 text-[8px] font-bold">
+                      <span className="inline-flex rounded bg-[#EEF6FF] px-1.5 py-1 text-[8px] font-bold text-[#1677FF] ">
                         {salon.tag}
                       </span>
                     </div>
 
                     <button
                       type="button"
-                      className="mt-3 min-h-9 w-full rounded-lg border border-[#d8d8d8] bg-white px-1 text-[9px] font-black transition hover:bg-neutral-50 active:scale-[0.98]"
+                      className="mt-3 min-h-9 w-full rounded-lg border border-black/10 bg-white px-1 text-[9px] font-black transition hover:bg-neutral-50 active:scale-[0.98]"
                     >
                       詳細を見る
                     </button>
@@ -456,7 +456,7 @@ export default function SalonPage() {
             </div>
           </section>
 
-          <aside className="mt-6 rounded-[12px] bg-[#fff0eb] px-4 py-3">
+          <aside className="mt-6 rounded-[12px] bg-[#EEF6FF] px-4 py-3">
             <p className="text-center text-[9px] leading-4 text-neutral-600">
               ※予約ボタンを押すと、外部の予約サイト
               （ホットペッパービューティー等）へ移動します。

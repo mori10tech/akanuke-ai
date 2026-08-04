@@ -195,7 +195,7 @@ function ProductVisual({
       <div className={`relative flex items-end justify-center ${wrapperSize}`}>
         <div className="absolute bottom-0 h-[82%] w-[48%] rounded-b-[13px] rounded-t-[7px] border border-blue-800/20 bg-gradient-to-r from-blue-900 via-blue-700 to-blue-900 shadow-[0_12px_25px_rgba(30,64,175,0.25)]">
           <div className="absolute left-1/2 top-[24%] -translate-x-1/2 text-center">
-            <p className="text-[5px] font-bold tracking-wide text-white">
+            <p className="text-[5px] font-bold tracking-wide text-black">
               NIVEA
             </p>
             <p className="mt-0.5 text-[4px] text-blue-100">MEN</p>
@@ -211,7 +211,7 @@ function ProductVisual({
     <div className={`relative flex items-end justify-center ${wrapperSize}`}>
       <div className="absolute bottom-0 h-[47%] w-[68%] rounded-[16px] border border-neutral-700 bg-gradient-to-br from-neutral-700 via-neutral-900 to-black shadow-[0_12px_25px_rgba(15,23,42,0.24)]">
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
-          <p className="text-[8px] font-black text-white">N.</p>
+          <p className="text-[8px] font-black text-black">N.</p>
           <p className="mt-0.5 whitespace-nowrap text-[4px] text-neutral-400">
             HOMME
           </p>
@@ -226,7 +226,7 @@ function ProductVisual({
 function ScoreStars() {
   return (
     <span
-      className="tracking-[0.08em] text-[#d6a11d]"
+      className="tracking-[0.08em] text-[#FFD400]"
       aria-label="星5つ"
     >
       ★★★★★
@@ -270,10 +270,10 @@ export default function ProductsPage() {
         <div className="px-4 pb-32 pt-5">
           <p className="text-[15px] font-black">あなたにおすすめの商品</p>
 
-          <section className="mt-4 overflow-hidden rounded-[18px] border border-[#dfdfdf] bg-white shadow-[0_6px_20px_rgba(15,23,42,0.04)]">
+          <section className="mt-4 overflow-hidden rounded-[18px] border border-black/10 bg-white shadow-[0_6px_20px_rgba(15,23,42,0.04)]">
             <div className="grid grid-cols-[46%_54%]">
-              <div className="relative flex min-h-[230px] items-center justify-center border-r border-[#e5e5e5] bg-gradient-to-br from-[#fffdf8] to-[#f8f4eb]">
-                <span className="absolute left-3 top-3 rounded-md bg-[#d29d23] px-2.5 py-1 text-[11px] font-black text-white">
+              <div className="relative flex min-h-[230px] items-center justify-center border-r border-[#e5e5e5] bg-gradient-to-br from-white to-[#EEF6FF]">
+                <span className="absolute left-3 top-3 rounded-md bg-[#FFD400] text-black px-2.5 py-1 text-[11px] font-black text-black">
                   最優先アイテム
                 </span>
 
@@ -298,10 +298,10 @@ export default function ProductsPage() {
                   </div>
                 </div>
 
-                <div className="mt-5 flex items-end justify-between rounded-xl bg-[#fbf6e9] px-3 py-3">
+                <div className="mt-5 flex items-end justify-between rounded-xl bg-[#FFF9D9] px-3 py-3">
                   <span className="text-[13px] font-black">効果</span>
 
-                  <span className="text-[25px] font-black leading-none text-[#c99014]">
+                  <span className="text-[25px] font-black leading-none text-[#1677FF]">
                     +{primaryProduct.score}
                     <span className="ml-0.5 text-sm">点</span>
                   </span>
@@ -318,7 +318,7 @@ export default function ProductsPage() {
                     key={product.name}
                     className="grid grid-cols-[38px_48px_1fr_auto_20px] items-center gap-2 rounded-xl border border-[#e5e5e5] bg-white px-2.5 py-3"
                   >
-                    <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#d6a11d] text-sm font-black text-white">
+                    <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#FFD400] text-sm font-black text-black">
                       {product.rank}
                     </span>
 
@@ -339,7 +339,7 @@ export default function ProductsPage() {
                     <div className="text-right">
                       <p className="text-[10px] text-neutral-500">効果</p>
 
-                      <p className="mt-0.5 whitespace-nowrap text-[17px] font-black text-[#c99014]">
+                      <p className="mt-0.5 whitespace-nowrap text-[17px] font-black text-[#1677FF]">
                         +{product.score}
                         <span className="text-[10px]">点</span>
                       </p>
@@ -352,13 +352,13 @@ export default function ProductsPage() {
             </div>
 
             <div className="border-t border-[#e5e5e5] p-4">
-              <div className="flex gap-3 rounded-[16px] bg-[#fff9ec] p-4">
-                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white text-[#d39b19] shadow-sm">
+              <div className="flex gap-3 rounded-[16px] bg-[#FFF9D9] p-4">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white text-[#1677FF] shadow-sm">
                   <SparkleIcon />
                 </div>
 
                 <div>
-                  <p className="text-[14px] font-black text-[#b77c00]">
+                  <p className="text-[14px] font-black text-[#1677FF]">
                     AIからのアドバイス
                   </p>
 
@@ -378,7 +378,7 @@ export default function ProductsPage() {
               {products.map((product) => (
                 <article
                   key={product.name}
-                  className="flex min-w-0 flex-col overflow-hidden rounded-[14px] border border-[#dfdfdf] bg-white"
+                  className="flex min-w-0 flex-col overflow-hidden rounded-[14px] border border-black/10 bg-white"
                 >
                   <div className="flex h-[138px] items-center justify-center bg-gradient-to-b from-white to-[#fafafa]">
                     <ProductVisual
@@ -397,7 +397,7 @@ export default function ProductsPage() {
                     </h3>
 
                     <div className="mt-2 flex items-center gap-1 text-[8px]">
-                      <span className="text-[#d6a11d]">★★★★★</span>
+                      <span className="text-[#1677FF]">★★★★★</span>
                       <span className="font-bold">{product.rating}</span>
                     </div>
 
@@ -410,7 +410,7 @@ export default function ProductsPage() {
                         {product.category}
                       </span>
 
-                      <span className="rounded bg-[#fff7df] px-1.5 py-1 text-[8px] font-black text-[#b77c00]">
+                      <span className="rounded bg-[#FFF9D9] px-1.5 py-1 text-[8px] font-black text-[#1677FF]">
                         効果 +{product.score}点
                       </span>
                     </div>
@@ -435,7 +435,7 @@ export default function ProductsPage() {
               まとめ：これだけ揃えればOK
             </h2>
 
-            <div className="mt-3 rounded-[16px] border border-[#dfdfdf] bg-white p-4">
+            <div className="mt-3 rounded-[16px] border border-black/10 bg-white p-4">
               <div className="grid grid-cols-[1fr_auto] items-center gap-4">
                 <div className="flex items-center justify-center gap-2">
                   {products.map((product, index) => (
@@ -470,7 +470,7 @@ export default function ProductsPage() {
                     予算の目安
                   </p>
 
-                  <p className="mt-1 whitespace-nowrap text-[25px] font-black text-[#b77c00]">
+                  <p className="mt-1 whitespace-nowrap text-[25px] font-black text-[#1677FF]">
                     約{formatPrice(totalPrice)}円
                   </p>
                 </div>

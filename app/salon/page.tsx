@@ -23,7 +23,7 @@ const recommendedSalon = {
   businessHours: "11:00〜21:00",
   price: "メンズカット ¥5,500〜",
   tags: ["メンズ専門", "眉毛対応", "爽やか系が得意"],
-  image: "/lp/hero-man.png",
+  image: "/salon/LIPPS.jpg",
 };
 
 const otherSalons: Salon[] = [
@@ -34,7 +34,7 @@ const otherSalons: Salon[] = [
     rating: 4.8,
     reviewCount: 86,
     tag: "メンズ専門",
-    image: "/lp/hero-man.png",
+    image: "/salon/fifth.jpg",
     imagePosition: "50% 22%",
   },
   {
@@ -44,7 +44,7 @@ const otherSalons: Salon[] = [
     rating: 4.7,
     reviewCount: 122,
     tag: "眉毛対応",
-    image: "/lp/hero-visual.png",
+    image: "/salon/ocean.jpg",
     imagePosition: "42% 30%",
   },
   {
@@ -54,7 +54,7 @@ const otherSalons: Salon[] = [
     rating: 4.6,
     reviewCount: 90,
     tag: "爽やか系",
-    image: "/lp/hero-man.png",
+    image: "/salon/GOALD.jpg",
     imagePosition: "67% 20%",
   },
 ];

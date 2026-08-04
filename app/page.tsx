@@ -268,17 +268,11 @@ export default function Home() {
               変えられる。
             </h1>
 
-            <div
-              className="mt-4 flex gap-12"
-              aria-hidden="true"
-            >
-              <span className="h-[3px] w-10 rounded-full bg-[#1677FF]" />
-              <span className="h-[3px] w-10 rounded-full bg-[#1677FF]" />
-            </div>
+          
 
             <p className="mt-8 text-[25px] font-semibold leading-[1.55] tracking-[-0.035em] sm:text-[30px] lg:text-[33px]">
-              <span className="text-[#1677FF]">AI</span>
-              が、あなただけの
+              
+              AIが、あなただけの
               <br />
               垢抜けプランを作成。
             </p>

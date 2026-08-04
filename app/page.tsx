@@ -127,13 +127,18 @@ function Icon({
   }
 
   if (name === "hair") {
-    return (
-      <svg {...common}>
-        <path d="M5 13c0-6 3-9 7-9 4.5 0 7 3.4 7 8.5" />
-        <path d="M7 13v5m10-5v5M8 8c2.5-2.4 6.4-2.5 9-.2" />
-      </svg>
-    );
-  }
+  return (
+    <svg {...common}>
+      <path d="M5 12.5V10a7 7 0 0 1 14 0v2.5" />
+      <path d="M6.5 10.5c1.1-3.2 3.3-5 6.2-5.3 2.4-.2 4.5.8 5.8 2.8" />
+      <path d="M7.5 9.5c1.4-.3 2.6-1.1 3.5-2.3" />
+      <path d="M11 7.2c1.2 1 2.8 1.5 4.6 1.4" />
+      <path d="M7.5 12.5v5" />
+      <path d="M16.5 12.5v5" />
+      <path d="M9 20h6" />
+    </svg>
+  );
+}
 
   if (name === "brow") {
     return (
@@ -257,7 +262,7 @@ export default function Home() {
 
         <div className="site-container grid min-h-[660px] items-center gap-8 py-14 lg:grid-cols-[0.78fr_1.22fr] lg:gap-4 lg:py-16">
           <div className="relative z-10 max-w-[520px] lg:pb-4">
-            <h1 className="text-balance text-[50px] font-black leading-[1.08] tracking-[-0.065em] text-[#111111] sm:text-[64px] lg:text-[76px]">
+            <h1 className="text-balance text-[50px] font-semibold leading-[1.08] tracking-[-0.065em] text-[#111111] sm:text-[64px] lg:text-[76px]">
               第一印象は、
               <br />
               変えられる。
@@ -271,7 +276,7 @@ export default function Home() {
               <span className="h-[3px] w-10 rounded-full bg-[#1677FF]" />
             </div>
 
-            <p className="mt-8 text-[25px] font-black leading-[1.55] tracking-[-0.035em] sm:text-[30px] lg:text-[33px]">
+            <p className="mt-8 text-[25px] font-semibold leading-[1.55] tracking-[-0.035em] sm:text-[30px] lg:text-[33px]">
               <span className="text-[#1677FF]">AI</span>
               が、あなただけの
               <br />
@@ -384,13 +389,11 @@ export default function Home() {
                   総合スコア
                 </span>
 
-                <div className="score-ring mt-3">
-                  <span className="text-3xl font-black text-[#111111]">
+                <div className="score-ring mt-2">
+                  <span className="-mt-0 block text-3xl font-medium text-[#111111]">
                     78
                   </span>
-                  <span className="text-[10px] text-black/50">
-                    /100
-                  </span>
+                  
                 </div>
               </div>
             </div>
@@ -481,48 +484,39 @@ export default function Home() {
       </section>
 
       <section className="section-border py-16">
-        <div className="site-container grid gap-8 lg:grid-cols-3">
-          <RecommendationCard
-            title="あなたに合う商品を提案"
-            image="/lp/products-v2.png"
-            alt="スキンケアやスタイリング商品のイメージ"
-          >
-            スキンケア・スタイリング剤、診断結果に合わせて必要なアイテムを厳選。
-          </RecommendationCard>
+  <div className="site-container grid gap-8 lg:grid-cols-3">
+    <RecommendationCard
+      title="あなたに合う商品を提案"
+      image="/lp/products-v2.png"
+      alt="スキンケアやスタイリング商品のイメージ"
+    >
+      スキンケア・スタイリング剤、診断結果に合わせて必要なアイテムを厳選。
+    </RecommendationCard>
 
-          <RecommendationCard
-            title="あなたに合うサロンを提案"
-            image="/lp/salon-v2.png"
-            alt="メンズ美容室や眉毛サロンのイメージ"
-          >
-            美容室・眉毛サロンなど、位置情報から厳選サロンをご紹介。
-          </RecommendationCard>
+    <RecommendationCard
+      title="あなたに合うサロンを提案"
+      image="/lp/salon-v2.png"
+      alt="メンズ美容室や眉毛サロンのイメージ"
+    >
+      美容室・眉毛サロンなど、位置情報から厳選サロンをご紹介。
+    </RecommendationCard>
 
-          <div className="rounded-3xl bg-gradient-to-br from-[#EEF6FF] to-white p-6">
-            <p className="text-2xl font-black leading-snug">
-              いつでもどこでも、
-              <br />
-              あなたのポケットにAIを。
-            </p>
+    <div className="rounded-3xl bg-gradient-to-br from-[#EEF6FF] to-white p-6">
+      <p className="text-2xl font-bold leading-snug">
+        いつでもどこでも、
+        <br />
+        あなたのポケットにAIを。
+      </p>
 
-            <div className="mt-6 grid gap-3 text-sm font-semibold text-black/70">
-              <CheckItem>診断結果をいつでも確認</CheckItem>
-              <CheckItem>やることリストの進捗を管理</CheckItem>
-              <CheckItem>おすすめ商品・サロンをチェック</CheckItem>
-              <CheckItem>再診断で変化を可視化</CheckItem>
-            </div>
-
-            <div className="mt-7 rounded-2xl border border-black/10 bg-white p-4 shadow-sm">
-              <div className="flex items-center gap-3">
-                <span className="h-10 w-10 rounded-full bg-[#EEF6FF]" />
-                <div className="h-2.5 w-24 rounded-full bg-black/10" />
-              </div>
-
-              <div className="mt-4 h-24 rounded-xl bg-gradient-to-r from-[#EEF6FF] to-white" />
-            </div>
-          </div>
-        </div>
-      </section>
+      <div className="mt-6 grid gap-3 text-sm font-semibold text-black/70">
+        <CheckItem>診断結果をいつでも確認</CheckItem>
+        <CheckItem>やることリストの進捗を管理</CheckItem>
+        <CheckItem>おすすめ商品・サロンをチェック</CheckItem>
+        <CheckItem>再診断で変化を可視化</CheckItem>
+      </div>
+    </div>
+  </div>
+</section>
 
       <section id="faq" className="section-border py-16">
         <div className="site-container grid items-center gap-10 lg:grid-cols-[0.7fr_1.3fr]">
@@ -558,7 +552,7 @@ export default function Home() {
         <div className="site-container overflow-hidden rounded-[28px] bg-gradient-to-r from-[#EEF6FF] via-white to-[#EEF6FF] px-6 py-8 sm:px-10">
           <div className="grid items-center gap-6 lg:grid-cols-[1fr_auto_0.55fr]">
             <div>
-              <p className="text-2xl font-black leading-snug sm:text-3xl">
+              <p className="text-2xl font-bold leading-snug sm:text-3xl">
                 変わりたい。その最初の一歩を、
                 <br />
                 AKANUKE.AIと始めよう。
@@ -624,22 +618,23 @@ function HeroAnalysisCard() {
       className="analysis-panel"
       aria-label="AI分析結果のイメージ"
     >
-      <div className="flex items-center justify-between">
+      <div className="analysis-panel-header">
         <div>
-          <p className="text-[11px] font-black tracking-[0.14em] text-[#1677FF]">
+          <p className="analysis-panel-title">
             AI ANALYSIS
           </p>
-          <p className="mt-1 text-[9px] font-semibold text-black/45">
+
+          <p className="analysis-panel-subtitle">
             BEAUTY DIAGNOSIS
           </p>
         </div>
 
-        <span className="grid h-8 w-8 place-items-center rounded-full bg-[#EEF6FF] text-[#1677FF]">
+        <span className="analysis-panel-spark">
           <Icon name="spark" className="h-4 w-4" />
         </span>
       </div>
 
-      <div className="mt-3">
+      <div className="analysis-panel-list">
         {analysisItems.map((item, index) => (
           <AnalysisScoreRow
             key={item.label}
@@ -661,29 +656,30 @@ function AnalysisScoreRow({
 }) {
   return (
     <div
-      className={`grid grid-cols-[36px_1fr] gap-3 py-3 ${
-        last ? "" : "border-b border-black/10"
+      className={`analysis-score-row ${
+        last ? "analysis-score-row-last" : ""
       }`}
     >
-      <span className="grid h-9 w-9 place-items-center rounded-xl bg-[#EEF6FF] text-[#1677FF]">
-        <Icon name={item.icon} className="h-5 w-5" />
-      </span>
+      <div className="analysis-score-icon-wrap">
+        <Icon
+          name={item.icon}
+          className="analysis-score-icon"
+        />
 
-      <div className="min-w-0">
-        <div className="flex items-end justify-between gap-3">
-          <span className="text-[9px] font-black tracking-[0.08em] text-[#1677FF]">
-            {item.label}
-          </span>
+        <span className="analysis-score-icon-line" />
+      </div>
 
-          <span className="shrink-0 text-[18px] font-black leading-none text-[#1677FF]">
-            {item.score}
-            <small className="ml-0.5 text-[8px]">
-              /100
-            </small>
-          </span>
-        </div>
+      <div className="analysis-score-content">
+        <p className="analysis-score-label">
+          {item.label}
+        </p>
 
-        <p className="mt-1 text-[9px] leading-4 text-black/60">
+        <p className="analysis-score-number">
+          {item.score}
+          <span>/100</span>
+        </p>
+
+        <p className="analysis-score-note">
           {item.note}
         </p>
       </div>
@@ -717,7 +713,7 @@ function SectionTitle({
 }) {
   return (
     <h2
-      className={`text-2xl font-black tracking-[-0.03em] sm:text-3xl ${
+      className={`text-2xl font-bold tracking-[-0.03em] sm:text-3xl ${
         centered ? "text-center" : ""
       }`}
     >
@@ -876,7 +872,7 @@ function RecommendationCard({
 }) {
   return (
     <article>
-      <h3 className="text-xl font-black">{title}</h3>
+      <h3 className="text-xl font-bold">{title}</h3>
 
       <div className="mt-5 overflow-hidden rounded-3xl border border-black/10 bg-white shadow-sm">
         <Image

@@ -27,7 +27,7 @@ html {
 
 body {
   margin: 0;
-  background: #ffffff;
+  background: var(--background);
   color: var(--foreground);
   font-family:
     var(--font-geist-sans),
@@ -45,6 +45,10 @@ button,
 a {
   -webkit-tap-highlight-color: transparent;
 }
+
+/* =========================
+   COMMON
+========================= */
 
 .site-container {
   width: min(1180px, calc(100% - 32px));
@@ -81,6 +85,10 @@ a {
 .nav-link:hover::after {
   transform: scaleX(1);
 }
+
+/* =========================
+   BUTTON
+========================= */
 
 .primary-button {
   display: inline-flex;
@@ -155,30 +163,31 @@ a {
   background: rgba(22, 119, 255, 0.12);
 }
 
+/* 人物画像とAIカードを配置する右側領域 */
 .hero-visual-wrap {
   position: relative;
   display: flex;
   min-width: 0;
-  min-height: 585px;
+  min-height: 620px;
   align-items: flex-end;
   justify-content: center;
-  overflow: visible;
+  overflow: hidden;
 }
 
 /* 人物画像 */
 .hero-person-wrap {
   position: absolute;
-  right: 225px;
-  bottom: -10px;
-  width: min(88%, 740px);
-  height: 720px;
+  right: 150px;
+  bottom: -12px;
+  width: 720px;
+  height: 790px;
   pointer-events: none;
 
   -webkit-mask-image: linear-gradient(
     to bottom,
     #000000 0%,
     #000000 86%,
-    rgba(0, 0, 0, 0.92) 91%,
+    rgba(0, 0, 0, 0.92) 92%,
     rgba(0, 0, 0, 0.45) 97%,
     transparent 100%
   );
@@ -187,7 +196,7 @@ a {
     to bottom,
     #000000 0%,
     #000000 86%,
-    rgba(0, 0, 0, 0.92) 91%,
+    rgba(0, 0, 0, 0.92) 92%,
     rgba(0, 0, 0, 0.45) 97%,
     transparent 100%
   );
@@ -198,28 +207,139 @@ a {
   height: 100%;
   object-fit: contain;
   object-position: center bottom;
-  filter: drop-shadow(0 24px 48px rgba(22, 119, 255, 0.08));
+  transform: scale(1.08);
+  transform-origin: center bottom;
+  filter: drop-shadow(0 22px 44px rgba(22, 119, 255, 0.08));
 }
 
 /* AI分析カード */
 .analysis-panel {
   position: absolute;
   z-index: 20;
-  top: 34px;
-  right: -10px;
-  width: 345px;
-  border: 1px solid rgba(22, 119, 255, 0.18);
-  border-radius: 24px;
+  top: 42px;
+  right: 0;
+  width: 320px;
+  min-height: auto;
+  border: 1px solid rgba(22, 119, 255, 0.16);
+  border-radius: 20px;
   background: rgba(255, 255, 255, 0.98);
-  padding: 24px;
+  padding: 22px 20px;
   box-shadow:
-    0 28px 72px rgba(22, 119, 255, 0.15),
-    0 6px 22px rgba(17, 17, 17, 0.05);
+    0 26px 68px rgba(22, 119, 255, 0.14),
+    0 6px 20px rgba(17, 17, 17, 0.05);
   backdrop-filter: blur(18px);
 }
 
+.analysis-panel-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.analysis-panel-title {
+  color: #1677ff;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  line-height: 1;
+}
+
+.analysis-panel-subtitle {
+  margin-top: 7px;
+  color: rgba(17, 17, 17, 0.42);
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.analysis-panel-spark {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  place-items: center;
+  border-radius: 999px;
+  background: #eef6ff;
+  color: #1677ff;
+}
+
+.analysis-panel-list {
+  margin-top: 14px;
+}
+
+.analysis-score-row {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr);
+  gap: 14px;
+  padding: 17px 0;
+  border-bottom: 1px solid rgba(17, 17, 17, 0.1);
+}
+
+.analysis-score-row-last {
+  border-bottom: 0;
+  padding-bottom: 2px;
+}
+
+.analysis-score-icon-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 3px;
+  color: #1677ff;
+}
+
+.analysis-score-icon {
+  width: 31px;
+  height: 31px;
+  stroke-width: 1.7;
+}
+
+.analysis-score-icon-line {
+  display: block;
+  width: 29px;
+  height: 3px;
+  margin-top: 6px;
+  border-radius: 999px;
+  background: rgba(22, 119, 255, 0.5);
+}
+
+.analysis-score-content {
+  min-width: 0;
+}
+
+.analysis-score-label {
+  color: #1677ff;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  line-height: 1.3;
+}
+
+.analysis-score-number {
+  margin-top: 4px;
+  color: #1677ff;
+  font-size: 27px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.analysis-score-number span {
+  margin-left: 4px;
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.analysis-score-note {
+  margin-top: 7px;
+  color: rgba(17, 17, 17, 0.68);
+  font-size: 9px;
+  font-weight: 500;
+  line-height: 1.6;
+}
 /* =========================
-   SCORE
+   RESULT SCORE
 ========================= */
 
 .score-ring {
@@ -340,23 +460,80 @@ a {
 
 @media (max-width: 1023px) {
   .hero-visual-wrap {
-    min-height: 560px;
+    min-height: 570px;
     justify-content: center;
-    overflow: visible;
+    overflow: hidden;
   }
 
   .hero-person-wrap {
-    right: 190px;
-    bottom: -5px;
-    width: min(84%, 650px);
-    height: 650px;
+    right: 175px;
+    bottom: -8px;
+    width: 570px;
+    height: 630px;
+  }
+
+  .hero-person-image {
+    transform: scale(1.05);
   }
 
   .analysis-panel {
-    top: 48px;
+    top: 44px;
     right: 0;
-    width: 300px;
-    padding: 19px;
+    width: 285px;
+    min-height: auto;
+    padding: 19px 17px;
+  }
+
+  .analysis-panel-title {
+    font-size: 12px;
+  }
+
+  .analysis-panel-subtitle {
+    font-size: 8px;
+  }
+
+  .analysis-panel-spark {
+    width: 30px;
+    height: 30px;
+  }
+
+  .analysis-panel-list {
+    margin-top: 12px;
+  }
+
+  .analysis-score-row {
+    grid-template-columns: 42px minmax(0, 1fr);
+    gap: 12px;
+    padding: 14px 0;
+  }
+
+  .analysis-score-icon {
+    width: 27px;
+    height: 27px;
+  }
+
+  .analysis-score-icon-line {
+    width: 25px;
+    height: 2px;
+    margin-top: 5px;
+  }
+
+  .analysis-score-label {
+    font-size: 8px;
+  }
+
+  .analysis-score-number {
+    font-size: 23px;
+  }
+
+  .analysis-score-number span {
+    font-size: 8px;
+  }
+
+  .analysis-score-note {
+    margin-top: 5px;
+    font-size: 8px;
+    line-height: 1.5;
   }
 }
 
@@ -380,9 +557,9 @@ a {
   }
 
   .hero-visual-wrap {
-    min-height: 650px;
+    min-height: 780px;
     margin-top: 0;
-    overflow: visible;
+    overflow: hidden;
   }
 
   .hero-person-wrap {
@@ -390,67 +567,81 @@ a {
     right: auto;
     bottom: auto;
     left: 50%;
-    width: 100%;
+    width: 112%;
     height: 430px;
-    transform: translateX(-55%);
+    transform: translateX(-56%);
   }
 
   .hero-person-image {
     object-fit: contain;
     object-position: center bottom;
+    transform: scale(1.15);
+    transform-origin: center bottom;
   }
 
   .analysis-panel {
     top: auto;
     right: 50%;
-    bottom: 22px;
-    width: min(calc(100% - 12px), 360px);
+    bottom: 16px;
+    width: min(calc(100% - 8px), 350px);
+    min-height: auto;
     border-radius: 18px;
-    padding: 16px;
+    padding: 18px 16px;
     transform: translateX(50%);
   }
 
-  .analysis-panel > div:first-child p:first-child {
-    font-size: 10px;
+  .analysis-panel-title {
+    font-size: 12px;
   }
 
-  .analysis-panel > div:first-child p:last-child {
-    display: block;
+  .analysis-panel-subtitle {
+    margin-top: 6px;
+    font-size: 8px;
   }
 
-  .analysis-panel > div:first-child span {
+  .analysis-panel-spark {
+    width: 30px;
+    height: 30px;
+  }
+
+  .analysis-panel-list {
+    margin-top: 12px;
+  }
+
+  .analysis-score-row {
+    grid-template-columns: 44px minmax(0, 1fr);
+    gap: 11px;
+    padding: 14px 0;
+  }
+
+  .analysis-score-icon {
     width: 28px;
     height: 28px;
   }
 
-  .analysis-panel [class*="grid-cols"] {
-    grid-template-columns: 34px 1fr;
-    gap: 9px;
-    padding-block: 10px;
+  .analysis-score-icon-line {
+    width: 26px;
+    height: 2px;
+    margin-top: 5px;
   }
 
-  .analysis-panel [class*="grid-cols"] > span {
-    width: 34px;
-    height: 34px;
-    border-radius: 10px;
-  }
-
-  .analysis-panel [class*="grid-cols"] > span svg {
-    width: 17px;
-    height: 17px;
-  }
-
-  .analysis-panel [class*="grid-cols"] p {
-    font-size: 8px;
-    line-height: 1.45;
-  }
-
-  .analysis-panel [class*="grid-cols"] div > div span:first-child {
+  .analysis-score-label {
     font-size: 8px;
   }
 
-  .analysis-panel [class*="grid-cols"] div > div span:last-child {
-    font-size: 17px;
+  .analysis-score-number {
+    margin-top: 3px;
+    font-size: 22px;
+  }
+
+  .analysis-score-number span {
+    font-size: 8px;
+  }
+
+  .analysis-score-note {
+    margin-top: 5px;
+    font-size: 8px;
+    line-height: 1.5;
   }
 
   .primary-button {

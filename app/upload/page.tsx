@@ -541,48 +541,36 @@ export default function UploadPage() {
 
                       return (
                         <button
-                          key={option.id}
-                          type="button"
-                          onClick={() => toggleSelection(option.id)}
-                          aria-pressed={isSelected}
-                          className={`relative min-h-[130px] rounded-[14px] border p-3.5 text-left transition active:scale-[0.98] ${
-                            isSelected
-                              ? "border-black bg-black text-white shadow-lg"
-                              : isRecommended
-                                ? "border-[#FFD400] bg-[#FFF9D9] text-black"
-                                : "border-black/10 bg-white text-black hover:border-[#1677FF]"
-                          }`}
-                        >
-                          {isSelected && (
-                            <span className="absolute right-3 top-3 flex h-6 w-6 items-center justify-center rounded-full bg-[#FFD400] text-[10px] font-black text-[#111111]">
-                              {selectionNumber}
-                            </span>
-                          )}
+  key={option.id}
+  type="button"
+  onClick={() => toggleSelection(option.id)}
+  aria-pressed={isSelected}
+  className={`relative min-h-[130px] rounded-[14px] border p-3.5 text-left transition duration-200 active:scale-[0.98] ${
+    isSelected
+      ? "border-2 border-[#1677FF] bg-[#FCFDFF] text-[#111111] shadow-[0_8px_24px_rgba(22,119,255,0.08)] -translate-y-0.5"
+      : isRecommended
+        ? "border-[#FFD400] bg-[#FFF9D9] text-[#111111]"
+        : "border-black/10 bg-white text-[#111111] hover:border-[#1677FF]"
+  }`}
+>
+  {isSelected && (
+    <span className="absolute right-3 top-3 flex h-6 w-6 items-center justify-center rounded-full bg-[#FFE35A] text-[10px] font-black text-[#111111]">
+      {selectionNumber}
+    </span>
+  )}
 
-                          <span
-                            className={`flex h-9 w-9 items-center justify-center rounded-full text-[17px] ${
-                              isSelected
-                                ? "bg-white/15"
-                                : "bg-[#EEF6FF] text-[#1677FF]"
-                            }`}
-                          >
-                            {option.icon}
-                          </span>
+  <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#EEF6FF] text-[17px] text-[#1677FF]">
+    {option.icon}
+  </span>
 
-                          <p className="mt-3 text-[13px] font-black">
-                            {option.label}
-                          </p>
+  <p className="mt-3 text-[13px] font-black text-[#111111]">
+    {option.label}
+  </p>
 
-                          <p
-                            className={`mt-1.5 text-[10px] leading-4 ${
-                              isSelected
-                                ? "text-white/65"
-                                : "text-black/60"
-                            }`}
-                          >
-                            {option.description}
-                          </p>
-                        </button>
+  <p className="mt-1.5 text-[10px] leading-4 text-black/60">
+    {option.description}
+  </p>
+</button>
                       );
                     })}
                   </div>

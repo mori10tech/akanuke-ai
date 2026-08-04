@@ -301,17 +301,17 @@ export default function Home() {
           </div>
 
           <div className="hero-visual-wrap relative z-0 min-h-[480px] lg:min-h-[585px]">
-  <div className="hero-person-wrap">
-    <Image
-      src="/lp/hero-person-v4.png"
-      alt="AKANUKE.AIで垢抜けた男性のイメージ"
-      width={1536}
-      height={2048}
-      priority
-      sizes="(max-width: 767px) 100vw, (max-width: 1023px) 70vw, 48vw"
-      className="hero-person-image"
-    />
-  </div>
+<div className="hero-person-wrap">
+  <Image
+    src="/lp/hero-person-v4.png"
+    alt="AKANUKE.AIで垢抜けた男性のイメージ"
+    width={1536}
+    height={2048}
+    priority
+    sizes="(max-width: 767px) 100vw, (max-width: 1023px) 70vw, 48vw"
+    className="hero-person-image"
+  />
+</div>
 
   <HeroAnalysisCard />
 </div>

@@ -519,21 +519,12 @@ export default function Home() {
 </section>
 
       <section id="faq" className="section-border py-16">
-        <div className="site-container grid items-center gap-10 lg:grid-cols-[0.7fr_1.3fr]">
-          <div className="overflow-hidden rounded-[32px] bg-[#EEF6FF]">
-            <Image
-              src="/lp/faq-man-v3.png"
-              width={245}
-              height={175}
-              alt="スマートフォンでAKANUKE.AIを利用する男性"
-              className="h-full w-full object-cover"
-            />
-          </div>
-
-          <div>
+        <div className="site-container">
+          
+          <div className="mx-auto w-full max-w-6xl">
             <SectionTitle>よくある質問</SectionTitle>
 
-            <div className="mt-6 grid gap-3 md:grid-cols-2">
+            <div className="mx-auto mt-10 grid w-full max-w-6xl grid-cols-1 gap-4 md:grid-cols-2">
               {faqs.map(([question, answer]) => (
                 <details key={question} className="faq-item group">
                   <summary>
@@ -574,7 +565,7 @@ export default function Home() {
             </Link>
 
             <Image
-              src="/lp/hero-man.png"
+              src="/lp/hero-man-v2.png"
               width={390}
               height={470}
               alt="AKANUKE.AIを始める男性"

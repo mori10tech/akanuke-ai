@@ -78,7 +78,7 @@ export default function Home() {
         <div className="hero-glow hero-glow-right" />
         <div className="site-container grid min-h-[660px] items-center gap-8 py-14 lg:grid-cols-[0.78fr_1.22fr] lg:gap-4 lg:py-16">
           <div className="relative z-10 max-w-[520px] lg:pb-4">
-            <h1 className="text-balance text-[50px] font-black leading-[1.08] tracking-[-0.065em] text-[#111111] sm:text-[64px] lg:text-[72px]">
+            <h1 className="text-balance text-[50px] font-black leading-[1.08] tracking-[-0.065em] text-[#111111] sm:text-[64px] lg:text-[76px]">
               第一印象は、<br />変えられる。
             </h1>
             <div className="mt-4 flex gap-12" aria-hidden="true"><span className="h-[3px] w-10 rounded-full bg-[#1677FF]"/><span className="h-[3px] w-10 rounded-full bg-[#1677FF]"/></div>
@@ -162,14 +162,30 @@ export default function Home() {
       </section>
 
       <section className="section-border py-16">
-        <div className="site-container text-center">
-          <Link href="/upload" className="primary-button mx-auto mb-6 w-full max-w-sm">無料で診断をはじめる <span aria-hidden>›</span></Link>
-          <SectionTitle centered>自分のペースで、理想の自分へ近づくプラン</SectionTitle>
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-           <WeekCard image="/lp/week1.png" week="Step 1" title="土台を整える" description="髪型・眉毛・肌のベースを整え、清潔感のある印象をつくる。" />
-<WeekCard image="/lp/week2.png" week="Step 2" title="印象をアップデート" description="改善ポイントを実践し、垢抜けた印象をつくる。" />
-<WeekCard image="/lp/week3.png" week="Step 3" title="魅力を引き出す" description="細部までこだわり、あなたらしい魅力を最大化する。" />
-<WeekCard image="/lp/week4.png" week="Step 4" title="理想の自分を完成へ" description="習慣化して魅力を定着させ、理想の自分へ。" />
+        <div className="site-container">
+          <div className="text-center">
+            <Link href="/upload" className="primary-button mx-auto mb-6 w-full max-w-sm">無料で診断をはじめる <span aria-hidden>›</span></Link>
+            <p className="text-[11px] font-black tracking-[0.16em] text-[#1677FF]">BEFORE / AFTER</p>
+            <SectionTitle centered>現在の印象と、目指す理想像</SectionTitle>
+            <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-black/60">
+              AIが分析した現在の印象と、改善後に目指す理想イメージを比較できます。
+            </p>
+          </div>
+
+          <div className="mx-auto mt-8 grid max-w-4xl gap-5 md:grid-cols-2">
+            <BeforeAfterCard
+              image="/lp/before.png"
+              label="Before"
+              title="現在の印象"
+              description="顔写真をもとに、髪型・眉毛・肌・全体の印象をAIが分析します。"
+            />
+            <BeforeAfterCard
+              image="/lp/after.png"
+              label="After"
+              title="理想の印象"
+              description="改善ポイントを反映した、爽やかさと清潔感のある理想像を確認できます。"
+              after
+            />
           </div>
         </div>
       </section>
@@ -194,10 +210,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section
-  id="faq"
-  className="section-border bg-[#FAFCFF] py-16"
->
+      <section id="faq" className="section-border py-16">
         <div className="site-container grid items-center gap-10 lg:grid-cols-[0.7fr_1.3fr]">
           <div className="overflow-hidden rounded-[32px] bg-[#EEF6FF]">
             <Image src="/lp/faq-man.png" width={245} height={175} alt="スマートフォンでAKANUKE.AIを利用する男性" className="h-full w-full object-cover" />
@@ -217,7 +230,7 @@ export default function Home() {
       </section>
 
       <section className="px-4 pb-5 pt-4">
-        <div className="site-container overflow-hidden rounded-[28px] bg-[#EEF6FF] px-6 py-8 sm:px-10">
+        <div className="site-container overflow-hidden rounded-[28px] bg-gradient-to-r from-[#EEF6FF] via-white to-[#EEF6FF] px-6 py-8 sm:px-10">
           <div className="grid items-center gap-6 lg:grid-cols-[1fr_auto_0.55fr]">
             <div>
               <p className="text-2xl font-black leading-snug sm:text-3xl">変わりたい。その最初の一歩を、<br />AKANUKE.AIと始めよう。</p>
@@ -270,10 +283,50 @@ function FlowStep({ step, icon, label }: { step: string; icon: IconName; label: 
   return <div className="rounded-2xl border border-black/10 bg-white p-4 text-center shadow-sm"><p className="text-[10px] font-black text-[#1677FF]">{step}</p><Icon name={icon} className="mx-auto mt-4 h-8 w-8 text-[#1677FF]" /><p className="mt-4 text-xs font-bold leading-5">{label}</p></div>;
 }
 
-function WeekCard({ image, week, title, description, darker = false }: { image: string; week: string; title: string; description: string; darker?: boolean }) {
-  return <article className="overflow-hidden rounded-3xl border border-black/10 bg-white text-left shadow-sm transition-transform duration-300 hover:-translate-y-1"><div className={`relative h-44 overflow-hidden ${darker ? "bg-[#EEF6FF]" : "bg-[#EEF6FF]"}`}><Image src={image} alt={`${week} ${title}`} fill sizes="(max-width: 639px) 100vw, (max-width: 1279px) 50vw, 25vw" className={darker ? "brightness-75 saturate-75" : ""} /></div><div className="p-5"><p className="text-xs font-black text-[#1677FF]">{week}</p><h3 className="mt-2 text-lg font-black">{title}</h3><p className="mt-3 text-sm leading-6 text-black/60">{description}</p></div></article>;
+function BeforeAfterCard({
+  image,
+  label,
+  title,
+  description,
+  after = false,
+}: {
+  image: string;
+  label: "Before" | "After";
+  title: string;
+  description: string;
+  after?: boolean;
+}) {
+  return (
+    <article
+      className={`overflow-hidden rounded-3xl border bg-white text-left shadow-sm ${
+        after ? "border-[#FFD400]" : "border-black/10"
+      }`}
+    >
+      <div className="relative aspect-[4/3] overflow-hidden bg-[#EEF6FF]">
+        <Image
+          src={image}
+          alt={`${label} ${title}`}
+          fill
+          sizes="(max-width: 767px) 100vw, 50vw"
+          className="object-cover"
+        />
+        <span
+          className={`absolute left-4 top-4 rounded-full px-3 py-1.5 text-[11px] font-black ${
+            after ? "bg-[#FFD400] text-[#111111]" : "bg-[#111111] text-white"
+          }`}
+        >
+          {label}
+        </span>
+      </div>
+
+      <div className="p-5 sm:p-6">
+        <h3 className="text-lg font-black text-[#111111]">{title}</h3>
+        <p className="mt-3 text-sm leading-7 text-black/60">{description}</p>
+      </div>
+    </article>
+  );
 }
 
 function RecommendationCard({ title, image, alt, children }: { title: string; image: string; alt: string; children: React.ReactNode }) {
-  return <article><h3 className="text-xl font-black">{title}</h3><div className="mt-5 overflow-hidden rounded-3xl border border-black/10 bg-white shadow-sm"><Image src={image} alt={alt} width={285} height={120} className="h-40 w-full object-cover" /><p className="p-5 text-sm leading-7 text-black/60">{children}</p></div></article>;
+  return <article><h3 className="text-xl font-black">{title}</h3><div className="mt-5 overflow-hidden rounded-3xl border border-black/10 bg-white shadow-sm"><Image src={image} alt={alt} width={285} height={120} className="h-44 w-full object-cover" /><p className="p-5 text-sm leading-7 text-black/60">{children}</p></div></article>;
 }

@@ -607,7 +607,9 @@ export default function Home() {
 >
   運営会社
 </a>
-            <a href="#">ログイン</a>
+            <Link href="/login">
+  ログイン
+</Link>
           </div>
 
           <p className="text-[11px] text-black/40">

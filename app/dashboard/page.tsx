@@ -1,4 +1,5 @@
 import Link from "next/link";
+import AppShell from "../components/AppShell";
 
 function HomeIcon() {
   return (
@@ -37,7 +38,7 @@ function CameraIcon() {
   );
 }
 
-function CalendarIcon() {
+function ProductIcon() {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -49,8 +50,8 @@ function CalendarIcon() {
       strokeLinecap="round"
       strokeLinejoin="round"
     >
-      <rect x="4" y="5" width="16" height="15" rx="2" />
-      <path d="M8 3v4m8-4v4M4 10h16" />
+      <path d="M6 8h12l-1 12H7L6 8Z" />
+      <path d="M9 8V6a3 3 0 0 1 6 0v2" />
     </svg>
   );
 }
@@ -98,8 +99,7 @@ const scoreItems = [
 
 export default function DashboardPage() {
   return (
-    <main className="min-h-screen bg-[#EEF6FF] text-[#111111]">
-      <div className="mx-auto min-h-screen w-full max-w-[480px] bg-[#F8FAFC] shadow-[0_0_40px_rgba(15,23,42,0.08)]">
+    <AppShell>
         <header className="sticky top-0 z-40 border-b border-black/10 bg-white/95 backdrop-blur-xl">
           <div className="flex h-[68px] items-center justify-between gap-4 px-5">
             <Link
@@ -236,7 +236,7 @@ export default function DashboardPage() {
                 className="flex items-center gap-4 border-b border-black/5 px-5 py-4"
               >
                 <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#EEF6FF] text-[#1677FF]">
-                  <CalendarIcon />
+                  <ProductIcon />
                 </span>
 
                 <span className="min-w-0 flex-1">
@@ -285,34 +285,6 @@ export default function DashboardPage() {
           </p>
         </div>
 
-        <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-black/10 bg-white/95 pb-[max(10px,env(safe-area-inset-bottom))] pt-2 backdrop-blur-xl">
-          <div className="mx-auto grid w-full max-w-[480px] grid-cols-3 px-4">
-            <Link
-              href="/dashboard"
-              className="flex flex-col items-center gap-1 py-2 text-[#1677FF]"
-            >
-              <HomeIcon />
-              <span className="text-[9px] font-black">ホーム</span>
-            </Link>
-
-            <Link
-              href="/upload"
-              className="flex flex-col items-center gap-1 py-2 text-black/35"
-            >
-              <CameraIcon />
-              <span className="text-[9px] font-bold">診断</span>
-            </Link>
-
-            <Link
-              href="/products"
-              className="flex flex-col items-center gap-1 py-2 text-black/35"
-            >
-              <CalendarIcon />
-              <span className="text-[9px] font-bold">商品</span>
-            </Link>
-          </div>
-        </nav>
-      </div>
-    </main>
+    </AppShell>
   );
 }

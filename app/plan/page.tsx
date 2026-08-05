@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState, type ReactNode } from "react";
-import BottomNav from "../components/BottomNav";
+import AppShell from "../components/AppShell";
 
 const STORAGE_KEY = "akanukePlanCompletedTasks";
 
@@ -136,8 +136,8 @@ export default function PlanPage() {
   if (!loaded) return <main className="flex min-h-screen items-center justify-center bg-white"><div className="h-9 w-9 animate-spin rounded-full border-[3px] border-neutral-200 border-t-[#1677FF]" /></main>;
 
   return (
-    <main className="min-h-screen bg-white text-[#111111]">
-      <div className="mx-auto min-h-screen w-full max-w-[480px] overflow-hidden bg-white shadow-[0_0_50px_rgba(22,22,18,0.09)]">
+    <AppShell background="white">
+      <div className="overflow-hidden bg-white">
         <header className="sticky top-0 z-40 border-b border-black/[0.06] bg-white/95 backdrop-blur-xl"><div className="grid h-[68px] grid-cols-[44px_1fr_44px] items-center px-4"><Link href="/result" aria-label="診断結果へ戻る" className="flex h-10 w-10 items-center justify-center rounded-full hover:bg-black/[0.05]"><Icon name="arrowLeft" className="h-[21px] w-[21px]" /></Link><Link href="/" className="text-center text-[20px] font-black tracking-[-0.035em]">AKANUKE.AI</Link><div aria-hidden="true" /></div></header>
 
         <div className="pb-32">
@@ -161,8 +161,7 @@ export default function PlanPage() {
 
           <button type="button" onClick={() => setCompletedIds([])} className="mx-auto mt-6 flex items-center gap-2 text-[10px] font-black text-neutral-400"><Icon name="reset" className="h-4 w-4" />チェック状況をリセット</button>
         </div>
-        <BottomNav />
       </div>
-    </main>
+    </AppShell>
   );
 }

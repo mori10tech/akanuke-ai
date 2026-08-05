@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import BottomNav from "../components/BottomNav";
+import AppShell from "../components/AppShell";
 
 type Salon = {
   id: number;
@@ -227,8 +227,7 @@ function ChevronRightIcon() {
 
 export default function SalonPage() {
   return (
-    <main className="min-h-screen bg-[#f3f4f6] text-[#111111]">
-      <div className="mx-auto min-h-screen w-full max-w-[480px] bg-[#fafafa] shadow-[0_0_40px_rgba(15,23,42,0.08)]">
+    <AppShell>
         <header className="sticky top-0 z-30 border-b border-[#e5e5e5] bg-white/95 backdrop-blur-xl">
           <div className="grid h-[68px] grid-cols-[48px_1fr_48px] items-center px-3">
             <Link
@@ -464,8 +463,6 @@ export default function SalonPage() {
           </aside>
         </div>
 
-        <BottomNav />
-      </div>
-    </main>
+    </AppShell>
   );
 }

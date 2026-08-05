@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import AppShell from "../components/AppShell";
 
 type DiagnosisHistory = {
   id: string;
@@ -246,8 +247,7 @@ function HistoryCard({
 
 export default function HistoryPage() {
   return (
-    <main className="min-h-screen bg-[#EEF6FF] text-[#111111]">
-      <div className="mx-auto min-h-screen w-full max-w-[480px] bg-[#F8FAFC] shadow-[0_0_40px_rgba(15,23,42,0.08)]">
+    <AppShell>
         <header className="sticky top-0 z-40 border-b border-black/10 bg-white/95 backdrop-blur-xl">
           <div className="grid h-[68px] grid-cols-[48px_1fr_48px] items-center px-3">
             <Link
@@ -326,7 +326,6 @@ export default function HistoryPage() {
             現在はUI確認用のダミーデータを表示しています。
           </p>
         </div>
-      </div>
-    </main>
+    </AppShell>
   );
 }

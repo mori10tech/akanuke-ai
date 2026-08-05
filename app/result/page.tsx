@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState, type ReactNode } from "react";
-import BottomNav from "../components/BottomNav";
+import AppShell from "../components/AppShell";
 
 const IMAGE_STORAGE_KEY = "akanukeImage";
 const IMPRESSION_STORAGE_KEY = "akanukeDesiredImpressions";
@@ -128,8 +128,8 @@ export default function ResultPage() {
   }
 
   return (
-    <main className="min-h-screen bg-white text-[#111111]">
-      <div className="mx-auto min-h-screen w-full max-w-[480px] overflow-hidden bg-white shadow-[0_0_50px_rgba(22,22,18,0.09)]">
+  <AppShell background="white">
+    <div className="overflow-hidden bg-white">
         <header className="sticky top-0 z-40 border-b border-black/[0.06] bg-white/95 backdrop-blur-xl">
           <div className="grid h-[68px] grid-cols-[44px_1fr_44px] items-center px-4">
             <Link href="/upload" aria-label="写真選択へ戻る" className="flex h-10 w-10 items-center justify-center rounded-full transition hover:bg-black/[0.05] active:scale-95"><Icon name="arrowLeft" className="h-[21px] w-[21px]" /></Link>
@@ -207,9 +207,8 @@ export default function ResultPage() {
           </div>
 
           <Link href="/upload" className="mx-4 mt-4 flex min-h-12 items-center justify-center gap-2 rounded-[12px] border border-black/10 bg-white px-4 text-[11px] font-black"><Icon name="refresh" className="h-4 w-4" />別の写真で診断し直す</Link>
-        </div>
-        <BottomNav />
-      </div>
-    </main>
+                </div>
+    </div>
+  </AppShell>
   );
 }

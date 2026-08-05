@@ -61,10 +61,8 @@ function SalonIcon({ className = "h-5 w-5" }: IconProps) {
     >
       <circle cx="6" cy="7" r="3" />
       <circle cx="6" cy="17" r="3" />
-
       <path d="M8.7 8.3 19 3" />
       <path d="M8.7 15.7 19 21" />
-
       <path d="M8.7 8.3 12 12" />
       <path d="M8.7 15.7 12 12" />
     </svg>
@@ -115,7 +113,7 @@ const navigationItems = [
   },
   {
     name: "垢抜けプラン",
-    href: "/history",
+    href: "/plan",
     icon: HistoryIcon,
   },
   {
@@ -139,11 +137,11 @@ export default function BottomNav() {
   const pathname = usePathname();
 
   return (
-    <nav
-      aria-label="メインナビゲーション"
-      className="fixed inset-x-0 bottom-0 z-50 border-t border-black/10 bg-white/95 pb-[max(8px,env(safe-area-inset-bottom))] pt-2 backdrop-blur-xl"
-    >
-      <div className="mx-auto grid w-full max-w-[480px] grid-cols-5 px-2">
+<nav
+  aria-label="メインナビゲーション"
+  className="fixed bottom-0 left-1/2 z-50 w-full max-w-[480px] -translate-x-1/2 border-t border-black/10 bg-white/95 pb-[max(8px,env(safe-area-inset-bottom))] pt-2 shadow-[0_-8px_24px_rgba(15,23,42,0.05)] backdrop-blur-xl"
+>
+  <div className="grid w-full grid-cols-5 px-2">
         {navigationItems.map((item) => {
           const isActive =
             pathname === item.href ||
@@ -158,8 +156,8 @@ export default function BottomNav() {
               aria-current={isActive ? "page" : undefined}
               className={`flex min-w-0 flex-col items-center justify-center gap-1 rounded-[10px] px-1 py-1.5 transition ${
                 isActive
-                  ? "text-[#111111]"
-                  : "text-black/40 hover:text-[#1677FF]"
+                  ? "text-[#1677FF]"
+                  : "text-black/35 hover:text-[#1677FF]"
               }`}
             >
               <Icon className="h-[21px] w-[21px]" />

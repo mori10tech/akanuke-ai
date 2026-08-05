@@ -454,14 +454,14 @@ export default function Home() {
 
           <div className="mx-auto mt-8 grid max-w-4xl gap-5 md:grid-cols-2">
             <BeforeAfterCard
-              image="/lp/before-v2.png"
+              image="/lp/before-v3.png"
               label="Before"
               title="現在の印象"
               description="顔写真をもとに、髪型・眉毛・肌・全体の印象をAIが分析します。"
             />
 
             <BeforeAfterCard
-              image="/lp/after.png"
+              image="/lp/after-v3.png"
               label="After"
               title="理想の印象"
               description="改善ポイントを反映した、爽やかさと清潔感のある理想像を確認できます。"
@@ -832,12 +832,13 @@ function BeforeAfterCard({
     >
       <div className="relative aspect-[4/3] overflow-hidden bg-[#EEF6FF]">
         <Image
-          src={image}
-          alt={`${label} ${title}`}
-          fill
-          sizes="(max-width: 767px) 100vw, 50vw"
-          className="object-cover"
-        />
+  src={image}
+  alt={`${label} ${title}`}
+  fill
+  quality={100}
+  sizes="(max-width: 767px) 100vw, 440px"
+  className="object-cover"
+/>
 
         <span
           className={`absolute left-4 top-4 rounded-full px-3 py-1.5 text-[11px] font-black ${

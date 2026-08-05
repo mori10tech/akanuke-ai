@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
@@ -319,24 +320,16 @@ export default async function ArticleDetailPage({
               )}
             </div>
 
-            <div className="relative mt-9 flex aspect-[16/8] items-center justify-center overflow-hidden rounded-[28px] border border-black/5 bg-gradient-to-br from-[#EEF6FF] via-white to-[#FFF9D9] shadow-[0_18px_55px_rgba(15,23,42,0.08)]">
-              <div className="absolute left-[12%] top-[16%] h-36 w-36 rounded-full bg-[#1677FF]/10 blur-3xl" />
-              <div className="absolute bottom-[8%] right-[10%] h-40 w-40 rounded-full bg-[#FFD400]/25 blur-3xl" />
-
-              <div className="relative px-8 text-center">
-                <p className="text-[10px] font-black tracking-[0.2em] text-[#1677FF]">
-                  AKANUKE JOURNAL
-                </p>
-
-                <p className="mt-4 text-[24px] font-semibold tracking-[-0.04em] sm:text-[34px]">
-                  メンズ垢抜け完全ガイド
-                </p>
-
-                <p className="mt-3 text-[11px] font-bold text-black/40">
-                  HAIR・EYEBROW・SKIN・FASHION
-                </p>
-              </div>
-            </div>
+            <div className="relative mt-9 aspect-[1200/630] overflow-hidden rounded-[28px] border border-black/5 bg-[#EEF6FF] shadow-[0_18px_55px_rgba(15,23,42,0.08)]">
+  <Image
+    src={article.image}
+    alt={article.title}
+    fill
+    priority
+    sizes="(max-width: 767px) 100vw, 860px"
+    className="object-cover"
+  />
+</div>
           </div>
         </header>
 

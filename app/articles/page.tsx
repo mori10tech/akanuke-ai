@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { getAllArticles } from "../../data/articles";
 
@@ -95,20 +96,15 @@ export default function ArticlesPage() {
   href={`/articles/${article.slug}`}
   className="group block overflow-hidden rounded-[24px] border border-black/10 bg-white shadow-[0_10px_34px_rgba(15,23,42,0.05)] transition hover:-translate-y-1 hover:shadow-[0_18px_46px_rgba(15,23,42,0.09)]"
 >
-              <div className="relative flex aspect-[16/9] items-center justify-center overflow-hidden bg-gradient-to-br from-[#EEF6FF] via-white to-[#FFF9D9]">
-                <div className="absolute left-[14%] top-[18%] h-24 w-24 rounded-full bg-[#1677FF]/10 blur-2xl" />
-                <div className="absolute bottom-[10%] right-[12%] h-28 w-28 rounded-full bg-[#FFD400]/20 blur-2xl" />
-
-                <div className="relative px-6 text-center">
-                  <span className="inline-flex rounded-full bg-white px-3 py-1.5 text-[9px] font-black tracking-[0.1em] text-[#1677FF] shadow-sm">
-                    {article.category}
-                  </span>
-
-                  <p className="mt-4 text-[13px] font-black tracking-[0.14em] text-[#111111]">
-                    AKANUKE JOURNAL
-                  </p>
-                </div>
-              </div>
+              <div className="relative aspect-[1200/630] overflow-hidden bg-[#EEF6FF]">
+  <Image
+    src={article.image}
+    alt={article.title}
+    fill
+    sizes="(max-width: 767px) 100vw, 560px"
+    className="object-cover transition duration-500 group-hover:scale-[1.02]"
+  />
+</div>
 
               <div className="p-5 sm:p-6">
                 <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-[10px] font-bold text-black/35">

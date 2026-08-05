@@ -582,9 +582,31 @@ export default function Home() {
 
           <div className="flex flex-wrap justify-center gap-x-7 gap-y-3 text-xs font-medium text-black/60">
             <a href="#">利用規約</a>
-            <a href="#">プライバシーポリシー</a>
-            <a href="#">お問い合わせ</a>
-            <a href="#">運営会社</a>
+
+            <a
+               href="https://www.leafworks.jp/doc/privacy.pdf"
+    　　　　　　target="_blank"
+    　　　　　　rel="noopener noreferrer"
+  　　　　　　　>
+            
+            個人情報保護方針
+            </a>
+
+            <a
+  href="https://www.leafworks.jp/contact/"
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  お問い合わせ
+</a>
+
+            <a
+  href="https://www.leafworks.jp/"
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  運営会社
+</a>
             <a href="#">ログイン</a>
           </div>
 

@@ -240,12 +240,12 @@ export default function Home() {
           </nav>
 
           <div className="flex items-center gap-4">
-            <a
-              href="#"
-              className="hidden text-sm font-bold text-[#1677FF] sm:inline"
-            >
-              ログイン
-            </a>
+            <Link
+  href="/login"
+  className="hidden text-sm font-bold text-[#1677FF] sm:inline"
+>
+  ログイン
+</Link>
             <Link
               href="/upload"
               className="primary-button compact-button"

@@ -124,7 +124,7 @@ export default function DashboardPage() {
             </p>
 
             <h1 className="mt-1 text-[24px] font-black">
-              森さん
+              テスト さん
             </h1>
 
             <p className="mt-3 text-[12px] leading-5 text-white/75">
@@ -211,26 +211,7 @@ export default function DashboardPage() {
             </h2>
 
             <div className="mt-3 overflow-hidden rounded-[20px] border border-black/5 bg-white shadow-[0_8px_28px_rgba(15,23,42,0.04)]">
-              <Link
-                href="/history"
-                className="flex items-center gap-4 border-b border-black/5 px-5 py-4"
-              >
-                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#EEF6FF] text-[#1677FF]">
-                  <CameraIcon />
-                </span>
-
-                <span className="min-w-0 flex-1">
-                  <span className="block text-[13px] font-black">
-                    診断履歴
-                  </span>
-                  <span className="mt-0.5 block text-[10px] text-black/40">
-                    過去の診断結果を確認
-                  </span>
-                </span>
-
-                <ChevronRightIcon />
-              </Link>
-
+             
               <Link
                 href="/products"
                 className="flex items-center gap-4 border-b border-black/5 px-5 py-4"

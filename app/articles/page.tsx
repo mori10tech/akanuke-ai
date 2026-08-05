@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { getAllArticles } from "../../data/articles";
 import Logo from "../components/Logo";
+import { getAllArticles } from "../../data/articles";
 
 function ArrowRightIcon() {
   return (
@@ -48,22 +48,22 @@ export default function ArticlesPage() {
       </header>
 
       <section className="border-b border-black/10 bg-gradient-to-b from-white to-[#EEF6FF]">
-        <div className="mx-auto w-full max-w-[1180px] px-5 pb-14 pt-14 sm:pb-20 sm:pt-20">
-          <p className="text-[10px] font-black tracking-[0.2em] text-[#1677FF]">
-            AKANUKE JOURNAL
-          </p>
+  <div className="mx-auto w-full max-w-[1180px] px-5 pb-14 pt-14 sm:pb-20 sm:pt-20">
+    <p className="text-[10px] font-black tracking-[0.2em] text-[#1677FF]">
+      AKANUKE JOURNAL
+    </p>
 
-          <h1 className="mt-4 text-[36px] font-semibold leading-[1.2] tracking-[-0.05em] sm:text-[52px]">
-            メンズ美容を、
-            <br />
-            分かりやすく。
-          </h1>
+    <h1 className="mt-4 text-[36px] font-semibold leading-[1.2] tracking-[-0.05em] sm:text-[52px]">
+      メンズ美容を、
+      <br />
+      分かりやすく。
+    </h1>
 
-          <p className="mt-5 max-w-[560px] text-[13px] leading-7 text-black/55 sm:text-[15px]">
-            髪型・眉毛・スキンケア・ファッションなど、男性が第一印象を整えるために役立つ情報を発信します。
-          </p>
-        </div>
-      </section>
+    <p className="mt-5 max-w-[560px] text-[13px] leading-7 text-black/55 sm:text-[15px]">
+      髪型・眉毛・スキンケア・ファッションなど、男性が第一印象を整えるために役立つ情報を発信します。
+    </p>
+  </div>
+</section>
 
       <section className="mx-auto w-full max-w-[1180px] px-5 py-12 sm:py-16">
         <div className="flex items-end justify-between gap-4">
@@ -85,19 +85,19 @@ export default function ArticlesPage() {
         <div className="mt-8 grid gap-5 md:grid-cols-2">
           {articles.map((article) => (
             <Link
-  key={article.slug}
-  href={`/articles/${article.slug}`}
-  className="group block overflow-hidden rounded-[24px] border border-black/10 bg-white shadow-[0_10px_34px_rgba(15,23,42,0.05)] transition hover:-translate-y-1 hover:shadow-[0_18px_46px_rgba(15,23,42,0.09)]"
->
+              key={article.slug}
+              href={`/articles/${article.slug}`}
+              className="group block overflow-hidden rounded-[24px] border border-black/10 bg-white shadow-[0_10px_34px_rgba(15,23,42,0.05)] transition hover:-translate-y-1 hover:shadow-[0_18px_46px_rgba(15,23,42,0.09)]"
+            >
               <div className="relative aspect-[1200/630] overflow-hidden bg-[#EEF6FF]">
-  <Image
-    src={article.image}
-    alt={article.title}
-    fill
-    sizes="(max-width: 767px) 100vw, 560px"
-    className="object-cover transition duration-500 group-hover:scale-[1.02]"
-  />
-</div>
+                <Image
+                  src={article.image}
+                  alt={article.title}
+                  fill
+                  sizes="(max-width: 767px) 100vw, 560px"
+                  className="object-cover transition duration-500 group-hover:scale-[1.02]"
+                />
+              </div>
 
               <div className="p-5 sm:p-6">
                 <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-[10px] font-bold text-black/35">
@@ -119,9 +119,9 @@ export default function ArticlesPage() {
                 </p>
 
                 <div className="mt-5 flex min-h-[46px] items-center justify-between rounded-[12px] bg-[#F7F9FC] px-4 text-[12px] font-black transition group-hover:bg-[#EEF6FF] group-hover:text-[#1677FF]">
-  <span>記事を読む</span>
-  <ArrowRightIcon />
-</div>
+                  <span>記事を読む</span>
+                  <ArrowRightIcon />
+                </div>
               </div>
             </Link>
           ))}
@@ -153,15 +153,7 @@ export default function ArticlesPage() {
 
       <footer className="border-t border-black/10 py-8">
         <div className="mx-auto flex w-full max-w-[1180px] flex-col items-center justify-between gap-4 px-5 text-center sm:flex-row sm:text-left">
-          <div>
-            <p className="text-[14px] font-black tracking-[0.14em]">
-              AKANUKE.AI
-            </p>
-
-            <p className="mt-1 text-[8px] font-bold tracking-[0.24em] text-[#1677FF]">
-              MEN&apos;S AI BEAUTY
-            </p>
-          </div>
+          <Logo href="/articles" />
 
           <p className="text-[10px] text-black/35">
             © AKANUKE.AI All Rights Reserved.

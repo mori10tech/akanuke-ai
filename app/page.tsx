@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
+import Logo from "./components/Logo";
 
 type IconName =
   | "clock"
@@ -215,14 +216,7 @@ export default function Home() {
     <main className="overflow-hidden bg-white text-[#111111]">
       <header className="sticky top-0 z-50 border-b border-black/10 bg-white/90 backdrop-blur-xl">
         <div className="site-container flex h-18 items-center justify-between gap-4">
-          <a href="#top" className="leading-none">
-            <span className="block text-[18px] font-black tracking-[0.16em] text-[#111111] sm:text-[20px]">
-              AKANUKE.AI
-            </span>
-            <span className="mt-1 block text-[8px] font-bold tracking-[0.3em] text-[#1677FF]">
-              MEN&apos;S AI BEAUTY
-            </span>
-          </a>
+        <Logo href="/" />
 
           <nav className="hidden items-center gap-8 text-sm font-semibold text-black/70 lg:flex">
             <a className="nav-link" href="#about">

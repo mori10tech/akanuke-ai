@@ -6,6 +6,7 @@ import {
   getAllArticles,
   getArticleBySlug,
 } from "../../../data/articles";
+import Logo from "../../components/Logo";
 
 type ArticlePageProps = {
   params: Promise<{
@@ -271,12 +272,7 @@ export default async function ArticleDetailPage({
             記事一覧
           </Link>
 
-          <Link
-            href="/"
-            className="text-[16px] font-black tracking-[0.12em]"
-          >
-            AKANUKE.AI
-          </Link>
+          <Logo href="/articles" />
 
           <Link
             href="/"

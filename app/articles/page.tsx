@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { getAllArticles } from "../../data/articles";
+import Logo from "../components/Logo";
 
 function ArrowRightIcon() {
   return (
@@ -35,15 +36,7 @@ export default function ArticlesPage() {
     <main className="min-h-screen bg-white text-[#111111]">
       <header className="sticky top-0 z-40 border-b border-black/10 bg-white/95 backdrop-blur-xl">
         <div className="mx-auto flex h-[72px] w-full max-w-[1180px] items-center justify-between px-5">
-          <Link href="/" className="leading-none">
-            <span className="block text-[18px] font-black tracking-[0.14em]">
-              AKANUKE.AI
-            </span>
-
-            <span className="mt-1 block text-[8px] font-bold tracking-[0.28em] text-[#1677FF]">
-              MEN&apos;S AI BEAUTY
-            </span>
-          </Link>
+          <Logo href="/articles" />
 
           <Link
             href="/"

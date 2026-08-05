@@ -197,7 +197,7 @@ export default function ResultPage() {
           <section className="mx-4 mt-7 rounded-[22px] bg-[#111111] p-5 text-white">
             <p className="text-[9px] font-black tracking-[0.16em] text-[#FFD400]">YOUR PERSONAL PLAN</p>
             <h2 className="mt-2 text-[23px] font-black tracking-[-0.04em]">自分のペースで進める<br />垢抜けプラン</h2>
-            <p className="mt-3 text-[11px] leading-5 text-white/55">週ごとの期限はありません。優先順位の高い項目から、自分のタイミングで進められます。</p>
+            <p className="mt-3 text-[11px] leading-5 text-white/55">優先順位の高い項目から、自分のタイミングで進められます。</p>
             <Link href="/plan" className="mt-5 flex min-h-[52px] items-center justify-center gap-2 rounded-[14px] bg-white px-5 text-[13px] font-black text-black transition hover:bg-[#EEF6FF] active:scale-[0.99]">垢抜けプランを見る<span aria-hidden="true">→</span></Link>
           </section>
 

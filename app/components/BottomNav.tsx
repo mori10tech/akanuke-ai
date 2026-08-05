@@ -3,26 +3,178 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-type NavItem = { name: string; href: string; icon: "result" | "plan" | "salon" | "product" | "account" };
+type IconProps = {
+  className?: string;
+};
 
-const items: NavItem[] = [
-  { name: "診断結果", href: "/result", icon: "result" },
-  { name: "垢抜けプラン", href: "/plan", icon: "plan" },
-  { name: "サロン", href: "/salon", icon: "salon" },
-  { name: "商品", href: "/products", icon: "product" },
-  { name: "マイページ", href: "/", icon: "account" },
-];
-
-function NavIcon({ type, active }: { type: NavItem["icon"]; active: boolean }) {
-  const commonProps = { viewBox: "0 0 24 24", className: "h-[22px] w-[22px]", fill: "none", stroke: "currentColor", strokeWidth: 1.7, strokeLinecap: "round" as const, strokeLinejoin: "round" as const, "aria-hidden": true };
-  if (type === "result") return <svg {...commonProps}><path d="M8 20h8" /><path d="M12 16v4" /><circle cx="12" cy="9" r="6" /><path d="M9 10.5c.7.8 1.7 1.2 3 1.2s2.3-.4 3-1.2" /></svg>;
-  if (type === "plan") return <svg {...commonProps}><rect x="4" y="4" width="16" height="16" rx="3" /><path d="m8 10 2 2 5-5" /><path d="M8 16h8" /></svg>;
-  if (type === "salon") return <svg {...commonProps}><path d="M6 21v-7" /><path d="M18 21v-7" /><path d="M4 21h16" /><path d="M8 14V8a4 4 0 0 1 8 0v6" /><path d="M8 11h8" /></svg>;
-  if (type === "product") return <svg {...commonProps} fill={active ? "currentColor" : "none"}><path d="M5 8h14l-1 12H6L5 8Z" /><path d="M9 8V6a3 3 0 0 1 6 0v2" /></svg>;
-  return <svg {...commonProps}><circle cx="12" cy="8" r="4" /><path d="M4.5 21a7.5 7.5 0 0 1 15 0" /></svg>;
+function ResultIcon({ className = "h-5 w-5" }: IconProps) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      className={className}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.7"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <circle cx="12" cy="12" r="8" />
+      <path d="M12 8v4l2.5 2.5" />
+      <path d="M8.5 3.5 10 5" />
+      <path d="m15.5 3.5-1.5 1.5" />
+    </svg>
+  );
 }
+
+function HistoryIcon({ className = "h-5 w-5" }: IconProps) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      className={className}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.7"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <rect x="5" y="4" width="14" height="16" rx="2.5" />
+      <path d="M8 8h8" />
+      <path d="M8 12h5" />
+      <path d="m8 16 1.5 1.5L13 14" />
+    </svg>
+  );
+}
+
+function SalonIcon({ className = "h-5 w-5" }: IconProps) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      className={className}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <circle cx="6" cy="7" r="3" />
+      <circle cx="6" cy="17" r="3" />
+
+      <path d="M8.7 8.3 19 3" />
+      <path d="M8.7 15.7 19 21" />
+
+      <path d="M8.7 8.3 12 12" />
+      <path d="M8.7 15.7 12 12" />
+    </svg>
+  );
+}
+
+function ProductIcon({ className = "h-5 w-5" }: IconProps) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      className={className}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.7"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M6 8h12l-1 12H7L6 8Z" />
+      <path d="M9 8V6a3 3 0 0 1 6 0v2" />
+    </svg>
+  );
+}
+
+function UserIcon({ className = "h-5 w-5" }: IconProps) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      className={className}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.7"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <circle cx="12" cy="8" r="3.5" />
+      <path d="M5 21a7 7 0 0 1 14 0" />
+    </svg>
+  );
+}
+
+const navigationItems = [
+  {
+    name: "診断結果",
+    href: "/result",
+    icon: ResultIcon,
+  },
+  {
+    name: "垢抜けプラン",
+    href: "/history",
+    icon: HistoryIcon,
+  },
+  {
+    name: "サロン",
+    href: "/salon",
+    icon: SalonIcon,
+  },
+  {
+    name: "商品",
+    href: "/products",
+    icon: ProductIcon,
+  },
+  {
+    name: "マイページ",
+    href: "/dashboard",
+    icon: UserIcon,
+  },
+];
 
 export default function BottomNav() {
   const pathname = usePathname();
-  return <nav className="fixed inset-x-0 bottom-0 z-50 border-t border-[#dedede] bg-white/95 pb-[max(7px,env(safe-area-inset-bottom))] pt-2 backdrop-blur-xl"><div className="mx-auto grid w-full max-w-[480px] grid-cols-5 px-1">{items.map((item) => { const active = pathname === item.href; return <Link key={item.name} href={item.href} aria-current={active ? "page" : undefined} className={`flex min-w-0 flex-col items-center justify-center gap-1 rounded-xl px-0.5 py-1.5 transition active:scale-95 ${active ? "font-black text-black" : "font-bold text-neutral-500 hover:text-black"}`}><NavIcon type={item.icon} active={active} /><span className="max-w-full truncate text-[9px]">{item.name}</span></Link>; })}</div></nav>;
+
+  return (
+    <nav
+      aria-label="メインナビゲーション"
+      className="fixed inset-x-0 bottom-0 z-50 border-t border-black/10 bg-white/95 pb-[max(8px,env(safe-area-inset-bottom))] pt-2 backdrop-blur-xl"
+    >
+      <div className="mx-auto grid w-full max-w-[480px] grid-cols-5 px-2">
+        {navigationItems.map((item) => {
+          const isActive =
+            pathname === item.href ||
+            pathname.startsWith(`${item.href}/`);
+
+          const Icon = item.icon;
+
+          return (
+            <Link
+              key={item.href}
+              href={item.href}
+              aria-current={isActive ? "page" : undefined}
+              className={`flex min-w-0 flex-col items-center justify-center gap-1 rounded-[10px] px-1 py-1.5 transition ${
+                isActive
+                  ? "text-[#111111]"
+                  : "text-black/40 hover:text-[#1677FF]"
+              }`}
+            >
+              <Icon className="h-[21px] w-[21px]" />
+
+              <span
+                className={`max-w-full truncate text-[8px] leading-none ${
+                  isActive ? "font-black" : "font-bold"
+                }`}
+              >
+                {item.name}
+              </span>
+            </Link>
+          );
+        })}
+      </div>
+    </nav>
+  );
 }

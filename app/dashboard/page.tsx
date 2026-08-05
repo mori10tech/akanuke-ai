@@ -203,69 +203,7 @@ export default function DashboardPage() {
             </Link>
           </section>
 
-          <section className="mt-5 rounded-[22px] border border-black/5 bg-white p-5 shadow-[0_8px_28px_rgba(15,23,42,0.05)]">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-[11px] font-bold text-[#1677FF]">
-                  4 WEEK PLAN
-                </p>
-
-                <h2 className="mt-1 text-[18px] font-black">
-                  今週の垢抜けプラン
-                </h2>
-              </div>
-
-              <span className="text-[12px] font-black text-[#1677FF]">
-                2/4
-              </span>
-            </div>
-
-            <div className="mt-4 h-2 overflow-hidden rounded-full bg-[#EEF6FF]">
-              <div className="h-full w-1/2 rounded-full bg-[#1677FF]" />
-            </div>
-
-            <div className="mt-5 space-y-3">
-              {[
-                { label: "朝晩の保湿ケア", done: true },
-                { label: "眉毛サロンを予約", done: true },
-                { label: "おすすめの髪型を確認", done: false },
-                { label: "美容室でオーダー", done: false },
-              ].map((item) => (
-                <div
-                  key={item.label}
-                  className="flex items-center gap-3 rounded-[13px] bg-[#F8FAFC] px-4 py-3"
-                >
-                  <span
-                    className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[11px] font-black ${
-                      item.done
-                        ? "bg-[#1677FF] text-white"
-                        : "border border-black/10 bg-white text-black/25"
-                    }`}
-                  >
-                    {item.done ? "✓" : ""}
-                  </span>
-
-                  <span
-                    className={`text-[12px] font-bold ${
-                      item.done
-                        ? "text-black/35 line-through"
-                        : "text-black/70"
-                    }`}
-                  >
-                    {item.label}
-                  </span>
-                </div>
-              ))}
-            </div>
-
-            <Link
-              href="/plan"
-              className="mt-5 flex items-center justify-between rounded-[13px] bg-[#FFF9D9] px-4 py-4 text-[12px] font-black"
-            >
-              4週間プランを確認
-              <ChevronRightIcon />
-            </Link>
-          </section>
+          
 
           <section className="mt-5">
             <h2 className="px-1 text-[16px] font-black">
@@ -274,7 +212,7 @@ export default function DashboardPage() {
 
             <div className="mt-3 overflow-hidden rounded-[20px] border border-black/5 bg-white shadow-[0_8px_28px_rgba(15,23,42,0.04)]">
               <Link
-                href="/result"
+                href="/history"
                 className="flex items-center gap-4 border-b border-black/5 px-5 py-4"
               >
                 <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#EEF6FF] text-[#1677FF]">
@@ -294,7 +232,7 @@ export default function DashboardPage() {
               </Link>
 
               <Link
-                href="/plan"
+                href="/products"
                 className="flex items-center gap-4 border-b border-black/5 px-5 py-4"
               >
                 <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#EEF6FF] text-[#1677FF]">
@@ -303,10 +241,10 @@ export default function DashboardPage() {
 
                 <span className="min-w-0 flex-1">
                   <span className="block text-[13px] font-black">
-                    4週間プラン
+                    おすすめ商品
                   </span>
                   <span className="mt-0.5 block text-[10px] text-black/40">
-                    今日やることを確認
+                    AIがおすすめする商品を見る
                   </span>
                 </span>
 
@@ -366,11 +304,11 @@ export default function DashboardPage() {
             </Link>
 
             <Link
-              href="/plan"
+              href="/products"
               className="flex flex-col items-center gap-1 py-2 text-black/35"
             >
               <CalendarIcon />
-              <span className="text-[9px] font-bold">プラン</span>
+              <span className="text-[9px] font-bold">商品</span>
             </Link>
           </div>
         </nav>

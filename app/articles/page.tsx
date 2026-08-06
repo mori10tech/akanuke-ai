@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import Logo from "../components/Logo";
+import DummyAd from "../components/DummyAd";
 import { getAllArticles } from "../../data/articles";
 
 function ArrowRightIcon() {
@@ -48,22 +49,22 @@ export default function ArticlesPage() {
       </header>
 
       <section className="border-b border-black/10 bg-gradient-to-b from-white to-[#EEF6FF]">
-  <div className="mx-auto w-full max-w-[1180px] px-5 pb-14 pt-14 sm:pb-20 sm:pt-20">
-    <p className="text-[10px] font-black tracking-[0.2em] text-[#1677FF]">
-      AKANUKE JOURNAL
-    </p>
+        <div className="mx-auto w-full max-w-[1180px] px-5 pb-14 pt-14 sm:pb-20 sm:pt-20">
+          <p className="text-[10px] font-black tracking-[0.2em] text-[#1677FF]">
+            AKANUKE JOURNAL
+          </p>
 
-    <h1 className="mt-4 text-[36px] font-semibold leading-[1.2] tracking-[-0.05em] sm:text-[52px]">
-      メンズ美容を、
-      <br />
-      分かりやすく。
-    </h1>
+          <h1 className="mt-4 text-[36px] font-semibold leading-[1.2] tracking-[-0.05em] sm:text-[52px]">
+            メンズ美容を、
+            <br />
+            分かりやすく。
+          </h1>
 
-    <p className="mt-5 max-w-[560px] text-[13px] leading-7 text-black/55 sm:text-[15px]">
-      髪型・眉毛・スキンケア・ファッションなど、男性が第一印象を整えるために役立つ情報を発信します。
-    </p>
-  </div>
-</section>
+          <p className="mt-5 max-w-[560px] text-[13px] leading-7 text-black/55 sm:text-[15px]">
+            髪型・眉毛・スキンケア・ファッションなど、男性が第一印象を整えるために役立つ情報を発信します。
+          </p>
+        </div>
+      </section>
 
       <section className="mx-auto w-full max-w-[1180px] px-5 py-12 sm:py-16">
         <div className="flex items-end justify-between gap-4">
@@ -126,6 +127,8 @@ export default function ArticlesPage() {
             </Link>
           ))}
         </div>
+
+        <DummyAd className="mt-10 sm:mt-12" />
       </section>
 
       <section className="border-t border-black/10 px-5 py-12">

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState, type ReactNode } from "react";
 import AppShell from "../components/AppShell";
+import DummyAd from "../components/DummyAd";
 
 const IMAGE_STORAGE_KEY = "akanukeImage";
 const IMPRESSION_STORAGE_KEY = "akanukeDesiredImpressions";
@@ -193,6 +194,11 @@ export default function ResultPage() {
               {priorities.map((item) => <article key={item.rank} className="rounded-[18px] border border-black/10 bg-white p-4 shadow-[0_6px_22px_rgba(15,23,42,0.04)]"><div className="flex items-start gap-3"><span className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-[13px] text-[17px] font-black ${item.rank === 1 ? "bg-black text-white": "bg-[#EEF6FF] text-black"}`}>{item.rank}</span><div className="min-w-0 flex-1"><div className="flex items-start justify-between gap-3"><div><h3 className="text-[16px] font-black">{item.title}</h3><span className="mt-1.5 inline-flex rounded-full bg-[#FFF9D9] px-2.5 py-1 text-[8px] font-black text-[#1677FF]">{item.impact}</span></div><p className="shrink-0 text-[17px] font-black text-[#1677FF]">+{item.point}点</p></div><p className="mt-3 text-[11px] leading-5 text-neutral-600">{item.description}</p></div></div></article>)}
             </div>
           </section>
+
+<DummyAd
+  className="mx-4 mt-7"
+  format="rectangle"
+/>
 
           <section className="mx-4 mt-7 rounded-[22px] bg-[#111111] p-5 text-white">
             <p className="text-[9px] font-black tracking-[0.16em] text-[#FFD400]">YOUR PERSONAL PLAN</p>

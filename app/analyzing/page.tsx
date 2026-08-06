@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import DummyAd from "../components/DummyAd";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 
@@ -116,45 +117,6 @@ function CheckIcon() {
   );
 }
 
-function DummyAd() {
-  return (
-    <aside
-      aria-label="ダミー広告"
-      className="mt-5 overflow-hidden rounded-[18px] border border-[#dedede] bg-white shadow-[0_6px_22px_rgba(15,23,42,0.04)]"
-    >
-      <div className="flex items-center justify-between border-b border-[#eeeeee] px-4 py-2.5">
-        <p className="text-[9px] font-bold tracking-[0.08em] text-neutral-400">
-          スポンサーリンク
-        </p>
-
-        <span className="rounded-full border border-neutral-200 px-2 py-0.5 text-[8px] font-bold text-neutral-400">
-          AD
-        </span>
-      </div>
-
-      <div className="flex min-h-[112px] items-center gap-4 px-4 py-4">
-        <div className="flex h-[76px] w-[76px] shrink-0 items-center justify-center rounded-[14px] bg-gradient-to-br from-[#EEF6FF] to-[#FFF9D9]">
-          <SparkleIcon className="h-8 w-8 text-[#1677FF]" />
-        </div>
-
-        <div className="min-w-0 flex-1">
-          <p className="text-[10px] font-bold text-neutral-400">
-            DUMMY ADVERTISEMENT
-          </p>
-
-          <p className="mt-1 text-[14px] font-black leading-5 tracking-[-0.02em]">
-            ここに広告が表示されます
-          </p>
-
-          <p className="mt-1 text-[10px] leading-4 text-neutral-500">
-            本番ではGoogle AdSenseのレスポンシブ広告を表示予定です。
-          </p>
-        </div>
-      </div>
-    </aside>
-  );
-}
-
 function LockIcon() {
   return (
     <svg
@@ -246,28 +208,30 @@ export default function AnalyzingPage() {
     <main className="min-h-screen bg-[#EEF6FF] text-[#111111]">
       <div className="mx-auto min-h-screen w-full max-w-[480px] bg-white shadow-[0_0_40px_rgba(15,23,42,0.08)]">
         <header className="sticky top-0 z-40 border-b border-black/10 bg-white/95 backdrop-blur-xl">
-          <div className="grid h-[68px] grid-cols-[48px_1fr_48px] items-center px-3">
-            <Link
-              href="/upload"
-              aria-label="写真選択画面へ戻る"
-              className="flex h-11 w-11 items-center justify-center rounded-full transition hover:bg-[#EEF6FF] active:scale-95"
-            >
-              <ArrowLeftIcon />
-            </Link>
+  <div className="grid h-[68px] grid-cols-[48px_1fr_48px] items-center px-3">
+    <Link
+      href="/upload"
+      aria-label="写真選択画面へ戻る"
+      className="flex h-11 w-11 items-center justify-center rounded-full transition hover:bg-[#EEF6FF] active:scale-95"
+    >
+      <ArrowLeftIcon />
+    </Link>
 
-            <Link
-              href="/"
-              className="text-center text-[21px] font-black tracking-[-0.03em]"
-            >
-              AKANUKE.AI
-            </Link>
+    <Link
+      href="/"
+      className="text-center text-[21px] font-black tracking-[-0.03em]"
+    >
+      AKANUKE.AI
+    </Link>
 
-            <div aria-hidden="true" />
-          </div>
-        </header>
+    <div aria-hidden="true" />
+  </div>
+</header>
 
         <div className="px-4 pb-10 pt-6">
           <div className="text-center">
+            
+
             <p className="mt-4 text-[11px] font-black tracking-[0.15em] text-[#1677FF]">
               AI BEAUTY ANALYSIS
             </p>
@@ -340,7 +304,7 @@ export default function AnalyzingPage() {
             <div className="p-4">
               <div className="h-2 overflow-hidden rounded-full bg-[#ececec]">
                 <div
-                  className="h-full rounded-full bg-[#1677FF] transition-[width] duration-200 ease-out"
+                  className="h-full rounded-full bg-gradient-to-r bg-[#1677FF] transition-[width] duration-200 ease-out"
                   style={{
                     width: `${progress}%`,
                   }}
@@ -361,7 +325,7 @@ export default function AnalyzingPage() {
             </div>
           </section>
 
-          <DummyAd />
+          <DummyAd className="mt-5" />
 
           <section className="mt-5 overflow-hidden rounded-[18px] border border-[#dedede] bg-white shadow-[0_6px_22px_rgba(15,23,42,0.04)]">
             <div className="border-b border-[#eeeeee] px-4 py-4">

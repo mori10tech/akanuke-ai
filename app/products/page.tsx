@@ -38,8 +38,7 @@ type Product = {
   affiliateLinks: {
     amazon: string;
     rakuten: string;
-    yahoo: string;
-  };
+     };
 };
 
 type CategorySection = {
@@ -58,8 +57,7 @@ function createAffiliateLinks(productName: string) {
   return {
     amazon: `https://www.amazon.co.jp/s?k=${encodedName}`,
     rakuten: `https://search.rakuten.co.jp/search/mall/${encodedName}/`,
-    yahoo: `https://shopping.yahoo.co.jp/search?p=${encodedName}`,
-  };
+   };
 }
 
 const products: Product[] = [
@@ -430,7 +428,7 @@ function AffiliateButtons({ product }: { product: Product }) {
   const baseClass = "flex min-h-10 items-center justify-center gap-1 rounded-[10px] px-1 text-[8px] font-black text-white transition active:scale-[0.98]";
 
   return (
-    <div className="mt-4 grid grid-cols-3 gap-2">
+    <div className="mt-4 grid grid-cols-2 gap-2">
       <a href={product.affiliateLinks.amazon} target="_blank" rel="noreferrer sponsored" className={`${baseClass} bg-black`}>
         Amazon
         <ExternalLinkIcon />
@@ -439,10 +437,7 @@ function AffiliateButtons({ product }: { product: Product }) {
         楽天
         <ExternalLinkIcon />
       </a>
-      <a href={product.affiliateLinks.yahoo} target="_blank" rel="noreferrer sponsored" className={`${baseClass} bg-[#FF0033]`}>
-        Yahoo!
-        <ExternalLinkIcon />
-      </a>
+      
     </div>
   );
 }

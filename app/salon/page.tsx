@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import AppShell from "../components/AppShell";
+import DummyAd from "../components/DummyAd";
 
 type Salon = {
   id: number;
@@ -454,6 +455,11 @@ export default function SalonPage() {
               ))}
             </div>
           </section>
+
+          <DummyAd
+            className="mt-8"
+            format="rectangle"
+          />
 
           <aside className="mt-6 rounded-[12px] bg-[#EEF6FF] px-4 py-3">
             <p className="text-center text-[9px] leading-4 text-neutral-600">

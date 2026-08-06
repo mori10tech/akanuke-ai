@@ -2,10 +2,12 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Fragment } from "react";
 import {
   getAllArticles,
   getArticleBySlug,
 } from "../../../data/articles";
+import DummyAd from "../../components/DummyAd";
 import Logo from "../../components/Logo";
 
 type ArticlePageProps = {
@@ -317,15 +319,15 @@ export default async function ArticleDetailPage({
             </div>
 
             <div className="relative mt-9 aspect-[1200/630] overflow-hidden rounded-[28px] border border-black/5 bg-[#EEF6FF] shadow-[0_18px_55px_rgba(15,23,42,0.08)]">
-  <Image
-    src={article.image}
-    alt={article.title}
-    fill
-    priority
-    sizes="(max-width: 767px) 100vw, 860px"
-    className="object-cover"
-  />
-</div>
+              <Image
+                src={article.image}
+                alt={article.title}
+                fill
+                priority
+                sizes="(max-width: 767px) 100vw, 860px"
+                className="object-cover"
+              />
+            </div>
           </div>
         </header>
 
@@ -376,6 +378,8 @@ export default async function ArticleDetailPage({
                 この記事では、美容初心者でも取り組みやすい12の方法を順番に解説します。すべてを一度に行う必要はありません。自分に必要な項目から少しずつ始めてください。
               </p>
             </section>
+
+            <DummyAd className="mt-10" />
 
             <section
               id="meaning"
@@ -442,36 +446,42 @@ export default async function ArticleDetailPage({
               </p>
 
               <div className="mt-8 space-y-5">
-                {methods.map((method) => (
-                  <section
-                    key={method.number}
-                    className="rounded-[22px] border border-black/10 bg-white p-5 shadow-[0_8px_28px_rgba(15,23,42,0.04)] sm:p-6"
-                  >
-                    <div className="flex items-start gap-4">
-                      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[13px] bg-[#111111] text-[12px] font-black text-white">
-                        {method.number}
-                      </span>
+                {methods.map((method, index) => (
+                  <Fragment key={method.number}>
+                    <section className="rounded-[22px] border border-black/10 bg-white p-5 shadow-[0_8px_28px_rgba(15,23,42,0.04)] sm:p-6">
+                      <div className="flex items-start gap-4">
+                        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[13px] bg-[#111111] text-[12px] font-black text-white">
+                          {method.number}
+                        </span>
 
-                      <div className="min-w-0">
-                        <h3 className="text-[19px] font-semibold tracking-[-0.035em]">
-                          {method.title}
-                        </h3>
+                        <div className="min-w-0">
+                          <h3 className="text-[19px] font-semibold tracking-[-0.035em]">
+                            {method.title}
+                          </h3>
 
-                        <p className="mt-3 text-[13px] leading-7 text-black/65">
-                          {method.description}
-                        </p>
-
-                        <div className="mt-4 rounded-[14px] bg-[#FFF9D9] px-4 py-3">
-                          <p className="text-[11px] font-bold leading-5 text-black/65">
-                            <span className="mr-2 font-black text-[#9A7800]">
-                              POINT
-                            </span>
-                            {method.point}
+                          <p className="mt-3 text-[13px] leading-7 text-black/65">
+                            {method.description}
                           </p>
+
+                          <div className="mt-4 rounded-[14px] bg-[#FFF9D9] px-4 py-3">
+                            <p className="text-[11px] font-bold leading-5 text-black/65">
+                              <span className="mr-2 font-black text-[#9A7800]">
+                                POINT
+                              </span>
+                              {method.point}
+                            </p>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </section>
+                    </section>
+
+                    {index === 5 && (
+                      <DummyAd
+                        className="my-8"
+                        format="rectangle"
+                      />
+                    )}
+                  </Fragment>
                 ))}
               </div>
             </section>
@@ -598,6 +608,8 @@ export default async function ArticleDetailPage({
                 ))}
               </div>
             </section>
+
+            <DummyAd className="mt-10" />
 
             <section
               id="summary"

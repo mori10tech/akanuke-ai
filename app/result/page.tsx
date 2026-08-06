@@ -533,15 +533,9 @@ export default function ResultPage() {
                   className="rounded-[18px] border border-black/10 bg-white p-4 shadow-[0_6px_22px_rgba(15,23,42,0.04)]"
                 >
                   <div className="flex items-start gap-3">
-                    <span
-                      className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-[13px] text-[17px] font-black ${
-                        item.rank === 1
-                          ? "bg-black text-white"
-                          : "bg-[#EEF6FF] text-black"
-                      }`}
-                    >
-                      {item.rank}
-                    </span>
+                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[13px] bg-[#EEF6FF] text-[17px] font-black text-black">
+  {item.rank}
+</span>
 
                     <div className="min-w-0 flex-1">
                       <div className="flex items-start justify-between gap-3">

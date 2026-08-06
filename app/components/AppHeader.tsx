@@ -1,4 +1,5 @@
 import Link from "next/link";
+import AppLogo from "./AppLogo";
 
 type AppHeaderProps = {
   backHref?: string;
@@ -33,14 +34,14 @@ export default function AppHeader({
     <header
       className={`${
         sticky ? "sticky top-0" : "relative"
-      } z-40 border-b border-black/[0.06] bg-white/95 backdrop-blur-xl`}
+      } z-40 border-b border-black/10 bg-white/95 backdrop-blur-xl`}
     >
       <div className="mx-auto grid h-[68px] w-full max-w-[480px] grid-cols-[44px_1fr_44px] items-center px-4">
         {backHref ? (
           <Link
             href={backHref}
             aria-label={backLabel}
-            className="flex h-10 w-10 items-center justify-center rounded-full transition hover:bg-black/[0.05] active:scale-95"
+            className="flex h-10 w-10 items-center justify-center rounded-full transition hover:bg-[#EEF6FF] active:scale-95"
           >
             <ArrowLeftIcon />
           </Link>
@@ -48,12 +49,9 @@ export default function AppHeader({
           <div aria-hidden="true" />
         )}
 
-        <Link
-          href="/"
-          className="text-center text-[20px] font-black leading-none tracking-[-0.035em] text-black"
-        >
-          AKANUKE.AI
-        </Link>
+        <div className="flex justify-center">
+          <AppLogo />
+        </div>
 
         <div aria-hidden="true" />
       </div>

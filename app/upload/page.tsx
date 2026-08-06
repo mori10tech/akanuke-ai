@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
+import AppHeader from "../components/AppHeader";
 
 type ImpressionOption = {
   id: string;
@@ -78,42 +78,6 @@ const impressionOptions: ImpressionOption[] = [
     icon: "✦",
   },
 ];
-
-function ArrowLeftIcon() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      aria-hidden="true"
-      className="h-6 w-6"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M19 12H5" />
-      <path d="m12 19-7-7 7-7" />
-    </svg>
-  );
-}
-
-function MenuIcon() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      aria-hidden="true"
-      className="h-6 w-6"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-    >
-      <path d="M4 7h16" />
-      <path d="M4 12h16" />
-      <path d="M4 17h16" />
-    </svg>
-  );
-}
 
 function CameraIcon() {
   return (
@@ -337,26 +301,10 @@ export default function UploadPage() {
   return (
     <main className="min-h-screen bg-[#EEF6FF] text-[#111111]">
       <div className="mx-auto min-h-screen w-full max-w-[480px] bg-white shadow-[0_0_40px_rgba(0,0,0,0.08)]">
-        <header className="sticky top-0 z-40 border-b border-black/10 bg-white/95 backdrop-blur-xl">
-          <div className="grid h-[68px] grid-cols-[48px_1fr_48px] items-center px-3">
-  <Link
-    href="/"
-    aria-label="トップページへ戻る"
-    className="flex h-11 w-11 items-center justify-center rounded-full transition hover:bg-[#EEF6FF] active:scale-95"
-  >
-    <ArrowLeftIcon />
-  </Link>
-
-  <Link
-    href="/"
-    className="text-center text-[21px] font-black tracking-[-0.03em]"
-  >
-    AKANUKE.AI
-  </Link>
-
-  <div />
-</div>
-        </header>
+        <AppHeader
+          backHref="/"
+          backLabel="トップページへ戻る"
+        />
 
         <div className="px-4 pb-36 pt-5">
           <div        >

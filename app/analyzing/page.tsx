@@ -1,9 +1,8 @@
 "use client";
 
-import Link from "next/link";
-import DummyAd from "../components/DummyAd";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
+import AppHeader from "../components/AppHeader";
 
 const IMAGE_STORAGE_KEY = "akanukeImage";
 const ANALYSIS_DURATION_MS = 7200;
@@ -41,42 +40,6 @@ const analysisSteps = [
     end: 100,
   },
 ];
-
-function ArrowLeftIcon() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      aria-hidden="true"
-      className="h-6 w-6"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M19 12H5" />
-      <path d="m12 19-7-7 7-7" />
-    </svg>
-  );
-}
-
-function MenuIcon() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      aria-hidden="true"
-      className="h-6 w-6"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-    >
-      <path d="M4 7h16" />
-      <path d="M4 12h16" />
-      <path d="M4 17h16" />
-    </svg>
-  );
-}
 
 function SparkleIcon({
   className = "h-5 w-5",
@@ -207,26 +170,10 @@ export default function AnalyzingPage() {
   return (
     <main className="min-h-screen bg-[#EEF6FF] text-[#111111]">
       <div className="mx-auto min-h-screen w-full max-w-[480px] bg-white shadow-[0_0_40px_rgba(15,23,42,0.08)]">
-        <header className="sticky top-0 z-40 border-b border-black/10 bg-white/95 backdrop-blur-xl">
-  <div className="grid h-[68px] grid-cols-[48px_1fr_48px] items-center px-3">
-    <Link
-      href="/upload"
-      aria-label="写真選択画面へ戻る"
-      className="flex h-11 w-11 items-center justify-center rounded-full transition hover:bg-[#EEF6FF] active:scale-95"
-    >
-      <ArrowLeftIcon />
-    </Link>
-
-    <Link
-      href="/"
-      className="text-center text-[21px] font-black tracking-[-0.03em]"
-    >
-      AKANUKE.AI
-    </Link>
-
-    <div aria-hidden="true" />
-  </div>
-</header>
+        <AppHeader
+          backHref="/upload"
+          backLabel="写真選択画面へ戻る"
+        />
 
         <div className="px-4 pb-10 pt-6">
           <div className="text-center">
@@ -324,8 +271,6 @@ export default function AnalyzingPage() {
               </div>
             </div>
           </section>
-
-          <DummyAd className="mt-5" />
 
           <section className="mt-5 overflow-hidden rounded-[18px] border border-[#dedede] bg-white shadow-[0_6px_22px_rgba(15,23,42,0.04)]">
             <div className="border-b border-[#eeeeee] px-4 py-4">

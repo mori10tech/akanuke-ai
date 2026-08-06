@@ -9,6 +9,7 @@ import {
 } from "react";
 import AppShell from "../components/AppShell";
 import DummyAd from "../components/DummyAd";
+import AppLogo from "../components/AppLogo";
 
 const IMAGE_STORAGE_KEY = "akanukeImage";
 const IMPRESSION_STORAGE_KEY = "akanukeDesiredImpressions";
@@ -332,12 +333,9 @@ export default function ResultPage() {
               />
             </Link>
 
-            <Link
-              href="/"
-              className="text-center text-[20px] font-black tracking-[-0.035em] text-black"
-            >
-              AKANUKE.AI
-            </Link>
+            <div className="flex justify-center">
+  <AppLogo />
+</div>
 
             <div aria-hidden="true" />
           </div>

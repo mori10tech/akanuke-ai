@@ -1,5 +1,5 @@
 "use client";
-
+import AppLogo from "../components/AppLogo";
 import Link from "next/link";
 import {
   useEffect,
@@ -367,12 +367,9 @@ export default function PlanPage() {
               />
             </Link>
 
-            <Link
-              href="/"
-              className="text-center text-[20px] font-black tracking-[-0.035em]"
-            >
-              AKANUKE.AI
-            </Link>
+            <div className="flex justify-center">
+  <AppLogo />
+</div>
 
             <div aria-hidden="true" />
           </div>

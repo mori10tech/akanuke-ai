@@ -5,6 +5,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import AppShell from "../components/AppShell";
 import DummyAd from "../components/DummyAd";
+import AppLogo from "../components/AppLogo";
 
 type Salon = {
   id: number;
@@ -194,13 +195,7 @@ function Icon({
         <path d="m12 19-7-7 7-7" />
       </>
     ),
-    menu: (
-      <>
-        <path d="M4 7h16" />
-        <path d="M4 12h16" />
-        <path d="M4 17h16" />
-      </>
-    ),
+    
     location: (
       <>
         <path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z" />
@@ -394,38 +389,25 @@ export default function SalonPage() {
   return (
     <AppShell>
       <header className="sticky top-0 z-30 border-b border-black/10 bg-white/95 backdrop-blur-xl">
-        <div className="grid h-[68px] grid-cols-[48px_1fr_48px] items-center px-3">
-          <Link
-            href="/result"
-            aria-label="診断結果へ戻る"
-            className="flex h-11 w-11 items-center justify-center rounded-full text-black transition hover:bg-[#EEF6FF] active:scale-95"
-          >
-            <Icon
-              name="arrowLeft"
-              className="h-6 w-6"
-            />
-          </Link>
+  <div className="grid h-[68px] grid-cols-[48px_1fr_48px] items-center px-3">
+    <Link
+      href="/result"
+      aria-label="診断結果へ戻る"
+      className="flex h-11 w-11 items-center justify-center rounded-full text-black transition hover:bg-[#EEF6FF] active:scale-95"
+    >
+      <Icon
+        name="arrowLeft"
+        className="h-6 w-6"
+      />
+    </Link>
 
-          <Link
-            href="/"
-            className="text-center text-[21px] font-black tracking-[-0.03em]"
-          >
-            AKANUKE.AI
-          </Link>
+    <div className="flex justify-center">
+      <AppLogo />
+    </div>
 
-          <button
-            type="button"
-            aria-label="メニューを開く"
-            className="flex h-11 w-11 items-center justify-center rounded-full text-black transition hover:bg-[#EEF6FF] active:scale-95"
-          >
-            <Icon
-              name="menu"
-              className="h-6 w-6"
-            />
-          </button>
-        </div>
-      </header>
-
+    <div aria-hidden="true" />
+  </div>
+</header>
       <div className="px-4 pb-32 pt-6">
         <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
           PERSONAL SALON GUIDE

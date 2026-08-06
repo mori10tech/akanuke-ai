@@ -1,6 +1,7 @@
 import Link from "next/link";
 import AppShell from "../components/AppShell";
 import DummyAd from "../components/DummyAd";
+import AppLogo from "../components/AppLogo";
 
 type ProductCategory = "skincare" | "hair" | "eyebrow" | "grooming";
 
@@ -332,16 +333,6 @@ function ArrowLeftIcon() {
   );
 }
 
-function MenuIcon() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
-      <path d="M4 7h16" />
-      <path d="M4 12h16" />
-      <path d="M4 17h16" />
-    </svg>
-  );
-}
-
 function ExternalLinkIcon() {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -523,20 +514,22 @@ export default function ProductsPage() {
   return (
     <AppShell>
       <header className="sticky top-0 z-30 border-b border-black/10 bg-white/95 backdrop-blur-xl">
-        <div className="grid h-[68px] grid-cols-[48px_1fr_48px] items-center px-3">
-          <Link href="/result" aria-label="診断結果へ戻る" className="flex h-11 w-11 items-center justify-center rounded-full text-black transition hover:bg-[#EEF6FF] active:scale-95">
-            <ArrowLeftIcon />
-          </Link>
+  <div className="grid h-[68px] grid-cols-[48px_1fr_48px] items-center px-3">
+    <Link
+      href="/result"
+      aria-label="診断結果へ戻る"
+      className="flex h-11 w-11 items-center justify-center rounded-full text-black transition hover:bg-[#EEF6FF] active:scale-95"
+    >
+      <ArrowLeftIcon />
+    </Link>
 
-          <Link href="/" className="text-center text-[21px] font-black tracking-[-0.03em]">
-            AKANUKE.AI
-          </Link>
+    <div className="flex justify-center">
+      <AppLogo />
+    </div>
 
-          <button type="button" aria-label="メニューを開く" className="flex h-11 w-11 items-center justify-center rounded-full text-black transition hover:bg-[#EEF6FF] active:scale-95">
-            <MenuIcon />
-          </button>
-        </div>
-      </header>
+    <div aria-hidden="true" />
+  </div>
+</header>
 
       <div className="px-4 pb-32 pt-6">
         <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">PERSONAL PRODUCT GUIDE</p>

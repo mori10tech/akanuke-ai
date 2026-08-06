@@ -1,5 +1,6 @@
 import Link from "next/link";
 import AppShell from "../components/AppShell";
+import AppLogo from "../components/AppLogo";
 
 function HomeIcon() {
   return (
@@ -101,21 +102,18 @@ export default function DashboardPage() {
   return (
     <AppShell>
         <header className="sticky top-0 z-40 border-b border-black/10 bg-white/95 backdrop-blur-xl">
-          <div className="flex h-[68px] items-center justify-between gap-4 px-5">
-            <Link
-              href="/"
-              className="text-[19px] font-black tracking-[-0.03em]"
-            >
-              AKANUKE.AI
-            </Link>
+  <div className="grid h-[68px] grid-cols-[44px_1fr_44px] items-center px-4">
+    <div aria-hidden="true" />
 
-            <div className="flex items-center gap-3">
-              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#EEF6FF] text-[#1677FF]">
-                <UserIcon />
-              </span>
-            </div>
-          </div>
-        </header>
+    <div className="flex justify-center">
+      <AppLogo />
+    </div>
+
+    <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#EEF6FF] text-[#1677FF]">
+      <UserIcon />
+    </span>
+  </div>
+</header>
 
         <div className="px-4 pb-28 pt-6">
           <section className="overflow-hidden rounded-[22px] bg-gradient-to-br from-[#1677FF] to-[#76B7FF] p-5 text-white shadow-[0_14px_38px_rgba(22,119,255,0.22)]">

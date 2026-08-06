@@ -1,5 +1,6 @@
 import Link from "next/link";
 import AppShell from "../components/AppShell";
+import DummyAd from "../components/DummyAd";
 
 type ProductVisualType = "sunscreen" | "lotion" | "wax";
 
@@ -428,6 +429,11 @@ export default function ProductsPage() {
               ))}
             </div>
           </section>
+
+          <DummyAd
+  className="mt-8"
+  format="rectangle"
+/>
 
           <section className="mt-7">
             <h2 className="text-[18px] font-black">

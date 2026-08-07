@@ -1,5 +1,6 @@
 import Link from "next/link";
-import AuthHeader from "../components/AuthHeader";
+import AppHeader from "../components/AppHeader";
+import AppShell from "../components/AppShell";
 
 function MailIcon() {
   return (
@@ -13,7 +14,7 @@ function MailIcon() {
       strokeLinecap="round"
       strokeLinejoin="round"
     >
-      <rect x="3" y="5" width="18" height="14" rx="3" />
+      <rect x="3" y="5" width="18" height="14" rx="2" />
       <path d="m4 7 8 6 8-6" />
     </svg>
   );
@@ -39,13 +40,16 @@ function LockIcon() {
 
 export default function LoginPage() {
   return (
-    <main className="min-h-screen bg-[#EEF6FF] text-[#111111]">
-      <div className="mx-auto min-h-screen w-full max-w-[480px] bg-white shadow-[0_0_40px_rgba(15,23,42,0.08)]">
-        <AuthHeader />
+    <AppShell background="white">
+      <div className="min-h-screen bg-white text-[#111111]">
+        <AppHeader
+          backHref="/"
+          backLabel="トップページへ戻る"
+        />
 
         <div className="px-5 pb-12 pt-10">
           <div className="text-center">
-            <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-[20px] bg-[#EEF6FF] text-[25px] text-[#1677FF] shadow-sm">
+            <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-[18px] bg-[#EEF6FF] text-[25px] text-[#1677FF] shadow-[0_6px_22px_rgba(15,23,42,0.04)]">
               ✦
             </span>
 
@@ -64,16 +68,16 @@ export default function LoginPage() {
             </p>
           </div>
 
-          <section className="mt-8 rounded-[22px] border border-black/10 bg-white p-5 shadow-[0_10px_36px_rgba(15,23,42,0.06)]">
+          <section className="mt-8 rounded-[22px] border border-black/10 bg-white p-5 shadow-[0_10px_34px_rgba(15,23,42,0.05)]">
             <div>
               <label
                 htmlFor="login-email"
-                className="text-[12px] font-black text-black/70"
+                className="text-[12px] font-black text-black/55"
               >
                 メールアドレス
               </label>
 
-              <div className="mt-2 flex min-h-[54px] items-center gap-3 rounded-[14px] border border-black/10 bg-[#F8FAFC] px-4 transition focus-within:border-[#1677FF] focus-within:bg-white">
+              <div className="mt-2 flex min-h-[54px] items-center gap-3 rounded-[14px] border border-black/10 bg-[#F7F9FC] px-4 transition focus-within:border-[#1677FF]/30 focus-within:bg-white">
                 <span className="text-black/35">
                   <MailIcon />
                 </span>
@@ -81,8 +85,9 @@ export default function LoginPage() {
                 <input
                   id="login-email"
                   type="email"
+                  autoComplete="email"
                   placeholder="example@akanuke.ai"
-                  className="min-w-0 flex-1 bg-transparent text-[14px] outline-none placeholder:text-black/30"
+                  className="min-w-0 flex-1 bg-transparent text-[14px] text-[#111111] outline-none placeholder:text-black/20"
                 />
               </div>
             </div>
@@ -91,20 +96,20 @@ export default function LoginPage() {
               <div className="flex items-center justify-between gap-3">
                 <label
                   htmlFor="login-password"
-                  className="text-[12px] font-black text-black/70"
+                  className="text-[12px] font-black text-black/55"
                 >
                   パスワード
                 </label>
 
                 <button
                   type="button"
-                  className="text-[10px] font-bold text-[#1677FF]"
+                  className="text-[10px] font-black text-[#1677FF]"
                 >
                   パスワードを忘れた方
                 </button>
               </div>
 
-              <div className="mt-2 flex min-h-[54px] items-center gap-3 rounded-[14px] border border-black/10 bg-[#F8FAFC] px-4 transition focus-within:border-[#1677FF] focus-within:bg-white">
+              <div className="mt-2 flex min-h-[54px] items-center gap-3 rounded-[14px] border border-black/10 bg-[#F7F9FC] px-4 transition focus-within:border-[#1677FF]/30 focus-within:bg-white">
                 <span className="text-black/35">
                   <LockIcon />
                 </span>
@@ -112,8 +117,9 @@ export default function LoginPage() {
                 <input
                   id="login-password"
                   type="password"
+                  autoComplete="current-password"
                   placeholder="パスワードを入力"
-                  className="min-w-0 flex-1 bg-transparent text-[14px] outline-none placeholder:text-black/30"
+                  className="min-w-0 flex-1 bg-transparent text-[14px] text-[#111111] outline-none placeholder:text-black/20"
                 />
               </div>
             </div>
@@ -131,7 +137,7 @@ export default function LoginPage() {
 
             <Link
               href="/dashboard"
-              className="mt-6 flex min-h-[54px] w-full items-center justify-center rounded-[13px] bg-[#111111] px-5 text-[14px] font-black text-white shadow-[0_12px_28px_rgba(15,23,42,0.18)] transition hover:-translate-y-0.5 hover:bg-black/85"
+              className="mt-6 flex min-h-[54px] w-full items-center justify-center rounded-[12px] bg-[#FFD400] px-5 text-[14px] font-black text-[#111111] shadow-[0_10px_34px_rgba(15,23,42,0.05)] transition hover:-translate-y-0.5 active:scale-[0.99]"
             >
               ログイン
               <span className="ml-2" aria-hidden="true">
@@ -146,27 +152,29 @@ export default function LoginPage() {
 
           <div className="mt-8 flex items-center gap-4">
             <span className="h-px flex-1 bg-black/10" />
-            <span className="text-[10px] font-bold text-black/30">
+
+            <span className="text-[10px] font-bold text-black/35">
               初めてご利用の方
             </span>
+
             <span className="h-px flex-1 bg-black/10" />
           </div>
 
           <Link
             href="/signup"
-            className="mt-6 flex min-h-[52px] w-full items-center justify-center rounded-[13px] border border-[#1677FF] bg-white px-5 text-[13px] font-black text-[#1677FF] transition hover:bg-[#EEF6FF]"
+            className="mt-6 flex min-h-[52px] w-full items-center justify-center rounded-[12px] border border-[#1677FF]/15 bg-white px-5 text-[13px] font-black text-[#1677FF] transition hover:bg-[#EEF6FF] active:scale-[0.99]"
           >
             無料アカウントを作成
           </Link>
 
           <Link
             href="/upload"
-            className="mt-5 block text-center text-[11px] font-bold text-black/45"
+            className="mt-5 block text-center text-[11px] font-bold text-black/50"
           >
             登録せずに診断を試す
           </Link>
         </div>
       </div>
-    </main>
+    </AppShell>
   );
 }

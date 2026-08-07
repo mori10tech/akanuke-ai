@@ -1,5 +1,5 @@
 import Link from "next/link";
-import AuthHeader from "../components/AuthHeader";
+import AppHeader from "../components/AppHeader";
 
 function MailIcon() {
   return (
@@ -13,7 +13,7 @@ function MailIcon() {
       strokeLinecap="round"
       strokeLinejoin="round"
     >
-      <rect x="3" y="5" width="18" height="14" rx="3" />
+      <rect x="3" y="5" width="18" height="14" rx="2" />
       <path d="m4 7 8 6 8-6" />
     </svg>
   );
@@ -63,7 +63,7 @@ function CheckIcon() {
       className="h-3.5 w-3.5"
       fill="none"
       stroke="currentColor"
-      strokeWidth="2.2"
+      strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
     >
@@ -74,9 +74,12 @@ function CheckIcon() {
 
 export default function SignupPage() {
   return (
-    <main className="min-h-screen bg-[#EEF6FF] text-[#111111]">
-      <div className="mx-auto min-h-screen w-full max-w-[480px] bg-white shadow-[0_0_40px_rgba(15,23,42,0.08)]">
-        <AuthHeader />
+    <main className="min-h-screen bg-white text-[#111111]">
+      <div className="mx-auto min-h-screen w-full max-w-[480px] border-x border-black/5 bg-white">
+        <AppHeader
+          backHref="/"
+          backLabel="トップページへ戻る"
+        />
 
         <div className="px-5 pb-12 pt-8">
           <div>
@@ -90,21 +93,21 @@ export default function SignupPage() {
               あなた専用に保存。
             </h1>
 
-            <p className="mt-4 text-[13px] leading-6 text-black/60">
+            <p className="mt-4 text-[13px] leading-6 text-black/55">
               無料アカウントを作成すると、診断履歴や垢抜けプランをいつでも確認できます。
             </p>
           </div>
 
-          <section className="mt-7 rounded-[22px] border border-black/10 bg-white p-5 shadow-[0_10px_36px_rgba(15,23,42,0.06)]">
+          <section className="mt-7 rounded-[22px] border border-black/10 bg-white p-5 shadow-[0_10px_34px_rgba(15,23,42,0.05)]">
             <div>
               <label
                 htmlFor="signup-name"
-                className="text-[12px] font-black text-black/70"
+                className="text-[12px] font-black text-black/55"
               >
                 お名前
               </label>
 
-              <div className="mt-2 flex min-h-[54px] items-center gap-3 rounded-[14px] border border-black/10 bg-[#F8FAFC] px-4 transition focus-within:border-[#1677FF] focus-within:bg-white">
+              <div className="mt-2 flex min-h-[54px] items-center gap-3 rounded-[14px] border border-black/10 bg-[#F7F9FC] px-4 transition focus-within:border-[#1677FF]/30 focus-within:bg-white">
                 <span className="text-black/35">
                   <UserIcon />
                 </span>
@@ -112,8 +115,9 @@ export default function SignupPage() {
                 <input
                   id="signup-name"
                   type="text"
-                  placeholder="例：森 太郎"
-                  className="min-w-0 flex-1 bg-transparent text-[14px] outline-none placeholder:text-black/30"
+                  autoComplete="name"
+                  placeholder="例：垢抜 太郎"
+                  className="min-w-0 flex-1 bg-transparent text-[14px] text-[#111111] outline-none placeholder:text-black/20"
                 />
               </div>
             </div>
@@ -121,12 +125,12 @@ export default function SignupPage() {
             <div className="mt-5">
               <label
                 htmlFor="signup-email"
-                className="text-[12px] font-black text-black/70"
+                className="text-[12px] font-black text-black/55"
               >
                 メールアドレス
               </label>
 
-              <div className="mt-2 flex min-h-[54px] items-center gap-3 rounded-[14px] border border-black/10 bg-[#F8FAFC] px-4 transition focus-within:border-[#1677FF] focus-within:bg-white">
+              <div className="mt-2 flex min-h-[54px] items-center gap-3 rounded-[14px] border border-black/10 bg-[#F7F9FC] px-4 transition focus-within:border-[#1677FF]/30 focus-within:bg-white">
                 <span className="text-black/35">
                   <MailIcon />
                 </span>
@@ -134,8 +138,9 @@ export default function SignupPage() {
                 <input
                   id="signup-email"
                   type="email"
+                  autoComplete="email"
                   placeholder="example@akanuke.ai"
-                  className="min-w-0 flex-1 bg-transparent text-[14px] outline-none placeholder:text-black/30"
+                  className="min-w-0 flex-1 bg-transparent text-[14px] text-[#111111] outline-none placeholder:text-black/20"
                 />
               </div>
             </div>
@@ -143,12 +148,12 @@ export default function SignupPage() {
             <div className="mt-5">
               <label
                 htmlFor="signup-password"
-                className="text-[12px] font-black text-black/70"
+                className="text-[12px] font-black text-black/55"
               >
                 パスワード
               </label>
 
-              <div className="mt-2 flex min-h-[54px] items-center gap-3 rounded-[14px] border border-black/10 bg-[#F8FAFC] px-4 transition focus-within:border-[#1677FF] focus-within:bg-white">
+              <div className="mt-2 flex min-h-[54px] items-center gap-3 rounded-[14px] border border-black/10 bg-[#F7F9FC] px-4 transition focus-within:border-[#1677FF]/30 focus-within:bg-white">
                 <span className="text-black/35">
                   <LockIcon />
                 </span>
@@ -156,12 +161,13 @@ export default function SignupPage() {
                 <input
                   id="signup-password"
                   type="password"
+                  autoComplete="new-password"
                   placeholder="8文字以上で入力"
-                  className="min-w-0 flex-1 bg-transparent text-[14px] outline-none placeholder:text-black/30"
+                  className="min-w-0 flex-1 bg-transparent text-[14px] text-[#111111] outline-none placeholder:text-black/20"
                 />
               </div>
 
-              <p className="mt-2 text-[10px] leading-5 text-black/40">
+              <p className="mt-2 text-[10px] leading-5 text-black/35">
                 半角英数字を組み合わせて8文字以上で入力してください。
               </p>
             </div>
@@ -175,7 +181,7 @@ export default function SignupPage() {
               <span className="text-[11px] leading-5 text-black/55">
                 <Link
                   href="/terms"
-                  className="font-bold text-[#1677FF]"
+                  className="font-black text-[#1677FF]"
                 >
                   利用規約
                 </Link>
@@ -184,7 +190,7 @@ export default function SignupPage() {
                   href="https://www.leafworks.jp/doc/privacy.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-bold text-[#1677FF]"
+                  className="font-black text-[#1677FF]"
                 >
                   個人情報保護方針
                 </a>
@@ -194,7 +200,7 @@ export default function SignupPage() {
 
             <Link
               href="/dashboard"
-              className="mt-6 flex min-h-[54px] w-full items-center justify-center rounded-[13px] bg-[#FFD400] px-5 text-[14px] font-black text-[#111111] shadow-[0_12px_28px_rgba(255,212,0,0.22)] transition hover:-translate-y-0.5 hover:shadow-[0_16px_34px_rgba(255,212,0,0.3)]"
+              className="mt-6 flex min-h-[54px] w-full items-center justify-center rounded-[12px] bg-[#FFD400] px-5 text-[14px] font-black text-[#111111] shadow-[0_10px_34px_rgba(15,23,42,0.05)] transition hover:-translate-y-0.5 active:scale-[0.99]"
             >
               無料アカウントを作成
               <span className="ml-2" aria-hidden="true">
@@ -215,16 +221,17 @@ export default function SignupPage() {
             <div className="mt-4 grid gap-3">
               {[
                 "診断結果をいつでも確認",
-                "4週間プランの進捗を管理",
+                "プランの進捗を管理",
                 "過去の診断結果と変化を比較",
               ].map((item) => (
                 <div
                   key={item}
-                  className="flex items-center gap-3 text-[12px] font-bold text-black/65"
+                  className="flex items-center gap-3 text-[12px] font-bold text-black/55"
                 >
                   <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-white text-[#1677FF]">
                     <CheckIcon />
                   </span>
+
                   {item}
                 </div>
               ))}

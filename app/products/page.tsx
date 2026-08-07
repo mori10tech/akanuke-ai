@@ -158,33 +158,6 @@ function getVisualSettings(type: ProductVisualType) {
         "h-[46%] w-[64%] rounded-[22px]",
     },
 
-    eyebrowShaver: {
-      label: "眉",
-      subLabel: "SHAVER",
-      bodyClass:
-        "border-black/10 bg-gradient-to-b from-white to-[#F7F9FC]",
-      shapeClass:
-        "h-[78%] w-[22%] rounded-full",
-    },
-
-    eyebrowPencil: {
-      label: "BROW",
-      subLabel: "PENCIL",
-      bodyClass:
-        "border-black/10 bg-[#111111] text-white",
-      shapeClass:
-        "h-[82%] w-[12%] rounded-full",
-    },
-
-    tweezers: {
-      label: "CARE",
-      subLabel: "TOOL",
-      bodyClass:
-        "border-black/10 bg-gradient-to-b from-white to-[#F7F9FC]",
-      shapeClass:
-        "h-[76%] w-[18%] rotate-6 rounded-full",
-    },
-
     fragrance: {
       label: "SAVON",
       subLabel: "EAU",
@@ -251,34 +224,16 @@ function AffiliateButtons({
     "flex min-h-10 items-center justify-center gap-1 rounded-[10px] px-2 text-[8px] font-black text-white transition hover:-translate-y-0.5 active:scale-[0.98]";
 
   return (
-    <div
-      className={`mt-4 grid gap-2 ${
-        product.rakuten
-          ? "grid-cols-2"
-          : "grid-cols-1"
-      }`}
-    >
+    <div className="mt-4">
       <a
         href={product.amazon.url}
         target="_blank"
         rel="noopener noreferrer sponsored"
-        className={`${baseClass} bg-[#111111]`}
+        className={`${baseClass} w-full bg-[#111111]`}
       >
         Amazonで見る
         <ExternalLinkIcon />
       </a>
-
-      {product.rakuten && (
-        <a
-          href={product.rakuten.url}
-          target="_blank"
-          rel="noopener noreferrer sponsored"
-          className={`${baseClass} bg-[#BF0000]`}
-        >
-          楽天で見る
-          <ExternalLinkIcon />
-        </a>
-      )}
     </div>
   );
 }

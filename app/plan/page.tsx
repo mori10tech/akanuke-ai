@@ -201,7 +201,7 @@ function ProgressRing({
           cy="56"
           r={radius}
           fill="none"
-          stroke="rgba(255,255,255,0.1)"
+          stroke="#FFFFFF"
           strokeWidth="7"
         />
 
@@ -210,40 +210,21 @@ function ProgressRing({
           cy="56"
           r={radius}
           fill="none"
-          stroke="url(#planProgressGradient)"
+          stroke="#1677FF"
           strokeWidth="7"
           strokeLinecap="round"
           strokeDasharray={circumference}
           strokeDashoffset={offset}
           className="transition-[stroke-dashoffset] duration-700 ease-out"
         />
-
-        <defs>
-          <linearGradient
-            id="planProgressGradient"
-            x1="0"
-            y1="0"
-            x2="112"
-            y2="112"
-          >
-            <stop
-              offset="0%"
-              stopColor="#FFE45C"
-            />
-            <stop
-              offset="100%"
-              stopColor="#FFD400"
-            />
-          </linearGradient>
-        </defs>
       </svg>
 
-      <div className="absolute inset-0 flex flex-col items-center justify-center text-white">
-        <span className="text-[34px] font-black leading-none">
+      <div className="absolute inset-0 flex flex-col items-center justify-center">
+        <span className="text-[34px] font-black leading-none tracking-[-0.05em] text-[#1677FF]">
           {progress}%
         </span>
 
-        <span className="mt-1 text-[8px] font-bold tracking-[0.12em] text-white/45">
+        <span className="mt-1 text-[8px] font-bold tracking-[0.12em] text-black/35">
           PROGRESS
         </span>
       </div>
@@ -619,26 +600,29 @@ const [openedId, setOpenedId] = useState<
             </p>
           </section>
 
-          <section className="mx-4 rounded-[24px] bg-[#111111] p-5 text-white shadow-[0_18px_46px_rgba(15,23,42,0.09)]">
-            <div className="flex items-center gap-5">
-              <ProgressRing progress={progress} />
+          <section className="mx-4 rounded-[24px] border border-[#1677FF]/10 bg-[#EEF6FF] p-5 shadow-[0_10px_34px_rgba(15,23,42,0.05)]">
+  <div className="flex items-center gap-5">
+    <ProgressRing progress={progress} />
 
-              <div className="min-w-0 flex-1">
-                <p className="text-[9px] font-black tracking-[0.13em] text-[#FFD400]">
-                  CURRENT STATUS
-                </p>
+    <div className="min-w-0 flex-1">
+      <p className="text-[9px] font-black tracking-[0.13em] text-[#1677FF]">
+        CURRENT STATUS
+      </p>
 
-                <h2 className="mt-2 text-[22px] font-black">
-                  {completedCount} / {planTasks.length} 完了
-                </h2>
+      <h2 className="mt-2 text-[22px] font-black tracking-[-0.04em] text-[#111111]">
+  <span className="text-[#1677FF]">
+    {completedCount} / {planTasks.length}
+  </span>{" "}
+  完了
+</h2>
 
-                <p className="mt-2 text-[10px] leading-5 text-white/55">
-                  すべて一度に行う必要はありません。できる項目から進めましょう。
-                </p>
-              </div>
-            </div>
-          </section>
-
+      <p className="mt-2 text-[10px] leading-5 text-black/45">
+        すべて一度に行う必要はありません。
+        できる項目から進めましょう。
+      </p>
+    </div>
+  </div>
+</section>
           <SalonOrderGuide
   isOpen={isSalonGuideOpen}
   onToggle={() =>

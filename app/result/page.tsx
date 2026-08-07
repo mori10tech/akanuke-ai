@@ -137,10 +137,8 @@ function CircularProgress({
 }) {
   const radius = 43;
   const circumference = 2 * Math.PI * radius;
-
   const offset =
-    circumference -
-    (progress / 100) * circumference;
+    circumference - (progress / 100) * circumference;
 
   return (
     <div className="relative h-[112px] w-[112px]">
@@ -154,7 +152,7 @@ function CircularProgress({
           cy="52"
           r={radius}
           fill="none"
-          stroke="rgba(255,255,255,0.12)"
+          stroke="#FFFFFF"
           strokeWidth="6"
         />
 
@@ -163,47 +161,27 @@ function CircularProgress({
           cy="52"
           r={radius}
           fill="none"
-          stroke="url(#progressGradient)"
+          stroke="#1677FF"
           strokeWidth="6"
           strokeLinecap="round"
           strokeDasharray={circumference}
           strokeDashoffset={offset}
           className="transition-[stroke-dashoffset] duration-1000 ease-out"
         />
-
-        <defs>
-          <linearGradient
-            id="progressGradient"
-            x1="0"
-            y1="0"
-            x2="104"
-            y2="104"
-          >
-            <stop
-              offset="0%"
-              stopColor="#FFE45C"
-            />
-
-            <stop
-              offset="100%"
-              stopColor="#FFD400"
-            />
-          </linearGradient>
-        </defs>
       </svg>
 
-      <div className="absolute inset-0 flex flex-col items-center justify-center text-white">
+      <div className="absolute inset-0 flex flex-col items-center justify-center">
         <div className="flex items-end gap-0.5">
-          <span className="text-[34px] font-black leading-none tracking-[-0.06em]">
+          <span className="text-[34px] font-black leading-none tracking-[-0.06em] text-[#1677FF]">
             {progress}
           </span>
 
-          <span className="pb-0.5 text-[10px] font-black text-[#FFD400]">
+          <span className="pb-0.5 text-[10px] font-black text-[#1677FF]">
             %
           </span>
         </div>
 
-        <span className="mt-1 text-[7px] font-bold tracking-[0.12em] text-white/55">
+        <span className="mt-1 text-[7px] font-bold tracking-[0.12em] text-black/35">
           CURRENT
         </span>
       </div>
@@ -415,9 +393,9 @@ export default function ResultPage() {
             </p>
           </section>
 
-          <section className="mx-4 overflow-hidden rounded-[24px] bg-[#111111] shadow-[0_18px_46px_rgba(15,23,42,0.09)]">
+          <section className="mx-4 overflow-hidden rounded-[24px] border border-[#1677FF]/10 bg-white shadow-[0_10px_34px_rgba(15,23,42,0.05)]">
   <div className="grid grid-cols-[48%_52%]">
-    <div className="relative min-h-[250px] overflow-hidden bg-black/80">
+    <div className="relative min-h-[250px] overflow-hidden bg-[#F7F9FC]">
       {image ? (
         <img
           src={image}
@@ -425,7 +403,7 @@ export default function ResultPage() {
           className="h-full w-full object-cover"
         />
       ) : (
-        <div className="flex h-full min-h-[250px] items-center justify-center px-4 text-center text-white/60">
+        <div className="flex h-full min-h-[250px] items-center justify-center px-4 text-center text-black/40">
           <div>
             <p className="text-[11px] font-bold">
               写真が見つかりません
@@ -433,7 +411,7 @@ export default function ResultPage() {
 
             <Link
               href="/upload"
-              className="mt-2 inline-block text-[10px] font-black text-[#FFD400]"
+              className="mt-2 inline-block text-[10px] font-black text-[#1677FF]"
             >
               選び直す
             </Link>
@@ -443,12 +421,12 @@ export default function ResultPage() {
 
       {image && (
         <>
-          <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-black/15" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
 
-          <span className="absolute bottom-3 left-3 flex items-center gap-1.5 rounded-full bg-white/95 px-2.5 py-1.5 text-[8px] font-black text-[#111111]">
+          <span className="absolute bottom-3 left-3 flex items-center gap-1.5 rounded-full bg-white/95 px-2.5 py-1.5 text-[8px] font-black text-[#111111] shadow-sm">
             <Icon
               name="check"
-              className="h-3 w-3"
+              className="h-3 w-3 text-[#1677FF]"
             />
             AI解析済み
           </span>
@@ -456,22 +434,20 @@ export default function ResultPage() {
       )}
     </div>
 
-    <div className="flex flex-col items-center justify-center px-3 py-4">
-      <p className="mb-1 text-[7px] font-black tracking-[0.14em] text-[#FFD400]">
+    <div className="flex flex-col items-center justify-center bg-[#EEF6FF] px-3 py-4">
+      <p className="mb-1 text-[7px] font-black tracking-[0.14em] text-[#1677FF]">
         AKANUKE PROGRESS
       </p>
 
-      <CircularProgress
-        progress={displayProgress}
-      />
+      <CircularProgress progress={displayProgress} />
 
-      <div className="mt-3 w-full rounded-[13px] border border-white/10 bg-white/[0.06] px-3 py-2.5 text-white">
-        <p className="text-[7px] font-bold tracking-[0.1em] text-white/40">
+      <div className="mt-3 w-full rounded-[13px] border border-[#1677FF]/10 bg-white px-3 py-2.5">
+        <p className="text-[7px] font-bold tracking-[0.1em] text-black/35">
           AFTER GOAL
         </p>
 
         <div className="mt-1 flex items-center justify-between gap-2">
-          <p className="text-[18px] font-black tracking-[-0.04em]">
+          <p className="text-[18px] font-black tracking-[-0.04em] text-[#1677FF]">
             {GOAL_PROGRESS}%
           </p>
 
@@ -480,29 +456,29 @@ export default function ResultPage() {
           </span>
         </div>
 
-        <p className="mt-1 text-[8px] leading-4 text-white/45">
+        <p className="mt-1 text-[8px] leading-4 text-black/40">
           AIが提案するAfterへの目標状態
         </p>
       </div>
     </div>
   </div>
 
-  <div className="border-t border-white/10 px-4 py-3.5">
+  <div className="border-t border-black/10 bg-white px-4 py-3.5">
     <div className="flex items-center justify-between gap-3">
       <div>
-        <p className="text-[7px] font-black tracking-[0.12em] text-white/40">
+        <p className="text-[7px] font-black tracking-[0.12em] text-black/35">
           CURRENT
         </p>
 
-        <p className="mt-1 text-[12px] font-black text-white">
+        <p className="mt-1 text-[12px] font-black text-[#1677FF]">
           現在 {CURRENT_PROGRESS}%
         </p>
       </div>
 
       <div className="min-w-0 flex-1">
-        <div className="h-2 overflow-hidden rounded-full bg-white/10">
+        <div className="h-2 overflow-hidden rounded-full bg-[#EEF6FF]">
           <div
-            className="h-full rounded-full bg-[#FFD400]"
+            className="h-full rounded-full bg-[#1677FF]"
             style={{
               width: `${CURRENT_PROGRESS}%`,
             }}
@@ -511,17 +487,17 @@ export default function ResultPage() {
       </div>
 
       <div className="text-right">
-        <p className="text-[7px] font-black tracking-[0.12em] text-white/40">
+        <p className="text-[7px] font-black tracking-[0.12em] text-black/35">
           AFTER
         </p>
 
-        <p className="mt-1 text-[12px] font-black text-[#FFD400]">
+        <p className="mt-1 text-[12px] font-black text-[#1677FF]">
           100%
         </p>
       </div>
     </div>
 
-    <p className="mt-3 text-[8px] leading-4 text-white/40">
+    <p className="mt-3 text-[8px] leading-4 text-black/35">
       ※AKANUKE PROGRESSは容姿を採点するものではありません。
       今回のAfterイメージに近づくための目安です。
     </p>

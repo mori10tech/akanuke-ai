@@ -2,6 +2,26 @@ import Link from "next/link";
 import AppShell from "../components/AppShell";
 import AppLogo from "../components/AppLogo";
 
+const CURRENT_PROGRESS = 68;
+
+const priorities = [
+  {
+    rank: 1,
+    label: "髪型",
+    description: "前髪とサイドを整える",
+  },
+  {
+    rank: 2,
+    label: "眉毛",
+    description: "自然な太さを残して輪郭を整える",
+  },
+  {
+    rank: 3,
+    label: "肌",
+    description: "保湿と紫外線対策を優先する",
+  },
+];
+
 function HomeIcon() {
   return (
     <svg
@@ -17,24 +37,6 @@ function HomeIcon() {
       <path d="m3 11 9-8 9 8" />
       <path d="M5 10v10h14V10" />
       <path d="M9 20v-6h6v6" />
-    </svg>
-  );
-}
-
-function CameraIcon() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      aria-hidden="true"
-      className="h-5 w-5"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M4 8a2 2 0 0 1 2-2h2l1.5-2h5L16 6h2a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8Z" />
-      <circle cx="12" cy="13" r="4" />
     </svg>
   );
 }
@@ -92,40 +94,55 @@ function ChevronRightIcon() {
   );
 }
 
-const scoreItems = [
-  { label: "髪型", score: 82 },
-  { label: "眉毛", score: 78 },
-  { label: "肌", score: 76 },
-];
+function SparkleIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      className="h-5 w-5"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M12 3c.8 4.1 2.9 6.2 7 7-4.1.8-6.2 2.9-7 7-.8-4.1-2.9-6.2-7-7 4.1-.8 6.2-2.9 7-7Z" />
+      <path d="M19 16c.3 1.7 1.3 2.7 3 3-1.7.3-2.7 1.3-3 3-.3-1.7-1.3-2.7-3-3 1.7-.3 2.7-1.3 3-3Z" />
+    </svg>
+  );
+}
 
 export default function DashboardPage() {
   return (
-    <AppShell>
+    <AppShell background="white">
+      <div className="overflow-hidden bg-white">
         <header className="sticky top-0 z-40 border-b border-black/10 bg-white/95 backdrop-blur-xl">
-  <div className="grid h-[68px] grid-cols-[44px_1fr_44px] items-center px-4">
-    <div aria-hidden="true" />
+          <div className="grid h-[68px] grid-cols-[44px_1fr_44px] items-center px-4">
+            <div aria-hidden="true" />
 
-    <div className="flex justify-center">
-      <AppLogo />
-    </div>
+            <div className="flex justify-center">
+              <AppLogo />
+            </div>
 
-    <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#EEF6FF] text-[#1677FF]">
-      <UserIcon />
-    </span>
-  </div>
-</header>
+            <div className="flex justify-end">
+              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#EEF6FF] text-[#1677FF]">
+                <UserIcon />
+              </span>
+            </div>
+          </div>
+        </header>
 
         <div className="px-4 pb-28 pt-6">
-          <section className="overflow-hidden rounded-[22px] bg-gradient-to-br from-[#1677FF] to-[#76B7FF] p-5 text-white shadow-[0_14px_38px_rgba(22,119,255,0.22)]">
-            <p className="text-[11px] font-bold text-white/70">
-              おはようございます
+          <section className="overflow-hidden rounded-[24px] border border-[#1677FF]/10 bg-gradient-to-br from-[#EEF6FF] via-white to-white p-5 shadow-[0_10px_34px_rgba(15,23,42,0.05)]">
+            <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
+              MY AKANUKE
             </p>
 
-            <h1 className="mt-1 text-[24px] font-black">
-              テスト さん
+            <h1 className="mt-2 text-[24px] font-black tracking-[-0.04em] text-[#111111]">
+              おはようございます
             </h1>
 
-            <p className="mt-3 text-[12px] leading-5 text-white/75">
+            <p className="mt-3 text-[12px] leading-5 text-black/55">
               今日も自分のペースで、
               <br />
               理想の第一印象に近づきましょう。
@@ -133,60 +150,118 @@ export default function DashboardPage() {
 
             <Link
               href="/upload"
-              className="mt-5 flex min-h-[48px] w-full items-center justify-center rounded-[12px] bg-[#FFD400] px-5 text-[13px] font-black text-[#111111] shadow-sm"
+              className="mt-5 flex min-h-[48px] w-full items-center justify-center rounded-[12px] bg-[#FFD400] px-5 text-[13px] font-black text-[#111111] shadow-[0_10px_34px_rgba(15,23,42,0.05)] transition hover:-translate-y-0.5 active:scale-[0.99]"
             >
               新しくAI診断する
-              <span className="ml-2" aria-hidden="true">
+
+              <span
+                className="ml-2"
+                aria-hidden="true"
+              >
                 →
               </span>
             </Link>
           </section>
 
-          <section className="mt-5 rounded-[22px] border border-black/5 bg-white p-5 shadow-[0_8px_28px_rgba(15,23,42,0.05)]">
+          <section className="mt-5 rounded-[24px] border border-black/10 bg-white p-5 shadow-[0_10px_34px_rgba(15,23,42,0.05)]">
             <div className="flex items-start justify-between gap-4">
               <div>
-                <p className="text-[11px] font-bold text-black/40">
-                  最新の診断結果
+                <p className="text-[10px] font-black tracking-[0.14em] text-[#1677FF]">
+                  LATEST REPORT
                 </p>
 
-                <h2 className="mt-1 text-[18px] font-black">
+                <h2 className="mt-1 text-[18px] font-black tracking-[-0.03em] text-[#111111]">
                   2026年8月5日の診断
                 </h2>
               </div>
 
-              <span className="rounded-full bg-[#EEF6FF] px-3 py-1.5 text-[10px] font-black text-[#1677FF]">
+              <span className="rounded-full bg-[#EEF6FF] px-3 py-1.5 text-[9px] font-black text-[#1677FF]">
                 保存済み
               </span>
             </div>
 
-            <div className="mt-5 grid grid-cols-[112px_1fr] items-center gap-5">
-              <div className="flex aspect-square flex-col items-center justify-center rounded-full border-[10px] border-[#1677FF] bg-white text-center shadow-sm">
-                <span className="text-[34px] font-black leading-none">
-                  78
-                </span>
-                <span className="mt-1 text-[9px] font-bold text-black/35">
-                  総合スコア
+            <div className="mt-5 rounded-[20px] border border-[#1677FF]/10 bg-[#EEF6FF] p-4">
+              <div className="flex items-center justify-between gap-4">
+                <div>
+                  <p className="text-[9px] font-black tracking-[0.14em] text-[#1677FF]">
+                    AKANUKE PROGRESS
+                  </p>
+
+                  <div className="mt-2 flex items-end gap-1">
+                   <span className="text-[36px] font-black leading-none tracking-[-0.05em] text-[#1677FF]">
+  {CURRENT_PROGRESS}
+</span>
+
+<span className="pb-0.5 text-[13px] font-black text-[#1677FF]">
+  %
+</span>
+                  </div>
+
+                  <p className="mt-2 text-[9px] leading-4 text-black/35">
+                    Afterイメージを100%とした現在の目安
+                  </p>
+                </div>
+
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white text-[#1677FF] shadow-[0_10px_34px_rgba(15,23,42,0.05)]">
+                  <SparkleIcon />
                 </span>
               </div>
 
-              <div className="space-y-3">
-                {scoreItems.map((item) => (
-                  <div key={item.label}>
-                    <div className="flex items-center justify-between text-[11px]">
-                      <span className="font-bold text-black/60">
+              <div className="mt-4 flex items-center gap-3">
+                <span className="text-[8px] font-black text-black/35">
+                  CURRENT
+                </span>
+
+                <div className="h-2 min-w-0 flex-1 overflow-hidden rounded-full bg-white">
+                  <div
+                    className="h-full rounded-full bg-[#1677FF]"
+                    style={{
+                      width: `${CURRENT_PROGRESS}%`,
+                    }}
+                  />
+                </div>
+
+                <span className="text-[9px] font-black text-[#1677FF]">
+                  100%
+                </span>
+              </div>
+            </div>
+
+            <div className="mt-5">
+              <div className="flex items-end justify-between">
+                <div>
+                  <p className="text-[9px] font-black tracking-[0.14em] text-[#1677FF]">
+                    PRIORITY
+                  </p>
+
+                  <h3 className="mt-1 text-[15px] font-black text-[#111111]">
+                    改善優先順位
+                  </h3>
+                </div>
+
+                <p className="text-[9px] text-black/35">
+                  上から優先
+                </p>
+              </div>
+
+              <div className="mt-3 divide-y divide-black/10">
+                {priorities.map((item) => (
+                  <div
+                    key={item.rank}
+                    className="flex items-center gap-3 py-3 first:pt-0 last:pb-0"
+                  >
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[10px] bg-[#EEF6FF] text-[12px] font-black text-[#1677FF]">
+                      {item.rank}
+                    </span>
+
+                    <div className="min-w-0 flex-1">
+                      <p className="text-[12px] font-black text-[#111111]">
                         {item.label}
-                      </span>
+                      </p>
 
-                      <span className="font-black text-[#1677FF]">
-                        {item.score}
-                      </span>
-                    </div>
-
-                    <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-[#EEF6FF]">
-                      <div
-                        className="h-full rounded-full bg-[#1677FF]"
-                        style={{ width: `${item.score}%` }}
-                      />
+                      <p className="mt-0.5 truncate text-[9px] text-black/35">
+                        {item.description}
+                      </p>
                     </div>
                   </div>
                 ))}
@@ -195,75 +270,82 @@ export default function DashboardPage() {
 
             <Link
               href="/result"
-              className="mt-5 flex min-h-[46px] items-center justify-center rounded-[12px] border border-black/10 bg-white text-[12px] font-black transition hover:bg-[#EEF6FF]"
+              className="mt-5 flex min-h-[48px] items-center justify-center rounded-[12px] border border-black/10 bg-white text-[12px] font-black text-[#111111] transition hover:bg-[#F7F9FC]"
             >
               診断結果を詳しく見る
             </Link>
           </section>
 
-          
+          <section className="mt-7">
+            <p className="px-1 text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
+              MENU
+            </p>
 
-          <section className="mt-5">
-            <h2 className="px-1 text-[16px] font-black">
+            <h2 className="mt-1 px-1 text-[18px] font-black tracking-[-0.03em] text-[#111111]">
               マイメニュー
             </h2>
 
-            <div className="mt-3 overflow-hidden rounded-[20px] border border-black/5 bg-white shadow-[0_8px_28px_rgba(15,23,42,0.04)]">
-             
+            <div className="mt-3 overflow-hidden rounded-[20px] border border-black/10 bg-white shadow-[0_10px_34px_rgba(15,23,42,0.05)]">
               <Link
                 href="/products"
-                className="flex items-center gap-4 border-b border-black/5 px-5 py-4"
+                className="flex items-center gap-4 border-b border-black/10 px-5 py-4 transition hover:bg-[#F7F9FC]"
               >
                 <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#EEF6FF] text-[#1677FF]">
                   <ProductIcon />
                 </span>
 
                 <span className="min-w-0 flex-1">
-                  <span className="block text-[13px] font-black">
+                  <span className="block text-[13px] font-black text-[#111111]">
                     おすすめ商品
                   </span>
-                  <span className="mt-0.5 block text-[10px] text-black/40">
+
+                  <span className="mt-0.5 block text-[10px] text-black/35">
                     AIがおすすめする商品を見る
                   </span>
                 </span>
 
-                <ChevronRightIcon />
+                <span className="text-[#1677FF]">
+                  <ChevronRightIcon />
+                </span>
               </Link>
 
               <Link
                 href="/"
-                className="flex items-center gap-4 px-5 py-4"
+                className="flex items-center gap-4 px-5 py-4 transition hover:bg-[#F7F9FC]"
               >
                 <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#EEF6FF] text-[#1677FF]">
                   <HomeIcon />
                 </span>
 
                 <span className="min-w-0 flex-1">
-                  <span className="block text-[13px] font-black">
+                  <span className="block text-[13px] font-black text-[#111111]">
                     トップページ
                   </span>
-                  <span className="mt-0.5 block text-[10px] text-black/40">
+
+                  <span className="mt-0.5 block text-[10px] text-black/35">
                     AKANUKE.AIのトップへ戻る
                   </span>
                 </span>
 
-                <ChevronRightIcon />
+                <span className="text-[#1677FF]">
+                  <ChevronRightIcon />
+                </span>
               </Link>
             </div>
           </section>
 
           <Link
             href="/"
-            className="mt-6 flex min-h-[48px] items-center justify-center rounded-[13px] border border-black/10 bg-white text-[12px] font-black text-black/55"
+            className="mt-6 flex min-h-[48px] items-center justify-center rounded-[12px] border border-black/10 bg-[#F7F9FC] text-[12px] font-black text-black/55 transition hover:bg-[#EEF6FF]"
           >
             ログアウト
           </Link>
 
-          <p className="mt-3 text-center text-[9px] text-black/30">
+          <p className="mt-3 text-center text-[9px] text-black/35">
             現在はUI確認用のため、ログイン状態は保存されません。
           </p>
         </div>
-
+      </div>
     </AppShell>
   );
 }

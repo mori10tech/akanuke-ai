@@ -135,35 +135,36 @@ function CircularProgress({
 }: {
   progress: number;
 }) {
-  const radius = 54;
+  const radius = 43;
   const circumference = 2 * Math.PI * radius;
+
   const offset =
     circumference -
     (progress / 100) * circumference;
 
   return (
-    <div className="relative h-[144px] w-[144px]">
+    <div className="relative h-[112px] w-[112px]">
       <svg
-        viewBox="0 0 128 128"
+        viewBox="0 0 104 104"
         className="h-full w-full -rotate-90"
         aria-hidden="true"
       >
         <circle
-          cx="64"
-          cy="64"
+          cx="52"
+          cy="52"
           r={radius}
           fill="none"
           stroke="rgba(255,255,255,0.12)"
-          strokeWidth="7"
+          strokeWidth="6"
         />
 
         <circle
-          cx="64"
-          cy="64"
+          cx="52"
+          cy="52"
           r={radius}
           fill="none"
           stroke="url(#progressGradient)"
-          strokeWidth="7"
+          strokeWidth="6"
           strokeLinecap="round"
           strokeDasharray={circumference}
           strokeDashoffset={offset}
@@ -175,8 +176,8 @@ function CircularProgress({
             id="progressGradient"
             x1="0"
             y1="0"
-            x2="128"
-            y2="128"
+            x2="104"
+            y2="104"
           >
             <stop
               offset="0%"
@@ -192,17 +193,17 @@ function CircularProgress({
       </svg>
 
       <div className="absolute inset-0 flex flex-col items-center justify-center text-white">
-        <div className="flex items-end gap-1">
-          <span className="text-[44px] font-black leading-none tracking-[-0.07em]">
+        <div className="flex items-end gap-0.5">
+          <span className="text-[34px] font-black leading-none tracking-[-0.06em]">
             {progress}
           </span>
 
-          <span className="pb-1 text-[13px] font-black text-[#FFD400]">
+          <span className="pb-0.5 text-[10px] font-black text-[#FFD400]">
             %
           </span>
         </div>
 
-        <span className="mt-1 text-[8px] font-bold tracking-[0.12em] text-white/55">
+        <span className="mt-1 text-[7px] font-bold tracking-[0.12em] text-white/55">
           CURRENT
         </span>
       </div>
@@ -415,119 +416,117 @@ export default function ResultPage() {
           </section>
 
           <section className="mx-4 overflow-hidden rounded-[24px] bg-[#111111] shadow-[0_18px_46px_rgba(15,23,42,0.09)]">
-            <div className="grid grid-cols-[42%_58%]">
-              <div className="relative min-h-[282px] overflow-hidden bg-black/80">
-                {image ? (
-                  <img
-                    src={image}
-                    alt="今回診断した顔写真"
-                    className="h-full w-full object-cover"
-                  />
-                ) : (
-                  <div className="flex h-full min-h-[282px] items-center justify-center px-4 text-center text-white/60">
-                    <div>
-                      <p className="text-[11px] font-bold">
-                        写真が見つかりません
-                      </p>
+  <div className="grid grid-cols-[48%_52%]">
+    <div className="relative min-h-[250px] overflow-hidden bg-black/80">
+      {image ? (
+        <img
+          src={image}
+          alt="今回診断した顔写真"
+          className="h-full w-full object-cover"
+        />
+      ) : (
+        <div className="flex h-full min-h-[250px] items-center justify-center px-4 text-center text-white/60">
+          <div>
+            <p className="text-[11px] font-bold">
+              写真が見つかりません
+            </p>
 
-                      <Link
-                        href="/upload"
-                        className="mt-2 inline-block text-[10px] font-black text-[#FFD400]"
-                      >
-                        選び直す
-                      </Link>
-                    </div>
-                  </div>
-                )}
+            <Link
+              href="/upload"
+              className="mt-2 inline-block text-[10px] font-black text-[#FFD400]"
+            >
+              選び直す
+            </Link>
+          </div>
+        </div>
+      )}
 
-                {image && (
-                  <>
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-black/15" />
+      {image && (
+        <>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-black/15" />
 
-                    <span className="absolute bottom-3 left-3 flex items-center gap-1.5 rounded-full bg-white/95 px-2.5 py-1.5 text-[8px] font-black text-[#111111]">
-                      <Icon
-                        name="check"
-                        className="h-3 w-3"
-                      />
-                      AI解析済み
-                    </span>
-                  </>
-                )}
-              </div>
+          <span className="absolute bottom-3 left-3 flex items-center gap-1.5 rounded-full bg-white/95 px-2.5 py-1.5 text-[8px] font-black text-[#111111]">
+            <Icon
+              name="check"
+              className="h-3 w-3"
+            />
+            AI解析済み
+          </span>
+        </>
+      )}
+    </div>
 
-              <div className="flex flex-col items-center justify-center px-3 py-5">
-                <p className="mb-1 text-[8px] font-black tracking-[0.16em] text-[#FFD400]">
-                  AKANUKE PROGRESS
-                </p>
+    <div className="flex flex-col items-center justify-center px-3 py-4">
+      <p className="mb-1 text-[7px] font-black tracking-[0.14em] text-[#FFD400]">
+        AKANUKE PROGRESS
+      </p>
 
-                <CircularProgress
-                  progress={
-                    displayProgress
-                  }
-                />
+      <CircularProgress
+        progress={displayProgress}
+      />
 
-                <div className="mt-2 w-full rounded-[15px] border border-white/10 bg-white/[0.06] px-3 py-3 text-white">
-                  <p className="text-[8px] font-bold tracking-[0.1em] text-white/40">
-                    AFTER GOAL
-                  </p>
+      <div className="mt-3 w-full rounded-[13px] border border-white/10 bg-white/[0.06] px-3 py-2.5 text-white">
+        <p className="text-[7px] font-bold tracking-[0.1em] text-white/40">
+          AFTER GOAL
+        </p>
 
-                  <div className="mt-1 flex items-center justify-between gap-2">
-                    <p className="text-[22px] font-black tracking-[-0.04em]">
-                      {GOAL_PROGRESS}%
-                    </p>
+        <div className="mt-1 flex items-center justify-between gap-2">
+          <p className="text-[18px] font-black tracking-[-0.04em]">
+            {GOAL_PROGRESS}%
+          </p>
 
-                    <span className="rounded-full bg-[#FFD400] px-2.5 py-1.5 text-[9px] font-black text-[#111111]">
-                      GOAL
-                    </span>
-                  </div>
+          <span className="rounded-full bg-[#FFD400] px-2 py-1 text-[8px] font-black text-[#111111]">
+            GOAL
+          </span>
+        </div>
 
-                  <p className="mt-1 text-[9px] leading-4 text-white/45">
-                    AIが提案するAfterへの目標状態
-                  </p>
-                </div>
-              </div>
-            </div>
+        <p className="mt-1 text-[8px] leading-4 text-white/45">
+          AIが提案するAfterへの目標状態
+        </p>
+      </div>
+    </div>
+  </div>
 
-            <div className="border-t border-white/10 px-4 py-4">
-              <div className="flex items-center justify-between gap-3">
-                <div>
-                  <p className="text-[8px] font-black tracking-[0.12em] text-white/40">
-                    CURRENT
-                  </p>
+  <div className="border-t border-white/10 px-4 py-3.5">
+    <div className="flex items-center justify-between gap-3">
+      <div>
+        <p className="text-[7px] font-black tracking-[0.12em] text-white/40">
+          CURRENT
+        </p>
 
-                  <p className="mt-1 text-[13px] font-black text-white">
-                    現在 {CURRENT_PROGRESS}%
-                  </p>
-                </div>
+        <p className="mt-1 text-[12px] font-black text-white">
+          現在 {CURRENT_PROGRESS}%
+        </p>
+      </div>
 
-                <div className="min-w-0 flex-1">
-                  <div className="h-2 overflow-hidden rounded-full bg-white/10">
-                    <div
-                      className="h-full rounded-full bg-[#FFD400]"
-                      style={{
-                        width: `${CURRENT_PROGRESS}%`,
-                      }}
-                    />
-                  </div>
-                </div>
+      <div className="min-w-0 flex-1">
+        <div className="h-2 overflow-hidden rounded-full bg-white/10">
+          <div
+            className="h-full rounded-full bg-[#FFD400]"
+            style={{
+              width: `${CURRENT_PROGRESS}%`,
+            }}
+          />
+        </div>
+      </div>
 
-                <div className="text-right">
-                  <p className="text-[8px] font-black tracking-[0.12em] text-white/40">
-                    AFTER
-                  </p>
+      <div className="text-right">
+        <p className="text-[7px] font-black tracking-[0.12em] text-white/40">
+          AFTER
+        </p>
 
-                  <p className="mt-1 text-[13px] font-black text-[#FFD400]">
-                    100%
-                  </p>
-                </div>
-              </div>
+        <p className="mt-1 text-[12px] font-black text-[#FFD400]">
+          100%
+        </p>
+      </div>
+    </div>
 
-              <p className="mt-3 text-[8px] leading-4 text-white/40">
-                ※AKANUKE PROGRESSは容姿を採点するものではありません。
-                今回のAfterイメージに近づくための目安です。
-              </p>
-            </div>
-          </section>
+    <p className="mt-3 text-[8px] leading-4 text-white/40">
+      ※AKANUKE PROGRESSは容姿を採点するものではありません。
+      今回のAfterイメージに近づくための目安です。
+    </p>
+  </div>
+</section>
 
           <section className="mx-4 mt-5 rounded-[20px] border border-[#FFD400]/40 bg-[#FFF9D9] p-5">
             <div className="flex items-center gap-2 text-[#1677FF]">

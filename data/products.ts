@@ -503,8 +503,8 @@ export const categories: CategorySection[] = [
   },
   {
     id: "hairStyling",
-    label: "ヘアスタイリング",
-    englishLabel: "HAIR STYLING",
+    label: "スタイリング",
+    englishLabel: "STYLING",
     description:
       "ワックスやバームなど、髪型を整えるためのスタイリングアイテムです。",
     advice:

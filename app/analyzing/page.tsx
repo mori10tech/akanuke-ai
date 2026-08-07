@@ -41,28 +41,6 @@ const analysisSteps = [
   },
 ];
 
-function SparkleIcon({
-  className = "h-5 w-5",
-}: {
-  className?: string;
-}) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      aria-hidden="true"
-      className={className}
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M12 3c.8 4.1 2.9 6.2 7 7-4.1.8-6.2 2.9-7 7-.8-4.1-2.9-6.2-7-7 4.1-.8 6.2-2.9 7-7Z" />
-      <path d="M19 16c.3 1.7 1.3 2.7 3 3-1.7.3-2.7 1.3-3 3-.3-1.7-1.3-2.7-3-3 1.7-.3 2.7-1.3 3-3Z" />
-    </svg>
-  );
-}
-
 function CheckIcon() {
   return (
     <svg
@@ -95,6 +73,27 @@ function LockIcon() {
       <rect x="5" y="10" width="14" height="10" rx="2" />
       <path d="M8 10V7a4 4 0 0 1 8 0v3" />
     </svg>
+  );
+}
+
+function AdPlaceholder() {
+  return (
+    <aside
+      aria-label="広告"
+      className="mt-5 overflow-hidden rounded-[18px] border border-black/10 bg-[#F7F9FC]"
+    >
+      <div className="flex min-h-[96px] items-center justify-center px-5 py-5">
+        <div className="text-center">
+          <p className="text-[9px] font-bold tracking-[0.16em] text-black/35">
+            ADVERTISEMENT
+          </p>
+
+          <p className="mt-2 text-[11px] leading-5 text-black/35">
+            広告掲載スペース
+          </p>
+        </div>
+      </div>
+    </aside>
   );
 }
 
@@ -177,8 +176,6 @@ export default function AnalyzingPage() {
 
         <div className="px-4 pb-10 pt-6">
           <div className="text-center">
-            
-
             <p className="mt-4 text-[11px] font-black tracking-[0.15em] text-[#1677FF]">
               AI BEAUTY ANALYSIS
             </p>
@@ -187,7 +184,7 @@ export default function AnalyzingPage() {
               AIがあなたを分析中
             </h1>
 
-            <p className="mt-2 text-[12px] leading-5 text-neutral-500">
+            <p className="mt-2 text-[12px] leading-5 text-black/55">
               顔立ちとなりたい印象から、
               あなた専用の
               <br />
@@ -195,8 +192,8 @@ export default function AnalyzingPage() {
             </p>
           </div>
 
-          <section className="mt-6 overflow-hidden rounded-[20px] border border-[#dedede] bg-white shadow-[0_8px_28px_rgba(15,23,42,0.06)]">
-            <div className="relative aspect-[4/5] overflow-hidden bg-[#e9edf0]">
+          <section className="mt-6 overflow-hidden rounded-[20px] border border-black/10 bg-white shadow-[0_10px_34px_rgba(15,23,42,0.05)]">
+            <div className="relative aspect-[4/5] overflow-hidden bg-[#F7F9FC]">
               {image ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
@@ -205,27 +202,22 @@ export default function AnalyzingPage() {
                   className="h-full w-full object-cover"
                 />
               ) : (
-                <div className="h-full w-full animate-pulse bg-neutral-200" />
+                <div className="h-full w-full animate-pulse bg-black/10" />
               )}
 
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/5 via-transparent to-black/45" />
 
               <div className="pointer-events-none absolute inset-[7%] rounded-[24px] border border-white/70">
                 <span className="absolute -left-px -top-px h-8 w-8 rounded-tl-[24px] border-l-2 border-t-2 border-[#FFD400]" />
-
                 <span className="absolute -right-px -top-px h-8 w-8 rounded-tr-[24px] border-r-2 border-t-2 border-[#FFD400]" />
-
                 <span className="absolute -bottom-px -left-px h-8 w-8 rounded-bl-[24px] border-b-2 border-l-2 border-[#FFD400]" />
-
                 <span className="absolute -bottom-px -right-px h-8 w-8 rounded-br-[24px] border-b-2 border-r-2 border-[#FFD400]" />
               </div>
 
               <div
-                className="pointer-events-none absolute inset-x-[7%] z-10 h-px bg-gradient-to-r from-transparent via-[#FFD400] to-transparent shadow-[0_0_18px_rgba(255,212,0,0.9)] transition-[top] duration-100 ease-linear"
+                className="pointer-events-none absolute inset-x-[7%] z-10 h-px bg-[#FFD400] shadow-[0_0_18px_rgba(255,212,0,0.9)] transition-[top] duration-100 ease-linear"
                 style={{
-                  top: `${
-                    10 + ((progress * 0.8) % 80)
-                  }%`,
+                  top: `${10 + ((progress * 0.8) % 80)}%`,
                 }}
               />
 
@@ -249,9 +241,9 @@ export default function AnalyzingPage() {
             </div>
 
             <div className="p-4">
-              <div className="h-2 overflow-hidden rounded-full bg-[#ececec]">
+              <div className="h-2 overflow-hidden rounded-full bg-black/10">
                 <div
-                  className="h-full rounded-full bg-gradient-to-r bg-[#1677FF] transition-[width] duration-200 ease-out"
+                  className="h-full rounded-full bg-[#1677FF] transition-[width] duration-200 ease-out"
                   style={{
                     width: `${progress}%`,
                   }}
@@ -265,20 +257,20 @@ export default function AnalyzingPage() {
                     : activeStep.description}
                 </p>
 
-                <p className="shrink-0 text-[10px] text-neutral-400">
+                <p className="shrink-0 text-[10px] text-black/35">
                   約1分
                 </p>
               </div>
             </div>
           </section>
 
-          <section className="mt-5 overflow-hidden rounded-[18px] border border-[#dedede] bg-white shadow-[0_6px_22px_rgba(15,23,42,0.04)]">
-            <div className="border-b border-[#eeeeee] px-4 py-4">
+          <section className="mt-5 overflow-hidden rounded-[18px] border border-black/10 bg-white shadow-[0_10px_34px_rgba(15,23,42,0.05)]">
+            <div className="border-b border-black/10 px-4 py-4">
               <h2 className="text-[15px] font-black">
                 解析ステータス
               </h2>
 
-              <p className="mt-1 text-[10px] text-neutral-500">
+              <p className="mt-1 text-[10px] text-black/55">
                 5つの観点から順番に分析しています
               </p>
             </div>
@@ -296,15 +288,15 @@ export default function AnalyzingPage() {
                   return (
                     <div
                       key={step.label}
-                      className="flex items-center gap-3 border-b border-[#f0f0f0] py-3.5 last:border-b-0"
+                      className="flex items-center gap-3 border-b border-black/10 py-3.5 last:border-b-0"
                     >
                       <span
                         className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[11px] font-black transition-colors ${
                           isComplete
-                            ? "bg-black text-white"
+                            ? "bg-[#111111] text-white"
                             : isActive
                               ? "bg-[#EEF6FF] text-[#1677FF]"
-                              : "bg-[#f3f3f3] text-neutral-400"
+                              : "bg-[#F7F9FC] text-black/35"
                         }`}
                       >
                         {isComplete ? (
@@ -322,8 +314,8 @@ export default function AnalyzingPage() {
                             className={`text-[12px] font-black ${
                               isActive ||
                               isComplete
-                                ? "text-black"
-                                : "text-neutral-400"
+                                ? "text-[#111111]"
+                                : "text-black/35"
                             }`}
                           >
                             {step.label}
@@ -332,10 +324,10 @@ export default function AnalyzingPage() {
                           <p
                             className={`shrink-0 text-[9px] font-black ${
                               isComplete
-                                ? "text-black"
+                                ? "text-[#111111]"
                                 : isActive
                                   ? "text-[#1677FF]"
-                                  : "text-neutral-300"
+                                  : "text-black/20"
                             }`}
                           >
                             {isComplete
@@ -346,7 +338,7 @@ export default function AnalyzingPage() {
                           </p>
                         </div>
 
-                        <p className="mt-1 truncate text-[10px] text-neutral-400">
+                        <p className="mt-1 truncate text-[10px] text-black/35">
                           {step.description}
                         </p>
                       </div>
@@ -359,7 +351,7 @@ export default function AnalyzingPage() {
 
           <aside className="mt-5 rounded-[14px] bg-[#FFF9D9] px-4 py-4">
             <div className="flex items-start gap-3">
-              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white text-[#1677FF] shadow-sm">
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white text-[#1677FF] shadow-[0_10px_34px_rgba(15,23,42,0.05)]">
                 <LockIcon />
               </span>
 
@@ -368,14 +360,16 @@ export default function AnalyzingPage() {
                   写真は安全に処理されます
                 </p>
 
-                <p className="mt-1 text-[10px] leading-5 text-neutral-600">
+                <p className="mt-1 text-[10px] leading-5 text-black/55">
                   アップロードした写真は診断のためだけに使用し、解析後は安全に取り扱います。
                 </p>
               </div>
             </div>
           </aside>
 
-          <p className="mt-5 text-center text-[10px] leading-5 text-neutral-400">
+          <AdPlaceholder />
+
+          <p className="mt-5 text-center text-[10px] leading-5 text-black/35">
             画面を閉じずにそのままお待ちください。
             <br />
             完了すると診断結果へ自動で移動します。

@@ -3,7 +3,6 @@ export type ProductCategory =
   | "sunscreen"
   | "hairStyling"
   | "hairCare"
-  | "eyebrow"
   | "mensMakeup"
   | "other";
 
@@ -14,9 +13,6 @@ export type ProductVisualType =
   | "wax"
   | "hairOil"
   | "dryer"
-  | "eyebrowShaver"
-  | "eyebrowPencil"
-  | "tweezers"
   | "fragrance"
   | "lip"
   | "toothbrush";
@@ -45,10 +41,6 @@ export type Product = {
     asin?: string;
   };
 
-  rakuten?: {
-    url: string;
-  };
-
   isActive: boolean;
 };
 
@@ -60,21 +52,386 @@ export type CategorySection = {
   advice: string;
 };
 
-function createRakutenSearchUrl(productName: string) {
-  const encodedName = encodeURIComponent(productName);
-
-  return `https://search.rakuten.co.jp/search/mall/${encodedName}/`;
-}
-
 export const products: Product[] = [
+  // =========================================================
+  // スキンケア
+  // =========================================================
+
   {
-    id: "mens-biore-one-bb-uv",
+    id: "fancl-deep-clear-washing-powder",
     rank: 1,
-    name: "メンズビオレONE BB&UVクリーム",
-    shortName: "BB&UVクリーム",
-    brand: "メンズビオレ",
+    name: "ディープクリア 洗顔パウダー",
+    shortName: "洗顔",
+    brand: "FANCL",
     description:
-      "UV対策をしながら、肌を自然にきれいに見せたい男性向けのBB&UVクリームです。",
+      "毛穴汚れや皮脂が気になるときの洗顔に取り入れやすいパウダータイプの洗顔料です。",
+    category: "skincare",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "cleanser",
+
+    badges: ["洗顔", "毛穴ケア"],
+    recommendedFor: ["皮脂", "毛穴", "洗顔"],
+
+    amazon: {
+      url: "https://amzn.to/4hjHtNB",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "hada-labo-shirojyun-premium",
+    rank: 2,
+    name: "白潤プレミアム 薬用浸透美白化粧水",
+    shortName: "化粧水",
+    brand: "肌ラボ",
+    description:
+      "毎日のスキンケアに取り入れやすい薬用化粧水です。洗顔後の肌を整える基本ケアとして使えます。",
+    category: "skincare",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "lotion",
+
+    badges: ["化粧水", "毎日ケア"],
+    recommendedFor: ["保湿", "肌ケア", "化粧水"],
+
+    amazon: {
+      url: "https://amzn.to/45en6tT",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "ihada-medicated-emulsion",
+    rank: 3,
+    name: "薬用エマルジョン",
+    shortName: "乳液",
+    brand: "IHADA",
+    description:
+      "化粧水のあとに使いやすい乳液です。乾燥を防ぎながら肌のうるおいを保つケアに向いています。",
+    category: "skincare",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "lotion",
+
+    badges: ["乳液", "保湿"],
+    recommendedFor: ["乾燥", "保湿", "肌ケア"],
+
+    amazon: {
+      url: "https://amzn.to/4q4FTBs",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "attenir-skin-clear-cleanse-oil",
+    rank: 4,
+    name: "スキンクリア クレンズ オイル",
+    shortName: "クレンジング",
+    brand: "Attenir",
+    description:
+      "BBクリームやメイクアイテムを使用した日のクレンジングに使いやすいオイルタイプです。",
+    category: "skincare",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "hairOil",
+
+    badges: ["クレンジング", "メイクオフ"],
+    recommendedFor: ["BBクリーム", "メイクオフ", "洗浄"],
+
+    amazon: {
+      url: "https://amzn.to/4hpBzKV",
+    },
+
+    isActive: true,
+  },
+
+  // =========================================================
+  // UVケア
+  // =========================================================
+
+  {
+    id: "anessa-uv-skincare-milk",
+    rank: 1,
+    name: "UV スキンケアミルク",
+    shortName: "日焼け止め",
+    brand: "ANESSA",
+    description:
+      "屋外で過ごす時間が長い日など、しっかり紫外線対策をしたいときに取り入れやすいUVケアアイテムです。",
+    category: "sunscreen",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "sunscreen",
+
+    badges: ["UVケア", "屋外"],
+    recommendedFor: ["紫外線対策", "屋外", "毎日ケア"],
+
+    amazon: {
+      url: "https://amzn.to/45HA8Ae",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "minon-uv-mild-milk",
+    rank: 2,
+    name: "UVマイルドミルク",
+    shortName: "日焼け止め",
+    brand: "MINON",
+    description:
+      "毎日のUVケアに取り入れやすいミルクタイプの日焼け止めです。",
+    category: "sunscreen",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "sunscreen",
+
+    badges: ["UVケア", "毎日ケア"],
+    recommendedFor: ["紫外線対策", "肌ケア", "日常使い"],
+
+    amazon: {
+      url: "https://amzn.to/45HAabk",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "biore-uv-aqua-rich-watery-essence",
+    rank: 3,
+    name: "アクアリッチ ウォータリーエッセンス",
+    shortName: "日焼け止め",
+    brand: "Bioré UV",
+    description:
+      "毎日の紫外線対策を習慣化したい人に取り入れやすいUVケアアイテムです。",
+    category: "sunscreen",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "sunscreen",
+
+    badges: ["UVケア", "日常使い"],
+    recommendedFor: ["紫外線対策", "毎日ケア", "肌"],
+
+    amazon: {
+      url: "https://amzn.to/4whE6u5",
+    },
+
+    isActive: true,
+  },
+
+  // =========================================================
+  // スタイリング
+  // =========================================================
+
+  {
+    id: "loretta-hard-jelly",
+    rank: 1,
+    name: "ハードゼリー",
+    shortName: "スタイリングジェル",
+    brand: "Loretta",
+    description:
+      "髪型をしっかりキープしたいときに使いやすいジェルタイプのスタイリング剤です。",
+    category: "hairStyling",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "wax",
+
+    badges: ["ジェル", "セット力"],
+    recommendedFor: ["キープ力", "毛流れ", "スタイリング"],
+
+    amazon: {
+      url: "https://amzn.to/4whEfxD",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "kantan-series-urutsuya",
+    rank: 2,
+    name: "カンタンシリーズ うるつや",
+    shortName: "スタイリング剤",
+    brand: "カンタンシリーズ",
+    description:
+      "髪に自然なツヤ感を出しながら、日常のスタイリングに取り入れやすいアイテムです。",
+    category: "hairStyling",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "wax",
+
+    badges: ["ツヤ感", "スタイリング"],
+    recommendedFor: ["ツヤ", "毛流れ", "髪型"],
+
+    amazon: {
+      url: "https://amzn.to/3TYzkEs",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "lipps-gloss-move-wax",
+    rank: 3,
+    name: "グロスムーブ ワックス",
+    shortName: "ヘアワックス",
+    brand: "LIPPS",
+    description:
+      "毛流れを作りながら、ツヤのあるスタイルを目指したいときに使いやすいワックスです。",
+    category: "hairStyling",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "wax",
+
+    badges: ["ワックス", "ツヤ感"],
+    recommendedFor: ["毛流れ", "ツヤ", "スタイリング"],
+
+    amazon: {
+      url: "https://amzn.to/4wMT6BB",
+    },
+
+    isActive: true,
+  },
+
+  // =========================================================
+  // ヘアケア
+  // =========================================================
+
+  {
+    id: "yolu-calm-night-repair-shampoo",
+    rank: 1,
+    name: "カームナイトリペア シャンプー",
+    shortName: "シャンプー",
+    brand: "YOLU",
+    description:
+      "髪のダメージや乾燥が気になるときの毎日のヘアケアに取り入れやすいシャンプーです。",
+    category: "hairCare",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "lotion",
+
+    badges: ["シャンプー", "ダメージケア"],
+    recommendedFor: ["乾燥", "ダメージ", "ヘアケア"],
+
+    amazon: {
+      url: "https://amzn.to/4qlVFrX",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "plus-eau-mellow-shampoo",
+    rank: 2,
+    name: "シャンプー メロウ",
+    shortName: "シャンプー",
+    brand: "plus eau",
+    description:
+      "髪を扱いやすい状態へ整えたい人の毎日のヘアケアに取り入れやすいシャンプーです。",
+    category: "hairCare",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "lotion",
+
+    badges: ["シャンプー", "まとまり"],
+    recommendedFor: ["まとまり", "髪質", "ヘアケア"],
+
+    amazon: {
+      url: "https://amzn.to/4w8FdfT",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "straine-shampoo",
+    rank: 3,
+    name: "シャンプー",
+    shortName: "シャンプー",
+    brand: "Straine",
+    description:
+      "髪のコンディションを整え、日々のスタイリングをしやすくするためのヘアケアアイテムです。",
+    category: "hairCare",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "lotion",
+
+    badges: ["シャンプー", "毎日ケア"],
+    recommendedFor: ["髪質", "まとまり", "ヘアケア"],
+
+    amazon: {
+      url: "https://amzn.to/3TyjoJ4",
+    },
+
+    isActive: true,
+  },
+
+  // =========================================================
+  // メンズメイク
+  // =========================================================
+
+  {
+    id: "the-future-color-change-bb-cream",
+    rank: 1,
+    name: "カラーチェンジBBクリーム",
+    shortName: "BBクリーム",
+    brand: "THE FUTURE",
+    description:
+      "肌の色ムラや気になる部分を自然に補正し、清潔感のある肌印象を目指したい男性向けのBBクリームです。",
     category: "mensMakeup",
 
     price: null,
@@ -84,31 +441,25 @@ export const products: Product[] = [
 
     visualType: "sunscreen",
 
-    badges: ["男性向け", "肌補正"],
-    recommendedFor: ["肌印象", "清潔感", "UV対策"],
+    badges: ["BBクリーム", "男性向け"],
+    recommendedFor: ["肌補正", "清潔感", "第一印象"],
 
     amazon: {
-      url: "https://amzn.to/3TyfKyS",
-    },
-
-    rakuten: {
-      url: createRakutenSearchUrl(
-        "メンズビオレONE BB&UVクリーム",
-      ),
+      url: "https://amzn.to/4z1F4NV",
     },
 
     isActive: true,
   },
 
   {
-    id: "biore-uv-aqua-rich-watery-essence",
-    rank: 1,
-    name: "ビオレUV アクアリッチ ウォータリーエッセンス",
-    shortName: "日焼け止め",
-    brand: "ビオレUV",
+    id: "la-roche-posay-uvidea",
+    rank: 2,
+    name: "UVイデア",
+    shortName: "化粧下地",
+    brand: "La Roche-Posay",
     description:
-      "毎日の紫外線対策に取り入れやすく、UVケアを習慣化したい人向けの日焼け止めです。",
-    category: "sunscreen",
+      "UVケアをしながら、肌を自然に整えて見せたいときに取り入れやすいアイテムです。",
+    category: "mensMakeup",
 
     price: null,
 
@@ -117,365 +468,123 @@ export const products: Product[] = [
 
     visualType: "sunscreen",
 
-    badges: ["毎日ケア", "UV対策"],
-    recommendedFor: ["紫外線対策", "毎日ケア", "肌"],
+    badges: ["化粧下地", "UVケア"],
+    recommendedFor: ["肌補正", "UV対策", "肌印象"],
 
     amazon: {
-      url: "https://amzn.to/4wRs9wE",
-    },
-
-    rakuten: {
-      url: createRakutenSearchUrl(
-        "ビオレUV アクアリッチ ウォータリーエッセンス",
-      ),
+      url: "https://amzn.to/4fIiNx1",
     },
 
     isActive: true,
   },
 
   {
-    id: "anessa-uv-skincare-milk-na",
-    rank: 2,
-    name: "アネッサ UV スキンケアミルク NA",
-    shortName: "日焼け止め",
-    brand: "アネッサ",
-    description:
-      "屋外で過ごす時間が長い日など、しっかり紫外線対策をしたい人向けのUVケアアイテムです。",
-    category: "sunscreen",
-
-    price: null,
-
-    rating: null,
-    reviewCount: null,
-
-    visualType: "sunscreen",
-
-    badges: ["UV対策", "屋外ケア"],
-    recommendedFor: ["紫外線対策", "屋外", "肌"],
-
-    amazon: {
-      url: "https://amzn.to/4bU8ovZ",
-    },
-
-    rakuten: {
-      url: createRakutenSearchUrl(
-        "アネッサ UV スキンケアミルク NA",
-      ),
-    },
-
-    isActive: true,
-  },
-
-  {
-    id: "n-homme-balm",
-    rank: 1,
-    name: "ナチュラルバーム",
-    shortName: "ヘアバーム",
-    brand: "N. HOMME",
-    description:
-      "自然な毛流れとツヤを作り、爽やかなヘアスタイルへ整えます。",
-    category: "hairStyling",
-
-    price: 2200,
-
-    rating: "4.7",
-    reviewCount: "633件",
-
-    visualType: "wax",
-
-    badges: ["自然な仕上がり", "スタイリング"],
-    recommendedFor: ["髪型", "毛流れ", "清潔感"],
-
-    amazon: {
-      url: `https://www.amazon.co.jp/s?k=${encodeURIComponent(
-        "N. HOMME ナチュラルバーム",
-      )}`,
-    },
-
-    rakuten: {
-      url: createRakutenSearchUrl(
-        "N. HOMME ナチュラルバーム",
-      ),
-    },
-
-    isActive: true,
-  },
-
-  {
-    id: "napla-hair-oil",
-    rank: 1,
-    name: "エヌドット ポリッシュオイル",
-    shortName: "ヘアオイル",
-    brand: "N.",
-    description:
-      "髪の広がりを抑え、まとまりと自然なツヤを与えます。",
-    category: "hairCare",
-
-    price: 3740,
-
-    rating: "4.6",
-    reviewCount: "2,103件",
-
-    visualType: "hairOil",
-
-    badges: ["乾燥対策", "ツヤ感"],
-    recommendedFor: ["パサつき", "広がり", "ツヤ"],
-
-    amazon: {
-      url: `https://www.amazon.co.jp/s?k=${encodeURIComponent(
-        "N. ポリッシュオイル",
-      )}`,
-    },
-
-    rakuten: {
-      url: createRakutenSearchUrl(
-        "N. ポリッシュオイル",
-      ),
-    },
-
-    isActive: true,
-  },
-
-  {
-    id: "panasonic-dryer",
-    rank: 2,
-    name: "ヘアードライヤー イオニティ",
-    shortName: "ドライヤー",
-    brand: "Panasonic",
-    description:
-      "髪を乾かしながら、まとまりやすい状態へ整えます。",
-    category: "hairCare",
-
-    price: 5980,
-
-    rating: "4.5",
-    reviewCount: "3,421件",
-
-    visualType: "dryer",
-
-    badges: ["時短", "毎日使える"],
-    recommendedFor: ["寝ぐせ", "毛流れ", "まとまり"],
-
-    amazon: {
-      url: `https://www.amazon.co.jp/s?k=${encodeURIComponent(
-        "Panasonic ヘアードライヤー イオニティ",
-      )}`,
-    },
-
-    rakuten: {
-      url: createRakutenSearchUrl(
-        "Panasonic ヘアードライヤー イオニティ",
-      ),
-    },
-
-    isActive: true,
-  },
-
-  {
-    id: "panasonic-eyebrow-shaver",
-    rank: 1,
-    name: "マユシェーバーキット",
-    shortName: "眉毛シェーバー",
-    brand: "Panasonic",
-    description:
-      "眉毛の長さや眉間の余分な毛を、安全に整えやすくします。",
-    category: "eyebrow",
-
-    price: 2480,
-
-    rating: "4.5",
-    reviewCount: "1,078件",
-
-    visualType: "eyebrowShaver",
-
-    badges: ["初心者向け", "眉毛ケア"],
-    recommendedFor: ["眉毛", "目元", "清潔感"],
-
-    amazon: {
-      url: `https://www.amazon.co.jp/s?k=${encodeURIComponent(
-        "Panasonic マユシェーバーキット",
-      )}`,
-    },
-
-    rakuten: {
-      url: createRakutenSearchUrl(
-        "Panasonic マユシェーバーキット",
-      ),
-    },
-
-    isActive: true,
-  },
-
-  {
-    id: "kate-eyebrow-pencil",
-    rank: 2,
-    name: "アイブロウペンシルZ",
-    shortName: "眉ペンシル",
-    brand: "KATE",
-    description:
-      "眉尻や薄い部分を自然に補い、目元を引き締めます。",
-    category: "eyebrow",
-
-    price: 605,
-
-    rating: "4.4",
-    reviewCount: "945件",
-
-    visualType: "eyebrowPencil",
-
-    badges: ["自然な補正", "高コスパ"],
-    recommendedFor: ["眉尻", "左右差", "目元"],
-
-    amazon: {
-      url: `https://www.amazon.co.jp/s?k=${encodeURIComponent(
-        "KATE アイブロウペンシルZ",
-      )}`,
-    },
-
-    rakuten: {
-      url: createRakutenSearchUrl(
-        "KATE アイブロウペンシルZ",
-      ),
-    },
-
-    isActive: true,
-  },
-
-  {
-    id: "kai-tweezers",
+    id: "null-bb-cream",
     rank: 3,
-    name: "先斜め毛抜き",
-    shortName: "毛抜き",
-    brand: "貝印",
+    name: "BBクリーム",
+    shortName: "BBクリーム",
+    brand: "NULL",
     description:
-      "眉間や眉下など、不要な毛を細かく整えるときに使用します。",
-    category: "eyebrow",
+      "男性の肌になじみやすい自然な仕上がりを目指したいときに使いやすいBBクリームです。",
+    category: "mensMakeup",
 
-    price: 880,
+    price: null,
 
-    rating: "4.3",
-    reviewCount: "428件",
+    rating: null,
+    reviewCount: null,
 
-    visualType: "tweezers",
+    visualType: "sunscreen",
 
-    badges: ["細部ケア", "定番"],
-    recommendedFor: ["眉間", "眉下", "細部"],
+    badges: ["BBクリーム", "男性向け"],
+    recommendedFor: ["肌補正", "ニキビ跡", "清潔感"],
 
     amazon: {
-      url: `https://www.amazon.co.jp/s?k=${encodeURIComponent(
-        "貝印 先斜め毛抜き",
-      )}`,
-    },
-
-    rakuten: {
-      url: createRakutenSearchUrl(
-        "貝印 先斜め毛抜き",
-      ),
+      url: "https://amzn.to/3UiotoV",
     },
 
     isActive: true,
   },
 
+  // =========================================================
+  // その他
+  // =========================================================
+
   {
-    id: "shiro-fragrance",
+    id: "maison-margiela-fragrance",
     rank: 1,
-    name: "サボン オードパルファン",
+    name: "フレグランス",
     shortName: "香水",
-    brand: "SHIRO",
+    brand: "Maison Margiela",
     description:
-      "清潔感を感じやすい、自然で爽やかな香りを加えます。",
+      "香りから清潔感や印象を整えたいときに取り入れるフレグランスアイテムです。",
     category: "other",
 
-    price: 4180,
+    price: null,
 
-    rating: "4.6",
-    reviewCount: "1,542件",
+    rating: null,
+    reviewCount: null,
 
     visualType: "fragrance",
 
-    badges: ["清潔感", "人気"],
+    badges: ["フレグランス", "香り"],
     recommendedFor: ["香り", "清潔感", "印象"],
 
     amazon: {
-      url: `https://www.amazon.co.jp/s?k=${encodeURIComponent(
-        "SHIRO サボン オードパルファン",
-      )}`,
-    },
-
-    rakuten: {
-      url: createRakutenSearchUrl(
-        "SHIRO サボン オードパルファン",
-      ),
+      url: "https://amzn.to/4hkDTCS",
     },
 
     isActive: true,
   },
 
   {
-    id: "uno-lip",
+    id: "marvis-whitening-mint",
     rank: 2,
-    name: "オールインワンリップクリエイター",
-    shortName: "リップ",
-    brand: "UNO",
+    name: "ホワイト・ミント歯磨き粉",
+    shortName: "歯磨き粉",
+    brand: "MARVIS",
     description:
-      "乾燥しやすい唇を保湿し、自然な血色感を整えます。",
+      "口元の清潔感を意識した毎日のオーラルケアに取り入れやすい歯磨き粉です。",
     category: "other",
 
-    price: 880,
+    price: null,
 
-    rating: "4.3",
-    reviewCount: "378件",
-
-    visualType: "lip",
-
-    badges: ["口元ケア", "持ち歩き"],
-    recommendedFor: ["乾燥", "口元", "血色感"],
-
-    amazon: {
-      url: `https://www.amazon.co.jp/s?k=${encodeURIComponent(
-        "UNO オールインワンリップクリエイター",
-      )}`,
-    },
-
-    rakuten: {
-      url: createRakutenSearchUrl(
-        "UNO オールインワンリップクリエイター",
-      ),
-    },
-
-    isActive: true,
-  },
-
-  {
-    id: "oralb-toothbrush",
-    rank: 3,
-    name: "すみずみクリーン",
-    shortName: "電動歯ブラシ",
-    brand: "Oral-B",
-    description:
-      "毎日の歯磨きを補助し、口元の清潔感を維持します。",
-    category: "other",
-
-    price: 2980,
-
-    rating: "4.5",
-    reviewCount: "2,618件",
+    rating: null,
+    reviewCount: null,
 
     visualType: "toothbrush",
 
-    badges: ["口元ケア", "毎日使える"],
+    badges: ["オーラルケア", "口元"],
     recommendedFor: ["歯", "口元", "清潔感"],
 
     amazon: {
-      url: `https://www.amazon.co.jp/s?k=${encodeURIComponent(
-        "Oral-B すみずみクリーン",
-      )}`,
+      url: "https://amzn.to/45dcfQR",
     },
 
-    rakuten: {
-      url: createRakutenSearchUrl(
-        "Oral-B すみずみクリーン",
-      ),
+    isActive: true,
+  },
+
+  {
+    id: "loccitane-shea-hand-cream",
+    rank: 3,
+    name: "カリテコンフォート シア ハンドクリーム",
+    shortName: "ハンドクリーム",
+    brand: "L'OCCITANE",
+    description:
+      "手元の乾燥をケアし、細かな部分まで清潔感を整えたいときに使いやすいハンドクリームです。",
+    category: "other",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "lotion",
+
+    badges: ["ハンドケア", "保湿"],
+    recommendedFor: ["手元", "乾燥", "清潔感"],
+
+    amazon: {
+      url: "https://amzn.to/45dauTK",
     },
 
     isActive: true,
@@ -488,10 +597,11 @@ export const categories: CategorySection[] = [
     label: "スキンケア",
     englishLabel: "SKIN CARE",
     description:
-      "洗顔や保湿など、肌のコンディションを整えるアイテムです。",
+      "洗顔・化粧水・乳液・クレンジングなど、肌のコンディションを整えるアイテムです。",
     advice:
-      "肌質や悩みに合わせて、洗顔・化粧水・乳液など必要なものから取り入れるのがおすすめです。",
+      "最初からすべて揃える必要はありません。自分の肌悩みに合わせて必要なケアから始めるのがおすすめです。",
   },
+
   {
     id: "sunscreen",
     label: "UVケア",
@@ -499,52 +609,47 @@ export const categories: CategorySection[] = [
     description:
       "毎日の紫外線対策に取り入れやすいアイテムを紹介します。",
     advice:
-      "紫外線は季節を問わず降り注ぐため、外出する日はUVケアを習慣にするのがおすすめです。",
+      "外出する日はUVケアを習慣にして、肌を紫外線から守ることを意識しましょう。",
   },
+
   {
     id: "hairStyling",
     label: "スタイリング",
     englishLabel: "STYLING",
     description:
-      "ワックスやバームなど、髪型を整えるためのスタイリングアイテムです。",
+      "ワックスやジェルなど、髪型を整えるためのスタイリングアイテムです。",
     advice:
-      "作りたい髪型や髪質に合わせて、ツヤ・セット力・質感の違いから選ぶのがおすすめです。",
+      "作りたい髪型や髪質に合わせて、セット力・ツヤ・質感の違いから選ぶのがおすすめです。",
   },
+
   {
     id: "hairCare",
     label: "ヘアケア",
     englishLabel: "HAIR CARE",
     description:
-      "髪の乾燥や広がりを整え、扱いやすい状態を目指すアイテムです。",
+      "毎日のシャンプーなど、髪のコンディションを整えるためのアイテムです。",
     advice:
-      "スタイリングだけでなく、日々のドライや保湿を整えることで髪型も作りやすくなります。",
+      "スタイリングだけでなく日々のヘアケアも整えることで、髪型を作りやすい状態を目指せます。",
   },
-  {
-    id: "eyebrow",
-    label: "アイブロウ",
-    englishLabel: "EYEBROW",
-    description:
-      "眉毛の長さや輪郭を整え、目元をすっきり見せるためのアイテムです。",
-    advice:
-      "細くしすぎず、余分な毛と長さを整えるところから始めるのがおすすめです。",
-  },
+
   {
     id: "mensMakeup",
     label: "メンズメイク",
     englishLabel: "MEN'S MAKEUP",
     description:
-      "肌や眉などを自然に補正し、清潔感のある印象を作るためのアイテムです。",
+      "BBクリームや化粧下地など、肌を自然に補正して見せるためのアイテムです。",
     advice:
-      "最初はBBクリームやコンシーラーなど、変化が自然で使いやすいものから試すのがおすすめです。",
+      "初めてならBBクリームなど、変化が自然で簡単に使いやすいアイテムから試すのがおすすめです。",
   },
+
   {
     id: "other",
     label: "その他",
     englishLabel: "OTHER",
     description:
-      "香りや口元など、細かな身だしなみを整えるためのアイテムです。",
+      "香り・口元・手元など、細かな身だしなみを整えるためのアイテムです。",
     advice:
-      "肌・髪・眉毛を整えたあとに、必要に応じて取り入れると全体の印象をさらに整えられます。",
+      "肌や髪を整えたあとに、必要なものだけ取り入れると全体の清潔感をさらに高めやすくなります。",
   },
 ];
 

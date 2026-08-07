@@ -1,3 +1,6 @@
+"use client";
+
+import { useMemo, useState } from "react";
 import Link from "next/link";
 import AppShell from "../components/AppShell";
 import DummyAd from "../components/DummyAd";
@@ -7,6 +10,7 @@ import {
   categories,
   type CategorySection,
   type Product,
+  type ProductCategory,
   type ProductVisualType,
 } from "../../data/products";
 
@@ -71,67 +75,6 @@ function SparkleIcon({
       <path d="M19 16c.3 1.7 1.3 2.7 3 3-1.7.3-2.7 1.3-3 3-.3-1.7-1.3-2.7-3-3 1.7-.3 2.7-1.3 3-3Z" />
     </svg>
   );
-}
-
-function CategoryIcon({
-  type,
-}: {
-  type: CategorySection["icon"];
-}) {
-  if (type === "drop") {
-    return (
-      <svg
-        viewBox="0 0 24 24"
-        aria-hidden="true"
-        className="h-5 w-5"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M12 3S6 9.2 6 14a6 6 0 0 0 12 0c0-4.8-6-11-6-11Z" />
-      </svg>
-    );
-  }
-
-  if (type === "hair") {
-    return (
-      <svg
-        viewBox="0 0 24 24"
-        aria-hidden="true"
-        className="h-5 w-5"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M7 18c1.5-4 3.5-6 6-6 2 0 3.6 1.1 4.8 3.1" />
-        <path d="M6 10c1.4-4.4 4-6.6 7.7-6.6 3.2 0 5.4 1.7 6.3 5.1" />
-        <path d="M4 14c.8-2.1 2-3.4 3.6-4" />
-      </svg>
-    );
-  }
-
-  if (type === "brow") {
-    return (
-      <svg
-        viewBox="0 0 24 24"
-        aria-hidden="true"
-        className="h-5 w-5"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-      >
-        <path d="M3 14c4-4 8-4 12 0" />
-        <path d="M9 14c4-4 8-4 12 0" />
-      </svg>
-    );
-  }
-
-  return <SparkleIcon className="h-5 w-5" />;
 }
 
 function CheckIcon() {
@@ -275,24 +218,13 @@ function getVisualSettings(type: ProductVisualType) {
 
 function ProductVisual({
   type,
-  size = "normal",
 }: {
   type: ProductVisualType;
-  size?: "small" | "normal" | "large";
 }) {
-  const wrapperSize =
-    size === "large"
-      ? "h-44 w-32"
-      : size === "small"
-        ? "h-16 w-12"
-        : "h-28 w-20";
-
   const settings = getVisualSettings(type);
 
   return (
-    <div
-      className={`relative flex items-end justify-center ${wrapperSize}`}
-    >
+    <div className="relative flex h-28 w-20 items-end justify-center">
       <div
         className={`relative flex items-center justify-center border shadow-[0_10px_34px_rgba(15,23,42,0.05)] ${settings.bodyClass} ${settings.shapeClass}`}
       >
@@ -358,40 +290,25 @@ function ProductCard({
 }) {
   return (
     <article className="overflow-hidden rounded-[20px] border border-black/10 bg-white shadow-[0_10px_34px_rgba(15,23,42,0.05)]">
-      <div className="grid grid-cols-[118px_1fr] border-b border-black/10">
-        <div className="relative flex min-h-[170px] items-center justify-center bg-gradient-to-b from-white to-[#F7F9FC]">
-          <span className="absolute left-3 top-3 flex h-7 w-7 items-center justify-center rounded-full bg-[#FFD400] text-[10px] font-black text-[#111111]">
+      <div className="grid grid-cols-[112px_1fr] border-b border-black/10">
+        <div className="relative flex min-h-[166px] items-center justify-center bg-gradient-to-b from-white to-[#F7F9FC]">
+          <span className="absolute left-3 top-3 flex h-7 w-7 items-center justify-center rounded-full bg-[#EEF6FF] text-[10px] font-black text-[#1677FF]">
             {product.rank}
           </span>
 
           <ProductVisual
             type={product.visualType}
-            size="normal"
           />
         </div>
 
-        <div className="p-4">
-          <div className="flex items-start justify-between gap-3">
-            <div className="min-w-0">
-              <p className="text-[9px] font-black tracking-[0.08em] text-black/35">
-                {product.brand}
-              </p>
+        <div className="flex min-w-0 flex-col justify-center p-4">
+          <p className="text-[9px] font-black tracking-[0.08em] text-black/35">
+            {product.brand}
+          </p>
 
-              <h3 className="mt-1 text-[15px] font-black leading-6">
-                {product.name}
-              </h3>
-            </div>
-
-            <div className="shrink-0 rounded-[12px] bg-[#EEF6FF] px-2.5 py-2 text-right">
-              <p className="text-[7px] font-black text-[#1677FF]">
-                AI一致度
-              </p>
-
-              <p className="mt-0.5 text-[18px] font-black leading-none text-[#1677FF]">
-                {product.matchScore}%
-              </p>
-            </div>
-          </div>
+          <h3 className="mt-1 text-[15px] font-black leading-6">
+            {product.name}
+          </h3>
 
           <p className="mt-2 text-[10px] leading-5 text-black/55">
             {product.description}
@@ -402,7 +319,7 @@ function ProductCard({
               {product.rating &&
               product.reviewCount ? (
                 <>
-                  <p className="text-[9px] text-[#FFD400]">
+                  <p className="text-[9px] font-black text-[#111111]">
                     ★ {product.rating}
                   </p>
 
@@ -412,19 +329,17 @@ function ProductCard({
                 </>
               ) : (
                 <p className="text-[8px] leading-4 text-black/35">
-                  商品情報は
-                  <br />
-                  販売サイトで確認
+                  商品情報は販売サイトで確認
                 </p>
               )}
             </div>
 
             {product.price !== null ? (
-              <p className="text-[18px] font-black">
+              <p className="shrink-0 text-[17px] font-black">
                 ¥{formatPrice(product.price)}
               </p>
             ) : (
-              <p className="text-[9px] font-black text-[#1677FF]">
+              <p className="shrink-0 text-[9px] font-black text-[#1677FF]">
                 価格を確認
               </p>
             )}
@@ -444,37 +359,64 @@ function ProductCard({
           ))}
         </div>
 
-        <p className="mt-4 text-[8px] font-black text-black/35">
-          おすすめポイント
-        </p>
+        <div className="mt-4 rounded-[14px] bg-[#EEF6FF] p-3.5">
+          <div className="flex items-center gap-2">
+            <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white text-[#1677FF]">
+              <SparkleIcon className="h-4 w-4" />
+            </span>
 
-        <div className="mt-2 flex flex-wrap gap-1.5">
-          {product.recommendedFor.map(
-            (item) => (
-              <span
-                key={item}
-                className="flex items-center gap-1 rounded-full bg-[#EEF6FF] px-2 py-1 text-[8px] font-black text-[#1677FF]"
-              >
-                <CheckIcon />
-                {item}
-              </span>
-            ),
-          )}
+            <p className="text-[9px] font-black text-[#1677FF]">
+              あなたにおすすめの理由
+            </p>
+          </div>
+
+          <div className="mt-3 flex flex-wrap gap-1.5">
+            {product.recommendedFor.map(
+              (item) => (
+                <span
+                  key={item}
+                  className="flex items-center gap-1 rounded-full bg-white px-2 py-1 text-[8px] font-black text-[#1677FF]"
+                >
+                  <CheckIcon />
+                  {item}
+                </span>
+              ),
+            )}
+          </div>
         </div>
 
-        <AffiliateButtons
-          product={product}
-        />
+        <AffiliateButtons product={product} />
       </div>
     </article>
   );
 }
 
 export default function ProductsPage() {
-  const primaryProduct =
-    activeProducts[0];
+  const availableCategories = categories;
 
-  if (!primaryProduct) {
+  const [selectedCategory, setSelectedCategory] =
+    useState<ProductCategory>(
+      availableCategories[0]?.id ?? "skincare",
+    );
+
+  const selectedCategoryData =
+    availableCategories.find(
+      (category) =>
+        category.id === selectedCategory,
+    ) ?? availableCategories[0];
+
+  const selectedProducts = useMemo(
+    () =>
+      activeProducts
+        .filter(
+          (product) =>
+            product.category === selectedCategory,
+        )
+        .sort((a, b) => a.rank - b.rank),
+    [selectedCategory],
+  );
+
+  if (!selectedCategoryData) {
     return (
       <AppShell background="white">
         <div className="flex min-h-screen items-center justify-center px-5 text-center">
@@ -507,226 +449,132 @@ export default function ProductsPage() {
           </div>
         </header>
 
-        <div className="px-4 pb-32 pt-6">
-          <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
-            PERSONAL PRODUCT GUIDE
-          </p>
+        <main className="pb-32 pt-6">
+          <div className="px-4">
+            <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
+              PERSONAL PRODUCT GUIDE
+            </p>
 
-          <h1 className="mt-2 text-[29px] font-black tracking-[-0.045em]">
-            あなた専用のおすすめ商品
-          </h1>
+            <h1 className="mt-2 text-[29px] font-black tracking-[-0.045em]">
+              あなた専用のおすすめ商品
+            </h1>
 
-          <p className="mt-3 text-[11px] leading-5 text-black/55">
-            AI診断結果をもとに、
-            あなたの改善内容に合う商品を整理しました。
-          </p>
+            <p className="mt-3 text-[11px] leading-5 text-black/55">
+              AI診断結果をもとに、あなたに合ったケア用品をカテゴリ別に紹介します。
+            </p>
+          </div>
 
-          <section className="mt-6 overflow-hidden rounded-[24px] border border-black/10 bg-white shadow-[0_10px_34px_rgba(15,23,42,0.05)]">
-            <div className="grid grid-cols-[44%_56%]">
-              <div className="relative flex min-h-[260px] items-center justify-center border-r border-black/10 bg-gradient-to-br from-white to-[#EEF6FF]">
-                <span className="absolute left-3 top-3 rounded-full bg-[#FFD400] px-3 py-1.5 text-[9px] font-black text-[#111111]">
-                  AI最優先
-                </span>
+          <nav
+            aria-label="商品カテゴリー"
+            className="mt-6 overflow-x-auto px-4 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          >
+            <div className="flex w-max gap-2">
+              {availableCategories.map(
+                (category) => {
+                  const isActive =
+                    selectedCategory ===
+                    category.id;
 
-                <ProductVisual
-                  type={
-                    primaryProduct.visualType
-                  }
-                  size="large"
-                />
-              </div>
+                  return (
+                    <button
+                      key={category.id}
+                      type="button"
+                      onClick={() =>
+                        setSelectedCategory(
+                          category.id,
+                        )
+                      }
+                      className={`min-h-[42px] shrink-0 rounded-full border px-4 text-[10px] font-black transition active:scale-[0.98] ${
+                        isActive
+                          ? "border-[#1677FF] bg-[#1677FF] text-white shadow-[0_8px_24px_rgba(22,119,255,0.16)]"
+                          : "border-black/10 bg-white text-black/55 hover:border-[#1677FF]/30 hover:bg-[#EEF6FF] hover:text-[#1677FF]"
+                      }`}
+                    >
+                      {category.label}
+                    </button>
+                  );
+                },
+              )}
+            </div>
+          </nav>
 
-              <div className="flex flex-col justify-center px-4 py-6">
-                <p className="text-[8px] font-black tracking-[0.14em] text-[#1677FF]">
-                  BEST MATCH
-                </p>
+          <div className="mt-4 border-t border-black/5" />
 
-                <h2 className="mt-2 text-[23px] font-black tracking-[-0.04em]">
-                  {primaryProduct.shortName}
-                </h2>
-
-                <p className="mt-3 text-[10px] leading-5 text-black/55">
-                  現在の診断では、
-                  紫外線対策と肌印象をまとめて整えられるアイテムを優先しています。
-                </p>
-
-                <div className="mt-5 inline-flex w-fit flex-col rounded-[14px] border border-[#1677FF]/15 bg-[#EEF6FF] px-3.5 py-3">
-                  <p className="text-[8px] font-black text-[#1677FF]">
-                    AI診断一致度
+          <div className="px-4 pt-7">
+            <section>
+              <div className="flex items-end justify-between gap-4">
+                <div>
+                  <p className="text-[9px] font-black tracking-[0.14em] text-[#1677FF]">
+                    {
+                      selectedCategoryData.englishLabel
+                    }
                   </p>
 
-                  <div className="mt-1 flex items-end gap-1.5">
-                    <p className="text-[29px] font-black leading-none tracking-[-0.04em] text-[#1677FF]">
-                      {
-                        primaryProduct.matchScore
-                      }
-                      %
-                    </p>
-
-                    <p className="pb-0.5 text-[8px] font-bold tracking-[0.08em] text-black/35">
-                      MATCH
-                    </p>
-                  </div>
+                  <h2 className="mt-1 text-[24px] font-black tracking-[-0.04em]">
+                    {selectedCategoryData.label}
+                  </h2>
                 </div>
-              </div>
-            </div>
 
-            <div className="border-t border-black/10 p-4">
-              <div className="flex gap-3 rounded-[16px] bg-[#EEF6FF] p-4">
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white text-[#1677FF]">
-                  <SparkleIcon />
+                <span className="shrink-0 rounded-full bg-[#EEF6FF] px-3 py-1.5 text-[9px] font-black text-[#1677FF]">
+                  {selectedProducts.length}商品
+                </span>
+              </div>
+
+              <p className="mt-3 text-[11px] leading-5 text-black/55">
+                {
+                  selectedCategoryData.description
+                }
+              </p>
+
+              <div className="mt-4 flex gap-3 rounded-[16px] bg-[#EEF6FF] p-4">
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white text-[#1677FF]">
+                  <SparkleIcon className="h-5 w-5" />
                 </span>
 
                 <div>
-                  <p className="text-[11px] font-black text-[#1677FF]">
+                  <p className="text-[10px] font-black text-[#1677FF]">
                     AIからのアドバイス
                   </p>
 
                   <p className="mt-1 text-[10px] leading-5 text-black/55">
-                    最初からすべて揃える必要はありません。
-                    診断結果で優先度が高い項目から、
-                    自分に合う商品を選びましょう。
+                    {selectedCategoryData.advice}
                   </p>
                 </div>
               </div>
-            </div>
-          </section>
 
-          <nav
-            aria-label="商品カテゴリー"
-            className="mt-5 grid grid-cols-4 gap-2"
-          >
-            {categories.map(
-              (category) => (
-                <a
-                  key={category.id}
-                  href={`#${category.id}`}
-                  className="flex min-h-[70px] flex-col items-center justify-center rounded-[15px] border border-black/10 bg-white px-1 text-center shadow-[0_10px_34px_rgba(15,23,42,0.05)] transition hover:border-[#1677FF]/30 hover:bg-[#EEF6FF]"
-                >
-                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#EEF6FF] text-[#1677FF]">
-                    <CategoryIcon
-                      type={category.icon}
+              <div className="mt-5 grid gap-4">
+                {selectedProducts.map(
+                  (product) => (
+                    <ProductCard
+                      key={product.id}
+                      product={product}
                     />
-                  </span>
+                  ),
+                )}
+              </div>
+            </section>
 
-                  <span className="mt-2 text-[9px] font-black">
-                    {category.label}
-                  </span>
-                </a>
-              ),
-            )}
-          </nav>
+            <DummyAd
+              className="mt-10"
+              format="rectangle"
+            />
 
-          <div className="mt-10 space-y-12">
-            {categories.map(
-              (
-                category,
-                categoryIndex,
-              ) => {
-                const categoryProducts =
-                  activeProducts.filter(
-                    (product) =>
-                      product.category ===
-                      category.id,
-                  );
+            <aside className="mt-9 rounded-[16px] bg-[#F7F9FC] px-4 py-4">
+              <p className="text-center text-[9px] leading-5 text-black/35">
+                ※商品情報・価格・在庫状況は変更される場合があります。
+                <br />
+                最新情報は各販売サイトでご確認ください。
+              </p>
+            </aside>
 
-                if (
-                  categoryProducts.length === 0
-                ) {
-                  return null;
-                }
-
-                return (
-                  <div key={category.id}>
-                    <section
-                      id={category.id}
-                      className="scroll-mt-24"
-                    >
-                      <div className="flex items-end justify-between gap-4">
-                        <div>
-                          <p className="text-[9px] font-black tracking-[0.14em] text-[#1677FF]">
-                            PRIORITY{" "}
-                            {category.priority}
-                          </p>
-
-                          <h2 className="mt-1 text-[23px] font-black tracking-[-0.04em]">
-                            {category.label}
-                          </h2>
-                        </div>
-
-                        <span className="rounded-full bg-[#EEF6FF] px-3 py-1.5 text-[9px] font-black text-[#1677FF]">
-                          {
-                            categoryProducts.length
-                          }
-                          商品
-                        </span>
-                      </div>
-
-                      <p className="mt-3 text-[11px] leading-5 text-black/55">
-                        {
-                          category.description
-                        }
-                      </p>
-
-                      <div className="mt-4 flex gap-3 rounded-[16px] bg-[#EEF6FF] p-4">
-                        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white text-[#1677FF]">
-                          <SparkleIcon className="h-5 w-5" />
-                        </span>
-
-                        <div>
-                          <p className="text-[10px] font-black text-[#1677FF]">
-                            AIカテゴリコメント
-                          </p>
-
-                          <p className="mt-1 text-[10px] leading-5 text-black/55">
-                            {category.advice}
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className="mt-4 grid gap-4">
-                        {categoryProducts.map(
-                          (product) => (
-                            <ProductCard
-                              key={
-                                product.id
-                              }
-                              product={
-                                product
-                              }
-                            />
-                          ),
-                        )}
-                      </div>
-                    </section>
-
-                    {categoryIndex === 2 && (
-                      <DummyAd
-                        className="mt-10"
-                        format="rectangle"
-                      />
-                    )}
-                  </div>
-                );
-              },
-            )}
+            <Link
+              href="/result"
+              className="mt-5 flex min-h-[50px] items-center justify-center rounded-[12px] border border-black/10 bg-white px-5 text-[11px] font-black transition hover:bg-[#EEF6FF]"
+            >
+              診断結果へ戻る
+            </Link>
           </div>
-
-          <aside className="mt-9 rounded-[16px] bg-[#F7F9FC] px-4 py-4">
-            <p className="text-center text-[9px] leading-5 text-black/35">
-              ※商品情報・価格・在庫状況は変更される場合があります。
-              <br />
-              最新情報は各販売サイトでご確認ください。
-            </p>
-          </aside>
-
-          <Link
-            href="/result"
-            className="mt-5 flex min-h-[50px] items-center justify-center rounded-[12px] border border-black/10 bg-white px-5 text-[11px] font-black transition hover:bg-[#EEF6FF]"
-          >
-            診断結果へ戻る
-          </Link>
-        </div>
+        </main>
       </div>
     </AppShell>
   );

@@ -1,8 +1,11 @@
 export type ProductCategory =
   | "skincare"
-  | "hair"
+  | "sunscreen"
+  | "hairStyling"
+  | "hairCare"
   | "eyebrow"
-  | "grooming";
+  | "mensMakeup"
+  | "other";
 
 export type ProductVisualType =
   | "sunscreen"
@@ -29,8 +32,6 @@ export type Product = {
 
   price: number | null;
 
-  matchScore: number;
-
   rating: string | null;
   reviewCount: string | null;
 
@@ -55,10 +56,8 @@ export type CategorySection = {
   id: ProductCategory;
   label: string;
   englishLabel: string;
-  priority: number;
   description: string;
   advice: string;
-  icon: "drop" | "hair" | "brow" | "sparkle";
 };
 
 function createRakutenSearchUrl(productName: string) {
@@ -76,19 +75,17 @@ export const products: Product[] = [
     brand: "メンズビオレ",
     description:
       "UV対策をしながら、肌を自然にきれいに見せたい男性向けのBB&UVクリームです。",
-    category: "skincare",
+    category: "mensMakeup",
 
     price: null,
-
-    matchScore: 98,
 
     rating: null,
     reviewCount: null,
 
     visualType: "sunscreen",
 
-    badges: ["AI最優先", "男性向け"],
-    recommendedFor: ["紫外線対策", "肌印象", "清潔感"],
+    badges: ["男性向け", "肌補正"],
+    recommendedFor: ["肌印象", "清潔感", "UV対策"],
 
     amazon: {
       url: "https://amzn.to/3TyfKyS",
@@ -105,17 +102,15 @@ export const products: Product[] = [
 
   {
     id: "biore-uv-aqua-rich-watery-essence",
-    rank: 2,
+    rank: 1,
     name: "ビオレUV アクアリッチ ウォータリーエッセンス",
     shortName: "日焼け止め",
     brand: "ビオレUV",
     description:
       "毎日の紫外線対策に取り入れやすく、UVケアを習慣化したい人向けの日焼け止めです。",
-    category: "skincare",
+    category: "sunscreen",
 
     price: null,
-
-    matchScore: 95,
 
     rating: null,
     reviewCount: null,
@@ -140,17 +135,15 @@ export const products: Product[] = [
 
   {
     id: "anessa-uv-skincare-milk-na",
-    rank: 3,
+    rank: 2,
     name: "アネッサ UV スキンケアミルク NA",
     shortName: "日焼け止め",
     brand: "アネッサ",
     description:
       "屋外で過ごす時間が長い日など、しっかり紫外線対策をしたい人向けのUVケアアイテムです。",
-    category: "skincare",
+    category: "sunscreen",
 
     price: null,
-
-    matchScore: 92,
 
     rating: null,
     reviewCount: null,
@@ -181,18 +174,16 @@ export const products: Product[] = [
     brand: "N. HOMME",
     description:
       "自然な毛流れとツヤを作り、爽やかなヘアスタイルへ整えます。",
-    category: "hair",
+    category: "hairStyling",
 
     price: 2200,
-
-    matchScore: 96,
 
     rating: "4.7",
     reviewCount: "633件",
 
     visualType: "wax",
 
-    badges: ["AIおすすめ", "自然な仕上がり"],
+    badges: ["自然な仕上がり", "スタイリング"],
     recommendedFor: ["髪型", "毛流れ", "清潔感"],
 
     amazon: {
@@ -212,17 +203,15 @@ export const products: Product[] = [
 
   {
     id: "napla-hair-oil",
-    rank: 2,
+    rank: 1,
     name: "エヌドット ポリッシュオイル",
     shortName: "ヘアオイル",
     brand: "N.",
     description:
       "髪の広がりを抑え、まとまりと自然なツヤを与えます。",
-    category: "hair",
+    category: "hairCare",
 
     price: 3740,
-
-    matchScore: 92,
 
     rating: "4.6",
     reviewCount: "2,103件",
@@ -249,17 +238,15 @@ export const products: Product[] = [
 
   {
     id: "panasonic-dryer",
-    rank: 3,
+    rank: 2,
     name: "ヘアードライヤー イオニティ",
     shortName: "ドライヤー",
     brand: "Panasonic",
     description:
       "髪を乾かしながら、まとまりやすい状態へ整えます。",
-    category: "hair",
+    category: "hairCare",
 
     price: 5980,
-
-    matchScore: 87,
 
     rating: "4.5",
     reviewCount: "3,421件",
@@ -296,14 +283,12 @@ export const products: Product[] = [
 
     price: 2480,
 
-    matchScore: 97,
-
     rating: "4.5",
     reviewCount: "1,078件",
 
     visualType: "eyebrowShaver",
 
-    badges: ["AI最優先", "初心者向け"],
+    badges: ["初心者向け", "眉毛ケア"],
     recommendedFor: ["眉毛", "目元", "清潔感"],
 
     amazon: {
@@ -332,8 +317,6 @@ export const products: Product[] = [
     category: "eyebrow",
 
     price: 605,
-
-    matchScore: 90,
 
     rating: "4.4",
     reviewCount: "945件",
@@ -370,8 +353,6 @@ export const products: Product[] = [
 
     price: 880,
 
-    matchScore: 84,
-
     rating: "4.3",
     reviewCount: "428件",
 
@@ -403,11 +384,9 @@ export const products: Product[] = [
     brand: "SHIRO",
     description:
       "清潔感を感じやすい、自然で爽やかな香りを加えます。",
-    category: "grooming",
+    category: "other",
 
     price: 4180,
-
-    matchScore: 89,
 
     rating: "4.6",
     reviewCount: "1,542件",
@@ -440,11 +419,9 @@ export const products: Product[] = [
     brand: "UNO",
     description:
       "乾燥しやすい唇を保湿し、自然な血色感を整えます。",
-    category: "grooming",
+    category: "other",
 
     price: 880,
-
-    matchScore: 86,
 
     rating: "4.3",
     reviewCount: "378件",
@@ -477,11 +454,9 @@ export const products: Product[] = [
     brand: "Oral-B",
     description:
       "毎日の歯磨きを補助し、口元の清潔感を維持します。",
-    category: "grooming",
+    category: "other",
 
     price: 2980,
-
-    matchScore: 83,
 
     rating: "4.5",
     reviewCount: "2,618件",
@@ -512,48 +487,64 @@ export const categories: CategorySection[] = [
     id: "skincare",
     label: "スキンケア",
     englishLabel: "SKIN CARE",
-    priority: 1,
     description:
-      "乾燥・テカリ・紫外線対策を整え、清潔感のある印象を目指します。",
+      "洗顔や保湿など、肌のコンディションを整えるアイテムです。",
     advice:
-      "最初は洗顔・保湿・日焼け止めなど、必要なケアから少しずつ始めるのがおすすめです。",
-    icon: "drop",
+      "肌質や悩みに合わせて、洗顔・化粧水・乳液など必要なものから取り入れるのがおすすめです。",
   },
-
   {
-    id: "hair",
+    id: "sunscreen",
+    label: "UVケア",
+    englishLabel: "UV CARE",
+    description:
+      "毎日の紫外線対策に取り入れやすいアイテムを紹介します。",
+    advice:
+      "紫外線は季節を問わず降り注ぐため、外出する日はUVケアを習慣にするのがおすすめです。",
+  },
+  {
+    id: "hairStyling",
+    label: "ヘアスタイリング",
+    englishLabel: "HAIR STYLING",
+    description:
+      "ワックスやバームなど、髪型を整えるためのスタイリングアイテムです。",
+    advice:
+      "作りたい髪型や髪質に合わせて、ツヤ・セット力・質感の違いから選ぶのがおすすめです。",
+  },
+  {
+    id: "hairCare",
     label: "ヘアケア",
     englishLabel: "HAIR CARE",
-    priority: 2,
     description:
-      "髪の広がりや寝ぐせを整え、顔立ちに合うシルエットを作ります。",
+      "髪の乾燥や広がりを整え、扱いやすい状態を目指すアイテムです。",
     advice:
-      "スタイリング剤の前に、ドライヤーで毛流れを整えるのがおすすめです。",
-    icon: "hair",
+      "スタイリングだけでなく、日々のドライや保湿を整えることで髪型も作りやすくなります。",
   },
-
   {
     id: "eyebrow",
-    label: "眉毛ケア",
-    englishLabel: "EYEBROW CARE",
-    priority: 3,
+    label: "アイブロウ",
+    englishLabel: "EYEBROW",
     description:
-      "眉毛の長さや輪郭を整え、目元をすっきり見せます。",
+      "眉毛の長さや輪郭を整え、目元をすっきり見せるためのアイテムです。",
     advice:
-      "細くしすぎず、余分な毛と長さだけを整えるのが失敗しにくい方法です。",
-    icon: "brow",
+      "細くしすぎず、余分な毛と長さを整えるところから始めるのがおすすめです。",
   },
-
   {
-    id: "grooming",
-    label: "身だしなみ",
-    englishLabel: "GROOMING",
-    priority: 4,
+    id: "mensMakeup",
+    label: "メンズメイク",
+    englishLabel: "MEN'S MAKEUP",
     description:
-      "香り・口元・唇など、細かい部分の清潔感を補います。",
+      "肌や眉などを自然に補正し、清潔感のある印象を作るためのアイテムです。",
     advice:
-      "髪型・眉毛・肌を整えたあとに追加すると、全体の完成度が高まります。",
-    icon: "sparkle",
+      "最初はBBクリームやコンシーラーなど、変化が自然で使いやすいものから試すのがおすすめです。",
+  },
+  {
+    id: "other",
+    label: "その他",
+    englishLabel: "OTHER",
+    description:
+      "香りや口元など、細かな身だしなみを整えるためのアイテムです。",
+    advice:
+      "肌・髪・眉毛を整えたあとに、必要に応じて取り入れると全体の印象をさらに整えられます。",
   },
 ];
 

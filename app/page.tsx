@@ -1,6 +1,11 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
-import type { ReactNode } from "react";
+import {
+  useState,
+  type ReactNode,
+} from "react";
 import Logo from "./components/Logo";
 
 type IconName =
@@ -211,8 +216,104 @@ function Icon({
   );
 }
 
-export default function Home() {
+type FaqItemProps = {
+  question: string;
+  answer: string;
+  index: number;
+  isOpen: boolean;
+  onToggle: (index: number) => void;
+};
+
+function FaqItem({
+  question,
+  answer,
+  index,
+  isOpen,
+  onToggle,
+}: FaqItemProps) {
   return (
+    <article
+      className={`overflow-hidden rounded-[18px] border bg-white transition duration-300 ${
+        isOpen
+          ? "border-[#1677FF]/30 shadow-[0_10px_34px_rgba(15,23,42,0.05)]"
+          : "border-black/10"
+      }`}
+    >
+      <button
+        type="button"
+        onClick={() => onToggle(index)}
+        aria-expanded={isOpen}
+        aria-controls={`faq-answer-${index}`}
+        className="flex min-h-[64px] w-full items-center justify-between gap-4 px-5 py-4 text-left transition hover:bg-[#F7F9FC]"
+      >
+        <span className="text-[14px] font-black leading-6 text-[#111111]">
+          {question}
+        </span>
+
+        <span
+          aria-hidden="true"
+          className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#EEF6FF] text-[#1677FF] transition-transform duration-300 ${
+            isOpen ? "rotate-180" : ""
+          }`}
+        >
+          <svg
+            viewBox="0 0 24 24"
+            className="h-4 w-4"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="m7 10 5 5 5-5" />
+          </svg>
+        </span>
+      </button>
+
+      <div
+        id={`faq-answer-${index}`}
+        className={`grid transition-[grid-template-rows,opacity] duration-300 ${
+          isOpen
+            ? "grid-rows-[1fr] opacity-100"
+            : "grid-rows-[0fr] opacity-0"
+        }`}
+      >
+        <div className="overflow-hidden">
+          <p className="border-t border-black/5 px-5 pb-5 pt-4 text-[13px] leading-7 text-black/55">
+            {answer}
+          </p>
+        </div>
+      </div>
+    </article>
+  );
+}
+
+export default function Home() {
+  const [openFaqIndex, setOpenFaqIndex] =
+    useState<number | null>(null);
+
+  const toggleFaq = (index: number) => {
+    setOpenFaqIndex((current) =>
+      current === index ? null : index,
+    );
+  };
+
+  const leftFaqs = faqs
+    .map((faq, index) => ({
+      faq,
+      index,
+    }))
+    .filter(({ index }) => index % 2 === 0);
+
+  const rightFaqs = faqs
+    .map((faq, index) => ({
+      faq,
+      index,
+    }))
+    .filter(({ index }) => index % 2 === 1);
+
+  return (
+
     <main className="overflow-hidden bg-white text-[#111111]">
       <header className="sticky top-0 z-50 border-b border-black/10 bg-white/90 backdrop-blur-xl">
         <div className="site-container flex h-18 items-center justify-between gap-4">
@@ -506,26 +607,63 @@ export default function Home() {
   </div>
 </section>
 
-      <section id="faq" className="section-border py-16">
-        <div className="site-container">
-          
-          <div className="mx-auto w-full max-w-6xl">
-            <SectionTitle>よくある質問</SectionTitle>
+      <section
+  id="faq"
+  className="section-border py-16"
+>
+  <div className="site-container">
+    <div className="mx-auto w-full max-w-6xl">
+      <SectionTitle>よくある質問</SectionTitle>
 
-            <div className="mx-auto mt-10 grid w-full max-w-6xl grid-cols-1 gap-4 md:grid-cols-2">
-              {faqs.map(([question, answer]) => (
-                <details key={question} className="faq-item group">
-                  <summary>
-                    {question}
-                    <span>⌄</span>
-                  </summary>
-                  <p>{answer}</p>
-                </details>
-              ))}
-            </div>
-          </div>
+      {/* スマホ */}
+      <div className="mt-10 space-y-4 md:hidden">
+        {faqs.map(([question, answer], index) => (
+          <FaqItem
+            key={question}
+            question={question}
+            answer={answer}
+            index={index}
+            isOpen={openFaqIndex === index}
+            onToggle={toggleFaq}
+          />
+        ))}
+      </div>
+
+      {/* PC */}
+      <div className="mt-10 hidden grid-cols-2 items-start gap-4 md:grid">
+        <div className="space-y-4">
+          {leftFaqs.map(
+            ({ faq: [question, answer], index }) => (
+              <FaqItem
+                key={question}
+                question={question}
+                answer={answer}
+                index={index}
+                isOpen={openFaqIndex === index}
+                onToggle={toggleFaq}
+              />
+            ),
+          )}
         </div>
-      </section>
+
+        <div className="space-y-4">
+          {rightFaqs.map(
+            ({ faq: [question, answer], index }) => (
+              <FaqItem
+                key={question}
+                question={question}
+                answer={answer}
+                index={index}
+                isOpen={openFaqIndex === index}
+                onToggle={toggleFaq}
+              />
+            ),
+          )}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
       <section className="px-4 pb-5 pt-4">
         <div className="site-container overflow-hidden rounded-[28px] bg-gradient-to-r from-[#EEF6FF] via-white to-[#EEF6FF] px-6 py-8 sm:px-10">

@@ -12,32 +12,42 @@ import DummyAd from "../components/DummyAd";
 import AppLogo from "../components/AppLogo";
 
 const IMAGE_STORAGE_KEY = "akanukeImage";
-const IMPRESSION_STORAGE_KEY = "akanukeDesiredImpressions";
-const CURRENT_SCORE = 68;
-const GOAL_SCORE = 84;
+const IMPRESSION_STORAGE_KEY =
+  "akanukeDesiredImpressions";
+
+const CURRENT_PROGRESS = 68;
+const GOAL_PROGRESS = 100;
+
+const impressionLabelMap: Record<string, string> = {
+  korean: "韓国風",
+  business: "ビジネス",
+  clean: "清潔感",
+  refreshing: "爽やか",
+  natural: "ナチュラル",
+  casual: "カジュアル",
+  mature: "大人っぽい",
+  mode: "モード",
+};
 
 const priorities = [
   {
     rank: 1,
     title: "髪型を変える",
-    point: 8,
-    impact: "最優先",
+    label: "最優先",
     description:
       "前髪を少し軽くし、額を自然に見せることで、幼く見えやすい印象を抑えられます。サイドの膨らみも整えると、輪郭がよりシャープに見えます。",
   },
   {
     rank: 2,
     title: "眉毛を整える",
-    point: 5,
-    impact: "効果が高い",
+    label: "効果が高い",
     description:
       "眉下の余分な毛を整え、眉尻を少し細くすると、目元が引き締まります。太さを残しながら輪郭を整えるのがポイントです。",
   },
   {
     rank: 3,
     title: "肌の基本ケアを始める",
-    point: 3,
-    impact: "毎日改善",
+    label: "継続改善",
     description:
       "洗顔・保湿・日焼け止めの3ステップを続けることで、テカリや乾燥を抑え、均一で清潔感のある肌印象を目指せます。",
   },
@@ -89,7 +99,13 @@ function Icon({
     ),
     calendar: (
       <>
-        <rect x="4" y="5" width="16" height="15" rx="2" />
+        <rect
+          x="4"
+          y="5"
+          width="16"
+          height="15"
+          rx="2"
+        />
         <path d="M8 3v4" />
         <path d="M16 3v4" />
         <path d="M4 10h16" />
@@ -114,11 +130,16 @@ function Icon({
   );
 }
 
-function CircularScore({ score }: { score: number }) {
+function CircularProgress({
+  progress,
+}: {
+  progress: number;
+}) {
   const radius = 54;
   const circumference = 2 * Math.PI * radius;
   const offset =
-    circumference - (score / 100) * circumference;
+    circumference -
+    (progress / 100) * circumference;
 
   return (
     <div className="relative h-[144px] w-[144px]">
@@ -141,7 +162,7 @@ function CircularScore({ score }: { score: number }) {
           cy="64"
           r={radius}
           fill="none"
-          stroke="url(#scoreGradient)"
+          stroke="url(#progressGradient)"
           strokeWidth="7"
           strokeLinecap="round"
           strokeDasharray={circumference}
@@ -151,7 +172,7 @@ function CircularScore({ score }: { score: number }) {
 
         <defs>
           <linearGradient
-            id="scoreGradient"
+            id="progressGradient"
             x1="0"
             y1="0"
             x2="128"
@@ -161,6 +182,7 @@ function CircularScore({ score }: { score: number }) {
               offset="0%"
               stopColor="#FFE45C"
             />
+
             <stop
               offset="100%"
               stopColor="#FFD400"
@@ -172,16 +194,16 @@ function CircularScore({ score }: { score: number }) {
       <div className="absolute inset-0 flex flex-col items-center justify-center text-white">
         <div className="flex items-end gap-1">
           <span className="text-[44px] font-black leading-none tracking-[-0.07em]">
-            {score}
+            {progress}
           </span>
 
-          <span className="pb-1 text-[11px] font-bold text-white/45">
-            /100
+          <span className="pb-1 text-[13px] font-black text-[#FFD400]">
+            %
           </span>
         </div>
 
-        <span className="mt-1 text-[9px] font-bold tracking-[0.12em] text-white/55">
-          CURRENT SCORE
+        <span className="mt-1 text-[8px] font-bold tracking-[0.12em] text-white/55">
+          CURRENT
         </span>
       </div>
     </div>
@@ -216,12 +238,12 @@ function ActionCard({
           {title}
         </span>
 
-        <span className="mt-1 block text-[9px] leading-4 text-neutral-500">
+        <span className="mt-1 block text-[9px] leading-4 text-black/55">
           {description}
         </span>
       </span>
 
-      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#F7FAFF] text-[#1677FF] transition group-hover:translate-x-0.5 group-hover:bg-[#EEF6FF]">
+      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#F7F9FC] text-[#1677FF] transition group-hover:translate-x-0.5 group-hover:bg-[#EEF6FF]">
         <Icon
           name="chevron"
           className="h-4 w-4"
@@ -232,16 +254,25 @@ function ActionCard({
 }
 
 export default function ResultPage() {
-  const [image, setImage] = useState<string | null>(null);
-  const [displayScore, setDisplayScore] = useState(0);
-  const [isReady, setIsReady] = useState(false);
-  const [impressions, setImpressions] = useState<string[]>(
-    [],
-  );
+  const [image, setImage] =
+    useState<string | null>(null);
+
+  const [
+    displayProgress,
+    setDisplayProgress,
+  ] = useState(0);
+
+  const [isReady, setIsReady] =
+    useState(false);
+
+  const [impressions, setImpressions] =
+    useState<string[]>([]);
 
   useEffect(() => {
     const savedImage =
-      window.sessionStorage.getItem(IMAGE_STORAGE_KEY);
+      window.sessionStorage.getItem(
+        IMAGE_STORAGE_KEY,
+      );
 
     const rawImpressions =
       window.sessionStorage.getItem(
@@ -253,13 +284,17 @@ export default function ResultPage() {
 
       if (rawImpressions) {
         try {
-          const parsed = JSON.parse(rawImpressions);
+          const parsed =
+            JSON.parse(rawImpressions);
 
           if (Array.isArray(parsed)) {
             setImpressions(
               parsed.filter(
-                (item): item is string =>
-                  typeof item === "string",
+                (
+                  item,
+                ): item is string =>
+                  typeof item ===
+                  "string",
               ),
             );
           }
@@ -273,6 +308,7 @@ export default function ResultPage() {
 
     const duration = 1400;
     const start = performance.now();
+
     let frame = 0;
 
     const animate = (now: number) => {
@@ -282,37 +318,58 @@ export default function ResultPage() {
       );
 
       const eased =
-        1 - Math.pow(1 - progress, 3);
+        1 -
+        Math.pow(
+          1 - progress,
+          3,
+        );
 
-      setDisplayScore(
-        Math.round(CURRENT_SCORE * eased),
+      setDisplayProgress(
+        Math.round(
+          CURRENT_PROGRESS *
+            eased,
+        ),
       );
 
       if (progress < 1) {
         frame =
-          window.requestAnimationFrame(animate);
+          window.requestAnimationFrame(
+            animate,
+          );
       }
     };
 
     frame =
-      window.requestAnimationFrame(animate);
+      window.requestAnimationFrame(
+        animate,
+      );
 
     return () =>
-      window.cancelAnimationFrame(frame);
+      window.cancelAnimationFrame(
+        frame,
+      );
   }, []);
 
-  const impressionLabel = useMemo(
-    () =>
-      impressions.length > 0
-        ? impressions.join("・")
-        : "爽やか・清潔感",
-    [impressions],
-  );
+  const impressionLabel =
+    useMemo(() => {
+      if (impressions.length === 0) {
+        return "爽やか・清潔感";
+      }
+
+      return impressions
+        .map(
+          (item) =>
+            impressionLabelMap[
+              item.toLowerCase()
+            ] ?? item,
+        )
+        .join("・");
+    }, [impressions]);
 
   if (!isReady) {
     return (
       <main className="flex min-h-screen items-center justify-center bg-white">
-        <div className="h-9 w-9 animate-spin rounded-full border-[3px] border-neutral-200 border-t-[#1677FF]" />
+        <div className="h-9 w-9 animate-spin rounded-full border-[3px] border-black/10 border-t-[#1677FF]" />
       </main>
     );
   }
@@ -320,12 +377,12 @@ export default function ResultPage() {
   return (
     <AppShell background="white">
       <div className="overflow-hidden bg-white">
-        <header className="sticky top-0 z-40 border-b border-black/[0.06] bg-white/95 backdrop-blur-xl">
+        <header className="sticky top-0 z-40 border-b border-black/10 bg-white/95 backdrop-blur-xl">
           <div className="grid h-[68px] grid-cols-[44px_1fr_44px] items-center px-4">
             <Link
               href="/upload"
               aria-label="写真選択へ戻る"
-              className="flex h-10 w-10 items-center justify-center rounded-full transition hover:bg-black/[0.05] active:scale-95"
+              className="flex h-10 w-10 items-center justify-center rounded-full transition hover:bg-[#EEF6FF] active:scale-95"
             >
               <Icon
                 name="arrowLeft"
@@ -334,8 +391,8 @@ export default function ResultPage() {
             </Link>
 
             <div className="flex justify-center">
-  <AppLogo />
-</div>
+              <AppLogo />
+            </div>
 
             <div aria-hidden="true" />
           </div>
@@ -351,14 +408,15 @@ export default function ResultPage() {
               あなたの診断結果
             </h1>
 
-            <p className="mx-auto mt-2 max-w-[320px] text-[12px] leading-5 text-neutral-500">
-              現在の印象と理想像を比較し、改善効果の高い順番をAIが整理しました。
+            <p className="mx-auto mt-2 max-w-[330px] text-[12px] leading-5 text-black/55">
+              Afterイメージを目標として、
+              今の状態から優先して整えたいポイントをAIが分析しました。
             </p>
           </section>
 
-          <section className="mx-4 overflow-hidden rounded-[24px] bg-[#111111] shadow-[0_18px_45px_rgba(17,17,17,0.22)]">
+          <section className="mx-4 overflow-hidden rounded-[24px] bg-[#111111] shadow-[0_18px_46px_rgba(15,23,42,0.09)]">
             <div className="grid grid-cols-[42%_58%]">
-              <div className="relative min-h-[282px] overflow-hidden bg-neutral-800">
+              <div className="relative min-h-[282px] overflow-hidden bg-black/80">
                 {image ? (
                   <img
                     src={image}
@@ -386,7 +444,7 @@ export default function ResultPage() {
                   <>
                     <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-black/15" />
 
-                    <span className="absolute bottom-3 left-3 flex items-center gap-1.5 rounded-full bg-white/95 px-2.5 py-1.5 text-[8px] font-black text-black">
+                    <span className="absolute bottom-3 left-3 flex items-center gap-1.5 rounded-full bg-white/95 px-2.5 py-1.5 text-[8px] font-black text-[#111111]">
                       <Icon
                         name="check"
                         className="h-3 w-3"
@@ -398,28 +456,76 @@ export default function ResultPage() {
               </div>
 
               <div className="flex flex-col items-center justify-center px-3 py-5">
-                <CircularScore score={displayScore} />
+                <p className="mb-1 text-[8px] font-black tracking-[0.16em] text-[#FFD400]">
+                  AKANUKE PROGRESS
+                </p>
+
+                <CircularProgress
+                  progress={
+                    displayProgress
+                  }
+                />
 
                 <div className="mt-2 w-full rounded-[15px] border border-white/10 bg-white/[0.06] px-3 py-3 text-white">
                   <p className="text-[8px] font-bold tracking-[0.1em] text-white/40">
-                    GOAL SCORE
+                    AFTER GOAL
                   </p>
 
                   <div className="mt-1 flex items-center justify-between gap-2">
                     <p className="text-[22px] font-black tracking-[-0.04em]">
-                      {GOAL_SCORE}点
+                      {GOAL_PROGRESS}%
                     </p>
 
-                    <span className="rounded-full bg-[#FFD400] px-2.5 py-1.5 text-[9px] font-black text-black">
-                      +{GOAL_SCORE - CURRENT_SCORE}
+                    <span className="rounded-full bg-[#FFD400] px-2.5 py-1.5 text-[9px] font-black text-[#111111]">
+                      GOAL
                     </span>
                   </div>
 
-                  <p className="mt-1 text-[9px] text-white/45">
-                    自分のペースで目指す理想値
+                  <p className="mt-1 text-[9px] leading-4 text-white/45">
+                    AIが提案するAfterへの目標状態
                   </p>
                 </div>
               </div>
+            </div>
+
+            <div className="border-t border-white/10 px-4 py-4">
+              <div className="flex items-center justify-between gap-3">
+                <div>
+                  <p className="text-[8px] font-black tracking-[0.12em] text-white/40">
+                    CURRENT
+                  </p>
+
+                  <p className="mt-1 text-[13px] font-black text-white">
+                    現在 {CURRENT_PROGRESS}%
+                  </p>
+                </div>
+
+                <div className="min-w-0 flex-1">
+                  <div className="h-2 overflow-hidden rounded-full bg-white/10">
+                    <div
+                      className="h-full rounded-full bg-[#FFD400]"
+                      style={{
+                        width: `${CURRENT_PROGRESS}%`,
+                      }}
+                    />
+                  </div>
+                </div>
+
+                <div className="text-right">
+                  <p className="text-[8px] font-black tracking-[0.12em] text-white/40">
+                    AFTER
+                  </p>
+
+                  <p className="mt-1 text-[13px] font-black text-[#FFD400]">
+                    100%
+                  </p>
+                </div>
+              </div>
+
+              <p className="mt-3 text-[8px] leading-4 text-white/40">
+                ※AKANUKE PROGRESSは容姿を採点するものではありません。
+                今回のAfterイメージに近づくための目安です。
+              </p>
             </div>
           </section>
 
@@ -433,13 +539,17 @@ export default function ResultPage() {
             </div>
 
             <h2 className="mt-3 text-[20px] font-black leading-[1.5] tracking-[-0.03em]">
-              髪型と眉毛を整えるだけで、第一印象は大きく変わります。
+              髪型と眉毛を整えるだけで、
+              第一印象は大きく変わります。
             </h2>
 
-            <p className="mt-3 text-[12px] leading-6 text-neutral-700">
-              現在は親しみやすく柔らかい印象です。一方で、前髪と眉毛の形によって少し幼く見えやすい傾向があります。目指す印象は「
+            <p className="mt-3 text-[12px] leading-6 text-black/55">
+              現在は親しみやすく柔らかい印象です。
+              一方で、前髪と眉毛の形によって少し幼く見えやすい傾向があります。
+              目指す印象は「
               {impressionLabel}
-              」。髪型・眉毛・肌の順に整えるのがおすすめです。
+              」。
+              髪型・眉毛・肌の順に整えるのがおすすめです。
             </p>
           </section>
 
@@ -452,13 +562,14 @@ export default function ResultPage() {
               理想イメージ
             </h2>
 
-            <p className="mt-2 text-[11px] leading-5 text-neutral-500">
-              現在の状態と、改善後に目指す印象を比較できます。
+            <p className="mt-2 text-[11px] leading-5 text-black/55">
+              現在の状態と、
+              改善後に目指す印象を比較できます。
             </p>
 
             <div className="mt-4 grid grid-cols-2 gap-3">
               <div className="overflow-hidden rounded-[18px] border border-black/10 bg-white">
-                <div className="relative aspect-[4/5] bg-neutral-100">
+                <div className="relative aspect-[4/5] bg-[#F7F9FC]">
                   {image ? (
                     <img
                       src={image}
@@ -467,7 +578,7 @@ export default function ResultPage() {
                     />
                   ) : null}
 
-                  <span className="absolute left-3 top-3 rounded-full bg-black px-2.5 py-1 text-[9px] font-black text-white">
+                  <span className="absolute left-3 top-3 rounded-full bg-[#111111] px-2.5 py-1 text-[9px] font-black text-white">
                     Before
                   </span>
                 </div>
@@ -477,14 +588,15 @@ export default function ResultPage() {
                     現在の印象
                   </p>
 
-                  <p className="mt-1 text-[9px] leading-4 text-neutral-500">
-                    親しみやすい一方、髪型と眉毛に改善余地があります。
+                  <p className="mt-1 text-[9px] leading-4 text-black/55">
+                    親しみやすい一方、
+                    髪型と眉毛に改善余地があります。
                   </p>
                 </div>
               </div>
 
-              <div className="overflow-hidden rounded-[18px] border border-[#FFD400] bg-[#FFF9D9]">
-                <div className="relative aspect-[4/5] bg-neutral-100">
+              <div className="overflow-hidden rounded-[18px] border border-[#FFD400]/40 bg-[#FFF9D9]">
+                <div className="relative aspect-[4/5] bg-[#F7F9FC]">
                   {image ? (
                     <img
                       src={image}
@@ -493,7 +605,7 @@ export default function ResultPage() {
                     />
                   ) : null}
 
-                  <span className="absolute left-3 top-3 rounded-full bg-[#FFD400] px-2.5 py-1 text-[9px] font-black text-black">
+                  <span className="absolute left-3 top-3 rounded-full bg-[#FFD400] px-2.5 py-1 text-[9px] font-black text-[#111111]">
                     After
                   </span>
                 </div>
@@ -503,15 +615,16 @@ export default function ResultPage() {
                     理想の印象
                   </p>
 
-                  <p className="mt-1 text-[9px] leading-4 text-neutral-500">
+                  <p className="mt-1 text-[9px] leading-4 text-black/55">
                     爽やかさと清潔感が自然に伝わる状態を目指します。
                   </p>
                 </div>
               </div>
             </div>
 
-            <p className="mt-3 text-center text-[9px] leading-4 text-neutral-400">
-              ※Afterは改善の方向性を示す参考イメージです。実際の変化を保証するものではありません。
+            <p className="mt-3 text-center text-[9px] leading-4 text-black/35">
+              ※Afterは改善の方向性を示す参考イメージです。
+              実際の変化を保証するものではありません。
             </p>
           </section>
 
@@ -524,41 +637,40 @@ export default function ResultPage() {
               改善優先順位
             </h2>
 
+            <p className="mt-2 text-[11px] leading-5 text-black/55">
+              Afterに近づくために、
+              優先して取り組みたい項目から整理しています。
+            </p>
+
             <div className="mt-4 space-y-3">
-              {priorities.map((item) => (
-                <article
-                  key={item.rank}
-                  className="rounded-[18px] border border-black/10 bg-white p-4 shadow-[0_6px_22px_rgba(15,23,42,0.04)]"
-                >
-                  <div className="flex items-start gap-3">
-                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[13px] bg-[#EEF6FF] text-[17px] font-black text-black">
-  {item.rank}
-</span>
+              {priorities.map(
+                (item) => (
+                  <article
+                    key={item.rank}
+                    className="rounded-[18px] border border-black/10 bg-white p-4 shadow-[0_10px_34px_rgba(15,23,42,0.05)]"
+                  >
+                    <div className="flex items-start gap-3">
+                      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[13px] bg-[#EEF6FF] text-[17px] font-black text-[#1677FF]">
+                        {item.rank}
+                      </span>
 
-                    <div className="min-w-0 flex-1">
-                      <div className="flex items-start justify-between gap-3">
-                        <div>
-                          <h3 className="text-[16px] font-black">
-                            {item.title}
-                          </h3>
+                      <div className="min-w-0 flex-1">
+                        <h3 className="text-[16px] font-black">
+                          {item.title}
+                        </h3>
 
-                          <span className="mt-1.5 inline-flex rounded-full bg-[#FFF9D9] px-2.5 py-1 text-[8px] font-black text-[#1677FF]">
-                            {item.impact}
-                          </span>
-                        </div>
+                        <span className="mt-1.5 inline-flex rounded-full bg-[#FFF9D9] px-2.5 py-1 text-[8px] font-black text-[#1677FF]">
+                          {item.label}
+                        </span>
 
-                        <p className="shrink-0 text-[17px] font-black text-[#1677FF]">
-                          +{item.point}点
+                        <p className="mt-3 text-[11px] leading-5 text-black/55">
+                          {item.description}
                         </p>
                       </div>
-
-                      <p className="mt-3 text-[11px] leading-5 text-neutral-600">
-                        {item.description}
-                      </p>
                     </div>
-                  </div>
-                </article>
-              ))}
+                  </article>
+                ),
+              )}
             </div>
           </section>
 
@@ -581,18 +693,19 @@ export default function ResultPage() {
               </p>
 
               <h2 className="mt-3 max-w-[290px] text-[24px] font-black leading-[1.45] tracking-[-0.04em]">
-                自分のペースで進める
+                100%に近づくための
                 <br />
                 垢抜けプラン
               </h2>
 
-              <p className="mt-3 max-w-[340px] text-[11px] leading-5 text-neutral-500">
-                優先順位の高い項目から、自分のタイミングで無理なく進められます。
+              <p className="mt-3 max-w-[340px] text-[11px] leading-5 text-black/55">
+                優先順位の高い項目から、
+                自分のタイミングで無理なく進められます。
               </p>
 
               <Link
                 href="/plan"
-                className="mt-6 flex min-h-[56px] items-center justify-center gap-3 rounded-[15px] bg-[#FFD400] px-5 text-[14px] font-black text-black shadow-[0_10px_24px_rgba(255,212,0,0.25)] transition hover:-translate-y-0.5 hover:bg-[#FFE04A] hover:shadow-[0_14px_30px_rgba(255,212,0,0.32)] active:scale-[0.99]"
+                className="mt-6 flex min-h-[56px] items-center justify-center gap-3 rounded-[15px] bg-[#FFD400] px-5 text-[14px] font-black text-[#111111] shadow-[0_10px_34px_rgba(15,23,42,0.05)] transition hover:-translate-y-0.5 active:scale-[0.99]"
               >
                 垢抜けプランを見る
 
@@ -624,12 +737,13 @@ export default function ResultPage() {
 
           <Link
             href="/upload"
-            className="mx-4 mt-5 flex min-h-12 items-center justify-center gap-2 rounded-[12px] border border-black/10 bg-white px-4 text-[11px] font-black transition hover:bg-[#F7FAFF]"
+            className="mx-4 mt-5 flex min-h-12 items-center justify-center gap-2 rounded-[12px] border border-black/10 bg-white px-4 text-[11px] font-black transition hover:bg-[#F7F9FC]"
           >
             <Icon
               name="refresh"
               className="h-4 w-4"
             />
+
             別の写真で診断し直す
           </Link>
         </div>

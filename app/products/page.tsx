@@ -2,352 +2,13 @@ import Link from "next/link";
 import AppShell from "../components/AppShell";
 import DummyAd from "../components/DummyAd";
 import AppLogo from "../components/AppLogo";
-
-type ProductCategory = "skincare" | "hair" | "eyebrow" | "grooming";
-
-type ProductVisualType =
-  | "sunscreen"
-  | "lotion"
-  | "cleanser"
-  | "wax"
-  | "hairOil"
-  | "dryer"
-  | "eyebrowShaver"
-  | "eyebrowPencil"
-  | "tweezers"
-  | "fragrance"
-  | "lip"
-  | "toothbrush";
-
-type Product = {
-  id: string;
-  rank: number;
-  name: string;
-  shortName: string;
-  brand: string;
-  description: string;
-  category: ProductCategory;
-  price: number;
-  matchScore: number;
-  rating: string;
-  reviewCount: string;
-  visualType: ProductVisualType;
-  badges: string[];
-  recommendedFor: string[];
-  affiliateLinks: {
-    amazon: string;
-    rakuten: string;
-  };
-};
-
-type CategorySection = {
-  id: ProductCategory;
-  label: string;
-  englishLabel: string;
-  priority: number;
-  description: string;
-  advice: string;
-  icon: "drop" | "hair" | "brow" | "sparkle";
-};
-
-function createAffiliateLinks(productName: string) {
-  const encodedName = encodeURIComponent(productName);
-
-  return {
-    amazon: `https://www.amazon.co.jp/s?k=${encodedName}`,
-    rakuten: `https://search.rakuten.co.jp/search/mall/${encodedName}/`,
-  };
-}
-
-const products: Product[] = [
-  {
-    id: "allie-uv",
-    rank: 1,
-    name: "クロノビューティ ジェルUV EX",
-    shortName: "日焼け止め",
-    brand: "ALLIE",
-    description:
-      "紫外線から肌を守り、清潔感のある印象を維持しやすくします。",
-    category: "skincare",
-    price: 2310,
-    matchScore: 98,
-    rating: "4.6",
-    reviewCount: "1,234件",
-    visualType: "sunscreen",
-    badges: ["AI最優先", "初心者向け"],
-    recommendedFor: ["肌", "清潔感", "第一印象"],
-    affiliateLinks: createAffiliateLinks(
-      "ALLIE クロノビューティ ジェルUV EX",
-    ),
-  },
-  {
-    id: "nivea-lotion",
-    rank: 2,
-    name: "メン スキンコンディショナーバーム",
-    shortName: "化粧水",
-    brand: "NIVEA MEN",
-    description:
-      "肌のうるおいを整え、乾燥によるくすみやカサつきを防ぎます。",
-    category: "skincare",
-    price: 1320,
-    matchScore: 94,
-    rating: "4.5",
-    reviewCount: "656件",
-    visualType: "lotion",
-    badges: ["毎日ケア", "高コスパ"],
-    recommendedFor: ["乾燥", "肌荒れ", "保湿"],
-    affiliateLinks: createAffiliateLinks(
-      "NIVEA MEN スキンコンディショナーバーム",
-    ),
-  },
-  {
-    id: "uno-cleanser",
-    rank: 3,
-    name: "ホイップウォッシュ ブラック",
-    shortName: "洗顔料",
-    brand: "UNO",
-    description:
-      "皮脂や毛穴汚れを落とし、ベタつきの少ない肌を目指します。",
-    category: "skincare",
-    price: 550,
-    matchScore: 91,
-    rating: "4.4",
-    reviewCount: "892件",
-    visualType: "cleanser",
-    badges: ["皮脂対策", "高コスパ"],
-    recommendedFor: ["テカリ", "毛穴", "皮脂"],
-    affiliateLinks: createAffiliateLinks(
-      "UNO ホイップウォッシュ ブラック",
-    ),
-  },
-  {
-    id: "n-homme-balm",
-    rank: 1,
-    name: "ナチュラルバーム",
-    shortName: "ヘアバーム",
-    brand: "N. HOMME",
-    description:
-      "自然な毛流れとツヤを作り、爽やかなヘアスタイルへ整えます。",
-    category: "hair",
-    price: 2200,
-    matchScore: 96,
-    rating: "4.7",
-    reviewCount: "633件",
-    visualType: "wax",
-    badges: ["AIおすすめ", "自然な仕上がり"],
-    recommendedFor: ["髪型", "毛流れ", "清潔感"],
-    affiliateLinks: createAffiliateLinks(
-      "N. HOMME ナチュラルバーム",
-    ),
-  },
-  {
-    id: "napla-hair-oil",
-    rank: 2,
-    name: "エヌドット ポリッシュオイル",
-    shortName: "ヘアオイル",
-    brand: "N.",
-    description:
-      "髪の広がりを抑え、まとまりと自然なツヤを与えます。",
-    category: "hair",
-    price: 3740,
-    matchScore: 92,
-    rating: "4.6",
-    reviewCount: "2,103件",
-    visualType: "hairOil",
-    badges: ["乾燥対策", "ツヤ感"],
-    recommendedFor: ["パサつき", "広がり", "ツヤ"],
-    affiliateLinks: createAffiliateLinks(
-      "N. ポリッシュオイル",
-    ),
-  },
-  {
-    id: "panasonic-dryer",
-    rank: 3,
-    name: "ヘアードライヤー イオニティ",
-    shortName: "ドライヤー",
-    brand: "Panasonic",
-    description:
-      "髪を乾かしながら、まとまりやすい状態へ整えます。",
-    category: "hair",
-    price: 5980,
-    matchScore: 87,
-    rating: "4.5",
-    reviewCount: "3,421件",
-    visualType: "dryer",
-    badges: ["時短", "毎日使える"],
-    recommendedFor: ["寝ぐせ", "毛流れ", "まとまり"],
-    affiliateLinks: createAffiliateLinks(
-      "Panasonic ヘアードライヤー イオニティ",
-    ),
-  },
-  {
-    id: "panasonic-eyebrow-shaver",
-    rank: 1,
-    name: "マユシェーバーキット",
-    shortName: "眉毛シェーバー",
-    brand: "Panasonic",
-    description:
-      "眉毛の長さや眉間の余分な毛を、安全に整えやすくします。",
-    category: "eyebrow",
-    price: 2480,
-    matchScore: 97,
-    rating: "4.5",
-    reviewCount: "1,078件",
-    visualType: "eyebrowShaver",
-    badges: ["AI最優先", "初心者向け"],
-    recommendedFor: ["眉毛", "目元", "清潔感"],
-    affiliateLinks: createAffiliateLinks(
-      "Panasonic マユシェーバーキット",
-    ),
-  },
-  {
-    id: "kate-eyebrow-pencil",
-    rank: 2,
-    name: "アイブロウペンシルZ",
-    shortName: "眉ペンシル",
-    brand: "KATE",
-    description:
-      "眉尻や薄い部分を自然に補い、目元を引き締めます。",
-    category: "eyebrow",
-    price: 605,
-    matchScore: 90,
-    rating: "4.4",
-    reviewCount: "945件",
-    visualType: "eyebrowPencil",
-    badges: ["自然な補正", "高コスパ"],
-    recommendedFor: ["眉尻", "左右差", "目元"],
-    affiliateLinks: createAffiliateLinks(
-      "KATE アイブロウペンシルZ",
-    ),
-  },
-  {
-    id: "kai-tweezers",
-    rank: 3,
-    name: "先斜め毛抜き",
-    shortName: "毛抜き",
-    brand: "貝印",
-    description:
-      "眉間や眉下など、不要な毛を細かく整えるときに使用します。",
-    category: "eyebrow",
-    price: 880,
-    matchScore: 84,
-    rating: "4.3",
-    reviewCount: "428件",
-    visualType: "tweezers",
-    badges: ["細部ケア", "定番"],
-    recommendedFor: ["眉間", "眉下", "細部"],
-    affiliateLinks: createAffiliateLinks(
-      "貝印 先斜め毛抜き",
-    ),
-  },
-  {
-    id: "shiro-fragrance",
-    rank: 1,
-    name: "サボン オードパルファン",
-    shortName: "香水",
-    brand: "SHIRO",
-    description:
-      "清潔感を感じやすい、自然で爽やかな香りを加えます。",
-    category: "grooming",
-    price: 4180,
-    matchScore: 89,
-    rating: "4.6",
-    reviewCount: "1,542件",
-    visualType: "fragrance",
-    badges: ["清潔感", "人気"],
-    recommendedFor: ["香り", "清潔感", "印象"],
-    affiliateLinks: createAffiliateLinks(
-      "SHIRO サボン オードパルファン",
-    ),
-  },
-  {
-    id: "uno-lip",
-    rank: 2,
-    name: "オールインワンリップクリエイター",
-    shortName: "リップ",
-    brand: "UNO",
-    description:
-      "乾燥しやすい唇を保湿し、自然な血色感を整えます。",
-    category: "grooming",
-    price: 880,
-    matchScore: 86,
-    rating: "4.3",
-    reviewCount: "378件",
-    visualType: "lip",
-    badges: ["口元ケア", "持ち歩き"],
-    recommendedFor: ["乾燥", "口元", "血色感"],
-    affiliateLinks: createAffiliateLinks(
-      "UNO オールインワンリップクリエイター",
-    ),
-  },
-  {
-    id: "oralb-toothbrush",
-    rank: 3,
-    name: "すみずみクリーン",
-    shortName: "電動歯ブラシ",
-    brand: "Oral-B",
-    description:
-      "毎日の歯磨きを補助し、口元の清潔感を維持します。",
-    category: "grooming",
-    price: 2980,
-    matchScore: 83,
-    rating: "4.5",
-    reviewCount: "2,618件",
-    visualType: "toothbrush",
-    badges: ["口元ケア", "毎日使える"],
-    recommendedFor: ["歯", "口元", "清潔感"],
-    affiliateLinks: createAffiliateLinks(
-      "Oral-B すみずみクリーン",
-    ),
-  },
-];
-
-const categories: CategorySection[] = [
-  {
-    id: "skincare",
-    label: "スキンケア",
-    englishLabel: "SKIN CARE",
-    priority: 1,
-    description:
-      "乾燥・テカリ・紫外線対策を整え、清潔感のある印象を目指します。",
-    advice:
-      "最初は洗顔・保湿・日焼け止めの3つだけで十分です。",
-    icon: "drop",
-  },
-  {
-    id: "hair",
-    label: "ヘアケア",
-    englishLabel: "HAIR CARE",
-    priority: 2,
-    description:
-      "髪の広がりや寝ぐせを整え、顔立ちに合うシルエットを作ります。",
-    advice:
-      "スタイリング剤の前に、ドライヤーで毛流れを整えるのがおすすめです。",
-    icon: "hair",
-  },
-  {
-    id: "eyebrow",
-    label: "眉毛ケア",
-    englishLabel: "EYEBROW CARE",
-    priority: 3,
-    description:
-      "眉毛の長さや輪郭を整え、目元をすっきり見せます。",
-    advice:
-      "細くしすぎず、余分な毛と長さだけを整えるのが失敗しにくい方法です。",
-    icon: "brow",
-  },
-  {
-    id: "grooming",
-    label: "身だしなみ",
-    englishLabel: "GROOMING",
-    priority: 4,
-    description:
-      "香り・口元・唇など、細かい部分の清潔感を補います。",
-    advice:
-      "髪型・眉毛・肌を整えたあとに追加すると、全体の完成度が高まります。",
-    icon: "sparkle",
-  },
-];
+import {
+  activeProducts,
+  categories,
+  type CategorySection,
+  type Product,
+  type ProductVisualType,
+} from "../../data/products";
 
 function formatPrice(price: number) {
   return new Intl.NumberFormat("ja-JP").format(price);
@@ -502,97 +163,108 @@ function getVisualSettings(type: ProductVisualType) {
   > = {
     sunscreen: {
       label: "UV",
-      subLabel: "SPF 50+",
+      subLabel: "CARE",
       bodyClass:
-        "border-stone-200 bg-gradient-to-br from-white via-stone-50 to-stone-100",
+        "border-black/10 bg-gradient-to-br from-white via-[#F7F9FC] to-[#EEF6FF]",
       shapeClass:
         "h-[76%] w-[44%] rounded-b-[16px] rounded-t-[7px]",
     },
+
     lotion: {
       label: "MEN",
       subLabel: "LOTION",
       bodyClass:
-        "border-blue-900/20 bg-gradient-to-r from-blue-950 via-blue-700 to-blue-950 text-white",
+        "border-[#1677FF]/15 bg-gradient-to-b from-[#EEF6FF] to-[#1677FF] text-white",
       shapeClass:
         "h-[72%] w-[40%] rounded-b-[12px] rounded-t-[7px]",
     },
+
     cleanser: {
       label: "WASH",
       subLabel: "CLEAN",
       bodyClass:
-        "border-neutral-700 bg-gradient-to-br from-neutral-800 to-black text-white",
+        "border-black/10 bg-[#111111] text-white",
       shapeClass:
         "h-[70%] w-[45%] rounded-b-[14px] rounded-t-[8px]",
     },
+
     wax: {
       label: "N.",
       subLabel: "BALM",
       bodyClass:
-        "border-neutral-700 bg-gradient-to-br from-neutral-600 via-neutral-900 to-black text-white",
+        "border-black/10 bg-[#111111] text-white",
       shapeClass:
         "h-[45%] w-[60%] rounded-[15px]",
     },
+
     hairOil: {
       label: "OIL",
       subLabel: "HAIR",
       bodyClass:
-        "border-amber-800/20 bg-gradient-to-r from-amber-800 via-amber-500 to-amber-800 text-white",
+        "border-black/10 bg-gradient-to-b from-[#FFF9D9] to-[#FFD400]",
       shapeClass:
         "h-[72%] w-[36%] rounded-b-[12px] rounded-t-[5px]",
     },
+
     dryer: {
       label: "ION",
       subLabel: "DRYER",
       bodyClass:
-        "border-slate-300 bg-gradient-to-br from-white to-slate-200",
+        "border-black/10 bg-gradient-to-br from-white to-[#F7F9FC]",
       shapeClass:
         "h-[46%] w-[64%] rounded-[22px]",
     },
+
     eyebrowShaver: {
       label: "眉",
       subLabel: "SHAVER",
       bodyClass:
-        "border-slate-300 bg-gradient-to-b from-white to-slate-200",
+        "border-black/10 bg-gradient-to-b from-white to-[#F7F9FC]",
       shapeClass:
         "h-[78%] w-[22%] rounded-full",
     },
+
     eyebrowPencil: {
       label: "BROW",
       subLabel: "PENCIL",
       bodyClass:
-        "border-stone-700 bg-gradient-to-b from-stone-700 to-stone-950 text-white",
+        "border-black/10 bg-[#111111] text-white",
       shapeClass:
         "h-[82%] w-[12%] rounded-full",
     },
+
     tweezers: {
       label: "CARE",
       subLabel: "TOOL",
       bodyClass:
-        "border-slate-300 bg-gradient-to-b from-white to-slate-300",
+        "border-black/10 bg-gradient-to-b from-white to-[#F7F9FC]",
       shapeClass:
         "h-[76%] w-[18%] rotate-6 rounded-full",
     },
+
     fragrance: {
       label: "SAVON",
       subLabel: "EAU",
       bodyClass:
-        "border-sky-100 bg-gradient-to-br from-white to-sky-100",
+        "border-[#1677FF]/10 bg-gradient-to-br from-white to-[#EEF6FF]",
       shapeClass:
         "h-[60%] w-[46%] rounded-[10px]",
     },
+
     lip: {
       label: "LIP",
       subLabel: "CARE",
       bodyClass:
-        "border-neutral-700 bg-gradient-to-b from-neutral-800 to-black text-white",
+        "border-black/10 bg-[#111111] text-white",
       shapeClass:
         "h-[72%] w-[22%] rounded-[7px]",
     },
+
     toothbrush: {
       label: "ORAL",
       subLabel: "CARE",
       bodyClass:
-        "border-blue-100 bg-gradient-to-b from-white to-blue-100",
+        "border-[#1677FF]/10 bg-gradient-to-b from-white to-[#EEF6FF]",
       shapeClass:
         "h-[78%] w-[20%] rounded-full",
     },
@@ -622,12 +294,13 @@ function ProductVisual({
       className={`relative flex items-end justify-center ${wrapperSize}`}
     >
       <div
-        className={`relative flex items-center justify-center border shadow-[0_14px_28px_rgba(15,23,42,0.12)] ${settings.bodyClass} ${settings.shapeClass}`}
+        className={`relative flex items-center justify-center border shadow-[0_10px_34px_rgba(15,23,42,0.05)] ${settings.bodyClass} ${settings.shapeClass}`}
       >
         <div className="text-center">
           <p className="text-[7px] font-black tracking-[0.08em]">
             {settings.label}
           </p>
+
           <p className="mt-0.5 text-[4px] font-bold opacity-60">
             {settings.subLabel}
           </p>
@@ -643,29 +316,37 @@ function AffiliateButtons({
   product: Product;
 }) {
   const baseClass =
-    "flex min-h-10 items-center justify-center gap-1 rounded-[10px] px-1 text-[8px] font-black text-white transition active:scale-[0.98]";
+    "flex min-h-10 items-center justify-center gap-1 rounded-[10px] px-2 text-[8px] font-black text-white transition hover:-translate-y-0.5 active:scale-[0.98]";
 
   return (
-    <div className="mt-4 grid grid-cols-2 gap-2">
+    <div
+      className={`mt-4 grid gap-2 ${
+        product.rakuten
+          ? "grid-cols-2"
+          : "grid-cols-1"
+      }`}
+    >
       <a
-        href={product.affiliateLinks.amazon}
+        href={product.amazon.url}
         target="_blank"
-        rel="noreferrer sponsored"
-        className={`${baseClass} bg-black`}
+        rel="noopener noreferrer sponsored"
+        className={`${baseClass} bg-[#111111]`}
       >
-        Amazon
+        Amazonで見る
         <ExternalLinkIcon />
       </a>
 
-      <a
-        href={product.affiliateLinks.rakuten}
-        target="_blank"
-        rel="noreferrer sponsored"
-        className={`${baseClass} bg-[#BF0000]`}
-      >
-        楽天
-        <ExternalLinkIcon />
-      </a>
+      {product.rakuten && (
+        <a
+          href={product.rakuten.url}
+          target="_blank"
+          rel="noopener noreferrer sponsored"
+          className={`${baseClass} bg-[#BF0000]`}
+        >
+          楽天で見る
+          <ExternalLinkIcon />
+        </a>
+      )}
     </div>
   );
 }
@@ -676,10 +357,10 @@ function ProductCard({
   product: Product;
 }) {
   return (
-    <article className="overflow-hidden rounded-[20px] border border-black/10 bg-white shadow-[0_10px_30px_rgba(15,23,42,0.05)]">
-      <div className="grid grid-cols-[118px_1fr] border-b border-black/5">
-        <div className="relative flex min-h-[170px] items-center justify-center bg-gradient-to-b from-white to-[#F7FAFF]">
-          <span className="absolute left-3 top-3 flex h-7 w-7 items-center justify-center rounded-full bg-[#FFD400] text-[10px] font-black text-black">
+    <article className="overflow-hidden rounded-[20px] border border-black/10 bg-white shadow-[0_10px_34px_rgba(15,23,42,0.05)]">
+      <div className="grid grid-cols-[118px_1fr] border-b border-black/10">
+        <div className="relative flex min-h-[170px] items-center justify-center bg-gradient-to-b from-white to-[#F7F9FC]">
+          <span className="absolute left-3 top-3 flex h-7 w-7 items-center justify-center rounded-full bg-[#FFD400] text-[10px] font-black text-[#111111]">
             {product.rank}
           </span>
 
@@ -712,24 +393,41 @@ function ProductCard({
             </div>
           </div>
 
-          <p className="mt-2 text-[10px] leading-5 text-black/50">
+          <p className="mt-2 text-[10px] leading-5 text-black/55">
             {product.description}
           </p>
 
           <div className="mt-3 flex items-end justify-between gap-3">
             <div>
-              <p className="text-[9px] text-[#F4B400]">
-                ★ {product.rating}
-              </p>
+              {product.rating &&
+              product.reviewCount ? (
+                <>
+                  <p className="text-[9px] text-[#FFD400]">
+                    ★ {product.rating}
+                  </p>
 
-              <p className="mt-0.5 text-[8px] text-black/35">
-                {product.reviewCount}
-              </p>
+                  <p className="mt-0.5 text-[8px] text-black/35">
+                    {product.reviewCount}
+                  </p>
+                </>
+              ) : (
+                <p className="text-[8px] leading-4 text-black/35">
+                  商品情報は
+                  <br />
+                  販売サイトで確認
+                </p>
+              )}
             </div>
 
-            <p className="text-[18px] font-black">
-              ¥{formatPrice(product.price)}
-            </p>
+            {product.price !== null ? (
+              <p className="text-[18px] font-black">
+                ¥{formatPrice(product.price)}
+              </p>
+            ) : (
+              <p className="text-[9px] font-black text-[#1677FF]">
+                価格を確認
+              </p>
+            )}
           </div>
         </div>
       </div>
@@ -739,7 +437,7 @@ function ProductCard({
           {product.badges.map((badge) => (
             <span
               key={badge}
-              className="rounded-full bg-[#FFF7CC] px-2 py-1 text-[8px] font-black text-[#846600]"
+              className="rounded-full bg-[#FFF9D9] px-2 py-1 text-[8px] font-black text-[#111111]"
             >
               {badge}
             </span>
@@ -747,7 +445,7 @@ function ProductCard({
         </div>
 
         <p className="mt-4 text-[8px] font-black text-black/35">
-          改善できる項目
+          おすすめポイント
         </p>
 
         <div className="mt-2 flex flex-wrap gap-1.5">
@@ -773,221 +471,262 @@ function ProductCard({
 }
 
 export default function ProductsPage() {
-  const primaryProduct = products[0];
+  const primaryProduct =
+    activeProducts[0];
+
+  if (!primaryProduct) {
+    return (
+      <AppShell background="white">
+        <div className="flex min-h-screen items-center justify-center px-5 text-center">
+          <p className="text-[13px] font-bold text-black/55">
+            現在掲載中の商品はありません。
+          </p>
+        </div>
+      </AppShell>
+    );
+  }
 
   return (
-    <AppShell>
-      <header className="sticky top-0 z-30 border-b border-black/10 bg-white/95 backdrop-blur-xl">
-        <div className="grid h-[68px] grid-cols-[48px_1fr_48px] items-center px-3">
-          <Link
-            href="/result"
-            aria-label="診断結果へ戻る"
-            className="flex h-11 w-11 items-center justify-center rounded-full text-black transition hover:bg-[#EEF6FF] active:scale-95"
-          >
-            <ArrowLeftIcon />
-          </Link>
-
-          <div className="flex justify-center">
-            <AppLogo />
-          </div>
-
-          <div aria-hidden="true" />
-        </div>
-      </header>
-
-      <div className="px-4 pb-32 pt-6">
-        <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
-          PERSONAL PRODUCT GUIDE
-        </p>
-
-        <h1 className="mt-2 text-[29px] font-black tracking-[-0.045em]">
-          あなた専用のおすすめ商品
-        </h1>
-
-        <p className="mt-3 text-[11px] leading-5 text-black/50">
-          AI診断結果をもとに、改善効果が期待できる順番で商品を整理しました。
-        </p>
-
-        <section className="mt-6 overflow-hidden rounded-[24px] border border-black/10 bg-white shadow-[0_16px_46px_rgba(15,23,42,0.07)]">
-          <div className="grid grid-cols-[44%_56%]">
-            <div className="relative flex min-h-[260px] items-center justify-center border-r border-black/5 bg-gradient-to-br from-white to-[#EEF6FF]">
-              <span className="absolute left-3 top-3 rounded-full bg-[#FFD400] px-3 py-1.5 text-[9px] font-black text-black">
-                AI最優先
-              </span>
-
-              <ProductVisual
-                type={primaryProduct.visualType}
-                size="large"
-              />
-            </div>
-
-            <div className="flex flex-col justify-center px-4 py-6">
-              <p className="text-[8px] font-black tracking-[0.14em] text-[#1677FF]">
-                BEST MATCH
-              </p>
-
-              <h2 className="mt-2 text-[23px] font-black tracking-[-0.04em]">
-                {primaryProduct.shortName}
-              </h2>
-
-              <p className="mt-3 text-[10px] leading-5 text-black/50">
-                現在の診断では、紫外線対策を優先すると肌の清潔感を維持しやすくなります。
-              </p>
-
-              <div className="mt-5 inline-flex w-fit flex-col rounded-[14px] border border-[#1677FF]/15 bg-[#EEF6FF] px-3.5 py-3">
-  <p className="text-[8px] font-black text-[#1677FF]">
-    AI診断一致度
-  </p>
-
-  <div className="mt-1 flex items-end gap-1.5">
-    <p className="text-[29px] font-black leading-none tracking-[-0.04em] text-[#1677FF]">
-      {primaryProduct.matchScore}%
-    </p>
-
-    <p className="pb-0.5 text-[8px] font-bold tracking-[0.08em] text-black/35">
-      MATCH
-    </p>
-  </div>
-</div>
-            </div>
-          </div>
-
-          <div className="border-t border-black/5 p-4">
-            <div className="flex gap-3 rounded-[16px] border border-[#1677FF]/15 bg-[#F7FAFF] p-4">
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#1677FF] text-white">
-                <SparkleIcon />
-              </span>
-
-              <div>
-                <p className="text-[11px] font-black text-[#1677FF]">
-                  AIからのアドバイス
-                </p>
-
-                <p className="mt-1 text-[10px] leading-5 text-black/55">
-                  最初からすべて揃える必要はありません。まずは日焼け止め、眉毛シェーバー、ヘアバームの3点から始めるのがおすすめです。
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <nav
-          aria-label="商品カテゴリー"
-          className="mt-5 grid grid-cols-4 gap-2"
-        >
-          {categories.map((category) => (
-            <a
-              key={category.id}
-              href={`#${category.id}`}
-              className="flex min-h-[70px] flex-col items-center justify-center rounded-[15px] border border-black/10 bg-white px-1 text-center shadow-[0_6px_20px_rgba(15,23,42,0.04)] transition hover:border-[#1677FF]/40 hover:bg-[#F7FAFF]"
+    <AppShell background="white">
+      <div className="overflow-hidden bg-white">
+        <header className="sticky top-0 z-30 border-b border-black/10 bg-white/95 backdrop-blur-xl">
+          <div className="grid h-[68px] grid-cols-[48px_1fr_48px] items-center px-3">
+            <Link
+              href="/result"
+              aria-label="診断結果へ戻る"
+              className="flex h-11 w-11 items-center justify-center rounded-full text-[#111111] transition hover:bg-[#EEF6FF] active:scale-95"
             >
-              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#EEF6FF] text-[#1677FF]">
-                <CategoryIcon
-                  type={category.icon}
+              <ArrowLeftIcon />
+            </Link>
+
+            <div className="flex justify-center">
+              <AppLogo />
+            </div>
+
+            <div aria-hidden="true" />
+          </div>
+        </header>
+
+        <div className="px-4 pb-32 pt-6">
+          <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
+            PERSONAL PRODUCT GUIDE
+          </p>
+
+          <h1 className="mt-2 text-[29px] font-black tracking-[-0.045em]">
+            あなた専用のおすすめ商品
+          </h1>
+
+          <p className="mt-3 text-[11px] leading-5 text-black/55">
+            AI診断結果をもとに、
+            あなたの改善内容に合う商品を整理しました。
+          </p>
+
+          <section className="mt-6 overflow-hidden rounded-[24px] border border-black/10 bg-white shadow-[0_10px_34px_rgba(15,23,42,0.05)]">
+            <div className="grid grid-cols-[44%_56%]">
+              <div className="relative flex min-h-[260px] items-center justify-center border-r border-black/10 bg-gradient-to-br from-white to-[#EEF6FF]">
+                <span className="absolute left-3 top-3 rounded-full bg-[#FFD400] px-3 py-1.5 text-[9px] font-black text-[#111111]">
+                  AI最優先
+                </span>
+
+                <ProductVisual
+                  type={
+                    primaryProduct.visualType
+                  }
+                  size="large"
                 />
-              </span>
+              </div>
 
-              <span className="mt-2 text-[9px] font-black">
-                {category.label}
-              </span>
-            </a>
-          ))}
-        </nav>
+              <div className="flex flex-col justify-center px-4 py-6">
+                <p className="text-[8px] font-black tracking-[0.14em] text-[#1677FF]">
+                  BEST MATCH
+                </p>
 
-        <div className="mt-10 space-y-12">
-          {categories.map(
-            (category, categoryIndex) => {
-              const categoryProducts =
-                products.filter(
-                  (product) =>
-                    product.category ===
-                    category.id,
-                );
+                <h2 className="mt-2 text-[23px] font-black tracking-[-0.04em]">
+                  {primaryProduct.shortName}
+                </h2>
 
-              return (
-                <div key={category.id}>
-                  <section
-                    id={category.id}
-                    className="scroll-mt-24"
-                  >
-                    <div className="flex items-end justify-between gap-4">
-                      <div>
-                        <p className="text-[9px] font-black tracking-[0.14em] text-[#1677FF]">
-                          PRIORITY{" "}
-                          {category.priority}
-                        </p>
+                <p className="mt-3 text-[10px] leading-5 text-black/55">
+                  現在の診断では、
+                  紫外線対策と肌印象をまとめて整えられるアイテムを優先しています。
+                </p>
 
-                        <h2 className="mt-1 text-[23px] font-black tracking-[-0.04em]">
-                          {category.label}
-                        </h2>
-                      </div>
+                <div className="mt-5 inline-flex w-fit flex-col rounded-[14px] border border-[#1677FF]/15 bg-[#EEF6FF] px-3.5 py-3">
+                  <p className="text-[8px] font-black text-[#1677FF]">
+                    AI診断一致度
+                  </p>
 
-                      <span className="rounded-full bg-[#EEF6FF] px-3 py-1.5 text-[9px] font-black text-[#1677FF]">
-                        {
-                          categoryProducts.length
-                        }
-                        商品
-                      </span>
-                    </div>
-
-                    <p className="mt-3 text-[11px] leading-5 text-black/50">
-                      {category.description}
+                  <div className="mt-1 flex items-end gap-1.5">
+                    <p className="text-[29px] font-black leading-none tracking-[-0.04em] text-[#1677FF]">
+                      {
+                        primaryProduct.matchScore
+                      }
+                      %
                     </p>
 
-                    <div className="mt-4 flex gap-3 rounded-[16px] border border-[#1677FF]/15 bg-[#F7FAFF] p-4">
-                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white text-[#1677FF] shadow-sm">
-                        <SparkleIcon className="h-5 w-5" />
-                      </span>
-
-                      <div>
-                        <p className="text-[10px] font-black text-[#1677FF]">
-                          AIカテゴリコメント
-                        </p>
-
-                        <p className="mt-1 text-[10px] leading-5 text-black/55">
-                          {category.advice}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="mt-4 grid gap-4">
-                      {categoryProducts.map(
-                        (product) => (
-                          <ProductCard
-                            key={product.id}
-                            product={product}
-                          />
-                        ),
-                      )}
-                    </div>
-                  </section>
-
-                  {categoryIndex === 2 && (
-                    <DummyAd
-                      className="mt-10"
-                      format="rectangle"
-                    />
-                  )}
+                    <p className="pb-0.5 text-[8px] font-bold tracking-[0.08em] text-black/35">
+                      MATCH
+                    </p>
+                  </div>
                 </div>
-              );
-            },
-          )}
+              </div>
+            </div>
+
+            <div className="border-t border-black/10 p-4">
+              <div className="flex gap-3 rounded-[16px] bg-[#EEF6FF] p-4">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white text-[#1677FF]">
+                  <SparkleIcon />
+                </span>
+
+                <div>
+                  <p className="text-[11px] font-black text-[#1677FF]">
+                    AIからのアドバイス
+                  </p>
+
+                  <p className="mt-1 text-[10px] leading-5 text-black/55">
+                    最初からすべて揃える必要はありません。
+                    診断結果で優先度が高い項目から、
+                    自分に合う商品を選びましょう。
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <nav
+            aria-label="商品カテゴリー"
+            className="mt-5 grid grid-cols-4 gap-2"
+          >
+            {categories.map(
+              (category) => (
+                <a
+                  key={category.id}
+                  href={`#${category.id}`}
+                  className="flex min-h-[70px] flex-col items-center justify-center rounded-[15px] border border-black/10 bg-white px-1 text-center shadow-[0_10px_34px_rgba(15,23,42,0.05)] transition hover:border-[#1677FF]/30 hover:bg-[#EEF6FF]"
+                >
+                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#EEF6FF] text-[#1677FF]">
+                    <CategoryIcon
+                      type={category.icon}
+                    />
+                  </span>
+
+                  <span className="mt-2 text-[9px] font-black">
+                    {category.label}
+                  </span>
+                </a>
+              ),
+            )}
+          </nav>
+
+          <div className="mt-10 space-y-12">
+            {categories.map(
+              (
+                category,
+                categoryIndex,
+              ) => {
+                const categoryProducts =
+                  activeProducts.filter(
+                    (product) =>
+                      product.category ===
+                      category.id,
+                  );
+
+                if (
+                  categoryProducts.length === 0
+                ) {
+                  return null;
+                }
+
+                return (
+                  <div key={category.id}>
+                    <section
+                      id={category.id}
+                      className="scroll-mt-24"
+                    >
+                      <div className="flex items-end justify-between gap-4">
+                        <div>
+                          <p className="text-[9px] font-black tracking-[0.14em] text-[#1677FF]">
+                            PRIORITY{" "}
+                            {category.priority}
+                          </p>
+
+                          <h2 className="mt-1 text-[23px] font-black tracking-[-0.04em]">
+                            {category.label}
+                          </h2>
+                        </div>
+
+                        <span className="rounded-full bg-[#EEF6FF] px-3 py-1.5 text-[9px] font-black text-[#1677FF]">
+                          {
+                            categoryProducts.length
+                          }
+                          商品
+                        </span>
+                      </div>
+
+                      <p className="mt-3 text-[11px] leading-5 text-black/55">
+                        {
+                          category.description
+                        }
+                      </p>
+
+                      <div className="mt-4 flex gap-3 rounded-[16px] bg-[#EEF6FF] p-4">
+                        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white text-[#1677FF]">
+                          <SparkleIcon className="h-5 w-5" />
+                        </span>
+
+                        <div>
+                          <p className="text-[10px] font-black text-[#1677FF]">
+                            AIカテゴリコメント
+                          </p>
+
+                          <p className="mt-1 text-[10px] leading-5 text-black/55">
+                            {category.advice}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="mt-4 grid gap-4">
+                        {categoryProducts.map(
+                          (product) => (
+                            <ProductCard
+                              key={
+                                product.id
+                              }
+                              product={
+                                product
+                              }
+                            />
+                          ),
+                        )}
+                      </div>
+                    </section>
+
+                    {categoryIndex === 2 && (
+                      <DummyAd
+                        className="mt-10"
+                        format="rectangle"
+                      />
+                    )}
+                  </div>
+                );
+              },
+            )}
+          </div>
+
+          <aside className="mt-9 rounded-[16px] bg-[#F7F9FC] px-4 py-4">
+            <p className="text-center text-[9px] leading-5 text-black/35">
+              ※商品情報・価格・在庫状況は変更される場合があります。
+              <br />
+              最新情報は各販売サイトでご確認ください。
+            </p>
+          </aside>
+
+          <Link
+            href="/result"
+            className="mt-5 flex min-h-[50px] items-center justify-center rounded-[12px] border border-black/10 bg-white px-5 text-[11px] font-black transition hover:bg-[#EEF6FF]"
+          >
+            診断結果へ戻る
+          </Link>
         </div>
-
-        <aside className="mt-9 rounded-[16px] bg-[#F8FAFC] px-4 py-4">
-          <p className="text-center text-[9px] leading-5 text-black/40">
-            ※価格・レビュー数は画面確認用の参考表示です。
-            <br />
-            実際の価格や在庫状況は各販売サイトでご確認ください。
-          </p>
-        </aside>
-
-        <Link
-          href="/result"
-          className="mt-5 flex min-h-[50px] items-center justify-center rounded-[13px] border border-black/10 bg-white px-5 text-[11px] font-black transition hover:bg-[#F7FAFF]"
-        >
-          診断結果へ戻る
-        </Link>
       </div>
     </AppShell>
   );

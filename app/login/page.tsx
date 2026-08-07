@@ -1,6 +1,5 @@
 import Link from "next/link";
 import AppHeader from "../components/AppHeader";
-import AppShell from "../components/AppShell";
 
 function MailIcon() {
   return (
@@ -40,8 +39,8 @@ function LockIcon() {
 
 export default function LoginPage() {
   return (
-    <AppShell background="white">
-      <div className="min-h-screen bg-white text-[#111111]">
+    <main className="min-h-screen bg-white text-[#111111]">
+      <div className="mx-auto min-h-screen w-full max-w-[480px] border-x border-black/5 bg-white">
         <AppHeader
           backHref="/"
           backLabel="トップページへ戻る"
@@ -175,6 +174,6 @@ export default function LoginPage() {
           </Link>
         </div>
       </div>
-    </AppShell>
+    </main>
   );
 }

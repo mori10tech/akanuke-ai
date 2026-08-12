@@ -1,5 +1,27 @@
 import { NextRequest, NextResponse } from "next/server";
 
+function getClientIp(request: NextRequest) {
+  const forwardedFor =
+    request.headers.get("x-forwarded-for");
+
+  if (!forwardedFor) {
+    return null;
+  }
+
+  return forwardedFor
+    .split(",")[0]
+    ?.trim();
+}
+
+function getBypassIps() {
+  return (
+    process.env.BASIC_AUTH_BYPASS_IPS ?? ""
+  )
+    .split(",")
+    .map((ip) => ip.trim())
+    .filter(Boolean);
+}
+
 export function proxy(request: NextRequest) {
   const isBasicAuthEnabled =
     process.env.BASIC_AUTH_ENABLED === "true";
@@ -8,8 +30,21 @@ export function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
-  const username = process.env.BASIC_AUTH_USER;
-  const password = process.env.BASIC_AUTH_PASSWORD;
+  const clientIp = getClientIp(request);
+  const bypassIps = getBypassIps();
+
+  if (
+    clientIp &&
+    bypassIps.includes(clientIp)
+  ) {
+    return NextResponse.next();
+  }
+
+  const username =
+    process.env.BASIC_AUTH_USER;
+
+  const password =
+    process.env.BASIC_AUTH_PASSWORD;
 
   if (!username || !password) {
     return new NextResponse(

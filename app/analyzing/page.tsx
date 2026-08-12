@@ -1,17 +1,24 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import AppHeader from "../components/AppHeader";
 
 const IMAGE_STORAGE_KEY = "akanukeImage";
-const ANALYSIS_DURATION_MS = 7200;
+const TARGET_STORAGE_KEY = "akanukeTargetImpression";
+const RESULT_STORAGE_KEY = "akanukeAnalysisResult";
+
 const REDIRECT_DELAY_MS = 700;
 
 const analysisSteps = [
   {
-    label: "顔の輪郭",
-    description: "骨格とフェイスラインを確認",
+    label: "顔まわり",
+    description: "全体の印象とスタイリングを確認",
     start: 0,
     end: 22,
   },
@@ -23,19 +30,19 @@ const analysisSteps = [
   },
   {
     label: "髪型",
-    description: "顔型に合うシルエットを分析",
+    description: "目標の印象に合う方向性を分析",
     start: 42,
     end: 62,
   },
   {
-    label: "肌印象",
-    description: "清潔感とケアポイントを分析",
+    label: "肌・清潔感",
+    description: "見た目の清潔感とケアポイントを分析",
     start: 62,
     end: 82,
   },
   {
     label: "垢抜けプラン",
-    description: "優先順位を整理して提案を生成",
+    description: "改善ポイントの優先順位を生成",
     start: 82,
     end: 100,
   },
@@ -70,7 +77,13 @@ function LockIcon() {
       strokeLinecap="round"
       strokeLinejoin="round"
     >
-      <rect x="5" y="10" width="14" height="10" rx="2" />
+      <rect
+        x="5"
+        y="10"
+        width="14"
+        height="10"
+        rx="2"
+      />
       <path d="M8 10V7a4 4 0 0 1 8 0v3" />
     </svg>
   );
@@ -100,71 +113,219 @@ function AdPlaceholder() {
 export default function AnalyzingPage() {
   const router = useRouter();
 
+  const hasStartedRef = useRef(false);
+
   const [progress, setProgress] = useState(0);
   const [image, setImage] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
-    const savedImage =
-      window.sessionStorage.getItem(IMAGE_STORAGE_KEY);
-
-    if (!savedImage) {
-      router.replace("/upload");
-      return;
-    }
-
-    const imageTimer = window.setTimeout(() => {
-      setImage(savedImage);
-    }, 0);
-
-    const startedAt = Date.now();
-
+    let isCancelled = false;
+    let startTimer: number | undefined;
+    let progressTimer: number | undefined;
     let redirectTimer: number | undefined;
 
-    const progressTimer = window.setInterval(() => {
-      const elapsed = Date.now() - startedAt;
-
-      const nextProgress = Math.min(
-        100,
-        Math.round(
-          (elapsed / ANALYSIS_DURATION_MS) * 100,
-        ),
-      );
-
-      setProgress(nextProgress);
-
-      if (nextProgress >= 100) {
-        window.clearInterval(progressTimer);
-
-        redirectTimer = window.setTimeout(() => {
-          router.push("/result");
-        }, REDIRECT_DELAY_MS);
+    async function runAnalysis() {
+      if (
+        isCancelled ||
+        hasStartedRef.current
+      ) {
+        return;
       }
-    }, 80);
+
+      hasStartedRef.current = true;
+
+      const savedImage =
+        window.sessionStorage.getItem(
+          IMAGE_STORAGE_KEY,
+        );
+
+      if (!savedImage) {
+        router.replace("/upload");
+        return;
+      }
+
+      const savedTarget =
+        window.sessionStorage.getItem(
+          TARGET_STORAGE_KEY,
+        ) ??
+        "清潔感のある爽やかな印象";
+
+      setImage(savedImage);
+      setErrorMessage("");
+
+      let simulatedProgress = 0;
+
+      progressTimer =
+        window.setInterval(() => {
+          simulatedProgress +=
+            simulatedProgress < 30
+              ? 2
+              : simulatedProgress < 70
+                ? 1
+                : 0.5;
+
+          const nextProgress =
+            Math.min(
+              92,
+              Math.round(
+                simulatedProgress,
+              ),
+            );
+
+          if (!isCancelled) {
+            setProgress(
+              nextProgress,
+            );
+          }
+        }, 180);
+
+      try {
+        console.log(
+          "[AKANUKE.AI] AI診断APIを開始します",
+        );
+
+        const response =
+          await fetch(
+            "/api/analyze",
+            {
+              method: "POST",
+              cache: "no-store",
+              headers: {
+                "Content-Type":
+                  "application/json",
+              },
+              body: JSON.stringify({
+                imageDataUrl:
+                  savedImage,
+                targetImpression:
+                  savedTarget,
+              }),
+            },
+          );
+
+        console.log(
+          "[AKANUKE.AI] AI診断APIレスポンス:",
+          response.status,
+        );
+
+        const data =
+          (await response.json()) as {
+            error?: string;
+            [key: string]:
+              unknown;
+          };
+
+        if (!response.ok) {
+          throw new Error(
+            typeof data.error ===
+              "string"
+              ? data.error
+              : "AI診断に失敗しました。",
+          );
+        }
+
+        if (isCancelled) {
+          return;
+        }
+
+        if (progressTimer) {
+          window.clearInterval(
+            progressTimer,
+          );
+        }
+
+        window.sessionStorage.setItem(
+          RESULT_STORAGE_KEY,
+          JSON.stringify(data),
+        );
+
+        setProgress(100);
+
+        redirectTimer =
+          window.setTimeout(() => {
+            router.push(
+              "/result",
+            );
+          }, REDIRECT_DELAY_MS);
+      } catch (error) {
+        console.error(
+          "[AKANUKE.AI] Analysis error:",
+          error,
+        );
+
+        if (progressTimer) {
+          window.clearInterval(
+            progressTimer,
+          );
+        }
+
+        if (isCancelled) {
+          return;
+        }
+
+        setErrorMessage(
+          error instanceof Error
+            ? error.message
+            : "AI診断中にエラーが発生しました。",
+        );
+      }
+    }
+
+    /*
+     * Next.js開発モードのEffect再実行対策。
+     *
+     * 初回の検証用Effectではタイマーがcleanupされ、
+     * 実際に有効なEffectだけがrunAnalysisを開始します。
+     * OpenAI APIの二重実行も防ぎます。
+     */
+    startTimer =
+      window.setTimeout(() => {
+        void runAnalysis();
+      }, 100);
 
     return () => {
-      window.clearInterval(progressTimer);
-      window.clearTimeout(imageTimer);
+      isCancelled = true;
+
+      if (startTimer) {
+        window.clearTimeout(
+          startTimer,
+        );
+      }
+
+      if (progressTimer) {
+        window.clearInterval(
+          progressTimer,
+        );
+      }
 
       if (redirectTimer) {
-        window.clearTimeout(redirectTimer);
+        window.clearTimeout(
+          redirectTimer,
+        );
       }
     };
   }, [router]);
 
-  const activeStepIndex = useMemo(() => {
-    const index = analysisSteps.findIndex(
-      (step) =>
-        progress >= step.start &&
-        progress < step.end,
-    );
+  const activeStepIndex =
+    useMemo(() => {
+      const index =
+        analysisSteps.findIndex(
+          (step) =>
+            progress >=
+              step.start &&
+            progress < step.end,
+        );
 
-    return index === -1
-      ? analysisSteps.length - 1
-      : index;
-  }, [progress]);
+      return index === -1
+        ? analysisSteps.length - 1
+        : index;
+    }, [progress]);
 
   const activeStep =
-    analysisSteps[activeStepIndex];
+    analysisSteps[
+      activeStepIndex
+    ];
 
   return (
     <main className="min-h-screen bg-[#EEF6FF] text-[#111111]">
@@ -217,7 +378,12 @@ export default function AnalyzingPage() {
               <div
                 className="pointer-events-none absolute inset-x-[7%] z-10 h-px bg-[#FFD400] shadow-[0_0_18px_rgba(255,212,0,0.9)] transition-[top] duration-100 ease-linear"
                 style={{
-                  top: `${10 + ((progress * 0.8) % 80)}%`,
+                  top: `${
+                    10 +
+                    ((progress *
+                      0.8) %
+                      80)
+                  }%`,
                 }}
               />
 
@@ -229,7 +395,9 @@ export default function AnalyzingPage() {
                     </p>
 
                     <p className="mt-0.5 text-[14px] font-black">
-                      {activeStep.label}
+                      {errorMessage
+                        ? "診断を中断しました"
+                        : activeStep.label}
                     </p>
                   </div>
 
@@ -252,17 +420,49 @@ export default function AnalyzingPage() {
 
               <div className="mt-3 flex items-center justify-between gap-3">
                 <p className="text-[11px] font-black text-[#1677FF]">
-                  {progress === 100
-                    ? "分析が完了しました"
-                    : activeStep.description}
+                  {errorMessage
+                    ? "AI診断でエラーが発生しました"
+                    : progress ===
+                        100
+                      ? "分析が完了しました"
+                      : activeStep.description}
                 </p>
 
-                <p className="shrink-0 text-[10px] text-black/35">
-                  約1分
-                </p>
+                {!errorMessage && (
+                  <p className="shrink-0 text-[10px] text-black/35">
+                    AI解析中
+                  </p>
+                )}
               </div>
             </div>
           </section>
+
+          {errorMessage && (
+            <section
+              role="alert"
+              className="mt-5 rounded-[18px] border border-red-200 bg-red-50 px-4 py-4"
+            >
+              <p className="text-[12px] font-black text-red-600">
+                診断を完了できませんでした
+              </p>
+
+              <p className="mt-2 text-[11px] leading-5 text-red-600/80">
+                {errorMessage}
+              </p>
+
+              <button
+                type="button"
+                onClick={() => {
+                  router.replace(
+                    "/upload",
+                  );
+                }}
+                className="mt-4 flex min-h-[46px] w-full items-center justify-center rounded-[12px] bg-[#111111] px-4 text-[12px] font-black text-white"
+              >
+                写真選択へ戻る
+              </button>
+            </section>
+          )}
 
           <section className="mt-5 overflow-hidden rounded-[18px] border border-black/10 bg-white shadow-[0_10px_34px_rgba(15,23,42,0.05)]">
             <div className="border-b border-black/10 px-4 py-4">
@@ -279,15 +479,21 @@ export default function AnalyzingPage() {
               {analysisSteps.map(
                 (step, index) => {
                   const isComplete =
-                    progress >= step.end;
+                    progress >=
+                    step.end;
 
                   const isActive =
-                    index === activeStepIndex &&
-                    progress < 100;
+                    index ===
+                      activeStepIndex &&
+                    progress <
+                      100 &&
+                    !errorMessage;
 
                   return (
                     <div
-                      key={step.label}
+                      key={
+                        step.label
+                      }
                       className="flex items-center gap-3 border-b border-black/10 py-3.5 last:border-b-0"
                     >
                       <span
@@ -318,7 +524,9 @@ export default function AnalyzingPage() {
                                 : "text-black/35"
                             }`}
                           >
-                            {step.label}
+                            {
+                              step.label
+                            }
                           </p>
 
                           <p
@@ -339,7 +547,9 @@ export default function AnalyzingPage() {
                         </div>
 
                         <p className="mt-1 truncate text-[10px] text-black/35">
-                          {step.description}
+                          {
+                            step.description
+                          }
                         </p>
                       </div>
                     </div>
@@ -357,11 +567,11 @@ export default function AnalyzingPage() {
 
               <div>
                 <p className="text-[12px] font-black text-[#1677FF]">
-                  写真は安全に処理されます
+                  写真は診断のために処理されます
                 </p>
 
                 <p className="mt-1 text-[10px] leading-5 text-black/55">
-                  アップロードした写真は診断のためだけに使用し、解析後は安全に取り扱います。
+                  アップロードした写真はAI診断のために使用します。
                 </p>
               </div>
             </div>
@@ -370,9 +580,19 @@ export default function AnalyzingPage() {
           <AdPlaceholder />
 
           <p className="mt-5 text-center text-[10px] leading-5 text-black/35">
-            画面を閉じずにそのままお待ちください。
-            <br />
-            完了すると診断結果へ自動で移動します。
+            {errorMessage ? (
+              <>
+                写真選択へ戻り、
+                <br />
+                もう一度お試しください。
+              </>
+            ) : (
+              <>
+                画面を閉じずにそのままお待ちください。
+                <br />
+                完了すると診断結果へ自動で移動します。
+              </>
+            )}
           </p>
         </div>
       </div>

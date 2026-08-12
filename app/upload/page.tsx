@@ -15,6 +15,8 @@ const MAX_SELECTIONS = 2;
 const RECOMMENDED_OPTION_ID = "ai-recommended";
 const IMAGE_STORAGE_KEY = "akanukeImage";
 const IMPRESSION_STORAGE_KEY = "akanukeDesiredImpressions";
+const TARGET_STORAGE_KEY = "akanukeTargetImpression";
+const RESULT_STORAGE_KEY = "akanukeAnalysisResult";
 
 const impressionOptions: ImpressionOption[] = [
   {
@@ -231,6 +233,8 @@ export default function UploadPage() {
 
     window.sessionStorage.removeItem(IMAGE_STORAGE_KEY);
     window.sessionStorage.removeItem(IMPRESSION_STORAGE_KEY);
+    window.sessionStorage.removeItem(TARGET_STORAGE_KEY);
+    window.sessionStorage.removeItem(RESULT_STORAGE_KEY);
   };
 
   const toggleSelection = (optionId: string) => {
@@ -263,29 +267,50 @@ export default function UploadPage() {
     });
   };
 
-  const handleDiagnosis = () => {
-    if (!preview) {
-      setNotice("顔写真を選択してください。");
-      return;
-    }
+const handleDiagnosis = () => {
+  if (!preview) {
+    setNotice("顔写真を選択してください。");
+    return;
+  }
 
-    if (selectedIds.length === 0) {
-      setNotice("なりたい印象を1つ以上選択してください。");
+  if (selectedIds.length === 0) {
+    setNotice("なりたい印象を1つ以上選択してください。");
 
-      preferenceSectionRef.current?.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-      return;
-    }
+    preferenceSectionRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
 
-    window.sessionStorage.setItem(
-      IMPRESSION_STORAGE_KEY,
-      JSON.stringify(selectedIds),
-    );
+    return;
+  }
 
-    router.push("/analyzing");
-  };
+  window.sessionStorage.setItem(
+    IMPRESSION_STORAGE_KEY,
+    JSON.stringify(selectedIds),
+  );
+
+  const isAiRecommended =
+    selectedIds.includes(RECOMMENDED_OPTION_ID);
+
+  const targetImpression = isAiRecommended
+    ? "AIにおまかせ。写真から本人に似合う垢抜け方向を判断してください。"
+    : selectedLabels.join("・");
+
+  window.sessionStorage.setItem(
+    TARGET_STORAGE_KEY,
+    targetImpression,
+  );
+
+  /*
+   * 前回の診断結果が残っている場合に、
+   * 新しい診断結果と混ざらないよう削除します。
+   */
+  window.sessionStorage.removeItem(
+    RESULT_STORAGE_KEY,
+  );
+
+  router.push("/analyzing");
+};
 
   if (!isLoaded) {
     return (

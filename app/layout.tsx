@@ -25,6 +25,8 @@ export const metadata: Metadata = {
 
   applicationName: "AKANUKE.AI",
 
+  manifest: "/manifest.webmanifest",
+
   appleWebApp: {
     capable: true,
     title: "AKANUKE.AI",
@@ -35,7 +37,7 @@ export const metadata: Metadata = {
     apple: [
       {
         url: "/apple-icon.png",
-        sizes: "180x180",
+        sizes: "1024x1024",
         type: "image/png",
       },
     ],

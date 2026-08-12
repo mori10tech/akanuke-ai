@@ -1,5 +1,10 @@
+"use client";
+
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { FormEvent, useState } from "react";
 import AppHeader from "../components/AppHeader";
+import { createClient } from "../../lib/supabase/client";
 
 function MailIcon() {
   return (
@@ -73,6 +78,105 @@ function CheckIcon() {
 }
 
 export default function SignupPage() {
+  const router = useRouter();
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [agreed, setAgreed] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+
+  async function handleSignup(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    if (isLoading) {
+      return;
+    }
+
+    setErrorMessage("");
+    setSuccessMessage("");
+
+    const normalizedName = name.trim();
+    const normalizedEmail = email.trim().toLowerCase();
+
+    if (!normalizedName) {
+      setErrorMessage("お名前を入力してください。");
+      return;
+    }
+
+    if (!normalizedEmail) {
+      setErrorMessage("メールアドレスを入力してください。");
+      return;
+    }
+
+    if (password.length < 8) {
+      setErrorMessage(
+        "パスワードは8文字以上で入力してください。",
+      );
+      return;
+    }
+
+    if (!agreed) {
+      setErrorMessage(
+        "利用規約と個人情報保護方針への同意が必要です。",
+      );
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      const supabase = createClient();
+
+      const { data, error } = await supabase.auth.signUp({
+        email: normalizedEmail,
+        password,
+        options: {
+          data: {
+            name: normalizedName,
+          },
+        },
+      });
+
+      if (error) {
+        if (
+          error.message.toLowerCase().includes("already") ||
+          error.message.toLowerCase().includes("registered")
+        ) {
+          setErrorMessage(
+            "このメールアドレスはすでに登録されている可能性があります。ログインをお試しください。",
+          );
+          return;
+        }
+
+        setErrorMessage(
+          "アカウントを作成できませんでした。入力内容をご確認のうえ、もう一度お試しください。",
+        );
+        return;
+      }
+
+      if (data.session) {
+        router.replace("/dashboard");
+        router.refresh();
+        return;
+      }
+
+      setSuccessMessage(
+        "確認メールを送信しました。メール内のリンクを開いて、アカウント登録を完了してください。",
+      );
+    } catch (error) {
+      console.error("Signup error:", error);
+
+      setErrorMessage(
+        "アカウント作成中にエラーが発生しました。時間をおいてもう一度お試しください。",
+      );
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
   return (
     <main className="min-h-screen bg-white text-[#111111]">
       <div className="mx-auto min-h-screen w-full max-w-[480px] border-x border-black/5 bg-white">
@@ -98,7 +202,10 @@ export default function SignupPage() {
             </p>
           </div>
 
-          <section className="mt-7 rounded-[22px] border border-black/10 bg-white p-5 shadow-[0_10px_34px_rgba(15,23,42,0.05)]">
+          <form
+            onSubmit={handleSignup}
+            className="mt-7 rounded-[22px] border border-black/10 bg-white p-5 shadow-[0_10px_34px_rgba(15,23,42,0.05)]"
+          >
             <div>
               <label
                 htmlFor="signup-name"
@@ -116,6 +223,9 @@ export default function SignupPage() {
                   id="signup-name"
                   type="text"
                   autoComplete="name"
+                  required
+                  value={name}
+                  onChange={(event) => setName(event.target.value)}
                   placeholder="例：垢抜 太郎"
                   className="min-w-0 flex-1 bg-transparent text-[14px] text-[#111111] outline-none placeholder:text-black/20"
                 />
@@ -139,6 +249,10 @@ export default function SignupPage() {
                   id="signup-email"
                   type="email"
                   autoComplete="email"
+                  inputMode="email"
+                  required
+                  value={email}
+                  onChange={(event) => setEmail(event.target.value)}
                   placeholder="example@akanuke.ai"
                   className="min-w-0 flex-1 bg-transparent text-[14px] text-[#111111] outline-none placeholder:text-black/20"
                 />
@@ -162,19 +276,25 @@ export default function SignupPage() {
                   id="signup-password"
                   type="password"
                   autoComplete="new-password"
+                  minLength={8}
+                  required
+                  value={password}
+                  onChange={(event) => setPassword(event.target.value)}
                   placeholder="8文字以上で入力"
                   className="min-w-0 flex-1 bg-transparent text-[14px] text-[#111111] outline-none placeholder:text-black/20"
                 />
               </div>
 
               <p className="mt-2 text-[10px] leading-5 text-black/35">
-                半角英数字を組み合わせて8文字以上で入力してください。
+                8文字以上のパスワードを設定してください。
               </p>
             </div>
 
             <label className="mt-5 flex cursor-pointer items-start gap-3">
               <input
                 type="checkbox"
+                checked={agreed}
+                onChange={(event) => setAgreed(event.target.checked)}
                 className="mt-0.5 h-4 w-4 shrink-0 accent-[#1677FF]"
               />
 
@@ -198,20 +318,53 @@ export default function SignupPage() {
               </span>
             </label>
 
-            <Link
-              href="/dashboard"
-              className="mt-6 flex min-h-[54px] w-full items-center justify-center rounded-[12px] bg-[#FFD400] px-5 text-[14px] font-black text-[#111111] shadow-[0_10px_34px_rgba(15,23,42,0.05)] transition hover:-translate-y-0.5 active:scale-[0.99]"
-            >
-              無料アカウントを作成
-              <span className="ml-2" aria-hidden="true">
-                →
-              </span>
-            </Link>
+            {errorMessage && (
+              <div
+                role="alert"
+                className="mt-5 rounded-[12px] border border-red-200 bg-red-50 px-4 py-3"
+              >
+                <p className="text-[11px] font-bold leading-5 text-red-600">
+                  {errorMessage}
+                </p>
+              </div>
+            )}
 
-            <p className="mt-3 text-center text-[9px] text-black/35">
-              現在はUI確認用のため、入力内容は保存されません。
-            </p>
-          </section>
+            {successMessage && (
+              <div
+                role="status"
+                className="mt-5 rounded-[12px] border border-[#1677FF]/10 bg-[#EEF6FF] px-4 py-3"
+              >
+                <p className="text-[11px] font-bold leading-5 text-[#1677FF]">
+                  {successMessage}
+                </p>
+
+                <Link
+                  href="/login"
+                  className="mt-3 inline-flex text-[11px] font-black text-[#1677FF] underline underline-offset-4"
+                >
+                  ログイン画面へ
+                </Link>
+              </div>
+            )}
+
+            <button
+              type="submit"
+              disabled={isLoading || Boolean(successMessage)}
+              className="mt-6 flex min-h-[54px] w-full items-center justify-center rounded-[12px] bg-[#FFD400] px-5 text-[14px] font-black text-[#111111] shadow-[0_10px_34px_rgba(15,23,42,0.05)] transition hover:-translate-y-0.5 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0"
+            >
+              {isLoading
+                ? "アカウントを作成中..."
+                : successMessage
+                  ? "確認メールを送信しました"
+                  : "無料アカウントを作成"}
+
+              {!isLoading && !successMessage && (
+                <span className="ml-2" aria-hidden="true">
+                  →
+                </span>
+              )}
+            </button>
+          </form>
 
           <div className="mt-7 rounded-[18px] bg-[#EEF6FF] p-5">
             <p className="text-[12px] font-black text-[#1677FF]">

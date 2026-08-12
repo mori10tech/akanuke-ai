@@ -1,5 +1,10 @@
+"use client";
+
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { FormEvent, useState } from "react";
 import AppHeader from "../components/AppHeader";
+import { createClient } from "../../lib/supabase/client";
 
 function MailIcon() {
   return (
@@ -38,6 +43,61 @@ function LockIcon() {
 }
 
 export default function LoginPage() {
+  const router = useRouter();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  async function handleLogin(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    if (isLoading) {
+      return;
+    }
+
+    setErrorMessage("");
+
+    const normalizedEmail = email.trim().toLowerCase();
+
+    if (!normalizedEmail || !password) {
+      setErrorMessage(
+        "メールアドレスとパスワードを入力してください。",
+      );
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      const supabase = createClient();
+
+      const { error } = await supabase.auth.signInWithPassword({
+        email: normalizedEmail,
+        password,
+      });
+
+      if (error) {
+        setErrorMessage(
+          "メールアドレスまたはパスワードが正しくありません。",
+        );
+        return;
+      }
+
+      router.replace("/dashboard");
+      router.refresh();
+    } catch (error) {
+      console.error("Login error:", error);
+
+      setErrorMessage(
+        "ログイン処理中にエラーが発生しました。時間をおいてもう一度お試しください。",
+      );
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
   return (
     <main className="min-h-screen bg-white text-[#111111]">
       <div className="mx-auto min-h-screen w-full max-w-[480px] border-x border-black/5 bg-white">
@@ -67,7 +127,10 @@ export default function LoginPage() {
             </p>
           </div>
 
-          <section className="mt-8 rounded-[22px] border border-black/10 bg-white p-5 shadow-[0_10px_34px_rgba(15,23,42,0.05)]">
+          <form
+            onSubmit={handleLogin}
+            className="mt-8 rounded-[22px] border border-black/10 bg-white p-5 shadow-[0_10px_34px_rgba(15,23,42,0.05)]"
+          >
             <div>
               <label
                 htmlFor="login-email"
@@ -85,6 +148,10 @@ export default function LoginPage() {
                   id="login-email"
                   type="email"
                   autoComplete="email"
+                  inputMode="email"
+                  required
+                  value={email}
+                  onChange={(event) => setEmail(event.target.value)}
                   placeholder="example@akanuke.ai"
                   className="min-w-0 flex-1 bg-transparent text-[14px] text-[#111111] outline-none placeholder:text-black/20"
                 />
@@ -100,12 +167,9 @@ export default function LoginPage() {
                   パスワード
                 </label>
 
-                <button
-                  type="button"
-                  className="text-[10px] font-black text-[#1677FF]"
-                >
+                <span className="text-[10px] font-black text-black/30">
                   パスワードを忘れた方
-                </button>
+                </span>
               </div>
 
               <div className="mt-2 flex min-h-[54px] items-center gap-3 rounded-[14px] border border-black/10 bg-[#F7F9FC] px-4 transition focus-within:border-[#1677FF]/30 focus-within:bg-white">
@@ -117,37 +181,40 @@ export default function LoginPage() {
                   id="login-password"
                   type="password"
                   autoComplete="current-password"
+                  required
+                  value={password}
+                  onChange={(event) => setPassword(event.target.value)}
                   placeholder="パスワードを入力"
                   className="min-w-0 flex-1 bg-transparent text-[14px] text-[#111111] outline-none placeholder:text-black/20"
                 />
               </div>
             </div>
 
-            <label className="mt-5 flex cursor-pointer items-center gap-3">
-              <input
-                type="checkbox"
-                className="h-4 w-4 accent-[#1677FF]"
-              />
+            {errorMessage && (
+              <div
+                role="alert"
+                className="mt-5 rounded-[12px] border border-red-200 bg-red-50 px-4 py-3"
+              >
+                <p className="text-[11px] font-bold leading-5 text-red-600">
+                  {errorMessage}
+                </p>
+              </div>
+            )}
 
-              <span className="text-[11px] text-black/55">
-                ログイン状態を保持する
-              </span>
-            </label>
-
-            <Link
-              href="/dashboard"
-              className="mt-6 flex min-h-[54px] w-full items-center justify-center rounded-[12px] bg-[#FFD400] px-5 text-[14px] font-black text-[#111111] shadow-[0_10px_34px_rgba(15,23,42,0.05)] transition hover:-translate-y-0.5 active:scale-[0.99]"
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="mt-6 flex min-h-[54px] w-full items-center justify-center rounded-[12px] bg-[#111111] px-5 text-[14px] font-black text-white shadow-[0_10px_34px_rgba(15,23,42,0.05)] transition hover:-translate-y-0.5 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0"
             >
-              ログイン
-              <span className="ml-2" aria-hidden="true">
-                →
-              </span>
-            </Link>
+              {isLoading ? "ログイン中..." : "ログイン"}
 
-            <p className="mt-3 text-center text-[9px] text-black/35">
-              現在はUI確認用のため、認証処理は行われません。
-            </p>
-          </section>
+              {!isLoading && (
+                <span className="ml-2" aria-hidden="true">
+                  →
+                </span>
+              )}
+            </button>
+          </form>
 
           <div className="mt-8 flex items-center gap-4">
             <span className="h-px flex-1 bg-black/10" />

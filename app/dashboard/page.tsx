@@ -1,6 +1,7 @@
 import Link from "next/link";
 import AppShell from "../components/AppShell";
 import AppLogo from "../components/AppLogo";
+import LogoutButton from "../components/LogoutButton";
 
 const CURRENT_PROGRESS = 68;
 
@@ -13,12 +14,14 @@ const priorities = [
   {
     rank: 2,
     label: "眉毛",
-    description: "自然な太さを残して輪郭を整える",
+    description:
+      "自然な太さを残して輪郭を整える",
   },
   {
     rank: 3,
     label: "肌",
-    description: "保湿と紫外線対策を優先する",
+    description:
+      "保湿と紫外線対策を優先する",
   },
 ];
 
@@ -188,13 +191,13 @@ export default function DashboardPage() {
                   </p>
 
                   <div className="mt-2 flex items-end gap-1">
-                   <span className="text-[36px] font-black leading-none tracking-[-0.05em] text-[#1677FF]">
-  {CURRENT_PROGRESS}
-</span>
+                    <span className="text-[36px] font-black leading-none tracking-[-0.05em] text-[#1677FF]">
+                      {CURRENT_PROGRESS}
+                    </span>
 
-<span className="pb-0.5 text-[13px] font-black text-[#1677FF]">
-  %
-</span>
+                    <span className="pb-0.5 text-[13px] font-black text-[#1677FF]">
+                      %
+                    </span>
                   </div>
 
                   <p className="mt-2 text-[9px] leading-4 text-black/35">
@@ -334,16 +337,7 @@ export default function DashboardPage() {
             </div>
           </section>
 
-          <Link
-            href="/"
-            className="mt-6 flex min-h-[48px] items-center justify-center rounded-[12px] border border-black/10 bg-[#F7F9FC] text-[12px] font-black text-black/55 transition hover:bg-[#EEF6FF]"
-          >
-            ログアウト
-          </Link>
-
-          <p className="mt-3 text-center text-[9px] text-black/35">
-            現在はUI確認用のため、ログイン状態は保存されません。
-          </p>
+          <LogoutButton />
         </div>
       </div>
     </AppShell>

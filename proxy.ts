@@ -1,45 +1,41 @@
-import { NextRequest, NextResponse } from "next/server";
+import {
+  NextRequest,
+  NextResponse,
+} from "next/server";
+import { updateSupabaseSession } from "./lib/supabase/proxy";
 
-function getClientIp(request: NextRequest) {
+function getClientIp(
+  request: NextRequest,
+) {
   const forwardedFor =
-    request.headers.get("x-forwarded-for");
+    request.headers.get(
+      "x-forwarded-for",
+    );
 
   if (!forwardedFor) {
     return null;
   }
 
-  return forwardedFor
-    .split(",")[0]
-    ?.trim();
+  return (
+    forwardedFor
+      .split(",")[0]
+      ?.trim() ?? null
+  );
 }
 
 function getBypassIps() {
   return (
-    process.env.BASIC_AUTH_BYPASS_IPS ?? ""
+    process.env
+      .BASIC_AUTH_BYPASS_IPS ?? ""
   )
     .split(",")
     .map((ip) => ip.trim())
     .filter(Boolean);
 }
 
-export function proxy(request: NextRequest) {
-  const isBasicAuthEnabled =
-    process.env.BASIC_AUTH_ENABLED === "true";
-
-  if (!isBasicAuthEnabled) {
-    return NextResponse.next();
-  }
-
-  const clientIp = getClientIp(request);
-  const bypassIps = getBypassIps();
-
-  if (
-    clientIp &&
-    bypassIps.includes(clientIp)
-  ) {
-    return NextResponse.next();
-  }
-
+function isBasicAuthValid(
+  request: NextRequest,
+) {
   const username =
     process.env.BASIC_AUTH_USER;
 
@@ -47,75 +43,156 @@ export function proxy(request: NextRequest) {
     process.env.BASIC_AUTH_PASSWORD;
 
   if (!username || !password) {
-    return new NextResponse(
-      "Basic authentication is not configured.",
-      {
-        status: 500,
-      },
-    );
+    return false;
   }
 
   const authorization =
-    request.headers.get("authorization");
+    request.headers.get(
+      "authorization",
+    );
 
-  if (authorization) {
-    const [scheme, encodedCredentials] =
-      authorization.split(" ");
+  if (!authorization) {
+    return false;
+  }
+
+  const [
+    scheme,
+    encodedCredentials,
+  ] = authorization.split(" ");
+
+  if (
+    scheme !== "Basic" ||
+    !encodedCredentials
+  ) {
+    return false;
+  }
+
+  try {
+    const decodedCredentials =
+      atob(encodedCredentials);
+
+    const separatorIndex =
+      decodedCredentials.indexOf(":");
+
+    if (separatorIndex === -1) {
+      return false;
+    }
+
+    const inputUsername =
+      decodedCredentials.slice(
+        0,
+        separatorIndex,
+      );
+
+    const inputPassword =
+      decodedCredentials.slice(
+        separatorIndex + 1,
+      );
+
+    return (
+      inputUsername === username &&
+      inputPassword === password
+    );
+  } catch {
+    return false;
+  }
+}
+
+function requiresLogin(
+  pathname: string,
+) {
+  return (
+    pathname === "/dashboard" ||
+    pathname.startsWith(
+      "/dashboard/",
+    )
+  );
+}
+
+export async function proxy(
+  request: NextRequest,
+) {
+  const pathname =
+    request.nextUrl.pathname;
+
+  const isBasicAuthEnabled =
+    process.env
+      .BASIC_AUTH_ENABLED === "true";
+
+  if (isBasicAuthEnabled) {
+    const clientIp =
+      getClientIp(request);
+
+    const bypassIps =
+      getBypassIps();
+
+    const isIpBypassed =
+      Boolean(clientIp) &&
+      bypassIps.includes(
+        clientIp as string,
+      );
 
     if (
-      scheme === "Basic" &&
-      encodedCredentials
+      !isIpBypassed &&
+      !isBasicAuthValid(request)
     ) {
-      try {
-        const decodedCredentials = atob(
-          encodedCredentials,
+      if (
+        !process.env
+          .BASIC_AUTH_USER ||
+        !process.env
+          .BASIC_AUTH_PASSWORD
+      ) {
+        return new NextResponse(
+          "Basic authentication is not configured.",
+          {
+            status: 500,
+          },
         );
-
-        const separatorIndex =
-          decodedCredentials.indexOf(":");
-
-        if (separatorIndex !== -1) {
-          const inputUsername =
-            decodedCredentials.slice(
-              0,
-              separatorIndex,
-            );
-
-          const inputPassword =
-            decodedCredentials.slice(
-              separatorIndex + 1,
-            );
-
-          if (
-            inputUsername === username &&
-            inputPassword === password
-          ) {
-            return NextResponse.next();
-          }
-        }
-      } catch {
-        // 不正なAuthorizationヘッダーの場合は
-        // 下の401レスポンスへ進みます。
       }
+
+      return new NextResponse(
+        "Authentication required.",
+        {
+          status: 401,
+          headers: {
+            "WWW-Authenticate":
+              'Basic realm="AKANUKE.AI", charset="UTF-8"',
+            "Cache-Control":
+              "no-store, no-cache, must-revalidate",
+          },
+        },
+      );
     }
   }
 
-  return new NextResponse(
-    "Authentication required.",
-    {
-      status: 401,
-      headers: {
-        "WWW-Authenticate":
-          'Basic realm="AKANUKE.AI", charset="UTF-8"',
-        "Cache-Control":
-          "no-store, no-cache, must-revalidate",
-      },
-    },
-  );
+  const {
+    response,
+    isAuthenticated,
+  } =
+    await updateSupabaseSession(
+      request,
+    );
+
+  if (
+    requiresLogin(pathname) &&
+    !isAuthenticated
+  ) {
+    const loginUrl =
+      request.nextUrl.clone();
+
+    loginUrl.pathname = "/login";
+    loginUrl.search = "";
+
+    return NextResponse.redirect(
+      loginUrl,
+    );
+  }
+
+  return response;
 }
 
 export const config = {
   matcher: [
-    "/((?!_next/static|_next/image|favicon.ico|apple-icon.png|manifest.webmanifest).*)",
+    "/((?!_next/static|_next/image|favicon.ico|apple-icon.png|manifest.webmanifest|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
   ],
 };

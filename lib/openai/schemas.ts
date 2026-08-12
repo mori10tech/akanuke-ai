@@ -55,3 +55,186 @@ export type AkanukeAnalysis = {
     styling: string;
   };
 };
+
+export const akanukeAnalysisJsonSchema = {
+  type: "object",
+  additionalProperties: false,
+
+  properties: {
+    progress: {
+      type: "number",
+    },
+
+    currentImpression: {
+      type: "string",
+    },
+
+    targetImpression: {
+      type: "string",
+    },
+
+    summary: {
+      type: "object",
+      additionalProperties: false,
+      properties: {
+        headline: {
+          type: "string",
+        },
+        body: {
+          type: "string",
+        },
+      },
+      required: [
+        "headline",
+        "body",
+      ],
+    },
+
+    hair: {
+      type: "object",
+      additionalProperties: false,
+      properties: {
+        observation: {
+          type: "string",
+        },
+        advice: {
+          type: "string",
+        },
+      },
+      required: [
+        "observation",
+        "advice",
+      ],
+    },
+
+    eyebrows: {
+      type: "object",
+      additionalProperties: false,
+      properties: {
+        observation: {
+          type: "string",
+        },
+        advice: {
+          type: "string",
+        },
+      },
+      required: [
+        "observation",
+        "advice",
+      ],
+    },
+
+    skin: {
+      type: "object",
+      additionalProperties: false,
+      properties: {
+        observation: {
+          type: "string",
+        },
+        advice: {
+          type: "string",
+        },
+      },
+      required: [
+        "observation",
+        "advice",
+      ],
+    },
+
+    grooming: {
+      type: "object",
+      additionalProperties: false,
+      properties: {
+        observation: {
+          type: "string",
+        },
+        advice: {
+          type: "string",
+        },
+      },
+      required: [
+        "observation",
+        "advice",
+      ],
+    },
+
+    priorities: {
+      type: "array",
+      minItems: 3,
+      maxItems: 3,
+
+      items: {
+        type: "object",
+        additionalProperties: false,
+
+        properties: {
+          rank: {
+            type: "integer",
+          },
+
+          title: {
+            type: "string",
+          },
+
+          description: {
+            type: "string",
+          },
+        },
+
+        required: [
+          "rank",
+          "title",
+          "description",
+        ],
+      },
+    },
+
+    afterDirection: {
+      type: "object",
+      additionalProperties: false,
+
+      properties: {
+        hair: {
+          type: "string",
+        },
+
+        eyebrows: {
+          type: "string",
+        },
+
+        skin: {
+          type: "string",
+        },
+
+        grooming: {
+          type: "string",
+        },
+
+        styling: {
+          type: "string",
+        },
+      },
+
+      required: [
+        "hair",
+        "eyebrows",
+        "skin",
+        "grooming",
+        "styling",
+      ],
+    },
+  },
+
+  required: [
+    "progress",
+    "currentImpression",
+    "targetImpression",
+    "summary",
+    "hair",
+    "eyebrows",
+    "skin",
+    "grooming",
+    "priorities",
+    "afterDirection",
+  ],
+} as const;

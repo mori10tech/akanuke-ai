@@ -109,12 +109,24 @@ function requiresLogin(
   );
 }
 
+function isGuestOnlyPage(
+  pathname: string,
+) {
+  return (
+    pathname === "/login" ||
+    pathname === "/signup"
+  );
+}
+
 export async function proxy(
   request: NextRequest,
 ) {
   const pathname =
     request.nextUrl.pathname;
 
+  /*
+   * 1. Basic認証
+   */
   const isBasicAuthEnabled =
     process.env
       .BASIC_AUTH_ENABLED === "true";
@@ -165,6 +177,9 @@ export async function proxy(
     }
   }
 
+  /*
+   * 2. Supabaseセッション確認・更新
+   */
   const {
     response,
     isAuthenticated,
@@ -173,6 +188,10 @@ export async function proxy(
       request,
     );
 
+  /*
+   * 3. 未ログインユーザーから
+   *    Dashboardを保護
+   */
   if (
     requiresLogin(pathname) &&
     !isAuthenticated
@@ -185,6 +204,28 @@ export async function proxy(
 
     return NextResponse.redirect(
       loginUrl,
+    );
+  }
+
+  /*
+   * 4. ログイン済みユーザーが
+   *    /login・/signupを開いた場合
+   *    Dashboardへ戻す
+   */
+  if (
+    isGuestOnlyPage(pathname) &&
+    isAuthenticated
+  ) {
+    const dashboardUrl =
+      request.nextUrl.clone();
+
+    dashboardUrl.pathname =
+      "/dashboard";
+
+    dashboardUrl.search = "";
+
+    return NextResponse.redirect(
+      dashboardUrl,
     );
   }
 

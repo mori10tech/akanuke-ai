@@ -667,7 +667,7 @@ export default function Home() {
           <div className="grid items-center gap-6 lg:grid-cols-[1fr_auto_0.55fr]">
             <div>
               <p className="text-2xl font-bold leading-snug sm:text-3xl">
-                変わりたい。その最初の一歩を、
+                変わりたい。最初の一歩を、
                 <br />
                 AKANUKE.AIと始めよう。
               </p>

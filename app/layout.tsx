@@ -25,8 +25,6 @@ export const metadata: Metadata = {
 
   applicationName: "AKANUKE.AI",
 
-  manifest: "/manifest.webmanifest",
-
   appleWebApp: {
     capable: true,
     title: "AKANUKE.AI",

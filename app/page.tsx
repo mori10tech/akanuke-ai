@@ -330,20 +330,21 @@ export default function Home() {
             </a>
           </nav>
 
-          <div className="flex items-center gap-4">
-            <Link
-  href="/login"
-  className="hidden text-sm font-bold text-[#1677FF] sm:inline"
->
-  ログイン
-</Link>
-            <Link
-              href="/upload"
-              className="primary-button compact-button"
-            >
-              無料で診断をはじめる
-            </Link>
-          </div>
+          <div className="flex items-center gap-3 sm:gap-4">
+  <Link
+    href="/login"
+    className="whitespace-nowrap text-sm font-bold text-[#1677FF]"
+  >
+    ログイン
+  </Link>
+
+  <Link
+    href="/upload"
+    className="primary-button compact-button"
+  >
+    無料で診断をはじめる
+  </Link>
+</div>
         </div>
       </header>
 

@@ -167,9 +167,12 @@ export default function LoginPage() {
                   パスワード
                 </label>
 
-                <span className="text-[10px] font-black text-black/30">
-                  パスワードを忘れた方
-                </span>
+                <Link
+  href="/forgot-password"
+  className="text-[10px] font-black text-[#1677FF]"
+>
+  パスワードを忘れた方
+</Link>
               </div>
 
               <div className="mt-2 flex min-h-[54px] items-center gap-3 rounded-[14px] border border-black/10 bg-[#F7F9FC] px-4 transition focus-within:border-[#1677FF]/30 focus-within:bg-white">

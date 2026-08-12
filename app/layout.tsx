@@ -30,11 +30,6 @@ export const metadata: Metadata = {
     title: "AKANUKE.AI",
     statusBarStyle: "default",
   },
-
-  icons: {
-    icon: "/favicon.ico",
-    apple: "/apple-icon.png",
-  },
 };
 
 export const viewport: Viewport = {

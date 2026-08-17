@@ -9,6 +9,12 @@ export type AkanukeAnalysis = {
     body: string;
   };
 
+  afterSummary: {
+    headline: string;
+    body: string;
+    changes: string[];
+  };
+
   hair: {
     observation: string;
     advice: string;
@@ -76,31 +82,68 @@ export const akanukeAnalysisJsonSchema = {
     summary: {
       type: "object",
       additionalProperties: false,
+
       properties: {
         headline: {
           type: "string",
         },
+
         body: {
           type: "string",
         },
       },
+
       required: [
         "headline",
         "body",
       ],
     },
 
+    afterSummary: {
+      type: "object",
+      additionalProperties: false,
+
+      properties: {
+        headline: {
+          type: "string",
+        },
+
+        body: {
+          type: "string",
+        },
+
+        changes: {
+          type: "array",
+          minItems: 3,
+          maxItems: 5,
+
+          items: {
+            type: "string",
+          },
+        },
+      },
+
+      required: [
+        "headline",
+        "body",
+        "changes",
+      ],
+    },
+
     hair: {
       type: "object",
       additionalProperties: false,
+
       properties: {
         observation: {
           type: "string",
         },
+
         advice: {
           type: "string",
         },
       },
+
       required: [
         "observation",
         "advice",
@@ -110,14 +153,17 @@ export const akanukeAnalysisJsonSchema = {
     eyebrows: {
       type: "object",
       additionalProperties: false,
+
       properties: {
         observation: {
           type: "string",
         },
+
         advice: {
           type: "string",
         },
       },
+
       required: [
         "observation",
         "advice",
@@ -127,14 +173,17 @@ export const akanukeAnalysisJsonSchema = {
     skin: {
       type: "object",
       additionalProperties: false,
+
       properties: {
         observation: {
           type: "string",
         },
+
         advice: {
           type: "string",
         },
       },
+
       required: [
         "observation",
         "advice",
@@ -144,14 +193,17 @@ export const akanukeAnalysisJsonSchema = {
     grooming: {
       type: "object",
       additionalProperties: false,
+
       properties: {
         observation: {
           type: "string",
         },
+
         advice: {
           type: "string",
         },
       },
+
       required: [
         "observation",
         "advice",
@@ -230,6 +282,7 @@ export const akanukeAnalysisJsonSchema = {
     "currentImpression",
     "targetImpression",
     "summary",
+    "afterSummary",
     "hair",
     "eyebrows",
     "skin",

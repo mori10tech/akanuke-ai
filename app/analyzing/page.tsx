@@ -48,6 +48,70 @@ const analysisSteps = [
   },
 ];
 
+/*
+ * OpenAI APIから実際の進捗率は取得できないため、
+ * 経過時間に応じた「進捗の目安」を表示します。
+ *
+ * 前半はテンポよく進み、
+ * 後半は徐々にゆっくり進みます。
+ *
+ * API完了前は最大99%まで。
+ * 100%は本当に診断が完了したときだけ表示します。
+ */
+function getAnalyzingProgress(
+  elapsedSeconds: number,
+) {
+  if (elapsedSeconds < 5) {
+    return 5 + elapsedSeconds * 4;
+  }
+
+  if (elapsedSeconds < 10) {
+    return 25 + (elapsedSeconds - 5) * 3;
+  }
+
+  if (elapsedSeconds < 20) {
+    return 40 + (elapsedSeconds - 10) * 2;
+  }
+
+  if (elapsedSeconds < 30) {
+    return 60 + (elapsedSeconds - 20) * 1.5;
+  }
+
+  if (elapsedSeconds < 40) {
+    return 75 + (elapsedSeconds - 30);
+  }
+
+  if (elapsedSeconds < 50) {
+    return 85 + (elapsedSeconds - 40) * 0.5;
+  }
+
+  if (elapsedSeconds < 65) {
+    return 90 + (elapsedSeconds - 50) * 0.2;
+  }
+
+  if (elapsedSeconds < 85) {
+    return 93 + (elapsedSeconds - 65) * 0.1;
+  }
+
+  if (elapsedSeconds < 110) {
+    return 95 + (elapsedSeconds - 85) * 0.08;
+  }
+
+  /*
+   * 110秒を超えても完全停止させず、
+   * 30秒ごとに1%ずつ進めます。
+   *
+   * ただしAPI完了前は99%を超えません。
+   */
+  return Math.min(
+    99,
+    97 +
+      Math.floor(
+        (elapsedSeconds - 110) / 30,
+      ),
+  );
+}
+
 function CheckIcon() {
   return (
     <svg
@@ -154,31 +218,50 @@ export default function AnalyzingPage() {
       setImage(savedImage);
       setErrorMessage("");
 
-      let simulatedProgress = 0;
+      /*
+       * 診断開始直後から5%を表示して、
+       * 処理が始まっていることを明確にします。
+       */
+      setProgress(5);
 
-      progressTimer =
-        window.setInterval(() => {
-          simulatedProgress +=
-            simulatedProgress < 30
-              ? 2
-              : simulatedProgress < 70
-                ? 1
-                : 0.5;
+      const startedAt = Date.now();
 
-          const nextProgress =
-            Math.min(
-              92,
-              Math.round(
-                simulatedProgress,
+      const updateProgress = () => {
+        const elapsedSeconds =
+          Math.floor(
+            (Date.now() - startedAt) / 1000,
+          );
+
+        const nextProgress =
+          Math.min(
+            99,
+            Math.round(
+              getAnalyzingProgress(
+                elapsedSeconds,
               ),
-            );
+            ),
+          );
 
-          if (!isCancelled) {
-            setProgress(
+        if (!isCancelled) {
+          setProgress((current) =>
+            Math.max(
+              current,
               nextProgress,
-            );
-          }
-        }, 180);
+            ),
+          );
+        }
+      };
+
+      updateProgress();
+
+      /*
+       * 1秒ごとに進捗の目安を更新します。
+       */
+      progressTimer =
+        window.setInterval(
+          updateProgress,
+          1000,
+        );
 
       try {
         console.log(
@@ -240,6 +323,9 @@ export default function AnalyzingPage() {
           JSON.stringify(data),
         );
 
+        /*
+         * 100%はAPIが本当に完了したときだけ表示します。
+         */
         setProgress(100);
 
         redirectTimer =
@@ -411,7 +497,7 @@ export default function AnalyzingPage() {
             <div className="p-4">
               <div className="h-2 overflow-hidden rounded-full bg-black/10">
                 <div
-                  className="h-full rounded-full bg-[#1677FF] transition-[width] duration-200 ease-out"
+                  className="h-full rounded-full bg-[#1677FF] transition-[width] duration-500 ease-out"
                   style={{
                     width: `${progress}%`,
                   }}
@@ -430,7 +516,9 @@ export default function AnalyzingPage() {
 
                 {!errorMessage && (
                   <p className="shrink-0 text-[10px] text-black/35">
-                    AI解析中
+                    {progress >= 95
+                      ? "最終調整中"
+                      : "AI解析中"}
                   </p>
                 )}
               </div>

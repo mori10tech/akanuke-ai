@@ -25,6 +25,63 @@ const priorityLabels = [
   "継続改善",
 ] as const;
 
+const AFTER_PROGRESS_MAX_BEFORE_COMPLETE = 94;
+
+function getAfterGenerationProgress(
+  elapsedSeconds: number,
+) {
+  if (elapsedSeconds < 5) {
+    return 6 + elapsedSeconds * 2;
+  }
+
+  if (elapsedSeconds < 15) {
+    return 16 + (elapsedSeconds - 5) * 1.7;
+  }
+
+  if (elapsedSeconds < 30) {
+    return 33 + (elapsedSeconds - 15) * 1.4;
+  }
+
+  if (elapsedSeconds < 50) {
+    return 54 + (elapsedSeconds - 30) * 0.95;
+  }
+
+  if (elapsedSeconds < 75) {
+    return 73 + (elapsedSeconds - 50) * 0.56;
+  }
+
+  return Math.min(
+    AFTER_PROGRESS_MAX_BEFORE_COMPLETE,
+    87 +
+    Math.floor(
+      (elapsedSeconds - 75) / 10,
+    ),
+  );
+}
+
+function getAfterGenerationStage(
+  elapsedSeconds: number,
+) {
+  if (elapsedSeconds < 8) {
+    return "元写真と診断内容を確認しています";
+  }
+
+  if (elapsedSeconds < 20) {
+    return "あなたに合う髪型・眉を設計しています";
+  }
+
+  if (elapsedSeconds < 40) {
+    return "肌・青ヒゲ・清潔感を整えています";
+  }
+
+  if (elapsedSeconds < 65) {
+    return "本人らしさを保ちながら仕上げています";
+  }
+
+  return "Afterイメージを最終調整しています";
+}
+
+
 function Icon({
   name,
   className = "h-5 w-5",
@@ -245,6 +302,9 @@ function AnalysisDetail({
 export default function ResultPage() {
   const afterRequestStartedRef = useRef(false);
 
+  const afterProgressTimerRef =
+    useRef<number | null>(null);
+
   const [image, setImage] =
     useState<string | null>(null);
 
@@ -259,6 +319,16 @@ export default function ResultPage() {
 
   const [isGeneratingAfter, setIsGeneratingAfter] =
     useState(false);
+
+  const [
+    afterGenerationProgress,
+    setAfterGenerationProgress,
+  ] = useState(0);
+
+  const [
+    afterElapsedSeconds,
+    setAfterElapsedSeconds,
+  ] = useState(0);
 
   const [afterError, setAfterError] =
     useState("");
@@ -363,7 +433,7 @@ export default function ResultPage() {
         const progress =
           Math.min(
             (now - startedAt) /
-              duration,
+            duration,
             1,
           );
 
@@ -377,7 +447,7 @@ export default function ResultPage() {
         setDisplayProgress(
           Math.round(
             targetProgress *
-              eased,
+            eased,
           ),
         );
 
@@ -415,6 +485,61 @@ export default function ResultPage() {
     }
   }, []);
 
+  const stopAfterProgressTimer = () => {
+    if (
+      afterProgressTimerRef.current !== null
+    ) {
+      window.clearInterval(
+        afterProgressTimerRef.current,
+      );
+
+      afterProgressTimerRef.current = null;
+    }
+  };
+
+  const startAfterProgressTimer = () => {
+    stopAfterProgressTimer();
+
+    const startedAt = Date.now();
+
+    /*
+     * 最初から0%ではなく6%で開始。
+     * 「処理が始まった」ことをすぐ伝えます。
+     */
+    setAfterElapsedSeconds(0);
+    setAfterGenerationProgress(6);
+
+    afterProgressTimerRef.current =
+      window.setInterval(() => {
+        const elapsedSeconds =
+          Math.floor(
+            (Date.now() -
+              startedAt) /
+              1000,
+          );
+
+        setAfterElapsedSeconds(
+          elapsedSeconds,
+        );
+
+        const nextProgress =
+          Math.round(
+            getAfterGenerationProgress(
+              elapsedSeconds,
+            ),
+          );
+
+        setAfterGenerationProgress(
+          (current) =>
+            Math.max(
+              current,
+              nextProgress,
+            ),
+        );
+      }, 1000);
+  };
+
+
   /*
    * 診断結果と元画像が揃ったら、
    * After画像を1回だけ自動生成します。
@@ -446,8 +571,12 @@ export default function ResultPage() {
 
       afterRequestStartedRef.current = true;
 
-      setIsGeneratingAfter(true);
-      setAfterError("");
+setAfterError("");
+setAfterGenerationProgress(6);
+setAfterElapsedSeconds(0);
+setIsGeneratingAfter(true);
+
+startAfterProgressTimer();
 
       try {
         console.log(
@@ -495,6 +624,23 @@ export default function ResultPage() {
           return;
         }
 
+        stopAfterProgressTimer();
+
+setAfterGenerationProgress(100);
+
+await new Promise<void>(
+          (resolve) => {
+            window.setTimeout(
+              resolve,
+              350,
+            );
+          },
+        );
+
+        if (isCancelled) {
+          return;
+        }
+
         setAfterImage(
           data.afterImageDataUrl,
         );
@@ -530,14 +676,19 @@ export default function ResultPage() {
         );
 
         if (isCancelled) {
-          return;
-        }
+  return;
+}
 
-        setAfterError(
-          error instanceof Error
+stopAfterProgressTimer();
+
+setAfterError(
+            error instanceof Error
             ? error.message
             : "After画像の生成中にエラーが発生しました。",
         );
+
+        setAfterGenerationProgress(0);
+
       } finally {
         if (!isCancelled) {
           setIsGeneratingAfter(false);
@@ -554,7 +705,7 @@ export default function ResultPage() {
         void generateAfterImage();
       }, 100);
 
-    return () => {
+        return () => {
       isCancelled = true;
 
       if (startTimer) {
@@ -562,6 +713,8 @@ export default function ResultPage() {
           startTimer,
         );
       }
+
+      stopAfterProgressTimer();
     };
   }, [
     isReady,
@@ -572,9 +725,15 @@ export default function ResultPage() {
     rawAnalysisResult,
   ]);
 
-  const handleRetryAfter = () => {
-    afterRequestStartedRef.current = false;
-    setAfterError("");
+const handleRetryAfter = () => {
+  stopAfterProgressTimer();
+
+  afterRequestStartedRef.current = false;
+
+  setAfterError("");
+    setAfterGenerationProgress(0);
+    setAfterElapsedSeconds(0);
+
     setAfterRetryCount(
       (current) => current + 1,
     );
@@ -612,6 +771,18 @@ export default function ResultPage() {
       </AppShell>
     );
   }
+
+  const afterSummary = analysis.afterSummary ?? {
+    headline: analysis.targetImpression,
+    body:
+      "AIが分析した改善ポイントをもとに、髪型・眉・肌・身だしなみを整えたAfterイメージです。",
+    changes: [
+      analysis.afterDirection.hair,
+      analysis.afterDirection.eyebrows,
+      analysis.afterDirection.skin,
+      analysis.afterDirection.grooming,
+    ],
+  };
 
   return (
     <AppShell background="white">
@@ -907,30 +1078,63 @@ export default function ResultPage() {
                       </span>
                     </>
                   ) : isGeneratingAfter ? (
-                    <div className="flex h-full w-full items-center justify-center p-4">
-                      <div className="text-center">
+                    <div className="flex h-full w-full items-center justify-center p-3">
+                      <div className="w-full max-w-[170px] text-center">
                         <span className="relative mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-white text-[#1677FF] shadow-[0_10px_34px_rgba(15,23,42,0.05)]">
                           <span className="absolute inset-0 animate-ping rounded-full border border-[#1677FF]/20" />
 
+                          <span className="absolute inset-[7px] animate-pulse rounded-full bg-[#EEF6FF]" />
+
                           <Icon
                             name="sparkle"
-                            className="h-6 w-6"
+                            className="relative z-10 h-6 w-6"
                           />
                         </span>
 
-                        <p className="mt-4 text-[10px] font-black text-[#1677FF]">
+                        <p className="mt-4 text-[9px] font-black tracking-[0.06em] text-[#1677FF]">
                           AFTER GENERATING
                         </p>
 
-                        <p className="mt-2 text-[9px] leading-4 text-black/45">
-                          AIがあなた専用の
-                          <br />
-                          Afterを生成しています
+                        <div className="mt-2 flex items-end justify-center gap-0.5">
+                          <span className="text-[24px] font-black leading-none tracking-[-0.05em] text-[#1677FF]">
+                            {afterGenerationProgress}
+                          </span>
+
+                          <span className="pb-0.5 text-[9px] font-black text-[#1677FF]">
+                            %
+                          </span>
+                        </div>
+
+                        <p className="mt-3 min-h-[32px] text-[9px] font-bold leading-4 text-[#111111]/65">
+                          {getAfterGenerationStage(
+                            afterElapsedSeconds,
+                          )}
                         </p>
 
-                        <div className="mx-auto mt-4 h-1.5 w-20 overflow-hidden rounded-full bg-black/5">
-                          <div className="h-full w-1/2 animate-pulse rounded-full bg-[#1677FF]" />
+                        <div className="mt-3 h-1.5 w-full overflow-hidden rounded-full bg-black/5">
+                          <div
+                            className="h-full rounded-full bg-[#1677FF] transition-[width] duration-1000 ease-out"
+                            style={{
+                              width: `${afterGenerationProgress}%`,
+                            }}
+                          />
                         </div>
+
+                        <div className="mt-2 flex items-center justify-between gap-2 text-[7px] font-bold text-black/30">
+                          <span>
+                            生成状況の目安
+                          </span>
+
+                          <span>
+                            経過 {afterElapsedSeconds}秒
+                          </span>
+                        </div>
+
+                        <p className="mt-3 text-[7px] leading-3.5 text-black/35">
+                          高品質なAfterを生成しているため、
+                          <br />
+                          少し時間がかかる場合があります
+                        </p>
                       </div>
                     </div>
                   ) : afterError ? (
@@ -946,9 +1150,7 @@ export default function ResultPage() {
 
                         <button
                           type="button"
-                          onClick={
-                            handleRetryAfter
-                          }
+                          onClick={handleRetryAfter}
                           className="mt-4 rounded-[10px] bg-[#111111] px-4 py-2.5 text-[9px] font-black text-white"
                         >
                           もう一度生成
@@ -976,9 +1178,64 @@ export default function ResultPage() {
                     理想の印象
                   </p>
 
-                  <p className="mt-1 text-[9px] leading-4 text-black/55">
-                    {analysis.targetImpression}
+                  <p className="mt-1 text-[9px] font-bold leading-4 text-[#1677FF]">
+                    {afterSummary.headline}
                   </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-3 overflow-hidden rounded-[18px] border border-[#1677FF]/10 bg-[#EEF6FF]">
+              <div className="p-4">
+                <div className="flex items-start gap-3">
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white text-[#1677FF] shadow-[0_6px_18px_rgba(15,23,42,0.04)]">
+                    <Icon
+                      name="sparkle"
+                      className="h-[18px] w-[18px]"
+                    />
+                  </span>
+
+                  <div className="min-w-0 flex-1">
+                    <p className="text-[9px] font-black tracking-[0.12em] text-[#1677FF]">
+                      YOUR AFTER
+                    </p>
+
+                    <h3 className="mt-1.5 text-[16px] font-black leading-[1.5] tracking-[-0.025em] text-[#111111]">
+                      {afterSummary.headline}
+                    </h3>
+                  </div>
+                </div>
+
+                <p className="mt-3 text-[11px] leading-5 text-black/60">
+                  {afterSummary.body}
+                </p>
+              </div>
+
+              <div className="border-t border-[#1677FF]/10 bg-white p-4">
+                <p className="text-[9px] font-black tracking-[0.1em] text-black/35">
+                  主な変更
+                </p>
+
+                <div className="mt-3 space-y-2.5">
+                  {afterSummary.changes.map(
+                    (change, index) => (
+                      <div
+                        key={`${index}-${change}`}
+                        className="flex items-start gap-2.5"
+                      >
+                        <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#EEF6FF] text-[#1677FF]">
+                          <Icon
+                            name="check"
+                            className="h-3 w-3"
+                          />
+                        </span>
+
+                        <p className="min-w-0 flex-1 text-[11px] leading-5 text-black/60">
+                          {change}
+                        </p>
+                      </div>
+                    ),
+                  )}
                 </div>
               </div>
             </div>

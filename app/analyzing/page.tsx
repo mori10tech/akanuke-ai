@@ -178,8 +178,9 @@ export default function AnalyzingPage() {
   const router = useRouter();
 
   const hasStartedRef = useRef(false);
+const progressRef = useRef(0);
 
-  const [progress, setProgress] = useState(0);
+const [progress, setProgress] = useState(0);
   const [image, setImage] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -219,12 +220,13 @@ export default function AnalyzingPage() {
       setErrorMessage("");
 
       /*
-       * 診断開始直後から5%を表示して、
-       * 処理が始まっていることを明確にします。
-       */
-      setProgress(5);
+ * 診断開始直後から5%を表示して、
+ * 処理が始まっていることを明確にします。
+ */
+progressRef.current = 5;
+setProgress(5);
 
-      const startedAt = Date.now();
+const startedAt = Date.now();
 
       const updateProgress = () => {
         const elapsedSeconds =
@@ -243,13 +245,19 @@ export default function AnalyzingPage() {
           );
 
         if (!isCancelled) {
-          setProgress((current) =>
-            Math.max(
-              current,
-              nextProgress,
-            ),
-          );
-        }
+  const updatedProgress =
+    Math.max(
+      progressRef.current,
+      nextProgress,
+    );
+
+  progressRef.current =
+    updatedProgress;
+
+  setProgress(
+    updatedProgress,
+  );
+}
       };
 
       updateProgress();
@@ -323,17 +331,97 @@ export default function AnalyzingPage() {
           JSON.stringify(data),
         );
 
-        /*
-         * 100%はAPIが本当に完了したときだけ表示します。
-         */
-        setProgress(100);
+       /*
+ * API完了後は現在の進捗から100%まで
+ * なだらかに進めてからResult画面へ移動します。
+ */
+const completionStartedAt =
+  performance.now();
 
-        redirectTimer =
-          window.setTimeout(() => {
-            router.push(
-              "/result",
-            );
-          }, REDIRECT_DELAY_MS);
+const completionStartProgress =
+  progressRef.current;
+
+const completionDurationMs = 2500;
+
+await new Promise<void>(
+  (resolve) => {
+    const animateCompletion = (
+      now: number,
+    ) => {
+      if (isCancelled) {
+        resolve();
+        return;
+      }
+
+      const elapsed =
+        now - completionStartedAt;
+
+      const ratio =
+        Math.min(
+          1,
+          elapsed /
+            completionDurationMs,
+        );
+
+      /*
+       * ease-outで終盤ほど自然に減速します。
+       */
+      const easedRatio =
+  ratio < 0.5
+    ? 2 * ratio * ratio
+    : 1 -
+      Math.pow(
+        -2 * ratio + 2,
+        2,
+      ) / 2;
+
+      const nextProgress =
+        Math.min(
+          100,
+          Math.round(
+            completionStartProgress +
+              (100 -
+                completionStartProgress) *
+                easedRatio,
+          ),
+        );
+
+      progressRef.current =
+        nextProgress;
+
+      setProgress(
+        nextProgress,
+      );
+
+      if (ratio < 1) {
+        window.requestAnimationFrame(
+          animateCompletion,
+        );
+        return;
+      }
+
+      progressRef.current = 100;
+      setProgress(100);
+      resolve();
+    };
+
+    window.requestAnimationFrame(
+      animateCompletion,
+    );
+  },
+);
+
+if (isCancelled) {
+  return;
+}
+
+redirectTimer =
+  window.setTimeout(() => {
+    router.push(
+      "/result",
+    );
+  }, REDIRECT_DELAY_MS);
+
       } catch (error) {
         console.error(
           "[AKANUKE.AI] Analysis error:",
@@ -461,17 +549,9 @@ export default function AnalyzingPage() {
                 <span className="absolute -bottom-px -right-px h-8 w-8 rounded-br-[24px] border-b-2 border-r-2 border-[#FFD400]" />
               </div>
 
-              <div
-                className="pointer-events-none absolute inset-x-[7%] z-10 h-px bg-[#FFD400] shadow-[0_0_18px_rgba(255,212,0,0.9)] transition-[top] duration-100 ease-linear"
-                style={{
-                  top: `${
-                    10 +
-                    ((progress *
-                      0.8) %
-                      80)
-                  }%`,
-                }}
-              />
+              <div className="pointer-events-none absolute left-[7%] right-[7%] top-[7%] bottom-[24%] z-10 overflow-hidden rounded-t-[24px]">
+  <div className="akanuke-scan-line absolute inset-x-0 top-0 h-px bg-[#FFD400] shadow-[0_0_18px_rgba(255,212,0,0.9)]" />
+</div>
 
               <div className="absolute inset-x-4 bottom-4 rounded-[14px] border border-white/25 bg-black/60 px-4 py-3 text-white backdrop-blur-md">
                 <div className="flex items-center justify-between gap-3">
@@ -684,6 +764,35 @@ export default function AnalyzingPage() {
           </p>
         </div>
       </div>
+            <style jsx global>{`
+        @keyframes akanuke-scan {
+          0% {
+            top: 0%;
+          }
+
+          50% {
+            top: 100%;
+          }
+
+          100% {
+            top: 0%;
+          }
+        }
+
+        .akanuke-scan-line {
+          animation:
+            akanuke-scan 3.2s
+            ease-in-out infinite;
+          will-change: top;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .akanuke-scan-line {
+            animation: none;
+            top: 50%;
+          }
+        }
+      `}</style>
     </main>
   );
 }

@@ -1499,21 +1499,14 @@ setAfterElapsedSeconds(0);
             </div>
           </section>
 
-          <div className="mx-4 mt-4 grid grid-cols-2 gap-3">
-            <ActionCard
-              href="/products"
-              icon="bag"
-              title="おすすめ商品"
-              description="改善内容に合う商品を見る"
-            />
-
-            <ActionCard
-              href="/salon"
-              icon="scissors"
-              title="おすすめサロン"
-              description="髪型・眉毛の相談先を見る"
-            />
-          </div>
+          <div className="mx-4 mt-4">
+  <ActionCard
+    href="/products"
+    icon="bag"
+    title="おすすめ商品"
+    description="診断内容に合うケア・スタイリング商品を見る"
+  />
+</div>
 
           <Link
             href="/upload"

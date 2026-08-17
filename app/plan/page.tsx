@@ -39,9 +39,7 @@ const planTasks: PlanTask[] = [
       "前髪とサイドが整い、輪郭がすっきり見えます。",
     howTo:
       "額が少し見える軽めの前髪と、サイドを抑えた爽やかなスタイルを相談しましょう。",
-    href: "/salon",
-    hrefLabel: "おすすめサロンを見る",
-  },
+      },
   {
     id: "eyebrow",
     priority: 2,
@@ -53,9 +51,7 @@ const planTasks: PlanTask[] = [
       "左右差が目立ちにくくなり、目元がはっきりします。",
     howTo:
       "眉下の余分な毛を処理し、太さを残した自然な形を目指しましょう。",
-    href: "/salon",
-    hrefLabel: "眉毛対応サロンを見る",
-  },
+      },
   {
     id: "sunscreen",
     priority: 3,
@@ -852,21 +848,14 @@ export default function PlanPage() {
             </div>
           </section>
 
-          <section className="mx-4 mt-7 grid grid-cols-2 gap-3">
-            <ActionCard
-              href="/products"
-              icon="bag"
-              title="おすすめ商品"
-              description="肌ケア・ヘアセットに必要な商品を見る"
-            />
-
-            <ActionCard
-              href="/salon"
-              icon="scissors"
-              title="おすすめサロン"
-              description="髪型・眉毛を相談できるサロンを見る"
-            />
-          </section>
+          <section className="mx-4 mt-7">
+  <ActionCard
+    href="/products"
+    icon="bag"
+    title="おすすめ商品"
+    description="診断内容に合うケア・スタイリング商品を見る"
+  />
+</section>
 
           {progress === 100 && (
             <section className="mx-4 mt-6 rounded-[20px] border border-[#FFD400]/40 bg-[#FFF9D9] p-5 text-center">

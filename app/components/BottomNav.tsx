@@ -47,28 +47,6 @@ function HistoryIcon({ className = "h-5 w-5" }: IconProps) {
   );
 }
 
-function SalonIcon({ className = "h-5 w-5" }: IconProps) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      aria-hidden="true"
-      className={className}
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <circle cx="6" cy="7" r="3" />
-      <circle cx="6" cy="17" r="3" />
-      <path d="M8.7 8.3 19 3" />
-      <path d="M8.7 15.7 19 21" />
-      <path d="M8.7 8.3 12 12" />
-      <path d="M8.7 15.7 12 12" />
-    </svg>
-  );
-}
-
 function ProductIcon({ className = "h-5 w-5" }: IconProps) {
   return (
     <svg
@@ -117,11 +95,6 @@ const navigationItems = [
     icon: HistoryIcon,
   },
   {
-    name: "サロン",
-    href: "/salon",
-    icon: SalonIcon,
-  },
-  {
     name: "商品",
     href: "/products",
     icon: ProductIcon,
@@ -137,11 +110,11 @@ export default function BottomNav() {
   const pathname = usePathname();
 
   return (
-<nav
-  aria-label="メインナビゲーション"
-  className="fixed bottom-0 left-1/2 z-50 w-full max-w-[480px] -translate-x-1/2 border-t border-black/10 bg-white/95 pb-[max(8px,env(safe-area-inset-bottom))] pt-2 shadow-[0_-8px_24px_rgba(15,23,42,0.05)] backdrop-blur-xl"
->
-  <div className="grid w-full grid-cols-5 px-2">
+    <nav
+      aria-label="メインナビゲーション"
+      className="fixed bottom-0 left-1/2 z-50 w-full max-w-[480px] -translate-x-1/2 border-t border-black/10 bg-white/95 pb-[max(8px,env(safe-area-inset-bottom))] pt-2 shadow-[0_-8px_24px_rgba(15,23,42,0.05)] backdrop-blur-xl"
+    >
+      <div className="grid w-full grid-cols-4 px-2">
         {navigationItems.map((item) => {
           const isActive =
             pathname === item.href ||
@@ -164,7 +137,9 @@ export default function BottomNav() {
 
               <span
                 className={`max-w-full truncate text-[8px] leading-none ${
-                  isActive ? "font-black" : "font-bold"
+                  isActive
+                    ? "font-black"
+                    : "font-bold"
                 }`}
               >
                 {item.name}

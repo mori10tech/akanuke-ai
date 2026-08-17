@@ -10,7 +10,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import AppLogo from "../components/AppLogo";
+import AppHeader from "../components/AppHeader";
 import AppShell from "../components/AppShell";
 
 const STORAGE_KEY = "akanukePlanCompletedTasks";
@@ -120,12 +120,7 @@ function Icon({
   className?: string;
 }) {
   const paths: Record<string, ReactNode> = {
-    arrowLeft: (
-      <>
-        <path d="M19 12H5" />
-        <path d="m12 19-7-7 7-7" />
-      </>
-    ),
+   
     check: <path d="m5 12 4 4L19 6" />,
     chevron: <path d="m9 18 6-6-6-6" />,
     reset: (
@@ -655,26 +650,10 @@ export default function PlanPage() {
   return (
     <AppShell background="white">
       <div className="overflow-hidden bg-white">
-        <header className="sticky top-0 z-40 border-b border-black/10 bg-white/95 backdrop-blur-xl">
-          <div className="grid h-[68px] grid-cols-[44px_1fr_44px] items-center px-4">
-            <Link
-              href="/result"
-              aria-label="診断結果へ戻る"
-              className="flex h-10 w-10 items-center justify-center rounded-full transition hover:bg-[#EEF6FF]"
-            >
-              <Icon
-                name="arrowLeft"
-                className="h-[21px] w-[21px]"
-              />
-            </Link>
-
-            <div className="flex justify-center">
-              <AppLogo />
-            </div>
-
-            <div aria-hidden="true" />
-          </div>
-        </header>
+        <AppHeader
+  backHref="/result"
+  backLabel="診断結果へ戻る"
+/>
 
         <div className="pb-32">
           <section className="px-5 pb-6 pt-7 text-center">

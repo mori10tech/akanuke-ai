@@ -1,10 +1,24 @@
+"use client";
+
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+
 import AppLogo from "./AppLogo";
 
 type AppHeaderProps = {
   backHref?: string;
   backLabel?: string;
   sticky?: boolean;
+
+  /*
+   * "href"
+   * → backHrefで指定した安全なページへ戻る
+   *
+   * "history"
+   * → 実際のブラウザ履歴へ戻る
+   *    履歴がない場合はbackHrefへ戻る
+   */
+  backMode?: "href" | "history";
 };
 
 function ArrowLeftIcon() {
@@ -29,25 +43,61 @@ export default function AppHeader({
   backHref,
   backLabel = "前のページへ戻る",
   sticky = true,
+  backMode = "href",
 }: AppHeaderProps) {
+  const router = useRouter();
+
+  const handleHistoryBack = () => {
+    /*
+     * 履歴がある場合は、
+     * 実際にユーザーが来たページへ戻します。
+     */
+    if (window.history.length > 1) {
+      router.back();
+      return;
+    }
+
+    /*
+     * 直接URLを開いた場合など、
+     * 戻れる履歴がない場合の安全な戻り先です。
+     */
+    if (backHref) {
+      router.push(backHref);
+    }
+  };
+
+  const backButton =
+    !backHref && backMode === "href" ? (
+      <div aria-hidden="true" />
+    ) : backMode === "history" ? (
+      <button
+        type="button"
+        onClick={handleHistoryBack}
+        aria-label={backLabel}
+        className="flex h-10 w-10 items-center justify-center rounded-full transition hover:bg-[#EEF6FF] active:scale-95"
+      >
+        <ArrowLeftIcon />
+      </button>
+    ) : (
+      <Link
+        href={backHref ?? "/"}
+        aria-label={backLabel}
+        className="flex h-10 w-10 items-center justify-center rounded-full transition hover:bg-[#EEF6FF] active:scale-95"
+      >
+        <ArrowLeftIcon />
+      </Link>
+    );
+
   return (
     <header
       className={`${
-        sticky ? "sticky top-0" : "relative"
+        sticky
+          ? "sticky top-0"
+          : "relative"
       } z-40 border-b border-black/10 bg-white/95 backdrop-blur-xl`}
     >
       <div className="mx-auto grid h-[68px] w-full max-w-[480px] grid-cols-[44px_1fr_44px] items-center px-4">
-        {backHref ? (
-          <Link
-            href={backHref}
-            aria-label={backLabel}
-            className="flex h-10 w-10 items-center justify-center rounded-full transition hover:bg-[#EEF6FF] active:scale-95"
-          >
-            <ArrowLeftIcon />
-          </Link>
-        ) : (
-          <div aria-hidden="true" />
-        )}
+        {backButton}
 
         <div className="flex justify-center">
           <AppLogo />

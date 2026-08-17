@@ -2,9 +2,9 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
+import AppHeader from "../components/AppHeader";
 import AppShell from "../components/AppShell";
 import DummyAd from "../components/DummyAd";
-import AppLogo from "../components/AppLogo";
 import {
   activeProducts,
   categories,
@@ -16,24 +16,6 @@ import {
 
 function formatPrice(price: number) {
   return new Intl.NumberFormat("ja-JP").format(price);
-}
-
-function ArrowLeftIcon() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      aria-hidden="true"
-      className="h-6 w-6"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M19 12H5" />
-      <path d="m12 19-7-7 7-7" />
-    </svg>
-  );
 }
 
 function ExternalLinkIcon() {
@@ -386,23 +368,11 @@ export default function ProductsPage() {
   return (
     <AppShell background="white">
       <div className="overflow-hidden bg-white">
-        <header className="sticky top-0 z-30 border-b border-black/10 bg-white/95 backdrop-blur-xl">
-          <div className="grid h-[68px] grid-cols-[48px_1fr_48px] items-center px-3">
-            <Link
-              href="/result"
-              aria-label="診断結果へ戻る"
-              className="flex h-11 w-11 items-center justify-center rounded-full text-[#111111] transition hover:bg-[#EEF6FF] active:scale-95"
-            >
-              <ArrowLeftIcon />
-            </Link>
-
-            <div className="flex justify-center">
-              <AppLogo />
-            </div>
-
-            <div aria-hidden="true" />
-          </div>
-        </header>
+        <AppHeader
+  backHref="/result"
+  backMode="history"
+  backLabel="前のページへ戻る"
+/>
 
         <main className="pb-32 pt-6">
           <div className="px-4">

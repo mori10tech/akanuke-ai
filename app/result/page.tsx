@@ -9,11 +9,12 @@ import {
 } from "react";
 import AppShell from "../components/AppShell";
 import DummyAd from "../components/DummyAd";
-import AppLogo from "../components/AppLogo";
 import type { AkanukeAnalysis } from "../../lib/openai/schemas";
 import {
+  loadAfterImage,
   saveAfterImage,
 } from "../../lib/client/afterImageStore";
+import AppHeader from "../components/AppHeader";
 
 
 const IMAGE_STORAGE_KEY = "akanukeImage";
@@ -320,10 +321,15 @@ const [image, setImage] =
     useState("");
 
   const [afterImage, setAfterImage] =
-    useState<string | null>(null);
+  useState<string | null>(null);
 
-  const [isGeneratingAfter, setIsGeneratingAfter] =
-    useState(false);
+const [
+  hasCheckedSavedAfter,
+  setHasCheckedSavedAfter,
+] = useState(false);
+
+const [isGeneratingAfter, setIsGeneratingAfter] =
+  useState(false);
 
   const [
     afterGenerationProgress,
@@ -460,6 +466,67 @@ setIsReady(true);
     }
   }, []);
 
+        /*
+   * 同じ診断結果のAfter画像がIndexedDBに保存されている場合は、
+   * 保存済み画像を復元してAPIの再実行を防ぎます。
+   */
+  useEffect(() => {
+    if (
+      !isReady ||
+      !rawAnalysisResult
+    ) {
+      return;
+    }
+
+    let isCancelled = false;
+
+    async function restoreSavedAfterImage() {
+      try {
+        const savedAfterImage =
+          await loadAfterImage(
+            rawAnalysisResult,
+          );
+
+        if (isCancelled) {
+          return;
+        }
+
+        if (savedAfterImage) {
+          setAfterImage(
+            savedAfterImage,
+          );
+
+          afterProgressValueRef.current =
+            100;
+
+          setAfterGenerationProgress(
+            100,
+          );
+        }
+      } catch (error) {
+        console.warn(
+          "[AKANUKE.AI] 保存済みAfter画像を復元できませんでした:",
+          error,
+        );
+      } finally {
+        if (!isCancelled) {
+          setHasCheckedSavedAfter(
+            true,
+          );
+        }
+      }
+    }
+
+    void restoreSavedAfterImage();
+
+    return () => {
+      isCancelled = true;
+    };
+  }, [
+    isReady,
+    rawAnalysisResult,
+  ]);
+
   const stopAfterProgressTimer = () => {
     if (
       afterProgressTimerRef.current !== null
@@ -525,22 +592,23 @@ setAfterGenerationProgress(6);
 
 
   /*
-   * 診断結果と元画像が揃ったら、
-   * After画像を1回だけ自動生成します。
-   *
-   * すでにsessionStorageに同じ診断のAfterがある場合は
-   * APIを再実行しません。
-   */
+ * 診断結果と元画像が揃ったら、
+ * After画像を1回だけ自動生成します。
+ *
+ * IndexedDBに同じ診断結果のAfter画像がある場合は、
+ * 保存済み画像を復元してAPIを再実行しません。
+ */
   useEffect(() => {
-    if (
-      !isReady ||
-      !image ||
-      !analysis ||
-      afterImage ||
-      afterRequestStartedRef.current
-    ) {
-      return;
-    }
+  if (
+    !isReady ||
+    !hasCheckedSavedAfter ||
+    !image ||
+    !analysis ||
+    afterImage ||
+    afterRequestStartedRef.current
+  ) {
+    return;
+  }
 
     let isCancelled = false;
     let startTimer: number | undefined;
@@ -769,6 +837,7 @@ setAfterError(
     };
   }, [
     isReady,
+    hasCheckedSavedAfter,
     image,
     analysis,
     afterImage,
@@ -841,26 +910,10 @@ setAfterElapsedSeconds(0);
   return (
     <AppShell background="white">
       <div className="overflow-hidden bg-white">
-        <header className="sticky top-0 z-40 border-b border-black/10 bg-white/95 backdrop-blur-xl">
-          <div className="grid h-[68px] grid-cols-[44px_1fr_44px] items-center px-4">
-            <Link
-              href="/upload"
-              aria-label="写真選択へ戻る"
-              className="flex h-10 w-10 items-center justify-center rounded-full transition hover:bg-[#EEF6FF] active:scale-95"
-            >
-              <Icon
-                name="arrowLeft"
-                className="h-[21px] w-[21px]"
-              />
-            </Link>
-
-            <div className="flex justify-center">
-              <AppLogo />
-            </div>
-
-            <div aria-hidden="true" />
-          </div>
-        </header>
+        <AppHeader
+  backHref="/upload"
+  backLabel="写真選択へ戻る"
+/>
 
         <div className="pb-32">
           <section className="px-5 pb-6 pt-7 text-center">

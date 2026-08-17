@@ -151,7 +151,7 @@ export async function POST(
      */
     formData.append(
       "quality",
-      "high",
+      "medium",
     );
 
     /*
@@ -173,23 +173,25 @@ export async function POST(
     );
 
     console.log(
-      "[AKANUKE.AI] After画像生成を開始します",
-    );
+  "[AKANUKE.AI] After画像生成を開始します",
+);
 
-    const response =
-      await fetch(
-        "https://api.openai.com/v1/images/edits",
-        {
-          method: "POST",
+const generationStartedAt = Date.now();
 
-          headers: {
-            Authorization:
-              `Bearer ${apiKey}`,
-          },
+const response =
+  await fetch(
+    "https://api.openai.com/v1/images/edits",
+    {
+      method: "POST",
 
-          body: formData,
-        },
-      );
+      headers: {
+        Authorization:
+          `Bearer ${apiKey}`,
+      },
+
+      body: formData,
+    },
+  );
 
     const data =
       (await response.json()) as OpenAIImageResponse;
@@ -218,9 +220,13 @@ export async function POST(
     const afterImageDataUrl =
       `data:image/webp;base64,${base64Image}`;
 
-    console.log(
-      "[AKANUKE.AI] After画像生成が完了しました",
-    );
+    const generationDurationMs =
+  Date.now() - generationStartedAt;
+
+console.log(
+  "[AKANUKE.AI] After画像生成が完了しました:",
+  `${generationDurationMs}ms`,
+);
 
     return NextResponse.json(
       {

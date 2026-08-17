@@ -14,8 +14,6 @@ import type { AkanukeAnalysis } from "../../lib/openai/schemas";
 
 const IMAGE_STORAGE_KEY = "akanukeImage";
 const RESULT_STORAGE_KEY = "akanukeAnalysisResult";
-const AFTER_STORAGE_KEY = "akanukeAfterImage";
-const AFTER_SOURCE_STORAGE_KEY = "akanukeAfterSourceResult";
 
 const GOAL_PROGRESS = 100;
 
@@ -375,40 +373,10 @@ export default function ResultPage() {
           rawResult,
         ) as AkanukeAnalysis;
 
-      const savedAfterImage =
-        window.sessionStorage.getItem(
-          AFTER_STORAGE_KEY,
-        );
-
-      const savedAfterSource =
-        window.sessionStorage.getItem(
-          AFTER_SOURCE_STORAGE_KEY,
-        );
-
       setImage(savedImage);
-      setAnalysis(parsed);
-      setRawAnalysisResult(rawResult);
-
-      /*
-       * 同じ診断結果から生成されたAfterだけを再利用します。
-       * 別の写真・別の診断結果なら古いAfterは使いません。
-       */
-      if (
-        savedAfterImage &&
-        savedAfterSource === rawResult
-      ) {
-        setAfterImage(savedAfterImage);
-      } else {
-        window.sessionStorage.removeItem(
-          AFTER_STORAGE_KEY,
-        );
-
-        window.sessionStorage.removeItem(
-          AFTER_SOURCE_STORAGE_KEY,
-        );
-      }
-
-      setIsReady(true);
+setAnalysis(parsed);
+setRawAnalysisResult(rawResult);
+setIsReady(true);
 
       const targetProgress =
         Math.max(
@@ -644,27 +612,6 @@ await new Promise<void>(
         setAfterImage(
           data.afterImageDataUrl,
         );
-
-        /*
-         * ページを開き直したときに再課金しないよう保存。
-         * 容量不足の場合でも画面表示自体は継続します。
-         */
-        try {
-          window.sessionStorage.setItem(
-            AFTER_STORAGE_KEY,
-            data.afterImageDataUrl,
-          );
-
-          window.sessionStorage.setItem(
-            AFTER_SOURCE_STORAGE_KEY,
-            rawAnalysisResult,
-          );
-        } catch (storageError) {
-          console.warn(
-            "[AKANUKE.AI] After画像をsessionStorageへ保存できませんでした:",
-            storageError,
-          );
-        }
 
         console.log(
           "[AKANUKE.AI] Result画面へのAfter画像表示が完了しました",

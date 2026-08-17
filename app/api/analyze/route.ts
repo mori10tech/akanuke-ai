@@ -108,7 +108,7 @@ console.log(
         store: false,
 
         reasoning: {
-          effort: "minimal",
+          effort: "none",
         },
 
         /*
@@ -118,7 +118,7 @@ console.log(
          * After生成に必要な情報量は維持しつつ、
          * レスポンス生成時間を抑えます。
          */
-        max_output_tokens: 1800,
+        max_output_tokens: 4000,
 
         input: [
           {

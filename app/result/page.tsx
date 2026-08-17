@@ -3,6 +3,7 @@
 import Link from "next/link";
 import {
   useEffect,
+  useRef,
   useState,
   type ReactNode,
 } from "react";
@@ -13,6 +14,8 @@ import type { AkanukeAnalysis } from "../../lib/openai/schemas";
 
 const IMAGE_STORAGE_KEY = "akanukeImage";
 const RESULT_STORAGE_KEY = "akanukeAnalysisResult";
+const AFTER_STORAGE_KEY = "akanukeAfterImage";
+const AFTER_SOURCE_STORAGE_KEY = "akanukeAfterSourceResult";
 
 const GOAL_PROGRESS = 100;
 
@@ -107,8 +110,7 @@ function CircularProgress({
   const radius = 43;
   const circumference = 2 * Math.PI * radius;
   const offset =
-    circumference -
-    (progress / 100) * circumference;
+    circumference - (progress / 100) * circumference;
 
   return (
     <div className="relative h-[112px] w-[112px]">
@@ -241,11 +243,28 @@ function AnalysisDetail({
 }
 
 export default function ResultPage() {
+  const afterRequestStartedRef = useRef(false);
+
   const [image, setImage] =
     useState<string | null>(null);
 
   const [analysis, setAnalysis] =
     useState<AkanukeAnalysis | null>(null);
+
+  const [rawAnalysisResult, setRawAnalysisResult] =
+    useState("");
+
+  const [afterImage, setAfterImage] =
+    useState<string | null>(null);
+
+  const [isGeneratingAfter, setIsGeneratingAfter] =
+    useState(false);
+
+  const [afterError, setAfterError] =
+    useState("");
+
+  const [afterRetryCount, setAfterRetryCount] =
+    useState(0);
 
   const [
     displayProgress,
@@ -271,9 +290,11 @@ export default function ResultPage() {
 
     if (!rawResult) {
       setImage(savedImage);
+
       setLoadError(
         "診断結果が見つかりません。もう一度AI診断を実行してください。",
       );
+
       setIsReady(true);
       return;
     }
@@ -284,8 +305,39 @@ export default function ResultPage() {
           rawResult,
         ) as AkanukeAnalysis;
 
+      const savedAfterImage =
+        window.sessionStorage.getItem(
+          AFTER_STORAGE_KEY,
+        );
+
+      const savedAfterSource =
+        window.sessionStorage.getItem(
+          AFTER_SOURCE_STORAGE_KEY,
+        );
+
       setImage(savedImage);
       setAnalysis(parsed);
+      setRawAnalysisResult(rawResult);
+
+      /*
+       * 同じ診断結果から生成されたAfterだけを再利用します。
+       * 別の写真・別の診断結果なら古いAfterは使いません。
+       */
+      if (
+        savedAfterImage &&
+        savedAfterSource === rawResult
+      ) {
+        setAfterImage(savedAfterImage);
+      } else {
+        window.sessionStorage.removeItem(
+          AFTER_STORAGE_KEY,
+        );
+
+        window.sessionStorage.removeItem(
+          AFTER_SOURCE_STORAGE_KEY,
+        );
+      }
+
       setIsReady(true);
 
       const targetProgress =
@@ -362,6 +414,171 @@ export default function ResultPage() {
       setIsReady(true);
     }
   }, []);
+
+  /*
+   * 診断結果と元画像が揃ったら、
+   * After画像を1回だけ自動生成します。
+   *
+   * すでにsessionStorageに同じ診断のAfterがある場合は
+   * APIを再実行しません。
+   */
+  useEffect(() => {
+    if (
+      !isReady ||
+      !image ||
+      !analysis ||
+      afterImage ||
+      afterRequestStartedRef.current
+    ) {
+      return;
+    }
+
+    let isCancelled = false;
+    let startTimer: number | undefined;
+
+    async function generateAfterImage() {
+      if (
+        isCancelled ||
+        afterRequestStartedRef.current
+      ) {
+        return;
+      }
+
+      afterRequestStartedRef.current = true;
+
+      setIsGeneratingAfter(true);
+      setAfterError("");
+
+      try {
+        console.log(
+          "[AKANUKE.AI] Result画面からAfter画像生成を開始します",
+        );
+
+        const response =
+          await fetch(
+            "/api/generate-after",
+            {
+              method: "POST",
+              cache: "no-store",
+              headers: {
+                "Content-Type":
+                  "application/json",
+              },
+              body: JSON.stringify({
+                imageDataUrl: image,
+                analysis,
+              }),
+            },
+          );
+
+        const data =
+          (await response.json()) as {
+            afterImageDataUrl?: string;
+            error?: string;
+          };
+
+        if (!response.ok) {
+          throw new Error(
+            typeof data.error === "string"
+              ? data.error
+              : "After画像を生成できませんでした。",
+          );
+        }
+
+        if (!data.afterImageDataUrl) {
+          throw new Error(
+            "生成されたAfter画像を取得できませんでした。",
+          );
+        }
+
+        if (isCancelled) {
+          return;
+        }
+
+        setAfterImage(
+          data.afterImageDataUrl,
+        );
+
+        /*
+         * ページを開き直したときに再課金しないよう保存。
+         * 容量不足の場合でも画面表示自体は継続します。
+         */
+        try {
+          window.sessionStorage.setItem(
+            AFTER_STORAGE_KEY,
+            data.afterImageDataUrl,
+          );
+
+          window.sessionStorage.setItem(
+            AFTER_SOURCE_STORAGE_KEY,
+            rawAnalysisResult,
+          );
+        } catch (storageError) {
+          console.warn(
+            "[AKANUKE.AI] After画像をsessionStorageへ保存できませんでした:",
+            storageError,
+          );
+        }
+
+        console.log(
+          "[AKANUKE.AI] Result画面へのAfter画像表示が完了しました",
+        );
+      } catch (error) {
+        console.error(
+          "[AKANUKE.AI] After generation error:",
+          error,
+        );
+
+        if (isCancelled) {
+          return;
+        }
+
+        setAfterError(
+          error instanceof Error
+            ? error.message
+            : "After画像の生成中にエラーが発生しました。",
+        );
+      } finally {
+        if (!isCancelled) {
+          setIsGeneratingAfter(false);
+        }
+      }
+    }
+
+    /*
+     * Next.js開発モードでEffectが検証のため再実行されても、
+     * GPT Image 2を二重実行しないよう少し遅延して開始します。
+     */
+    startTimer =
+      window.setTimeout(() => {
+        void generateAfterImage();
+      }, 100);
+
+    return () => {
+      isCancelled = true;
+
+      if (startTimer) {
+        window.clearTimeout(
+          startTimer,
+        );
+      }
+    };
+  }, [
+    isReady,
+    image,
+    analysis,
+    afterImage,
+    afterRetryCount,
+    rawAnalysisResult,
+  ]);
+
+  const handleRetryAfter = () => {
+    afterRequestStartedRef.current = false;
+    setAfterError("");
+    setAfterRetryCount(
+      (current) => current + 1,
+    );
+  };
 
   if (!isReady) {
     return (
@@ -475,9 +692,7 @@ export default function ResultPage() {
                 </p>
 
                 <CircularProgress
-                  progress={
-                    displayProgress
-                  }
+                  progress={displayProgress}
                 />
 
                 <div className="mt-3 w-full rounded-[13px] border border-[#1677FF]/10 bg-white px-3 py-2.5">
@@ -595,8 +810,7 @@ export default function ResultPage() {
               <AnalysisDetail
                 title="髪型"
                 observation={
-                  analysis.hair
-                    .observation
+                  analysis.hair.observation
                 }
                 advice={
                   analysis.hair.advice
@@ -606,20 +820,17 @@ export default function ResultPage() {
               <AnalysisDetail
                 title="眉毛"
                 observation={
-                  analysis.eyebrows
-                    .observation
+                  analysis.eyebrows.observation
                 }
                 advice={
-                  analysis.eyebrows
-                    .advice
+                  analysis.eyebrows.advice
                 }
               />
 
               <AnalysisDetail
                 title="肌"
                 observation={
-                  analysis.skin
-                    .observation
+                  analysis.skin.observation
                 }
                 advice={
                   analysis.skin.advice
@@ -629,12 +840,10 @@ export default function ResultPage() {
               <AnalysisDetail
                 title="清潔感・身だしなみ"
                 observation={
-                  analysis.grooming
-                    .observation
+                  analysis.grooming.observation
                 }
                 advice={
-                  analysis.grooming
-                    .advice
+                  analysis.grooming.advice
                 }
               />
             </div>
@@ -646,12 +855,12 @@ export default function ResultPage() {
             </p>
 
             <h2 className="mt-1 text-[21px] font-black tracking-[-0.035em]">
-              目指す方向性
+              理想イメージ
             </h2>
 
             <p className="mt-2 text-[11px] leading-5 text-black/55">
-              現在の印象と、
-              AIが提案するAfterの方向性です。
+              現在の状態と、
+              AIが提案する改善後のイメージを比較できます。
             </p>
 
             <div className="mt-4 grid grid-cols-2 gap-3">
@@ -677,48 +886,107 @@ export default function ResultPage() {
                   </p>
 
                   <p className="mt-1 text-[9px] leading-4 text-black/55">
-                    {
-                      analysis.currentImpression
-                    }
+                    {analysis.currentImpression}
                   </p>
                 </div>
               </div>
 
-              <div className="overflow-hidden rounded-[18px] border border-[#FFD400]/40 bg-[#FFF9D9]">
-                <div className="flex aspect-[4/5] items-center justify-center bg-gradient-to-br from-[#EEF6FF] via-white to-[#FFF9D9] p-4">
-                  <div className="text-center">
-                    <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-white text-[#1677FF] shadow-[0_10px_34px_rgba(15,23,42,0.05)]">
-                      <Icon
-                        name="sparkle"
-                        className="h-6 w-6"
+              <div className="overflow-hidden rounded-[18px] border border-[#FFD400]/60 bg-[#FFF9D9]">
+                <div className="relative aspect-[4/5] overflow-hidden bg-gradient-to-br from-[#EEF6FF] via-white to-[#FFF9D9]">
+                  {afterImage ? (
+                    <>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={afterImage}
+                        alt="AIが生成したAfterイメージ"
+                        className="h-full w-full object-cover"
                       />
-                    </span>
 
-                    <p className="mt-3 text-[10px] font-black text-[#1677FF]">
-                      AFTER IMAGE
-                    </p>
+                      <span className="absolute left-3 top-3 rounded-full bg-[#FFD400] px-2.5 py-1 text-[9px] font-black text-[#111111] shadow-sm">
+                        After
+                      </span>
+                    </>
+                  ) : isGeneratingAfter ? (
+                    <div className="flex h-full w-full items-center justify-center p-4">
+                      <div className="text-center">
+                        <span className="relative mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-white text-[#1677FF] shadow-[0_10px_34px_rgba(15,23,42,0.05)]">
+                          <span className="absolute inset-0 animate-ping rounded-full border border-[#1677FF]/20" />
 
-                    <p className="mt-1 text-[9px] leading-4 text-black/45">
-                      AI After画像は
-                      <br />
-                      次の工程で生成します
-                    </p>
-                  </div>
+                          <Icon
+                            name="sparkle"
+                            className="h-6 w-6"
+                          />
+                        </span>
+
+                        <p className="mt-4 text-[10px] font-black text-[#1677FF]">
+                          AFTER GENERATING
+                        </p>
+
+                        <p className="mt-2 text-[9px] leading-4 text-black/45">
+                          AIがあなた専用の
+                          <br />
+                          Afterを生成しています
+                        </p>
+
+                        <div className="mx-auto mt-4 h-1.5 w-20 overflow-hidden rounded-full bg-black/5">
+                          <div className="h-full w-1/2 animate-pulse rounded-full bg-[#1677FF]" />
+                        </div>
+                      </div>
+                    </div>
+                  ) : afterError ? (
+                    <div className="flex h-full w-full items-center justify-center p-4">
+                      <div className="text-center">
+                        <p className="text-[10px] font-black text-red-500">
+                          After画像を生成できませんでした
+                        </p>
+
+                        <p className="mt-2 line-clamp-4 text-[8px] leading-4 text-black/40">
+                          {afterError}
+                        </p>
+
+                        <button
+                          type="button"
+                          onClick={
+                            handleRetryAfter
+                          }
+                          className="mt-4 rounded-[10px] bg-[#111111] px-4 py-2.5 text-[9px] font-black text-white"
+                        >
+                          もう一度生成
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="flex h-full w-full items-center justify-center p-4">
+                      <div className="text-center">
+                        <Icon
+                          name="sparkle"
+                          className="mx-auto h-6 w-6 text-[#1677FF]"
+                        />
+
+                        <p className="mt-3 text-[9px] font-black text-[#1677FF]">
+                          After準備中
+                        </p>
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 <div className="p-3">
                   <p className="text-[11px] font-black">
-                    目標の印象
+                    理想の印象
                   </p>
 
                   <p className="mt-1 text-[9px] leading-4 text-black/55">
-                    {
-                      analysis.targetImpression
-                    }
+                    {analysis.targetImpression}
                   </p>
                 </div>
               </div>
             </div>
+
+            <p className="mt-3 text-center text-[9px] leading-4 text-black/35">
+              ※AfterはAIが改善の方向性を可視化した参考イメージです。
+              実際の変化を保証するものではありません。
+            </p>
           </section>
 
           <section className="mx-4 mt-7">
@@ -753,18 +1021,12 @@ export default function ResultPage() {
                         </h3>
 
                         <span className="mt-1.5 inline-flex rounded-full bg-[#FFF9D9] px-2.5 py-1 text-[8px] font-black text-[#1677FF]">
-                          {
-                            priorityLabels[
-                              index
-                            ] ??
-                            "改善項目"
-                          }
+                          {priorityLabels[index] ??
+                            "改善項目"}
                         </span>
 
                         <p className="mt-3 text-[11px] leading-5 text-black/55">
-                          {
-                            item.description
-                          }
+                          {item.description}
                         </p>
                       </div>
                     </div>
@@ -784,36 +1046,30 @@ export default function ResultPage() {
             </h2>
 
             <p className="mt-2 text-[11px] leading-5 text-black/55">
-              次に生成するAfter画像では、
-              この方向性を反映します。
+              AIがAfter画像に反映した改善方針です。
             </p>
 
             <div className="mt-4 overflow-hidden rounded-[18px] border border-black/10 bg-white">
               {[
                 [
                   "髪型",
-                  analysis.afterDirection
-                    .hair,
+                  analysis.afterDirection.hair,
                 ],
                 [
                   "眉毛",
-                  analysis.afterDirection
-                    .eyebrows,
+                  analysis.afterDirection.eyebrows,
                 ],
                 [
                   "肌",
-                  analysis.afterDirection
-                    .skin,
+                  analysis.afterDirection.skin,
                 ],
                 [
                   "身だしなみ",
-                  analysis.afterDirection
-                    .grooming,
+                  analysis.afterDirection.grooming,
                 ],
                 [
                   "スタイリング",
-                  analysis.afterDirection
-                    .styling,
+                  analysis.afterDirection.styling,
                 ],
               ].map(
                 ([label, value]) => (

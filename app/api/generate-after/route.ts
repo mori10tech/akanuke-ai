@@ -147,15 +147,6 @@ export async function POST(
     );
 
     /*
-     * 本人らしさを維持することを
-     * AKANUKE.AIでは最優先にします。
-     */
-    formData.append(
-      "input_fidelity",
-      "high",
-    );
-
-    /*
      * 初回検証では品質優先。
      */
     formData.append(
@@ -164,8 +155,8 @@ export async function POST(
     );
 
     /*
-     * 顔写真・Before/After表示に合う
-     * 縦長サイズを使用します。
+     * 顔写真のBefore / After比較に
+     * 合わせて縦長サイズを使用します。
      */
     formData.append(
       "size",
@@ -173,8 +164,8 @@ export async function POST(
     );
 
     /*
-     * PNGよりデータ量を抑えやすく、
-     * ブラウザ表示にも適した形式。
+     * ブラウザ表示時のデータ量を抑えるため
+     * WebPを使用します。
      */
     formData.append(
       "output_format",

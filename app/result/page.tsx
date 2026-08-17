@@ -11,6 +11,10 @@ import AppShell from "../components/AppShell";
 import DummyAd from "../components/DummyAd";
 import AppLogo from "../components/AppLogo";
 import type { AkanukeAnalysis } from "../../lib/openai/schemas";
+import {
+  saveAfterImage,
+} from "../../lib/client/afterImageStore";
+
 
 const IMAGE_STORAGE_KEY = "akanukeImage";
 const RESULT_STORAGE_KEY = "akanukeAnalysisResult";
@@ -698,6 +702,20 @@ if (isCancelled) {
 setAfterImage(
   data.afterImageDataUrl,
 );
+
+try {
+  await saveAfterImage({
+    sourceResult:
+      rawAnalysisResult,
+    imageDataUrl:
+      data.afterImageDataUrl,
+  });
+} catch (storageError) {
+  console.warn(
+    "[AKANUKE.AI] After画像をIndexedDBへ保存できませんでした:",
+    storageError,
+  );
+}
 
         console.log(
           "[AKANUKE.AI] Result画面へのAfter画像表示が完了しました",

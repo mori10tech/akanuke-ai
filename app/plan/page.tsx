@@ -1,6 +1,8 @@
 "use client";
 
-import Image from "next/image";
+import {
+  loadAfterImage,
+} from "../../lib/client/afterImageStore";
 import Link from "next/link";
 import {
   useEffect,
@@ -248,9 +250,11 @@ function OrderPoint({
 function SalonOrderGuide({
   isOpen,
   onToggle,
+  afterImage,
 }: {
   isOpen: boolean;
   onToggle: () => void;
+  afterImage: string | null;
 }) {
   return (
     <section className="mx-4 mt-7 overflow-hidden rounded-[24px] border border-[#1677FF]/15 bg-white shadow-[0_10px_34px_rgba(15,23,42,0.05)]">
@@ -304,14 +308,33 @@ function SalonOrderGuide({
           <div className="border-t border-black/10 p-4">
             <div className="overflow-hidden rounded-[18px] border border-black/10 bg-[#F7F9FC]">
               <div className="relative bg-[#EEF6FF]">
-                <Image
-                  src="/lp/after-v3.png"
-                  alt="サロンで目指す髪型と眉毛の参考イメージ"
-                  width={1200}
-                  height={900}
-                  sizes="(max-width: 480px) 100vw, 440px"
-                  className="h-auto w-full object-contain"
-                />
+                {afterImage ? (
+  // eslint-disable-next-line @next/next/no-img-element
+  <img
+    src={afterImage}
+    alt="AI診断で生成したあなたのAfterイメージ"
+    className="h-auto w-full object-contain"
+  />
+) : (
+  <div className="flex aspect-[4/5] w-full items-center justify-center bg-[#EEF6FF] px-5 text-center">
+    <div>
+      <Icon
+        name="sparkle"
+        className="mx-auto h-7 w-7 text-[#1677FF]"
+      />
+
+      <p className="mt-3 text-[11px] font-black text-[#111111]">
+        After画像がありません
+      </p>
+
+      <p className="mt-1 text-[9px] leading-4 text-black/45">
+        診断結果画面でAfter画像を生成すると、
+        <br />
+        ここにサロン用の参考画像が表示されます。
+      </p>
+    </div>
+  </div>
+)}
 
                 <span className="absolute left-3 top-3 rounded-full bg-[#FFD400] px-3 py-1.5 text-[9px] font-black text-[#111111]">
                   AFTER IMAGE
@@ -319,8 +342,8 @@ function SalonOrderGuide({
               </div>
 
               <p className="px-4 py-3 text-center text-[9px] leading-4 text-black/35">
-                ※現在はUI確認用の参考イメージです。
-              </p>
+  ※AIが生成したAfterイメージをサロンでの相談用に表示しています。
+</p>
             </div>
 
             <div className="mt-4 rounded-[18px] border border-black/10 bg-white p-4">
@@ -494,26 +517,85 @@ export default function PlanPage() {
   const [isSalonGuideOpen, setIsSalonGuideOpen] =
     useState(false);
 
-const [openedId, setOpenedId] = useState<
-  string | null
->(null);
+  const [openedId, setOpenedId] =
+    useState<string | null>(null);
 
-  const [loaded, setLoaded] = useState(false);
+  const [
+    salonAfterImage,
+    setSalonAfterImage,
+  ] = useState<string | null>(null);
 
+    const [loaded, setLoaded] =
+    useState(false);
+
+  /*
+   * Result画面で生成・保存されたAfter画像を
+   * IndexedDBから読み込みます。
+   */
+  useEffect(() => {
+    let isCancelled = false;
+
+    async function restoreAfterImage() {
+      const rawResult =
+        window.sessionStorage.getItem(
+          "akanukeAnalysisResult",
+        );
+
+      if (!rawResult) {
+        return;
+      }
+
+      try {
+        const savedAfterImage =
+          await loadAfterImage(
+            rawResult,
+          );
+
+        if (
+          !isCancelled &&
+          savedAfterImage
+        ) {
+          setSalonAfterImage(
+            savedAfterImage,
+          );
+        }
+      } catch (error) {
+        console.warn(
+          "[AKANUKE.AI] Plan画面でAfter画像を読み込めませんでした:",
+          error,
+        );
+      }
+    }
+
+    void restoreAfterImage();
+
+    return () => {
+      isCancelled = true;
+    };
+  }, []);
+
+  /*
+   * 垢抜けプランのチェック状態を
+   * localStorageから復元します。
+   */
   useEffect(() => {
     const raw =
-      window.localStorage.getItem(STORAGE_KEY);
+      window.localStorage.getItem(
+        STORAGE_KEY,
+      );
 
     window.setTimeout(() => {
       if (raw) {
         try {
-          const parsed = JSON.parse(raw);
+          const parsed =
+            JSON.parse(raw);
 
           if (Array.isArray(parsed)) {
             setCompletedIds(
               parsed.filter(
                 (id): id is string =>
-                  typeof id === "string",
+                  typeof id ===
+                  "string",
               ),
             );
           }
@@ -526,16 +608,25 @@ const [openedId, setOpenedId] = useState<
     }, 0);
   }, []);
 
+  /*
+   * チェック状態が変わったら保存します。
+   */
   useEffect(() => {
     if (loaded) {
       window.localStorage.setItem(
         STORAGE_KEY,
-        JSON.stringify(completedIds),
+        JSON.stringify(
+          completedIds,
+        ),
       );
     }
-  }, [completedIds, loaded]);
+  }, [
+    completedIds,
+    loaded,
+  ]);
 
-  const completedCount = completedIds.length;
+  const completedCount =
+    completedIds.length;
 
   const progress = useMemo(
     () =>
@@ -626,8 +717,11 @@ const [openedId, setOpenedId] = useState<
           <SalonOrderGuide
   isOpen={isSalonGuideOpen}
   onToggle={() =>
-    setIsSalonGuideOpen((current) => !current)
+    setIsSalonGuideOpen(
+      (current) => !current,
+    )
   }
+  afterImage={salonAfterImage}
 />
 
           <section className="mx-4 mt-7">

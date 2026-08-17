@@ -301,10 +301,13 @@ export default function ResultPage() {
   const afterRequestStartedRef = useRef(false);
 
   const afterProgressTimerRef =
-    useRef<number | null>(null);
+  useRef<number | null>(null);
 
-  const [image, setImage] =
-    useState<string | null>(null);
+const afterProgressValueRef =
+  useRef(0);
+
+const [image, setImage] =
+  useState<string | null>(null);
 
   const [analysis, setAnalysis] =
     useState<AkanukeAnalysis | null>(null);
@@ -474,8 +477,10 @@ setIsReady(true);
      * 最初から0%ではなく6%で開始。
      * 「処理が始まった」ことをすぐ伝えます。
      */
-    setAfterElapsedSeconds(0);
-    setAfterGenerationProgress(6);
+   setAfterElapsedSeconds(0);
+
+afterProgressValueRef.current = 6;
+setAfterGenerationProgress(6);
 
     afterProgressTimerRef.current =
       window.setInterval(() => {
@@ -498,12 +503,19 @@ setIsReady(true);
           );
 
         setAfterGenerationProgress(
-          (current) =>
-            Math.max(
-              current,
-              nextProgress,
-            ),
-        );
+  (current) => {
+    const updatedProgress =
+      Math.max(
+        current,
+        nextProgress,
+      );
+
+    afterProgressValueRef.current =
+      updatedProgress;
+
+    return updatedProgress;
+  },
+);
       }, 1000);
   };
 
@@ -540,7 +552,6 @@ setIsReady(true);
       afterRequestStartedRef.current = true;
 
 setAfterError("");
-setAfterGenerationProgress(6);
 setAfterElapsedSeconds(0);
 setIsGeneratingAfter(true);
 
@@ -594,24 +605,99 @@ startAfterProgressTimer();
 
         stopAfterProgressTimer();
 
-setAfterGenerationProgress(100);
+/*
+ * After画像の生成完了後、
+ * 現在の進捗から100%まで滑らかに進めます。
+ */
+const completionStartedAt =
+  performance.now();
+
+const completionStartProgress =
+  afterProgressValueRef.current;
+
+const completionDurationMs = 3200;
 
 await new Promise<void>(
-          (resolve) => {
-            window.setTimeout(
-              resolve,
-              350,
-            );
-          },
+  (resolve) => {
+    const animateCompletion = (
+      now: number,
+    ) => {
+      if (isCancelled) {
+        resolve();
+        return;
+      }
+
+      const elapsed =
+        now - completionStartedAt;
+
+      const ratio =
+        Math.min(
+          1,
+          elapsed /
+            completionDurationMs,
         );
 
-        if (isCancelled) {
-          return;
-        }
+      /*
+       * 最初と最後を緩やかにして、
+       * 急加速して見えないようにします。
+       */
+      const easedRatio =
+        ratio < 0.5
+          ? 2 * ratio * ratio
+          : 1 -
+            Math.pow(
+              -2 * ratio + 2,
+              2,
+            ) / 2;
 
-        setAfterImage(
-          data.afterImageDataUrl,
+      const nextProgress =
+        Math.min(
+          100,
+          Math.round(
+            completionStartProgress +
+              (100 -
+                completionStartProgress) *
+                easedRatio,
+          ),
         );
+
+      afterProgressValueRef.current =
+        nextProgress;
+
+      setAfterGenerationProgress(
+        nextProgress,
+      );
+
+      if (ratio < 1) {
+        window.requestAnimationFrame(
+          animateCompletion,
+        );
+        return;
+      }
+
+      afterProgressValueRef.current =
+        100;
+
+      setAfterGenerationProgress(
+        100,
+      );
+
+      resolve();
+    };
+
+    window.requestAnimationFrame(
+      animateCompletion,
+    );
+  },
+);
+
+if (isCancelled) {
+  return;
+}
+
+setAfterImage(
+  data.afterImageDataUrl,
+);
 
         console.log(
           "[AKANUKE.AI] Result画面へのAfter画像表示が完了しました",
@@ -677,9 +763,12 @@ const handleRetryAfter = () => {
 
   afterRequestStartedRef.current = false;
 
-  setAfterError("");
-    setAfterGenerationProgress(0);
-    setAfterElapsedSeconds(0);
+ setAfterError("");
+
+afterProgressValueRef.current = 0;
+setAfterGenerationProgress(0);
+
+setAfterElapsedSeconds(0);
 
     setAfterRetryCount(
       (current) => current + 1,

@@ -710,36 +710,38 @@ export default function Home() {
           </div>
 
           <div className="flex flex-wrap justify-center gap-x-7 gap-y-3 text-xs font-medium text-black/60">
-            <a href="#">利用規約</a>
+  <Link href="/terms">
+    利用規約
+  </Link>
 
-            <a
-               href="https://www.leafworks.jp/doc/privacy.pdf"
-    　　　　　　target="_blank"
-    　　　　　　rel="noopener noreferrer"
-  　　　　　　　>
-            
-            個人情報保護方針
-            </a>
+  <a
+    href="https://www.leafworks.jp/doc/privacy.pdf"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    個人情報保護方針
+  </a>
 
-            <a
-  href="https://www.leafworks.jp/contact/"
-  target="_blank"
-  rel="noopener noreferrer"
->
-  お問い合わせ
-</a>
+  <a
+    href="https://www.leafworks.jp/contact/"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    お問い合わせ
+  </a>
 
-            <a
-  href="https://www.leafworks.jp/"
-  target="_blank"
-  rel="noopener noreferrer"
->
-  運営会社
-</a>
-            <Link href="/login">
-  ログイン
-</Link>
-          </div>
+  <a
+    href="https://www.leafworks.jp/"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    運営会社
+  </a>
+
+  <Link href="/login">
+    ログイン
+  </Link>
+</div>
 
           <p className="text-[11px] text-black/40">
             © AKANUKE.AI All Rights Reserved.

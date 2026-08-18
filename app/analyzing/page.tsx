@@ -12,6 +12,9 @@ import AppHeader from "../components/AppHeader";
 const IMAGE_STORAGE_KEY = "akanukeImage";
 const TARGET_STORAGE_KEY = "akanukeTargetImpression";
 const RESULT_STORAGE_KEY = "akanukeAnalysisResult";
+const DIAGNOSIS_ID_STORAGE_KEY = "akanukeDiagnosisId";
+const RESULT_BACK_HREF_STORAGE_KEY = "akanukeResultBackHref";
+const SAVED_AFTER_IMAGE_STORAGE_KEY = "akanukeSavedAfterImageUrl";
 
 const REDIRECT_DELAY_MS = 700;
 
@@ -186,7 +189,6 @@ const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     let isCancelled = false;
-    let startTimer: number | undefined;
     let progressTimer: number | undefined;
     let redirectTimer: number | undefined;
 
@@ -218,6 +220,16 @@ const [progress, setProgress] = useState(0);
 
       setImage(savedImage);
       setErrorMessage("");
+      window.sessionStorage.setItem(
+        RESULT_BACK_HREF_STORAGE_KEY,
+        "/upload",
+      );
+      window.sessionStorage.removeItem(
+        SAVED_AFTER_IMAGE_STORAGE_KEY,
+      );
+      window.sessionStorage.removeItem(
+        DIAGNOSIS_ID_STORAGE_KEY,
+      );
 
       /*
  * 診断開始直後から5%を表示して、
@@ -330,6 +342,53 @@ const startedAt = Date.now();
           RESULT_STORAGE_KEY,
           JSON.stringify(data),
         );
+
+        /*
+         * ログイン中の場合だけ診断結果をSupabaseへ保存します。
+         * 未ログイン（401）や保存失敗でも、今回の診断結果表示は続行します。
+         */
+        try {
+          const saveResponse = await fetch(
+            "/api/diagnoses",
+            {
+              method: "POST",
+              cache: "no-store",
+              headers: {
+                "Content-Type":
+                  "application/json",
+              },
+              body: JSON.stringify({
+                analysis: data,
+                beforeImageDataUrl:
+                  savedImage,
+              }),
+            },
+          );
+
+          if (saveResponse.ok) {
+            const savedDiagnosis =
+              (await saveResponse.json()) as {
+                id?: string;
+              };
+
+            if (savedDiagnosis.id) {
+              window.sessionStorage.setItem(
+                DIAGNOSIS_ID_STORAGE_KEY,
+                savedDiagnosis.id,
+              );
+            }
+          } else if (saveResponse.status !== 401) {
+            console.warn(
+              "[AKANUKE.AI] 診断結果を履歴へ保存できませんでした:",
+              saveResponse.status,
+            );
+          }
+        } catch (saveError) {
+          console.warn(
+            "[AKANUKE.AI] 診断結果の履歴保存をスキップしました:",
+            saveError,
+          );
+        }
 
        /*
  * API完了後は現在の進捗から100%まで
@@ -453,7 +512,7 @@ redirectTimer =
      * 実際に有効なEffectだけがrunAnalysisを開始します。
      * OpenAI APIの二重実行も防ぎます。
      */
-    startTimer =
+    const startTimer =
       window.setTimeout(() => {
         void runAnalysis();
       }, 100);

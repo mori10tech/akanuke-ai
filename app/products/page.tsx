@@ -8,7 +8,6 @@ import DummyAd from "../components/DummyAd";
 import {
   activeProducts,
   categories,
-  type CategorySection,
   type Product,
   type ProductCategory,
   type ProductVisualType,

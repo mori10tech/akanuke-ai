@@ -2,28 +2,19 @@ import Link from "next/link";
 import AppShell from "../components/AppShell";
 import AppLogo from "../components/AppLogo";
 import LogoutButton from "../components/LogoutButton";
+import { isAkanukeAnalysis } from "../../lib/diagnoses/types";
+import { createClient } from "../../lib/supabase/server";
 
-const CURRENT_PROGRESS = 68;
+export const dynamic = "force-dynamic";
 
-const priorities = [
-  {
-    rank: 1,
-    label: "髪型",
-    description: "前髪とサイドを整える",
-  },
-  {
-    rank: 2,
-    label: "眉毛",
-    description:
-      "自然な太さを残して輪郭を整える",
-  },
-  {
-    rank: 3,
-    label: "肌",
-    description:
-      "保湿と紫外線対策を優先する",
-  },
-];
+function formatDiagnosisDate(value: string) {
+  return new Intl.DateTimeFormat("ja-JP", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    timeZone: "Asia/Tokyo",
+  }).format(new Date(value));
+}
 
 function HomeIcon() {
   return (
@@ -115,7 +106,20 @@ function SparkleIcon() {
   );
 }
 
-export default function DashboardPage() {
+export default async function DashboardPage() {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("diagnoses")
+    .select("id, overall_progress, analysis, created_at")
+    .order("created_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
+  const latest =
+    data && isAkanukeAnalysis(data.analysis)
+      ? { ...data, analysis: data.analysis }
+      : null;
+
   return (
     <AppShell background="white">
       <div className="overflow-hidden bg-white">
@@ -166,6 +170,7 @@ export default function DashboardPage() {
             </Link>
           </section>
 
+          {latest ? (
           <section className="mt-5 rounded-[24px] border border-black/10 bg-white p-5 shadow-[0_10px_34px_rgba(15,23,42,0.05)]">
             <div className="flex items-start justify-between gap-4">
               <div>
@@ -174,7 +179,7 @@ export default function DashboardPage() {
                 </p>
 
                 <h2 className="mt-1 text-[18px] font-black tracking-[-0.03em] text-[#111111]">
-                  2026年8月5日の診断
+                  {formatDiagnosisDate(latest.created_at)}の診断
                 </h2>
               </div>
 
@@ -192,7 +197,7 @@ export default function DashboardPage() {
 
                   <div className="mt-2 flex items-end gap-1">
                     <span className="text-[36px] font-black leading-none tracking-[-0.05em] text-[#1677FF]">
-                      {CURRENT_PROGRESS}
+                      {latest.overall_progress}
                     </span>
 
                     <span className="pb-0.5 text-[13px] font-black text-[#1677FF]">
@@ -219,7 +224,7 @@ export default function DashboardPage() {
                   <div
                     className="h-full rounded-full bg-[#1677FF]"
                     style={{
-                      width: `${CURRENT_PROGRESS}%`,
+                      width: `${latest.overall_progress}%`,
                     }}
                   />
                 </div>
@@ -248,7 +253,7 @@ export default function DashboardPage() {
               </div>
 
               <div className="mt-3 divide-y divide-black/10">
-                {priorities.map((item) => (
+                {latest.analysis.priorities.map((item) => (
                   <div
                     key={item.rank}
                     className="flex items-center gap-3 py-3 first:pt-0 last:pb-0"
@@ -259,11 +264,11 @@ export default function DashboardPage() {
 
                     <div className="min-w-0 flex-1">
                       <p className="text-[12px] font-black text-[#111111]">
-                        {item.label}
+                      {item.title}
                       </p>
 
                       <p className="mt-0.5 truncate text-[9px] text-black/35">
-                        {item.description}
+                      {item.description}
                       </p>
                     </div>
                   </div>
@@ -272,12 +277,27 @@ export default function DashboardPage() {
             </div>
 
             <Link
-              href="/result"
+              href="/history"
               className="mt-5 flex min-h-[48px] items-center justify-center rounded-[12px] border border-black/10 bg-white text-[12px] font-black text-[#111111] transition hover:bg-[#F7F9FC]"
             >
-              診断結果を詳しく見る
+              診断履歴を見る
             </Link>
           </section>
+          ) : (
+            <section className="mt-5 rounded-[24px] border border-black/10 bg-white p-6 text-center shadow-[0_10px_34px_rgba(15,23,42,0.05)]">
+              <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-[#EEF6FF] text-[#1677FF]">
+                <SparkleIcon />
+              </span>
+
+              <h2 className="mt-4 text-[16px] font-black text-[#111111]">
+                まだ診断結果がありません
+              </h2>
+
+              <p className="mt-2 text-[11px] leading-5 text-black/45">
+                AI診断を完了すると、最新レポートがここに表示されます。
+              </p>
+            </section>
+          )}
 
           <section className="mt-7">
             <p className="px-1 text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
@@ -289,6 +309,29 @@ export default function DashboardPage() {
             </h2>
 
             <div className="mt-3 overflow-hidden rounded-[20px] border border-black/10 bg-white shadow-[0_10px_34px_rgba(15,23,42,0.05)]">
+              <Link
+                href="/history"
+                className="flex items-center gap-4 border-b border-black/10 px-5 py-4 transition hover:bg-[#F7F9FC]"
+              >
+                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#EEF6FF] text-[#1677FF]">
+                  <SparkleIcon />
+                </span>
+
+                <span className="min-w-0 flex-1">
+                  <span className="block text-[13px] font-black text-[#111111]">
+                    診断履歴
+                  </span>
+
+                  <span className="mt-0.5 block text-[10px] text-black/35">
+                    保存した診断結果を確認する
+                  </span>
+                </span>
+
+                <span className="text-[#1677FF]">
+                  <ChevronRightIcon />
+                </span>
+              </Link>
+
               <Link
                 href="/products"
                 className="flex items-center gap-4 border-b border-black/10 px-5 py-4 transition hover:bg-[#F7F9FC]"

@@ -105,6 +105,10 @@ function requiresLogin(
     pathname === "/dashboard" ||
     pathname.startsWith(
       "/dashboard/",
+    ) ||
+    pathname === "/history" ||
+    pathname.startsWith(
+      "/history/",
     )
   );
 }

@@ -1,7 +1,10 @@
 "use client";
 
+/* eslint-disable react-hooks/set-state-in-effect -- sessionStorageとIndexedDBの状態を初回表示時に復元するため */
+
 import Link from "next/link";
 import {
+  useCallback,
   useEffect,
   useRef,
   useState,
@@ -19,6 +22,9 @@ import AppHeader from "../components/AppHeader";
 
 const IMAGE_STORAGE_KEY = "akanukeImage";
 const RESULT_STORAGE_KEY = "akanukeAnalysisResult";
+const DIAGNOSIS_ID_STORAGE_KEY = "akanukeDiagnosisId";
+const RESULT_BACK_HREF_STORAGE_KEY = "akanukeResultBackHref";
+const SAVED_AFTER_IMAGE_STORAGE_KEY = "akanukeSavedAfterImageUrl";
 
 const GOAL_PROGRESS = 100;
 
@@ -358,6 +364,12 @@ const [isGeneratingAfter, setIsGeneratingAfter] =
   const [loadError, setLoadError] =
     useState("");
 
+  const [backHref, setBackHref] =
+    useState("/upload");
+
+  const [isHistoryView, setIsHistoryView] =
+    useState(false);
+
   useEffect(() => {
     const savedImage =
       window.sessionStorage.getItem(
@@ -368,6 +380,25 @@ const [isGeneratingAfter, setIsGeneratingAfter] =
       window.sessionStorage.getItem(
         RESULT_STORAGE_KEY,
       );
+
+    const savedAfterImageUrl =
+      window.sessionStorage.getItem(
+        SAVED_AFTER_IMAGE_STORAGE_KEY,
+      );
+
+    const savedBackHref =
+      window.sessionStorage.getItem(
+        RESULT_BACK_HREF_STORAGE_KEY,
+      );
+
+    if (savedAfterImageUrl) {
+      setAfterImage(savedAfterImageUrl);
+    }
+
+    if (savedBackHref === "/history") {
+      setBackHref("/history");
+      setIsHistoryView(true);
+    }
 
     if (!rawResult) {
       setImage(savedImage);
@@ -527,7 +558,7 @@ setIsReady(true);
     rawAnalysisResult,
   ]);
 
-  const stopAfterProgressTimer = () => {
+  const stopAfterProgressTimer = useCallback(() => {
     if (
       afterProgressTimerRef.current !== null
     ) {
@@ -537,9 +568,9 @@ setIsReady(true);
 
       afterProgressTimerRef.current = null;
     }
-  };
+  }, []);
 
-  const startAfterProgressTimer = () => {
+  const startAfterProgressTimer = useCallback(() => {
     stopAfterProgressTimer();
 
     const startedAt = Date.now();
@@ -588,7 +619,7 @@ setAfterGenerationProgress(6);
   },
 );
       }, 1000);
-  };
+  }, [stopAfterProgressTimer]);
 
 
   /*
@@ -602,6 +633,7 @@ setAfterGenerationProgress(6);
   if (
     !isReady ||
     !hasCheckedSavedAfter ||
+    isHistoryView ||
     !image ||
     !analysis ||
     afterImage ||
@@ -611,8 +643,6 @@ setAfterGenerationProgress(6);
   }
 
     let isCancelled = false;
-    let startTimer: number | undefined;
-
     async function generateAfterImage() {
       if (
         isCancelled ||
@@ -771,6 +801,43 @@ setAfterImage(
   data.afterImageDataUrl,
 );
 
+const diagnosisId =
+  window.sessionStorage.getItem(
+    DIAGNOSIS_ID_STORAGE_KEY,
+  );
+
+if (diagnosisId) {
+  try {
+    const saveImageResponse = await fetch(
+      `/api/diagnoses/${diagnosisId}/image`,
+      {
+        method: "PUT",
+        cache: "no-store",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          kind: "after",
+          imageDataUrl:
+            data.afterImageDataUrl,
+        }),
+      },
+    );
+
+    if (!saveImageResponse.ok) {
+      console.warn(
+        "[AKANUKE.AI] After画像を診断履歴へ保存できませんでした:",
+        saveImageResponse.status,
+      );
+    }
+  } catch (saveImageError) {
+    console.warn(
+      "[AKANUKE.AI] After画像の履歴保存をスキップしました:",
+      saveImageError,
+    );
+  }
+}
+
 try {
   await saveAfterImage({
     sourceResult:
@@ -819,7 +886,7 @@ setAfterError(
      * Next.js開発モードでEffectが検証のため再実行されても、
      * GPT Image 2を二重実行しないよう少し遅延して開始します。
      */
-    startTimer =
+    const startTimer =
       window.setTimeout(() => {
         void generateAfterImage();
       }, 100);
@@ -838,11 +905,14 @@ setAfterError(
   }, [
     isReady,
     hasCheckedSavedAfter,
+    isHistoryView,
     image,
     analysis,
     afterImage,
     afterRetryCount,
     rawAnalysisResult,
+    startAfterProgressTimer,
+    stopAfterProgressTimer,
   ]);
 
 const handleRetryAfter = () => {
@@ -911,8 +981,12 @@ setAfterElapsedSeconds(0);
     <AppShell background="white">
       <div className="overflow-hidden bg-white">
         <AppHeader
-  backHref="/upload"
-  backLabel="写真選択へ戻る"
+  backHref={backHref}
+  backLabel={
+    backHref === "/history"
+      ? "診断履歴へ戻る"
+      : "写真選択へ戻る"
+  }
 />
 
         <div className="pb-32">
@@ -1262,6 +1336,19 @@ setAfterElapsedSeconds(0);
                         >
                           もう一度生成
                         </button>
+                      </div>
+                    </div>
+                  ) : isHistoryView ? (
+                    <div className="flex h-full w-full items-center justify-center p-4">
+                      <div className="text-center">
+                        <Icon
+                          name="sparkle"
+                          className="mx-auto h-6 w-6 text-black/25"
+                        />
+
+                        <p className="mt-3 text-[9px] font-black text-black/35">
+                          After画像が保存されていません
+                        </p>
                       </div>
                     </div>
                   ) : (

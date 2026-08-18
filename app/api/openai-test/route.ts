@@ -33,18 +33,22 @@ export async function GET() {
       success: true,
       message: response.output_text,
     });
-  } catch (error: any) {
-  console.error(error);
+  } catch (error: unknown) {
+    console.error(error);
 
-  return NextResponse.json(
-    {
-      success: false,
-      error: error.message,
-      details: error,
-    },
-    {
-      status: 500,
-    },
-  );
-}
+    const message =
+      error instanceof Error
+        ? error.message
+        : "OpenAI APIへの接続中にエラーが発生しました。";
+
+    return NextResponse.json(
+      {
+        success: false,
+        error: message,
+      },
+      {
+        status: 500,
+      },
+    );
+  }
 }

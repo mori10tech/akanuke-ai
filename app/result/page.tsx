@@ -1259,65 +1259,57 @@ setAfterElapsedSeconds(0);
                       </span>
                     </>
                   ) : isGeneratingAfter ? (
-                    <div className="flex h-full w-full items-center justify-center p-3">
-                      <div className="w-full max-w-[170px] text-center">
-                        <span className="relative mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-white text-[#1677FF] shadow-[0_10px_34px_rgba(15,23,42,0.05)]">
-                          <span className="absolute inset-0 animate-ping rounded-full border border-[#1677FF]/20" />
+  <div className="flex h-full w-full items-center justify-center overflow-hidden p-2 sm:p-3">
+    <div className="w-full min-w-0 max-w-[170px] text-center">
+      <span className="relative mx-auto flex h-9 w-9 items-center justify-center rounded-full bg-white text-[#1677FF] shadow-[0_6px_20px_rgba(15,23,42,0.05)] sm:h-14 sm:w-14">
+        <span className="absolute inset-0 animate-ping rounded-full border border-[#1677FF]/20" />
 
-                          <span className="absolute inset-[7px] animate-pulse rounded-full bg-[#EEF6FF]" />
+        <span className="absolute inset-[5px] animate-pulse rounded-full bg-[#EEF6FF] sm:inset-[7px]" />
 
-                          <Icon
-                            name="sparkle"
-                            className="relative z-10 h-6 w-6"
-                          />
-                        </span>
+        <Icon
+          name="sparkle"
+          className="relative z-10 h-4 w-4 sm:h-6 sm:w-6"
+        />
+      </span>
 
-                        <p className="mt-4 text-[9px] font-black tracking-[0.06em] text-[#1677FF]">
-                          AFTER GENERATING
-                        </p>
+      <p className="mt-2 truncate text-[7px] font-black tracking-[0.04em] text-[#1677FF] sm:mt-4 sm:text-[9px]">
+        AFTER GENERATING
+      </p>
 
-                        <div className="mt-2 flex items-end justify-center gap-0.5">
-                          <span className="text-[24px] font-black leading-none tracking-[-0.05em] text-[#1677FF]">
-                            {afterGenerationProgress}
-                          </span>
+      <div className="mt-1 flex items-end justify-center gap-0.5 sm:mt-2">
+        <span className="text-[20px] font-black leading-none tracking-[-0.05em] text-[#1677FF] sm:text-[24px]">
+          {afterGenerationProgress}
+        </span>
 
-                          <span className="pb-0.5 text-[9px] font-black text-[#1677FF]">
-                            %
-                          </span>
-                        </div>
+        <span className="pb-0.5 text-[8px] font-black text-[#1677FF] sm:text-[9px]">
+          %
+        </span>
+      </div>
 
-                        <p className="mt-3 min-h-[32px] text-[9px] font-bold leading-4 text-[#111111]/65">
-                          {getAfterGenerationStage(
-                            afterElapsedSeconds,
-                          )}
-                        </p>
+      <p className="mt-2 line-clamp-2 min-h-[24px] break-words text-[8px] font-bold leading-3 text-[#111111]/65 sm:mt-3 sm:min-h-[32px] sm:text-[9px] sm:leading-4">
+        {getAfterGenerationStage(afterElapsedSeconds)}
+      </p>
 
-                        <div className="mt-3 h-1.5 w-full overflow-hidden rounded-full bg-black/5">
-                          <div
-                            className="h-full rounded-full bg-[#1677FF] transition-[width] duration-1000 ease-out"
-                            style={{
-                              width: `${afterGenerationProgress}%`,
-                            }}
-                          />
-                        </div>
+      <div className="mt-2 h-1 w-full overflow-hidden rounded-full bg-black/5 sm:mt-3 sm:h-1.5">
+        <div
+          className="h-full rounded-full bg-[#1677FF] transition-[width] duration-1000 ease-out"
+          style={{
+            width: `${afterGenerationProgress}%`,
+          }}
+        />
+      </div>
 
-                        <div className="mt-2 flex items-center justify-between gap-2 text-[7px] font-bold text-black/30">
-                          <span>
-                            生成状況の目安
-                          </span>
+      <p className="mt-1.5 whitespace-nowrap text-[7px] font-bold text-black/35 sm:mt-2">
+        経過 {afterElapsedSeconds}秒
+      </p>
 
-                          <span>
-                            経過 {afterElapsedSeconds}秒
-                          </span>
-                        </div>
-
-                        <p className="mt-3 text-[7px] leading-3.5 text-black/35">
-                          高品質なAfterを生成しているため、
-                          <br />
-                          少し時間がかかる場合があります
-                        </p>
-                      </div>
-                    </div>
+      <p className="mt-3 hidden text-[7px] leading-3.5 text-black/35 sm:block">
+        高品質なAfterを生成しているため、
+        <br />
+        少し時間がかかる場合があります
+      </p>
+    </div>
+  </div>
                   ) : afterError ? (
                     <div className="flex h-full w-full items-center justify-center p-4">
                       <div className="text-center">

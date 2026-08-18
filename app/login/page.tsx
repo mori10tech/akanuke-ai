@@ -102,9 +102,10 @@ export default function LoginPage() {
     <main className="min-h-screen bg-white text-[#111111]">
       <div className="mx-auto min-h-screen w-full max-w-[480px] border-x border-black/5 bg-white">
         <AppHeader
-          backHref="/"
-          backLabel="トップページへ戻る"
-        />
+  backHref="/"
+  backLabel="前のページへ戻る"
+  backMode="history"
+/>
 
         <div className="px-5 pb-12 pt-10">
           <div className="text-center">

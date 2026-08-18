@@ -420,7 +420,6 @@ const handleDiagnosis = () => {
                 <input
   type="file"
   accept="image/jpeg,image/png,image/webp"
-  capture="user"
   onChange={handleImage}
   className="hidden"
 />

@@ -103,9 +103,10 @@ export default function ForgotPasswordPage() {
     <main className="min-h-screen bg-white text-[#111111]">
       <div className="mx-auto min-h-screen w-full max-w-[480px] border-x border-black/5 bg-white">
         <AppHeader
-          backHref="/login"
-          backLabel="ログインへ戻る"
-        />
+  backHref="/login"
+  backLabel="ログインへ戻る"
+  backMode="history"
+/>
 
         <div className="px-5 pb-12 pt-10">
           <div className="text-center">

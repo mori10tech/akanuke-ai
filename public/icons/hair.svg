@@ -1,0 +1,80 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 64 64"
+  fill="none"
+>
+  <!-- 髪の外側 -->
+  <path
+    d="M10.5 29
+       C10.5 17.5 18.5 9 29 8.5
+       C31.5 6.8 35 6.5 38 8
+       C47 8.5 53.5 16.5 53.5 28.5
+       C53.5 31 53 33 52 35"
+    stroke="#1677FF"
+    stroke-width="4"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+
+  <!-- 前髪 -->
+  <path
+    d="M12 31
+       C17 30 22 27.5 26 24.5
+       C29 22.5 31.5 20 33.5 17
+       C33.8 21 33 23.5 31.5 26
+       C35 26 38.5 24.5 41 22
+       C43 26 46.5 29 51.5 30.5"
+    stroke="#1677FF"
+    stroke-width="4"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+
+  <!-- 左耳 -->
+  <path
+    d="M11.5 31
+       C7.5 29.5 6.5 33 7.5 37.5
+       C8.5 42 11 44 14 43"
+    stroke="#1677FF"
+    stroke-width="4"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+
+  <!-- 右耳 -->
+  <path
+    d="M52.5 31
+       C56.5 29.5 57.5 33 56.5 37.5
+       C55.5 42 53 44 50 43"
+    stroke="#1677FF"
+    stroke-width="4"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+
+  <!-- 顔の輪郭 -->
+  <path
+    d="M13.5 40
+       C15 49.5 22.5 56 32 56
+       C41.5 56 49 49.5 50.5 40"
+    stroke="#1677FF"
+    stroke-width="4"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+
+  <!-- 首 -->
+  <path
+    d="M20 52.5V61"
+    stroke="#1677FF"
+    stroke-width="4"
+    stroke-linecap="round"
+  />
+
+  <path
+    d="M44 52.5V61"
+    stroke="#1677FF"
+    stroke-width="4"
+    stroke-linecap="round"
+  />
+</svg>

@@ -572,19 +572,19 @@ export default function Home() {
       <section className="section-border py-16">
   <div className="site-container grid gap-8 lg:grid-cols-3">
     <RecommendationCard
-      title="あなたに合う商品を提案"
-      image="/lp/products-v2.png"
-      alt="スキンケアやスタイリング商品のイメージ"
+      title="あなた専用の垢抜けプラン"
+      image="/lp/plan-v3.png"
+      alt="あなた専用の垢抜けプランのイメージ"
     >
-      スキンケア・スタイリング剤、診断結果に合わせて必要なアイテムを厳選。
+      AI診断結果から、優先して取り組むことを具体的なアクションに整理。
     </RecommendationCard>
 
     <RecommendationCard
-      title="あなたに合うサロンを提案"
-      image="/lp/salon-v2.png"
-      alt="メンズ美容室や眉毛サロンのイメージ"
+      title="あなたに合う商品を提案"
+      image="/lp/products-v3.png"
+      alt="スキンケアやスタイリング商品のイメージ"
     >
-      美容室・眉毛サロンなど、位置情報から厳選サロンをご紹介。
+      スキンケア・スタイリング剤など、診断結果に合わせて必要なアイテムを厳選。
     </RecommendationCard>
 
     <div className="rounded-3xl bg-gradient-to-br from-[#EEF6FF] to-white p-6">
@@ -597,7 +597,7 @@ export default function Home() {
       <div className="mt-6 grid gap-3 text-sm font-semibold text-black/70">
         <CheckItem>診断結果をいつでも確認</CheckItem>
         <CheckItem>やることリストの進捗を管理</CheckItem>
-        <CheckItem>おすすめ商品・サロンをチェック</CheckItem>
+        <CheckItem>あなたに合う商品をチェック</CheckItem>
         <CheckItem>再診断で変化を可視化</CheckItem>
       </div>
     </div>
@@ -878,11 +878,32 @@ function FeatureIcon({
   icon: IconName;
   label: string;
 }) {
+  const customIconSrc =
+    icon === "hair"
+      ? "/icons/hair.svg"
+      : icon === "brow"
+        ? "/icons/brow.svg"
+        : null;
+
   return (
     <div className="text-center">
       <div className="mx-auto grid aspect-square max-w-24 place-items-center rounded-2xl border border-black/10 bg-white text-[#1677FF] shadow-sm">
-        <Icon name={icon} className="h-9 w-9" />
+        {customIconSrc ? (
+          <Image
+            src={customIconSrc}
+            alt=""
+            width={48}
+            height={48}
+            className="h-9 w-9 object-contain"
+          />
+        ) : (
+          <Icon
+            name={icon}
+            className="h-9 w-9"
+          />
+        )}
       </div>
+
       <p className="mt-3 text-xs font-bold sm:text-sm">
         {label}
       </p>

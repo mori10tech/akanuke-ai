@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import Logo from "../components/Logo";
-import DummyAd from "../components/DummyAd";
+import AdSenseAd from "../components/AdSenseAd";
 import { getAllArticles } from "../../data/articles";
 
 function ArrowRightIcon() {
@@ -128,7 +128,7 @@ export default function ArticlesPage() {
           ))}
         </div>
 
-        <DummyAd className="mt-10 sm:mt-12" />
+        <AdSenseAd className="mt-10 sm:mt-12" />
       </section>
 
       <section className="border-t border-black/10 px-5 py-12">

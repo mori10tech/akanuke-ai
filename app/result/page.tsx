@@ -11,7 +11,7 @@ import {
   type ReactNode,
 } from "react";
 import AppShell from "../components/AppShell";
-import DummyAd from "../components/DummyAd";
+import AdSenseAd from "../components/AdSenseAd";
 import type { AkanukeAnalysis } from "../../lib/openai/schemas";
 import {
   loadAfterImage,
@@ -1541,7 +1541,7 @@ setAfterElapsedSeconds(0);
             </div>
           </section>
 
-          <DummyAd
+          <AdSenseAd
             className="mx-4 mt-7"
             format="rectangle"
           />

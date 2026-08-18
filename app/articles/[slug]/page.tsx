@@ -7,7 +7,7 @@ import {
   getAllArticles,
   getArticleBySlug,
 } from "../../../data/articles";
-import DummyAd from "../../components/DummyAd";
+import AdSenseAd from "../../components/AdSenseAd";
 import Logo from "../../components/Logo";
 
 type ArticlePageProps = {
@@ -379,7 +379,7 @@ export default async function ArticleDetailPage({
               </p>
             </section>
 
-            <DummyAd className="mt-10" />
+            <AdSenseAd className="mt-10" />
 
             <section
               id="meaning"
@@ -476,7 +476,7 @@ export default async function ArticleDetailPage({
                     </section>
 
                     {index === 5 && (
-                      <DummyAd
+                      <AdSenseAd
                         className="my-8"
                         format="rectangle"
                       />
@@ -609,7 +609,7 @@ export default async function ArticleDetailPage({
               </div>
             </section>
 
-            <DummyAd className="mt-10" />
+            <AdSenseAd className="mt-10" />
 
             <section
               id="summary"

@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import AppHeader from "../components/AppHeader";
 import AppShell from "../components/AppShell";
-import DummyAd from "../components/DummyAd";
+import AdSenseAd from "../components/AdSenseAd";
 import {
   activeProducts,
   categories,
@@ -478,7 +478,7 @@ export default function ProductsPage() {
               </div>
             </section>
 
-            <DummyAd
+            <AdSenseAd
               className="mt-10"
               format="rectangle"
             />

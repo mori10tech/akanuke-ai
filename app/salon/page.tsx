@@ -6,7 +6,7 @@ import type { ReactNode } from "react";
 
 import AppHeader from "../components/AppHeader";
 import AppShell from "../components/AppShell";
-import DummyAd from "../components/DummyAd";
+import AdSenseAd from "../components/AdSenseAd";
 
 type Salon = {
   id: number;
@@ -562,7 +562,7 @@ export default function SalonPage() {
           </div>
         </section>
 
-        <DummyAd
+        <AdSenseAd
           className="mt-10"
           format="rectangle"
         />

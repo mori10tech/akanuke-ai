@@ -1,6 +1,16 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
+
+const adsenseClient =
+  process.env.NEXT_PUBLIC_ADSENSE_CLIENT?.trim() ?? "";
+
+const hasValidAdsenseClient =
+  /^ca-pub-\d{16}$/.test(adsenseClient);
+
+const canLoadAdsense =
+  process.env.NODE_ENV === "production" && hasValidAdsenseClient;
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -58,8 +68,27 @@ export default function RootLayout({
       lang="ja"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
+      <head>
+        {hasValidAdsenseClient && (
+          <meta
+            name="google-adsense-account"
+            content={adsenseClient}
+          />
+        )}
+      </head>
+
       <body className="flex min-h-full flex-col">
         {children}
+
+        {canLoadAdsense && (
+          <Script
+            id="google-adsense"
+            async
+            strategy="afterInteractive"
+            crossOrigin="anonymous"
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClient}`}
+          />
+        )}
       </body>
     </html>
   );

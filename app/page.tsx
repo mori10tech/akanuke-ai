@@ -792,6 +792,13 @@ function AnalysisScoreRow({
   item: AnalysisItem;
   last: boolean;
 }) {
+  const customIconSrc =
+    item.icon === "hair"
+      ? "/icons/hair.svg"
+      : item.icon === "brow"
+        ? "/icons/brow.svg"
+        : null;
+
   return (
     <div
       className={`analysis-score-row ${
@@ -799,10 +806,20 @@ function AnalysisScoreRow({
       }`}
     >
       <div className="analysis-score-icon-wrap">
-        <Icon
-          name={item.icon}
-          className="analysis-score-icon"
-        />
+        {customIconSrc ? (
+          <Image
+            src={customIconSrc}
+            alt=""
+            width={32}
+            height={32}
+            className="analysis-score-icon object-contain"
+          />
+        ) : (
+          <Icon
+            name={item.icon}
+            className="analysis-score-icon"
+          />
+        )}
 
         <span className="analysis-score-icon-line" />
       </div>

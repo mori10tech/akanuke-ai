@@ -425,81 +425,109 @@ export default function ProductsPage() {
   );
 
   useEffect(() => {
-    const timeoutId =
-      window.setTimeout(() => {
-        const rawResult =
-          window.sessionStorage.getItem(
-            RESULT_STORAGE_KEY,
-          );
+  const timeoutId =
+    window.setTimeout(() => {
+      const requestedCategory =
+        categories.find(
+          (category) =>
+            category.id ===
+            new URLSearchParams(
+              window.location.search,
+            ).get("category"),
+        )?.id;
 
-        if (!rawResult) {
+      /*
+       * URLでカテゴリが指定されている場合は、
+       * そのカテゴリを最初に表示します。
+       */
+      if (requestedCategory) {
+        setSelectedCategory(
+          requestedCategory,
+        );
+      }
+
+      const rawResult =
+        window.sessionStorage.getItem(
+          RESULT_STORAGE_KEY,
+        );
+
+      if (!rawResult) {
+        return;
+      }
+
+      try {
+        const parsed = JSON.parse(
+          rawResult,
+        ) as {
+          productNeeds?: unknown;
+        };
+
+        if (
+          !Array.isArray(
+            parsed.productNeeds,
+          )
+        ) {
           return;
         }
 
-        try {
-          const parsed = JSON.parse(
-            rawResult,
-          ) as {
-            productNeeds?: unknown;
-          };
-
-          if (
-            !Array.isArray(
-              parsed.productNeeds,
-            )
-          ) {
-            return;
-          }
-
-          const validNeeds =
-            parsed.productNeeds.filter(
-              isProductNeed,
-            );
-
-          if (
-            validNeeds.length === 0
-          ) {
-            return;
-          }
-
-          setDiagnosisNeeds(
-            validNeeds,
+        const validNeeds =
+          parsed.productNeeds.filter(
+            isProductNeed,
           );
 
-          const recommendedCategory =
-            [...categories].sort(
-              (a, b) =>
-                getCategoryScore(
-                  b.id,
-                  validNeeds,
-                ) -
-                getCategoryScore(
-                  a.id,
-                  validNeeds,
-                ),
-            )[0];
+        if (
+          validNeeds.length === 0
+        ) {
+          return;
+        }
 
-          if (
-            recommendedCategory
-          ) {
-            setSelectedCategory(
-              recommendedCategory.id,
-            );
-          }
-        } catch (error) {
-          console.warn(
-            "[AKANUKE.AI] 商品レコメンド用の診断結果を読み込めませんでした:",
-            error,
+        setDiagnosisNeeds(
+          validNeeds,
+        );
+
+        /*
+         * URLでカテゴリが指定されている場合は、
+         * 診断結果によるカテゴリ変更を行いません。
+         *
+         * 商品の並び順については、
+         * 指定されたカテゴリ内で診断結果を反映します。
+         */
+        if (requestedCategory) {
+          return;
+        }
+
+        const recommendedCategory =
+          [...categories].sort(
+            (a, b) =>
+              getCategoryScore(
+                b.id,
+                validNeeds,
+              ) -
+              getCategoryScore(
+                a.id,
+                validNeeds,
+              ),
+          )[0];
+
+        if (recommendedCategory) {
+          setSelectedCategory(
+            recommendedCategory.id,
           );
         }
-      }, 0);
+      } catch (error) {
+        console.warn(
+          "[AKANUKE.AI] 商品レコメンド用の診断結果を読み込めませんでした:",
+          error,
+        );
+      }
+    }, 0);
 
-    return () => {
-      window.clearTimeout(
-        timeoutId,
-      );
-    };
-  }, []);
+  return () => {
+    window.clearTimeout(
+      timeoutId,
+    );
+  };
+}, []);
 
   const availableCategories = useMemo(
     () =>

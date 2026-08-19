@@ -39,6 +39,8 @@ const planTasks: PlanTask[] = [
       "前髪とサイドが整い、輪郭がすっきり見えます。",
     howTo:
       "額が少し見える軽めの前髪と、サイドを抑えた爽やかなスタイルを相談しましょう。",
+      href: "/products?category=hairStyling",
+hrefLabel: "スタイリング商品を見る",
       },
   {
     id: "eyebrow",
@@ -63,8 +65,8 @@ const planTasks: PlanTask[] = [
       "乾燥・赤み・くすみの予防につながります。",
     howTo:
       "外出前に顔全体へ薄く均一に塗り、汗をかいた日は塗り直しましょう。",
-    href: "/products",
-    hrefLabel: "おすすめ商品を見る",
+    href: "/products?category=sunscreen",
+hrefLabel: "UVケア商品を見る",
   },
   {
     id: "moisturize",
@@ -77,8 +79,8 @@ const planTasks: PlanTask[] = [
       "テカリとカサつきが目立ちにくくなります。",
     howTo:
       "朝晩の洗顔後、化粧水またはオールインワンを顔全体になじませましょう。",
-    href: "/products",
-    hrefLabel: "スキンケア商品を見る",
+    href: "/products?category=skincare",
+hrefLabel: "スキンケア商品を見る",
   },
   {
     id: "hair-set",
@@ -91,8 +93,8 @@ const planTasks: PlanTask[] = [
       "毎日の印象が安定し、清潔感を維持できます。",
     howTo:
       "ドライヤーで根元を立ち上げ、少量のワックスで毛流れを整えましょう。",
-    href: "/products",
-    hrefLabel: "スタイリング商品を見る",
+    href: "/products?category=hairStyling",
+hrefLabel: "スタイリング商品を見る",
   },
   {
     id: "grooming",
@@ -105,6 +107,8 @@ const planTasks: PlanTask[] = [
       "丁寧に手入れされた印象になります。",
     howTo:
       "外出前に鏡で確認し、気になったときにすぐ整えられる道具を用意しましょう。",
+      href: "/products?category=other",
+hrefLabel: "身だしなみ商品を見る",
   },
 ];
 
@@ -458,48 +462,6 @@ function SalonOrderGuide({
   );
 }
 
-function ActionCard({
-  href,
-  icon,
-  title,
-  description,
-}: {
-  href: string;
-  icon: "bag" | "scissors";
-  title: string;
-  description: string;
-}) {
-  return (
-    <Link
-      href={href}
-      className="group flex min-h-[104px] items-center gap-3 rounded-[20px] border border-black/10 bg-white p-4 shadow-[0_8px_26px_rgba(15,23,42,0.05)] transition hover:-translate-y-0.5 hover:border-[#1677FF]/30 hover:shadow-[0_14px_32px_rgba(22,119,255,0.10)] active:scale-[0.99]"
-    >
-      <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#EEF6FF] text-[#1677FF] transition group-hover:bg-[#1677FF] group-hover:text-white">
-        <Icon
-          name={icon}
-          className="h-6 w-6"
-        />
-      </span>
-
-      <span className="min-w-0 flex-1">
-        <span className="block text-[13px] font-black tracking-[-0.02em]">
-          {title}
-        </span>
-
-        <span className="mt-1 block text-[9px] leading-4 text-black/55">
-          {description}
-        </span>
-      </span>
-
-      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#F7F9FC] text-[#1677FF] transition group-hover:translate-x-0.5 group-hover:bg-[#EEF6FF]">
-        <Icon
-          name="chevron"
-          className="h-4 w-4"
-        />
-      </span>
-    </Link>
-  );
-}
 
 export default function PlanPage() {
   const [completedIds, setCompletedIds] =
@@ -848,13 +810,41 @@ export default function PlanPage() {
             </div>
           </section>
 
-          <section className="mx-4 mt-7">
-  <ActionCard
-    href="/products"
-    icon="bag"
-    title="おすすめ商品"
-    description="診断内容に合うケア・スタイリング商品を見る"
-  />
+          <section className="mx-4 mt-7 overflow-hidden rounded-[24px] border border-[#1677FF]/10 bg-gradient-to-br from-white via-white to-[#EEF6FF] shadow-[0_14px_40px_rgba(22,119,255,0.08)]">
+  <div className="relative px-5 pb-5 pt-6">
+    <div className="absolute right-5 top-5 flex h-16 w-16 items-center justify-center rounded-full bg-[#EEF6FF] text-[#1677FF]">
+      <Icon
+        name="bag"
+        className="h-8 w-8"
+      />
+    </div>
+
+    <p className="pr-20 text-[9px] font-black tracking-[0.16em] text-[#1677FF]">
+      RECOMMENDED FOR YOU
+    </p>
+
+    <h2 className="mt-3 whitespace-nowrap pr-20 text-[18px] font-black leading-[1.45] tracking-[-0.04em] min-[390px]:text-[20px]">
+      あなたに合うおすすめ商品
+    </h2>
+
+    <p className="mt-3 max-w-[340px] text-left text-[11px] leading-5 text-black/55">
+      診断結果から、今のあなたに必要なケア・スタイリング商品を厳選しています。
+    </p>
+
+    <Link
+      href="/products"
+      className="mt-6 flex min-h-[56px] items-center justify-center gap-3 rounded-[15px] bg-[#FFD400] px-5 text-[14px] font-black text-[#111111] shadow-[0_10px_34px_rgba(15,23,42,0.05)] transition hover:-translate-y-0.5 active:scale-[0.99]"
+    >
+      おすすめ商品を見る
+
+      <span
+        aria-hidden="true"
+        className="text-[18px]"
+      >
+        →
+      </span>
+    </Link>
+  </div>
 </section>
 
           {progress === 100 && (

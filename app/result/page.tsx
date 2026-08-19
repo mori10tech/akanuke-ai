@@ -227,49 +227,6 @@ function CircularProgress({
   );
 }
 
-function ActionCard({
-  href,
-  icon,
-  title,
-  description,
-}: {
-  href: string;
-  icon: "bag" | "scissors";
-  title: string;
-  description: string;
-}) {
-  return (
-    <Link
-      href={href}
-      className="group flex min-h-[104px] items-center gap-3 rounded-[20px] border border-black/10 bg-white p-4 shadow-[0_8px_26px_rgba(15,23,42,0.05)] transition hover:-translate-y-0.5 hover:border-[#1677FF]/30 hover:shadow-[0_14px_32px_rgba(22,119,255,0.10)] active:scale-[0.99]"
-    >
-      <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#EEF6FF] text-[#1677FF] transition group-hover:bg-[#1677FF] group-hover:text-white">
-        <Icon
-          name={icon}
-          className="h-6 w-6"
-        />
-      </span>
-
-      <span className="min-w-0 flex-1">
-        <span className="block text-[13px] font-black tracking-[-0.02em]">
-          {title}
-        </span>
-
-        <span className="mt-1 block text-[9px] leading-4 text-black/55">
-          {description}
-        </span>
-      </span>
-
-      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#F7F9FC] text-[#1677FF] transition group-hover:translate-x-0.5 group-hover:bg-[#EEF6FF]">
-        <Icon
-          name="chevron"
-          className="h-4 w-4"
-        />
-      </span>
-    </Link>
-  );
-}
-
 function AnalysisDetail({
   title,
   observation,
@@ -1551,7 +1508,7 @@ setAfterElapsedSeconds(0);
                 YOUR PERSONAL PLAN
               </p>
 
-              <h2 className="mt-3 max-w-[290px] text-[24px] font-black leading-[1.45] tracking-[-0.04em]">
+              <h2 className="mt-3 max-w-[290px] text-[20px] font-black leading-[1.45] tracking-[-0.04em]">
                 100%に近づくための
                 <br />
                 垢抜けプラン
@@ -1578,14 +1535,42 @@ setAfterElapsedSeconds(0);
             </div>
           </section>
 
-          <div className="mx-4 mt-4">
-  <ActionCard
-    href="/products"
-    icon="bag"
-    title="おすすめ商品"
-    description="診断内容に合うケア・スタイリング商品を見る"
-  />
-</div>
+          <section className="mx-4 mt-4 overflow-hidden rounded-[24px] border border-[#1677FF]/10 bg-gradient-to-br from-white via-white to-[#EEF6FF] shadow-[0_14px_40px_rgba(22,119,255,0.08)]">
+  <div className="relative px-5 pb-5 pt-6">
+    <div className="absolute right-5 top-5 flex h-16 w-16 items-center justify-center rounded-full bg-[#EEF6FF] text-[#1677FF]">
+      <Icon
+        name="bag"
+        className="h-8 w-8"
+      />
+    </div>
+
+    <p className="pr-20 text-[9px] font-black tracking-[0.16em] text-[#1677FF]">
+      RECOMMENDED FOR YOU
+    </p>
+
+    <h2 className="mt-3 whitespace-nowrap pr-20 text-[20px] font-black leading-[1.45] tracking-[-0.04em] min-[390px]:text-[20px]">
+      あなたに合うおすすめ商品
+    </h2>
+
+    <p className="mt-3 max-w-[340px] text-left text-[11px] leading-5 text-black/55">
+      診断結果から、今のあなたに必要なケア・スタイリング商品を厳選しています。
+    </p>
+
+    <Link
+      href="/products"
+      className="mt-6 flex min-h-[56px] items-center justify-center gap-3 rounded-[15px] bg-[#FFD400] px-5 text-[14px] font-black text-[#111111] shadow-[0_10px_34px_rgba(15,23,42,0.05)] transition hover:-translate-y-0.5 active:scale-[0.99]"
+    >
+      おすすめ商品を見る
+
+      <span
+        aria-hidden="true"
+        className="text-[18px]"
+      >
+        →
+      </span>
+    </Link>
+  </div>
+</section>
 
           <Link
             href="/upload"

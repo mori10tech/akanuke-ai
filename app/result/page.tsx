@@ -22,9 +22,29 @@ import AppHeader from "../components/AppHeader";
 
 const IMAGE_STORAGE_KEY = "akanukeImage";
 const RESULT_STORAGE_KEY = "akanukeAnalysisResult";
+const PROGRESS_ANIMATION_STORAGE_KEY = "akanukeProgressAnimationResult";
 const DIAGNOSIS_ID_STORAGE_KEY = "akanukeDiagnosisId";
 const RESULT_BACK_HREF_STORAGE_KEY = "akanukeResultBackHref";
 const SAVED_AFTER_IMAGE_STORAGE_KEY = "akanukeSavedAfterImageUrl";
+
+function createResultAnimationId(
+  rawResult: string,
+) {
+  let hash = 0;
+
+  for (
+    let index = 0;
+    index < rawResult.length;
+    index += 1
+  ) {
+    hash =
+      (hash * 31 +
+        rawResult.charCodeAt(index)) |
+      0;
+  }
+
+  return `${rawResult.length}:${hash}`;
+}
 
 const GOAL_PROGRESS = 100;
 
@@ -269,13 +289,13 @@ export default function ResultPage() {
   const afterRequestStartedRef = useRef(false);
 
   const afterProgressTimerRef =
-  useRef<number | null>(null);
+    useRef<number | null>(null);
 
-const afterProgressValueRef =
-  useRef(0);
+  const afterProgressValueRef =
+    useRef(0);
 
-const [image, setImage] =
-  useState<string | null>(null);
+  const [image, setImage] =
+    useState<string | null>(null);
 
   const [analysis, setAnalysis] =
     useState<AkanukeAnalysis | null>(null);
@@ -284,15 +304,15 @@ const [image, setImage] =
     useState("");
 
   const [afterImage, setAfterImage] =
-  useState<string | null>(null);
+    useState<string | null>(null);
 
-const [
-  hasCheckedSavedAfter,
-  setHasCheckedSavedAfter,
-] = useState(false);
+  const [
+    hasCheckedSavedAfter,
+    setHasCheckedSavedAfter,
+  ] = useState(false);
 
-const [isGeneratingAfter, setIsGeneratingAfter] =
-  useState(false);
+  const [isGeneratingAfter, setIsGeneratingAfter] =
+    useState(false);
 
   const [
     afterGenerationProgress,
@@ -375,9 +395,9 @@ const [isGeneratingAfter, setIsGeneratingAfter] =
         ) as AkanukeAnalysis;
 
       setImage(savedImage);
-setAnalysis(parsed);
-setRawAnalysisResult(rawResult);
-setIsReady(true);
+      setAnalysis(parsed);
+      setRawAnalysisResult(rawResult);
+      setIsReady(true);
 
       const targetProgress =
         Math.max(
@@ -390,34 +410,43 @@ setIsReady(true);
           ),
         );
 
+      const animationResultId =
+        createResultAnimationId(rawResult);
+
+      const previousAnimationResultId =
+        window.sessionStorage.getItem(
+          PROGRESS_ANIMATION_STORAGE_KEY,
+        );
+
+      if (
+        previousAnimationResultId ===
+        animationResultId
+      ) {
+        setDisplayProgress(targetProgress);
+        return;
+      }
+
+      window.sessionStorage.setItem(
+        PROGRESS_ANIMATION_STORAGE_KEY,
+        animationResultId,
+      );
+
       const duration = 1400;
-      const startedAt =
-        performance.now();
+      const startedAt = performance.now();
 
       let frame = 0;
 
-      const animate = (
-        now: number,
-      ) => {
-        const progress =
-          Math.min(
-            (now - startedAt) /
-            duration,
-            1,
-          );
+      const animate = (now: number) => {
+        const progress = Math.min(
+          (now - startedAt) / duration,
+          1,
+        );
 
         const eased =
-          1 -
-          Math.pow(
-            1 - progress,
-            3,
-          );
+          1 - Math.pow(1 - progress, 3);
 
         setDisplayProgress(
-          Math.round(
-            targetProgress *
-            eased,
-          ),
+          Math.round(targetProgress * eased),
         );
 
         if (progress < 1) {
@@ -429,15 +458,12 @@ setIsReady(true);
       };
 
       frame =
-        window.requestAnimationFrame(
-          animate,
-        );
+        window.requestAnimationFrame(animate);
 
       return () => {
-        window.cancelAnimationFrame(
-          frame,
-        );
+        window.cancelAnimationFrame(frame);
       };
+
     } catch (error) {
       console.error(
         "Result parse error:",
@@ -454,10 +480,10 @@ setIsReady(true);
     }
   }, []);
 
-        /*
-   * 同じ診断結果のAfter画像がIndexedDBに保存されている場合は、
-   * 保存済み画像を復元してAPIの再実行を防ぎます。
-   */
+  /*
+* 同じ診断結果のAfter画像がIndexedDBに保存されている場合は、
+* 保存済み画像を復元してAPIの再実行を防ぎます。
+*/
   useEffect(() => {
     if (
       !isReady ||
@@ -536,10 +562,10 @@ setIsReady(true);
      * 最初から0%ではなく6%で開始。
      * 「処理が始まった」ことをすぐ伝えます。
      */
-   setAfterElapsedSeconds(0);
+    setAfterElapsedSeconds(0);
 
-afterProgressValueRef.current = 6;
-setAfterGenerationProgress(6);
+    afterProgressValueRef.current = 6;
+    setAfterGenerationProgress(6);
 
     afterProgressTimerRef.current =
       window.setInterval(() => {
@@ -547,7 +573,7 @@ setAfterGenerationProgress(6);
           Math.floor(
             (Date.now() -
               startedAt) /
-              1000,
+            1000,
           );
 
         setAfterElapsedSeconds(
@@ -562,19 +588,19 @@ setAfterGenerationProgress(6);
           );
 
         setAfterGenerationProgress(
-  (current) => {
-    const updatedProgress =
-      Math.max(
-        current,
-        nextProgress,
-      );
+          (current) => {
+            const updatedProgress =
+              Math.max(
+                current,
+                nextProgress,
+              );
 
-    afterProgressValueRef.current =
-      updatedProgress;
+            afterProgressValueRef.current =
+              updatedProgress;
 
-    return updatedProgress;
-  },
-);
+            return updatedProgress;
+          },
+        );
       }, 1000);
   }, [stopAfterProgressTimer]);
 
@@ -587,17 +613,17 @@ setAfterGenerationProgress(6);
  * 保存済み画像を復元してAPIを再実行しません。
  */
   useEffect(() => {
-  if (
-    !isReady ||
-    !hasCheckedSavedAfter ||
-    isHistoryView ||
-    !image ||
-    !analysis ||
-    afterImage ||
-    afterRequestStartedRef.current
-  ) {
-    return;
-  }
+    if (
+      !isReady ||
+      !hasCheckedSavedAfter ||
+      isHistoryView ||
+      !image ||
+      !analysis ||
+      afterImage ||
+      afterRequestStartedRef.current
+    ) {
+      return;
+    }
 
     let isCancelled = false;
     async function generateAfterImage() {
@@ -610,11 +636,11 @@ setAfterGenerationProgress(6);
 
       afterRequestStartedRef.current = true;
 
-setAfterError("");
-setAfterElapsedSeconds(0);
-setIsGeneratingAfter(true);
+      setAfterError("");
+      setAfterElapsedSeconds(0);
+      setIsGeneratingAfter(true);
 
-startAfterProgressTimer();
+      startAfterProgressTimer();
 
       try {
         console.log(
@@ -664,150 +690,150 @@ startAfterProgressTimer();
 
         stopAfterProgressTimer();
 
-/*
- * After画像の生成完了後、
- * 現在の進捗から100%まで滑らかに進めます。
- */
-const completionStartedAt =
-  performance.now();
+        /*
+         * After画像の生成完了後、
+         * 現在の進捗から100%まで滑らかに進めます。
+         */
+        const completionStartedAt =
+          performance.now();
 
-const completionStartProgress =
-  afterProgressValueRef.current;
+        const completionStartProgress =
+          afterProgressValueRef.current;
 
-const completionDurationMs = 3200;
+        const completionDurationMs = 3200;
 
-await new Promise<void>(
-  (resolve) => {
-    const animateCompletion = (
-      now: number,
-    ) => {
-      if (isCancelled) {
-        resolve();
-        return;
-      }
+        await new Promise<void>(
+          (resolve) => {
+            const animateCompletion = (
+              now: number,
+            ) => {
+              if (isCancelled) {
+                resolve();
+                return;
+              }
 
-      const elapsed =
-        now - completionStartedAt;
+              const elapsed =
+                now - completionStartedAt;
 
-      const ratio =
-        Math.min(
-          1,
-          elapsed /
-            completionDurationMs,
+              const ratio =
+                Math.min(
+                  1,
+                  elapsed /
+                  completionDurationMs,
+                );
+
+              /*
+               * 最初と最後を緩やかにして、
+               * 急加速して見えないようにします。
+               */
+              const easedRatio =
+                ratio < 0.5
+                  ? 2 * ratio * ratio
+                  : 1 -
+                  Math.pow(
+                    -2 * ratio + 2,
+                    2,
+                  ) / 2;
+
+              const nextProgress =
+                Math.min(
+                  100,
+                  Math.round(
+                    completionStartProgress +
+                    (100 -
+                      completionStartProgress) *
+                    easedRatio,
+                  ),
+                );
+
+              afterProgressValueRef.current =
+                nextProgress;
+
+              setAfterGenerationProgress(
+                nextProgress,
+              );
+
+              if (ratio < 1) {
+                window.requestAnimationFrame(
+                  animateCompletion,
+                );
+                return;
+              }
+
+              afterProgressValueRef.current =
+                100;
+
+              setAfterGenerationProgress(
+                100,
+              );
+
+              resolve();
+            };
+
+            window.requestAnimationFrame(
+              animateCompletion,
+            );
+          },
         );
 
-      /*
-       * 最初と最後を緩やかにして、
-       * 急加速して見えないようにします。
-       */
-      const easedRatio =
-        ratio < 0.5
-          ? 2 * ratio * ratio
-          : 1 -
-            Math.pow(
-              -2 * ratio + 2,
-              2,
-            ) / 2;
+        if (isCancelled) {
+          return;
+        }
 
-      const nextProgress =
-        Math.min(
-          100,
-          Math.round(
-            completionStartProgress +
-              (100 -
-                completionStartProgress) *
-                easedRatio,
-          ),
+        setAfterImage(
+          data.afterImageDataUrl,
         );
 
-      afterProgressValueRef.current =
-        nextProgress;
+        const diagnosisId =
+          window.sessionStorage.getItem(
+            DIAGNOSIS_ID_STORAGE_KEY,
+          );
 
-      setAfterGenerationProgress(
-        nextProgress,
-      );
+        if (diagnosisId) {
+          try {
+            const saveImageResponse = await fetch(
+              `/api/diagnoses/${diagnosisId}/image`,
+              {
+                method: "PUT",
+                cache: "no-store",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  kind: "after",
+                  imageDataUrl:
+                    data.afterImageDataUrl,
+                }),
+              },
+            );
 
-      if (ratio < 1) {
-        window.requestAnimationFrame(
-          animateCompletion,
-        );
-        return;
-      }
+            if (!saveImageResponse.ok) {
+              console.warn(
+                "[AKANUKE.AI] After画像を診断履歴へ保存できませんでした:",
+                saveImageResponse.status,
+              );
+            }
+          } catch (saveImageError) {
+            console.warn(
+              "[AKANUKE.AI] After画像の履歴保存をスキップしました:",
+              saveImageError,
+            );
+          }
+        }
 
-      afterProgressValueRef.current =
-        100;
-
-      setAfterGenerationProgress(
-        100,
-      );
-
-      resolve();
-    };
-
-    window.requestAnimationFrame(
-      animateCompletion,
-    );
-  },
-);
-
-if (isCancelled) {
-  return;
-}
-
-setAfterImage(
-  data.afterImageDataUrl,
-);
-
-const diagnosisId =
-  window.sessionStorage.getItem(
-    DIAGNOSIS_ID_STORAGE_KEY,
-  );
-
-if (diagnosisId) {
-  try {
-    const saveImageResponse = await fetch(
-      `/api/diagnoses/${diagnosisId}/image`,
-      {
-        method: "PUT",
-        cache: "no-store",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          kind: "after",
-          imageDataUrl:
-            data.afterImageDataUrl,
-        }),
-      },
-    );
-
-    if (!saveImageResponse.ok) {
-      console.warn(
-        "[AKANUKE.AI] After画像を診断履歴へ保存できませんでした:",
-        saveImageResponse.status,
-      );
-    }
-  } catch (saveImageError) {
-    console.warn(
-      "[AKANUKE.AI] After画像の履歴保存をスキップしました:",
-      saveImageError,
-    );
-  }
-}
-
-try {
-  await saveAfterImage({
-    sourceResult:
-      rawAnalysisResult,
-    imageDataUrl:
-      data.afterImageDataUrl,
-  });
-} catch (storageError) {
-  console.warn(
-    "[AKANUKE.AI] After画像をIndexedDBへ保存できませんでした:",
-    storageError,
-  );
-}
+        try {
+          await saveAfterImage({
+            sourceResult:
+              rawAnalysisResult,
+            imageDataUrl:
+              data.afterImageDataUrl,
+          });
+        } catch (storageError) {
+          console.warn(
+            "[AKANUKE.AI] After画像をIndexedDBへ保存できませんでした:",
+            storageError,
+          );
+        }
 
         console.log(
           "[AKANUKE.AI] Result画面へのAfter画像表示が完了しました",
@@ -819,13 +845,13 @@ try {
         );
 
         if (isCancelled) {
-  return;
-}
+          return;
+        }
 
-stopAfterProgressTimer();
+        stopAfterProgressTimer();
 
-setAfterError(
-            error instanceof Error
+        setAfterError(
+          error instanceof Error
             ? error.message
             : "After画像の生成中にエラーが発生しました。",
         );
@@ -848,7 +874,7 @@ setAfterError(
         void generateAfterImage();
       }, 100);
 
-        return () => {
+    return () => {
       isCancelled = true;
 
       if (startTimer) {
@@ -872,17 +898,17 @@ setAfterError(
     stopAfterProgressTimer,
   ]);
 
-const handleRetryAfter = () => {
-  stopAfterProgressTimer();
+  const handleRetryAfter = () => {
+    stopAfterProgressTimer();
 
-  afterRequestStartedRef.current = false;
+    afterRequestStartedRef.current = false;
 
- setAfterError("");
+    setAfterError("");
 
-afterProgressValueRef.current = 0;
-setAfterGenerationProgress(0);
+    afterProgressValueRef.current = 0;
+    setAfterGenerationProgress(0);
 
-setAfterElapsedSeconds(0);
+    setAfterElapsedSeconds(0);
 
     setAfterRetryCount(
       (current) => current + 1,
@@ -936,15 +962,15 @@ setAfterElapsedSeconds(0);
 
   return (
     <AppShell background="white">
-      <div className="overflow-hidden bg-white">
+    <div className="overflow-hidden bg-white">
+      {isHistoryView ? (
         <AppHeader
-  backHref={backHref}
-  backLabel={
-    backHref === "/history"
-      ? "診断履歴へ戻る"
-      : "写真選択へ戻る"
-  }
-/>
+          backHref="/history"
+          backLabel="診断履歴へ戻る"
+        />
+      ) : (
+        <AppHeader />
+      )}
 
         <div className="pb-32">
           <section className="px-5 pb-6 pt-7 text-center">
@@ -1216,57 +1242,57 @@ setAfterElapsedSeconds(0);
                       </span>
                     </>
                   ) : isGeneratingAfter ? (
-  <div className="flex h-full w-full items-center justify-center overflow-hidden p-2 sm:p-3">
-    <div className="w-full min-w-0 max-w-[170px] text-center">
-      <span className="relative mx-auto flex h-9 w-9 items-center justify-center rounded-full bg-white text-[#1677FF] shadow-[0_6px_20px_rgba(15,23,42,0.05)] sm:h-14 sm:w-14">
-        <span className="absolute inset-0 animate-ping rounded-full border border-[#1677FF]/20" />
+                    <div className="flex h-full w-full items-center justify-center overflow-hidden p-2 sm:p-3">
+                      <div className="w-full min-w-0 max-w-[170px] text-center">
+                        <span className="relative mx-auto flex h-9 w-9 items-center justify-center rounded-full bg-white text-[#1677FF] shadow-[0_6px_20px_rgba(15,23,42,0.05)] sm:h-14 sm:w-14">
+                          <span className="absolute inset-0 animate-ping rounded-full border border-[#1677FF]/20" />
 
-        <span className="absolute inset-[5px] animate-pulse rounded-full bg-[#EEF6FF] sm:inset-[7px]" />
+                          <span className="absolute inset-[5px] animate-pulse rounded-full bg-[#EEF6FF] sm:inset-[7px]" />
 
-        <Icon
-          name="sparkle"
-          className="relative z-10 h-4 w-4 sm:h-6 sm:w-6"
-        />
-      </span>
+                          <Icon
+                            name="sparkle"
+                            className="relative z-10 h-4 w-4 sm:h-6 sm:w-6"
+                          />
+                        </span>
 
-      <p className="mt-2 truncate text-[7px] font-black tracking-[0.04em] text-[#1677FF] sm:mt-4 sm:text-[9px]">
-        AFTER GENERATING
-      </p>
+                        <p className="mt-2 truncate text-[7px] font-black tracking-[0.04em] text-[#1677FF] sm:mt-4 sm:text-[9px]">
+                          AFTER GENERATING
+                        </p>
 
-      <div className="mt-1 flex items-end justify-center gap-0.5 sm:mt-2">
-        <span className="text-[20px] font-black leading-none tracking-[-0.05em] text-[#1677FF] sm:text-[24px]">
-          {afterGenerationProgress}
-        </span>
+                        <div className="mt-1 flex items-end justify-center gap-0.5 sm:mt-2">
+                          <span className="text-[20px] font-black leading-none tracking-[-0.05em] text-[#1677FF] sm:text-[24px]">
+                            {afterGenerationProgress}
+                          </span>
 
-        <span className="pb-0.5 text-[8px] font-black text-[#1677FF] sm:text-[9px]">
-          %
-        </span>
-      </div>
+                          <span className="pb-0.5 text-[8px] font-black text-[#1677FF] sm:text-[9px]">
+                            %
+                          </span>
+                        </div>
 
-      <p className="mt-2 line-clamp-2 min-h-[24px] break-words text-[8px] font-bold leading-3 text-[#111111]/65 sm:mt-3 sm:min-h-[32px] sm:text-[9px] sm:leading-4">
-        {getAfterGenerationStage(afterElapsedSeconds)}
-      </p>
+                        <p className="mt-2 line-clamp-2 min-h-[24px] break-words text-[8px] font-bold leading-3 text-[#111111]/65 sm:mt-3 sm:min-h-[32px] sm:text-[9px] sm:leading-4">
+                          {getAfterGenerationStage(afterElapsedSeconds)}
+                        </p>
 
-      <div className="mt-2 h-1 w-full overflow-hidden rounded-full bg-black/5 sm:mt-3 sm:h-1.5">
-        <div
-          className="h-full rounded-full bg-[#1677FF] transition-[width] duration-1000 ease-out"
-          style={{
-            width: `${afterGenerationProgress}%`,
-          }}
-        />
-      </div>
+                        <div className="mt-2 h-1 w-full overflow-hidden rounded-full bg-black/5 sm:mt-3 sm:h-1.5">
+                          <div
+                            className="h-full rounded-full bg-[#1677FF] transition-[width] duration-1000 ease-out"
+                            style={{
+                              width: `${afterGenerationProgress}%`,
+                            }}
+                          />
+                        </div>
 
-      <p className="mt-1.5 whitespace-nowrap text-[7px] font-bold text-black/35 sm:mt-2">
-        経過 {afterElapsedSeconds}秒
-      </p>
+                        <p className="mt-1.5 whitespace-nowrap text-[7px] font-bold text-black/35 sm:mt-2">
+                          経過 {afterElapsedSeconds}秒
+                        </p>
 
-      <p className="mt-3 hidden text-[7px] leading-3.5 text-black/35 sm:block">
-        高品質なAfterを生成しているため、
-        <br />
-        少し時間がかかる場合があります
-      </p>
-    </div>
-  </div>
+                        <p className="mt-3 hidden text-[7px] leading-3.5 text-black/35 sm:block">
+                          高品質なAfterを生成しているため、
+                          <br />
+                          少し時間がかかる場合があります
+                        </p>
+                      </div>
+                    </div>
                   ) : afterError ? (
                     <div className="flex h-full w-full items-center justify-center p-4">
                       <div className="text-center">
@@ -1536,41 +1562,41 @@ setAfterElapsedSeconds(0);
           </section>
 
           <section className="mx-4 mt-4 overflow-hidden rounded-[24px] border border-[#1677FF]/10 bg-gradient-to-br from-white via-white to-[#EEF6FF] shadow-[0_14px_40px_rgba(22,119,255,0.08)]">
-  <div className="relative px-5 pb-5 pt-6">
-    <div className="absolute right-5 top-5 flex h-16 w-16 items-center justify-center rounded-full bg-[#EEF6FF] text-[#1677FF]">
-      <Icon
-        name="bag"
-        className="h-8 w-8"
-      />
-    </div>
+            <div className="relative px-5 pb-5 pt-6">
+              <div className="absolute right-5 top-5 flex h-16 w-16 items-center justify-center rounded-full bg-[#EEF6FF] text-[#1677FF]">
+                <Icon
+                  name="bag"
+                  className="h-8 w-8"
+                />
+              </div>
 
-    <p className="pr-20 text-[9px] font-black tracking-[0.16em] text-[#1677FF]">
-      RECOMMENDED FOR YOU
-    </p>
+              <p className="pr-20 text-[9px] font-black tracking-[0.16em] text-[#1677FF]">
+                RECOMMENDED FOR YOU
+              </p>
 
-    <h2 className="mt-3 whitespace-nowrap pr-20 text-[20px] font-black leading-[1.45] tracking-[-0.04em] min-[390px]:text-[20px]">
-      あなたに合うおすすめ商品
-    </h2>
+              <h2 className="mt-3 whitespace-nowrap pr-20 text-[20px] font-black leading-[1.45] tracking-[-0.04em] min-[390px]:text-[20px]">
+                あなたに合うおすすめ商品
+              </h2>
 
-    <p className="mt-3 max-w-[340px] text-left text-[11px] leading-5 text-black/55">
-      診断結果から、今のあなたに必要なケア・スタイリング商品を厳選しています。
-    </p>
+              <p className="mt-3 max-w-[340px] text-left text-[11px] leading-5 text-black/55">
+                診断結果から、今のあなたに必要なケア・スタイリング商品を厳選しています。
+              </p>
 
-    <Link
-      href="/products"
-      className="mt-6 flex min-h-[56px] items-center justify-center gap-3 rounded-[15px] bg-[#FFD400] px-5 text-[14px] font-black text-[#111111] shadow-[0_10px_34px_rgba(15,23,42,0.05)] transition hover:-translate-y-0.5 active:scale-[0.99]"
-    >
-      おすすめ商品を見る
+              <Link
+                href="/products"
+                className="mt-6 flex min-h-[56px] items-center justify-center gap-3 rounded-[15px] bg-[#FFD400] px-5 text-[14px] font-black text-[#111111] shadow-[0_10px_34px_rgba(15,23,42,0.05)] transition hover:-translate-y-0.5 active:scale-[0.99]"
+              >
+                おすすめ商品を見る
 
-      <span
-        aria-hidden="true"
-        className="text-[18px]"
-      >
-        →
-      </span>
-    </Link>
-  </div>
-</section>
+                <span
+                  aria-hidden="true"
+                  className="text-[18px]"
+                >
+                  →
+                </span>
+              </Link>
+            </div>
+          </section>
 
           <Link
             href="/upload"

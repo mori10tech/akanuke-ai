@@ -19,6 +19,7 @@ const IMAGE_STORAGE_KEY = "akanukeImage";
 const IMPRESSION_STORAGE_KEY = "akanukeDesiredImpressions";
 const TARGET_STORAGE_KEY = "akanukeTargetImpression";
 const RESULT_STORAGE_KEY = "akanukeAnalysisResult";
+const RESULT_BACK_HREF_STORAGE_KEY = "akanukeResultBackHref";
 
 const impressionOptions: ImpressionOption[] = [
   {
@@ -145,8 +146,19 @@ export default function UploadPage() {
   const [notice, setNotice] = useState<string | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
 
+  const [
+    hasPreviousResult,
+    setHasPreviousResult,
+  ] = useState(false);
+
   useEffect(() => {
     const savedImage = window.sessionStorage.getItem(IMAGE_STORAGE_KEY);
+    const savedResult =
+      window.sessionStorage.getItem(
+        RESULT_STORAGE_KEY,
+      );
+    setHasPreviousResult(Boolean(savedResult));
+
     const savedImpressions = window.sessionStorage.getItem(
       IMPRESSION_STORAGE_KEY,
     );
@@ -232,6 +244,7 @@ export default function UploadPage() {
     setPreview(null);
     setSelectedIds([]);
     setNotice(null);
+    setHasPreviousResult(false);
 
     window.sessionStorage.removeItem(IMAGE_STORAGE_KEY);
     window.sessionStorage.removeItem(IMPRESSION_STORAGE_KEY);
@@ -269,50 +282,63 @@ export default function UploadPage() {
     });
   };
 
-const handleDiagnosis = () => {
-  if (!preview) {
-    setNotice("顔写真を選択してください。");
-    return;
-  }
+  const handleReturnToResult = () => {
+    window.sessionStorage.removeItem(
+      RESULT_BACK_HREF_STORAGE_KEY,
+    );
 
-  if (selectedIds.length === 0) {
-    setNotice("なりたい印象を1つ以上選択してください。");
+    router.push("/result");
+  };
 
-    preferenceSectionRef.current?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
+  const handleDiagnosis = () => {
+    if (!preview) {
+      setNotice("顔写真を選択してください。");
+      return;
+    }
 
-    return;
-  }
+    if (selectedIds.length === 0) {
+      setNotice("なりたい印象を1つ以上選択してください。");
 
-  window.sessionStorage.setItem(
-    IMPRESSION_STORAGE_KEY,
-    JSON.stringify(selectedIds),
-  );
+      preferenceSectionRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
 
-  const isAiRecommended =
-    selectedIds.includes(RECOMMENDED_OPTION_ID);
+      return;
+    }
 
-  const targetImpression = isAiRecommended
-    ? "AIにおまかせ。写真から本人に似合う垢抜け方向を判断してください。"
-    : selectedLabels.join("・");
+    window.sessionStorage.setItem(
+      IMPRESSION_STORAGE_KEY,
+      JSON.stringify(selectedIds),
+    );
 
-  window.sessionStorage.setItem(
-    TARGET_STORAGE_KEY,
-    targetImpression,
-  );
+    const isAiRecommended =
+      selectedIds.includes(RECOMMENDED_OPTION_ID);
 
-  /*
-   * 前回の診断結果が残っている場合に、
-   * 新しい診断結果と混ざらないよう削除します。
-   */
-  window.sessionStorage.removeItem(
-    RESULT_STORAGE_KEY,
-  );
+    const targetImpression = isAiRecommended
+      ? "AIにおまかせ。写真から本人に似合う垢抜け方向を判断してください。"
+      : selectedLabels.join("・");
 
-  router.push("/analyzing");
-};
+    window.sessionStorage.setItem(
+      TARGET_STORAGE_KEY,
+      targetImpression,
+    );
+
+    /*
+     * 前回の診断結果が残っている場合に、
+     * 新しい診断結果と混ざらないよう削除します。
+     */
+    window.sessionStorage.removeItem(
+      RESULT_STORAGE_KEY,
+    );
+    window.sessionStorage.removeItem(
+      RESULT_BACK_HREF_STORAGE_KEY,
+    );
+
+    setHasPreviousResult(false);
+
+    router.push("/analyzing");
+  };
 
   if (!isLoaded) {
     return (
@@ -329,9 +355,10 @@ const handleDiagnosis = () => {
     <main className="min-h-screen bg-[#EEF6FF] text-[#111111]">
       <div className="mx-auto min-h-screen w-full max-w-[480px] bg-white shadow-[0_0_40px_rgba(0,0,0,0.08)]">
         <AppHeader
-          backHref="/"
-          backLabel="トップページへ戻る"
-        />
+  backHref="/"
+  backLabel="前のページへ戻る"
+  backMode="history"
+/>
 
         <div className="px-4 pb-36 pt-5">
           <div        >
@@ -347,18 +374,44 @@ const handleDiagnosis = () => {
               </h1>
             </div>
 
-                  </div>
+          </div>
 
           <p className="mt-4 text-[13px] leading-6 text-black/60">
             顔写真となりたい印象をもとに、髪型・眉毛・肌・全体の印象をAIが分析します。
           </p>
+          
+          {hasPreviousResult && (
+  <div className="mt-5 rounded-[18px] border border-[#FFD400]/40 bg-[#FFF9D9] p-4">
+    <p className="text-[11px] font-black text-[#111111]">
+      診断済みの方
+    </p>
+
+    <p className="mt-1 text-[10px] leading-5 text-black/55">
+      再診断せず、保存されている結果を確認できます。
+    </p>
+
+    <button
+      type="button"
+      onClick={handleReturnToResult}
+      className="mt-3 flex min-h-[52px] w-full items-center justify-center rounded-[12px] bg-[#FFD400] px-5 text-[13px] font-black text-[#111111] shadow-[0_10px_34px_rgba(15,23,42,0.08)] transition hover:-translate-y-0.5 active:scale-[0.99]"
+    >
+      診断結果に戻る
+
+      <span
+        className="ml-3"
+        aria-hidden="true"
+      >
+        →
+      </span>
+    </button>
+  </div>
+)}
 
           <div className="mt-5 flex items-center gap-2">
             <div className="h-1.5 flex-1 rounded-full text-[#1677FF]" />
             <div
-              className={`h-1.5 flex-1 rounded-full transition-colors ${
-                preview ? "text-[#1677FF]" : "bg-neutral-200"
-              }`}
+              className={`h-1.5 flex-1 rounded-full transition-colors ${preview ? "text-[#1677FF]" : "bg-neutral-200"
+                }`}
             />
           </div>
 
@@ -418,11 +471,11 @@ const handleDiagnosis = () => {
                 )}
 
                 <input
-  type="file"
-  accept="image/jpeg,image/png,image/webp"
-  onChange={handleImage}
-  className="hidden"
-/>
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp"
+                  onChange={handleImage}
+                  className="hidden"
+                />
               </label>
 
               {preview && (
@@ -510,36 +563,35 @@ const handleDiagnosis = () => {
 
                       return (
                         <button
-  key={option.id}
-  type="button"
-  onClick={() => toggleSelection(option.id)}
-  aria-pressed={isSelected}
-  className={`relative min-h-[130px] rounded-[14px] border p-3.5 text-left transition duration-200 active:scale-[0.98] ${
-    isSelected
-      ? "border-2 border-[#1677FF] bg-[#FCFDFF] text-[#111111] shadow-[0_8px_24px_rgba(22,119,255,0.08)] -translate-y-0.5"
-      : isRecommended
-        ? "border-[#FFD400] bg-[#FFF9D9] text-[#111111]"
-        : "border-black/10 bg-white text-[#111111] hover:border-[#1677FF]"
-  }`}
->
-  {isSelected && (
-    <span className="absolute right-3 top-3 flex h-6 w-6 items-center justify-center rounded-full bg-[#FFE35A] text-[10px] font-black text-[#111111]">
-      {selectionNumber}
-    </span>
-  )}
+                          key={option.id}
+                          type="button"
+                          onClick={() => toggleSelection(option.id)}
+                          aria-pressed={isSelected}
+                          className={`relative min-h-[130px] rounded-[14px] border p-3.5 text-left transition duration-200 active:scale-[0.98] ${isSelected
+                            ? "border-2 border-[#1677FF] bg-[#FCFDFF] text-[#111111] shadow-[0_8px_24px_rgba(22,119,255,0.08)] -translate-y-0.5"
+                            : isRecommended
+                              ? "border-[#FFD400] bg-[#FFF9D9] text-[#111111]"
+                              : "border-black/10 bg-white text-[#111111] hover:border-[#1677FF]"
+                            }`}
+                        >
+                          {isSelected && (
+                            <span className="absolute right-3 top-3 flex h-6 w-6 items-center justify-center rounded-full bg-[#FFE35A] text-[10px] font-black text-[#111111]">
+                              {selectionNumber}
+                            </span>
+                          )}
 
-  <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#EEF6FF] text-[17px] text-[#1677FF]">
-    {option.icon}
-  </span>
+                          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#EEF6FF] text-[17px] text-[#1677FF]">
+                            {option.icon}
+                          </span>
 
-  <p className="mt-3 text-[13px] font-black text-[#111111]">
-    {option.label}
-  </p>
+                          <p className="mt-3 text-[13px] font-black text-[#111111]">
+                            {option.label}
+                          </p>
 
-  <p className="mt-1.5 text-[10px] leading-4 text-black/60">
-    {option.description}
-  </p>
-</button>
+                          <p className="mt-1.5 text-[10px] leading-4 text-black/60">
+                            {option.description}
+                          </p>
+                        </button>
                       );
                     })}
                   </div>

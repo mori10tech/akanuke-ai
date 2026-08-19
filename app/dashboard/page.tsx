@@ -53,7 +53,7 @@ function ProductIcon() {
   );
 }
 
-function UserIcon() {
+function SettingsIcon() {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -65,8 +65,13 @@ function UserIcon() {
       strokeLinecap="round"
       strokeLinejoin="round"
     >
-      <circle cx="12" cy="8" r="4" />
-      <path d="M4.5 21a7.5 7.5 0 0 1 15 0" />
+      <circle
+        cx="12"
+        cy="12"
+        r="3"
+      />
+
+      <path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-2.83 2.83-.06-.06a1.7 1.7 0 0 0-1.88-.34 1.7 1.7 0 0 0-1.03 1.56V21h-4v-.08A1.7 1.7 0 0 0 8.97 19.4a1.7 1.7 0 0 0-1.88.34l-.06.06-2.83-2.83.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-1.52-1.03H3v-4h.08A1.7 1.7 0 0 0 4.6 8.94a1.7 1.7 0 0 0-.34-1.88L4.2 7l2.83-2.83.06.06a1.7 1.7 0 0 0 1.88.34A1.7 1.7 0 0 0 10 3.05V3h4v.05a1.7 1.7 0 0 0 1.03 1.52 1.7 1.7 0 0 0 1.88-.34l.06-.06L19.8 7l-.06.06a1.7 1.7 0 0 0-.34 1.88A1.7 1.7 0 0 0 20.92 10H21v4h-.08A1.7 1.7 0 0 0 19.4 15Z" />
     </svg>
   );
 }
@@ -131,11 +136,7 @@ export default async function DashboardPage() {
               <AppLogo />
             </div>
 
-            <div className="flex justify-end">
-              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#EEF6FF] text-[#1677FF]">
-                <UserIcon />
-              </span>
-            </div>
+            <div aria-hidden="true" />
           </div>
         </header>
 
@@ -333,27 +334,50 @@ export default async function DashboardPage() {
               </Link>
 
               <Link
-                href="/products"
-                className="flex items-center gap-4 border-b border-black/10 px-5 py-4 transition hover:bg-[#F7F9FC]"
-              >
-                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#EEF6FF] text-[#1677FF]">
-                  <ProductIcon />
-                </span>
+  href="/products"
+  className="flex items-center gap-4 border-b border-black/10 px-5 py-4 transition hover:bg-[#F7F9FC]"
+>
+  <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#EEF6FF] text-[#1677FF]">
+    <ProductIcon />
+  </span>
 
-                <span className="min-w-0 flex-1">
-                  <span className="block text-[13px] font-black text-[#111111]">
-                    おすすめ商品
-                  </span>
+  <span className="min-w-0 flex-1">
+    <span className="block text-[13px] font-black text-[#111111]">
+      おすすめ商品
+    </span>
 
-                  <span className="mt-0.5 block text-[10px] text-black/35">
-                    AIがおすすめする商品を見る
-                  </span>
-                </span>
+    <span className="mt-0.5 block text-[10px] text-black/35">
+      AIがおすすめする商品を見る
+    </span>
+  </span>
 
-                <span className="text-[#1677FF]">
-                  <ChevronRightIcon />
-                </span>
-              </Link>
+  <span className="text-[#1677FF]">
+    <ChevronRightIcon />
+  </span>
+</Link>
+
+<Link
+  href="/dashboard/account"
+  className="flex items-center gap-4 border-b border-black/10 px-5 py-4 transition hover:bg-[#F7F9FC]"
+>
+  <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#EEF6FF] text-[#1677FF]">
+    <SettingsIcon />
+  </span>
+
+  <span className="min-w-0 flex-1">
+    <span className="block text-[13px] font-black text-[#111111]">
+      アカウント設定
+    </span>
+
+    <span className="mt-0.5 block text-[10px] text-black/35">
+      会員情報と退会手続きを管理
+    </span>
+  </span>
+
+  <span className="text-[#1677FF]">
+    <ChevronRightIcon />
+  </span>
+</Link>
 
               <Link
                 href="/"

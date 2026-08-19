@@ -134,10 +134,12 @@ export default function SignupPage() {
         email: normalizedEmail,
         password,
         options: {
-          data: {
-            name: normalizedName,
-          },
-        },
+  data: {
+    name: normalizedName,
+  },
+  emailRedirectTo:
+  `${window.location.origin}/auth/callback`,
+},
       });
 
       if (error) {

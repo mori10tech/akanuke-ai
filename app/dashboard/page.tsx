@@ -2,6 +2,7 @@ import Link from "next/link";
 import AppShell from "../components/AppShell";
 import AppLogo from "../components/AppLogo";
 import LogoutButton from "../components/LogoutButton";
+import InstallAppCard from "../components/InstallAppCard";
 import { isAkanukeAnalysis } from "../../lib/diagnoses/types";
 import { createClient } from "../../lib/supabase/server";
 
@@ -146,14 +147,14 @@ export default async function DashboardPage() {
               MY AKANUKE
             </p>
 
-            <h1 className="mt-2 text-[24px] font-black tracking-[-0.04em] text-[#111111]">
-              おはようございます
+            <h1 className="mt-2 text-[20px] font-black tracking-[-0.04em] text-[#111111]">
+              自分の魅力を、最大限に。
             </h1>
 
             <p className="mt-3 text-[12px] leading-5 text-black/55">
-              今日も自分のペースで、
+              診断結果をもとに、
               <br />
-              理想の第一印象に近づきましょう。
+              できることから一つずつ進めていきましょう。
             </p>
 
             <Link
@@ -404,7 +405,11 @@ export default async function DashboardPage() {
             </div>
           </section>
 
-          <LogoutButton />
+          <div className="mt-7">
+  <InstallAppCard />
+</div>
+
+<LogoutButton />
         </div>
       </div>
     </AppShell>

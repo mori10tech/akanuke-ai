@@ -7,6 +7,7 @@ import {
   type ReactNode,
 } from "react";
 import Logo from "./components/Logo";
+import { getAllArticles } from "../data/articles";
 
 type IconName =
   | "clock"
@@ -287,6 +288,9 @@ function FaqItem({
 export default function Home() {
   const [openFaqIndex, setOpenFaqIndex] =
     useState<number | null>(null);
+
+    const featuredArticles =
+  getAllArticles().slice(0, 3);
 
   const toggleFaq = (index: number) => {
     setOpenFaqIndex((current) =>
@@ -662,6 +666,84 @@ export default function Home() {
   </div>
 </section>
 
+<section className="border-t border-black/10 bg-[#F7F9FC] px-4 py-14 sm:py-18">
+  <div className="site-container">
+    <div className="flex items-end justify-between gap-4">
+      <div>
+        <p className="text-[10px] font-black tracking-[0.18em] text-[#1677FF]">
+          AKANUKE JOURNAL
+        </p>
+
+        <h2 className="mt-2 text-2xl font-semibold tracking-[-0.04em] sm:text-3xl">
+          垢抜けのヒント
+        </h2>
+
+        <p className="mt-3 max-w-[560px] text-[13px] leading-6 text-black/55">
+          髪型・眉毛・スキンケアなど、
+          今日から実践できるメンズ美容情報を紹介します。
+        </p>
+      </div>
+    </div>
+
+    <div
+      className={`mt-8 grid gap-5 ${
+        featuredArticles.length > 1
+          ? "md:grid-cols-2 lg:grid-cols-3"
+          : "max-w-[520px]"
+      }`}
+    >
+      {featuredArticles.map((article) => (
+        <Link
+          key={article.slug}
+          href={`/articles/${article.slug}`}
+          className="group overflow-hidden rounded-[24px] border border-black/10 bg-white shadow-[0_10px_34px_rgba(15,23,42,0.05)] transition hover:-translate-y-1 hover:shadow-[0_18px_46px_rgba(15,23,42,0.09)]"
+        >
+          <div className="relative aspect-[1200/630] overflow-hidden bg-[#EEF6FF]">
+            <Image
+              src={article.image}
+              alt={article.title}
+              fill
+              sizes="(max-width: 767px) 100vw, 380px"
+              className="object-cover transition duration-500 group-hover:scale-[1.02]"
+            />
+          </div>
+
+          <div className="p-5">
+            <div className="flex items-center gap-2 text-[10px] font-bold text-black/35">
+              <span>{article.category}</span>
+              <span aria-hidden="true">•</span>
+              <span>{article.readingTime}</span>
+            </div>
+
+            <h3 className="mt-3 text-[18px] font-semibold leading-7 tracking-[-0.03em] text-[#111111]">
+              {article.title}
+            </h3>
+
+            <p className="mt-3 line-clamp-2 text-[12px] leading-6 text-black/55">
+              {article.description}
+            </p>
+
+            <div className="mt-5 flex min-h-[46px] items-center justify-between rounded-[12px] bg-[#EEF6FF] px-4 text-[12px] font-black text-[#1677FF] transition group-hover:bg-white">
+              <span>記事を読む</span>
+              <span aria-hidden="true">→</span>
+            </div>
+          </div>
+        </Link>
+      ))}
+    </div>
+
+    <Link
+      href="/articles"
+      className="mt-6 flex min-h-[50px] w-full items-center justify-center rounded-[12px] border border-[#1677FF]/15 bg-white px-5 text-[13px] font-black text-[#1677FF] transition hover:bg-[#EEF6FF] sm:max-w-[320px]"
+    >
+      垢抜け記事をもっと見る
+      <span className="ml-3" aria-hidden="true">
+        →
+      </span>
+    </Link>
+  </div>
+</section>
+
       <section className="px-4 pb-5 pt-4">
         <div className="site-container overflow-hidden rounded-[28px] bg-gradient-to-r from-[#EEF6FF] via-white to-[#EEF6FF] px-6 py-8 sm:px-10">
           <div className="grid items-center gap-6 lg:grid-cols-[1fr_auto_0.55fr]">
@@ -710,6 +792,11 @@ export default function Home() {
           </div>
 
           <div className="flex flex-wrap justify-center gap-x-7 gap-y-3 text-xs font-medium text-black/60">
+  
+  <Link href="/articles">
+  垢抜け記事
+</Link>
+
   <Link href="/terms">
     利用規約
   </Link>

@@ -341,9 +341,6 @@ export default function ResultPage() {
   const [loadError, setLoadError] =
     useState("");
 
-  const [backHref, setBackHref] =
-    useState("/upload");
-
   const [isHistoryView, setIsHistoryView] =
     useState(false);
 
@@ -373,7 +370,6 @@ export default function ResultPage() {
     }
 
     if (savedBackHref === "/history") {
-      setBackHref("/history");
       setIsHistoryView(true);
     }
 

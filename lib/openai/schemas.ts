@@ -1,8 +1,15 @@
+import {
+  productNeeds,
+  type ProductNeed,
+} from "../../data/productNeeds";
+
 export type AkanukeAnalysis = {
   progress: number;
 
   currentImpression: string;
   targetImpression: string;
+
+  productNeeds: ProductNeed[];
 
   summary: {
     headline: string;
@@ -75,8 +82,19 @@ export const akanukeAnalysisJsonSchema = {
       type: "string",
     },
 
-    targetImpression: {
+        targetImpression: {
       type: "string",
+    },
+
+    productNeeds: {
+      type: "array",
+      minItems: 1,
+      maxItems: 5,
+
+      items: {
+        type: "string",
+        enum: productNeeds,
+      },
     },
 
     summary: {
@@ -277,10 +295,11 @@ export const akanukeAnalysisJsonSchema = {
     },
   },
 
-  required: [
+    required: [
     "progress",
     "currentImpression",
     "targetImpression",
+    "productNeeds",
     "summary",
     "afterSummary",
     "hair",

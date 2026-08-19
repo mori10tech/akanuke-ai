@@ -1,6 +1,10 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import {
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import Link from "next/link";
 import AppHeader from "../components/AppHeader";
 import AppShell from "../components/AppShell";
@@ -13,8 +17,73 @@ import {
   type ProductVisualType,
 } from "../../data/products";
 
+import {
+  productNeedLabels,
+  productNeeds,
+  type ProductNeed,
+} from "../../data/productNeeds";
+
 function formatPrice(price: number) {
   return new Intl.NumberFormat("ja-JP").format(price);
+}
+
+const RESULT_STORAGE_KEY =
+  "akanukeAnalysisResult";
+
+function isProductNeed(
+  value: unknown,
+): value is ProductNeed {
+  return (
+    typeof value === "string" &&
+    (
+      productNeeds as readonly string[]
+    ).includes(value)
+  );
+}
+
+function getProductScore(
+  product: Product,
+  diagnosisNeeds: ProductNeed[],
+) {
+  return (product.needTags ?? []).reduce(
+    (totalScore, tag) => {
+      const needIndex =
+        diagnosisNeeds.indexOf(tag);
+
+      if (needIndex === -1) {
+        return totalScore;
+      }
+
+      return (
+        totalScore +
+        diagnosisNeeds.length -
+        needIndex
+      );
+    },
+    0,
+  );
+}
+
+function getCategoryScore(
+  category: ProductCategory,
+  diagnosisNeeds: ProductNeed[],
+) {
+  return activeProducts
+    .filter(
+      (product) =>
+        product.category === category,
+    )
+    .reduce(
+      (highestScore, product) =>
+        Math.max(
+          highestScore,
+          getProductScore(
+            product,
+            diagnosisNeeds,
+          ),
+        ),
+      0,
+    );
 }
 
 function ExternalLinkIcon() {
@@ -221,9 +290,28 @@ function AffiliateButtons({
 
 function ProductCard({
   product,
+  diagnosisNeeds,
 }: {
   product: Product;
+  diagnosisNeeds: ProductNeed[];
 }) {
+  const matchedReasons =
+    diagnosisNeeds
+      .filter((need) =>
+        (
+          product.needTags ?? []
+        ).includes(need),
+      )
+      .map(
+        (need) =>
+          productNeedLabels[need],
+      );
+
+  const displayedReasons =
+    matchedReasons.length > 0
+      ? matchedReasons
+      : product.recommendedFor;
+
   return (
     <article className="overflow-hidden rounded-[20px] border border-black/10 bg-white shadow-[0_10px_34px_rgba(15,23,42,0.05)]">
       <div className="grid grid-cols-[112px_1fr] border-b border-black/10">
@@ -307,7 +395,7 @@ function ProductCard({
           </div>
 
           <div className="mt-3 flex flex-wrap gap-1.5">
-            {product.recommendedFor.map(
+                        {displayedReasons.map(
               (item) => (
                 <span
                   key={item}
@@ -328,17 +416,116 @@ function ProductCard({
 }
 
 export default function ProductsPage() {
-  const availableCategories = categories;
+  const [
+    diagnosisNeeds,
+    setDiagnosisNeeds,
+  ] = useState<ProductNeed[]>([]);
 
-  const [selectedCategory, setSelectedCategory] =
-    useState<ProductCategory>(
-      availableCategories[0]?.id ?? "skincare",
-    );
+  const [
+    selectedCategory,
+    setSelectedCategory,
+  ] = useState<ProductCategory>(
+    categories[0]?.id ?? "skincare",
+  );
+
+  useEffect(() => {
+    const timeoutId =
+      window.setTimeout(() => {
+        const rawResult =
+          window.sessionStorage.getItem(
+            RESULT_STORAGE_KEY,
+          );
+
+        if (!rawResult) {
+          return;
+        }
+
+        try {
+          const parsed = JSON.parse(
+            rawResult,
+          ) as {
+            productNeeds?: unknown;
+          };
+
+          if (
+            !Array.isArray(
+              parsed.productNeeds,
+            )
+          ) {
+            return;
+          }
+
+          const validNeeds =
+            parsed.productNeeds.filter(
+              isProductNeed,
+            );
+
+          if (
+            validNeeds.length === 0
+          ) {
+            return;
+          }
+
+          setDiagnosisNeeds(
+            validNeeds,
+          );
+
+          const recommendedCategory =
+            [...categories].sort(
+              (a, b) =>
+                getCategoryScore(
+                  b.id,
+                  validNeeds,
+                ) -
+                getCategoryScore(
+                  a.id,
+                  validNeeds,
+                ),
+            )[0];
+
+          if (
+            recommendedCategory
+          ) {
+            setSelectedCategory(
+              recommendedCategory.id,
+            );
+          }
+        } catch (error) {
+          console.warn(
+            "[AKANUKE.AI] 商品レコメンド用の診断結果を読み込めませんでした:",
+            error,
+          );
+        }
+      }, 0);
+
+    return () => {
+      window.clearTimeout(
+        timeoutId,
+      );
+    };
+  }, []);
+
+  const availableCategories = useMemo(
+    () =>
+      [...categories].sort(
+        (a, b) =>
+          getCategoryScore(
+            b.id,
+            diagnosisNeeds,
+          ) -
+          getCategoryScore(
+            a.id,
+            diagnosisNeeds,
+          ),
+      ),
+    [diagnosisNeeds],
+  );
 
   const selectedCategoryData =
     availableCategories.find(
       (category) =>
-        category.id === selectedCategory,
+        category.id ===
+        selectedCategory,
     ) ?? availableCategories[0];
 
   const selectedProducts = useMemo(
@@ -346,10 +533,30 @@ export default function ProductsPage() {
       activeProducts
         .filter(
           (product) =>
-            product.category === selectedCategory,
+            product.category ===
+            selectedCategory,
         )
-        .sort((a, b) => a.rank - b.rank),
-    [selectedCategory],
+        .sort((a, b) => {
+          const scoreDifference =
+            getProductScore(
+              b,
+              diagnosisNeeds,
+            ) -
+            getProductScore(
+              a,
+              diagnosisNeeds,
+            );
+
+          if (scoreDifference !== 0) {
+            return scoreDifference;
+          }
+
+          return a.rank - b.rank;
+        }),
+    [
+      selectedCategory,
+      diagnosisNeeds,
+    ],
   );
 
   if (!selectedCategoryData) {
@@ -469,9 +676,12 @@ export default function ProductsPage() {
               <div className="mt-5 grid gap-4">
                 {selectedProducts.map(
                   (product) => (
-                    <ProductCard
+                                        <ProductCard
                       key={product.id}
                       product={product}
+                      diagnosisNeeds={
+                        diagnosisNeeds
+                      }
                     />
                   ),
                 )}

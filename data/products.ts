@@ -1,3 +1,7 @@
+import type {
+  ProductNeed,
+} from "./productNeeds";
+
 export type ProductCategory =
   | "skincare"
   | "sunscreen"
@@ -33,8 +37,9 @@ export type Product = {
 
   visualType: ProductVisualType;
 
-  badges: string[];
+    badges: string[];
   recommendedFor: string[];
+  needTags: ProductNeed[];
 
   amazon: {
     url: string;
@@ -76,6 +81,7 @@ export const products: Product[] = [
 
     badges: ["洗顔", "毛穴ケア"],
     recommendedFor: ["皮脂", "毛穴", "洗顔"],
+    needTags: ["poreCare", "oilControl"],
 
     amazon: {
       url: "https://amzn.to/4hjHtNB",
@@ -103,6 +109,7 @@ export const products: Product[] = [
 
     badges: ["化粧水", "毎日ケア"],
     recommendedFor: ["保湿", "肌ケア", "化粧水"],
+    needTags: ["moisturizing"],
 
     amazon: {
       url: "https://amzn.to/45en6tT",
@@ -130,6 +137,7 @@ export const products: Product[] = [
 
     badges: ["乳液", "保湿"],
     recommendedFor: ["乾燥", "保湿", "肌ケア"],
+    needTags: ["moisturizing"],
 
     amazon: {
       url: "https://amzn.to/4q4FTBs",
@@ -157,6 +165,7 @@ export const products: Product[] = [
 
     badges: ["クレンジング", "メイクオフ"],
     recommendedFor: ["BBクリーム", "メイクオフ", "洗浄"],
+    needTags: ["makeupRemoval"],
 
     amazon: {
       url: "https://amzn.to/4hpBzKV",
@@ -188,6 +197,7 @@ export const products: Product[] = [
 
     badges: ["UVケア", "屋外"],
     recommendedFor: ["紫外線対策", "屋外", "毎日ケア"],
+    needTags: ["uvProtection"],
 
     amazon: {
       url: "https://amzn.to/45HA8Ae",
@@ -215,6 +225,7 @@ export const products: Product[] = [
 
     badges: ["UVケア", "毎日ケア"],
     recommendedFor: ["紫外線対策", "肌ケア", "日常使い"],
+    needTags: ["uvProtection"],
 
     amazon: {
       url: "https://amzn.to/45HAabk",
@@ -242,7 +253,7 @@ export const products: Product[] = [
 
     badges: ["UVケア", "日常使い"],
     recommendedFor: ["紫外線対策", "毎日ケア", "肌"],
-
+    needTags: ["uvProtection"],
     amazon: {
       url: "https://amzn.to/4whE6u5",
     },
@@ -273,7 +284,7 @@ export const products: Product[] = [
 
     badges: ["ジェル", "セット力"],
     recommendedFor: ["キープ力", "毛流れ", "スタイリング"],
-
+    needTags: ["hairHold", "hairFlow"],
     amazon: {
       url: "https://amzn.to/4whEfxD",
     },
@@ -300,6 +311,11 @@ export const products: Product[] = [
 
     badges: ["ツヤ感", "スタイリング"],
     recommendedFor: ["ツヤ", "毛流れ", "髪型"],
+    needTags: [
+      "hairShine",
+      "hairFlow",
+      "hairManageability",
+    ],
 
     amazon: {
       url: "https://amzn.to/3TYzkEs",
@@ -327,6 +343,11 @@ export const products: Product[] = [
 
     badges: ["ワックス", "ツヤ感"],
     recommendedFor: ["毛流れ", "ツヤ", "スタイリング"],
+    needTags: [
+      "hairFlow",
+      "hairShine",
+      "hairHold",
+    ],
 
     amazon: {
       url: "https://amzn.to/4wMT6BB",
@@ -358,6 +379,10 @@ export const products: Product[] = [
 
     badges: ["シャンプー", "ダメージケア"],
     recommendedFor: ["乾燥", "ダメージ", "ヘアケア"],
+    needTags: [
+      "hairRepair",
+      "hairManageability",
+    ],
 
     amazon: {
       url: "https://amzn.to/4qlVFrX",
@@ -385,6 +410,10 @@ export const products: Product[] = [
 
     badges: ["シャンプー", "まとまり"],
     recommendedFor: ["まとまり", "髪質", "ヘアケア"],
+    needTags: [
+      "hairManageability",
+      "hairRepair",
+    ],
 
     amazon: {
       url: "https://amzn.to/4w8FdfT",
@@ -412,6 +441,10 @@ export const products: Product[] = [
 
     badges: ["シャンプー", "毎日ケア"],
     recommendedFor: ["髪質", "まとまり", "ヘアケア"],
+    needTags: [
+      "hairManageability",
+      "hairRepair",
+    ],
 
     amazon: {
       url: "https://amzn.to/3TyjoJ4",
@@ -443,6 +476,10 @@ export const products: Product[] = [
 
     badges: ["BBクリーム", "男性向け"],
     recommendedFor: ["肌補正", "清潔感", "第一印象"],
+    needTags: [
+      "skinToneCorrection",
+      "beardShadowCover",
+    ],
 
     amazon: {
       url: "https://amzn.to/4z1F4NV",
@@ -470,6 +507,10 @@ export const products: Product[] = [
 
     badges: ["化粧下地", "UVケア"],
     recommendedFor: ["肌補正", "UV対策", "肌印象"],
+    needTags: [
+      "skinToneCorrection",
+      "uvProtection",
+    ],
 
     amazon: {
       url: "https://amzn.to/4fIiNx1",
@@ -497,6 +538,10 @@ export const products: Product[] = [
 
     badges: ["BBクリーム", "男性向け"],
     recommendedFor: ["肌補正", "ニキビ跡", "清潔感"],
+    needTags: [
+      "beardShadowCover",
+      "skinToneCorrection",
+    ],
 
     amazon: {
       url: "https://amzn.to/3UiotoV",
@@ -528,6 +573,7 @@ export const products: Product[] = [
 
     badges: ["フレグランス", "香り"],
     recommendedFor: ["香り", "清潔感", "印象"],
+    needTags: [],
 
     amazon: {
       url: "https://amzn.to/4hkDTCS",
@@ -555,6 +601,7 @@ export const products: Product[] = [
 
     badges: ["オーラルケア", "口元"],
     recommendedFor: ["歯", "口元", "清潔感"],
+    needTags: [],
 
     amazon: {
       url: "https://amzn.to/45dcfQR",
@@ -582,7 +629,8 @@ export const products: Product[] = [
 
     badges: ["ハンドケア", "保湿"],
     recommendedFor: ["手元", "乾燥", "清潔感"],
-
+    needTags: [],
+    
     amazon: {
       url: "https://amzn.to/45dauTK",
     },

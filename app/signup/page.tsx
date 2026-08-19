@@ -183,9 +183,10 @@ export default function SignupPage() {
     <main className="min-h-screen bg-white text-[#111111]">
       <div className="mx-auto min-h-screen w-full max-w-[480px] border-x border-black/5 bg-white">
         <AppHeader
-          backHref="/"
-          backLabel="トップページへ戻る"
-        />
+  backHref="/login"
+  backLabel="ログインへ戻る"
+  backMode="history"
+/>
 
         <div className="px-5 pb-12 pt-8">
           <div>

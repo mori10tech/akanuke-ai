@@ -362,11 +362,7 @@ function ProductCard({
               <p className="shrink-0 text-[17px] font-black">
                 ¥{formatPrice(product.price)}
               </p>
-            ) : (
-              <p className="shrink-0 text-[9px] font-black text-[#1677FF]">
-                価格を確認
-              </p>
-            )}
+            ) : null}
           </div>
         </div>
       </div>

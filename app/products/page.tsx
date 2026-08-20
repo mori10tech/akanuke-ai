@@ -6,6 +6,7 @@ import {
   useState,
 } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import AppHeader from "../components/AppHeader";
 import AppShell from "../components/AppShell";
 import AdSenseAd from "../components/AdSenseAd";
@@ -291,9 +292,11 @@ function AffiliateButtons({
 function ProductCard({
   product,
   diagnosisNeeds,
+  featured = false,
 }: {
   product: Product;
   diagnosisNeeds: ProductNeed[];
+  featured?: boolean;
 }) {
   const matchedReasons =
     diagnosisNeeds
@@ -313,16 +316,46 @@ function ProductCard({
       : product.recommendedFor;
 
   return (
-    <article className="overflow-hidden rounded-[20px] border border-black/10 bg-white shadow-[0_10px_34px_rgba(15,23,42,0.05)]">
-      <div className="grid grid-cols-[112px_1fr] border-b border-black/10">
-        <div className="relative flex min-h-[166px] items-center justify-center bg-gradient-to-b from-white to-[#F7F9FC]">
-          <span className="absolute left-3 top-3 flex h-7 w-7 items-center justify-center rounded-full bg-[#EEF6FF] text-[10px] font-black text-[#1677FF]">
-            {product.rank}
-          </span>
+    <article
+  className={`overflow-hidden rounded-[20px] bg-white shadow-[0_10px_34px_rgba(15,23,42,0.05)] ${
+    featured
+      ? "border-2 border-[#1677FF]/20"
+      : "border border-black/10"
+  }`}
+>
+  {featured ? (
+    <div className="bg-[#1677FF] px-4 py-2">
+      <p className="text-[9px] font-black tracking-[0.12em] text-white">
+        AI PICK
+      </p>
+    </div>
+  ) : null}
 
-          <ProductVisual
-            type={product.visualType}
-          />
+  <div
+    className={`grid border-b border-black/10 ${
+      featured
+        ? "grid-cols-[140px_1fr]"
+        : "grid-cols-[112px_1fr]"
+    }`}
+  >
+        <div className="relative flex min-h-[166px] items-center justify-center bg-gradient-to-b from-white to-[#F7F9FC]">
+          
+          {product.imagePath ? (
+  <Image
+    src={product.imagePath}
+    alt={
+      product.imageAlt ??
+      `${product.brand} ${product.name}`
+    }
+    width={240}
+    height={240}
+    className="h-auto max-h-[150px] w-auto max-w-[90%] object-contain"
+  />
+) : (
+  <ProductVisual
+    type={product.visualType}
+  />
+)}
         </div>
 
         <div className="flex min-w-0 flex-col justify-center p-4">
@@ -423,6 +456,11 @@ export default function ProductsPage() {
   ] = useState<ProductCategory>(
     categories[0]?.id ?? "skincare",
   );
+
+    const [
+    showAllProducts,
+    setShowAllProducts,
+  ] = useState(false);
 
   useEffect(() => {
   const timeoutId =
@@ -583,6 +621,11 @@ export default function ProductsPage() {
     ],
   );
 
+    const displayedProducts =
+    showAllProducts
+      ? selectedProducts
+      : selectedProducts.slice(0, 3);
+
   if (!selectedCategoryData) {
     return (
       <AppShell background="white">
@@ -634,11 +677,12 @@ export default function ProductsPage() {
                     <button
                       key={category.id}
                       type="button"
-                      onClick={() =>
-                        setSelectedCategory(
-                          category.id,
-                        )
-                      }
+                      onClick={() => {
+  setSelectedCategory(
+    category.id,
+  );
+  setShowAllProducts(false);
+}}
                       className={`min-h-[42px] shrink-0 rounded-full border px-4 text-[10px] font-black transition active:scale-[0.98] ${
                         isActive
                           ? "border-[#1677FF] bg-[#1677FF] text-white shadow-[0_8px_24px_rgba(22,119,255,0.16)]"
@@ -698,18 +742,35 @@ export default function ProductsPage() {
               </div>
 
               <div className="mt-5 grid gap-4">
-                {selectedProducts.map(
-                  (product) => (
-                                        <ProductCard
-                      key={product.id}
-                      product={product}
-                      diagnosisNeeds={
-                        diagnosisNeeds
-                      }
-                    />
-                  ),
-                )}
-              </div>
+  {displayedProducts.map(
+  (product, index) => (
+    <ProductCard
+      key={product.id}
+      product={product}
+      diagnosisNeeds={
+        diagnosisNeeds
+      }
+      featured={index === 0}
+    />
+  ),
+)}
+</div>
+
+{selectedProducts.length > 3 ? (
+  <button
+    type="button"
+    onClick={() =>
+      setShowAllProducts(
+        (current) => !current,
+      )
+    }
+    className="mt-4 flex min-h-[48px] w-full items-center justify-center rounded-[12px] border border-[#1677FF]/15 bg-white px-5 text-[11px] font-black text-[#1677FF] transition hover:bg-[#EEF6FF] active:scale-[0.99]"
+  >
+    {showAllProducts
+      ? "候補商品を閉じる"
+      : `他の候補商品を見る（${selectedProducts.length - 3}件）`}
+  </button>
+) : null}
             </section>
 
             <AdSenseAd

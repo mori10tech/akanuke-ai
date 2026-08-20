@@ -37,6 +37,9 @@ export type Product = {
 
   visualType: ProductVisualType;
 
+  imagePath?: string;
+  imageAlt?: string;
+
   badges: string[];
   recommendedFor: string[];
   needTags: ProductNeed[];

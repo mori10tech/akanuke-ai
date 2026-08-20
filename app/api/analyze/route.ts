@@ -166,8 +166,43 @@ export async function POST(
       nextPeriodStart,
     } = getMonthlyPeriodJst();
 
-    const adminClient =
+        const adminClient =
       createAdminClient();
+
+    /*
+     * 診断上限の対象外として登録された
+     * テストアカウントか確認します。
+     */
+    const {
+      data: exemption,
+      error: exemptionError,
+    } = await adminClient
+      .from(
+        "diagnosis_limit_exemptions",
+      )
+      .select("user_id")
+      .eq("user_id", user.id)
+      .maybeSingle();
+
+    if (exemptionError) {
+      console.error(
+        "[AKANUKE.AI] 診断上限除外確認エラー",
+        exemptionError,
+      );
+
+      return NextResponse.json(
+        {
+          error:
+            "診断上限の設定を確認できませんでした。時間をおいて再度お試しください。",
+        },
+        {
+          status: 500,
+        },
+      );
+    }
+
+    const isExempt =
+      Boolean(exemption);
 
     const {
       count: diagnosisCount,
@@ -208,9 +243,10 @@ export async function POST(
     const usedCount =
       diagnosisCount ?? 0;
 
-    if (
+        if (
+      !isExempt &&
       usedCount >=
-      MONTHLY_DIAGNOSIS_LIMIT
+        MONTHLY_DIAGNOSIS_LIMIT
     ) {
       return NextResponse.json(
         {
@@ -220,6 +256,7 @@ export async function POST(
             "DIAGNOSIS_LIMIT_REACHED",
           limit:
             MONTHLY_DIAGNOSIS_LIMIT,
+                    exempt: isExempt,
           used: usedCount,
           remaining: 0,
           resetsAt:

@@ -1,100 +1,78 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { FormEvent, useState } from "react";
+import { useState } from "react";
 import AppHeader from "../components/AppHeader";
 import { createClient } from "../../lib/supabase/client";
 
-function MailIcon() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      aria-hidden="true"
-      className="h-5 w-5"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <rect x="3" y="5" width="18" height="14" rx="2" />
-      <path d="m4 7 8 6 8-6" />
-    </svg>
-  );
-}
-
-function LockIcon() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      aria-hidden="true"
-      className="h-5 w-5"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <rect x="5" y="10" width="14" height="10" rx="2" />
-      <path d="M8 10V7a4 4 0 0 1 8 0v3" />
-    </svg>
-  );
-}
-
 export default function LoginPage() {
-  const router = useRouter();
+  const [isLineLoading, setIsLineLoading] =
+    useState(false);
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] =
+    useState("");
 
-  async function handleLogin(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  async function handleLineLogin() {
 
-    if (isLoading) {
+  if (isLineLoading) {
       return;
     }
 
     setErrorMessage("");
-
-    const normalizedEmail = email.trim().toLowerCase();
-
-    if (!normalizedEmail || !password) {
-      setErrorMessage(
-        "メールアドレスとパスワードを入力してください。",
-      );
-      return;
-    }
-
-    setIsLoading(true);
+    setIsLineLoading(true);
 
     try {
       const supabase = createClient();
 
-      const { error } = await supabase.auth.signInWithPassword({
-        email: normalizedEmail,
-        password,
-      });
+const searchParams =
+  new URLSearchParams(
+    window.location.search,
+  );
+
+const requestedNext =
+  searchParams.get("next");
+
+const safeNext =
+  requestedNext?.startsWith("/") &&
+  !requestedNext.startsWith("//")
+    ? requestedNext
+    : "/dashboard";
+
+const { data, error } =
+        await supabase.auth.signInWithOAuth({
+          provider: "custom:line",
+          options: {
+            redirectTo:
+  `${window.location.origin}/auth/callback?next=${encodeURIComponent(safeNext)}`,
+            queryParams: {
+              bot_prompt: "aggressive",
+            },
+            skipBrowserRedirect: true,
+          },
+        });
 
       if (error) {
-        setErrorMessage(
-          "メールアドレスまたはパスワードが正しくありません。",
-        );
-        return;
+        throw error;
       }
 
-      router.replace("/dashboard");
-      router.refresh();
+      if (!data.url) {
+        throw new Error(
+          "LINE authorization URL was not returned",
+        );
+      }
+
+      window.location.assign(data.url);
     } catch (error) {
-      console.error("Login error:", error);
+      console.error(
+        "LINE login error:",
+        error,
+      );
 
       setErrorMessage(
-        "ログイン処理中にエラーが発生しました。時間をおいてもう一度お試しください。",
+        "LINEログインを開始できませんでした。時間をおいてもう一度お試しください。",
       );
-    } finally {
-      setIsLoading(false);
+
+      setIsLineLoading(false);
     }
   }
 
@@ -102,10 +80,10 @@ export default function LoginPage() {
     <main className="min-h-screen bg-white text-[#111111]">
       <div className="mx-auto min-h-screen w-full max-w-[480px] border-x border-black/5 bg-white">
         <AppHeader
-  backHref="/"
-  backLabel="前のページへ戻る"
-  backMode="history"
-/>
+          backHref="/"
+          backLabel="トップページへ戻る"
+          backMode="history"
+        />
 
         <div className="px-5 pb-12 pt-10">
           <div className="text-center">
@@ -114,84 +92,31 @@ export default function LoginPage() {
             </span>
 
             <p className="mt-6 text-[11px] font-black tracking-[0.16em] text-[#1677FF]">
-              WELCOME BACK
+              WELCOME TO AKANUKE.AI
             </p>
 
-            <h1 className="mt-3 text-[30px] font-black tracking-[-0.04em]">
-              ログイン
+            <h1 className="mt-3 text-[28px] font-black tracking-[-0.04em]">
+              LINEで登録・ログイン
             </h1>
 
             <p className="mt-3 text-[13px] leading-6 text-black/55">
-              保存した診断結果と、
+              AKANUKE.AIのご利用には、
               <br />
-              あなた専用の垢抜けプランを確認できます。
+              LINE登録が必要です。
             </p>
           </div>
 
-          <form
-            onSubmit={handleLogin}
-            className="mt-8 rounded-[22px] border border-black/10 bg-white p-5 shadow-[0_10px_34px_rgba(15,23,42,0.05)]"
-          >
-            <div>
-              <label
-                htmlFor="login-email"
-                className="text-[12px] font-black text-black/55"
-              >
-                メールアドレス
-              </label>
+          <div className="mt-8 rounded-[22px] border border-black/10 bg-white p-5 shadow-[0_10px_34px_rgba(15,23,42,0.05)]">
+            <div className="rounded-[16px] bg-[#F7F9FC] px-4 py-4">
+              <p className="text-[12px] font-black text-[#111111]">
+                LINE登録でできること
+              </p>
 
-              <div className="mt-2 flex min-h-[54px] items-center gap-3 rounded-[14px] border border-black/10 bg-[#F7F9FC] px-4 transition focus-within:border-[#1677FF]/30 focus-within:bg-white">
-                <span className="text-black/35">
-                  <MailIcon />
-                </span>
-
-                <input
-                  id="login-email"
-                  type="email"
-                  autoComplete="email"
-                  inputMode="email"
-                  required
-                  value={email}
-                  onChange={(event) => setEmail(event.target.value)}
-                  placeholder="example@akanuke.ai"
-                  className="min-w-0 flex-1 bg-transparent text-[14px] text-[#111111] outline-none placeholder:text-black/20"
-                />
-              </div>
-            </div>
-
-            <div className="mt-5">
-              <div className="flex items-center justify-between gap-3">
-                <label
-                  htmlFor="login-password"
-                  className="text-[12px] font-black text-black/55"
-                >
-                  パスワード
-                </label>
-
-                <Link
-  href="/forgot-password"
-  className="text-[10px] font-black text-[#1677FF]"
->
-  パスワードを忘れた方
-</Link>
-              </div>
-
-              <div className="mt-2 flex min-h-[54px] items-center gap-3 rounded-[14px] border border-black/10 bg-[#F7F9FC] px-4 transition focus-within:border-[#1677FF]/30 focus-within:bg-white">
-                <span className="text-black/35">
-                  <LockIcon />
-                </span>
-
-                <input
-                  id="login-password"
-                  type="password"
-                  autoComplete="current-password"
-                  required
-                  value={password}
-                  onChange={(event) => setPassword(event.target.value)}
-                  placeholder="パスワードを入力"
-                  className="min-w-0 flex-1 bg-transparent text-[14px] text-[#111111] outline-none placeholder:text-black/20"
-                />
-              </div>
+              <ul className="mt-3 space-y-2 text-[11px] font-bold leading-5 text-black/55">
+                <li>・診断結果をいつでも確認</li>
+                <li>・あなた専用の垢抜けプランを保存</li>
+                <li>・おすすめ商品をすぐに確認</li>
+              </ul>
             </div>
 
             {errorMessage && (
@@ -206,43 +131,43 @@ export default function LoginPage() {
             )}
 
             <button
-              type="submit"
-              disabled={isLoading}
-              className="mt-6 flex min-h-[54px] w-full items-center justify-center rounded-[12px] bg-[#111111] px-5 text-[14px] font-black text-white shadow-[0_10px_34px_rgba(15,23,42,0.05)] transition hover:-translate-y-0.5 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0"
+              type="button"
+              onClick={handleLineLogin}
+              disabled={isLineLoading}
+              className="mt-5 flex min-h-[56px] w-full items-center justify-center gap-3 rounded-[12px] bg-[#06C755] px-5 text-[14px] font-black text-white shadow-[0_10px_34px_rgba(15,23,42,0.08)] transition hover:-translate-y-0.5 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0"
             >
-              {isLoading ? "ログイン中..." : "ログイン"}
+              <span
+                aria-hidden="true"
+                className="flex h-7 min-w-7 items-center justify-center rounded-full bg-white px-1 text-[8px] font-black text-[#06C755]"
+              >
+                LINE
+              </span>
 
-              {!isLoading && (
-                <span className="ml-2" aria-hidden="true">
-                  →
-                </span>
-              )}
+              {isLineLoading
+                ? "LINEへ移動中..."
+                : "LINEで登録・ログイン"}
             </button>
-          </form>
 
-          <div className="mt-8 flex items-center gap-4">
-            <span className="h-px flex-1 bg-black/10" />
-
-            <span className="text-[10px] font-bold text-black/35">
-              初めてご利用の方
-            </span>
-
-            <span className="h-px flex-1 bg-black/10" />
+            <p className="mt-4 text-center text-[10px] leading-5 text-black/40">
+              続行すると、
+              <Link
+                href="/terms"
+                className="font-bold text-[#1677FF]"
+              >
+                利用規約
+              </Link>
+              と
+              <a
+                href="https://www.leafworks.jp/doc/privacy.pdf"
+                target="_blank"
+                rel="noreferrer"
+                className="font-bold text-[#1677FF]"
+              >
+                プライバシーポリシー
+              </a>
+              に同意したものとみなされます。
+            </p>
           </div>
-
-          <Link
-            href="/signup"
-            className="mt-6 flex min-h-[52px] w-full items-center justify-center rounded-[12px] border border-[#1677FF]/15 bg-white px-5 text-[13px] font-black text-[#1677FF] transition hover:bg-[#EEF6FF] active:scale-[0.99]"
-          >
-            無料アカウントを作成
-          </Link>
-
-          <Link
-            href="/upload"
-            className="mt-5 block text-center text-[11px] font-bold text-black/50"
-          >
-            登録せずに診断を試す
-          </Link>
         </div>
       </div>
     </main>

@@ -98,18 +98,52 @@ function isBasicAuthValid(
   }
 }
 
-function requiresLogin(
+const protectedPagePaths = [
+  "/app",
+  "/dashboard",
+  "/upload",
+  "/preview",
+  "/analyzing",
+  "/result",
+  "/plan",
+  "/products",
+  "/history",
+  "/preferences",
+  "/salon",
+];
+
+const protectedApiPaths = [
+  "/api/analyze",
+  "/api/generate-after",
+  "/api/openai-test",
+];
+
+function matchesProtectedPath(
+  pathname: string,
+  paths: string[],
+) {
+  return paths.some(
+    (path) =>
+      pathname === path ||
+      pathname.startsWith(`${path}/`),
+  );
+}
+
+function requiresPageLogin(
   pathname: string,
 ) {
-  return (
-    pathname === "/dashboard" ||
-    pathname.startsWith(
-      "/dashboard/",
-    ) ||
-    pathname === "/history" ||
-    pathname.startsWith(
-      "/history/",
-    )
+  return matchesProtectedPath(
+    pathname,
+    protectedPagePaths,
+  );
+}
+
+function requiresApiLogin(
+  pathname: string,
+) {
+  return matchesProtectedPath(
+    pathname,
+    protectedApiPaths,
   );
 }
 
@@ -204,19 +238,37 @@ export async function proxy(
    *    Dashboardを保護
    */
   if (
-    requiresLogin(pathname) &&
-    !isAuthenticated
-  ) {
-    const loginUrl =
-      request.nextUrl.clone();
+  requiresApiLogin(pathname) &&
+  !isAuthenticated
+) {
+  return NextResponse.json(
+    {
+      error: "Unauthorized",
+    },
+    {
+      status: 401,
+    },
+  );
+}
 
-    loginUrl.pathname = "/login";
-    loginUrl.search = "";
+if (
+  requiresPageLogin(pathname) &&
+  !isAuthenticated
+) {
+  const loginUrl =
+    request.nextUrl.clone();
 
-    return NextResponse.redirect(
-      loginUrl,
-    );
-  }
+  loginUrl.pathname = "/login";
+loginUrl.search = "";
+loginUrl.searchParams.set(
+  "next",
+  pathname,
+);
+
+  return NextResponse.redirect(
+    loginUrl,
+  );
+}
 
   /*
    * 4. ログイン済みユーザーが

@@ -14,6 +14,9 @@ type ShareResultButtonProps = {
 const SHARE_URL =
   "https://akanukeai.com/";
 
+const X_WEB_SHARE_URL =
+  "https://x.com/intent/post";
+
 export default function ShareResultButton({
   progress,
 }: ShareResultButtonProps) {
@@ -26,19 +29,80 @@ export default function ShareResultButton({
       `${SHARE_URL}\n\n` +
       `#AKANUKEAI #AI垢抜け診断 #メンズ美容`;
 
-    const xShareUrl =
-      new URL(
-        "https://x.com/intent/post",
-      );
+    const webShareUrl =
+      new URL(X_WEB_SHARE_URL);
 
-    xShareUrl.searchParams.set(
+    webShareUrl.searchParams.set(
       "text",
       shareText,
     );
 
-    window.location.assign(
-      xShareUrl.toString(),
+    const isIPhoneOrIPad =
+      /iPhone|iPad|iPod/i.test(
+        window.navigator.userAgent,
+      );
+
+    /*
+     * PC・Androidでは、従来どおり
+     * XのWeb投稿画面を開きます。
+     */
+    if (!isIPhoneOrIPad) {
+      window.location.assign(
+        webShareUrl.toString(),
+      );
+
+      return;
+    }
+
+    /*
+     * iPhoneでは最初にXアプリを開きます。
+     * アプリを開けなかった場合は、
+     * Web版Xの投稿画面へ切り替えます。
+     */
+    let appOpened = false;
+
+    const detectAppOpen = () => {
+      if (
+        document.visibilityState ===
+        "hidden"
+      ) {
+        appOpened = true;
+      }
+    };
+
+    document.addEventListener(
+      "visibilitychange",
+      detectAppOpen,
+      {
+        once: true,
+      },
     );
+
+    window.addEventListener(
+      "pagehide",
+      () => {
+        appOpened = true;
+      },
+      {
+        once: true,
+      },
+    );
+
+    const appShareUrl =
+      `twitter://post?message=${encodeURIComponent(
+        shareText,
+      )}`;
+
+    window.location.href =
+      appShareUrl;
+
+    window.setTimeout(() => {
+      if (!appOpened) {
+        window.location.assign(
+          webShareUrl.toString(),
+        );
+      }
+    }, 1500);
   }
 
   return (
@@ -47,7 +111,7 @@ export default function ShareResultButton({
       onClick={handleXShare}
       className="flex min-h-[54px] w-full items-center justify-center rounded-[14px] bg-[#111111] px-5 text-[13px] font-black text-white transition hover:opacity-90 active:scale-[0.99]"
     >
-      診断結果をXでシェア
+      Ｘで診断結果をシェア
     </button>
   );
 }

@@ -19,6 +19,7 @@ import {
 } from "../../lib/client/afterImageStore";
 import AppHeader from "../components/AppHeader";
 
+import ShareResultButton from "./ShareResultButton";
 
 const IMAGE_STORAGE_KEY = "akanukeImage";
 const RESULT_STORAGE_KEY = "akanukeAnalysisResult";
@@ -1592,6 +1593,37 @@ export default function ResultPage() {
                 </span>
               </Link>
             </div>
+          </section>
+
+          <section className="mx-4 mt-5 rounded-[24px] border border-[#1677FF]/10 bg-[#EEF6FF] p-5">
+            <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
+              SHARE YOUR RESULT
+            </p>
+
+            <h2 className="mt-2 text-[18px] font-black tracking-[-0.03em] text-[#111111]">
+              診断結果をシェア
+            </h2>
+
+            <p className="mt-2 text-[11px] leading-5 text-black/55">
+              顔写真を含まない診断カードを作成して、
+              Xへシェアできます。
+            </p>
+
+            <div className="mt-5">
+              <ShareResultButton
+                progress={analysis.progress}
+                targetImpression={
+                  analysis.targetImpression
+                }
+                priorities={
+                  analysis.priorities
+                }
+              />
+            </div>
+
+            <p className="mt-3 text-center text-[9px] leading-4 text-black/35">
+              顔写真やAfter画像はシェア画像に含まれません
+            </p>
           </section>
 
           <Link

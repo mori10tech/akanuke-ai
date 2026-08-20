@@ -1,3 +1,4 @@
+import { createClient } from "../../../lib/supabase/server";
 import AppHeader from "../../components/AppHeader";
 import AppShell from "../../components/AppShell";
 import DeleteAccountForm from "./DeleteAccountForm";
@@ -46,7 +47,22 @@ const deletedItems = [
   "ユーザーに紐づく設定情報",
 ];
 
-export default function AccountPage() {
+export default async function AccountPage() {
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  const lineName =
+  typeof user?.user_metadata?.name === "string"
+    ? user.user_metadata.name
+    : typeof user?.user_metadata?.display_name === "string"
+      ? user.user_metadata.display_name
+      : typeof user?.user_metadata?.line_name === "string"
+        ? user.user_metadata.line_name
+        : "LINEユーザー";
+
   return (
     <AppShell background="gray">
       <AppHeader
@@ -67,6 +83,38 @@ export default function AccountPage() {
           <p className="mt-3 text-[12px] leading-5 text-black/55">
             アカウント情報と退会手続きを管理します。
           </p>
+                </section>
+
+        <section className="mt-6 rounded-[24px] border border-black/10 bg-white p-5 shadow-[0_10px_34px_rgba(15,23,42,0.05)]">
+          <p className="text-[10px] font-black tracking-[0.14em] text-[#1677FF]">
+            ACCOUNT INFORMATION
+          </p>
+
+          <h2 className="mt-1 text-[17px] font-black tracking-[-0.03em] text-[#111111]">
+            登録情報
+          </h2>
+
+          <div className="mt-4 space-y-3">
+            <div className="flex items-center justify-between gap-4 rounded-[14px] bg-[#F7F9FC] px-4 py-3">
+              <p className="text-[11px] font-bold text-black/45">
+                ログイン方法
+              </p>
+
+              <p className="text-[12px] font-black text-[#111111]">
+                LINE
+              </p>
+            </div>
+
+            <div className="flex items-center justify-between gap-4 rounded-[14px] bg-[#F7F9FC] px-4 py-3">
+              <p className="text-[11px] font-bold text-black/45">
+                LINE表示名
+              </p>
+
+              <p className="min-w-0 truncate text-[12px] font-black text-[#111111]">
+                {lineName}
+              </p>
+            </div>
+          </div>
         </section>
 
         <section className="mt-6 rounded-[24px] border border-[#FFD400]/40 bg-[#FFF9D9] p-5">
@@ -119,7 +167,7 @@ export default function AccountPage() {
 
           <div className="mt-5 rounded-[16px] bg-[#F7F9FC] p-4">
             <p className="text-[10px] leading-5 text-black/50">
-              同じメールアドレスで再登録することはできますが、削除したデータは引き継がれません。
+              同じLINEアカウントで再登録できますが、削除したデータは引き継がれません。
             </p>
           </div>
         </section>
@@ -134,7 +182,7 @@ export default function AccountPage() {
           </h2>
 
           <p className="mt-2 text-[11px] leading-5 text-black/50">
-  本人確認のため、現在のパスワードを入力してください。
+  内容を確認し、確認欄に「削除する」と入力してください。
 </p>
 
           <DeleteAccountForm />

@@ -19,11 +19,15 @@ export async function GET(
       await createClient();
 
     const { error } =
-      await supabase.auth.exchangeCodeForSession(
-        code,
-      );
+  await supabase.auth.exchangeCodeForSession(
+    code,
+  );
 
-    if (!error) {
+if (error) {
+  console.error("Auth callback error:", error);
+}
+
+if (!error) {
       const redirectUrl =
         request.nextUrl.clone();
 

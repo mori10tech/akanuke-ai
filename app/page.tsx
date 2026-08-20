@@ -346,7 +346,8 @@ export default function Home() {
     href="/upload"
     className="primary-button compact-button"
   >
-    無料で診断をはじめる
+    無料診断で診断をはじめる
+    <span aria-hidden="true">›</span>
   </Link>
 </div>
         </div>

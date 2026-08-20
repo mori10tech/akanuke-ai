@@ -10,18 +10,28 @@ type DeleteAccountResponse = {
   message?: string;
 };
 
+const DELETE_CONFIRMATION_TEXT =
+  "削除する";
+
 export default function DeleteAccountForm() {
-  const [password, setPassword] =
-    useState("");
+  const [
+    confirmation,
+    setConfirmation,
+  ] = useState("");
 
-  const [errorMessage, setErrorMessage] =
-    useState("");
+  const [
+    errorMessage,
+    setErrorMessage,
+  ] = useState("");
 
-  const [isDeleting, setIsDeleting] =
-    useState(false);
+  const [
+    isDeleting,
+    setIsDeleting,
+  ] = useState(false);
 
   const canDelete =
-    password.length > 0 &&
+    confirmation.trim() ===
+      DELETE_CONFIRMATION_TEXT &&
     !isDeleting;
 
   async function handleSubmit(
@@ -35,7 +45,7 @@ export default function DeleteAccountForm() {
 
     const isConfirmed =
       window.confirm(
-        "アカウントを完全に削除します。この操作は取り消せません。本当に削除しますか？",
+        "アカウントと保存されたデータを完全に削除します。この操作は取り消せません。本当に削除しますか？",
       );
 
     if (!isConfirmed) {
@@ -55,7 +65,8 @@ export default function DeleteAccountForm() {
               "application/json",
           },
           body: JSON.stringify({
-            password,
+            confirmation:
+              confirmation.trim(),
           }),
         },
       );
@@ -75,10 +86,6 @@ export default function DeleteAccountForm() {
         return;
       }
 
-      /*
-       * 削除後は履歴を残さず、
-       * トップページへ移動します。
-       */
       window.location.replace(
         "/?accountDeleted=1",
       );
@@ -96,22 +103,38 @@ export default function DeleteAccountForm() {
       onSubmit={handleSubmit}
       className="mt-5"
     >
-      <div>
+      <div className="rounded-[14px] bg-[#FFF9D9] px-4 py-4">
+        <p className="text-[12px] font-black text-[#111111]">
+          アカウントを削除する前に
+        </p>
+
+        <p className="mt-2 text-[11px] font-bold leading-5 text-black/55">
+          診断結果などの保存データが削除されます。
+          この操作は取り消せません。
+        </p>
+
+        <p className="mt-2 text-[10px] leading-5 text-black/45">
+          AKANUKE.AIのアカウントを削除しても、
+          LINE公式アカウントの友だち登録は解除されません。
+        </p>
+      </div>
+
+      <div className="mt-5">
         <label
-          htmlFor="delete-account-password"
+          htmlFor="delete-account-confirmation"
           className="block text-[12px] font-black text-[#111111]"
         >
-          現在のパスワード
+          確認のため「削除する」と入力
         </label>
 
         <input
-          id="delete-account-password"
-          name="password"
-          type="password"
-          autoComplete="current-password"
-          value={password}
+          id="delete-account-confirmation"
+          name="confirmation"
+          type="text"
+          autoComplete="off"
+          value={confirmation}
           onChange={(event) => {
-            setPassword(
+            setConfirmation(
               event.target.value,
             );
 
@@ -121,7 +144,7 @@ export default function DeleteAccountForm() {
           }}
           disabled={isDeleting}
           className="mt-2 min-h-[48px] w-full rounded-[12px] border border-black/10 bg-white px-4 text-[16px] text-[#111111] outline-none transition placeholder:text-black/20 focus:border-[#1677FF]/40 focus:ring-4 focus:ring-[#EEF6FF] disabled:cursor-not-allowed disabled:bg-[#F7F9FC]"
-          placeholder="現在のパスワードを入力"
+          placeholder="削除する"
         />
       </div>
 
@@ -147,7 +170,7 @@ export default function DeleteAccountForm() {
       </button>
 
       <p className="mt-3 text-center text-[9px] leading-4 text-black/35">
-        削除したアカウントは復元できません
+        削除したアカウントとデータは復元できません
       </p>
     </form>
   );

@@ -1,41 +1,21 @@
-import { createClient as createSupabaseClient } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
 import { createAdminClient } from "../../../../lib/supabase/admin";
 import { createClient } from "../../../../lib/supabase/server";
 
 type DeleteAccountRequest = {
-  password?: unknown;
+  confirmation?: unknown;
 };
 
-function createVerificationClient() {
-  const supabaseUrl =
-    process.env.NEXT_PUBLIC_SUPABASE_URL;
+type DiagnosisImagePaths = {
+  before_image_path: string | null;
+  after_image_path: string | null;
+};
 
-  const supabasePublishableKey =
-    process.env
-      .NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+const DELETE_CONFIRMATION_TEXT =
+  "削除する";
 
-  if (
-    !supabaseUrl ||
-    !supabasePublishableKey
-  ) {
-    throw new Error(
-      "Supabaseの環境変数が設定されていません。",
-    );
-  }
-
-  return createSupabaseClient(
-    supabaseUrl,
-    supabasePublishableKey,
-    {
-      auth: {
-        autoRefreshToken: false,
-        persistSession: false,
-        detectSessionInUrl: false,
-      },
-    },
-  );
-}
+const STORAGE_BUCKET =
+  "diagnosis-images";
 
 export async function DELETE(
   request: Request,
@@ -49,11 +29,7 @@ export async function DELETE(
       error: userError,
     } = await supabase.auth.getUser();
 
-    if (
-      userError ||
-      !user ||
-      !user.email
-    ) {
+    if (userError || !user) {
       return NextResponse.json(
         {
           message:
@@ -82,17 +58,20 @@ export async function DELETE(
       );
     }
 
-    const password =
-      typeof requestBody.password ===
+    const confirmation =
+      typeof requestBody.confirmation ===
       "string"
-        ? requestBody.password
+        ? requestBody.confirmation.trim()
         : "";
 
-    if (!password) {
+    if (
+      confirmation !==
+      DELETE_CONFIRMATION_TEXT
+    ) {
       return NextResponse.json(
         {
           message:
-            "現在のパスワードを入力してください。",
+            "確認欄に「削除する」と入力してください。",
         },
         {
           status: 400,
@@ -100,60 +79,102 @@ export async function DELETE(
       );
     }
 
-    /*
-     * 現在のパスワードで再認証し、
-     * 本人による操作であることを確認します。
-     */
-    const verificationClient =
-      createVerificationClient();
-
-    const {
-      data: verificationData,
-      error: verificationError,
-    } =
-      await verificationClient.auth
-        .signInWithPassword({
-          email: user.email,
-          password,
-        });
-
-    if (
-      verificationError ||
-      !verificationData.user
-    ) {
-      return NextResponse.json(
-        {
-          message:
-            "パスワードが正しくありません。",
-        },
-        {
-          status: 401,
-        },
-      );
-    }
-
-    if (
-      verificationData.user.id !==
-      user.id
-    ) {
-      return NextResponse.json(
-        {
-          message:
-            "本人確認に失敗しました。",
-        },
-        {
-          status: 403,
-        },
-      );
-    }
-
-    /*
-     * Secret keyを使用する管理者クライアントで、
-     * Supabase Authのユーザーを完全削除します。
-     */
     const adminClient =
       createAdminClient();
 
+    /*
+     * Authユーザーを削除する前に、
+     * 診断履歴から画像パスを取得します。
+     */
+    const {
+      data: diagnoses,
+      error: diagnosesError,
+    } = await adminClient
+      .from("diagnoses")
+      .select(
+        "before_image_path, after_image_path",
+      )
+      .eq("user_id", user.id)
+      .returns<DiagnosisImagePaths[]>();
+
+    if (diagnosesError) {
+      console.error(
+        "[AKANUKE.AI] 診断画像パス取得エラー",
+        diagnosesError,
+      );
+
+      return NextResponse.json(
+        {
+          message:
+            "保存データを確認できませんでした。時間をおいて再度お試しください。",
+        },
+        {
+          status: 500,
+        },
+      );
+    }
+
+    const imagePaths = Array.from(
+      new Set(
+        (diagnoses ?? []).flatMap(
+          (diagnosis) =>
+            [
+              diagnosis.before_image_path,
+              diagnosis.after_image_path,
+            ].filter(
+              (
+                path,
+              ): path is string =>
+                typeof path === "string" &&
+                path.length > 0,
+            ),
+        ),
+      ),
+    );
+
+    /*
+     * Storage APIの負荷を抑えるため、
+     * 100件ずつ画像を削除します。
+     */
+    for (
+      let index = 0;
+      index < imagePaths.length;
+      index += 100
+    ) {
+      const paths =
+        imagePaths.slice(
+          index,
+          index + 100,
+        );
+
+      const { error: storageError } =
+        await adminClient.storage
+          .from(STORAGE_BUCKET)
+          .remove(paths);
+
+      if (storageError) {
+        console.error(
+          "[AKANUKE.AI] 診断画像削除エラー",
+          storageError,
+        );
+
+        return NextResponse.json(
+          {
+            message:
+              "保存画像を削除できませんでした。時間をおいて再度お試しください。",
+          },
+          {
+            status: 500,
+          },
+        );
+      }
+    }
+
+    /*
+     * Authユーザーを削除します。
+     * diagnosesはON DELETE CASCADEで
+     * 自動削除されます。
+     */
     const { error: deleteError } =
       await adminClient.auth.admin
         .deleteUser(user.id);
@@ -175,10 +196,6 @@ export async function DELETE(
       );
     }
 
-    /*
-     * ブラウザ側のSupabaseセッションを
-     * 破棄するためにログアウトします。
-     */
     await supabase.auth.signOut();
 
     return NextResponse.json(

@@ -13,6 +13,14 @@ type ImpressionOption = {
   icon: string;
 };
 
+type DiagnosisUsage = {
+  limit: number;
+  used: number;
+  remaining: number;
+  reached: boolean;
+  resetsAt: string;
+};
+
 const MAX_SELECTIONS = 2;
 const RECOMMENDED_OPTION_ID = "ai-recommended";
 const IMAGE_STORAGE_KEY = "akanukeImage";
@@ -146,6 +154,23 @@ export default function UploadPage() {
   const [notice, setNotice] = useState<string | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
 
+    const [
+    diagnosisUsage,
+    setDiagnosisUsage,
+  ] = useState<DiagnosisUsage | null>(
+    null,
+  );
+
+  const [
+    isUsageLoading,
+    setIsUsageLoading,
+  ] = useState(true);
+
+  const [
+    usageError,
+    setUsageError,
+  ] = useState<string | null>(null);
+
   const [
     hasPreviousResult,
     setHasPreviousResult,
@@ -182,6 +207,57 @@ export default function UploadPage() {
     }
 
     setIsLoaded(true);
+  }, []);
+
+    useEffect(() => {
+    let isActive = true;
+
+    async function loadDiagnosisUsage() {
+      try {
+        const response = await fetch(
+          "/api/diagnosis-usage",
+          {
+            method: "GET",
+            cache: "no-store",
+          },
+        );
+
+        if (!response.ok) {
+          throw new Error(
+            "診断回数を取得できませんでした。",
+          );
+        }
+
+        const result =
+          (await response.json()) as DiagnosisUsage;
+
+        if (isActive) {
+          setDiagnosisUsage(result);
+          setUsageError(null);
+        }
+      } catch (error) {
+        console.error(
+          "[AKANUKE.AI] 診断回数取得エラー",
+          error,
+        );
+
+        if (isActive) {
+          setUsageError(
+            "診断回数を確認できませんでした。",
+          );
+        }
+      } finally {
+        if (isActive) {
+          setIsUsageLoading(false);
+        }
+      }
+    }
+
+    void loadDiagnosisUsage();
+
+    return () => {
+      isActive = false;
+    };
   }, []);
 
   const selectedLabels = useMemo(
@@ -282,6 +358,16 @@ export default function UploadPage() {
     });
   };
 
+  const isDiagnosisLimitReached =
+    diagnosisUsage?.reached ?? false;
+
+  const cannotStartDiagnosis =
+    isUsageLoading ||
+    Boolean(usageError) ||
+    isDiagnosisLimitReached ||
+    !preview ||
+    selectedIds.length === 0;
+
   const handleReturnToResult = () => {
     window.sessionStorage.removeItem(
       RESULT_BACK_HREF_STORAGE_KEY,
@@ -290,7 +376,15 @@ export default function UploadPage() {
     router.push("/result");
   };
 
-  const handleDiagnosis = () => {
+    const handleDiagnosis = () => {
+    if (
+      isUsageLoading ||
+      usageError ||
+      isDiagnosisLimitReached
+    ) {
+      return;
+    }
+
     if (!preview) {
       setNotice("顔写真を選択してください。");
       return;
@@ -618,23 +712,59 @@ export default function UploadPage() {
         </div>
 
         <div className="fixed inset-x-0 bottom-0 z-50 border-t border-black/10 bg-white/95 px-4 pb-[max(14px,env(safe-area-inset-bottom))] pt-3 backdrop-blur-xl">
-          <div className="mx-auto w-full max-w-[448px]">
+                     <div className="mx-auto w-full max-w-[448px]">
+            <div className="mb-2 flex items-center justify-between">
+              <p className="text-[10px] font-bold text-black/45">
+                今月のAI診断
+              </p>
+
+              {diagnosisUsage ? (
+                <p
+                  className={`text-[11px] font-black ${
+                    isDiagnosisLimitReached
+                      ? "text-[#111111]"
+                      : "text-[#1677FF]"
+                  }`}
+                >
+                  {diagnosisUsage.used} / {diagnosisUsage.limit}回
+                </p>
+              ) : (
+                <p className="text-[10px] text-black/35">
+                  確認中…
+                </p>
+              )}
+            </div>
+
             <button
               type="button"
               onClick={handleDiagnosis}
-              disabled={!preview || selectedIds.length === 0}
+              disabled={cannotStartDiagnosis}
               className="min-h-[52px] w-full rounded-[11px] bg-black px-4 text-[14px] font-black text-white shadow-lg transition hover:bg-black/85 active:scale-[0.99] disabled:cursor-not-allowed disabled:bg-black/10 disabled:text-black/40 disabled:shadow-none"
             >
-              無料でAI診断をはじめる
-              <span className="ml-2" aria-hidden="true">
-                →
-              </span>
+              {isUsageLoading
+                ? "診断回数を確認中…"
+                : usageError
+                  ? "ページを再読み込みしてください"
+                  : isDiagnosisLimitReached
+                    ? "今月の診断上限に達しました"
+                    : "AI診断をはじめる"}
+
+              {!cannotStartDiagnosis ? (
+                <span
+                  className="ml-2"
+                  aria-hidden="true"
+                >
+                  →
+                </span>
+              ) : null}
             </button>
 
-            <p className="mt-2 text-center text-[9px] font-bold text-black/40">
-              約1分・完全無料
+            <p className="mt-2 text-center text-[9px] font-bold text-black/35">
+              {isDiagnosisLimitReached
+                ? "翌月1日に利用回数がリセットされます"
+                : "月3回まで利用できます"}
             </p>
-          </div>
+          </div>         
         </div>
       </div>
     </main>

@@ -4,6 +4,9 @@ import {
   NextResponse,
 } from "next/server";
 
+import { createAdminClient } from "../../../lib/supabase/admin";
+import { createClient } from "../../../lib/supabase/server";
+
 import {
   ANALYSIS_SYSTEM_PROMPT,
 } from "../../../lib/openai/prompts";
@@ -22,12 +25,81 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
+const MONTHLY_DIAGNOSIS_LIMIT = 3;
+
+const JST_OFFSET_HOURS = 9;
+
+function getMonthlyPeriodJst() {
+  const now = new Date();
+
+  const jstNow = new Date(
+    now.getTime() +
+      JST_OFFSET_HOURS *
+        60 *
+        60 *
+        1000,
+  );
+
+  const year =
+    jstNow.getUTCFullYear();
+
+  const month =
+    jstNow.getUTCMonth();
+
+  const periodStart = new Date(
+    Date.UTC(
+      year,
+      month,
+      1,
+      -JST_OFFSET_HOURS,
+    ),
+  );
+
+  const nextPeriodStart = new Date(
+    Date.UTC(
+      year,
+      month + 1,
+      1,
+      -JST_OFFSET_HOURS,
+    ),
+  );
+
+  return {
+    periodStart:
+      periodStart.toISOString(),
+    nextPeriodStart:
+      nextPeriodStart.toISOString(),
+  };
+}
+
 export async function POST(
   request: NextRequest,
 ) {
   const startedAt = Date.now();
 
-  try {
+    try {
+    const supabase =
+      await createClient();
+
+    const {
+      data: { user },
+      error: userError,
+    } = await supabase.auth.getUser();
+
+    if (userError || !user) {
+      return NextResponse.json(
+        {
+          error:
+            "AI診断を利用するにはLINEログインが必要です。",
+          code:
+            "AUTHENTICATION_REQUIRED",
+        },
+        {
+          status: 401,
+        },
+      );
+    }
+
     if (!process.env.OPENAI_API_KEY) {
       return NextResponse.json(
         {
@@ -89,14 +161,85 @@ export async function POST(
       );
     }
 
+        const {
+      periodStart,
+      nextPeriodStart,
+    } = getMonthlyPeriodJst();
+
+    const adminClient =
+      createAdminClient();
+
+    const {
+      count: diagnosisCount,
+      error: countError,
+    } = await adminClient
+      .from("diagnoses")
+      .select("id", {
+        count: "exact",
+        head: true,
+      })
+      .eq("user_id", user.id)
+      .gte(
+        "created_at",
+        periodStart,
+      )
+      .lt(
+        "created_at",
+        nextPeriodStart,
+      );
+
+    if (countError) {
+      console.error(
+        "[AKANUKE.AI] 診断回数取得エラー",
+        countError,
+      );
+
+      return NextResponse.json(
+        {
+          error:
+            "診断回数を確認できませんでした。時間をおいて再度お試しください。",
+        },
+        {
+          status: 500,
+        },
+      );
+    }
+
+    const usedCount =
+      diagnosisCount ?? 0;
+
+    if (
+      usedCount >=
+      MONTHLY_DIAGNOSIS_LIMIT
+    ) {
+      return NextResponse.json(
+        {
+          error:
+            "今月のAI診断上限に達しました。翌月から再び診断できます。",
+          code:
+            "DIAGNOSIS_LIMIT_REACHED",
+          limit:
+            MONTHLY_DIAGNOSIS_LIMIT,
+          used: usedCount,
+          remaining: 0,
+          resetsAt:
+            nextPeriodStart,
+        },
+        {
+          status: 429,
+        },
+      );
+    }
+
     console.log(
       "[AKANUKE.AI] AI診断開始",
+      {
+        userId: user.id,
+        used: usedCount,
+        limit:
+          MONTHLY_DIAGNOSIS_LIMIT,
+      },
     );
-
-console.log(
-  "[AKANUKE.AI] AI診断開始",
-);
-
 
     const response =
       await openai.responses.create({

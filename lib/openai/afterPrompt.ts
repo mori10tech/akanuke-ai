@@ -411,63 +411,111 @@ A cleaner lower edge, controlled thickness, refined tail, and better overall bal
 Do not change the eyes themselves to improve the eye-area impression.
 
 ==================================================
-8. HAIR
+8. HAIR — MAJOR TRANSFORMATION PRIORITY
 ==================================================
 
-Create a noticeably better and more intentional hairstyle.
+Hair should be one of the MOST VISIBLY DIFFERENT elements between the Before and After images.
 
-Follow the personalized hair instruction above.
+Follow the personalized hair recommendation:
 
-When appropriate:
+${analysis.afterDirection.hair}
 
-- reduce excessive heaviness
-- improve fringe shape
-- create controlled volume
-- improve the head silhouette
-- reduce unnecessary side volume
-- create natural movement
-- improve separation and texture
-- slightly reveal the forehead when beneficial
-- create a professionally styled finish
+IMPORTANT:
 
-Do more than simply comb or tidy the existing hairstyle.
+Do NOT default to preserving the original hairstyle.
 
-The improvement should resemble the result of:
+Preserve the person's natural hair characteristics,
+but actively redesign the HAIRCUT, HAIR SHAPE, and STYLING when doing so would better match the personalized recommendation.
 
-"a suitable haircut + professional salon styling"
+The After image should represent:
 
-while remaining realistically achievable.
+"a real visit to a skilled Japanese men's hair salon,
+including an appropriate haircut and professional styling."
+
+This means you MAY realistically change:
+
+- the haircut itself
+- fringe length and shape
+- fringe direction
+- forehead exposure
+- parting position
+- top length appearance
+- top volume
+- side volume
+- hair around the ears
+- overall silhouette
+- layering
+- separation
+- texture
+- movement
+- styling direction
+
+The final hairstyle does NOT need to remain the same hairstyle as the Before image.
+
+If the current hairstyle is heavy, flat, unstructured, overgrown, or does not support the target impression,
+make a clearly visible haircut-level improvement.
+
+For example, when appropriate:
+
+- change a heavy fringe into a cleaner separated fringe
+- expose more forehead
+- create a natural center or off-center part
+- reduce excessive side volume
+- create cleaner hair around the ears
+- create stronger top volume
+- add visible separation and movement
+- improve the overall head silhouette
+- create a cleaner outline around the face
+
+These are examples only.
+
+Always prioritize the personalized recommendation and the person's actual facial characteristics.
+
+CRITICAL DIFFERENCE REQUIREMENT:
+
+When Before and After are viewed side by side,
+the hairstyle improvement must be immediately noticeable.
+
+A result where the hair is merely:
+
+- slightly combed
+- slightly neater
+- slightly shinier
+- minimally separated
+- given only subtle texture
+
+is TOO WEAK.
+
+If the hairstyle still looks essentially the same as the Before image,
+increase the haircut and styling transformation.
+
+Do not be afraid to make a clearly different but realistically achievable hairstyle.
+
+However, preserve:
+
+- natural hairline
+- realistic hair density
+- realistic hair texture
+- believable hair growth
+- the person's identity
 
 Do NOT:
 
-- create an unrealistic wig
-- completely replace the person's natural hair characteristics
-- use hairstyle alone to create the entire transformation
+- create a wig-like hairstyle
+- invent unrealistic hair density
+- dramatically alter the natural hairline
+- use an extreme fashion hairstyle unrelated to the diagnosis
+- change facial anatomy to make the hairstyle look better
 
-SALON-LEVEL HAIR TRANSFORMATION:
+TARGET:
 
-Hair should be one of the strongest visible improvements.
+The viewer should think:
 
-Do not merely tidy or slightly rearrange the existing hairstyle.
+"He actually changed his hairstyle at a good men's salon."
 
-Create the realistic result of a skilled Japanese men's hairstylist selecting and styling a hairstyle specifically for this person's face and target impression.
+Not:
 
-When appropriate:
-
-- significantly improve the fringe design
-- create intentional separation and texture
-- reduce heavy or uncontrolled volume
-- improve top volume
-- control side volume
-- improve the overall head silhouette
-- create natural movement
-- expose a suitable amount of forehead
-- create clean definition around the face
-- produce a polished salon-finished texture
-
-The hairstyle should look noticeably designed rather than simply combed.
-
-It must remain achievable through a real haircut, hair products, blow-drying, and professional salon styling.
+"He just styled his existing hair a little."
 
 ==================================================
 9. GROOMING
@@ -586,14 +634,14 @@ The result should represent a professionally coordinated makeover using only cha
 
 Target:
 
-- identity preservation: 9.5 / 10
+- identity preservation: 9 / 10
 - realistic achievability: 8.5 / 10
-- visible overall improvement: 9.5 / 10
+- visible overall improvement: 10 / 10
 - visible facial grooming improvement: 9.5 / 10
 - skin improvement visibility: 9.5 / 10
 - beard-shadow improvement when present: 9.5 / 10
 - eyebrow grooming visibility: 9 / 10
-- hairstyle transformation visibility: 9.5 / 10
+- hairstyle transformation visibility: 10 / 10
 - natural men's makeup visibility through its EFFECT: 9 / 10
 - clothing transformation: 2 / 10
 
@@ -656,10 +704,60 @@ BALANCE:
 Are facial improvements at least as noticeable as clothing improvements?
 
 SMARTPHONE TEST:
-Would an ordinary viewer immediately recognize the grooming improvements when Before and After are displayed side by side on a smartphone?
 
-If the answer to the smartphone test is no,
-increase the visible grooming improvement while keeping the person's permanent facial identity unchanged.
+Compare the proposed After image directly against the provided original image.
+
+At normal smartphone viewing size,
+an ordinary viewer must immediately recognize a clear transformation.
+
+The After image must NOT look like:
+
+- the original image with only minor retouching
+- the original hairstyle with only slight rearrangement
+- the same eyebrows with only tiny cleanup
+- the same complexion with only subtle brightening
+- a nearly identical photograph with small cosmetic corrections
+
+If the Before and After could be mistaken for almost the same photograph,
+the transformation is TOO WEAK and must be strengthened before finalizing.
+
+When applicable, at least THREE of these areas should show a clearly visible improvement:
+
+1. hairstyle
+2. eyebrows
+3. skin clarity and complexion
+4. beard-shadow or stubble reduction
+5. facial grooming
+6. overall polished presentation
+
+PRIORITY WHEN TRANSFORMATION IS TOO WEAK:
+
+First increase:
+1. hairstyle difference
+2. eyebrow grooming
+3. beard-shadow correction
+4. complexion refinement
+5. facial grooming
+
+Do NOT increase transformation by changing:
+
+- facial anatomy
+- eye size
+- nose shape
+- jaw shape
+- face shape
+- age
+- ethnicity
+- camera angle
+- dramatic lighting
+- background
+- clothing
+
+The correct target is:
+
+"Clearly the same person, but obviously more polished and 垢抜けた."
+
+The visual improvement should be understandable within approximately one second when Before and After are viewed side by side.
 
 ==================================================
 14. IMAGE QUALITY

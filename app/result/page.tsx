@@ -415,7 +415,7 @@ export default function ResultPage() {
           PROGRESS_ANIMATION_STORAGE_KEY,
         );
 
-      if (
+            if (
         previousAnimationResultId ===
         animationResultId
       ) {
@@ -423,10 +423,16 @@ export default function ResultPage() {
         return;
       }
 
-      window.sessionStorage.setItem(
-        PROGRESS_ANIMATION_STORAGE_KEY,
-        animationResultId,
-      );
+      /*
+       * 初回表示では0%から診断結果まで
+       * AKANUKE PROGRESSをアニメーションさせます。
+       *
+       * 表示済み判定はアニメーション完了後に保存します。
+       * 開始前に保存すると、React Strict Modeで
+       * useEffectが再実行された際に初回でも
+       * 「表示済み」と判定されるためです。
+       */
+      setDisplayProgress(0);
 
       const duration = 1400;
       const startedAt = performance.now();
@@ -443,7 +449,9 @@ export default function ResultPage() {
           1 - Math.pow(1 - progress, 3);
 
         setDisplayProgress(
-          Math.round(targetProgress * eased),
+          Math.round(
+            targetProgress * eased,
+          ),
         );
 
         if (progress < 1) {
@@ -451,14 +459,36 @@ export default function ResultPage() {
             window.requestAnimationFrame(
               animate,
             );
+
+          return;
         }
+
+        /*
+         * アニメーションを最後まで表示した時点で
+         * この診断結果を「表示済み」とします。
+         *
+         * 次回同じ診断結果を開いた場合は、
+         * アニメーションせず最終値を固定表示します。
+         */
+        window.sessionStorage.setItem(
+          PROGRESS_ANIMATION_STORAGE_KEY,
+          animationResultId,
+        );
+
+        setDisplayProgress(
+          targetProgress,
+        );
       };
 
       frame =
-        window.requestAnimationFrame(animate);
+        window.requestAnimationFrame(
+          animate,
+        );
 
       return () => {
-        window.cancelAnimationFrame(frame);
+        window.cancelAnimationFrame(
+          frame,
+        );
       };
 
     } catch (error) {

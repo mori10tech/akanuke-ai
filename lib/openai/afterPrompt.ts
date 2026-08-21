@@ -4,136 +4,126 @@ export function createAfterImagePrompt(
   analysis: AkanukeAnalysis,
 ) {
   return `
-Create a highly photorealistic and CLEARLY IMPROVED "After" photograph by editing the provided original photograph.
+Edit the provided original photograph to create a highly photorealistic and clearly improved "After" image for the Japanese men's beauty service "AKANUKE.AI".
 
-This image is for the Japanese men's beauty service "AKANUKE.AI".
+==================================================
+CORE OBJECTIVE
+==================================================
 
-CORE GOAL:
+Create a realistic TOTAL BEAUTY MAKEOVER of THE EXACT SAME PERSON.
 
-Create a clearly aspirational but realistically achievable TOTAL BEAUTY MAKEOVER of THIS EXACT SAME PERSON.
+The result should represent what this person could realistically achieve through:
 
-Visualize how this same person could realistically look after receiving professional total grooming and styling, including:
-
-- a hairstyle selected and finished by a skilled professional hairstylist
+- a suitable professional haircut
+- professional salon hairstyling
 - professional men's eyebrow grooming
 - several weeks of consistent skincare
-- improved skin hydration and complexion
-- an excellent close shave
-- strong but natural beard-shadow correction
+- excellent skin hydration
+- a close clean shave
+- realistic beard-shadow correction
 - subtle men's BB cream
 - subtle concealer and color correction
 - natural lip care
 - refined facial grooming
-- coordinated clothing selected to support the target impression
-- professional overall presentation
 
-This is NOT merely a cleaner or tidier version of the original person.
+The result must clearly look more polished and 垢抜けた than the original.
 
-It should look like the person's professionally produced "best realistically achievable version."
+However:
 
-The result must still unmistakably look like the exact same person.
+THE PERSON'S PERMANENT FACIAL IDENTITY MUST NOT CHANGE.
 
-Permanent facial anatomy must remain unchanged.
+The transformation must come from changeable grooming and styling elements,
+not from redesigning the person's face.
 
-However, all realistically changeable beauty and grooming elements SHOULD be improved enough to create a strong visual transformation.
+The desired result is:
 
-The ideal result is:
+"SAME PERSON + CLEARLY BETTER HAIR + BETTER EYEBROWS + BETTER SKIN + BETTER GROOMING."
 
-"SAME PERSON, PROFESSIONALLY PRODUCED, CLEARLY MORE REFINED."
+Not:
 
-When Before and After are displayed side by side,
-an ordinary viewer should immediately feel:
-
-"He looks noticeably more polished, clean, stylish, and transformed."
-
-The result should create an aspirational reaction while remaining achievable without cosmetic surgery.
-
-FACIAL BEAUTY TARGET:
-
-The primary transformation must happen in the FACE and HAIR.
-
-Do not rely on clothing, background, camera angle, or dramatic lighting to create the impression of improvement.
-
-Aim for the realistic visual result of the same person after receiving a complete professional men's beauty treatment:
-
-- a professionally selected haircut
-- professional salon hairstyling
-- professional eyebrow grooming
-- several weeks of consistent skincare
-- excellent skin hydration
-- a very close shave
-- strong but natural beard-shadow correction
-- professional men's BB cream
-- subtle concealer
-- subtle color correction
-- natural under-eye correction when appropriate
-- natural lip care
-- refined facial grooming
-
-The face should look noticeably more polished, fresh, clear, and camera-ready than the original.
-
-This should look closer to a professional men's beauty makeover result than ordinary daily grooming.
-
-The transformation should create a clear "垢抜けた" impression while preserving the exact same person's permanent facial anatomy.
+"A more attractive different person."
 
 ==================================================
-1. IDENTITY — MUST NOT CHANGE
+1. ABSOLUTE IDENTITY LOCK
 ==================================================
 
-Preserve the person's identity with very high fidelity.
+Treat the original face as the identity reference.
 
-Keep unchanged:
+Preserve with extremely high fidelity:
 
 - facial bone structure
 - face shape
-- jaw structure
+- jaw shape
+- chin shape
+- cheek structure
 - natural eye shape
 - natural eye size
+- eye spacing
 - eye position
+- eyelid characteristics
+- eyebrow-to-eye distance
 - nose shape
+- nose width
+- nose length
+- nostril shape
 - mouth shape
 - lip shape
+- lip proportions
 - ears
 - natural facial proportions
 - distinctive facial characteristics
-- apparent age range
+- apparent age
 - ethnicity
 - head orientation
 - camera perspective
+- facial expression
 
-Do NOT:
+Do NOT beautify the person by changing anatomy.
 
-- replace the person with another person
-- create a more conventionally attractive model
-- redesign the face
-- reshape the jaw
-- slim the face unnaturally
-- enlarge the eyes
+Never:
+
+- enlarge or sharpen the eyes
+- change eyelids
+- make the eyes more symmetrical
 - reshape the nose
-- change ethnicity
-- create cosmetic-surgery-like changes
-- remove distinctive facial characteristics
-- create unrealistic facial symmetry
+- narrow the nose
+- reshape the jaw
+- narrow or shorten the face
+- enlarge or reshape the lips
+- change cheek structure
+- create cosmetic-surgery-like improvements
+- replace distinctive characteristics
+- turn the person into a conventionally attractive model
+
+If there is a conflict between:
+
+A. making the person more attractive
+and
+B. preserving the person's facial identity
+
+ALWAYS choose B.
 
 IMPORTANT:
 
-Identity preservation applies to the person's permanent facial structure.
+Identity preservation applies to permanent anatomy.
 
-It does NOT mean that temporary and groomable features must remain unchanged.
+It does NOT require preserving:
 
-You SHOULD visibly improve:
-
-- skin presentation
-- beard shadow
-- facial hair grooming
-- eyebrows
 - hairstyle
-- complexion
-- grooming
-- clothing and styling
+- eyebrow grooming
+- beard shadow
+- stubble
+- skin condition
+- temporary redness
+- temporary dullness
+- lip dryness
+- cosmetic complexion
+- grooming quality
+
+These changeable elements SHOULD visibly improve.
 
 ==================================================
-2. TARGET
+2. PERSONALIZED TARGET
 ==================================================
 
 TARGET IMPRESSION:
@@ -144,11 +134,7 @@ CURRENT IMPRESSION:
 
 ${analysis.currentImpression}
 
-==================================================
-3. PERSONALIZED AKANUKE.AI PLAN
-==================================================
-
-Follow this personalized analysis carefully.
+Use the personalized AKANUKE.AI diagnosis below as the basis of the makeover.
 
 HAIR:
 ${analysis.afterDirection.hair}
@@ -165,74 +151,185 @@ ${analysis.afterDirection.grooming}
 STYLING:
 ${analysis.afterDirection.styling}
 
-These instructions describe changes that should be VISUALLY PRESENT in the final image whenever they are applicable to the original photograph.
+Convert these recommendations into visible changes in the photograph.
 
-Do not merely interpret them as written advice.
-
-Actually visualize the requested grooming changes.
+Do not treat them merely as written advice.
 
 ==================================================
-4. REQUIRED VISUAL DIFFERENCE
+3. TRANSFORMATION PRIORITY
 ==================================================
 
-The Before and After images will be displayed side by side on a smartphone.
+Apply visual changes in this priority order:
 
-The improvement must therefore be immediately understandable at normal smartphone viewing size.
+1. HAIRSTYLE
+2. EYEBROWS
+3. SKIN AND COMPLEXION
+4. BEARD SHADOW / FACIAL HAIR
+5. GENERAL FACIAL GROOMING
+6. CLOTHING
 
-The viewer should notice:
+The primary transformation must happen through grooming.
 
-1. cleaner and more even skin presentation
-2. reduced beard shadow when present
-3. professionally groomed eyebrows
-4. a noticeably improved hairstyle
-5. a fresher and more refined overall appearance
+Do not create the impression of improvement mainly through:
 
-Do NOT produce an After image where the main visible differences are only:
-
-- clothing
-- lighting
-- background
-- hairstyle
-
-The FACE must contain meaningful grooming improvements.
-
-Facial grooming should contribute at least as much to the transformation as hairstyle and clothing.
+- different facial anatomy
+- different camera angle
+- different facial expression
+- dramatic lighting
+- background changes
+- clothing changes
 
 ==================================================
-5. SKIN — HIGH PRIORITY
+4. HAIR — CLEARLY CHANGE THE STYLE
 ==================================================
 
-Skin improvement is one of the most important parts of the transformation.
+HAIR RECOMMENDATION:
+
+${analysis.afterDirection.hair}
+
+Translate this recommendation into a clearly visible professional haircut and styling result.
+
+Do NOT simply make the existing hairstyle slightly neater.
+
+When appropriate, concretely determine:
+
+- fringe shape
+- fringe direction
+- forehead exposure
+- parting position
+- top volume
+- side volume
+- temple silhouette
+- hair around the ears
+- layering
+- texture
+- separation
+- movement
+- styling direction
+- overall hair silhouette
+
+The hairstyle should look intentionally selected for:
+
+- this person's face
+- this person's existing hair characteristics
+- the target impression
+- the personalized diagnosis
+
+Unless the personalized recommendation explicitly calls for preserving the current hairstyle,
+the After hairstyle should show a noticeable salon-level transformation.
+
+When appropriate, at least TWO major hairstyle characteristics should visibly change.
+
+Examples include:
+
+- fringe shape
+- forehead exposure
+- parting
+- top volume
+- side volume
+- overall silhouette
+- texture
+- movement
+
+If the original hair is heavy or flat,
+consider a cleaner fringe, more forehead exposure,
+better top volume, reduced side heaviness,
+and a more intentional silhouette when consistent with the diagnosis.
+
+If the current hairstyle already resembles the recommended style,
+increase the haircut and professional styling refinement enough that the difference remains clearly visible.
+
+The desired reaction is:
+
+"He went to a good Japanese men's hair salon."
+
+Not:
+
+"He combed his hair slightly differently."
+
+Preserve:
+
+- natural hairline
+- believable hair density
+- realistic hair texture
+- realistic hair growth
+
+Do NOT create:
+
+- unrealistic hair density
+- a wig-like appearance
+- an unrelated extreme fashion hairstyle
+- a dramatically different natural hairline
+
+==================================================
+5. EYEBROWS — PROFESSIONAL GROOMING
+==================================================
+
+EYEBROW RECOMMENDATION:
+
+${analysis.afterDirection.eyebrows}
+
+Preserve the person's natural eyebrow identity while giving the eyebrows a clearly visible professional grooming improvement.
+
+When appropriate:
+
+- remove stray hairs
+- clean the lower edge
+- remove unnecessary hairs between the brows
+- refine the tail
+- improve visual left-right balance
+- clarify the natural shape
+- maintain masculine natural thickness
+
+The result should resemble a realistic Japanese men's eyebrow salon treatment.
+
+The eyebrow improvement should be noticeable when Before and After are viewed side by side on a smartphone.
+
+Do NOT:
+
+- make eyebrows excessively thin
+- make eyebrows excessively dark
+- heavily draw them
+- make them unnaturally geometric
+- change the eyes themselves
+
+Improve the eye-area impression through eyebrow grooming,
+not through changing eye anatomy.
+
+==================================================
+6. SKIN AND COMPLEXION — VISIBLE BUT REALISTIC
+==================================================
+
+SKIN RECOMMENDATION:
+
+${analysis.afterDirection.skin}
 
 Create a visibly:
 
-- brighter
 - fresher
+- clearer
 - cleaner
 - more even
 - healthier-looking
+- naturally hydrated
 
 complexion.
 
-When appropriate to the original photograph:
+When appropriate:
 
-- reduce visible dullness
-- reduce minor redness
-- reduce uneven-looking skin tone
+- reduce dullness
+- reduce temporary redness
+- reduce uneven-looking tone
 - reduce excessive shine
-- reduce minor visible discoloration
-- improve overall complexion uniformity
+- reduce minor discoloration
+- improve under-eye presentation
+- improve visible lip condition
 
-Aim for approximately ONE NATURAL-LOOKING TONE brighter than the original.
+Aim for approximately one natural-looking tone of improvement.
 
-The perceived improvement should be clearly noticeable,
-approximately equivalent to a 10-15% improvement in visible brightness and evenness.
+The difference must come from the FACE itself.
 
-IMPORTANT:
-
-Do not achieve this only by making the entire photograph brighter.
-
-The FACE itself should appear more even and refined.
+Do not simply brighten the entire photograph.
 
 Simulate the realistic combined effect of:
 
@@ -240,13 +337,13 @@ Simulate the realistic combined effect of:
 - moisturizer
 - UV care
 - subtle men's BB cream
-- light complexion correction
-- natural concealer where appropriate
+- subtle concealer
+- natural color correction
 
 Preserve:
 
 - pores
-- natural skin texture
+- skin texture
 - realistic facial detail
 - small natural imperfections
 
@@ -256,543 +353,266 @@ Do NOT:
 - erase all pores
 - create porcelain skin
 - create airbrushed skin
-- apply a strong beauty filter
+- apply an obvious digital beauty filter
 
-The finished complexion should look professionally prepared rather than merely healthier.
+The viewer should see:
 
-When visible dullness, beard shadow, redness, or uneven tone exists in the original image,
-apply enough realistic complexion correction that the improvement is immediately visible.
+"well-cared-for real skin"
 
-Aim for the realistic finish of a professional men's grooming photo shoot:
+rather than:
 
-- visibly more even complexion
-- noticeably reduced dullness
-- cleaner under-eye presentation when appropriate
-- substantially reduced beard-shadow discoloration
-- naturally brighter facial skin
-- subtle healthy-looking moisture and clarity
-- naturally improved lip condition and color when appropriate
-
-The face should look polished and camera-ready,
-while still retaining believable pores and natural skin texture.
-
-Do not stop at a barely noticeable skincare improvement.
-
-The result should look like excellent real-world skincare and subtle men's makeup.
-
-PROFESSIONAL COMPLEXION FINISH:
-
-The complexion improvement should be one of the most immediately visible differences between Before and After.
-
-Aim for the realistic finish of professional men's grooming and natural men's makeup used for a high-quality beauty portrait.
-
-When appropriate:
-
-- make the facial complexion visibly clearer and more even
-- reduce visible dullness substantially
-- reduce uneven redness
-- reduce minor discoloration
-- reduce tired-looking darkness around the eyes without changing eye anatomy
-- substantially reduce blue-gray beard discoloration
-- give the skin a naturally hydrated appearance
-- create subtle healthy-looking luminosity
-- improve the visible condition of the lips
-- create a clean and polished complexion
-
-Use realistic men's BB cream, concealer, color corrector, moisturizer, and skincare as the visual reference.
-
-The skin improvement should be STRONGER than ordinary skincare alone,
-but still look like real skin rather than a digital beauty filter.
-
-IMPORTANT:
-
-Do not modify facial anatomy to make the person more attractive.
-
-Do not change:
-
-- eye shape
-- eye size
-- nose shape
-- jaw structure
-- face shape
-- mouth shape
-
-Create the stronger beauty effect through complexion, grooming, eyebrows, hair, beard-shadow correction, and presentation instead.
+"AI-generated perfect skin."
 
 ==================================================
-6. BEARD SHADOW — HIGH PRIORITY
+7. BEARD SHADOW AND FACIAL HAIR
 ==================================================
 
-Carefully inspect the original photograph for:
+Inspect the original image carefully for:
 
-- blue-gray beard shadow
+- beard shadow
 - upper-lip shadow
 - chin shadow
 - jaw shadow
 - visible stubble
 - uneven facial-hair darkness
 
-IF beard shadow or stubble is visibly present:
-
-It MUST be substantially reduced in the After image.
-
-This is an important AKANUKE.AI transformation.
-
-Aim for the realistic visual result of:
+If present, substantially reduce it through the realistic visual effect of:
 
 - a close clean shave
-- orange or peach color correction
+- color correction
 - men's BB cream
-- light concealer
-- natural complexion correction
+- subtle concealer
 
-The beard shadow should become MUCH LESS NOTICEABLE than in the original photograph.
+At smartphone viewing size,
+the mouth, chin, and jaw area should appear visibly cleaner.
 
-At normal smartphone viewing size,
-the mouth and chin area should visibly appear cleaner.
+Preserve:
 
-Do not merely soften the shadow slightly.
+- chin anatomy
+- jaw anatomy
+- mouth shape
+- natural skin texture
 
-Create a clearly recognizable improvement.
+Do not blur the lower face.
 
-However:
-
-- preserve natural skin texture
-- preserve the chin
-- preserve the jaw
-- preserve mouth shape
-- do not blur the lower face
-- do not create plastic-looking skin
-
-If no beard shadow is visibly present,
-do not invent one or make unnecessary changes.
+If beard shadow is not present,
+do not invent unnecessary changes.
 
 ==================================================
-7. EYEBROWS — HIGH PRIORITY
+8. GENERAL GROOMING
 ==================================================
 
-If the eyebrows are visible,
-give them a clearly recognizable professional grooming improvement.
+GROOMING RECOMMENDATION:
 
-When appropriate:
-
-- remove stray hairs
-- clean the lower eyebrow edge
-- clean unnecessary hairs between the eyebrows
-- refine the eyebrow tail
-- improve left-right visual balance
-- slightly clarify the natural shape
-- preserve natural masculine thickness
-
-The result should resemble realistic professional men's eyebrow grooming.
-
-IMPORTANT:
-
-The difference should be visible when the Before and After images are viewed side by side on a smartphone.
-
-Do NOT simply leave the eyebrows almost identical.
-
-At the same time, do NOT make them:
-
-- excessively thin
-- excessively dark
-- heavily drawn
-- unnaturally geometric
-- obviously made-up
-
-Preserve the person's natural eyebrow identity.
-
-The eyebrow transformation should look like the result of a professional Japanese men's eyebrow salon.
-
-Make the improvement clearly visible while preserving the person's natural eyebrow characteristics.
-
-A cleaner lower edge, controlled thickness, refined tail, and better overall balance should noticeably improve the eye-area impression.
-
-Do not change the eyes themselves to improve the eye-area impression.
-
-==================================================
-8. HAIR — MAJOR TRANSFORMATION PRIORITY
-==================================================
-
-CRITICAL HAIR RULE:
-
-The hairstyle in the After image must NOT remain substantially the same as the original hairstyle.
-
-Unless the personalized diagnosis explicitly recommends keeping the current hairstyle,
-perform a clearly visible haircut-level transformation.
-
-The change must be obvious in the overall hair silhouette.
-
-At least TWO of the following should change noticeably when appropriate:
-
-- fringe shape
-- forehead exposure
-- parting
-- top volume
-- side volume
-- overall silhouette
-- hair length appearance
-- texture and separation
-- movement and styling direction
-
-Do not interpret "same person" as "same hairstyle."
-
-Hair is a temporary and highly changeable feature.
-
-A nearly identical hairstyle is considered a failed transformation.
-
-Hair should be one of the MOST VISIBLY DIFFERENT elements between the Before and After images.
-
-Follow the personalized hair recommendation:
-
-${analysis.afterDirection.hair}
-
-IMPORTANT:
-
-Do NOT default to preserving the original hairstyle.
-
-Preserve the person's natural hair characteristics,
-but actively redesign the HAIRCUT, HAIR SHAPE, and STYLING when doing so would better match the personalized recommendation.
-
-The After image should represent:
-
-"a real visit to a skilled Japanese men's hair salon,
-including an appropriate haircut and professional styling."
-
-This means you MAY realistically change:
-
-- the haircut itself
-- fringe length and shape
-- fringe direction
-- forehead exposure
-- parting position
-- top length appearance
-- top volume
-- side volume
-- hair around the ears
-- overall silhouette
-- layering
-- separation
-- texture
-- movement
-- styling direction
-
-The final hairstyle does NOT need to remain the same hairstyle as the Before image.
-
-If the current hairstyle is heavy, flat, unstructured, overgrown, or does not support the target impression,
-make a clearly visible haircut-level improvement.
-
-For example, when appropriate:
-
-- change a heavy fringe into a cleaner separated fringe
-- expose more forehead
-- create a natural center or off-center part
-- reduce excessive side volume
-- create cleaner hair around the ears
-- create stronger top volume
-- add visible separation and movement
-- improve the overall head silhouette
-- create a cleaner outline around the face
-
-These are examples only.
-
-Always prioritize the personalized recommendation and the person's actual facial characteristics.
-
-CRITICAL DIFFERENCE REQUIREMENT:
-
-When Before and After are viewed side by side,
-the hairstyle improvement must be immediately noticeable.
-
-A result where the hair is merely:
-
-- slightly combed
-- slightly neater
-- slightly shinier
-- minimally separated
-- given only subtle texture
-
-is TOO WEAK.
-
-If the hairstyle still looks essentially the same as the Before image,
-increase the haircut and styling transformation.
-
-Do not be afraid to make a clearly different but realistically achievable hairstyle.
-
-However, preserve:
-
-- natural hairline
-- realistic hair density
-- realistic hair texture
-- believable hair growth
-- the person's identity
-
-Do NOT:
-
-- create a wig-like hairstyle
-- invent unrealistic hair density
-- dramatically alter the natural hairline
-- use an extreme fashion hairstyle unrelated to the diagnosis
-- change facial anatomy to make the hairstyle look better
-
-TARGET:
-
-The viewer should think:
-
-"He actually changed his hairstyle at a good men's salon."
-
-Not:
-
-"He just styled his existing hair a little."
-
-==================================================
-9. GROOMING
-==================================================
+${analysis.afterDirection.grooming}
 
 Increase the visible impression of:
 
 - cleanliness
 - freshness
-- grooming
 - refinement
 - approachability
+- intentional grooming
 
-Where visibly appropriate, improve:
+When appropriate:
 
-- facial hair
-- beard shadow
-- eyebrows
-- skin presentation
-- lips
-- hair
-- overall facial grooming
+- moisturize dry-looking lips
+- improve temporary tired-looking complexion
+- improve facial-hair grooming
+- clean up minor visible grooming issues
 
-If the lips visibly appear dry,
-they may look naturally moisturized.
+Do not invent problems that are not visible.
 
-Do not invent problems that are not visible in the original photograph.
-
-LIPS AND EYE-AREA PRESENTATION:
-
-When appropriate, make dry-looking lips appear naturally moisturized with subtle healthy color.
-
-Reduce temporary tired-looking dullness around the eye area through realistic skincare and subtle complexion correction.
-
-Do NOT enlarge, reshape, lift, or redesign the eyes.
-
-The improved eye-area impression must come from grooming, eyebrows, complexion, and presentation rather than anatomical changes.
+Do not alter permanent facial anatomy.
 
 ==================================================
-10. SUBTLE MEN'S MAKEUP
+9. CLOTHING — VERY LOW PRIORITY
 ==================================================
 
-Natural men's makeup is explicitly allowed.
+STYLING RECOMMENDATION:
 
-Use it when useful to achieve the personalized improvement plan.
+${analysis.afterDirection.styling}
 
-This may include the realistic visual effect of:
+Keep clothing as close to the original photograph as reasonably possible.
 
-- men's BB cream
-- light concealer
-- orange or peach beard-shadow corrector
-- subtle complexion evening
-- subtle redness correction
+Clothing transformation priority:
 
-The makeup itself should NOT be obvious.
+2 / 10
 
-The viewer should think:
+Do NOT use clothing as the primary source of the Before / After difference.
 
-"He looks much cleaner and more polished."
+Prefer preserving:
 
-Not:
+- the same T-shirt
+- the same sweatshirt
+- the same hoodie
+- the same shirt
+- the same jacket
 
-"He is obviously wearing makeup."
+Minor improvements in presentation are acceptable.
 
-==================================================
-11. CLOTHING AND STYLING — KEEP MOSTLY UNCHANGED
-==================================================
+The viewer should understand that the transformation came from:
 
-Clothing should remain close to the original photograph.
+HAIR + EYEBROWS + SKIN + GROOMING
 
-The main transformation must come from:
-
-- skin presentation
-- beard-shadow reduction
-- eyebrow grooming
-- hairstyle
-- facial grooming
-- overall cleanliness
-
-Do NOT use clothing changes as the main source of improvement.
-
-Preserve the original outfit whenever possible.
-
-Only make very small styling adjustments if needed, such as:
-
-- slightly cleaner presentation
-- minor neckline adjustment
-- small improvement in fit or layering
-- slightly more refined styling of the same general outfit
-
-Do NOT completely replace:
-
-- hoodies
-- sweatshirts
-- T-shirts
-- shirts
-- jackets
-
-unless the original clothing clearly conflicts with the requested target impression.
-
-The After image should still feel like:
-
-"the same person, wearing roughly the same kind of clothes, but with clearly improved face, hair, skin, eyebrows, beard shadow, and grooming."
-
-The viewer should recognize that the transformation comes primarily from beauty and grooming improvements, not fashion changes.
+rather than fashion.
 
 ==================================================
-12. TRANSFORMATION STRENGTH
+10. BEFORE / AFTER CONSISTENCY
 ==================================================
 
-Use a STRONG but realistic total beauty transformation.
+Maintain strong photographic continuity with the original.
 
-This should be more than ordinary grooming.
+Preserve as much as reasonably possible:
 
-The result should represent a professionally coordinated makeover using only changes that are realistically achievable without cosmetic surgery.
+- camera perspective
+- head orientation
+- facial expression
+- framing
+- pose
+- body proportions
+- general lighting direction
+- background
+- clothing
 
-Target:
+Do not create a completely different portrait.
 
-- identity preservation: 9 / 10
-- realistic achievability: 8.5 / 10
-- visible overall improvement: 10 / 10
-- visible facial grooming improvement: 9.5 / 10
-- skin improvement visibility: 9.5 / 10
-- beard-shadow improvement when present: 9.5 / 10
-- eyebrow grooming visibility: 9 / 10
-- hairstyle transformation visibility: 10 / 10
-- natural men's makeup visibility through its EFFECT: 9 / 10
-- clothing transformation: 2 / 10
+The result should feel like:
 
-The After image should feel significantly more polished than the Before image even if the clothing remains almost unchanged.
+"the same photograph taken after professional grooming"
 
-If the transformation still looks like ordinary grooming,
-increase the visible improvements to hair, skin, beard-shadow correction, eyebrows, and complexion.
+rather than:
 
-Do NOT compensate by changing facial anatomy.
-
-Do NOT compensate primarily through clothing.
-
-The transformation must come primarily from realistic men's beauty and grooming techniques.
-
-Do not interpret identity preservation as a reason to minimize beauty improvements.
-
-Permanent facial anatomy must remain the same.
-
-Temporary, cosmetic, groomable, and styling-related characteristics SHOULD visibly improve.
-
-The final result should feel like:
-
-"the exact same person after professional total beauty production:
-a suitable haircut and salon styling,
-professional eyebrow grooming,
-several weeks of skincare,
-a clean shave,
-strong but natural beard-shadow correction,
-subtle men's BB cream and concealer,
-natural lip care,
-and refined overall grooming while keeping the original clothing mostly unchanged."
-
-The viewer should clearly feel a meaningful transformation.
-
-The transformation should be strong enough to feel aspirational,
-but still believable as something this same person could realistically achieve.
+"a new photoshoot of a similar-looking person."
 
 ==================================================
-13. FINAL SELF-CHECK
+11. REQUIRED VISIBLE DIFFERENCE
 ==================================================
 
-Before finalizing the image, internally verify:
+The Before and After images will be displayed side by side on a smartphone.
 
-IDENTITY:
-Does this unmistakably look like the same person?
+At normal viewing size,
+the improvement should be understandable within approximately one second.
 
-SKIN:
-Is the face visibly fresher, brighter, and more even?
-
-BEARD SHADOW:
-If beard shadow existed, is it substantially less visible?
-
-EYEBROWS:
-Are the eyebrows visibly cleaner and more intentional?
-
-HAIR:
-Does the hairstyle look professionally improved?
-
-BALANCE:
-Are facial improvements at least as noticeable as clothing improvements?
-
-SMARTPHONE TEST:
-
-Compare the proposed After image directly against the provided original image.
-
-At normal smartphone viewing size,
-an ordinary viewer must immediately recognize a clear transformation.
-
-The After image must NOT look like:
-
-- the original image with only minor retouching
-- the original hairstyle with only slight rearrangement
-- the same eyebrows with only tiny cleanup
-- the same complexion with only subtle brightening
-- a nearly identical photograph with small cosmetic corrections
-
-If the Before and After could be mistaken for almost the same photograph,
-the transformation is TOO WEAK and must be strengthened before finalizing.
-
-When applicable, at least THREE of these areas should show a clearly visible improvement:
+The viewer should immediately notice improvements in several of these areas:
 
 1. hairstyle
 2. eyebrows
-3. skin clarity and complexion
-4. beard-shadow or stubble reduction
+3. complexion
+4. beard shadow or stubble
 5. facial grooming
-6. overall polished presentation
+6. overall polished appearance
 
-PRIORITY WHEN TRANSFORMATION IS TOO WEAK:
+When applicable,
+at least THREE areas should show a meaningful visible improvement.
 
-First increase:
-1. hairstyle difference
+However:
+
+NEVER create additional transformation by changing permanent facial anatomy.
+
+If the transformation appears too weak,
+increase the following IN THIS ORDER:
+
+1. haircut and hairstyle difference
 2. eyebrow grooming
 3. beard-shadow correction
 4. complexion refinement
 5. facial grooming
 
-Do NOT increase transformation by changing:
+Do NOT increase:
 
-- facial anatomy
 - eye size
-- nose shape
-- jaw shape
+- eye shape
+- nose attractiveness
+- jaw definition through anatomical changes
+- facial symmetry
+- face slimming
+- lip shape
+- facial proportions
+
+==================================================
+12. TRANSFORMATION STRENGTH
+==================================================
+
+Target levels:
+
+- identity preservation: 10 / 10
+- realistic achievability: 9 / 10
+- hairstyle transformation: 9 / 10
+- eyebrow grooming: 8 / 10
+- complexion improvement: 8 / 10
+- beard-shadow correction when present: 9 / 10
+- facial grooming: 8 / 10
+- clothing transformation: 2 / 10
+
+The result should be aspirational but believable.
+
+It should represent this exact person's realistically achievable best-groomed appearance.
+
+The ideal reaction is:
+
+"Clearly the same guy, but he looks noticeably more polished and 垢抜けた."
+
+==================================================
+13. FINAL SELF-CHECK
+==================================================
+
+Before finalizing, internally compare the proposed After image directly with the provided original photograph.
+
+IDENTITY CHECK:
+
+Does the face unmistakably belong to the exact same person?
+
+Compare:
+
+- eyes
+- eyelids
+- nose
+- mouth
+- jaw
 - face shape
-- age
-- ethnicity
-- camera angle
-- dramatic lighting
-- background
-- clothing
+- proportions
+- distinctive characteristics
 
-The correct target is:
+If facial anatomy appears meaningfully different,
+restore the original facial anatomy.
 
-"Clearly the same person, but obviously more polished and 垢抜けた."
+HAIR CHECK:
 
-The visual improvement should be understandable within approximately one second when Before and After are viewed side by side.
+Does the hairstyle show a clearly visible professional improvement?
 
-HAIR FAILURE CHECK:
+If the silhouette is nearly identical,
+increase the realistic haircut or styling transformation.
 
-If the hairstyle silhouette is still almost identical to the original photograph,
-the result is not acceptable.
+EYEBROW CHECK:
 
-Regenerate internally with a more clearly redesigned but realistic hairstyle
-that follows the personalized recommendation.
+Are the eyebrows visibly cleaner and more intentional without changing their natural identity?
+
+SKIN CHECK:
+
+Does the complexion look visibly fresher and more even while retaining real skin texture?
+
+BEARD CHECK:
+
+If beard shadow was visible,
+is it clearly reduced?
+
+SMARTPHONE CHECK:
+
+Would an ordinary viewer immediately understand the improvement when Before and After are shown side by side?
+
+If no:
+
+increase only realistic and reversible grooming changes.
+
+Never solve insufficient transformation by redesigning the face.
+
+FINAL PRIORITY:
+
+IDENTITY MUST BE PRESERVED.
+GROOMING MUST BE VISIBLY IMPROVED.
+
+Both conditions must be satisfied.
 
 ==================================================
 14. IMAGE QUALITY
@@ -801,7 +621,7 @@ that follows the personalized recommendation.
 Final image requirements:
 
 - highly photorealistic
-- same exact person
+- exact same person
 - realistic Japanese men's beauty photography
 - premium but believable
 - clean and refined

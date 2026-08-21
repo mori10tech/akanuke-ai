@@ -601,15 +601,18 @@ redirectTimer =
 
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/5 via-transparent to-black/45" />
 
-              <div className="pointer-events-none absolute inset-[7%] rounded-[24px] border border-white/70">
-                <span className="absolute -left-px -top-px h-8 w-8 rounded-tl-[24px] border-l-2 border-t-2 border-[#FFD400]" />
-                <span className="absolute -right-px -top-px h-8 w-8 rounded-tr-[24px] border-r-2 border-t-2 border-[#FFD400]" />
-                <span className="absolute -bottom-px -left-px h-8 w-8 rounded-bl-[24px] border-b-2 border-l-2 border-[#FFD400]" />
-                <span className="absolute -bottom-px -right-px h-8 w-8 rounded-br-[24px] border-b-2 border-r-2 border-[#FFD400]" />
-              </div>
+              <div className="pointer-events-none absolute left-[7%] right-[7%] top-[7%] bottom-[15%] z-10 overflow-hidden rounded-[24px]">
+  {/* AI解析グリッド */}
+  <div className="akanuke-ai-grid absolute inset-0" />
 
-              <div className="pointer-events-none absolute left-[7%] right-[7%] top-[7%] bottom-[24%] z-10 overflow-hidden rounded-t-[24px]">
-  <div className="akanuke-scan-line absolute inset-x-0 top-0 h-px bg-[#FFD400] shadow-[0_0_18px_rgba(255,212,0,0.9)]" />
+  {/* グリッド上を流れる解析光 */}
+  <div className="akanuke-grid-scan absolute inset-x-0 top-0 h-[30%]" />
+
+  {/* 四隅の解析フレーム */}
+  <span className="absolute left-0 top-0 h-8 w-8 rounded-tl-[24px] border-l-2 border-t-2 border-[#1677FF]/70" />
+  <span className="absolute right-0 top-0 h-8 w-8 rounded-tr-[24px] border-r-2 border-t-2 border-[#1677FF]/70" />
+  <span className="absolute bottom-0 left-0 h-8 w-8 rounded-bl-[24px] border-b-2 border-l-2 border-[#1677FF]/70" />
+  <span className="absolute bottom-0 right-0 h-8 w-8 rounded-br-[24px] border-b-2 border-r-2 border-[#1677FF]/70" />
 </div>
 
               <div className="absolute inset-x-4 bottom-4 rounded-[14px] border border-white/25 bg-black/60 px-4 py-3 text-white backdrop-blur-md">
@@ -806,34 +809,103 @@ redirectTimer =
         </div>
       </div>
             <style jsx global>{`
-        @keyframes akanuke-scan {
-          0% {
-            top: 0%;
-          }
+  .akanuke-ai-grid {
+    background-image:
+      linear-gradient(
+        rgba(22, 119, 255, 0.14) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        90deg,
+        rgba(22, 119, 255, 0.14) 1px,
+        transparent 1px
+      );
 
-          50% {
-            top: 100%;
-          }
+    background-size:
+      36px 36px;
 
-          100% {
-            top: 0%;
-          }
-        }
+    mask-image:
+      linear-gradient(
+        to bottom,
+        transparent 0%,
+        black 8%,
+        black 88%,
+        transparent 100%
+      );
 
-        .akanuke-scan-line {
-          animation:
-            akanuke-scan 3.2s
-            ease-in-out infinite;
-          will-change: top;
-        }
+    -webkit-mask-image:
+      linear-gradient(
+        to bottom,
+        transparent 0%,
+        black 8%,
+        black 88%,
+        transparent 100%
+      );
+  }
 
-        @media (prefers-reduced-motion: reduce) {
-          .akanuke-scan-line {
-            animation: none;
-            top: 50%;
-          }
-        }
-      `}</style>
+  @keyframes akanuke-grid-scan {
+    0% {
+      transform: translateY(-120%);
+      opacity: 0;
+    }
+
+    12% {
+      opacity: 1;
+    }
+
+    50% {
+      opacity: 1;
+    }
+
+    88% {
+      opacity: 1;
+    }
+
+    100% {
+      transform: translateY(390%);
+      opacity: 0;
+    }
+  }
+
+  .akanuke-grid-scan {
+  background:
+    linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(22, 119, 255, 0.02) 18%,
+      rgba(22, 119, 255, 0.12) 48%,
+      rgba(22, 119, 255, 0.03) 78%,
+      transparent 100%
+    );
+
+  filter:
+    drop-shadow(
+      0 0 10px
+      rgba(22, 119, 255, 0.18)
+    );
+
+  animation:
+    akanuke-grid-scan
+    4.2s
+    linear
+    infinite;
+
+  will-change:
+    transform,
+    opacity;
+}
+
+  @media (
+    prefers-reduced-motion:
+      reduce
+  ) {
+    .akanuke-grid-scan {
+      animation: none;
+      top: 33%;
+      opacity: 0.65;
+    }
+  }
+`}</style>
     </main>
   );
 }

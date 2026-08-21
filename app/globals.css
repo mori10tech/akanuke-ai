@@ -585,7 +585,7 @@ a {
   }
 
   .hero-person-wrap {
-    top: 0;
+    top: 20px;
     right: auto;
     bottom: auto;
     left: 50%;

@@ -6,7 +6,6 @@ import {
   useState,
 } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import AppHeader from "../components/AppHeader";
 import AppShell from "../components/AppShell";
 import AdSenseAd from "../components/AdSenseAd";
@@ -15,7 +14,6 @@ import {
   categories,
   type Product,
   type ProductCategory,
-  type ProductVisualType,
 } from "../../data/products";
 
 import {
@@ -145,127 +143,6 @@ function CheckIcon() {
   );
 }
 
-function getVisualSettings(type: ProductVisualType) {
-  const settings: Record<
-    ProductVisualType,
-    {
-      label: string;
-      subLabel: string;
-      bodyClass: string;
-      shapeClass: string;
-    }
-  > = {
-    sunscreen: {
-      label: "UV",
-      subLabel: "CARE",
-      bodyClass:
-        "border-black/10 bg-gradient-to-br from-white via-[#F7F9FC] to-[#EEF6FF]",
-      shapeClass:
-        "h-[76%] w-[44%] rounded-b-[16px] rounded-t-[7px]",
-    },
-
-    lotion: {
-      label: "MEN",
-      subLabel: "LOTION",
-      bodyClass:
-        "border-[#1677FF]/15 bg-gradient-to-b from-[#EEF6FF] to-[#1677FF] text-white",
-      shapeClass:
-        "h-[72%] w-[40%] rounded-b-[12px] rounded-t-[7px]",
-    },
-
-    cleanser: {
-      label: "WASH",
-      subLabel: "CLEAN",
-      bodyClass:
-        "border-black/10 bg-[#111111] text-white",
-      shapeClass:
-        "h-[70%] w-[45%] rounded-b-[14px] rounded-t-[8px]",
-    },
-
-    wax: {
-      label: "N.",
-      subLabel: "BALM",
-      bodyClass:
-        "border-black/10 bg-[#111111] text-white",
-      shapeClass:
-        "h-[45%] w-[60%] rounded-[15px]",
-    },
-
-    hairOil: {
-      label: "OIL",
-      subLabel: "HAIR",
-      bodyClass:
-        "border-black/10 bg-gradient-to-b from-[#FFF9D9] to-[#FFD400]",
-      shapeClass:
-        "h-[72%] w-[36%] rounded-b-[12px] rounded-t-[5px]",
-    },
-
-    dryer: {
-      label: "ION",
-      subLabel: "DRYER",
-      bodyClass:
-        "border-black/10 bg-gradient-to-br from-white to-[#F7F9FC]",
-      shapeClass:
-        "h-[46%] w-[64%] rounded-[22px]",
-    },
-
-    fragrance: {
-      label: "SAVON",
-      subLabel: "EAU",
-      bodyClass:
-        "border-[#1677FF]/10 bg-gradient-to-br from-white to-[#EEF6FF]",
-      shapeClass:
-        "h-[60%] w-[46%] rounded-[10px]",
-    },
-
-    lip: {
-      label: "LIP",
-      subLabel: "CARE",
-      bodyClass:
-        "border-black/10 bg-[#111111] text-white",
-      shapeClass:
-        "h-[72%] w-[22%] rounded-[7px]",
-    },
-
-    toothbrush: {
-      label: "ORAL",
-      subLabel: "CARE",
-      bodyClass:
-        "border-[#1677FF]/10 bg-gradient-to-b from-white to-[#EEF6FF]",
-      shapeClass:
-        "h-[78%] w-[20%] rounded-full",
-    },
-  };
-
-  return settings[type];
-}
-
-function ProductVisual({
-  type,
-}: {
-  type: ProductVisualType;
-}) {
-  const settings = getVisualSettings(type);
-
-  return (
-    <div className="relative flex h-28 w-20 items-end justify-center">
-      <div
-        className={`relative flex items-center justify-center border shadow-[0_10px_34px_rgba(15,23,42,0.05)] ${settings.bodyClass} ${settings.shapeClass}`}
-      >
-        <div className="text-center">
-          <p className="text-[7px] font-black tracking-[0.08em]">
-            {settings.label}
-          </p>
-
-          <p className="mt-0.5 text-[4px] font-bold opacity-60">
-            {settings.subLabel}
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 function AffiliateButtons({
   product,
 }: {
@@ -317,91 +194,67 @@ function ProductCard({
 
   return (
     <article
-  className={`overflow-hidden rounded-[20px] bg-white shadow-[0_10px_34px_rgba(15,23,42,0.05)] ${
-    featured
-      ? "border-2 border-[#1677FF]/20"
-      : "border border-black/10"
-  }`}
->
-  {featured ? (
-    <div className="bg-[#1677FF] px-4 py-2">
-      <p className="text-[9px] font-black tracking-[0.12em] text-white">
-        AI PICK
-      </p>
-    </div>
-  ) : null}
-
-  <div
-    className={`grid border-b border-black/10 ${
-      featured
-        ? "grid-cols-[140px_1fr]"
-        : "grid-cols-[112px_1fr]"
-    }`}
-  >
-        <div className="relative flex min-h-[166px] items-center justify-center bg-gradient-to-b from-white to-[#F7F9FC]">
-          
-          {product.imagePath ? (
-  <Image
-    src={product.imagePath}
-    alt={
-      product.imageAlt ??
-      `${product.brand} ${product.name}`
-    }
-    width={240}
-    height={240}
-    className="h-auto max-h-[150px] w-auto max-w-[90%] object-contain"
-  />
-) : (
-  <ProductVisual
-    type={product.visualType}
-  />
-)}
-        </div>
-
-        <div className="flex min-w-0 flex-col justify-center p-4">
-          <p className="text-[9px] font-black tracking-[0.08em] text-black/35">
-            {product.brand}
+      className={`overflow-hidden rounded-[20px] bg-white shadow-[0_10px_34px_rgba(15,23,42,0.05)] ${
+        featured
+          ? "border-2 border-[#1677FF]/20"
+          : "border border-black/10"
+      }`}
+    >
+      {featured ? (
+        <div className="bg-[#1677FF] px-4 py-2">
+          <p className="text-[9px] font-black tracking-[0.12em] text-white">
+            AI PICK
           </p>
-
-          <h3 className="mt-1 text-[15px] font-black leading-6">
-            {product.name}
-          </h3>
-
-          <p className="mt-2 text-[10px] leading-5 text-black/55">
-            {product.description}
-          </p>
-
-          <div className="mt-3 flex items-end justify-between gap-3">
-            <div>
-              {product.rating &&
-              product.reviewCount ? (
-                <>
-                  <p className="text-[9px] font-black text-[#111111]">
-                    ★ {product.rating}
-                  </p>
-
-                  <p className="mt-0.5 text-[8px] text-black/35">
-                    {product.reviewCount}
-                  </p>
-                </>
-              ) : (
-                <p className="text-[8px] leading-4 text-black/35">
-                  商品情報は販売サイトで確認
-                </p>
-              )}
-            </div>
-
-            {product.price !== null ? (
-              <p className="shrink-0 text-[17px] font-black">
-                ¥{formatPrice(product.price)}
-              </p>
-            ) : null}
-          </div>
         </div>
-      </div>
+      ) : null}
 
       <div className="p-4">
-        <div className="flex flex-wrap gap-1.5">
+        <p className="text-[9px] font-black tracking-[0.08em] text-black/35">
+          {product.brand}
+        </p>
+
+        <h3
+          className={`mt-1 font-black leading-7 ${
+            featured
+              ? "text-[19px]"
+              : "text-[16px]"
+          }`}
+        >
+          {product.name}
+        </h3>
+
+        <p className="mt-3 text-[11px] leading-6 text-black/55">
+          {product.description}
+        </p>
+
+        <div className="mt-4 flex items-end justify-between gap-3 border-t border-black/10 pt-4">
+          <div>
+            {product.rating &&
+            product.reviewCount ? (
+              <>
+                <p className="text-[9px] font-black text-[#111111]">
+                  ★ {product.rating}
+                </p>
+
+                <p className="mt-0.5 text-[8px] text-black/35">
+                  {product.reviewCount}
+                </p>
+              </>
+            ) : (
+              <p className="text-[8px] leading-4 text-black/35">
+                商品情報は販売サイトで確認
+              </p>
+            )}
+          </div>
+
+          {product.price !== null ? (
+            <p className="shrink-0 text-[17px] font-black">
+              ¥{formatPrice(product.price)}
+            </p>
+          ) : null}
+        </div>
+
+        <div className="mt-4 flex flex-wrap gap-1.5">
           {product.badges.map((badge) => (
             <span
               key={badge}
@@ -742,19 +595,31 @@ export default function ProductsPage() {
               </div>
 
               <div className="mt-5 grid gap-4">
-  {displayedProducts.map(
-  (product, index) => (
-    <ProductCard
-      key={product.id}
-      product={product}
-      diagnosisNeeds={
-        diagnosisNeeds
-      }
-      featured={index === 0}
-    />
-  ),
-)}
-</div>
+                {displayedProducts.map(
+                  (product, index) => (
+                    <div
+                      key={product.id}
+                      className="grid gap-4"
+                    >
+                      <ProductCard
+                        product={product}
+                        diagnosisNeeds={
+                          diagnosisNeeds
+                        }
+                        featured={index === 0}
+                      />
+
+                      {index === 0 &&
+                      displayedProducts.length > 1 ? (
+                        <AdSenseAd
+                          className="my-2"
+                          format="rectangle"
+                        />
+                      ) : null}
+                    </div>
+                  ),
+                )}
+              </div>
 
 {selectedProducts.length > 3 ? (
   <button
@@ -772,11 +637,6 @@ export default function ProductsPage() {
   </button>
 ) : null}
             </section>
-
-            <AdSenseAd
-              className="mt-10"
-              format="rectangle"
-            />
 
             <aside className="mt-9 rounded-[16px] bg-[#F7F9FC] px-4 py-4">
               <p className="text-center text-[9px] leading-5 text-black/35">

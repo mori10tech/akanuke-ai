@@ -1124,6 +1124,36 @@ export default function ResultPage() {
             </div>
           </section>
 
+          <section className="mx-4 mt-5 rounded-[24px] border border-[#1677FF]/10 bg-[#EEF6FF] p-5">
+            <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
+              SHARE YOUR RESULT
+            </p>
+
+            <h2 className="mt-2 text-[18px] font-black tracking-[-0.03em] text-[#111111]">
+              診断結果をシェア
+            </h2>
+
+            <p className="mt-2 text-[11px] leading-5 text-black/55">
+              診断結果の文章とAKANUKE.AIのURLをXへシェアできます。
+            </p>
+
+            <div className="mt-5">
+              <ShareResultButton
+                progress={analysis.progress}
+                targetImpression={
+                  analysis.targetImpression
+                }
+                priorities={
+                  analysis.priorities
+                }
+              />
+            </div>
+
+            <p className="mt-3 text-center text-[9px] leading-4 text-black/35">
+              顔写真やAfter画像は投稿されません
+            </p>
+          </section>
+
           <section className="mx-4 mt-7">
             <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
               AI ANALYSIS
@@ -1178,6 +1208,43 @@ export default function ResultPage() {
                   analysis.grooming.advice
                 }
               />
+            </div>
+          </section>
+
+          <section className="mx-4 mt-4 overflow-hidden rounded-[24px] border border-[#1677FF]/10 bg-gradient-to-br from-white via-white to-[#EEF6FF] shadow-[0_14px_40px_rgba(22,119,255,0.08)]">
+            <div className="relative px-5 pb-5 pt-6">
+              <div className="absolute right-5 top-5 flex h-16 w-16 items-center justify-center rounded-full bg-[#EEF6FF] text-[#1677FF]">
+                <Icon
+                  name="bag"
+                  className="h-8 w-8"
+                />
+              </div>
+
+              <p className="pr-20 text-[9px] font-black tracking-[0.16em] text-[#1677FF]">
+                RECOMMENDED FOR YOU
+              </p>
+
+              <h2 className="mt-3 whitespace-nowrap pr-20 text-[20px] font-black leading-[1.45] tracking-[-0.04em] min-[390px]:text-[20px]">
+                あなたに合うおすすめ商品
+              </h2>
+
+              <p className="mt-3 max-w-[340px] text-left text-[11px] leading-5 text-black/55">
+                診断結果から、今のあなたに必要なケア・スタイリング商品を厳選しています。
+              </p>
+
+              <Link
+                href="/products"
+                className="mt-6 flex min-h-[56px] items-center justify-center gap-3 rounded-[15px] bg-[#FFD400] px-5 text-[14px] font-black text-[#111111] shadow-[0_10px_34px_rgba(15,23,42,0.05)] transition hover:-translate-y-0.5 active:scale-[0.99]"
+              >
+                おすすめ商品を見る
+
+                <span
+                  aria-hidden="true"
+                  className="text-[18px]"
+                >
+                  →
+                </span>
+              </Link>
             </div>
           </section>
 
@@ -1412,6 +1479,51 @@ export default function ResultPage() {
             </p>
           </section>
 
+          <AdSenseAd
+            className="mx-4 mt-7"
+            format="rectangle"
+          />
+
+          <section className="mx-4 mt-7 overflow-hidden rounded-[24px] border border-[#1677FF]/10 bg-gradient-to-br from-white via-white to-[#EEF6FF] shadow-[0_14px_40px_rgba(22,119,255,0.08)]">
+            <div className="relative px-5 pb-5 pt-6">
+              <div className="absolute right-5 top-5 flex h-16 w-16 items-center justify-center rounded-full bg-[#EEF6FF] text-[#1677FF]">
+                <Icon
+                  name="calendar"
+                  className="h-8 w-8"
+                />
+              </div>
+
+              <p className="pr-20 text-[9px] font-black tracking-[0.16em] text-[#1677FF]">
+                YOUR PERSONAL PLAN
+              </p>
+
+              <h2 className="mt-3 max-w-[290px] text-[20px] font-black leading-[1.45] tracking-[-0.04em]">
+                100%に近づくための
+                <br />
+                垢抜けプラン
+              </h2>
+
+              <p className="mt-3 max-w-[340px] text-[11px] leading-5 text-black/55">
+                優先順位の高い項目から、
+                自分のタイミングで無理なく進められます。
+              </p>
+
+              <Link
+                href="/plan"
+                className="mt-6 flex min-h-[56px] items-center justify-center gap-3 rounded-[15px] bg-[#FFD400] px-5 text-[14px] font-black text-[#111111] shadow-[0_10px_34px_rgba(15,23,42,0.05)] transition hover:-translate-y-0.5 active:scale-[0.99]"
+              >
+                垢抜けプランを見る
+
+                <span
+                  aria-hidden="true"
+                  className="text-[18px]"
+                >
+                  →
+                </span>
+              </Link>
+            </div>
+          </section>
+
           <section className="mx-4 mt-7">
             <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
               PRIORITY
@@ -1511,119 +1623,6 @@ export default function ResultPage() {
                 ),
               )}
             </div>
-          </section>
-
-          <AdSenseAd
-            className="mx-4 mt-7"
-            format="rectangle"
-          />
-
-          <section className="mx-4 mt-7 overflow-hidden rounded-[24px] border border-[#1677FF]/10 bg-gradient-to-br from-white via-white to-[#EEF6FF] shadow-[0_14px_40px_rgba(22,119,255,0.08)]">
-            <div className="relative px-5 pb-5 pt-6">
-              <div className="absolute right-5 top-5 flex h-16 w-16 items-center justify-center rounded-full bg-[#EEF6FF] text-[#1677FF]">
-                <Icon
-                  name="calendar"
-                  className="h-8 w-8"
-                />
-              </div>
-
-              <p className="pr-20 text-[9px] font-black tracking-[0.16em] text-[#1677FF]">
-                YOUR PERSONAL PLAN
-              </p>
-
-              <h2 className="mt-3 max-w-[290px] text-[20px] font-black leading-[1.45] tracking-[-0.04em]">
-                100%に近づくための
-                <br />
-                垢抜けプラン
-              </h2>
-
-              <p className="mt-3 max-w-[340px] text-[11px] leading-5 text-black/55">
-                優先順位の高い項目から、
-                自分のタイミングで無理なく進められます。
-              </p>
-
-              <Link
-                href="/plan"
-                className="mt-6 flex min-h-[56px] items-center justify-center gap-3 rounded-[15px] bg-[#FFD400] px-5 text-[14px] font-black text-[#111111] shadow-[0_10px_34px_rgba(15,23,42,0.05)] transition hover:-translate-y-0.5 active:scale-[0.99]"
-              >
-                垢抜けプランを見る
-
-                <span
-                  aria-hidden="true"
-                  className="text-[18px]"
-                >
-                  →
-                </span>
-              </Link>
-            </div>
-          </section>
-
-          <section className="mx-4 mt-4 overflow-hidden rounded-[24px] border border-[#1677FF]/10 bg-gradient-to-br from-white via-white to-[#EEF6FF] shadow-[0_14px_40px_rgba(22,119,255,0.08)]">
-            <div className="relative px-5 pb-5 pt-6">
-              <div className="absolute right-5 top-5 flex h-16 w-16 items-center justify-center rounded-full bg-[#EEF6FF] text-[#1677FF]">
-                <Icon
-                  name="bag"
-                  className="h-8 w-8"
-                />
-              </div>
-
-              <p className="pr-20 text-[9px] font-black tracking-[0.16em] text-[#1677FF]">
-                RECOMMENDED FOR YOU
-              </p>
-
-              <h2 className="mt-3 whitespace-nowrap pr-20 text-[20px] font-black leading-[1.45] tracking-[-0.04em] min-[390px]:text-[20px]">
-                あなたに合うおすすめ商品
-              </h2>
-
-              <p className="mt-3 max-w-[340px] text-left text-[11px] leading-5 text-black/55">
-                診断結果から、今のあなたに必要なケア・スタイリング商品を厳選しています。
-              </p>
-
-              <Link
-                href="/products"
-                className="mt-6 flex min-h-[56px] items-center justify-center gap-3 rounded-[15px] bg-[#FFD400] px-5 text-[14px] font-black text-[#111111] shadow-[0_10px_34px_rgba(15,23,42,0.05)] transition hover:-translate-y-0.5 active:scale-[0.99]"
-              >
-                おすすめ商品を見る
-
-                <span
-                  aria-hidden="true"
-                  className="text-[18px]"
-                >
-                  →
-                </span>
-              </Link>
-            </div>
-          </section>
-
-          <section className="mx-4 mt-5 rounded-[24px] border border-[#1677FF]/10 bg-[#EEF6FF] p-5">
-            <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
-              SHARE YOUR RESULT
-            </p>
-
-            <h2 className="mt-2 text-[18px] font-black tracking-[-0.03em] text-[#111111]">
-              診断結果をシェア
-            </h2>
-
-            <p className="mt-2 text-[11px] leading-5 text-black/55">
-              顔写真を含まない診断カードを作成して、
-              Xへシェアできます。
-            </p>
-
-            <div className="mt-5">
-              <ShareResultButton
-                progress={analysis.progress}
-                targetImpression={
-                  analysis.targetImpression
-                }
-                priorities={
-                  analysis.priorities
-                }
-              />
-            </div>
-
-            <p className="mt-3 text-center text-[9px] leading-4 text-black/35">
-              顔写真やAfter画像はシェア画像に含まれません
-            </p>
           </section>
 
           <Link

@@ -3,6 +3,9 @@
 import {
   loadAfterImage,
 } from "../../lib/client/afterImageStore";
+import type {
+  AkanukeAnalysis,
+} from "../../lib/openai/schemas";
 import Link from "next/link";
 import {
   useEffect,
@@ -12,6 +15,7 @@ import {
 } from "react";
 import AppHeader from "../components/AppHeader";
 import AppShell from "../components/AppShell";
+import AdSenseAd from "../components/AdSenseAd";
 
 const STORAGE_KEY = "akanukePlanCompletedTasks";
 
@@ -246,11 +250,21 @@ function SalonOrderGuide({
   isOpen,
   onToggle,
   afterImage,
+  analysis,
 }: {
   isOpen: boolean;
   onToggle: () => void;
   afterImage: string | null;
+  analysis: AkanukeAnalysis | null;
 }) {
+  const hairDirection =
+    analysis?.afterDirection.hair ??
+    "顔立ちと髪質に合う、清潔感のある髪型に整える";
+
+  const hairAdvice =
+    analysis?.hair.advice ??
+    "前髪・サイド・トップのバランスを見ながら、扱いやすい形を相談する";
+
   return (
     <section className="mx-4 mt-7 overflow-hidden rounded-[24px] border border-[#1677FF]/15 bg-white shadow-[0_10px_34px_rgba(15,23,42,0.05)]">
       <button
@@ -276,7 +290,7 @@ function SalonOrderGuide({
           </span>
 
           <span className="mt-1 block text-[10px] leading-5 text-black/55">
-            髪型と眉毛のオーダー内容を確認
+            髪型のオーダー内容を確認
           </span>
         </span>
 
@@ -363,19 +377,11 @@ function SalonOrderGuide({
 
               <ul className="mt-4 space-y-2">
                 <OrderPoint>
-                  額が少し見える、軽めの前髪
+                  {hairDirection}
                 </OrderPoint>
 
                 <OrderPoint>
-                  センターパート寄りの自然な毛流れ
-                </OrderPoint>
-
-                <OrderPoint>
-                  サイドは膨らみすぎないように抑える
-                </OrderPoint>
-
-                <OrderPoint>
-                  トップには自然な立体感を残す
+                  {hairAdvice}
                 </OrderPoint>
               </ul>
 
@@ -385,63 +391,13 @@ function SalonOrderGuide({
                 </p>
 
                 <p className="mt-2 text-[11px] font-bold leading-6 text-[#111111]">
-                  「清潔感のある自然なセンターパート寄りにしたいです。
-                  サイドは広がりすぎないように抑えて、前髪は重くしすぎず、
-                  額が少し見えるくらいでお願いします。」
+                  「{hairDirection}」という方向で、
+                  自分の顔立ちと髪質に合わせて調整してください。
+                  セット方法も教えてください。
                 </p>
               </div>
             </div>
-
-            <div className="mt-3 rounded-[18px] border border-black/10 bg-white p-4">
-              <div className="flex items-center gap-3">
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#EEF6FF] text-[#1677FF]">
-                  <Icon
-                    name="brow"
-                    className="h-4 w-4"
-                  />
-                </span>
-
-                <div>
-                  <p className="text-[8px] font-black tracking-[0.14em] text-[#1677FF]">
-                    EYEBROW
-                  </p>
-
-                  <h3 className="mt-0.5 text-[15px] font-black">
-                    眉毛のオーダー
-                  </h3>
-                </div>
-              </div>
-
-              <ul className="mt-4 space-y-2">
-                <OrderPoint>
-                  今の自然な太さは残す
-                </OrderPoint>
-
-                <OrderPoint>
-                  眉間の余分な毛だけ整える
-                </OrderPoint>
-
-                <OrderPoint>
-                  眉尻を軽く整えて輪郭を出す
-                </OrderPoint>
-
-                <OrderPoint>
-                  細くしすぎない
-                </OrderPoint>
-              </ul>
-
-              <div className="mt-4 rounded-[14px] bg-[#FFF9D9] p-4">
-                <p className="text-[10px] font-black text-[#1677FF]">
-                  眉毛サロンでの伝え方
-                </p>
-
-                <p className="mt-2 text-[11px] font-bold leading-6 text-[#111111]">
-                  「太さは残したまま、清潔感が出る自然な形に整えてください。
-                  細くしすぎず、眉間と眉下の余分な毛を中心に整えたいです。」
-                </p>
-              </div>
-            </div>
-
+            
             <div className="mt-4 flex items-start gap-3 rounded-[14px] bg-[#F7F9FC] px-4 py-4">
               <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white text-[#1677FF]">
                 <Icon
@@ -451,7 +407,7 @@ function SalonOrderGuide({
               </span>
 
               <p className="text-[10px] leading-5 text-black/55">
-                この画面を美容師・眉毛サロンのスタッフに見せて、
+                この画面を美容室のスタッフに見せて、
                 顔立ちや髪質に合わせて最終調整してもらうのがおすすめです。
               </p>
             </div>
@@ -478,6 +434,13 @@ export default function PlanPage() {
     setSalonAfterImage,
   ] = useState<string | null>(null);
 
+  const [
+    salonAnalysis,
+    setSalonAnalysis,
+  ] = useState<AkanukeAnalysis | null>(
+    null,
+  );
+
     const [loaded, setLoaded] =
     useState(false);
 
@@ -499,6 +462,21 @@ export default function PlanPage() {
       }
 
       try {
+        const parsed = JSON.parse(
+          rawResult,
+        ) as AkanukeAnalysis;
+
+        if (
+          !isCancelled &&
+          parsed.afterDirection?.hair &&
+          parsed.afterDirection
+            ?.eyebrows &&
+          parsed.hair?.advice &&
+          parsed.eyebrows?.advice
+        ) {
+          setSalonAnalysis(parsed);
+        }
+
         const savedAfterImage =
           await loadAfterImage(
             rawResult,
@@ -659,6 +637,7 @@ export default function PlanPage() {
     )
   }
   afterImage={salonAfterImage}
+  analysis={salonAnalysis}
 />
 
           <section className="mx-4 mt-7">
@@ -843,9 +822,14 @@ export default function PlanPage() {
       >
         →
       </span>
-    </Link>
+        </Link>
   </div>
 </section>
+
+          <AdSenseAd
+            className="mx-4 mt-7"
+            format="rectangle"
+          />
 
           {progress === 100 && (
             <section className="mx-4 mt-6 rounded-[20px] border border-[#FFD400]/40 bg-[#FFF9D9] p-5 text-center">

@@ -82,6 +82,11 @@ export const products: Product[] = [
 
     visualType: "cleanser",
 
+    imagePath:
+  "/products/fancl-deep-clear-washing-powder.webp",
+imageAlt:
+  "FANCL ディープクリア 洗顔パウダー",
+
     badges: ["洗顔", "毛穴ケア"],
     recommendedFor: ["皮脂", "毛穴", "洗顔"],
     needTags: ["poreCare", "oilControl"],

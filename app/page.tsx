@@ -400,7 +400,7 @@ export default function Home() {
           <div className="hero-visual-wrap relative z-0 min-h-[480px] lg:min-h-[585px]">
 <div className="hero-person-wrap">
   <Image
-    src="/lp/hero-person-v4.png"
+    src="/lp/hero-person-v6.png"
     alt="AKANUKE.AIで垢抜けた男性のイメージ"
     width={1536}
     height={2048}

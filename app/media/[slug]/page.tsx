@@ -9,6 +9,7 @@ import {
 } from "../../../data/articles";
 import AdSenseAd from "../../components/AdSenseAd";
 import Logo from "../../components/Logo";
+import AkanukenaiManFeaturesArticle from "./articles/AkanukenaiManFeaturesArticle";
 
 type ArticlePageProps = {
   params: Promise<{
@@ -258,9 +259,116 @@ export default async function ArticleDetailPage({
   const { slug } = await params;
   const article = getArticleBySlug(slug);
 
-  if (!article || article.slug !== "mens-akanuke-guide") {
-    notFound();
-  }
+  if (!article) {
+  notFound();
+}
+
+if (article.slug === "akanukenai-man-features") {
+  return (
+    <main className="min-h-screen bg-white text-[#111111]">
+      <header className="sticky top-0 z-40 border-b border-black/10 bg-white/95 backdrop-blur-xl">
+        <div className="mx-auto flex h-[68px] w-full max-w-[980px] items-center justify-between gap-4 px-5">
+          <Link
+            href="/media"
+            className="flex items-center gap-2 text-[11px] font-black text-black/55 transition hover:text-[#1677FF]"
+          >
+            <ArrowLeftIcon />
+            記事一覧
+          </Link>
+
+          <Logo href="/media" />
+
+          <Link
+            href="/upload"
+            className="rounded-[9px] bg-[#FFD400] px-3 py-2.5 text-[10px] font-black"
+          >
+            無料診断
+          </Link>
+        </div>
+      </header>
+
+      <article>
+        <header className="border-b border-black/10 bg-gradient-to-b from-white to-[#EEF6FF]">
+          <div className="mx-auto max-w-[860px] px-5 pb-12 pt-12 sm:pb-16 sm:pt-16">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="rounded-full bg-white px-3 py-1.5 text-[9px] font-black text-[#1677FF] shadow-sm">
+                {article.category}
+              </span>
+
+              <span className="text-[10px] font-bold text-black/35">
+                {article.readingTime}
+              </span>
+            </div>
+
+            <h1 className="mt-5 text-[32px] font-semibold leading-[1.35] tracking-[-0.05em] sm:text-[48px]">
+              {article.title}
+            </h1>
+
+            <p className="mt-5 max-w-[720px] text-[13px] leading-7 text-black/55 sm:text-[15px]">
+              {article.description}
+            </p>
+
+            <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-[10px] font-bold text-black/35">
+              <time dateTime={article.publishedAt}>
+                公開日：{formatDate(article.publishedAt)}
+              </time>
+
+              {article.updatedAt && (
+                <time dateTime={article.updatedAt}>
+                  更新日：{formatDate(article.updatedAt)}
+                </time>
+              )}
+            </div>
+
+            <div className="relative mt-9 aspect-[1200/630] overflow-hidden rounded-[28px] border border-black/5 bg-[#EEF6FF] shadow-[0_18px_55px_rgba(15,23,42,0.08)]">
+              <Image
+                src={article.image}
+                alt={article.title}
+                fill
+                priority
+                sizes="(max-width: 767px) 100vw, 860px"
+                className="object-cover"
+              />
+            </div>
+          </div>
+        </header>
+
+        <AkanukenaiManFeaturesArticle article={article} />
+      </article>
+
+      <footer className="border-t border-black/10 py-8">
+        <div className="mx-auto flex w-full max-w-[980px] flex-col items-center justify-between gap-4 px-5 text-center sm:flex-row sm:text-left">
+          <Link href="/">
+            <p className="text-[14px] font-black tracking-[0.14em]">
+              AKANUKE.AI
+            </p>
+
+            <p className="mt-1 text-[8px] font-bold tracking-[0.24em] text-[#1677FF]">
+              MEN&apos;S AI BEAUTY
+            </p>
+          </Link>
+
+          <div className="flex flex-wrap justify-center gap-x-5 gap-y-2 text-[10px] text-black/45">
+            <Link href="/">トップページ</Link>
+            <Link href="/media">記事一覧</Link>
+
+            <a
+              href="https://www.leafworks.jp/doc/privacy.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              個人情報保護方針
+            </a>
+          </div>
+
+          <p className="text-[10px] text-black/35">
+            © AKANUKE.AI All Rights Reserved.
+          </p>
+        </div>
+      </footer>
+    </main>
+  );
+}
 
   return (
     <main className="min-h-screen bg-white text-[#111111]">
@@ -540,41 +648,42 @@ export default async function ArticleDetailPage({
               </div>
             </section>
 
-            <section className="mt-16 overflow-hidden rounded-[26px] bg-[#111111] px-6 py-9 text-white sm:px-9">
-              <p className="text-[10px] font-black tracking-[0.16em] text-[#FFD400]">
-                AI BEAUTY DIAGNOSIS
-              </p>
+            <section className="mt-16 overflow-hidden rounded-[26px] border border-[#1677FF]/15 bg-gradient-to-br from-[#F7FBFF] via-white to-[#EEF6FF] px-6 py-9 shadow-[0_16px_40px_rgba(22,119,255,0.08)] sm:px-9">
+  <div className="inline-flex items-center rounded-full bg-[#EEF6FF] px-3 py-1.5">
+    <span className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
+      AI BEAUTY DIAGNOSIS
+    </span>
+  </div>
 
-              <h2 className="mt-3 text-[26px] font-semibold leading-[1.45] tracking-[-0.04em]">
-                自分に必要な改善を、
-                <br />
-                AIで確認してみませんか？
-              </h2>
+  <h2 className="mt-4 text-[26px] font-semibold leading-[1.45] tracking-[-0.04em] text-[#111111]">
+    自分に必要な改善を、
+    <br />
+    AIで確認してみませんか？
+  </h2>
 
-              <p className="mt-4 text-[12px] leading-6 text-white/60">
-                AKANUKE.AIでは、顔写真をもとに髪型・眉毛・肌・全体の印象を分析します。何から始めればいいか分からない方にもおすすめです。
-              </p>
+  <p className="mt-4 text-[12px] leading-6 text-black/55">
+    AKANUKE.AIでは、顔写真をもとに髪型・眉毛・肌・全体の印象を分析します。何から始めればいいか分からない方にもおすすめです。
+  </p>
 
-              <Link
-                href="/"
-                className="mt-6 flex min-h-[52px] w-full items-center justify-center rounded-[13px] bg-[#FFD400] px-5 text-[13px] font-black text-[#111111]"
-              >
-                無料で診断をはじめる
-                <span
-                  className="ml-2"
-                  aria-hidden="true"
-                >
-                  →
-                </span>
-              </Link>
+  <Link
+    href="/upload"
+    className="mt-6 flex min-h-[52px] w-full items-center justify-center rounded-[13px] bg-[#FFD400] px-5 text-[13px] font-black text-[#111111] shadow-[0_10px_24px_rgba(255,212,0,0.22)] transition hover:-translate-y-0.5"
+  >
+    無料で診断をはじめる
+    <span
+      className="ml-2"
+      aria-hidden="true"
+    >
+      →
+    </span>
+  </Link>
 
-              <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-[9px] font-bold text-white/45">
-                <span>約1分で完了</span>
-                <span>無料で利用可能</span>
-                <span>メンズ向け</span>
-              </div>
-            </section>
-
+  <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-[9px] font-bold text-black/40">
+    <span>約1分で完了</span>
+    <span>無料で利用可能</span>
+    <span>メンズ向け</span>
+  </div>
+</section>
             <section
               id="faq"
               className="scroll-mt-24 pt-16"

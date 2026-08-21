@@ -540,40 +540,42 @@ export default async function ArticleDetailPage({
               </div>
             </section>
 
-            <section className="mt-16 overflow-hidden rounded-[26px] bg-[#111111] px-6 py-9 text-white sm:px-9">
-              <p className="text-[10px] font-black tracking-[0.16em] text-[#FFD400]">
-                AI BEAUTY DIAGNOSIS
-              </p>
+            <section className="mt-16 overflow-hidden rounded-[26px] border border-[#1677FF]/15 bg-gradient-to-br from-[#F7FBFF] via-white to-[#EEF6FF] px-6 py-9 shadow-[0_16px_40px_rgba(22,119,255,0.08)] sm:px-9">
+  <div className="inline-flex items-center rounded-full bg-[#EEF6FF] px-3 py-1.5">
+    <span className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
+      AI BEAUTY DIAGNOSIS
+    </span>
+  </div>
 
-              <h2 className="mt-3 text-[26px] font-semibold leading-[1.45] tracking-[-0.04em]">
-                自分に必要な改善を、
-                <br />
-                AIで確認してみませんか？
-              </h2>
+  <h2 className="mt-4 text-[26px] font-semibold leading-[1.45] tracking-[-0.04em] text-[#111111]">
+    自分に必要な改善を、
+    <br />
+    AIで確認してみませんか？
+  </h2>
 
-              <p className="mt-4 text-[12px] leading-6 text-white/60">
-                AKANUKE.AIでは、顔写真をもとに髪型・眉毛・肌・全体の印象を分析します。何から始めればいいか分からない方にもおすすめです。
-              </p>
+  <p className="mt-4 text-[12px] leading-6 text-black/55">
+    AKANUKE.AIでは、顔写真をもとに髪型・眉毛・肌・全体の印象を分析します。何から始めればいいか分からない方にもおすすめです。
+  </p>
 
-              <Link
-                href="/"
-                className="mt-6 flex min-h-[52px] w-full items-center justify-center rounded-[13px] bg-[#FFD400] px-5 text-[13px] font-black text-[#111111]"
-              >
-                無料で診断をはじめる
-                <span
-                  className="ml-2"
-                  aria-hidden="true"
-                >
-                  →
-                </span>
-              </Link>
+  <Link
+    href="/upload"
+    className="mt-6 flex min-h-[52px] w-full items-center justify-center rounded-[13px] bg-[#1677FF] px-5 text-[13px] font-black text-white shadow-[0_10px_24px_rgba(22,119,255,0.22)] transition hover:-translate-y-0.5 hover:bg-[#0F6EE8]"
+  >
+    無料で診断をはじめる
+    <span
+      className="ml-2"
+      aria-hidden="true"
+    >
+      →
+    </span>
+  </Link>
 
-              <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-[9px] font-bold text-white/45">
-                <span>約1分で完了</span>
-                <span>無料で利用可能</span>
-                <span>メンズ向け</span>
-              </div>
-            </section>
+  <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-[9px] font-bold text-black/40">
+    <span>約1分で完了</span>
+    <span>無料で利用可能</span>
+    <span>メンズ向け</span>
+  </div>
+</section>
 
             <section
               id="faq"

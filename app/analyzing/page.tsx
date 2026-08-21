@@ -691,6 +691,8 @@ redirectTimer =
             </section>
           )}
 
+          <AdPlaceholder />
+
           <section className="mt-5 overflow-hidden rounded-[18px] border border-black/10 bg-white shadow-[0_10px_34px_rgba(15,23,42,0.05)]">
             <div className="border-b border-black/10 px-4 py-4">
               <h2 className="text-[15px] font-black">
@@ -784,28 +786,8 @@ redirectTimer =
                 },
               )}
             </div>
-          </section>
-
-          <aside className="mt-5 rounded-[14px] bg-[#FFF9D9] px-4 py-4">
-            <div className="flex items-start gap-3">
-              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white text-[#1677FF] shadow-[0_10px_34px_rgba(15,23,42,0.05)]">
-                <LockIcon />
-              </span>
-
-              <div>
-                <p className="text-[12px] font-black text-[#1677FF]">
-                  写真は診断のために処理されます
-                </p>
-
-                <p className="mt-1 text-[10px] leading-5 text-black/55">
-                  アップロードした写真はAI診断のために使用します。
-                </p>
-              </div>
-            </div>
-          </aside>
-
-          <AdPlaceholder />
-
+          </section>      
+          
           <p className="mt-5 text-center text-[10px] leading-5 text-black/35">
             {errorMessage ? (
               <>

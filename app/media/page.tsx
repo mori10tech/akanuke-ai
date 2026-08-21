@@ -132,27 +132,32 @@ export default function ArticlesPage() {
       </section>
 
       <section className="border-t border-black/10 px-5 py-12">
-        <div className="mx-auto max-w-[760px] rounded-[26px] bg-[#111111] px-6 py-9 text-center text-white sm:px-10">
-          <p className="text-[10px] font-black tracking-[0.16em] text-[#FFD400]">
-            AI BEAUTY DIAGNOSIS
-          </p>
+  <div className="mx-auto max-w-[760px] overflow-hidden rounded-[26px] border border-[#1677FF]/15 bg-gradient-to-br from-[#F7FBFF] via-white to-[#EEF6FF] px-6 py-9 text-center shadow-[0_16px_40px_rgba(22,119,255,0.08)] sm:px-10">
+    <div className="inline-flex items-center rounded-full bg-[#EEF6FF] px-3 py-1.5">
+      <span className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
+        AI BEAUTY DIAGNOSIS
+      </span>
+    </div>
 
-          <h2 className="mt-3 text-[25px] font-semibold tracking-[-0.04em]">
-            自分に合う改善方法を知りたい方へ
-          </h2>
+    <h2 className="mt-4 text-[25px] font-semibold tracking-[-0.04em] text-[#111111]">
+      自分に合う改善方法を知りたい方へ
+    </h2>
 
-          <p className="mx-auto mt-4 max-w-[500px] text-[12px] leading-6 text-white/60">
-            顔写真をもとに、髪型・眉毛・肌・全体の印象をAIが分析します。
-          </p>
+    <p className="mx-auto mt-4 max-w-[500px] text-[12px] leading-6 text-black/55">
+      顔写真をもとに、髪型・眉毛・肌・全体の印象をAIが分析します。
+    </p>
 
-          <Link
-            href="/"
-            className="mx-auto mt-6 flex min-h-[52px] w-full max-w-[320px] items-center justify-center rounded-[12px] bg-[#FFD400] px-5 text-[13px] font-black text-[#111111]"
-          >
-            無料で診断をはじめる
-          </Link>
-        </div>
-      </section>
+    <Link
+      href="/"
+      className="mx-auto mt-6 flex min-h-[52px] w-full max-w-[320px] items-center justify-center rounded-[12px] bg-[#FFD400] px-5 text-[13px] font-black text-[#111111] shadow-[0_10px_24px_rgba(255,212,0,0.22)] transition hover:-translate-y-0.5"
+    >
+      無料で診断をはじめる
+      <span className="ml-2" aria-hidden="true">
+        →
+      </span>
+    </Link>
+  </div>
+</section>
 
       <footer className="border-t border-black/10 py-8">
         <div className="mx-auto flex w-full max-w-[1180px] flex-col items-center justify-between gap-4 px-5 text-center sm:flex-row sm:text-left">

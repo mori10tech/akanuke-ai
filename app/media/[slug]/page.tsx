@@ -279,7 +279,7 @@ if (article.slug === "akanukenai-man-features") {
           <Logo href="/media" />
 
           <Link
-            href="/upload"
+            href="/"
             className="rounded-[9px] bg-[#FFD400] px-3 py-2.5 text-[10px] font-black"
           >
             無料診断
@@ -666,7 +666,7 @@ if (article.slug === "akanukenai-man-features") {
   </p>
 
   <Link
-    href="/upload"
+    href="/"
     className="mt-6 flex min-h-[52px] w-full items-center justify-center rounded-[13px] bg-[#FFD400] px-5 text-[13px] font-black text-[#111111] shadow-[0_10px_24px_rgba(255,212,0,0.22)] transition hover:-translate-y-0.5"
   >
     無料で診断をはじめる

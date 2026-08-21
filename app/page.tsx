@@ -609,6 +609,16 @@ export default function Home() {
   </div>
 </section>
 
+<div className="mb-6 flex justify-center">
+  <Link
+    href="/upload"
+    className="primary-button w-full max-w-sm"
+  >
+    無料で診断をはじめる
+    <span aria-hidden="true">›</span>
+  </Link>
+</div>
+
       <section
   id="faq"
   className="section-border py-16"

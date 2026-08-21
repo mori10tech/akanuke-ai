@@ -414,6 +414,33 @@ Do not change the eyes themselves to improve the eye-area impression.
 8. HAIR — MAJOR TRANSFORMATION PRIORITY
 ==================================================
 
+CRITICAL HAIR RULE:
+
+The hairstyle in the After image must NOT remain substantially the same as the original hairstyle.
+
+Unless the personalized diagnosis explicitly recommends keeping the current hairstyle,
+perform a clearly visible haircut-level transformation.
+
+The change must be obvious in the overall hair silhouette.
+
+At least TWO of the following should change noticeably when appropriate:
+
+- fringe shape
+- forehead exposure
+- parting
+- top volume
+- side volume
+- overall silhouette
+- hair length appearance
+- texture and separation
+- movement and styling direction
+
+Do not interpret "same person" as "same hairstyle."
+
+Hair is a temporary and highly changeable feature.
+
+A nearly identical hairstyle is considered a failed transformation.
+
 Hair should be one of the MOST VISIBLY DIFFERENT elements between the Before and After images.
 
 Follow the personalized hair recommendation:
@@ -758,6 +785,14 @@ The correct target is:
 "Clearly the same person, but obviously more polished and 垢抜けた."
 
 The visual improvement should be understandable within approximately one second when Before and After are viewed side by side.
+
+HAIR FAILURE CHECK:
+
+If the hairstyle silhouette is still almost identical to the original photograph,
+the result is not acceptable.
+
+Regenerate internally with a more clearly redesigned but realistic hairstyle
+that follows the personalized recommendation.
 
 ==================================================
 14. IMAGE QUALITY

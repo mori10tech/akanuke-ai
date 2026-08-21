@@ -12,6 +12,24 @@ export type Article = {
 
 export const articles: Article[] = [
   {
+  slug: "mens-akanuke-hairstyle",
+  title:
+    "メンズが垢抜ける髪型｜似合う髪型の選び方と美容室での頼み方",
+  description:
+    "垢抜けたい男性向けに、似合う髪型の選び方や美容室で失敗しにくい頼み方を解説。顔型・髪質・清潔感を意識した髪型選びのポイントを初心者向けに紹介します。",
+  category: "髪型",
+  publishedAt: "2026-08-21",
+  readingTime: "約8分",
+  image: "/media/mens-akanuke-hairstyle-v2.png",
+  keywords: [
+    "メンズ 垢抜け 髪型",
+    "男 垢抜け 髪型",
+    "似合う髪型 メンズ",
+    "美容室 頼み方 メンズ",
+    "髪型 垢抜け 男",
+  ],
+},
+  {
     slug: "akanukenai-man-features",
     title:
       "垢抜けない男の特徴10選｜なぜ変わらない？改善ポイントも解説",

@@ -10,6 +10,7 @@ import {
 import AdSenseAd from "../../components/AdSenseAd";
 import Logo from "../../components/Logo";
 import AkanukenaiManFeaturesArticle from "./articles/AkanukenaiManFeaturesArticle";
+import MensAkanukeHairstyleArticle from "./articles/MensAkanukeHairstyleArticle";
 
 type ArticlePageProps = {
   params: Promise<{
@@ -334,6 +335,113 @@ if (article.slug === "akanukenai-man-features") {
         </header>
 
         <AkanukenaiManFeaturesArticle article={article} />
+      </article>
+
+      <footer className="border-t border-black/10 py-8">
+        <div className="mx-auto flex w-full max-w-[980px] flex-col items-center justify-between gap-4 px-5 text-center sm:flex-row sm:text-left">
+          <Link href="/">
+            <p className="text-[14px] font-black tracking-[0.14em]">
+              AKANUKE.AI
+            </p>
+
+            <p className="mt-1 text-[8px] font-bold tracking-[0.24em] text-[#1677FF]">
+              MEN&apos;S AI BEAUTY
+            </p>
+          </Link>
+
+          <div className="flex flex-wrap justify-center gap-x-5 gap-y-2 text-[10px] text-black/45">
+            <Link href="/">トップページ</Link>
+            <Link href="/media">記事一覧</Link>
+
+            <a
+              href="https://www.leafworks.jp/doc/privacy.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              個人情報保護方針
+            </a>
+          </div>
+
+          <p className="text-[10px] text-black/35">
+            © AKANUKE.AI All Rights Reserved.
+          </p>
+        </div>
+      </footer>
+    </main>
+  );
+}
+
+if (article.slug === "mens-akanuke-hairstyle") {
+  return (
+    <main className="min-h-screen bg-white text-[#111111]">
+      <header className="sticky top-0 z-40 border-b border-black/10 bg-white/95 backdrop-blur-xl">
+        <div className="mx-auto flex h-[68px] w-full max-w-[980px] items-center justify-between gap-4 px-5">
+          <Link
+            href="/media"
+            className="flex items-center gap-2 text-[11px] font-black text-black/55 transition hover:text-[#1677FF]"
+          >
+            <ArrowLeftIcon />
+            記事一覧
+          </Link>
+
+          <Logo href="/media" />
+
+          <Link
+            href="/"
+            className="rounded-[9px] bg-[#FFD400] px-3 py-2.5 text-[10px] font-black"
+          >
+            無料診断
+          </Link>
+        </div>
+      </header>
+
+      <article>
+        <header className="border-b border-black/10 bg-gradient-to-b from-white to-[#EEF6FF]">
+          <div className="mx-auto max-w-[860px] px-5 pb-12 pt-12 sm:pb-16 sm:pt-16">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="rounded-full bg-white px-3 py-1.5 text-[9px] font-black text-[#1677FF] shadow-sm">
+                {article.category}
+              </span>
+
+              <span className="text-[10px] font-bold text-black/35">
+                {article.readingTime}
+              </span>
+            </div>
+
+            <h1 className="mt-5 text-[32px] font-semibold leading-[1.35] tracking-[-0.05em] sm:text-[48px]">
+              {article.title}
+            </h1>
+
+            <p className="mt-5 max-w-[720px] text-[13px] leading-7 text-black/55 sm:text-[15px]">
+              {article.description}
+            </p>
+
+            <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-[10px] font-bold text-black/35">
+              <time dateTime={article.publishedAt}>
+                公開日：{formatDate(article.publishedAt)}
+              </time>
+
+              {article.updatedAt && (
+                <time dateTime={article.updatedAt}>
+                  更新日：{formatDate(article.updatedAt)}
+                </time>
+              )}
+            </div>
+
+            <div className="relative mt-9 aspect-[1200/630] overflow-hidden rounded-[28px] border border-black/5 bg-[#EEF6FF] shadow-[0_18px_55px_rgba(15,23,42,0.08)]">
+              <Image
+                src={article.image}
+                alt={article.title}
+                fill
+                priority
+                sizes="(max-width: 767px) 100vw, 860px"
+                className="object-cover"
+              />
+            </div>
+          </div>
+        </header>
+
+        <MensAkanukeHairstyleArticle article={article} />
       </article>
 
       <footer className="border-t border-black/10 py-8">

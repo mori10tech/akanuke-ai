@@ -66,7 +66,7 @@ export const metadata: Metadata = {
       "AIがあなたを分析し、あなただけの垢抜けプランを提案。無料でAI診断を試せます。",
     images: [
       {
-        url: "/opengraph-image",
+        url: "/ogp/akanuke-ogp.png",
         width: 1200,
         height: 630,
         alt: "AKANUKE.AI｜第一印象は、変えられる。",
@@ -81,7 +81,7 @@ export const metadata: Metadata = {
     description:
       "AIがあなたを分析し、あなただけの垢抜けプランを提案。無料でAI診断を試せます。",
     images: [
-      "/opengraph-image",
+      "/ogp/akanuke-ogp.png",
     ],
   },
 

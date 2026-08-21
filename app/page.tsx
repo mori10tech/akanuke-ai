@@ -706,7 +706,7 @@ export default function Home() {
       {featuredArticles.map((article) => (
         <Link
           key={article.slug}
-          href={`/articles/${article.slug}`}
+          href={`/media/${article.slug}`}
           className="group overflow-hidden rounded-[24px] border border-black/10 bg-white shadow-[0_10px_34px_rgba(15,23,42,0.05)] transition hover:-translate-y-1 hover:shadow-[0_18px_46px_rgba(15,23,42,0.09)]"
         >
           <div className="relative aspect-[1200/630] overflow-hidden bg-[#EEF6FF]">
@@ -744,10 +744,10 @@ export default function Home() {
     </div>
 
     <Link
-      href="/articles"
-      className="mt-6 flex min-h-[50px] w-full items-center justify-center rounded-[12px] border border-[#1677FF]/15 bg-white px-5 text-[13px] font-black text-[#1677FF] transition hover:bg-[#EEF6FF] sm:max-w-[320px]"
-    >
-      垢抜け記事をもっと見る
+  href="/media"
+  className="mt-6 flex min-h-[50px] w-full items-center justify-center rounded-[12px] border border-[#1677FF]/15 bg-white px-5 text-[13px] font-black text-[#1677FF] transition hover:bg-[#EEF6FF] sm:max-w-[320px]"
+>
+  垢抜け記事をもっと見る
       <span className="ml-3" aria-hidden="true">
         →
       </span>
@@ -804,7 +804,7 @@ export default function Home() {
 
           <div className="flex flex-wrap justify-center gap-x-7 gap-y-3 text-xs font-medium text-black/60">
   
-  <Link href="/articles">
+  <Link href="/media">
   垢抜け記事
 </Link>
 

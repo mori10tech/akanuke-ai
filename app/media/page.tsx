@@ -37,7 +37,7 @@ export default function ArticlesPage() {
     <main className="min-h-screen bg-white text-[#111111]">
       <header className="sticky top-0 z-40 border-b border-black/10 bg-white/95 backdrop-blur-xl">
         <div className="mx-auto flex h-[72px] w-full max-w-[1180px] items-center justify-between px-5">
-          <Logo href="/articles" />
+          <Logo href="/media" />
 
           <Link
             href="/"
@@ -87,7 +87,7 @@ export default function ArticlesPage() {
           {articles.map((article) => (
             <Link
               key={article.slug}
-              href={`/articles/${article.slug}`}
+              href={`/media/${article.slug}`}
               className="group block overflow-hidden rounded-[24px] border border-black/10 bg-white shadow-[0_10px_34px_rgba(15,23,42,0.05)] transition hover:-translate-y-1 hover:shadow-[0_18px_46px_rgba(15,23,42,0.09)]"
             >
               <div className="relative aspect-[1200/630] overflow-hidden bg-[#EEF6FF]">
@@ -156,7 +156,7 @@ export default function ArticlesPage() {
 
       <footer className="border-t border-black/10 py-8">
         <div className="mx-auto flex w-full max-w-[1180px] flex-col items-center justify-between gap-4 px-5 text-center sm:flex-row sm:text-left">
-          <Logo href="/articles" />
+          <Logo href="/media" />
 
           <p className="text-[10px] text-black/35">
             © AKANUKE.AI All Rights Reserved.

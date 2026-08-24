@@ -674,42 +674,60 @@ export default function ResultPage() {
           "[AKANUKE.AI] Result画面からAfter画像生成を開始します",
         );
 
-        const response =
-          await fetch(
-            "/api/generate-after",
-            {
-              method: "POST",
-              cache: "no-store",
-              headers: {
-                "Content-Type":
-                  "application/json",
-              },
-              body: JSON.stringify({
-                imageDataUrl: image,
-                analysis,
-              }),
-            },
-          );
+        const diagnosisId =
+  window.sessionStorage.getItem(
+    DIAGNOSIS_ID_STORAGE_KEY,
+  );
 
-        const data =
-          (await response.json()) as {
-            afterImageDataUrl?: string;
-            error?: string;
-          };
+if (!diagnosisId) {
+  throw new Error(
+    "診断IDを確認できませんでした。",
+  );
+}
 
-        if (!response.ok) {
-          throw new Error(
-            typeof data.error === "string"
-              ? data.error
-              : "After画像を生成できませんでした。",
-          );
-        }
+const response =
+  await fetch(
+    "/api/generate-after",
+    {
+      method: "POST",
+      cache: "no-store",
+      headers: {
+        "Content-Type":
+          "application/json",
+      },
+      body: JSON.stringify({
+        diagnosisId,
+        imageDataUrl: image,
+        analysis,
+      }),
+    },
+  );
 
-        if (!data.afterImageDataUrl) {
-          throw new Error(
-            "生成されたAfter画像を取得できませんでした。",
-          );
-        }
+const data =
+  (await response.json()) as {
+    afterImageDataUrl?: string;
+    afterImageUrl?: string;
+    reused?: boolean;
+    error?: string;
+  };
+
+if (!response.ok) {
+  throw new Error(
+    typeof data.error === "string"
+      ? data.error
+      : "After画像を生成できませんでした。",
+  );
+}
+
+const resolvedAfterImage =
+  data.afterImageDataUrl ??
+  data.afterImageUrl;
+
+if (!resolvedAfterImage) {
+  throw new Error(
+    "After画像を取得できませんでした。",
+  );
+}
 
         if (isCancelled) {
           return;
@@ -808,59 +826,64 @@ export default function ResultPage() {
         }
 
         setAfterImage(
-          data.afterImageDataUrl,
-        );
+  resolvedAfterImage,
+);  
 
-        const diagnosisId =
-          window.sessionStorage.getItem(
-            DIAGNOSIS_ID_STORAGE_KEY,
-          );
-
-        if (diagnosisId) {
-          try {
-            const saveImageResponse = await fetch(
-              `/api/diagnoses/${diagnosisId}/image`,
-              {
-                method: "PUT",
-                cache: "no-store",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                  kind: "after",
-                  imageDataUrl:
-                    data.afterImageDataUrl,
-                }),
-              },
-            );
-
-            if (!saveImageResponse.ok) {
-              console.warn(
-                "[AKANUKE.AI] After画像を診断履歴へ保存できませんでした:",
-                saveImageResponse.status,
-              );
-            }
-          } catch (saveImageError) {
-            console.warn(
-              "[AKANUKE.AI] After画像の履歴保存をスキップしました:",
-              saveImageError,
-            );
-          }
-        }
-
-        try {
-          await saveAfterImage({
-            sourceResult:
-              rawAnalysisResult,
+        if (
+  !data.reused &&
+  data.afterImageDataUrl
+) {
+  try {
+    const saveImageResponse =
+      await fetch(
+        `/api/diagnoses/${diagnosisId}/image`,
+        {
+          method: "PUT",
+          cache: "no-store",
+          headers: {
+            "Content-Type":
+              "application/json",
+          },
+          body: JSON.stringify({
+            kind: "after",
             imageDataUrl:
               data.afterImageDataUrl,
-          });
-        } catch (storageError) {
-          console.warn(
-            "[AKANUKE.AI] After画像をIndexedDBへ保存できませんでした:",
-            storageError,
-          );
-        }
+          }),
+        },
+      );
+
+    if (!saveImageResponse.ok) {
+      console.warn(
+        "[AKANUKE.AI] After画像を診断履歴へ保存できませんでした:",
+        saveImageResponse.status,
+      );
+    }
+  } catch (saveImageError) {
+    console.warn(
+      "[AKANUKE.AI] After画像の履歴保存をスキップしました:",
+      saveImageError,
+    );
+  }
+}
+
+        if (
+  !data.reused &&
+  data.afterImageDataUrl
+) {
+  try {
+    await saveAfterImage({
+      sourceResult:
+        rawAnalysisResult,
+      imageDataUrl:
+        data.afterImageDataUrl,
+    });
+  } catch (storageError) {
+    console.warn(
+      "[AKANUKE.AI] After画像をIndexedDBへ保存できませんでした:",
+      storageError,
+    );
+  }
+}
 
         console.log(
           "[AKANUKE.AI] Result画面へのAfter画像表示が完了しました",
@@ -1660,83 +1683,81 @@ export default function ResultPage() {
             </div>
           </section>
 
-          <section className="mx-4 mt-4 overflow-hidden rounded-[24px] border border-[#1677FF]/10 bg-gradient-to-br from-white via-white to-[#EEF6FF] shadow-[0_14px_40px_rgba(22,119,255,0.08)]">
-            <div className="relative px-5 pb-5 pt-6">
-              <div className="absolute right-5 top-5 flex h-16 w-16 items-center justify-center rounded-full bg-[#EEF6FF] text-[#1677FF]">
-                <Icon
-                  name="bag"
-                  className="h-8 w-8"
-                />
-              </div>
+          <section className="mx-4 mt-7 rounded-[24px] border border-black/5 bg-white p-5 shadow-[0_10px_34px_rgba(15,23,42,0.05)]">
+  <div>
+    <p className="text-[9px] font-black tracking-[0.16em] text-[#1677FF]">
+      NEXT ACTION
+    </p>
 
-              <p className="pr-20 text-[9px] font-black tracking-[0.16em] text-[#1677FF]">
-                RECOMMENDED FOR YOU
-              </p>
+    <h2 className="mt-2 text-[20px] font-black tracking-[-0.04em] text-[#111111]">
+      次にやること
+    </h2>
 
-              <h2 className="mt-3 whitespace-nowrap pr-20 text-[20px] font-black leading-[1.45] tracking-[-0.04em] min-[390px]:text-[20px]">
-                あなたに合うおすすめ商品
-              </h2>
+    <p className="mt-2 text-[11px] leading-5 text-black/50">
+      診断結果をもとに、次のアクションへ進みましょう。
+    </p>
+  </div>
 
-              <p className="mt-3 max-w-[340px] text-left text-[11px] leading-5 text-black/55">
-                診断結果から、今のあなたに必要なケア・スタイリング商品を厳選しています。
-              </p>
+  <div className="mt-5 space-y-3">
+    <Link
+      href="/products"
+      className="flex min-h-[64px] items-center gap-4 rounded-[16px] bg-[#F7F9FC] px-4 transition active:scale-[0.99]"
+    >
+      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#EEF6FF] text-[#1677FF]">
+        <Icon
+          name="bag"
+          className="h-5 w-5"
+        />
+      </span>
 
-              <Link
-                href="/products"
-                className="mt-6 flex min-h-[56px] items-center justify-center gap-3 rounded-[15px] bg-[#FFD400] px-5 text-[14px] font-black text-[#111111] shadow-[0_10px_34px_rgba(15,23,42,0.05)] transition hover:-translate-y-0.5 active:scale-[0.99]"
-              >
-                おすすめ商品を見る
+      <div className="min-w-0 flex-1">
+        <p className="text-[12px] font-black text-[#111111]">
+          おすすめ商品を見る
+        </p>
 
-                <span
-                  aria-hidden="true"
-                  className="text-[18px]"
-                >
-                  →
-                </span>
-              </Link>
-            </div>
-          </section>
+        <p className="mt-0.5 text-[10px] text-black/45">
+          今のあなたに必要なアイテム
+        </p>
+      </div>
 
-          <section className="mx-4 mt-7 overflow-hidden rounded-[24px] border border-[#1677FF]/10 bg-gradient-to-br from-white via-white to-[#EEF6FF] shadow-[0_14px_40px_rgba(22,119,255,0.08)]">
-            <div className="relative px-5 pb-5 pt-6">
-              <div className="absolute right-5 top-5 flex h-16 w-16 items-center justify-center rounded-full bg-[#EEF6FF] text-[#1677FF]">
-                <Icon
-                  name="calendar"
-                  className="h-8 w-8"
-                />
-              </div>
+      <span
+        aria-hidden="true"
+        className="shrink-0 text-[18px] font-bold text-black/30"
+      >
+        →
+      </span>
+    </Link>
 
-              <p className="pr-20 text-[9px] font-black tracking-[0.16em] text-[#1677FF]">
-                YOUR PERSONAL PLAN
-              </p>
+    <Link
+      href="/plan"
+      className="flex min-h-[64px] items-center gap-4 rounded-[16px] bg-[#F7F9FC] px-4 transition active:scale-[0.99]"
+    >
+      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#EEF6FF] text-[#1677FF]">
+        <Icon
+          name="calendar"
+          className="h-5 w-5"
+        />
+      </span>
 
-              <h2 className="mt-3 max-w-[290px] text-[20px] font-black leading-[1.45] tracking-[-0.04em]">
-                100%に近づくための
-                <br />
-                垢抜けプラン
-              </h2>
+      <div className="min-w-0 flex-1">
+        <p className="text-[12px] font-black text-[#111111]">
+          垢抜けプランを見る
+        </p>
 
-              <p className="mt-3 max-w-[340px] text-[11px] leading-5 text-black/55">
-                優先順位の高い項目から、
-                自分のタイミングで無理なく進められます。
-              </p>
+        <p className="mt-0.5 text-[10px] text-black/45">
+          優先順位に沿って改善を進める
+        </p>
+      </div>
 
-              <Link
-                href="/plan"
-                className="mt-6 flex min-h-[56px] items-center justify-center gap-3 rounded-[15px] bg-[#FFD400] px-5 text-[14px] font-black text-[#111111] shadow-[0_10px_34px_rgba(15,23,42,0.05)] transition hover:-translate-y-0.5 active:scale-[0.99]"
-              >
-                垢抜けプランを見る
-
-                <span
-                  aria-hidden="true"
-                  className="text-[18px]"
-                >
-                  →
-                </span>
-              </Link>
-            </div>
-          </section>
-
+      <span
+        aria-hidden="true"
+        className="shrink-0 text-[18px] font-bold text-black/30"
+      >
+        →
+      </span>
+    </Link>
+  </div>
+</section>
 
           <Link
             href="/upload"

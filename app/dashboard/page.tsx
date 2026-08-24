@@ -4,7 +4,6 @@ import { Suspense } from "react";
 import AppShell from "../components/AppShell";
 import AppHeader from "../components/AppHeader";
 import LogoutButton from "../components/LogoutButton";
-import InstallAppCard from "../components/InstallAppCard";
 
 import LatestReport from "./LatestReport";
 import LatestReportLoading from "./LatestReportLoading";
@@ -255,11 +254,6 @@ export default function DashboardPage() {
           >
             <LatestReport />
           </Suspense>
-
-          {/* ADD TO HOME SCREEN */}
-          <div className="mt-7">
-            <InstallAppCard />
-          </div>
 
           <LogoutButton />
         </div>

@@ -10,6 +10,7 @@ import Link from "next/link";
 import {
   useEffect,
   useMemo,
+  useRef,
   useState,
   type ReactNode,
 } from "react";
@@ -19,6 +20,7 @@ import AdSenseAd from "../components/AdSenseAd";
 
 const STORAGE_KEY_PREFIX =
   "akanukePlanCompletedTasks";
+
 const DIAGNOSIS_ID_STORAGE_KEY =
   "akanukeDiagnosisId";
 
@@ -46,9 +48,10 @@ const planTasks: PlanTask[] = [
       "前髪とサイドが整い、輪郭がすっきり見えます。",
     howTo:
       "額が少し見える軽めの前髪と、サイドを抑えた爽やかなスタイルを相談しましょう。",
-      href: "/products?category=hairStyling",
-hrefLabel: "スタイリング商品を見る",
-      },
+    href: "/products?category=hairStyling",
+    hrefLabel:
+      "スタイリング商品を見る",
+  },
   {
     id: "eyebrow",
     priority: 2,
@@ -60,7 +63,7 @@ hrefLabel: "スタイリング商品を見る",
       "左右差が目立ちにくくなり、目元がはっきりします。",
     howTo:
       "眉下の余分な毛を処理し、太さを残した自然な形を目指しましょう。",
-      },
+  },
   {
     id: "sunscreen",
     priority: 3,
@@ -73,7 +76,8 @@ hrefLabel: "スタイリング商品を見る",
     howTo:
       "外出前に顔全体へ薄く均一に塗り、汗をかいた日は塗り直しましょう。",
     href: "/products?category=sunscreen",
-hrefLabel: "UVケア商品を見る",
+    hrefLabel:
+      "UVケア商品を見る",
   },
   {
     id: "moisturize",
@@ -87,7 +91,8 @@ hrefLabel: "UVケア商品を見る",
     howTo:
       "朝晩の洗顔後、化粧水またはオールインワンを顔全体になじませましょう。",
     href: "/products?category=skincare",
-hrefLabel: "スキンケア商品を見る",
+    hrefLabel:
+      "スキンケア商品を見る",
   },
   {
     id: "hair-set",
@@ -101,7 +106,8 @@ hrefLabel: "スキンケア商品を見る",
     howTo:
       "ドライヤーで根元を立ち上げ、少量のワックスで毛流れを整えましょう。",
     href: "/products?category=hairStyling",
-hrefLabel: "スタイリング商品を見る",
+    hrefLabel:
+      "スタイリング商品を見る",
   },
   {
     id: "grooming",
@@ -114,8 +120,9 @@ hrefLabel: "スタイリング商品を見る",
       "丁寧に手入れされた印象になります。",
     howTo:
       "外出前に鏡で確認し、気になったときにすぐ整えられる道具を用意しましょう。",
-      href: "/products?category=other",
-hrefLabel: "身だしなみ商品を見る",
+    href: "/products?category=other",
+    hrefLabel:
+      "身だしなみ商品を見る",
   },
 ];
 
@@ -126,10 +133,16 @@ function Icon({
   name: string;
   className?: string;
 }) {
-  const paths: Record<string, ReactNode> = {
-   
-    check: <path d="m5 12 4 4L19 6" />,
-    chevron: <path d="m9 18 6-6-6-6" />,
+  const paths: Record<
+    string,
+    ReactNode
+  > = {
+    check: (
+      <path d="m5 12 4 4L19 6" />
+    ),
+    chevron: (
+      <path d="m9 18 6-6-6-6" />
+    ),
     reset: (
       <>
         <path d="M20 7v5h-5" />
@@ -146,8 +159,16 @@ function Icon({
     ),
     scissors: (
       <>
-        <circle cx="6" cy="7" r="2.5" />
-        <circle cx="6" cy="17" r="2.5" />
+        <circle
+          cx="6"
+          cy="7"
+          r="2.5"
+        />
+        <circle
+          cx="6"
+          cy="17"
+          r="2.5"
+        />
         <path d="m8.2 8.2 11.3 8.3" />
         <path d="m8.2 15.8 11.3-8.3" />
       </>
@@ -188,10 +209,13 @@ function ProgressRing({
   progress: number;
 }) {
   const radius = 48;
-  const circumference = 2 * Math.PI * radius;
+  const circumference =
+    2 * Math.PI * radius;
+
   const offset =
     circumference -
-    (progress / 100) * circumference;
+    (progress / 100) *
+      circumference;
 
   return (
     <div className="relative h-[126px] w-[126px]">
@@ -217,7 +241,9 @@ function ProgressRing({
           stroke="#1677FF"
           strokeWidth="7"
           strokeLinecap="round"
-          strokeDasharray={circumference}
+          strokeDasharray={
+            circumference
+          }
           strokeDashoffset={offset}
           className="transition-[stroke-dashoffset] duration-700 ease-out"
         />
@@ -258,10 +284,13 @@ function SalonOrderGuide({
   isOpen: boolean;
   onToggle: () => void;
   afterImage: string | null;
-  analysis: AkanukeAnalysis | null;
+  analysis:
+    | AkanukeAnalysis
+    | null;
 }) {
   const hairDirection =
-    analysis?.afterDirection.hair ??
+    analysis?.afterDirection
+      .hair ??
     "顔立ちと髪質に合う、清潔感のある髪型に整える";
 
   const hairAdvice =
@@ -299,7 +328,9 @@ function SalonOrderGuide({
 
         <span
           className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#EEF6FF] text-[#1677FF] transition-transform duration-300 ${
-            isOpen ? "rotate-90" : ""
+            isOpen
+              ? "rotate-90"
+              : ""
           }`}
         >
           <Icon
@@ -321,32 +352,34 @@ function SalonOrderGuide({
             <div className="overflow-hidden rounded-[18px] border border-black/10 bg-[#F7F9FC]">
               <div className="relative bg-[#EEF6FF]">
                 {afterImage ? (
-  // eslint-disable-next-line @next/next/no-img-element
-  <img
-    src={afterImage}
-    alt="AI診断で生成したあなたのAfterイメージ"
-    className="h-auto w-full object-contain"
-  />
-) : (
-  <div className="flex aspect-[4/5] w-full items-center justify-center bg-[#EEF6FF] px-5 text-center">
-    <div>
-      <Icon
-        name="sparkle"
-        className="mx-auto h-7 w-7 text-[#1677FF]"
-      />
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={
+                      afterImage
+                    }
+                    alt="AI診断で生成したあなたのAfterイメージ"
+                    className="h-auto w-full object-contain"
+                  />
+                ) : (
+                  <div className="flex aspect-[4/5] w-full items-center justify-center bg-[#EEF6FF] px-5 text-center">
+                    <div>
+                      <Icon
+                        name="sparkle"
+                        className="mx-auto h-7 w-7 text-[#1677FF]"
+                      />
 
-      <p className="mt-3 text-[11px] font-black text-[#111111]">
-        After画像がありません
-      </p>
+                      <p className="mt-3 text-[11px] font-black text-[#111111]">
+                        After画像がありません
+                      </p>
 
-      <p className="mt-1 text-[9px] leading-4 text-black/45">
-        診断結果画面でAfter画像を生成すると、
-        <br />
-        ここにサロン用の参考画像が表示されます。
-      </p>
-    </div>
-  </div>
-)}
+                      <p className="mt-1 text-[9px] leading-4 text-black/45">
+                        診断結果画面でAfter画像を生成すると、
+                        <br />
+                        ここにサロン用の参考画像が表示されます。
+                      </p>
+                    </div>
+                  </div>
+                )}
 
                 <span className="absolute left-3 top-3 rounded-full bg-[#FFD400] px-3 py-1.5 text-[9px] font-black text-[#111111]">
                   AFTER IMAGE
@@ -354,8 +387,8 @@ function SalonOrderGuide({
               </div>
 
               <p className="px-4 py-3 text-center text-[9px] leading-4 text-black/35">
-  ※AIが生成したAfterイメージをサロンでの相談用に表示しています。
-</p>
+                ※AIが生成したAfterイメージをサロンでの相談用に表示しています。
+              </p>
             </div>
 
             <div className="mt-4 rounded-[18px] border border-black/10 bg-white p-4">
@@ -394,13 +427,17 @@ function SalonOrderGuide({
                 </p>
 
                 <p className="mt-2 text-[11px] font-bold leading-6 text-[#111111]">
-                  「{hairDirection}」という方向で、
+                  「
+                  {
+                    hairDirection
+                  }
+                  」という方向で、
                   自分の顔立ちと髪質に合わせて調整してください。
                   セット方法も教えてください。
                 </p>
               </div>
             </div>
-            
+
             <div className="mt-4 flex items-start gap-3 rounded-[14px] bg-[#F7F9FC] px-4 py-4">
               <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white text-[#1677FF]">
                 <Icon
@@ -421,31 +458,103 @@ function SalonOrderGuide({
   );
 }
 
-
 export default function PlanPage() {
-  const [completedIds, setCompletedIds] =
-    useState<string[]>([]);
+  const [
+    completedIds,
+    setCompletedIds,
+  ] = useState<string[]>([]);
 
-  const [isSalonGuideOpen, setIsSalonGuideOpen] =
-    useState(false);
+  const [
+    isSalonGuideOpen,
+    setIsSalonGuideOpen,
+  ] = useState(false);
 
-  const [openedId, setOpenedId] =
-    useState<string | null>(null);
+  const [
+    openedId,
+    setOpenedId,
+  ] = useState<
+    string | null
+  >(null);
 
   const [
     salonAfterImage,
     setSalonAfterImage,
-  ] = useState<string | null>(null);
+  ] = useState<
+    string | null
+  >(null);
 
   const [
     salonAnalysis,
     setSalonAnalysis,
-  ] = useState<AkanukeAnalysis | null>(
-    null,
-  );
+  ] =
+    useState<AkanukeAnalysis | null>(
+      null,
+    );
 
-    const [loaded, setLoaded] =
-    useState(false);
+  const [
+    loaded,
+    setLoaded,
+  ] = useState(false);
+
+  const [
+    showStickyStatus,
+    setShowStickyStatus,
+  ] = useState(false);
+
+  const statusCardRef =
+    useRef<HTMLElement | null>(
+      null,
+    );
+
+  /*
+   * 元のCURRENT STATUSカードが
+   * ヘッダーより上へ完全に消えたら、
+   * コンパクトなステータスバーを表示します。
+   */
+  useEffect(() => {
+    const handleScroll = () => {
+      const target =
+        statusCardRef.current;
+
+      if (!target) {
+        return;
+      }
+
+      const rect =
+        target.getBoundingClientRect();
+
+      setShowStickyStatus(
+        rect.bottom <= 68,
+      );
+    };
+
+    handleScroll();
+
+    window.addEventListener(
+      "scroll",
+      handleScroll,
+      {
+        passive: true,
+      },
+    );
+
+    window.addEventListener(
+      "resize",
+      handleScroll,
+    );
+
+    return () => {
+      window.removeEventListener(
+        "scroll",
+        handleScroll,
+      );
+
+      window.removeEventListener(
+        "resize",
+        handleScroll,
+      );
+    };
+  }, []);
 
   /*
    * Result画面で生成・保存されたAfter画像を
@@ -465,19 +574,25 @@ export default function PlanPage() {
       }
 
       try {
-        const parsed = JSON.parse(
-          rawResult,
-        ) as AkanukeAnalysis;
+        const parsed =
+          JSON.parse(
+            rawResult,
+          ) as AkanukeAnalysis;
 
         if (
           !isCancelled &&
-          parsed.afterDirection?.hair &&
+          parsed.afterDirection
+            ?.hair &&
           parsed.afterDirection
             ?.eyebrows &&
-          parsed.hair?.advice &&
-          parsed.eyebrows?.advice
+          parsed.hair
+            ?.advice &&
+          parsed.eyebrows
+            ?.advice
         ) {
-          setSalonAnalysis(parsed);
+          setSalonAnalysis(
+            parsed,
+          );
         }
 
         const savedAfterImage =
@@ -508,12 +623,9 @@ export default function PlanPage() {
     };
   }, []);
 
-    /*
+  /*
    * 現在の診断IDごとに、
    * 垢抜けプランのチェック状態を復元します。
-   *
-   * 診断Aと診断Bでチェック状態が
-   * 混ざらないようにします。
    */
   useEffect(() => {
     const diagnosisId =
@@ -545,11 +657,16 @@ export default function PlanPage() {
       const parsed =
         JSON.parse(raw);
 
-      if (Array.isArray(parsed)) {
+      if (
+        Array.isArray(parsed)
+      ) {
         setCompletedIds(
           parsed.filter(
-            (id): id is string =>
-              typeof id === "string",
+            (
+              id,
+            ): id is string =>
+              typeof id ===
+              "string",
           ),
         );
       } else {
@@ -600,16 +717,27 @@ export default function PlanPage() {
   const progress = useMemo(
     () =>
       Math.round(
-        (completedCount / planTasks.length) * 100,
+        (completedCount /
+          planTasks.length) *
+          100,
       ),
     [completedCount],
   );
 
-  const toggleCompleted = (id: string) => {
-    setCompletedIds((current) =>
-      current.includes(id)
-        ? current.filter((item) => item !== id)
-        : [...current, id],
+  const toggleCompleted = (
+    id: string,
+  ) => {
+    setCompletedIds(
+      (current) =>
+        current.includes(id)
+          ? current.filter(
+              (item) =>
+                item !== id,
+            )
+          : [
+              ...current,
+              id,
+            ],
     );
   };
 
@@ -622,12 +750,55 @@ export default function PlanPage() {
   }
 
   return (
-  <AppShell background="white">
-    <div className="overflow-x-clip bg-white">
-      <AppHeader
-        backHref="/result"
-        backLabel="診断結果へ戻る"
-      />
+    <AppShell background="white">
+      <div className="overflow-x-clip bg-white">
+        <AppHeader
+          backHref="/result"
+          backLabel="診断結果へ戻る"
+        />
+
+        {showStickyStatus && (
+          <div className="sticky top-[68px] z-30 border-b border-[#1677FF]/10 bg-white/95 px-4 py-2.5 backdrop-blur-xl">
+            <div className="flex items-center gap-3">
+              <div className="min-w-0 flex-1">
+                <p className="text-[8px] font-black tracking-[0.14em] text-[#1677FF]">
+                  CURRENT STATUS
+                </p>
+
+                <div className="mt-0.5 flex items-end gap-1.5">
+                  <p className="text-[15px] font-black tracking-[-0.03em] text-[#111111]">
+                    <span className="text-[#1677FF]">
+                      {
+                        completedCount
+                      }{" "}
+                      /{" "}
+                      {
+                        planTasks.length
+                      }
+                    </span>{" "}
+                    完了
+                  </p>
+
+                  <span className="pb-[1px] text-[9px] font-bold text-black/35">
+                    {progress}%
+                  </span>
+                </div>
+              </div>
+
+              <div className="w-[110px] shrink-0">
+                <div className="h-2 overflow-hidden rounded-full bg-[#EEF6FF]">
+                  <div
+                    className="h-full rounded-full bg-[#1677FF] transition-[width] duration-500"
+                    style={{
+                      width:
+                        `${progress}%`,
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
 
         <div className="pb-32">
           <section className="px-5 pb-6 pt-7 text-center">
@@ -644,39 +815,60 @@ export default function PlanPage() {
             </p>
           </section>
 
-          <section className="mx-4 rounded-[24px] border border-[#1677FF]/10 bg-[#EEF6FF] p-5 shadow-[0_10px_34px_rgba(15,23,42,0.05)]">
-  <div className="flex items-center gap-5">
-    <ProgressRing progress={progress} />
+          <section
+            ref={statusCardRef}
+            className="mx-4 rounded-[24px] border border-[#1677FF]/10 bg-[#EEF6FF] p-5 shadow-[0_10px_34px_rgba(15,23,42,0.05)]"
+          >
+            <div className="flex items-center gap-5">
+              <ProgressRing
+                progress={
+                  progress
+                }
+              />
 
-    <div className="min-w-0 flex-1">
-      <p className="text-[9px] font-black tracking-[0.13em] text-[#1677FF]">
-        CURRENT STATUS
-      </p>
+              <div className="min-w-0 flex-1">
+                <p className="text-[9px] font-black tracking-[0.13em] text-[#1677FF]">
+                  CURRENT STATUS
+                </p>
 
-      <h2 className="mt-2 text-[22px] font-black tracking-[-0.04em] text-[#111111]">
-  <span className="text-[#1677FF]">
-    {completedCount} / {planTasks.length}
-  </span>{" "}
-  完了
-</h2>
+                <h2 className="mt-2 text-[22px] font-black tracking-[-0.04em] text-[#111111]">
+                  <span className="text-[#1677FF]">
+                    {
+                      completedCount
+                    }{" "}
+                    /{" "}
+                    {
+                      planTasks.length
+                    }
+                  </span>{" "}
+                  完了
+                </h2>
 
-      <p className="mt-2 text-[10px] leading-5 text-black/45">
-        すべて一度に行う必要はありません。
-        できる項目から進めましょう。
-      </p>
-    </div>
-  </div>
-</section>
+                <p className="mt-2 text-[10px] leading-5 text-black/45">
+                  すべて一度に行う必要はありません。
+                  できる項目から進めましょう。
+                </p>
+              </div>
+            </div>
+          </section>
+
           <SalonOrderGuide
-  isOpen={isSalonGuideOpen}
-  onToggle={() =>
-    setIsSalonGuideOpen(
-      (current) => !current,
-    )
-  }
-  afterImage={salonAfterImage}
-  analysis={salonAnalysis}
-/>
+            isOpen={
+              isSalonGuideOpen
+            }
+            onToggle={() =>
+              setIsSalonGuideOpen(
+                (current) =>
+                  !current,
+              )
+            }
+            afterImage={
+              salonAfterImage
+            }
+            analysis={
+              salonAnalysis
+            }
+          />
 
           <section className="mx-4 mt-7">
             <div className="flex items-end justify-between">
@@ -696,173 +888,202 @@ export default function PlanPage() {
             </div>
 
             <div className="mt-4 space-y-3">
-              {planTasks.map((task) => {
-                const completed =
-                  completedIds.includes(task.id);
+              {planTasks.map(
+                (task) => {
+                  const completed =
+                    completedIds.includes(
+                      task.id,
+                    );
 
-                const opened =
-                  openedId === task.id;
+                  const opened =
+                    openedId ===
+                    task.id;
 
-                return (
-                  <article
-                    key={task.id}
-                    className={`overflow-hidden rounded-[18px] border bg-white ${
-                      completed
-                        ? "border-[#FFD400]/40"
-                        : "border-black/10"
-                    }`}
-                  >
-                    <div className="flex items-start gap-3 p-4">
-                      <button
-                        type="button"
-                        onClick={() =>
-                          toggleCompleted(task.id)
-                        }
-                        aria-label={`${task.title}を${
-                          completed
-                            ? "未完了"
-                            : "完了"
-                        }にする`}
-                        className={`mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border transition ${
-                          completed
-                            ? "border-[#1677FF] bg-[#1677FF] text-white"
-                            : "border-black/10 bg-[#EEF6FF] text-transparent"
-                        }`}
-                      >
-                        <Icon
-                          name="check"
-                          className="h-4 w-4"
-                        />
-                      </button>
+                  return (
+                    <article
+                      key={
+                        task.id
+                      }
+                      className={`overflow-hidden rounded-[18px] border bg-white ${
+                        completed
+                          ? "border-[#FFD400]/40"
+                          : "border-black/10"
+                      }`}
+                    >
+                      <div className="flex items-start gap-3 p-4">
+                        <button
+                          type="button"
+                          onClick={() =>
+                            toggleCompleted(
+                              task.id,
+                            )
+                          }
+                          aria-label={`${task.title}を${
+                            completed
+                              ? "未完了"
+                              : "完了"
+                          }にする`}
+                          className={`mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border transition ${
+                            completed
+                              ? "border-[#1677FF] bg-[#1677FF] text-white"
+                              : "border-black/10 bg-[#EEF6FF] text-transparent"
+                          }`}
+                        >
+                          <Icon
+                            name="check"
+                            className="h-4 w-4"
+                          />
+                        </button>
 
-                      <button
-                        type="button"
-                        onClick={() =>
-                          setOpenedId(
-                            opened ? null : task.id,
-                          )
-                        }
-                        className="min-w-0 flex-1 text-left"
-                      >
-                        <div className="flex items-start justify-between gap-3">
-                          <div>
-                            <p className="text-[9px] font-black text-[#1677FF]">
-                              優先度 {task.priority}・
-                              {task.category}
-                            </p>
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setOpenedId(
+                              opened
+                                ? null
+                                : task.id,
+                            )
+                          }
+                          className="min-w-0 flex-1 text-left"
+                        >
+                          <div className="flex items-start justify-between gap-3">
+                            <div>
+                              <p className="text-[9px] font-black text-[#1677FF]">
+                                優先度{" "}
+                                {
+                                  task.priority
+                                }
+                                ・
+                                {
+                                  task.category
+                                }
+                              </p>
 
-                            <h3
-                              className={`mt-1 text-[15px] font-black ${
-                                completed
-                                  ? "text-black/35 line-through"
-                                  : "text-[#111111]"
+                              <h3
+                                className={`mt-1 text-[15px] font-black ${
+                                  completed
+                                    ? "text-black/35 line-through"
+                                    : "text-[#111111]"
+                                }`}
+                              >
+                                {
+                                  task.title
+                                }
+                              </h3>
+                            </div>
+
+                            <span
+                              className={`mt-1 transition ${
+                                opened
+                                  ? "rotate-90"
+                                  : ""
                               }`}
                             >
-                              {task.title}
-                            </h3>
+                              <Icon name="chevron" />
+                            </span>
                           </div>
-
-                          <span
-                            className={`mt-1 transition ${
-                              opened
-                                ? "rotate-90"
-                                : ""
-                            }`}
-                          >
-                            <Icon name="chevron" />
-                          </span>
-                        </div>
-                      </button>
-                    </div>
-
-                    {opened && (
-                      <div className="border-t border-black/10 bg-white px-4 py-4">
-                        <div className="space-y-3 text-[11px] leading-5">
-                          <div>
-                            <p className="font-black">
-                              なぜ必要？
-                            </p>
-
-                            <p className="mt-1 text-black/55">
-                              {task.reason}
-                            </p>
-                          </div>
-
-                          <div>
-                            <p className="font-black">
-                              期待できる変化
-                            </p>
-
-                            <p className="mt-1 text-black/55">
-                              {task.effect}
-                            </p>
-                          </div>
-
-                          <div>
-                            <p className="font-black">
-                              具体的なやり方
-                            </p>
-
-                            <p className="mt-1 text-black/55">
-                              {task.howTo}
-                            </p>
-                          </div>
-                        </div>
-
-                        {task.href && (
-                          <Link
-                            href={task.href}
-                            className="mt-4 flex min-h-11 items-center justify-between rounded-[12px] bg-[#EEF6FF] px-4 text-[11px] font-black text-[#1677FF]"
-                          >
-                            {task.hrefLabel}
-
-                            <Icon name="chevron" />
-                          </Link>
-                        )}
+                        </button>
                       </div>
-                    )}
-                  </article>
-                );
-              })}
+
+                      {opened && (
+                        <div className="border-t border-black/10 bg-white px-4 py-4">
+                          <div className="space-y-3 text-[11px] leading-5">
+                            <div>
+                              <p className="font-black">
+                                なぜ必要？
+                              </p>
+
+                              <p className="mt-1 text-black/55">
+                                {
+                                  task.reason
+                                }
+                              </p>
+                            </div>
+
+                            <div>
+                              <p className="font-black">
+                                期待できる変化
+                              </p>
+
+                              <p className="mt-1 text-black/55">
+                                {
+                                  task.effect
+                                }
+                              </p>
+                            </div>
+
+                            <div>
+                              <p className="font-black">
+                                具体的なやり方
+                              </p>
+
+                              <p className="mt-1 text-black/55">
+                                {
+                                  task.howTo
+                                }
+                              </p>
+                            </div>
+                          </div>
+
+                          {task.href && (
+                            <Link
+                              href={
+                                task.href
+                              }
+                              className="mt-4 flex min-h-11 items-center justify-between rounded-[12px] bg-[#EEF6FF] px-4 text-[11px] font-black text-[#1677FF]"
+                            >
+                              {
+                                task.hrefLabel
+                              }
+
+                              <Icon name="chevron" />
+                            </Link>
+                          )}
+                        </div>
+                      )}
+                    </article>
+                  );
+                },
+              )}
             </div>
           </section>
 
           <section className="mx-4 mt-7 overflow-hidden rounded-[24px] border border-[#1677FF]/10 bg-gradient-to-br from-white via-white to-[#EEF6FF] shadow-[0_14px_40px_rgba(22,119,255,0.08)]">
-  <div className="relative px-5 pb-5 pt-6">
-    <div className="absolute right-5 top-5 flex h-16 w-16 items-center justify-center rounded-full bg-[#EEF6FF] text-[#1677FF]">
-      <Icon
-        name="bag"
-        className="h-8 w-8"
-      />
-    </div>
+            <div className="relative px-5 pb-5 pt-6">
+              <div className="absolute right-5 top-5 flex h-16 w-16 items-center justify-center rounded-full bg-[#EEF6FF] text-[#1677FF]">
+                <Icon
+                  name="bag"
+                  className="h-8 w-8"
+                />
+              </div>
 
-    <p className="pr-20 text-[9px] font-black tracking-[0.16em] text-[#1677FF]">
-      RECOMMENDED FOR YOU
-    </p>
+              <p className="pr-20 text-[9px] font-black tracking-[0.16em] text-[#1677FF]">
+                RECOMMENDED FOR YOU
+              </p>
 
-    <h2 className="mt-3 whitespace-nowrap pr-20 text-[18px] font-black leading-[1.45] tracking-[-0.04em] min-[390px]:text-[20px]">
-      あなたに合うおすすめ商品
-    </h2>
+              <h2 className="mt-3 whitespace-nowrap pr-20 text-[18px] font-black leading-[1.45] tracking-[-0.04em] min-[390px]:text-[20px]">
+                あなたに合うおすすめ商品
+              </h2>
 
-    <p className="mt-3 max-w-[340px] text-left text-[11px] leading-5 text-black/55">
-      診断結果から、今のあなたに必要なケア・スタイリング商品を厳選しています。
-    </p>
+              <p className="mt-3 max-w-[340px] text-left text-[11px] leading-5 text-black/55">
+                診断結果から、今のあなたに必要なケア・スタイリング商品を厳選しています。
+              </p>
 
-    <Link
-      href="/products"
-      className="mt-6 flex min-h-[56px] items-center justify-center gap-3 rounded-[15px] bg-[#FFD400] px-5 text-[14px] font-black text-[#111111] shadow-[0_10px_34px_rgba(15,23,42,0.05)] transition hover:-translate-y-0.5 active:scale-[0.99]"
-    >
-      おすすめ商品を見る
+              <Link
+                href="/products"
+                className="mt-6 flex min-h-[56px] items-center justify-center gap-3 rounded-[15px] bg-[#FFD400] px-5 text-[14px] font-black text-[#111111] shadow-[0_10px_34px_rgba(15,23,42,0.05)] transition hover:-translate-y-0.5 active:scale-[0.99]"
+              >
+                おすすめ商品を見る
 
-      <span
-        aria-hidden="true"
-        className="text-[18px]"
-      >
-        →
-      </span>
-        </Link>
-  </div>
-</section>
+                <span
+                  aria-hidden="true"
+                  className="text-[18px]"
+                >
+                  →
+                </span>
+              </Link>
+            </div>
+          </section>
 
           <AdSenseAd
             className="mx-4 mt-7"
@@ -894,7 +1115,11 @@ export default function PlanPage() {
 
           <button
             type="button"
-            onClick={() => setCompletedIds([])}
+            onClick={() =>
+              setCompletedIds(
+                [],
+              )
+            }
             className="mx-auto mt-6 flex items-center gap-2 text-[10px] font-black text-black/35"
           >
             <Icon

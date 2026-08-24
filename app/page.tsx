@@ -318,7 +318,7 @@ export default function Home() {
 
   return (
 
-    <main className="overflow-hidden bg-white text-[#111111]">
+    <main className="overflow-x-clip bg-white text-[#111111]">
       <header className="sticky top-0 z-50 border-b border-black/10 bg-white/90 backdrop-blur-xl">
         <div className="site-container flex h-18 items-center justify-between gap-4">
         <Logo href="/" />

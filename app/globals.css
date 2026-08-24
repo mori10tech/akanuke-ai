@@ -91,32 +91,65 @@ a {
 ========================= */
 
 .primary-button {
-  display: inline-flex;
+  position: relative;
+  display: flex;
   min-height: 56px;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  border-radius: 10px;
-  background: var(--brand-yellow);
-  padding: 0 28px;
+  gap: 10px;
+  overflow: hidden;
+  border-radius: 14px;
+  background:
+    linear-gradient(
+      135deg,
+      #ffd400 0%,
+      #ffdf32 52%,
+      #ffd400 100%
+    );
+  padding: 0 22px;
   color: #111111;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 900;
-  box-shadow: 0 12px 28px rgba(255, 212, 0, 0.22);
+  box-shadow:
+    0 12px 30px rgba(255, 212, 0, 0.26),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45);
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease,
     filter 0.2s ease;
 }
 
+.primary-button::before {
+  position: absolute;
+  top: -80%;
+  left: -30%;
+  width: 35%;
+  height: 260%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.55),
+    transparent
+  );
+  content: "";
+  transform: rotate(20deg);
+  transition: left 0.55s ease;
+}
+
 .primary-button:hover {
-  box-shadow: 0 16px 34px rgba(255, 212, 0, 0.3);
-  filter: brightness(1.02);
   transform: translateY(-2px);
+  box-shadow:
+    0 16px 34px rgba(255, 212, 0, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  filter: brightness(1.02);
+}
+
+.primary-button:hover::before {
+  left: 115%;
 }
 
 .primary-button:active {
-  transform: translateY(0);
+  transform: translateY(0) scale(0.985);
 }
 
 .compact-button {
@@ -579,96 +612,108 @@ a {
   }
 
   .hero-visual-wrap {
-    min-height: 780px;
-    margin-top: 0;
-    overflow: hidden;
-  }
+  position: relative;
+  min-height: 350px;
+  margin-top: 8px;
+  overflow: hidden;
+}
 
   .hero-person-wrap {
-    top: 20px;
-    right: auto;
-    bottom: auto;
-    left: 50%;
-    width: 112%;
-    height: 430px;
-    transform: translateX(-56%);
-  }
+  top: -80px;
+  right: auto;
+  bottom: auto;
+  left: -11%;
+  width: 75%;
+  height: 430px;
+  transform: none;
+}
 
  .hero-person-image {
   object-fit: contain;
   object-position: center bottom;
-  transform: scale(1.05);
+  transform: scale(1);
   transform-origin: center bottom;
 }
 
   .analysis-panel {
-    top: auto;
-    right: 50%;
-    bottom: 16px;
-    width: min(calc(100% - 8px), 350px);
-    min-height: auto;
-    border-radius: 18px;
-    padding: 18px 16px;
-    transform: translateX(50%);
-  }
+  top: 10px;
+  right: 0;
+  bottom: auto;
+  width: 50%;
+  min-height: auto;
+  border-radius: 16px;
+  padding: 12px 10px;
+  transform: none;
+}
 
   .analysis-panel-title {
-    font-size: 12px;
-  }
+  font-size: 11px;
+}
 
   .analysis-panel-subtitle {
-    margin-top: 6px;
-    font-size: 8px;
-  }
+  margin-top: 5px;
+  font-size: 7px;
+}
 
   .analysis-panel-spark {
-    width: 30px;
-    height: 30px;
-  }
+  width: 28px;
+  height: 28px;
+}
 
   .analysis-panel-list {
-    margin-top: 12px;
-  }
+  margin-top: 8px;
+}
 
   .analysis-score-row {
-    grid-template-columns: 44px minmax(0, 1fr);
-    gap: 11px;
-    padding: 14px 0;
-  }
+  grid-template-columns: 38px minmax(0, 1fr);
+  gap: 8px;
+  padding: 10px 0;
+}
 
   .analysis-score-icon {
-    width: 28px;
-    height: 28px;
-  }
+  width: 24px;
+  height: 24px;
+}
 
   .analysis-score-icon-line {
-    width: 26px;
-    height: 2px;
-    margin-top: 5px;
-  }
+  width: 22px;
+  height: 2px;
+  margin-top: 4px;
+}
 
   .analysis-score-label {
-    font-size: 8px;
-  }
+  font-size: 7px;
+}
 
   .analysis-score-number {
-    margin-top: 3px;
-    font-size: 22px;
-  }
+  margin-top: 2px;
+  font-size: 20px;
+}
 
   .analysis-score-number span {
-    font-size: 8px;
-  }
+  font-size: 7px;
+}
 
   .analysis-score-note {
-    margin-top: 5px;
-    font-size: 8px;
-    line-height: 1.5;
-  }
+  margin-top: 4px;
+  font-size: 7px;
+  line-height: 1.45;
+}
 
   .primary-button {
     min-height: 54px;
     border-radius: 12px;
+  }
+}
+
+/* =========================
+   SMALL MOBILE
+========================= */
+
+@media (max-width: 375px) {
+  .hero-person-wrap {
+    left: -14%;
+    width: 85%;
   }
 }
 

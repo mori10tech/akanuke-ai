@@ -336,19 +336,25 @@ export default function Home() {
 
           <div className="flex items-center gap-3 sm:gap-4">
   <Link
-    href="/login"
-    className="whitespace-nowrap text-sm font-bold text-[#1677FF]"
-  >
-    ログイン
-  </Link>
+  href="/login"
+  className="inline-flex min-h-[40px] items-center justify-center whitespace-nowrap rounded-[10px] border border-[#1677FF]/20 bg-white px-4 text-sm font-bold text-[#1677FF] transition hover:border-[#1677FF]/40 hover:bg-[#EEF6FF]"
+>
+  ログイン
+</Link>
 
   <Link
-    href="/upload"
-    className="primary-button compact-button"
+  href="/upload"
+  className="primary-button compact-button"
+>
+  <span>無料で診断をはじめる</span>
+
+  <span
+    aria-hidden="true"
+    className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-black/10 text-[16px] leading-none"
   >
-    無料で診断をはじめる
-    <span aria-hidden="true">›</span>
-  </Link>
+    ›
+  </span>
+</Link>
 </div>
         </div>
       </header>
@@ -357,62 +363,98 @@ export default function Home() {
         <div className="hero-glow hero-glow-left" />
         <div className="hero-glow hero-glow-right" />
 
-        <div className="site-container grid min-h-[660px] items-center gap-8 py-14 lg:grid-cols-[0.78fr_1.22fr] lg:gap-4 lg:py-16">
-          <div className="relative z-10 max-w-[520px] lg:pb-4">
-            <h1 className="text-balance text-[50px] font-semibold leading-[1.08] tracking-[-0.065em] text-[#111111] sm:text-[64px] lg:text-[76px]">
-              第一印象は、
-              <br />
-              変えられる。
-            </h1>
+        <div className="site-container grid min-h-[660px] items-center gap-3 py-8 md:gap-8 md:py-14 lg:grid-cols-[0.78fr_1.22fr] lg:gap-4 lg:py-16">
+  <div className="relative z-10 max-w-[520px] lg:pb-4">
+    <h1 className="text-balance text-[38px] font-semibold leading-[1.1] tracking-[-0.055em] text-[#111111] sm:text-[64px] lg:text-[76px]">
+  第一印象は、
+  <br />
+  変えられる。
+</h1>
 
-          
+    <p className="mt-5 text-[18px] font-semibold leading-[1.6] tracking-[-0.025em] text-[#111111] md:mt-8 md:text-[30px] lg:text-[33px]">
+  AIが、あなただけの
+  <br className="hidden md:block" />
+  垢抜けプランを作成。
+</p>
 
-            <p className="mt-8 text-[25px] font-semibold leading-[1.55] tracking-[-0.035em] sm:text-[30px] lg:text-[33px]">
-              
-              AIが、あなただけの
-              <br />
-              垢抜けプランを作成。
-            </p>
+    {/* PC・タブレットのみ表示 */}
+    <div className="hidden md:block">
+      <p className="mt-6 text-[15px] font-semibold leading-[2] text-black/60 md:text-[16px]">
+        顔写真をもとに、AIがあなたの魅力を分析。
+        <br />
+        髪型・眉毛・肌・印象まで、
+        <br />
+        あなただけの垢抜けプランを作成します。
+      </p>
 
-            <p className="mt-6 text-[15px] font-semibold leading-[2] text-black/60 sm:text-[16px]">
-              顔写真をもとに、AIがあなたの魅力を分析。
-              <br />
-              髪型・眉毛・肌・印象まで、
-              <br />
-              あなただけの垢抜けプランを作成します。
-            </p>
+      <Link
+  href="/upload"
+  className="primary-button mt-8 w-full max-w-[355px]"
+>
+  <span>無料で診断をはじめる</span>
 
-            <Link
-              href="/upload"
-              className="primary-button mt-8 w-full max-w-[355px]"
-            >
-              無料で診断をはじめる
-              <span aria-hidden="true">›</span>
-            </Link>
+  <span
+    aria-hidden="true"
+    className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-black/10 text-[16px] leading-none"
+  >
+    ›
+  </span>
+</Link>
 
-            <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm font-bold text-black/70">
-              <MiniBenefit icon="clock" label="約1分で完了" />
-              <MiniBenefit icon="yen" label="完全無料" />
-              <MiniBenefit icon="user" label="メンズ専用" />
-            </div>
-          </div>
+      <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm font-bold text-black/70">
+        <MiniBenefit
+          icon="clock"
+          label="約1分で完了"
+        />
+        <MiniBenefit
+          icon="yen"
+          label="完全無料"
+        />
+        <MiniBenefit
+          icon="user"
+          label="メンズ専用"
+        />
+      </div>
+    </div>
+  </div>
 
-          <div className="hero-visual-wrap relative z-0 min-h-[480px] lg:min-h-[585px]">
-<div className="hero-person-wrap">
-  <Image
-    src="/lp/hero-person-v6.png"
-    alt="AKANUKE.AIで垢抜けた男性のイメージ"
-    width={1536}
-    height={2048}
-    priority
-    sizes="(max-width: 767px) 100vw, (max-width: 1023px) 70vw, 48vw"
-    className="hero-person-image"
-  />
+  {/* 男性モデル ＋ AI ANALYSIS */}
+  <div className="hero-visual-wrap relative z-0 min-h-[480px] lg:min-h-[585px]">
+    <div className="hero-person-wrap">
+      <Image
+        src="/lp/hero-person-v6.png"
+        alt="AKANUKE.AIで垢抜けた男性のイメージ"
+        width={1536}
+        height={2048}
+        priority
+        sizes="(max-width: 767px) 100vw, (max-width: 1023px) 70vw, 48vw"
+        className="hero-person-image"
+      />
+    </div>
+
+    <HeroAnalysisCard />
+  </div>
+
+  {/* スマホのみ表示 */}
+  <div className="md:hidden">
+    
+
+    <div className="mt-5 flex flex-wrap justify-center gap-x-5 gap-y-3 text-[12px] font-bold text-black/70">
+      <MiniBenefit
+        icon="clock"
+        label="約1分で完了"
+      />
+      <MiniBenefit
+        icon="yen"
+        label="完全無料"
+      />
+      <MiniBenefit
+        icon="user"
+        label="メンズ専用"
+      />
+    </div>
+  </div>
 </div>
-
-<HeroAnalysisCard />
-</div>
-        </div>
       </section>
 
       <section id="about" className="section-border py-14">
@@ -449,130 +491,147 @@ export default function Home() {
       </section>
 
       <section className="section-border py-16">
-        <div className="site-container grid items-stretch gap-10 lg:grid-cols-2">
-          <div className="flex h-full flex-col">
-            <SectionTitle>診断結果のサンプル</SectionTitle>
+  <div className="site-container grid items-stretch gap-10 lg:grid-cols-2">
+    <div className="flex h-full flex-col">
+      <SectionTitle>診断結果のサンプル</SectionTitle>
 
-            <div className="mt-6 grid flex-1 gap-3 rounded-3xl border border-black/10 bg-white p-4 shadow-sm sm:grid-cols-[1fr_1fr_0.7fr]">
-              <ResultList
-                title="あなたの改善優先度"
-                items={[
-                  "髪型 82/100",
-                  "眉毛 78/100",
-                  "肌 76/100",
-                  "印象・バランス 72/100",
-                ]}
-              />
+      <div className="mt-6 grid flex-1 gap-3 rounded-3xl border border-black/10 bg-white p-4 shadow-sm sm:grid-cols-[1fr_1fr_0.7fr]">
+        <ResultList
+          title="あなたの改善優先度"
+          items={[
+            "髪型 82/100",
+            "眉毛 78/100",
+            "肌 76/100",
+            "印象・バランス 72/100",
+          ]}
+        />
 
-              <ResultList
-                title="あなたがやること"
-                items={[
-                  "髪型の方向性を整える",
-                  "眉の形を整える",
-                  "肌の保湿ケアを徹底する",
-                  "印象をより洗練させる",
-                ]}
-                checks
-              />
+        <ResultList
+          title="あなたがやること"
+          items={[
+            "髪型の方向性を整える",
+            "眉の形を整える",
+            "肌の保湿ケアを徹底する",
+            "印象をより洗練させる",
+          ]}
+          checks
+        />
 
-              <div className="flex flex-col items-center justify-center rounded-2xl bg-[#EEF6FF] p-4 text-center">
-                <span className="text-sm font-bold text-black/60">
-                  総合スコア
-                </span>
+        <div className="flex flex-col items-center justify-center rounded-2xl bg-[#EEF6FF] p-4 text-center">
+          <span className="text-sm font-bold text-black/60">
+            総合スコア
+          </span>
 
-                <div className="score-ring mt-2">
-                  <span className="-mt-0 block text-3xl font-medium text-[#111111]">
-                    78
-                  </span>
-                  
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div id="flow" className="flex h-full flex-col">
-            <SectionTitle>診断の流れ</SectionTitle>
-
-            <div className="mt-6 grid flex-1 grid-cols-2 gap-3 sm:grid-cols-4">
-              <FlowStep
-                step="STEP 1"
-                icon="upload"
-                label="顔写真をアップロード"
-              />
-              <FlowStep
-                step="STEP 2"
-                icon="brain"
-                label="AIがあなたの特徴を分析"
-              />
-              <FlowStep
-                step="STEP 3"
-                icon="document"
-                label="改善ポイントを提案"
-              />
-              <FlowStep
-                step="STEP 4"
-                icon="calendar"
-                label="垢抜けプランを作成"
-              />
-            </div>
-
-            <div className="mt-3 grid grid-cols-2 gap-3 rounded-2xl bg-[#EEF6FF] px-5 py-4 text-center text-sm font-bold text-[#1677FF]">
-              <span>
-                診断時間　
-                <strong className="text-xl">約1分</strong>
-              </span>
-              <span>
-                料金　
-                <strong className="text-xl">0円</strong>
-                （完全無料）
-              </span>
-            </div>
+          <div className="score-ring mt-2">
+            <span className="block text-[28px] font-bold leading-none tracking-[-0.03em] text-[#111111]">
+              78
+            </span>
           </div>
         </div>
-      </section>
+      </div>
+    </div>
+
+    <div
+      id="flow"
+      className="flex h-full flex-col"
+    >
+      <SectionTitle>診断の流れ</SectionTitle>
+
+      <div className="mt-6 grid flex-1 grid-cols-2 gap-3 sm:grid-cols-4">
+        <FlowStep
+          step="STEP 1"
+          icon="upload"
+          label="顔写真をアップロード"
+        />
+
+        <FlowStep
+          step="STEP 2"
+          icon="brain"
+          label="AIがあなたの特徴を分析"
+        />
+
+        <FlowStep
+          step="STEP 3"
+          icon="document"
+          label="改善ポイントを提案"
+        />
+
+        <FlowStep
+          step="STEP 4"
+          icon="calendar"
+          label="垢抜けプランを作成"
+        />
+      </div>
+
+      <div className="mt-3 grid grid-cols-2 gap-3 rounded-2xl bg-[#EEF6FF] px-5 py-4 text-center text-sm font-bold text-[#1677FF]">
+        <span>
+          診断時間　
+          <strong className="text-xl">
+            約1分
+          </strong>
+        </span>
+
+        <span>
+          料金　
+          <strong className="text-xl">
+            完全無料
+          </strong>
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
 
       <section className="section-border py-16">
-        <div className="site-container">
-          <div className="text-center">
-            <Link
-              href="/upload"
-              className="primary-button mx-auto mb-6 w-full max-w-sm"
-            >
-              無料で診断をはじめる
-              <span aria-hidden="true">›</span>
-            </Link>
+  <div className="site-container">
+    <div className="text-center">
+      <div className="mb-6 flex justify-center">
+        <Link
+          href="/upload"
+          className="primary-button w-full max-w-[355px]"
+        >
+          <span>無料で診断をはじめる</span>
 
-            <p className="text-[11px] font-black tracking-[0.16em] text-[#1677FF]">
-              BEFORE / AFTER
-            </p>
+          <span
+            aria-hidden="true"
+            className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-black/10 text-[16px] leading-none"
+          >
+            ›
+          </span>
+        </Link>
+      </div>
 
-            <SectionTitle centered>
-              現在の印象と、目指す理想像
-            </SectionTitle>
+      <p className="text-[11px] font-black tracking-[0.16em] text-[#1677FF]">
+        BEFORE / AFTER
+      </p>
 
-            <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-black/60">
-              AIが分析した現在の印象と、改善後に目指す理想イメージを比較できます。
-            </p>
-          </div>
+      <SectionTitle centered>
+        現在の印象と、目指す理想像
+      </SectionTitle>
 
-          <div className="mx-auto mt-8 grid max-w-4xl gap-5 md:grid-cols-2">
-            <BeforeAfterCard
-              image="/lp/before-v3.png"
-              label="Before"
-              title="現在の印象"
-              description="顔写真をもとに、髪型・眉毛・肌・全体の印象をAIが分析します。"
-            />
+      <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-black/60">
+        AIが分析した現在の印象と、改善後に目指す理想イメージを比較できます。
+      </p>
+    </div>
 
-            <BeforeAfterCard
-              image="/lp/after-v3.png"
-              label="After"
-              title="理想の印象"
-              description="改善ポイントを反映した、爽やかさと清潔感のある理想像を確認できます。"
-              after
-            />
-          </div>
-        </div>
-      </section>
+    <div className="mx-auto mt-8 grid max-w-4xl gap-5 md:grid-cols-2">
+      <BeforeAfterCard
+        image="/lp/before-v3.png"
+        label="Before"
+        title="現在の印象"
+        description="顔写真をもとに、髪型・眉毛・肌・全体の印象をAIが分析します。"
+      />
+
+      <BeforeAfterCard
+        image="/lp/after-v3.png"
+        label="After"
+        title="理想の印象"
+        description="改善ポイントを反映した、爽やかさと清潔感のある理想像を確認できます。"
+        after
+      />
+    </div>
+  </div>
+</section>
 
       <section className="section-border py-16">
   <div className="site-container grid gap-8 lg:grid-cols-3">
@@ -611,12 +670,18 @@ export default function Home() {
 
 <div className="mb-6 flex justify-center">
   <Link
-    href="/upload"
-    className="primary-button w-full max-w-sm"
+  href="/upload"
+  className="primary-button w-full max-w-[355px]"
+>
+  <span>無料で診断をはじめる</span>
+
+  <span
+    aria-hidden="true"
+    className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-black/10 text-[16px] leading-none"
   >
-    無料で診断をはじめる
-    <span aria-hidden="true">›</span>
-  </Link>
+    ›
+  </span>
+</Link>
 </div>
 
       <section
@@ -734,10 +799,12 @@ export default function Home() {
               {article.description}
             </p>
 
-            <div className="mt-5 flex min-h-[46px] items-center justify-between rounded-[12px] bg-[#EEF6FF] px-4 text-[12px] font-black text-[#1677FF] transition group-hover:bg-white">
-              <span>記事を読む</span>
-              <span aria-hidden="true">→</span>
-            </div>
+            <div className="mt-5 flex min-h-[46px] items-center justify-between rounded-[12px] border border-[#1677FF]/10 bg-[#EEF6FF] px-4 text-[12px] font-black text-[#1677FF] transition group-hover:border-[#1677FF]/25 group-hover:bg-[#E5F1FF]">
+  <span>記事を読む</span>
+  <span className="text-[16px]" aria-hidden="true">
+    →
+  </span>
+</div>
           </div>
         </Link>
       ))}
@@ -745,13 +812,13 @@ export default function Home() {
 
     <Link
   href="/media"
-  className="mt-6 flex min-h-[50px] w-full items-center justify-center rounded-[12px] border border-[#1677FF]/15 bg-white px-5 text-[13px] font-black text-[#1677FF] transition hover:bg-[#EEF6FF] sm:max-w-[320px]"
+  className="mt-6 flex min-h-[50px] w-full items-center justify-center rounded-[12px] border border-[#1677FF]/30 bg-white px-5 text-[13px] font-black text-[#1677FF] shadow-[0_6px_18px_rgba(22,119,255,0.06)] transition hover:-translate-y-0.5 hover:border-[#1677FF]/50 hover:bg-[#EEF6FF] sm:max-w-[320px]"
 >
   垢抜け記事をもっと見る
-      <span className="ml-3" aria-hidden="true">
-        →
-      </span>
-    </Link>
+  <span className="ml-3 text-[16px]" aria-hidden="true">
+    →
+  </span>
+</Link>
   </div>
 </section>
 
@@ -773,12 +840,18 @@ export default function Home() {
             </div>
 
             <Link
-              href="/upload"
-              className="primary-button min-w-[280px]"
-            >
-              無料で診断をはじめる
-              <span aria-hidden="true">›</span>
-            </Link>
+  href="/upload"
+  className="primary-button w-full max-w-[355px]"
+>
+  <span>無料で診断をはじめる</span>
+
+  <span
+    aria-hidden="true"
+    className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-black/10 text-[16px] leading-none"
+  >
+    ›
+  </span>
+</Link>
 
             <Image
               src="/lp/hero-man-v2.png"
@@ -1004,7 +1077,7 @@ function FeatureIcon({
 
   return (
     <div className="text-center">
-      <div className="mx-auto grid aspect-square max-w-24 place-items-center rounded-2xl border border-black/10 bg-white text-[#1677FF] shadow-sm">
+      <div className="mx-auto grid aspect-square max-w-24 place-items-center rounded-2xl border border-[#1677FF]/10 bg-[#F7FAFF] text-[#1677FF]">
         {customIconSrc ? (
           <Image
             src={customIconSrc}
@@ -1069,7 +1142,7 @@ function FlowStep({
   label: string;
 }) {
   return (
-    <div className="rounded-2xl border border-black/10 bg-white p-4 text-center shadow-sm">
+    <div className="rounded-2xl border border-black/[0.07] bg-[#F7F9FC] p-4 text-center">
       <p className="text-[10px] font-black text-[#1677FF]">
         {step}
       </p>

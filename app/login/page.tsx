@@ -45,8 +45,9 @@ const { data, error } =
             redirectTo:
   `${window.location.origin}/auth/callback?next=${encodeURIComponent(safeNext)}`,
             queryParams: {
-              bot_prompt: "aggressive",
-            },
+  prompt: "none",
+  bot_prompt: "normal",
+},
             skipBrowserRedirect: true,
           },
         });

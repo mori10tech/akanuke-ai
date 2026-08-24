@@ -1,12 +1,6 @@
-import type {
-  Metadata,
-  Viewport,
-} from "next";
+import type { Metadata, Viewport } from "next";
 
-import {
-  Geist,
-  Geist_Mono,
-} from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 
 import "./globals.css";
 
@@ -21,58 +15,39 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    "https://akanukeai.com",
-  ),
+  metadataBase: new URL("https://akanukeai.com"),
 
-  title: {
-    default:
-      "AKANUKE.AI｜第一印象は、変えられる。",
-    template:
-      "%s | AKANUKE.AI",
-  },
+  title: "AKANUKE.AI｜第一印象は、変えられる。",
 
   description:
     "AIがあなたの魅力を分析し、髪型・眉毛・肌・印象から、あなただけの垢抜けプランを提案する男性向け美容AIサービス。",
 
-  applicationName:
-    "AKANUKE.AI",
+  applicationName: "AKANUKE.AI",
 
   openGraph: {
-    type: "website",
-    locale: "ja_JP",
-    url: "https://akanukeai.com/",
-    siteName: "AKANUKE.AI",
-
-    title:
-      "AKANUKE.AI｜第一印象は、変えられる。",
-
+    title: "AKANUKE.AI｜第一印象は、変えられる。",
     description:
       "AIが、あなただけの垢抜けプランを提案。男性向け美容AIサービス AKANUKE.AI。",
-
+    url: "https://akanukeai.com",
+    siteName: "AKANUKE.AI",
+    locale: "ja_JP",
+    type: "website",
     images: [
       {
         url: "/ogp/akanuke-ai-og.png",
         width: 1200,
         height: 630,
-        alt:
-          "AKANUKE.AI｜第一印象は、変えられる。",
+        alt: "AKANUKE.AI｜第一印象は、変えられる。",
       },
     ],
   },
 
   twitter: {
     card: "summary_large_image",
-
-    title:
-      "AKANUKE.AI｜第一印象は、変えられる。",
-
+    title: "AKANUKE.AI｜第一印象は、変えられる。",
     description:
       "AIが、あなただけの垢抜けプランを提案。男性向け美容AIサービス AKANUKE.AI。",
-
-    images: [
-      "/ogp/akanuke-ai-og.png",
-    ],
+    images: ["/ogp/akanuke-ai-og.png"],
   },
 
   appleWebApp: {
@@ -108,9 +83,7 @@ export default function RootLayout({
       lang="ja"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col">
-        {children}
-      </body>
+      <body className="flex min-h-full flex-col">{children}</body>
     </html>
   );
 }

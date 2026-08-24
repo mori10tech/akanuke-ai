@@ -45,7 +45,6 @@ const { data, error } =
             redirectTo:
   `${window.location.origin}/auth/callback?next=${encodeURIComponent(safeNext)}`,
             queryParams: {
-  prompt: "none",
   bot_prompt: "normal",
 },
             skipBrowserRedirect: true,

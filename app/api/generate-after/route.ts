@@ -35,43 +35,202 @@ type OpenAIImageResponse = {
   data?: Array<{
     b64_json?: string;
   }>;
-
   error?: {
     message?: string;
   };
 };
 
-function parseImageDataUrl(
-  dataUrl: string,
+type ParsedImage = {
+  mimeType: string;
+  extension: "jpg" | "png" | "webp";
+  buffer: Buffer;
+};
+
+function normalizeImageMimeType(
+  mimeType: string,
 ) {
-  const match = dataUrl.match(
-    /^data:(image\/(?:jpeg|png|webp));base64,(.+)$/,
-  );
+  const normalized =
+    mimeType
+      .split(";")[0]
+      .trim()
+      .toLowerCase();
+
+  if (
+    normalized === "image/jpeg" ||
+    normalized === "image/jpg"
+  ) {
+    return {
+      mimeType: "image/jpeg",
+      extension: "jpg" as const,
+    };
+  }
+
+  if (normalized === "image/png") {
+    return {
+      mimeType: "image/png",
+      extension: "png" as const,
+    };
+  }
+
+  if (normalized === "image/webp") {
+    return {
+      mimeType: "image/webp",
+      extension: "webp" as const,
+    };
+  }
+
+  return null;
+}
+
+function parseDataUrl(
+  imageSource: string,
+): ParsedImage | null {
+  const match = imageSource.match(
+  /^data:([^;,]+);base64,([\s\S]+)$/,
+);
 
   if (!match) {
+    return null;
+  }
+
+  const imageType =
+    normalizeImageMimeType(
+      match[1],
+    );
+
+  if (!imageType) {
     throw new Error(
-      "対応していない画像形式です。",
+      "対応していない画像形式です。JPEG・PNG・WebP形式の画像をご利用ください。",
     );
   }
 
-  const mimeType = match[1];
-  const base64 = match[2];
+  const base64 = match[2].replace(
+    /\s/g,
+    "",
+  );
 
-  const extension =
-    mimeType === "image/jpeg"
-      ? "jpg"
-      : mimeType === "image/png"
-        ? "png"
-        : "webp";
-
-  return {
-    mimeType,
-    extension,
-    buffer: Buffer.from(
+  const buffer =
+    Buffer.from(
       base64,
       "base64",
-    ),
+    );
+
+  if (buffer.length === 0) {
+    throw new Error(
+      "画像データを読み込めませんでした。",
+    );
+  }
+
+  return {
+    mimeType:
+      imageType.mimeType,
+    extension:
+      imageType.extension,
+    buffer,
   };
+}
+
+async function fetchRemoteImage(
+  imageUrl: string,
+): Promise<ParsedImage> {
+  let parsedUrl: URL;
+
+  try {
+    parsedUrl =
+      new URL(imageUrl);
+  } catch {
+    throw new Error(
+      "画像データの形式が正しくありません。",
+    );
+  }
+
+  if (
+    parsedUrl.protocol !== "https:" &&
+    parsedUrl.protocol !== "http:"
+  ) {
+    throw new Error(
+      "画像データの形式が正しくありません。",
+    );
+  }
+
+  const response =
+    await fetch(imageUrl, {
+      cache: "no-store",
+    });
+
+  if (!response.ok) {
+    throw new Error(
+      "元画像を取得できませんでした。",
+    );
+  }
+
+  const contentType =
+    response.headers.get(
+      "content-type",
+    ) ?? "";
+
+  const imageType =
+    normalizeImageMimeType(
+      contentType,
+    );
+
+  if (!imageType) {
+    throw new Error(
+      "対応していない画像形式です。JPEG・PNG・WebP形式の画像をご利用ください。",
+    );
+  }
+
+  const arrayBuffer =
+    await response.arrayBuffer();
+
+  const buffer =
+    Buffer.from(
+      arrayBuffer,
+    );
+
+  if (buffer.length === 0) {
+    throw new Error(
+      "元画像を取得できませんでした。",
+    );
+  }
+
+  return {
+    mimeType:
+      imageType.mimeType,
+    extension:
+      imageType.extension,
+    buffer,
+  };
+}
+
+async function parseImageSource(
+  imageSource: string,
+): Promise<ParsedImage> {
+  const dataUrlImage =
+    parseDataUrl(
+      imageSource,
+    );
+
+  if (dataUrlImage) {
+    return dataUrlImage;
+  }
+
+  if (
+    imageSource.startsWith(
+      "https://",
+    ) ||
+    imageSource.startsWith(
+      "http://",
+    )
+  ) {
+    return fetchRemoteImage(
+      imageSource,
+    );
+  }
+
+  throw new Error(
+    "画像データの形式が正しくありません。",
+  );
 }
 
 export async function POST(
@@ -79,9 +238,8 @@ export async function POST(
 ) {
   try {
     /*
-     * After画像生成はOpenAI APIの
-     * コストが発生するため、
-     * ログイン済みユーザーだけ許可します。
+     * After画像生成はコストが発生するため、
+     * ログインユーザーのみ許可します。
      */
     const supabase =
       await createClient();
@@ -110,8 +268,7 @@ export async function POST(
     }
 
     /*
-     * 極端に大きな画像データが
-     * APIへ送信されることを防ぎます。
+     * 極端に大きなリクエストを防止します。
      */
     const contentLength =
       Number(
@@ -156,7 +313,7 @@ export async function POST(
     const diagnosisId =
       body.diagnosisId?.trim();
 
-    const imageDataUrl =
+    const imageSource =
       body.imageDataUrl?.trim();
 
     const analysis =
@@ -174,7 +331,7 @@ export async function POST(
       );
     }
 
-    if (!imageDataUrl) {
+    if (!imageSource) {
       return NextResponse.json(
         {
           error:
@@ -199,12 +356,8 @@ export async function POST(
     }
 
     /*
-     * diagnosisIdがログインユーザー本人の
-     * 診断結果であることを確認します。
-     *
-     * 同時にafter_image_pathを取得し、
-     * すでにAfter画像が保存されている場合は
-     * OpenAIを再実行しません。
+     * ログインユーザー本人の診断か確認します。
+     * 保存済みAfterがある場合は再生成しません。
      */
     const {
       data: diagnosis,
@@ -245,11 +398,7 @@ export async function POST(
     }
 
     /*
-     * After画像がすでにStorageへ保存されている場合、
-     * 署名付きURLを発行して既存画像を返します。
-     *
-     * これにより同じ診断に対する
-     * OpenAI画像生成の二重課金を防ぎます。
+     * 保存済みAfter画像を再利用します。
      */
     if (
       diagnosis.after_image_path
@@ -273,7 +422,8 @@ export async function POST(
         console.log(
           "[AKANUKE.AI] 保存済みAfter画像を再利用:",
           {
-            userId: user.id,
+            userId:
+              user.id,
             diagnosisId,
           },
         );
@@ -290,36 +440,44 @@ export async function POST(
         );
       }
 
-      /*
-       * DBにはパスがあるもののStorageから
-       * 取得できない場合は、画像生成へ進みます。
-       */
       console.error(
         "[AKANUKE.AI] 保存済みAfter画像の取得に失敗:",
         signedError,
       );
     }
 
+    /*
+     * 新規診断ではData URL、
+     * 履歴から開いた診断ではSupabaseの署名URLが
+     * 入る可能性があるため両方に対応します。
+     */
     const {
       mimeType,
       extension,
       buffer,
     } =
-      parseImageDataUrl(
-        imageDataUrl,
+      await parseImageSource(
+        imageSource,
       );
 
     const formData =
       new FormData();
 
-    const imageBlob =
-      new Blob(
-        [buffer],
-        {
-          type: mimeType,
-        },
-      );
+    const imageArrayBuffer =
+  new ArrayBuffer(buffer.byteLength);
 
+const imageBytes =
+  new Uint8Array(imageArrayBuffer);
+
+imageBytes.set(buffer);
+
+const imageBlob =
+  new Blob(
+    [imageArrayBuffer],
+    {
+      type: mimeType,
+    },
+  );
     formData.append(
       "image",
       imageBlob,
@@ -340,28 +498,16 @@ export async function POST(
       ),
     );
 
-    /*
-     * 品質とコストのバランスを考慮して
-     * mediumを使用します。
-     */
     formData.append(
       "quality",
       "medium",
     );
 
-    /*
-     * Before / After比較用の
-     * 縦長画像を生成します。
-     */
     formData.append(
       "size",
       "1024x1536",
     );
 
-    /*
-     * ブラウザで扱うデータ量を抑えるため
-     * WebPを使用します。
-     */
     formData.append(
       "output_format",
       "webp",
@@ -370,8 +516,11 @@ export async function POST(
     console.log(
       "[AKANUKE.AI] After画像生成を開始します",
       {
-        userId: user.id,
+        userId:
+          user.id,
         diagnosisId,
+        inputMimeType:
+          mimeType,
       },
     );
 
@@ -383,12 +532,10 @@ export async function POST(
         "https://api.openai.com/v1/images/edits",
         {
           method: "POST",
-
           headers: {
             Authorization:
               `Bearer ${apiKey}`,
           },
-
           body: formData,
         },
       );
@@ -427,7 +574,8 @@ export async function POST(
     console.log(
       "[AKANUKE.AI] After画像生成が完了しました:",
       {
-        userId: user.id,
+        userId:
+          user.id,
         diagnosisId,
         durationMs:
           generationDurationMs,

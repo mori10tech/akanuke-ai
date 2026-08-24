@@ -25,14 +25,22 @@ function subscribeStandalone(
     "(display-mode: standalone)",
   );
 
-  mediaQuery.addEventListener("change", callback);
-  window.addEventListener("appinstalled", callback);
+  mediaQuery.addEventListener(
+    "change",
+    callback,
+  );
+
+  window.addEventListener(
+    "appinstalled",
+    callback,
+  );
 
   return () => {
     mediaQuery.removeEventListener(
       "change",
       callback,
     );
+
     window.removeEventListener(
       "appinstalled",
       callback,
@@ -62,13 +70,18 @@ function subscribeEnvironment() {
 
 function getIsIosSnapshot() {
   const isAppleMobile =
-    /iPad|iPhone|iPod/.test(navigator.userAgent);
+    /iPad|iPhone|iPod/.test(
+      navigator.userAgent,
+    );
 
   const isIpadDesktopMode =
     navigator.platform === "MacIntel" &&
     navigator.maxTouchPoints > 1;
 
-  return isAppleMobile || isIpadDesktopMode;
+  return (
+    isAppleMobile ||
+    isIpadDesktopMode
+  );
 }
 
 function getServerIsIosSnapshot() {
@@ -94,6 +107,7 @@ function AddIcon() {
         height="18"
         rx="3"
       />
+
       <path d="M12 8v6" />
       <path d="M9 11h6" />
       <path d="M10 18h4" />
@@ -102,22 +116,27 @@ function AddIcon() {
 }
 
 export default function InstallAppCard() {
-  const [installPrompt, setInstallPrompt] =
+  const [
+    installPrompt,
+    setInstallPrompt,
+  ] =
     useState<BeforeInstallPromptEvent | null>(
       null,
     );
 
-  const isStandalone = useSyncExternalStore(
-    subscribeStandalone,
-    getStandaloneSnapshot,
-    getServerStandaloneSnapshot,
-  );
+  const isStandalone =
+    useSyncExternalStore(
+      subscribeStandalone,
+      getStandaloneSnapshot,
+      getServerStandaloneSnapshot,
+    );
 
-  const isIos = useSyncExternalStore(
-    subscribeEnvironment,
-    getIsIosSnapshot,
-    getServerIsIosSnapshot,
-  );
+  const isIos =
+    useSyncExternalStore(
+      subscribeEnvironment,
+      getIsIosSnapshot,
+      getServerIsIosSnapshot,
+    );
 
   useEffect(() => {
     function handleBeforeInstallPrompt(
@@ -167,7 +186,10 @@ export default function InstallAppCard() {
     const choice =
       await installPrompt.userChoice;
 
-    if (choice.outcome === "accepted") {
+    if (
+      choice.outcome ===
+      "accepted"
+    ) {
       setInstallPrompt(null);
     }
   }
@@ -206,27 +228,28 @@ export default function InstallAppCard() {
           className="mt-5 flex min-h-[52px] w-full items-center justify-center rounded-[12px] bg-[#FFD400] px-5 text-[13px] font-black text-[#111111] transition hover:-translate-y-0.5 active:scale-[0.99]"
         >
           ホーム画面に追加する
-          <span className="ml-3">→</span>
-        </button>
-      ) : isIos ? (
-        <div className="mt-5 rounded-[14px] bg-white px-4 py-4">
-          <p className="text-[12px] font-black text-[#111111]">
-            iPhoneでの追加方法
-          </p>
 
-          <ol className="mt-3 space-y-2 text-[11px] leading-5 text-black/55">
-            <li>1. Safari下部の共有ボタンを押す</li>
-            <li>2.「ホーム画面に追加」を選ぶ</li>
-            <li>3. 右上の「追加」を押す</li>
-          </ol>
-        </div>
+          <span className="ml-3">
+            →
+          </span>
+        </button>
       ) : (
         <div className="mt-5 rounded-[14px] bg-white px-4 py-4">
-          <p className="text-[11px] leading-5 text-black/55">
-            ブラウザのメニューから
-            「ホーム画面に追加」または
-            「アプリをインストール」を選んでください。
+          <p className="text-[12px] font-black text-[#111111]">
+            ホーム画面への追加方法
           </p>
+
+          {isIos ? (
+            <p className="mt-3 text-[11px] leading-5 text-black/55">
+              ブラウザの共有メニューを開き、
+              「ホーム画面に追加」を選択してください。
+            </p>
+          ) : (
+            <p className="mt-3 text-[11px] leading-5 text-black/55">
+              ブラウザのメニューから、
+              「ホーム画面に追加」を選択してください。
+            </p>
+          )}
         </div>
       )}
     </section>

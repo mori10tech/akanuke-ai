@@ -2,26 +2,13 @@ import type {
   Metadata,
   Viewport,
 } from "next";
+
 import {
   Geist,
   Geist_Mono,
 } from "next/font/google";
-import Script from "next/script";
+
 import "./globals.css";
-
-const adsenseClient =
-  process.env.NEXT_PUBLIC_ADSENSE_CLIENT?.trim() ??
-  "";
-
-const hasValidAdsenseClient =
-  /^ca-pub-\d{16}$/.test(
-    adsenseClient,
-  );
-
-const canLoadAdsense =
-  process.env.NODE_ENV ===
-    "production" &&
-  hasValidAdsenseClient;
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,61 +20,64 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const siteUrl =
-  "https://akanukeai.com";
-
-const siteTitle =
-  "AKANUKE.AI";
-
-const siteDescription =
-  "AIがあなたの魅力を分析し、垢抜けるための改善ポイントを提案する男性向け美容AIサービス。";
-
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase: new URL(
+    "https://akanukeai.com",
+  ),
 
   title: {
-    default: siteTitle,
+    default:
+      "AKANUKE.AI｜第一印象は、変えられる。",
     template:
       "%s | AKANUKE.AI",
   },
 
-  description: siteDescription,
+  description:
+    "AIがあなたの魅力を分析し、髪型・眉毛・肌・印象から、あなただけの垢抜けプランを提案する男性向け美容AIサービス。",
 
-  applicationName: siteTitle,
+  applicationName:
+    "AKANUKE.AI",
 
   openGraph: {
     type: "website",
     locale: "ja_JP",
-    url: siteUrl,
-    siteName: siteTitle,
+    url: "https://akanukeai.com/",
+    siteName: "AKANUKE.AI",
+
     title:
       "AKANUKE.AI｜第一印象は、変えられる。",
+
     description:
-      "AIがあなたを分析し、あなただけの垢抜けプランを提案。無料でAI診断を試せます。",
+      "AIが、あなただけの垢抜けプランを提案。男性向け美容AIサービス AKANUKE.AI。",
+
     images: [
       {
-        url: "/ogp/akanuke-ogp.png",
+        url: "/ogp/akanuke-ai-og.png",
         width: 1200,
         height: 630,
-        alt: "AKANUKE.AI｜第一印象は、変えられる。",
+        alt:
+          "AKANUKE.AI｜第一印象は、変えられる。",
       },
     ],
   },
 
   twitter: {
     card: "summary_large_image",
+
     title:
       "AKANUKE.AI｜第一印象は、変えられる。",
+
     description:
-      "AIがあなたを分析し、あなただけの垢抜けプランを提案。無料でAI診断を試せます。",
+      "AIが、あなただけの垢抜けプランを提案。男性向け美容AIサービス AKANUKE.AI。",
+
     images: [
-      "/ogp/akanuke-ogp.png",
+      "/ogp/akanuke-ai-og.png",
     ],
   },
 
   appleWebApp: {
     capable: true,
-    title: siteTitle,
+    title: "AKANUKE.AI",
     statusBarStyle: "default",
   },
 
@@ -102,12 +92,11 @@ export const metadata: Metadata = {
   },
 };
 
-export const viewport: Viewport =
-  {
-    width: "device-width",
-    initialScale: 1,
-    themeColor: "#FFFFFF",
-  };
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#FFFFFF",
+};
 
 export default function RootLayout({
   children,
@@ -119,29 +108,8 @@ export default function RootLayout({
       lang="ja"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <head>
-        {hasValidAdsenseClient && (
-          <meta
-            name="google-adsense-account"
-            content={
-              adsenseClient
-            }
-          />
-        )}
-      </head>
-
       <body className="flex min-h-full flex-col">
         {children}
-
-        {canLoadAdsense && (
-          <Script
-            id="google-adsense"
-            async
-            strategy="afterInteractive"
-            crossOrigin="anonymous"
-            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClient}`}
-          />
-        )}
       </body>
     </html>
   );

@@ -21,11 +21,7 @@ function ResultIcon({
       strokeLinecap="round"
       strokeLinejoin="round"
     >
-      <circle
-        cx="12"
-        cy="12"
-        r="8"
-      />
+      <circle cx="12" cy="12" r="8" />
       <path d="M12 8v4l2.5 2.5" />
       <path d="M8.5 3.5 10 5" />
       <path d="m15.5 3.5-1.5 1.5" />
@@ -134,57 +130,53 @@ export default function BottomNav() {
   return (
     <nav
       aria-label="メインナビゲーション"
-      className="fixed bottom-0 left-1/2 z-50 w-full max-w-[480px] -translate-x-1/2 border-t border-black/10 bg-white/95 pb-[max(8px,env(safe-area-inset-bottom))] pt-2 shadow-[0_-8px_24px_rgba(15,23,42,0.05)] backdrop-blur-xl"
+      className="fixed bottom-0 left-1/2 z-50 w-full max-w-[480px] -translate-x-1/2 border-t border-black/10 bg-white/95 pb-[max(12px,env(safe-area-inset-bottom))] pt-3 shadow-[0_-8px_24px_rgba(15,23,42,0.05)] backdrop-blur-xl"
     >
       <div className="grid w-full grid-cols-4 px-2">
-        {navigationItems.map(
-          (item) => {
-            const isActive =
-              pathname ===
-                item.href ||
-              pathname.startsWith(
-                `${item.href}/`,
-              );
+        {navigationItems.map((item) => {
+          const isActive =
+            pathname === item.href ||
+            pathname.startsWith(
+              `${item.href}/`,
+            );
 
-            const Icon =
-              item.icon;
+          const Icon = item.icon;
 
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                aria-current={
+          return (
+            <Link
+              key={item.href}
+              href={item.href}
+              aria-current={
+                isActive
+                  ? "page"
+                  : undefined
+              }
+              className={`group flex min-h-[50px] min-w-0 flex-col items-center justify-center gap-1 rounded-[12px] px-1 py-2 transition-[transform,background-color,color] duration-150 ease-out active:scale-[0.94] active:bg-black/[0.05] ${
+                isActive
+                  ? "text-[#1677FF]"
+                  : "text-black/35 hover:text-[#1677FF]"
+              }`}
+            >
+              <Icon
+                className={`h-[22px] w-[22px] transition-transform duration-150 ease-out group-active:scale-[0.88] ${
                   isActive
-                    ? "page"
-                    : undefined
-                }
-                className={`group flex min-w-0 flex-col items-center justify-center gap-1 rounded-[12px] px-1 py-1.5 transition-[transform,background-color,color] duration-150 ease-out active:scale-[0.94] active:bg-black/[0.05] ${
+                    ? "scale-[1.03]"
+                    : ""
+                }`}
+              />
+
+              <span
+                className={`max-w-full truncate text-[9px] leading-none transition-transform duration-150 ease-out group-active:scale-[0.96] ${
                   isActive
-                    ? "text-[#1677FF]"
-                    : "text-black/35 hover:text-[#1677FF]"
+                    ? "font-black"
+                    : "font-bold"
                 }`}
               >
-                <Icon
-                  className={`h-[21px] w-[21px] transition-transform duration-150 ease-out group-active:scale-[0.88] ${
-                    isActive
-                      ? "scale-[1.03]"
-                      : ""
-                  }`}
-                />
-
-                <span
-                  className={`max-w-full truncate text-[8px] leading-none transition-transform duration-150 ease-out group-active:scale-[0.96] ${
-                    isActive
-                      ? "font-black"
-                      : "font-bold"
-                  }`}
-                >
-                  {item.name}
-                </span>
-              </Link>
-            );
-          },
-        )}
+                {item.name}
+              </span>
+            </Link>
+          );
+        })}
       </div>
     </nav>
   );

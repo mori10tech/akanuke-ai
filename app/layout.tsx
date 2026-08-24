@@ -36,6 +36,11 @@ export const metadata: Metadata = {
   applicationName:
     "AKANUKE.AI",
 
+  other: {
+    "google-adsense-account":
+      "ca-pub-1051975714621683",
+  },
+
   openGraph: {
     title:
       "AKANUKE.AI｜第一印象は、変えられる。",

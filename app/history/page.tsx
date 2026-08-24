@@ -132,10 +132,13 @@ export default async function HistoryPage() {
   }
 
   const { data, error } = await supabase
-    .from("diagnoses")
-    .select("id, target_impression, overall_progress, analysis, created_at, before_image_path, after_image_path")
-    .order("created_at", { ascending: false })
-    .limit(50);
+  .from("diagnoses")
+  .select(
+    "id, target_impression, overall_progress, analysis, created_at, before_image_path, after_image_path"
+  )
+  .eq("user_id", user.id)
+  .order("created_at", { ascending: false })
+  .limit(3);
 
   const diagnosesWithoutUrls = (data ?? []).flatMap((row) => {
     if (!isAkanukeAnalysis(row.analysis)) {

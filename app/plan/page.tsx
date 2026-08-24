@@ -17,7 +17,10 @@ import AppHeader from "../components/AppHeader";
 import AppShell from "../components/AppShell";
 import AdSenseAd from "../components/AdSenseAd";
 
-const STORAGE_KEY = "akanukePlanCompletedTasks";
+const STORAGE_KEY_PREFIX =
+  "akanukePlanCompletedTasks";
+const DIAGNOSIS_ID_STORAGE_KEY =
+  "akanukeDiagnosisId";
 
 type PlanTask = {
   id: string;
@@ -505,52 +508,87 @@ export default function PlanPage() {
     };
   }, []);
 
-  /*
-   * 垢抜けプランのチェック状態を
-   * localStorageから復元します。
+    /*
+   * 現在の診断IDごとに、
+   * 垢抜けプランのチェック状態を復元します。
+   *
+   * 診断Aと診断Bでチェック状態が
+   * 混ざらないようにします。
    */
   useEffect(() => {
-    const raw =
-      window.localStorage.getItem(
-        STORAGE_KEY,
+    const diagnosisId =
+      window.sessionStorage.getItem(
+        DIAGNOSIS_ID_STORAGE_KEY,
       );
 
-    window.setTimeout(() => {
-      if (raw) {
-        try {
-          const parsed =
-            JSON.parse(raw);
-
-          if (Array.isArray(parsed)) {
-            setCompletedIds(
-              parsed.filter(
-                (id): id is string =>
-                  typeof id ===
-                  "string",
-              ),
-            );
-          }
-        } catch {
-          setCompletedIds([]);
-        }
-      }
-
+    if (!diagnosisId) {
+      setCompletedIds([]);
       setLoaded(true);
-    }, 0);
+      return;
+    }
+
+    const storageKey =
+      `${STORAGE_KEY_PREFIX}:${diagnosisId}`;
+
+    const raw =
+      window.localStorage.getItem(
+        storageKey,
+      );
+
+    if (!raw) {
+      setCompletedIds([]);
+      setLoaded(true);
+      return;
+    }
+
+    try {
+      const parsed =
+        JSON.parse(raw);
+
+      if (Array.isArray(parsed)) {
+        setCompletedIds(
+          parsed.filter(
+            (id): id is string =>
+              typeof id === "string",
+          ),
+        );
+      } else {
+        setCompletedIds([]);
+      }
+    } catch {
+      setCompletedIds([]);
+    }
+
+    setLoaded(true);
   }, []);
 
   /*
-   * チェック状態が変わったら保存します。
+   * チェック状態が変わったら、
+   * 現在の診断ID専用のlocalStorageへ保存します。
    */
   useEffect(() => {
-    if (loaded) {
-      window.localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify(
-          completedIds,
-        ),
-      );
+    if (!loaded) {
+      return;
     }
+
+    const diagnosisId =
+      window.sessionStorage.getItem(
+        DIAGNOSIS_ID_STORAGE_KEY,
+      );
+
+    if (!diagnosisId) {
+      return;
+    }
+
+    const storageKey =
+      `${STORAGE_KEY_PREFIX}:${diagnosisId}`;
+
+    window.localStorage.setItem(
+      storageKey,
+      JSON.stringify(
+        completedIds,
+      ),
+    );
   }, [
     completedIds,
     loaded,

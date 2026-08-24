@@ -37,72 +37,15 @@ export default function ShareResultButton({
       shareText,
     );
 
-    const isIPhoneOrIPad =
-      /iPhone|iPad|iPod/i.test(
-        window.navigator.userAgent,
-      );
-
     /*
-     * PC・Androidでは、従来どおり
-     * XのWeb投稿画面を開きます。
+     * AKANUKE.AIの診断結果画面は残したまま、
+     * 新しいタブでXの投稿画面を開きます。
      */
-    if (!isIPhoneOrIPad) {
-      window.location.assign(
-        webShareUrl.toString(),
-      );
-
-      return;
-    }
-
-    /*
-     * iPhoneでは最初にXアプリを開きます。
-     * アプリを開けなかった場合は、
-     * Web版Xの投稿画面へ切り替えます。
-     */
-    let appOpened = false;
-
-    const detectAppOpen = () => {
-      if (
-        document.visibilityState ===
-        "hidden"
-      ) {
-        appOpened = true;
-      }
-    };
-
-    document.addEventListener(
-      "visibilitychange",
-      detectAppOpen,
-      {
-        once: true,
-      },
+    window.open(
+      webShareUrl.toString(),
+      "_blank",
+      "noopener,noreferrer",
     );
-
-    window.addEventListener(
-      "pagehide",
-      () => {
-        appOpened = true;
-      },
-      {
-        once: true,
-      },
-    );
-
-    const appShareUrl =
-      `twitter://post?message=${encodeURIComponent(
-        shareText,
-      )}`;
-
-    window.location.href =
-      appShareUrl;
-
-    window.setTimeout(() => {
-      if (!appOpened) {
-        window.location.assign(
-          webShareUrl.toString(),
-        );
-      }
-    }, 1500);
   }
 
   return (

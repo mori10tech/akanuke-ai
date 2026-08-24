@@ -78,10 +78,12 @@ function HistoryCard({ diagnosis, latest = false }: { diagnosis: DiagnosisRow; l
             {diagnosis.beforeImageUrl ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img
-                src={diagnosis.beforeImageUrl}
-                alt={`${formatDiagnosisDate(diagnosis.created_at)}の診断写真`}
-                className="h-full w-full object-cover"
-              />
+  src={diagnosis.beforeImageUrl}
+  alt={`${formatDiagnosisDate(diagnosis.created_at)}の診断写真`}
+  loading={latest ? "eager" : "lazy"}
+  decoding="async"
+  className="h-full w-full object-cover"
+/>
             ) : (
               <span className="flex h-full w-full items-center justify-center">
                 <SparkleIcon />
@@ -148,24 +150,62 @@ export default async function HistoryPage() {
     return [{ ...row, analysis: row.analysis } satisfies DiagnosisRow];
   });
 
-  const diagnoses = await Promise.all(
-    diagnosesWithoutUrls.map(async (diagnosis) => {
-      if (!diagnosis.before_image_path) {
-        return diagnosis;
+  const beforeImagePaths =
+  diagnosesWithoutUrls
+    .map(
+      (diagnosis) =>
+        diagnosis.before_image_path,
+    )
+    .filter(
+      (path): path is string =>
+        typeof path === "string" &&
+        path.length > 0,
+    );
+
+const signedUrlMap =
+  new Map<string, string>();
+
+if (beforeImagePaths.length > 0) {
+  const {
+    data: signedUrls,
+    error: signedUrlsError,
+  } = await supabase.storage
+    .from(DIAGNOSIS_IMAGE_BUCKET)
+    .createSignedUrls(
+      beforeImagePaths,
+      60 * 60,
+    );
+
+  if (signedUrlsError) {
+    console.error(
+      "[AKANUKE.AI] 診断履歴画像URLの取得に失敗:",
+      signedUrlsError,
+    );
+  } else {
+    signedUrls?.forEach((item) => {
+      if (
+        item.path &&
+        item.signedUrl
+      ) {
+        signedUrlMap.set(
+          item.path,
+          item.signedUrl,
+        );
       }
+    });
+  }
+}
 
-      const { data: signedData, error: signedError } =
-        await supabase.storage
-          .from(DIAGNOSIS_IMAGE_BUCKET)
-          .createSignedUrl(diagnosis.before_image_path, 60 * 60);
-
-      return {
-        ...diagnosis,
-        beforeImageUrl:
-          signedError || !signedData
-            ? null
-            : signedData.signedUrl,
-      };
+const diagnoses =
+  diagnosesWithoutUrls.map(
+    (diagnosis) => ({
+      ...diagnosis,
+      beforeImageUrl:
+        diagnosis.before_image_path
+          ? signedUrlMap.get(
+              diagnosis.before_image_path,
+            ) ?? null
+          : null,
     }),
   );
 

@@ -734,3 +734,20 @@ a {
     transition-duration: 0.01ms !important;
   }
 }
+
+.header-diagnosis-button {
+  min-height: 44px;
+  border-radius: 10px;
+  padding-inline: 18px;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+@media (max-width: 767px) {
+  .header-diagnosis-button {
+    min-height: 48px;
+    padding-inline: 20px;
+    border-radius: 11px;
+    font-size: 12px;
+  }
+}

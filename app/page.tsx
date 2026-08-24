@@ -338,27 +338,20 @@ export default function Home() {
             </a>
           </nav>
 
-          <div className="flex items-center gap-3 sm:gap-4">
+          <div className="flex items-center">
   <Link
-  href="/login"
-  className="inline-flex min-h-[40px] items-center justify-center whitespace-nowrap rounded-[10px] border border-[#1677FF]/20 bg-white px-4 text-sm font-bold text-[#1677FF] transition hover:border-[#1677FF]/40 hover:bg-[#EEF6FF]"
->
-  ログイン
-</Link>
-
-  <Link
-  href="/upload"
-  className="primary-button compact-button"
->
-  <span>無料で診断をはじめる</span>
-
-  <span
-    aria-hidden="true"
-    className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-black/10 text-[16px] leading-none"
+    href="/upload"
+    className="primary-button header-diagnosis-button"
   >
-    ›
-  </span>
-</Link>
+    <span>無料で診断をはじめる</span>
+
+    <span
+      aria-hidden="true"
+      className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-black/10 text-[16px] leading-none"
+    >
+      ›
+    </span>
+  </Link>
 </div>
         </div>
       </header>

@@ -316,8 +316,28 @@ export default function ProductsPage() {
   ] = useState(false);
 
   useEffect(() => {
+  /*
+   * Result・Planなどのページ途中から遷移しても、
+   * 商品ページは必ず最上部から表示します。
+   */
+  window.scrollTo({
+    top: 0,
+    left: 0,
+    behavior: "auto",
+  });
+
   const timeoutId =
     window.setTimeout(() => {
+      /*
+       * Next.jsやブラウザによるスクロール位置復元より
+       * 後でもう一度最上部へ戻します。
+       */
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "auto",
+      });
+
       const requestedCategory =
         categories.find(
           (category) =>

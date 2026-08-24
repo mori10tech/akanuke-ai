@@ -1011,8 +1011,8 @@ if (!resolvedAfterImage) {
   };
 
   return (
-    <AppShell background="white">
-    <div className="overflow-hidden bg-white">
+  <AppShell background="white">
+    <div className="overflow-x-clip bg-white">
       {isHistoryView ? (
         <AppHeader
           backHref="/history"

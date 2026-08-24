@@ -212,14 +212,22 @@ const diagnoses =
   return (
     <AppShell>
       <header className="sticky top-0 z-40 border-b border-black/10 bg-white/95 backdrop-blur-xl">
-        <div className="grid h-[68px] grid-cols-[48px_1fr_48px] items-center px-3">
-          <Link href="/dashboard" aria-label="マイページへ戻る" className="flex h-11 w-11 items-center justify-center rounded-full transition hover:bg-[#EEF6FF] active:scale-95">
-            <ArrowLeftIcon />
-          </Link>
-          <Link href="/" className="text-center text-[20px] font-black tracking-[-0.03em]">AKANUKE.AI</Link>
-          <div aria-hidden="true" />
-        </div>
-      </header>
+  <div className="grid h-[68px] grid-cols-[48px_1fr_48px] items-center px-3">
+    <Link
+      href="/dashboard"
+      aria-label="マイページへ戻る"
+      className="flex h-11 w-11 items-center justify-center rounded-full transition hover:bg-[#EEF6FF] active:scale-95"
+    >
+      <ArrowLeftIcon />
+    </Link>
+
+    <div className="text-center text-[20px] font-black tracking-[-0.03em]">
+      AKANUKE.AI
+    </div>
+
+    <div aria-hidden="true" />
+  </div>
+</header>
 
       <div className="px-4 pb-12 pt-6">
         <section>

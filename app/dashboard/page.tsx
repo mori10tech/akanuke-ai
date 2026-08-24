@@ -1,6 +1,6 @@
 import Link from "next/link";
 import AppShell from "../components/AppShell";
-import AppLogo from "../components/AppLogo";
+import AppHeader from "../components/AppHeader";
 import LogoutButton from "../components/LogoutButton";
 import InstallAppCard from "../components/InstallAppCard";
 import { isAkanukeAnalysis } from "../../lib/diagnoses/types";
@@ -131,19 +131,13 @@ export default async function DashboardPage() {
       : null;
 
   return (
-    <AppShell background="white">
-      <div className="overflow-hidden bg-white">
-        <header className="sticky top-0 z-40 border-b border-black/10 bg-white/95 backdrop-blur-xl">
-          <div className="grid h-[68px] grid-cols-[44px_1fr_44px] items-center px-4">
-            <div aria-hidden="true" />
-
-            <div className="flex justify-center">
-              <AppLogo />
-            </div>
-
-            <div aria-hidden="true" />
-          </div>
-        </header>
+  <AppShell background="white">
+    <div className="overflow-x-clip bg-white">
+  <AppHeader
+  backHref="/"
+  backLabel="前のページへ戻る"
+  backMode="history"
+/>
 
         <div className="px-4 pb-28 pt-6">
 

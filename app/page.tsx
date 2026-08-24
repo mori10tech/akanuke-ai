@@ -582,58 +582,65 @@ export default function Home() {
   </div>
 </section>
 
-      <section className="section-border py-16">
+      <section className="section-border pb-10 pt-0 sm:py-16">
   <div className="site-container">
     <div className="text-center">
-      <div className="mb-6 flex justify-center">
-        <Link
-          href="/upload"
-          className="primary-button w-full max-w-[355px]"
-        >
-          <span>無料で診断をはじめる</span>
-
-          <span
-            aria-hidden="true"
-            className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-black/10 text-[16px] leading-none"
+      <div className="flex flex-col items-center">
+        <div className="flex w-full justify-center py-7 sm:py-0 sm:pb-6">
+          <Link
+            href="/upload"
+            className="primary-button w-full max-w-[355px]"
           >
-            ›
-          </span>
-        </Link>
-      </div>
+            <span>無料で診断をはじめる</span>
 
-      <p className="text-[11px] font-black tracking-[0.16em] text-[#1677FF]">
-        BEFORE / AFTER
-      </p>
+            <span
+              aria-hidden="true"
+              className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-black/10 text-[16px] leading-none"
+            >
+              ›
+            </span>
+          </Link>
+        </div>
+
+        <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF] sm:text-[11px]">
+          BEFORE / AFTER
+        </p>
+      </div>
 
       <SectionTitle centered>
         現在の印象と、目指す理想像
       </SectionTitle>
 
-      <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-black/60">
-        AIが分析した現在の印象と、改善後に目指す理想イメージを比較できます。
+      <p className="mx-auto mt-3 max-w-2xl text-[12px] leading-6 text-black/60 sm:mt-4 sm:text-sm sm:leading-7">
+        AIが分析した現在の印象と、
+        改善後に目指す理想イメージを比較できます。
       </p>
     </div>
 
-    <div className="mx-auto mt-8 grid max-w-4xl gap-5 md:grid-cols-2">
-      <BeforeAfterCard
-        image="/lp/before-v3.png"
-        label="Before"
-        title="現在の印象"
-        description="顔写真をもとに、髪型・眉毛・肌・全体の印象をAIが分析します。"
-      />
+    <div className="mx-auto mt-6 flex w-full max-w-4xl gap-3 sm:mt-8 sm:gap-5">
+      <div className="min-w-0 flex-1">
+        <BeforeAfterCard
+          image="/lp/before-v3.png"
+          label="Before"
+          title="現在の印象"
+          description="顔写真をもとに、髪型・眉毛・肌・全体の印象をAIが分析します。"
+        />
+      </div>
 
-      <BeforeAfterCard
-        image="/lp/after-v3.png"
-        label="After"
-        title="理想の印象"
-        description="改善ポイントを反映した、爽やかさと清潔感のある理想像を確認できます。"
-        after
-      />
+      <div className="min-w-0 flex-1">
+        <BeforeAfterCard
+          image="/lp/after-v3.png"
+          label="After"
+          title="理想の印象"
+          description="改善ポイントを反映した、爽やかさと清潔感のある理想像を確認できます。"
+          after
+        />
+      </div>
     </div>
   </div>
 </section>
 
-      <section className="section-border py-16">
+      <section className="pb-8 pt-10 sm:py-16">
   <div className="site-container grid gap-8 lg:grid-cols-3">
     <RecommendationCard
       title="あなた専用の垢抜けプラン"
@@ -668,32 +675,32 @@ export default function Home() {
   </div>
 </section>
 
-<div className="mb-6 flex justify-center">
+<div className="flex justify-center px-4 pb-10 pt-2 sm:py-8">
   <Link
-  href="/upload"
-  className="primary-button w-full max-w-[355px]"
->
-  <span>無料で診断をはじめる</span>
-
-  <span
-    aria-hidden="true"
-    className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-black/10 text-[16px] leading-none"
+    href="/upload"
+    className="primary-button w-full max-w-[355px]"
   >
-    ›
-  </span>
-</Link>
+    <span>無料で診断をはじめる</span>
+
+    <span
+      aria-hidden="true"
+      className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-black/10 text-[16px] leading-none"
+    >
+      ›
+    </span>
+  </Link>
 </div>
 
-      <section
+<section
   id="faq"
-  className="section-border py-16"
+  className="section-border pb-14 pt-8 sm:py-16"
 >
   <div className="site-container">
     <div className="mx-auto w-full max-w-6xl">
       <SectionTitle>よくある質問</SectionTitle>
 
       {/* スマホ */}
-      <div className="mt-10 space-y-4 md:hidden">
+      <div className="mt-6 space-y-4 md:hidden">
         {faqs.map(([question, answer], index) => (
           <FaqItem
             key={question}
@@ -1171,23 +1178,10 @@ function BeforeAfterCard({
   after?: boolean;
 }) {
   return (
-    <article
-      className={`overflow-hidden rounded-3xl border bg-white text-left shadow-sm ${
-        after ? "border-[#FFD400]" : "border-black/10"
-      }`}
-    >
-      <div className="relative aspect-[4/3] overflow-hidden bg-[#EEF6FF]">
-        <Image
-  src={image}
-  alt={`${label} ${title}`}
-  fill
-  quality={100}
-  sizes="(max-width: 767px) 100vw, 440px"
-  className="object-cover"
-/>
-
+    <article className="min-w-0 text-left">
+      <div className="mb-2 flex justify-center sm:mb-3 sm:justify-start">
         <span
-          className={`absolute left-4 top-4 rounded-full px-3 py-1.5 text-[11px] font-black ${
+          className={`inline-flex rounded-full px-2.5 py-1 text-[9px] font-black sm:px-3 sm:py-1.5 sm:text-[11px] ${
             after
               ? "bg-[#FFD400] text-[#111111]"
               : "bg-[#111111] text-white"
@@ -1197,13 +1191,33 @@ function BeforeAfterCard({
         </span>
       </div>
 
-      <div className="p-5 sm:p-6">
-        <h3 className="text-lg font-black text-[#111111]">
-          {title}
-        </h3>
-        <p className="mt-3 text-sm leading-7 text-black/60">
-          {description}
-        </p>
+      <div
+        className={`overflow-hidden rounded-[18px] border bg-white shadow-sm sm:rounded-3xl ${
+          after
+            ? "border-[#FFD400]"
+            : "border-black/10"
+        }`}
+      >
+        <div className="relative aspect-[4/3] overflow-hidden bg-[#EEF6FF]">
+          <Image
+            src={image}
+            alt={`${label} ${title}`}
+            fill
+            quality={100}
+            sizes="(max-width: 767px) 50vw, 440px"
+            className="object-cover"
+          />
+        </div>
+
+        <div className="p-3 sm:p-6">
+          <h3 className="text-[13px] font-black leading-5 text-[#111111] sm:text-lg">
+            {title}
+          </h3>
+
+          <p className="mt-1.5 text-[9px] leading-[1.7] text-black/55 sm:mt-3 sm:text-sm sm:leading-7">
+            {description}
+          </p>
+        </div>
       </div>
     </article>
   );
@@ -1222,7 +1236,9 @@ function RecommendationCard({
 }) {
   return (
     <article>
-      <h3 className="text-xl font-bold">{title}</h3>
+      <h3 className="text-xl font-bold">
+        {title}
+      </h3>
 
       <div className="mt-5 overflow-hidden rounded-3xl border border-black/10 bg-white shadow-sm">
         <Image

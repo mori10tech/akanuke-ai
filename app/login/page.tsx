@@ -38,30 +38,22 @@ const safeNext =
     ? requestedNext
     : "/dashboard";
 
-const { data, error } =
-        await supabase.auth.signInWithOAuth({
-          provider: "custom:line",
-          options: {
-            redirectTo:
-  `${window.location.origin}/auth/callback?next=${encodeURIComponent(safeNext)}`,
-            queryParams: {
-  bot_prompt: "normal",
-},
-            skipBrowserRedirect: true,
-          },
-        });
+const { error } =
+  await supabase.auth.signInWithOAuth({
+    provider: "custom:line",
+    options: {
+      redirectTo:
+        `${window.location.origin}/auth/callback?next=${encodeURIComponent(safeNext)}`,
+      queryParams: {
+        bot_prompt: "normal",
+      },
+    },
+  });
 
-      if (error) {
-        throw error;
-      }
+if (error) {
+  throw error;
+}
 
-      if (!data.url) {
-        throw new Error(
-          "LINE authorization URL was not returned",
-        );
-      }
-
-      window.location.assign(data.url);
     } catch (error) {
       console.error(
         "LINE login error:",

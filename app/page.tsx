@@ -219,6 +219,7 @@ type FaqItemProps = {
   index: number;
   isOpen: boolean;
   onToggle: (index: number) => void;
+  idPrefix: string;
 };
 
 function FaqItem({
@@ -227,7 +228,10 @@ function FaqItem({
   index,
   isOpen,
   onToggle,
+  idPrefix,
 }: FaqItemProps) {
+  const answerId = `${idPrefix}-faq-answer-${index}`;
+
   return (
     <article
       className={`overflow-hidden rounded-[18px] border bg-white transition duration-300 ${
@@ -240,7 +244,7 @@ function FaqItem({
         type="button"
         onClick={() => onToggle(index)}
         aria-expanded={isOpen}
-        aria-controls={`faq-answer-${index}`}
+        aria-controls={answerId}
         className="flex min-h-[64px] w-full items-center justify-between gap-4 px-5 py-4 text-left transition hover:bg-[#F7F9FC]"
       >
         <span className="text-[14px] font-black leading-6 text-[#111111]">
@@ -268,7 +272,7 @@ function FaqItem({
       </button>
 
       <div
-        id={`faq-answer-${index}`}
+        id={answerId}
         className={`grid transition-[grid-template-rows,opacity] duration-300 ${
           isOpen
             ? "grid-rows-[1fr] opacity-100"
@@ -582,11 +586,11 @@ export default function Home() {
   </div>
 </section>
 
-      <section className="section-border pb-10 pt-0 sm:py-16">
+      <section className="section-border pb-10 pt-0 sm:pb-16 sm:pt-0">
   <div className="site-container">
     <div className="text-center">
       <div className="flex flex-col items-center">
-        <div className="flex w-full justify-center py-7 sm:py-0 sm:pb-6">
+        <div className="flex w-full justify-center py-7 sm:h-[150px] sm:items-center sm:py-0">
           <Link
             href="/upload"
             className="primary-button w-full max-w-[355px]"
@@ -675,7 +679,7 @@ export default function Home() {
   </div>
 </section>
 
-<div className="flex justify-center px-4 pb-10 pt-2 sm:py-8">
+<div className="flex justify-center px-4 pb-10 pt-2 sm:-mt-4 sm:pb-14 sm:pt-4">
   <Link
     href="/upload"
     className="primary-button w-full max-w-[355px]"
@@ -709,6 +713,7 @@ export default function Home() {
             index={index}
             isOpen={openFaqIndex === index}
             onToggle={toggleFaq}
+            idPrefix="mobile"
           />
         ))}
       </div>
@@ -725,6 +730,7 @@ export default function Home() {
                 index={index}
                 isOpen={openFaqIndex === index}
                 onToggle={toggleFaq}
+                idPrefix="desktop-left"
               />
             ),
           )}
@@ -740,6 +746,7 @@ export default function Home() {
                 index={index}
                 isOpen={openFaqIndex === index}
                 onToggle={toggleFaq}
+                idPrefix="desktop-right"
               />
             ),
           )}

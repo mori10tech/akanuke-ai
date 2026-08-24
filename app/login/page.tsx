@@ -13,60 +13,57 @@ export default function LoginPage() {
     useState("");
 
   async function handleLineLogin() {
-
   if (isLineLoading) {
-      return;
-    }
-
-    setErrorMessage("");
-    setIsLineLoading(true);
-
-    try {
-      const supabase = createClient();
-
-const searchParams =
-  new URLSearchParams(
-    window.location.search,
-  );
-
-const requestedNext =
-  searchParams.get("next");
-
-const safeNext =
-  requestedNext?.startsWith("/") &&
-  !requestedNext.startsWith("//")
-    ? requestedNext
-    : "/dashboard";
-
-const { error } =
-  await supabase.auth.signInWithOAuth({
-    provider: "custom:line",
-    options: {
-      redirectTo:
-        `${window.location.origin}/auth/callback?next=${encodeURIComponent(safeNext)}`,
-      queryParams: {
-        bot_prompt: "normal",
-      },
-    },
-  });
-
-if (error) {
-  throw error;
-}
-
-    } catch (error) {
-      console.error(
-        "LINE login error:",
-        error,
-      );
-
-      setErrorMessage(
-        "LINEログインを開始できませんでした。時間をおいてもう一度お試しください。",
-      );
-
-      setIsLineLoading(false);
-    }
+    return;
   }
+
+  setErrorMessage("");
+  setIsLineLoading(true);
+
+  try {
+    const supabase = createClient();
+
+    const searchParams = new URLSearchParams(
+      window.location.search,
+    );
+
+    const requestedNext =
+      searchParams.get("next");
+
+    const safeNext =
+      requestedNext?.startsWith("/") &&
+      !requestedNext.startsWith("//")
+        ? requestedNext
+        : "/dashboard";
+
+    const { error } =
+      await supabase.auth.signInWithOAuth({
+        provider: "custom:line",
+        options: {
+          redirectTo:
+            `${window.location.origin}/auth/callback?next=${encodeURIComponent(safeNext)}`,
+          queryParams: {
+            bot_prompt: "normal",
+          },
+        },
+      });
+
+    if (error) {
+      throw error;
+    }
+  } catch (error) {
+    console.error(
+      "LINE login error:",
+      error,
+    );
+
+    setErrorMessage(
+      "LINEログインを開始できませんでした。時間をおいてもう一度お試しください。",
+    );
+
+    setIsLineLoading(false);
+  }
+}
 
   return (
     <main className="min-h-screen bg-white text-[#111111]">

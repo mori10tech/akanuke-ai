@@ -622,12 +622,12 @@ export default function PlanPage() {
   }
 
   return (
-    <AppShell background="white">
-      <div className="overflow-hidden bg-white">
-        <AppHeader
-  backHref="/result"
-  backLabel="診断結果へ戻る"
-/>
+  <AppShell background="white">
+    <div className="overflow-x-clip bg-white">
+      <AppHeader
+        backHref="/result"
+        backLabel="診断結果へ戻る"
+      />
 
         <div className="pb-32">
           <section className="px-5 pb-6 pt-7 text-center">

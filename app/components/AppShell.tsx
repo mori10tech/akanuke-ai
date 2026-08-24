@@ -11,12 +11,14 @@ export default function AppShell({
   background = "gray",
 }: AppShellProps) {
   const backgroundClass =
-    background === "white" ? "bg-white" : "bg-[#F8FAFC]";
+    background === "white"
+      ? "bg-white"
+      : "bg-[#F8FAFC]";
 
   return (
     <main className="min-h-screen bg-[#EEF6FF] text-[#111111]">
       <div
-        className={`mx-auto min-h-screen w-full max-w-[480px] overflow-x-hidden ${backgroundClass} shadow-[0_0_40px_rgba(15,23,42,0.08)]`}
+        className={`mx-auto min-h-screen w-full max-w-[480px] overflow-x-clip ${backgroundClass} shadow-[0_0_40px_rgba(15,23,42,0.08)]`}
       >
         <div className="min-h-screen pb-24">
           {children}

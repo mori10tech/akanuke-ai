@@ -3,15 +3,19 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Fragment } from "react";
+
 import {
   getAllArticles,
   getArticleBySlug,
 } from "../../../data/articles";
+
 import AdSenseAd from "../../components/AdSenseAd";
 import Logo from "../../components/Logo";
+
+import JournalServiceCta from "../components/JournalServiceCta";
+import ArticleStructuredData from "./ArticleStructuredData";
 import AkanukenaiManFeaturesArticle from "./articles/AkanukenaiManFeaturesArticle";
 import MensAkanukeHairstyleArticle from "./articles/MensAkanukeHairstyleArticle";
-import ArticleStructuredData from "./ArticleStructuredData";
 
 type ArticlePageProps = {
   params: Promise<{
@@ -44,17 +48,17 @@ const tableOfContents = [
 
 const methods = [
   {
-  number: "01",
-  title: "髪型を変える",
-  description:
-    "髪型は顔全体の印象を大きく左右します。まずは寝ぐせや伸びっぱなしの状態を避け、自分の輪郭や髪質に合うスタイルを美容師へ相談しましょう。前髪やサイドのボリュームを整えるだけでも、清潔感は大きく変わります。",
-  point:
-    "美容室では「清潔感を出したい」「セットしやすい髪型にしたい」と具体的に伝えるのがおすすめです。",
-  relatedArticle: {
-    href: "/media/mens-akanuke-hairstyle",
-    label: "メンズが垢抜ける髪型を詳しく見る",
+    number: "01",
+    title: "髪型を変える",
+    description:
+      "髪型は顔全体の印象を大きく左右します。まずは寝ぐせや伸びっぱなしの状態を避け、自分の輪郭や髪質に合うスタイルを美容師へ相談しましょう。前髪やサイドのボリュームを整えるだけでも、清潔感は大きく変わります。",
+    point:
+      "美容室では「清潔感を出したい」「セットしやすい髪型にしたい」と具体的に伝えるのがおすすめです。",
+    relatedArticle: {
+      href: "/media/mens-akanuke-hairstyle",
+      label: "メンズが垢抜ける髪型を詳しく見る",
+    },
   },
-},
   {
     number: "02",
     title: "眉毛を整える",
@@ -216,6 +220,115 @@ function CheckIcon() {
   );
 }
 
+function ArticleHeader() {
+  return (
+    <header className="sticky top-0 z-40 border-b border-black/10 bg-white/95 backdrop-blur-xl">
+      <div className="mx-auto flex h-[68px] w-full max-w-[980px] items-center justify-between gap-4 px-5">
+        <Link
+          href="/media"
+          className="flex items-center gap-2 text-[11px] font-black text-black/55 transition hover:text-[#1677FF]"
+        >
+          <ArrowLeftIcon />
+          記事一覧
+        </Link>
+
+        <Logo href="/media" />
+
+        <JournalServiceCta />
+      </div>
+    </header>
+  );
+}
+
+function ArticleHero({
+  article,
+}: {
+  article: NonNullable<ReturnType<typeof getArticleBySlug>>;
+}) {
+  return (
+    <header className="border-b border-black/10 bg-gradient-to-b from-white to-[#EEF6FF]">
+      <div className="mx-auto max-w-[860px] px-5 pb-12 pt-12 sm:pb-16 sm:pt-16">
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="rounded-full bg-white px-3 py-1.5 text-[9px] font-black text-[#1677FF] shadow-sm">
+            {article.category}
+          </span>
+
+          <span className="text-[10px] font-bold text-black/35">
+            {article.readingTime}
+          </span>
+        </div>
+
+        <h1 className="mt-5 text-[32px] font-semibold leading-[1.35] tracking-[-0.05em] sm:text-[48px]">
+          {article.title}
+        </h1>
+
+        <p className="mt-5 max-w-[720px] text-[13px] leading-7 text-black/55 sm:text-[15px]">
+          {article.description}
+        </p>
+
+        <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-[10px] font-bold text-black/35">
+          <time dateTime={article.publishedAt}>
+            公開日：{formatDate(article.publishedAt)}
+          </time>
+
+          {article.updatedAt && (
+            <time dateTime={article.updatedAt}>
+              更新日：{formatDate(article.updatedAt)}
+            </time>
+          )}
+        </div>
+
+        <div className="relative mt-9 aspect-[1200/630] overflow-hidden rounded-[28px] border border-black/5 bg-[#EEF6FF] shadow-[0_18px_55px_rgba(15,23,42,0.08)]">
+          <Image
+            src={article.image}
+            alt={article.title}
+            fill
+            priority
+            sizes="(max-width: 767px) 100vw, 860px"
+            className="object-cover"
+          />
+        </div>
+      </div>
+    </header>
+  );
+}
+
+function ArticleFooter() {
+  return (
+    <footer className="border-t border-black/10 py-8">
+      <div className="mx-auto flex w-full max-w-[980px] flex-col items-center justify-between gap-4 px-5 text-center sm:flex-row sm:text-left">
+        <Link href="/">
+          <p className="text-[14px] font-black tracking-[0.14em]">
+            AKANUKE.AI
+          </p>
+
+          <p className="mt-1 text-[8px] font-bold tracking-[0.24em] text-[#1677FF]">
+            MEN&apos;S AI BEAUTY
+          </p>
+        </Link>
+
+        <div className="flex flex-wrap justify-center gap-x-5 gap-y-2 text-[10px] text-black/45">
+          <Link href="/">トップページ</Link>
+
+          <Link href="/media">記事一覧</Link>
+
+          <a
+            href="https://www.leafworks.jp/doc/privacy.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            個人情報保護方針
+          </a>
+        </div>
+
+        <p className="text-[10px] text-black/35">
+          © AKANUKE.AI All Rights Reserved.
+        </p>
+      </div>
+    </footer>
+  );
+}
+
 export function generateStaticParams() {
   return getAllArticles().map((article) => ({
     slug: article.slug,
@@ -238,9 +351,11 @@ export async function generateMetadata({
     title: article.title,
     description: article.description,
     keywords: article.keywords,
+
     alternates: {
-  canonical: `/media/${article.slug}`,
-},
+      canonical: `/media/${article.slug}`,
+    },
+
     openGraph: {
       title: article.title,
       description: article.description,
@@ -266,709 +381,414 @@ export default async function ArticleDetailPage({
   const article = getArticleBySlug(slug);
 
   if (!article) {
-  notFound();
-}
+    notFound();
+  }
 
-if (article.slug === "akanukenai-man-features") {
-  return (
-  <>
-    <ArticleStructuredData article={article} />
-
-    <main className="min-h-screen bg-white text-[#111111]">
-      <header className="sticky top-0 z-40 border-b border-black/10 bg-white/95 backdrop-blur-xl">
-        <div className="mx-auto flex h-[68px] w-full max-w-[980px] items-center justify-between gap-4 px-5">
-          <Link
-            href="/media"
-            className="flex items-center gap-2 text-[11px] font-black text-black/55 transition hover:text-[#1677FF]"
-          >
-            <ArrowLeftIcon />
-            記事一覧
-          </Link>
-
-          <Logo href="/media" />
-
-<Link
-  href="/"
-  className="group flex min-h-[42px] shrink-0 items-center justify-center rounded-[10px] bg-[#FFD400] px-3 text-[10px] font-black text-[#111111] shadow-[0_8px_20px_rgba(255,212,0,0.2)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_12px_26px_rgba(255,212,0,0.28)] sm:px-4 sm:text-[11px]"
->
-  <span className="whitespace-nowrap">
-    AKANUKE.AIを見る
-  </span>
-
-  <span
-    className="ml-2 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#E6BF00] text-[15px] font-black leading-none text-[#111111] transition-transform duration-200 group-hover:translate-x-1"
-    aria-hidden="true"
-  >
-    ›
-  </span>
-</Link>
-        </div>
-      </header>
-
-      <article>
-        <header className="border-b border-black/10 bg-gradient-to-b from-white to-[#EEF6FF]">
-          <div className="mx-auto max-w-[860px] px-5 pb-12 pt-12 sm:pb-16 sm:pt-16">
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="rounded-full bg-white px-3 py-1.5 text-[9px] font-black text-[#1677FF] shadow-sm">
-                {article.category}
-              </span>
-
-              <span className="text-[10px] font-bold text-black/35">
-                {article.readingTime}
-              </span>
-            </div>
-
-            <h1 className="mt-5 text-[32px] font-semibold leading-[1.35] tracking-[-0.05em] sm:text-[48px]">
-              {article.title}
-            </h1>
-
-            <p className="mt-5 max-w-[720px] text-[13px] leading-7 text-black/55 sm:text-[15px]">
-              {article.description}
-            </p>
-
-            <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-[10px] font-bold text-black/35">
-              <time dateTime={article.publishedAt}>
-                公開日：{formatDate(article.publishedAt)}
-              </time>
-
-              {article.updatedAt && (
-                <time dateTime={article.updatedAt}>
-                  更新日：{formatDate(article.updatedAt)}
-                </time>
-              )}
-            </div>
-
-            <div className="relative mt-9 aspect-[1200/630] overflow-hidden rounded-[28px] border border-black/5 bg-[#EEF6FF] shadow-[0_18px_55px_rgba(15,23,42,0.08)]">
-              <Image
-                src={article.image}
-                alt={article.title}
-                fill
-                priority
-                sizes="(max-width: 767px) 100vw, 860px"
-                className="object-cover"
-              />
-            </div>
-          </div>
-        </header>
-
-        <AkanukenaiManFeaturesArticle article={article} />
-      </article>
-
-      <footer className="border-t border-black/10 py-8">
-        <div className="mx-auto flex w-full max-w-[980px] flex-col items-center justify-between gap-4 px-5 text-center sm:flex-row sm:text-left">
-          <Link href="/">
-            <p className="text-[14px] font-black tracking-[0.14em]">
-              AKANUKE.AI
-            </p>
-
-            <p className="mt-1 text-[8px] font-bold tracking-[0.24em] text-[#1677FF]">
-              MEN&apos;S AI BEAUTY
-            </p>
-          </Link>
-
-          <div className="flex flex-wrap justify-center gap-x-5 gap-y-2 text-[10px] text-black/45">
-            <Link href="/">トップページ</Link>
-            <Link href="/media">記事一覧</Link>
-
-            <a
-              href="https://www.leafworks.jp/doc/privacy.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              個人情報保護方針
-            </a>
-          </div>
-
-          <p className="text-[10px] text-black/35">
-            © AKANUKE.AI All Rights Reserved.
-          </p>
-        </div>
-      </footer>
-    </main>
-  </>
-  );
-}
-
-if (article.slug === "mens-akanuke-hairstyle") {
-  return (
-  <>
-    <ArticleStructuredData article={article} />
-
-    <main className="min-h-screen bg-white text-[#111111]">
-      <header className="sticky top-0 z-40 border-b border-black/10 bg-white/95 backdrop-blur-xl">
-        <div className="mx-auto flex h-[68px] w-full max-w-[980px] items-center justify-between gap-4 px-5">
-          <Link
-            href="/media"
-            className="flex items-center gap-2 text-[11px] font-black text-black/55 transition hover:text-[#1677FF]"
-          >
-            <ArrowLeftIcon />
-            記事一覧
-          </Link>
-
-          <Logo href="/media" />
-
-<Link
-  href="/"
-  className="group flex min-h-[42px] shrink-0 items-center justify-center rounded-[10px] bg-[#FFD400] px-3 text-[10px] font-black text-[#111111] shadow-[0_8px_20px_rgba(255,212,0,0.2)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_12px_26px_rgba(255,212,0,0.28)] sm:px-4 sm:text-[11px]"
->
-  <span className="whitespace-nowrap">
-    AKANUKE.AIを見る
-  </span>
-
-  <span
-    className="ml-2 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#E6BF00] text-[15px] font-black leading-none text-[#111111] transition-transform duration-200 group-hover:translate-x-1"
-    aria-hidden="true"
-  >
-    ›
-  </span>
-</Link>
-        </div>
-      </header>
-
-      <article>
-        <header className="border-b border-black/10 bg-gradient-to-b from-white to-[#EEF6FF]">
-          <div className="mx-auto max-w-[860px] px-5 pb-12 pt-12 sm:pb-16 sm:pt-16">
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="rounded-full bg-white px-3 py-1.5 text-[9px] font-black text-[#1677FF] shadow-sm">
-                {article.category}
-              </span>
-
-              <span className="text-[10px] font-bold text-black/35">
-                {article.readingTime}
-              </span>
-            </div>
-
-            <h1 className="mt-5 text-[32px] font-semibold leading-[1.35] tracking-[-0.05em] sm:text-[48px]">
-              {article.title}
-            </h1>
-
-            <p className="mt-5 max-w-[720px] text-[13px] leading-7 text-black/55 sm:text-[15px]">
-              {article.description}
-            </p>
-
-            <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-[10px] font-bold text-black/35">
-              <time dateTime={article.publishedAt}>
-                公開日：{formatDate(article.publishedAt)}
-              </time>
-
-              {article.updatedAt && (
-                <time dateTime={article.updatedAt}>
-                  更新日：{formatDate(article.updatedAt)}
-                </time>
-              )}
-            </div>
-
-            <div className="relative mt-9 aspect-[1200/630] overflow-hidden rounded-[28px] border border-black/5 bg-[#EEF6FF] shadow-[0_18px_55px_rgba(15,23,42,0.08)]">
-              <Image
-                src={article.image}
-                alt={article.title}
-                fill
-                priority
-                sizes="(max-width: 767px) 100vw, 860px"
-                className="object-cover"
-              />
-            </div>
-          </div>
-        </header>
-
-        <MensAkanukeHairstyleArticle article={article} />
-      </article>
-
-      <footer className="border-t border-black/10 py-8">
-        <div className="mx-auto flex w-full max-w-[980px] flex-col items-center justify-between gap-4 px-5 text-center sm:flex-row sm:text-left">
-          <Link href="/">
-            <p className="text-[14px] font-black tracking-[0.14em]">
-              AKANUKE.AI
-            </p>
-
-            <p className="mt-1 text-[8px] font-bold tracking-[0.24em] text-[#1677FF]">
-              MEN&apos;S AI BEAUTY
-            </p>
-          </Link>
-
-          <div className="flex flex-wrap justify-center gap-x-5 gap-y-2 text-[10px] text-black/45">
-            <Link href="/">トップページ</Link>
-            <Link href="/media">記事一覧</Link>
-
-            <a
-              href="https://www.leafworks.jp/doc/privacy.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              個人情報保護方針
-            </a>
-          </div>
-
-          <p className="text-[10px] text-black/35">
-            © AKANUKE.AI All Rights Reserved.
-          </p>
-        </div>
-      </footer>
-    </main>
-  </>
-  );
-}
-
+  if (article.slug === "akanukenai-man-features") {
     return (
+      <>
+        <ArticleStructuredData article={article} />
+
+        <main className="min-h-screen bg-white text-[#111111]">
+          <ArticleHeader />
+
+          <article>
+            <ArticleHero article={article} />
+
+            <AkanukenaiManFeaturesArticle article={article} />
+          </article>
+
+          <ArticleFooter />
+        </main>
+      </>
+    );
+  }
+
+  if (article.slug === "mens-akanuke-hairstyle") {
+    return (
+      <>
+        <ArticleStructuredData article={article} />
+
+        <main className="min-h-screen bg-white text-[#111111]">
+          <ArticleHeader />
+
+          <article>
+            <ArticleHero article={article} />
+
+            <MensAkanukeHairstyleArticle article={article} />
+          </article>
+
+          <ArticleFooter />
+        </main>
+      </>
+    );
+  }
+
+  return (
     <>
       <ArticleStructuredData article={article} />
 
       <main className="min-h-screen bg-white text-[#111111]">
-      <header className="sticky top-0 z-40 border-b border-black/10 bg-white/95 backdrop-blur-xl">
-        <div className="mx-auto flex h-[68px] w-full max-w-[980px] items-center justify-between gap-4 px-5">
-          <Link
- 　　　　 href="/media"
- 　　　　 className="flex items-center gap-2 text-[11px] font-black text-black/55 transition hover:text-[#1677FF]"
->
-            <ArrowLeftIcon />
-            記事一覧
-          </Link>
+        <ArticleHeader />
 
-          <Logo href="/media" />
+        <article>
+          <ArticleHero article={article} />
 
-<Link
-  href="/"
-  className="group flex min-h-[42px] shrink-0 items-center justify-center rounded-[10px] bg-[#FFD400] px-3 text-[10px] font-black text-[#111111] shadow-[0_8px_20px_rgba(255,212,0,0.2)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_12px_26px_rgba(255,212,0,0.28)] sm:px-4 sm:text-[11px]"
->
-  <span className="whitespace-nowrap">
-    AKANUKE.AIを見る
-  </span>
+          <div className="mx-auto grid max-w-[980px] gap-10 px-5 py-12 lg:grid-cols-[220px_minmax(0,1fr)] lg:py-16">
+            <aside className="lg:sticky lg:top-[92px] lg:self-start">
+              <nav
+                aria-label="目次"
+                className="rounded-[20px] border border-black/10 bg-[#F8FAFC] p-5"
+              >
+                <p className="text-[11px] font-black tracking-[0.12em] text-[#1677FF]">
+                  CONTENTS
+                </p>
 
-  <span
-    className="ml-2 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#E6BF00] text-[15px] font-black leading-none text-[#111111] transition-transform duration-200 group-hover:translate-x-1"
-    aria-hidden="true"
-  >
-    ›
-  </span>
-</Link>
-        </div>
-      </header>
+                <p className="mt-1 text-[15px] font-black">
+                  目次
+                </p>
 
-      <article>
-        <header className="border-b border-black/10 bg-gradient-to-b from-white to-[#EEF6FF]">
-          <div className="mx-auto max-w-[860px] px-5 pb-12 pt-12 sm:pb-16 sm:pt-16">
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="rounded-full bg-white px-3 py-1.5 text-[9px] font-black text-[#1677FF] shadow-sm">
-                {article.category}
-              </span>
+                <ol className="mt-4 space-y-3">
+                  {tableOfContents.map((item, index) => (
+                    <li key={item.id}>
+                      <a
+                        href={`#${item.id}`}
+                        className="flex gap-3 text-[11px] leading-5 text-black/55 transition hover:text-[#1677FF]"
+                      >
+                        <span className="shrink-0 font-black text-[#1677FF]">
+                          {String(index + 1).padStart(2, "0")}
+                        </span>
 
-              <span className="text-[10px] font-bold text-black/35">
-                {article.readingTime}
-              </span>
-            </div>
+                        <span>{item.label}</span>
+                      </a>
+                    </li>
+                  ))}
+                </ol>
+              </nav>
+            </aside>
 
-            <h1 className="mt-5 text-[32px] font-semibold leading-[1.35] tracking-[-0.05em] sm:text-[48px]">
-              {article.title}
-            </h1>
-
-            <p className="mt-5 max-w-[720px] text-[13px] leading-7 text-black/55 sm:text-[15px]">
-              {article.description}
-            </p>
-
-            <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-[10px] font-bold text-black/35">
-              <time dateTime={article.publishedAt}>
-                公開日：{formatDate(article.publishedAt)}
-              </time>
-
-              {article.updatedAt && (
-                <time dateTime={article.updatedAt}>
-                  更新日：{formatDate(article.updatedAt)}
-                </time>
-              )}
-            </div>
-
-            <div className="relative mt-9 aspect-[1200/630] overflow-hidden rounded-[28px] border border-black/5 bg-[#EEF6FF] shadow-[0_18px_55px_rgba(15,23,42,0.08)]">
-              <Image
-                src={article.image}
-                alt={article.title}
-                fill
-                priority
-                sizes="(max-width: 767px) 100vw, 860px"
-                className="object-cover"
-              />
-            </div>
-          </div>
-        </header>
-
-        <div className="mx-auto grid max-w-[980px] gap-10 px-5 py-12 lg:grid-cols-[220px_minmax(0,1fr)] lg:py-16">
-          <aside className="lg:sticky lg:top-[92px] lg:self-start">
-            <nav
-              aria-label="目次"
-              className="rounded-[20px] border border-black/10 bg-[#F8FAFC] p-5"
-            >
-              <p className="text-[11px] font-black tracking-[0.12em] text-[#1677FF]">
-                CONTENTS
-              </p>
-
-              <p className="mt-1 text-[15px] font-black">
-                目次
-              </p>
-
-              <ol className="mt-4 space-y-3">
-                {tableOfContents.map((item, index) => (
-                  <li key={item.id}>
-                    <a
-                      href={`#${item.id}`}
-                      className="flex gap-3 text-[11px] leading-5 text-black/55 transition hover:text-[#1677FF]"
-                    >
-                      <span className="shrink-0 font-black text-[#1677FF]">
-                        {String(index + 1).padStart(2, "0")}
-                      </span>
-
-                      <span>{item.label}</span>
-                    </a>
-                  </li>
-                ))}
-              </ol>
-            </nav>
-          </aside>
-
-          <div className="min-w-0">
-            <section className="text-[14px] leading-8 text-black/70">
-              <p>
-                「垢抜けたいけれど、何から始めればいいか分からない」と感じている男性は少なくありません。
-              </p>
-
-              <p className="mt-5">
-                メンズの垢抜けは、生まれつきの顔立ちを大きく変えることではありません。髪型・眉毛・肌・服装・姿勢などを整え、今の自分が持っている魅力を伝わりやすくすることです。
-              </p>
-
-              <p className="mt-5">
-                この記事では、美容初心者でも取り組みやすい12の方法を順番に解説します。すべてを一度に行う必要はありません。自分に必要な項目から少しずつ始めてください。
-              </p>
-            </section>
-
-            <AdSenseAd className="mt-10" />
-
-            <section
-              id="meaning"
-              className="scroll-mt-24 pt-14"
-            >
-              <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
-                DEFINITION
-              </p>
-
-              <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
-                メンズが垢抜けるとは？
-              </h2>
-
-              <div className="mt-6 text-[14px] leading-8 text-black/70">
+            <div className="min-w-0">
+              <section className="text-[14px] leading-8 text-black/70">
                 <p>
-                  メンズが垢抜けるとは、髪型・眉毛・肌・服装などを自分に合う状態へ整え、清潔感や洗練された印象を高めることです。
+                  「垢抜けたいけれど、何から始めればいいか分からない」と感じている男性は少なくありません。
                 </p>
 
                 <p className="mt-5">
-                  流行をすべて取り入れたり、高価な服や化粧品を購入したりすることが必須ではありません。大切なのは、現在の印象を客観的に把握し、改善効果の高い部分から整えることです。
-                </p>
-              </div>
-
-              <div className="mt-7 rounded-[20px] border border-[#1677FF]/15 bg-[#EEF6FF] p-5">
-                <p className="text-[12px] font-black text-[#1677FF]">
-                  垢抜けの基本
+                  メンズの垢抜けは、生まれつきの顔立ちを大きく変えることではありません。髪型・眉毛・肌・服装・姿勢などを整え、今の自分が持っている魅力を伝わりやすくすることです。
                 </p>
 
-                <div className="mt-4 grid gap-3">
+                <p className="mt-5">
+                  この記事では、美容初心者でも取り組みやすい12の方法を順番に解説します。すべてを一度に行う必要はありません。自分に必要な項目から少しずつ始めてください。
+                </p>
+              </section>
+
+              <AdSenseAd className="mt-10" />
+
+              <section
+                id="meaning"
+                className="scroll-mt-24 pt-14"
+              >
+                <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
+                  DEFINITION
+                </p>
+
+                <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+                  メンズが垢抜けるとは？
+                </h2>
+
+                <div className="mt-6 text-[14px] leading-8 text-black/70">
+                  <p>
+                    メンズが垢抜けるとは、髪型・眉毛・肌・服装などを自分に合う状態へ整え、清潔感や洗練された印象を高めることです。
+                  </p>
+
+                  <p className="mt-5">
+                    流行をすべて取り入れたり、高価な服や化粧品を購入したりすることが必須ではありません。大切なのは、現在の印象を客観的に把握し、改善効果の高い部分から整えることです。
+                  </p>
+                </div>
+
+                <div className="mt-7 rounded-[20px] border border-[#1677FF]/15 bg-[#EEF6FF] p-5">
+                  <p className="text-[12px] font-black text-[#1677FF]">
+                    垢抜けの基本
+                  </p>
+
+                  <div className="mt-4 grid gap-3">
+                    {[
+                      "清潔感を保つ",
+                      "自分の顔立ちや体型に合うものを選ぶ",
+                      "一度に変えず、継続できる方法を選ぶ",
+                    ].map((item) => (
+                      <div
+                        key={item}
+                        className="flex items-start gap-3 text-[12px] font-bold text-black/65"
+                      >
+                        <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-white text-[#1677FF]">
+                          <CheckIcon />
+                        </span>
+
+                        {item}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </section>
+
+              <section
+                id="methods"
+                className="scroll-mt-24 pt-16"
+              >
+                <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
+                  12 METHODS
+                </p>
+
+                <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+                  メンズが垢抜ける12の方法
+                </h2>
+
+                <p className="mt-4 text-[13px] leading-7 text-black/55">
+                  優先順位は人によって異なります。現在できていない項目や、改善すると印象が変わりやすい項目から進めましょう。
+                </p>
+
+                <div className="mt-8 space-y-5">
+                  {methods.map((method, index) => (
+                    <Fragment key={method.number}>
+                      <section className="rounded-[22px] border border-black/10 bg-white p-5 shadow-[0_8px_28px_rgba(15,23,42,0.04)] sm:p-6">
+                        <div className="flex items-start gap-4">
+                          <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[13px] bg-[#111111] text-[12px] font-black text-white">
+                            {method.number}
+                          </span>
+
+                          <div className="min-w-0">
+                            <h3 className="text-[19px] font-semibold tracking-[-0.035em]">
+                              {method.title}
+                            </h3>
+
+                            <p className="mt-3 text-[13px] leading-7 text-black/65">
+                              {method.description}
+                            </p>
+
+                            <div className="mt-4 rounded-[14px] bg-[#FFF9D9] px-4 py-3">
+                              <p className="text-[11px] font-bold leading-5 text-black/65">
+                                <span className="mr-2 font-black text-[#9A7800]">
+                                  POINT
+                                </span>
+
+                                {method.point}
+                              </p>
+                            </div>
+
+                            {"relatedArticle" in method &&
+                              method.relatedArticle && (
+                                <Link
+                                  href={method.relatedArticle.href}
+                                  className="mt-4 flex min-h-[44px] items-center justify-between rounded-[12px] border border-[#1677FF]/15 bg-[#EEF6FF] px-4 text-[11px] font-black text-[#1677FF] transition hover:bg-[#E3F0FF]"
+                                >
+                                  <span>
+                                    {method.relatedArticle.label}
+                                  </span>
+
+                                  <span aria-hidden="true">
+                                    →
+                                  </span>
+                                </Link>
+                              )}
+                          </div>
+                        </div>
+                      </section>
+
+                      {index === 5 && (
+                        <AdSenseAd
+                          className="my-8"
+                          format="rectangle"
+                        />
+                      )}
+                    </Fragment>
+                  ))}
+                </div>
+              </section>
+
+              <section
+                id="priority"
+                className="scroll-mt-24 pt-16"
+              >
+                <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
+                  PRIORITY
+                </p>
+
+                <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+                  何から始めればいい？
+                </h2>
+
+                <p className="mt-5 text-[14px] leading-8 text-black/70">
+                  迷った場合は、まず顔周りから始めるのがおすすめです。髪型・眉毛・肌は、相手が最初に見る部分であり、変化も比較的感じやすいからです。
+                </p>
+
+                <div className="mt-7 grid gap-3 sm:grid-cols-3">
                   {[
-                    "清潔感を保つ",
-                    "自分の顔立ちや体型に合うものを選ぶ",
-                    "一度に変えず、継続できる方法を選ぶ",
+                    {
+                      number: "1",
+                      label: "髪型",
+                      note: "顔全体の印象を整える",
+                    },
+                    {
+                      number: "2",
+                      label: "眉毛",
+                      note: "目元を引き締める",
+                    },
+                    {
+                      number: "3",
+                      label: "肌",
+                      note: "清潔感を高める",
+                    },
                   ].map((item) => (
                     <div
-                      key={item}
-                      className="flex items-start gap-3 text-[12px] font-bold text-black/65"
+                      key={item.number}
+                      className="rounded-[18px] border border-black/10 bg-[#F8FAFC] p-5"
                     >
-                      <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-white text-[#1677FF]">
-                        <CheckIcon />
+                      <span className="text-[11px] font-black text-[#1677FF]">
+                        STEP {item.number}
                       </span>
 
-                      {item}
+                      <p className="mt-2 text-[17px] font-black">
+                        {item.label}
+                      </p>
+
+                      <p className="mt-2 text-[10px] leading-5 text-black/45">
+                        {item.note}
+                      </p>
                     </div>
                   ))}
                 </div>
-              </div>
-            </section>
+              </section>
 
-            <section
-              id="methods"
-              className="scroll-mt-24 pt-16"
-            >
-              <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
-                12 METHODS
-              </p>
+              <section className="mt-16 overflow-hidden rounded-[26px] border border-[#1677FF]/15 bg-gradient-to-br from-[#F7FBFF] via-white to-[#EEF6FF] px-6 py-9 shadow-[0_16px_40px_rgba(22,119,255,0.08)] sm:px-9">
+                <div className="inline-flex items-center rounded-full bg-[#EEF6FF] px-3 py-1.5">
+                  <span className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
+                    AI BEAUTY DIAGNOSIS
+                  </span>
+                </div>
 
-              <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
-                メンズが垢抜ける12の方法
-              </h2>
+                <h2 className="mt-4 text-[26px] font-semibold leading-[1.45] tracking-[-0.04em] text-[#111111]">
+                  自分に必要な改善を、
+                  <br />
+                  AIで確認してみませんか？
+                </h2>
 
-              <p className="mt-4 text-[13px] leading-7 text-black/55">
-                優先順位は人によって異なります。現在できていない項目や、改善すると印象が変わりやすい項目から進めましょう。
-              </p>
+                <p className="mt-4 text-[12px] leading-6 text-black/55">
+                  AKANUKE.AIでは、顔写真をもとに髪型・眉毛・肌・全体の印象を分析します。何から始めればいいか分からない方にもおすすめです。
+                </p>
 
-              <div className="mt-8 space-y-5">
-                {methods.map((method, index) => (
-                  <Fragment key={method.number}>
-                    <section className="rounded-[22px] border border-black/10 bg-white p-5 shadow-[0_8px_28px_rgba(15,23,42,0.04)] sm:p-6">
-                      <div className="flex items-start gap-4">
-                        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[13px] bg-[#111111] text-[12px] font-black text-white">
-                          {method.number}
-                        </span>
+                <Link
+                  href="/upload"
+                  className="group mt-6 flex min-h-[52px] w-full items-center justify-center rounded-[13px] bg-[#FFD400] px-5 text-[13px] font-black text-[#111111] shadow-[0_10px_24px_rgba(255,212,0,0.22)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_14px_30px_rgba(255,212,0,0.3)] active:scale-[0.98]"
+                >
+                  <span>
+                    無料で診断をはじめる
+                  </span>
 
-                        <div className="min-w-0">
-                          <h3 className="text-[19px] font-semibold tracking-[-0.035em]">
-                            {method.title}
-                          </h3>
-
-                          <p className="mt-3 text-[13px] leading-7 text-black/65">
-                            {method.description}
-                          </p>
-
-                          <div className="mt-4 rounded-[14px] bg-[#FFF9D9] px-4 py-3">
-                            <p className="text-[11px] font-bold leading-5 text-black/65">
-                              <span className="mr-2 font-black text-[#9A7800]">
-                                POINT
-                              </span>
-                              {method.point}
-                            </p>
-                          </div>
-
-{"relatedArticle" in method && method.relatedArticle && (
-  <Link
-    href={method.relatedArticle.href}
-    className="mt-4 flex min-h-[44px] items-center justify-between rounded-[12px] border border-[#1677FF]/15 bg-[#EEF6FF] px-4 text-[11px] font-black text-[#1677FF] transition hover:bg-[#E3F0FF]"
-  >
-    <span>{method.relatedArticle.label}</span>
-
-    <span aria-hidden="true">→</span>
-  </Link>
-)}
-
-                        </div>
-                      </div>
-                    </section>
-
-                    {index === 5 && (
-                      <AdSenseAd
-                        className="my-8"
-                        format="rectangle"
-                      />
-                    )}
-                  </Fragment>
-                ))}
-              </div>
-            </section>
-
-            <section
-              id="priority"
-              className="scroll-mt-24 pt-16"
-            >
-              <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
-                PRIORITY
-              </p>
-
-              <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
-                何から始めればいい？
-              </h2>
-
-              <p className="mt-5 text-[14px] leading-8 text-black/70">
-                迷った場合は、まず顔周りから始めるのがおすすめです。髪型・眉毛・肌は、相手が最初に見る部分であり、変化も比較的感じやすいからです。
-              </p>
-
-              <div className="mt-7 grid gap-3 sm:grid-cols-3">
-                {[
-                  {
-                    number: "1",
-                    label: "髪型",
-                    note: "顔全体の印象を整える",
-                  },
-                  {
-                    number: "2",
-                    label: "眉毛",
-                    note: "目元を引き締める",
-                  },
-                  {
-                    number: "3",
-                    label: "肌",
-                    note: "清潔感を高める",
-                  },
-                ].map((item) => (
-                  <div
-                    key={item.number}
-                    className="rounded-[18px] border border-black/10 bg-[#F8FAFC] p-5"
+                  <span
+                    aria-hidden="true"
+                    className="ml-3 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-black/10 text-[15px] font-black leading-none text-[#111111] transition-transform duration-200 group-hover:translate-x-1"
                   >
-                    <span className="text-[11px] font-black text-[#1677FF]">
-                      STEP {item.number}
+                    ›
+                  </span>
+                </Link>
+
+                <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-[9px] font-bold text-black/40">
+                  <span>約1分で完了</span>
+                  <span>無料で利用可能</span>
+                  <span>メンズ向け</span>
+                </div>
+              </section>
+
+              <section
+                id="faq"
+                className="scroll-mt-24 pt-16"
+              >
+                <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
+                  FAQ
+                </p>
+
+                <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+                  メンズの垢抜けでよくある質問
+                </h2>
+
+                <div className="mt-7 space-y-3">
+                  {faqs.map((faq) => (
+                    <details
+                      key={faq.question}
+                      className="group overflow-hidden rounded-[16px] border border-black/10 bg-white"
+                    >
+                      <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-[13px] font-black">
+                        {faq.question}
+
+                        <span className="shrink-0 text-[#1677FF] transition group-open:rotate-180">
+                          ⌄
+                        </span>
+                      </summary>
+
+                      <p className="border-t border-black/5 px-5 py-4 text-[12px] leading-6 text-black/60">
+                        {faq.answer}
+                      </p>
+                    </details>
+                  ))}
+                </div>
+              </section>
+
+              <AdSenseAd className="mt-10" />
+
+              <section
+                id="summary"
+                className="scroll-mt-24 pt-16"
+              >
+                <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
+                  SUMMARY
+                </p>
+
+                <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+                  メンズの垢抜けは、小さな改善の積み重ね
+                </h2>
+
+                <div className="mt-5 text-[14px] leading-8 text-black/70">
+                  <p>
+                    メンズが垢抜けるために、すべてを一度に変える必要はありません。まずは髪型・眉毛・肌など、第一印象への影響が大きい部分から始めましょう。
+                  </p>
+
+                  <p className="mt-5">
+                    大切なのは、流行をそのまま真似することではなく、自分に合う方法を見つけて継続することです。できることを一つずつ増やしていけば、印象は少しずつ変わっていきます。
+                  </p>
+                </div>
+
+                <div className="mt-8 flex flex-col gap-3 border-t border-black/10 pt-8 sm:flex-row">
+                  <Link
+                    href="/media"
+                    className="flex min-h-[48px] flex-1 items-center justify-center rounded-[12px] border border-black/10 bg-white px-5 text-[12px] font-black"
+                  >
+                    記事一覧へ戻る
+                  </Link>
+
+                  <Link
+                    href="/upload"
+                    className="group flex min-h-[48px] flex-1 items-center justify-center rounded-[12px] bg-[#FFD400] px-5 text-[12px] font-black text-[#111111] shadow-[0_8px_20px_rgba(255,212,0,0.18)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_12px_26px_rgba(255,212,0,0.26)] active:scale-[0.98]"
+                  >
+                    <span>
+                      無料で診断をはじめる
                     </span>
 
-                    <p className="mt-2 text-[17px] font-black">
-                      {item.label}
-                    </p>
-
-                    <p className="mt-2 text-[10px] leading-5 text-black/45">
-                      {item.note}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            <section className="mt-16 overflow-hidden rounded-[26px] border border-[#1677FF]/15 bg-gradient-to-br from-[#F7FBFF] via-white to-[#EEF6FF] px-6 py-9 shadow-[0_16px_40px_rgba(22,119,255,0.08)] sm:px-9">
-  <div className="inline-flex items-center rounded-full bg-[#EEF6FF] px-3 py-1.5">
-    <span className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
-      AI BEAUTY DIAGNOSIS
-    </span>
-  </div>
-
-  <h2 className="mt-4 text-[26px] font-semibold leading-[1.45] tracking-[-0.04em] text-[#111111]">
-    自分に必要な改善を、
-    <br />
-    AIで確認してみませんか？
-  </h2>
-
-  <p className="mt-4 text-[12px] leading-6 text-black/55">
-    AKANUKE.AIでは、顔写真をもとに髪型・眉毛・肌・全体の印象を分析します。何から始めればいいか分からない方にもおすすめです。
-  </p>
-
-  <Link
-  href="/upload"
-  className="group mt-6 flex min-h-[52px] w-full items-center justify-center rounded-[13px] bg-[#FFD400] px-5 text-[13px] font-black text-[#111111] shadow-[0_10px_24px_rgba(255,212,0,0.22)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_14px_30px_rgba(255,212,0,0.3)] active:scale-[0.98]"
->
-  <span>
-    無料で診断をはじめる
-  </span>
-
-  <span
-    aria-hidden="true"
-    className="ml-3 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-black/10 text-[15px] font-black leading-none text-[#111111] transition-transform duration-200 group-hover:translate-x-1"
-  >
-    ›
-  </span>
-</Link>
-
-  <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-[9px] font-bold text-black/40">
-    <span>約1分で完了</span>
-    <span>無料で利用可能</span>
-    <span>メンズ向け</span>
-  </div>
-</section>
-            <section
-              id="faq"
-              className="scroll-mt-24 pt-16"
-            >
-              <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
-                FAQ
-              </p>
-
-              <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
-                メンズの垢抜けでよくある質問
-              </h2>
-
-              <div className="mt-7 space-y-3">
-                {faqs.map((faq) => (
-                  <details
-                    key={faq.question}
-                    className="group overflow-hidden rounded-[16px] border border-black/10 bg-white"
-                  >
-                    <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-[13px] font-black">
-                      {faq.question}
-
-                      <span className="shrink-0 text-[#1677FF] transition group-open:rotate-180">
-                        ⌄
-                      </span>
-                    </summary>
-
-                    <p className="border-t border-black/5 px-5 py-4 text-[12px] leading-6 text-black/60">
-                      {faq.answer}
-                    </p>
-                  </details>
-                ))}
-              </div>
-            </section>
-
-            <AdSenseAd className="mt-10" />
-
-            <section
-              id="summary"
-              className="scroll-mt-24 pt-16"
-            >
-              <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
-                SUMMARY
-              </p>
-
-              <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
-                メンズの垢抜けは、小さな改善の積み重ね
-              </h2>
-
-              <div className="mt-5 text-[14px] leading-8 text-black/70">
-                <p>
-                  メンズが垢抜けるために、すべてを一度に変える必要はありません。まずは髪型・眉毛・肌など、第一印象への影響が大きい部分から始めましょう。
-                </p>
-
-                <p className="mt-5">
-                  大切なのは、流行をそのまま真似することではなく、自分に合う方法を見つけて継続することです。できることを一つずつ増やしていけば、印象は少しずつ変わっていきます。
-                </p>
-              </div>
-
-              <div className="mt-8 flex flex-col gap-3 border-t border-black/10 pt-8 sm:flex-row">
-                <Link
-  href="/media"
-  className="flex min-h-[48px] flex-1 items-center justify-center rounded-[12px] border border-black/10 bg-white px-5 text-[12px] font-black"
->
-  記事一覧へ戻る
-</Link>
-
-                <Link
-  href="/upload"
-  className="group flex min-h-[48px] flex-1 items-center justify-center rounded-[12px] bg-[#FFD400] px-5 text-[12px] font-black text-[#111111] shadow-[0_8px_20px_rgba(255,212,0,0.18)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_12px_26px_rgba(255,212,0,0.26)] active:scale-[0.98]"
->
-  <span>
-    無料で診断をはじめる
-  </span>
-
-  <span
-    aria-hidden="true"
-    className="ml-2 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-black/10 text-[15px] font-black leading-none text-[#111111] transition-transform duration-200 group-hover:translate-x-1"
-  >
-    ›
-  </span>
-</Link>
-              </div>
-            </section>
+                    <span
+                      aria-hidden="true"
+                      className="ml-2 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-black/10 text-[15px] font-black leading-none text-[#111111] transition-transform duration-200 group-hover:translate-x-1"
+                    >
+                      ›
+                    </span>
+                  </Link>
+                </div>
+              </section>
+            </div>
           </div>
-        </div>
-      </article>
+        </article>
 
-      <footer className="border-t border-black/10 py-8">
-        <div className="mx-auto flex w-full max-w-[980px] flex-col items-center justify-between gap-4 px-5 text-center sm:flex-row sm:text-left">
-          <Link href="/">
-            <p className="text-[14px] font-black tracking-[0.14em]">
-              AKANUKE.AI
-            </p>
-
-            <p className="mt-1 text-[8px] font-bold tracking-[0.24em] text-[#1677FF]">
-              MEN&apos;S AI BEAUTY
-            </p>
-          </Link>
-
-          <div className="flex flex-wrap justify-center gap-x-5 gap-y-2 text-[10px] text-black/45">
-            <Link href="/">トップページ</Link>
-
-            <Link href="/media">記事一覧</Link>
-
-            <a
-              href="https://www.leafworks.jp/doc/privacy.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              個人情報保護方針
-            </a>
-          </div>
-
-          <p className="text-[10px] text-black/35">
-            © AKANUKE.AI All Rights Reserved.
-          </p>
-        </div>
-      </footer>
-          </main>
+        <ArticleFooter />
+      </main>
     </>
   );
 }

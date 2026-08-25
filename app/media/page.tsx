@@ -63,7 +63,7 @@ export default function ArticlesPage() {
   href="/"
   className="flex min-h-[42px] items-center justify-center gap-2 rounded-[10px] bg-[#FFD400] px-4 text-[11px] font-black text-[#111111] shadow-[0_8px_20px_rgba(255,212,0,0.2)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_10px_24px_rgba(255,212,0,0.28)] active:translate-y-0 active:scale-[0.98] active:shadow-[0_4px_10px_rgba(255,212,0,0.18)]"
 >
-  <span>無料で診断をはじめる</span>
+  <span>AI垢抜け診断を見る</span>
 
   <span
     aria-hidden="true"
@@ -77,19 +77,17 @@ export default function ArticlesPage() {
 
       <section className="border-b border-black/10 bg-gradient-to-b from-white to-[#EEF6FF]">
         <div className="mx-auto w-full max-w-[1180px] px-5 pb-14 pt-14 sm:pb-20 sm:pt-20">
-          <p className="text-[10px] font-black tracking-[0.2em] text-[#1677FF]">
-            AKANUKE JOURNAL
-          </p>
+          <h1 className="whitespace-nowrap text-[32px] font-black leading-[1.1] tracking-[-0.045em] text-[#111111] sm:text-[56px]">
+  AKANUKE JOURNAL
+</h1>
 
-          <h1 className="mt-4 text-[36px] font-semibold leading-[1.2] tracking-[-0.05em] sm:text-[52px]">
-            メンズ美容を、
-            <br />
-            分かりやすく。
-          </h1>
+<p className="mt-5 text-[16px] font-bold tracking-[-0.025em] text-[#1677FF] sm:text-[20px]">
+  メンズの垢抜け・美容を、分かりやすく。
+</p>
 
-          <p className="mt-5 max-w-[560px] text-[13px] leading-7 text-black/55 sm:text-[15px]">
-            髪型・眉毛・スキンケア・ファッションなど、男性が第一印象を整えるために役立つ情報を発信します。
-          </p>
+<p className="mt-4 text-[12px] leading-7 text-black/75 sm:whitespace-nowrap sm:text-[15px]">
+  髪型・眉毛・スキンケア・ファッションなど、男性が第一印象を整えるために役立つ情報を発信します。
+</p>
         </div>
       </section>
 
@@ -178,7 +176,7 @@ export default function ArticlesPage() {
       href="/"
       className="mx-auto mt-6 flex min-h-[52px] w-full max-w-[320px] items-center justify-center rounded-[12px] bg-[#FFD400] px-5 text-[13px] font-black text-[#111111] shadow-[0_10px_24px_rgba(255,212,0,0.22)] transition hover:-translate-y-0.5"
     >
-      無料で診断をはじめる
+      AI垢抜け診断を見る
       <span className="ml-2" aria-hidden="true">
         →
       </span>

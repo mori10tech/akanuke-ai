@@ -11,6 +11,7 @@ import AdSenseAd from "../../components/AdSenseAd";
 import Logo from "../../components/Logo";
 import AkanukenaiManFeaturesArticle from "./articles/AkanukenaiManFeaturesArticle";
 import MensAkanukeHairstyleArticle from "./articles/MensAkanukeHairstyleArticle";
+import ArticleStructuredData from "./ArticleStructuredData";
 
 type ArticlePageProps = {
   params: Promise<{
@@ -266,6 +267,9 @@ export default async function ArticleDetailPage({
 
 if (article.slug === "akanukenai-man-features") {
   return (
+  <>
+    <ArticleStructuredData article={article} />
+
     <main className="min-h-screen bg-white text-[#111111]">
       <header className="sticky top-0 z-40 border-b border-black/10 bg-white/95 backdrop-blur-xl">
         <div className="mx-auto flex h-[68px] w-full max-w-[980px] items-center justify-between gap-4 px-5">
@@ -368,11 +372,15 @@ if (article.slug === "akanukenai-man-features") {
         </div>
       </footer>
     </main>
+  </>
   );
 }
 
 if (article.slug === "mens-akanuke-hairstyle") {
   return (
+  <>
+    <ArticleStructuredData article={article} />
+
     <main className="min-h-screen bg-white text-[#111111]">
       <header className="sticky top-0 z-40 border-b border-black/10 bg-white/95 backdrop-blur-xl">
         <div className="mx-auto flex h-[68px] w-full max-w-[980px] items-center justify-between gap-4 px-5">
@@ -475,16 +483,20 @@ if (article.slug === "mens-akanuke-hairstyle") {
         </div>
       </footer>
     </main>
+  </>
   );
 }
 
-  return (
-    <main className="min-h-screen bg-white text-[#111111]">
+    return (
+    <>
+      <ArticleStructuredData article={article} />
+
+      <main className="min-h-screen bg-white text-[#111111]">
       <header className="sticky top-0 z-40 border-b border-black/10 bg-white/95 backdrop-blur-xl">
         <div className="mx-auto flex h-[68px] w-full max-w-[980px] items-center justify-between gap-4 px-5">
           <Link
-  href="/media"
-  className="flex items-center gap-2 text-[11px] font-black text-black/55 transition hover:text-[#1677FF]"
+ 　　　　 href="/media"
+ 　　　　 className="flex items-center gap-2 text-[11px] font-black text-black/55 transition hover:text-[#1677FF]"
 >
             <ArrowLeftIcon />
             記事一覧
@@ -901,6 +913,7 @@ if (article.slug === "mens-akanuke-hairstyle") {
           </p>
         </div>
       </footer>
-    </main>
+          </main>
+    </>
   );
 }

@@ -17,6 +17,7 @@ import ArticleStructuredData from "./ArticleStructuredData";
 import AkanukenaiManFeaturesArticle from "./articles/AkanukenaiManFeaturesArticle";
 import MensAkanukeHairstyleArticle from "./articles/MensAkanukeHairstyleArticle";
 import JournalFooter from "../components/JournalFooter";
+import MensBeautyBeginnerArticle from "./articles/MensBeautyBeginnerArticle";
 
 type ArticlePageProps = {
   params: Promise<{
@@ -381,6 +382,26 @@ export default async function ArticleDetailPage({
             <ArticleHero article={article} />
 
             <MensAkanukeHairstyleArticle article={article} />
+          </article>
+
+          <JournalFooter />
+        </main>
+      </>
+    );
+  }
+
+  if (article.slug === "mens-beauty-beginner") {
+    return (
+      <>
+        <ArticleStructuredData article={article} />
+
+        <main className="min-h-screen bg-white text-[#111111]">
+          <ArticleHeader />
+
+          <article>
+            <ArticleHero article={article} />
+
+            <MensBeautyBeginnerArticle article={article} />
           </article>
 
           <JournalFooter />

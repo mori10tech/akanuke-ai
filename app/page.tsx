@@ -21,6 +21,7 @@ type IconName =
   | "brain"
   | "document"
   | "calendar"
+  | "bag"
   | "check";
 
 type AnalysisItem = {
@@ -233,6 +234,15 @@ function Icon({
       </svg>
     );
   }
+
+  if (name === "bag") {
+  return (
+    <svg {...common}>
+      <path d="M6 8h12l-1 12H7L6 8Z" />
+      <path d="M9 8V6a3 3 0 0 1 6 0v2" />
+    </svg>
+  );
+}
 
   return (
     <svg {...common}>
@@ -518,9 +528,9 @@ export default function Home() {
       <section className="section-border py-16">
   <div className="site-container grid items-stretch gap-10 lg:grid-cols-2">
     <div className="flex h-full flex-col">
-      <SectionTitle>診断結果のサンプル</SectionTitle>
+      <SectionTitle>診断結果</SectionTitle>
 
-      <div className="mt-6 grid flex-1 gap-3 rounded-3xl border border-black/10 bg-white p-4 shadow-sm sm:grid-cols-[1fr_1fr_0.7fr]">
+      <div className="mt-6 grid flex-1 gap-3 rounded-3xl border border-black/10 bg-white p-4 shadow-sm sm:grid-cols-[0.9fr_1.1fr]">
         <ResultList
           title="あなたの改善優先度"
           items={[
@@ -540,19 +550,7 @@ export default function Home() {
             "印象をより洗練させる",
           ]}
           checks
-        />
-
-        <div className="flex flex-col items-center justify-center rounded-2xl bg-[#EEF6FF] p-4 text-center">
-          <span className="text-sm font-bold text-black/60">
-            総合スコア
-          </span>
-
-          <div className="score-ring mt-2">
-            <span className="block text-[28px] font-bold leading-none tracking-[-0.03em] text-[#111111]">
-              78
-            </span>
-          </div>
-        </div>
+        />     
       </div>
     </div>
 
@@ -563,42 +561,37 @@ export default function Home() {
   <SectionTitle>
     診断の流れ
   </SectionTitle>
-
-  <p className="mt-3 text-[12px] leading-6 text-black/55 sm:text-[13px]">
-    写真を1枚選ぶだけ。
-    AIが分析から改善プランの作成まで行います。
-  </p>
-
+  
   <div className="mt-5 overflow-hidden rounded-[22px] border border-black/[0.07] bg-white px-4 shadow-[0_8px_28px_rgba(15,23,42,0.04)] sm:grid sm:flex-1 sm:grid-cols-4 sm:gap-0 sm:px-0">
     <FlowStep
-      step="01"
-      icon="upload"
-      label="顔写真をアップロード"
-      description="正面から撮影した顔写真を1枚選びます。"
-      first
-    />
+  step="01"
+  icon="upload"
+  label="顔写真をアップロード"
+  description="正面から撮影した顔写真を1枚選びます。"
+  first
+/>
 
-    <FlowStep
-      step="02"
-      icon="brain"
-      label="AIがあなたの特徴を分析"
-      description="髪型・眉毛・肌・全体の印象をAIが分析します。"
-    />
+<FlowStep
+  step="02"
+  icon="brain"
+  label="AIがあなたの特徴を分析"
+  description="髪型・眉毛・肌・全体の印象をAIが分析します。"
+/>
 
-    <FlowStep
-      step="03"
-      icon="document"
-      label="改善ポイントを提案"
-      description="今のあなたが優先して整えるポイントを整理します。"
-    />
+<FlowStep
+  step="03"
+  icon="calendar"
+  label="垢抜けプランを作成"
+  description="診断結果をもとに、改善プランを作成します。"
+/>
 
-    <FlowStep
-      step="04"
-      icon="calendar"
-      label="垢抜けプランを作成"
-      description="診断結果を具体的な行動プランにまとめます。"
-      last
-    />
+<FlowStep
+  step="04"
+  icon="bag"
+  label="あなたに合う商品を提案"
+  description="必要なケア・スタイリング商品を提案します。"
+  last
+/>
   </div>
 
   <div className="mt-3 flex items-center justify-center divide-x divide-[#1677FF]/15 rounded-[16px] bg-[#EEF6FF] px-4 py-3.5">
@@ -1175,19 +1168,27 @@ function ResultList({
   checks?: boolean;
 }) {
   return (
-    <div className="rounded-2xl bg-[#EEF6FF] p-4">
-      <p className="text-sm font-black">{title}</p>
+    <div className="rounded-[18px] bg-[#EEF6FF] p-4 sm:p-5">
+      <p className="text-sm font-black lg:text-[16px]">
+        {title}
+      </p>
 
-      <ul className="mt-4 space-y-3 text-xs font-semibold text-black/70">
+      <ul className="mt-4 space-y-3 text-xs font-semibold text-black/70 lg:text-[14px]">
         {items.map((item, index) => (
-          <li key={item} className="flex gap-2">
+          <li
+            key={item}
+            className="flex gap-2"
+          >
             {checks ? (
-              <span className="text-[#1677FF]">✓</span>
+              <span className="text-[#1677FF]">
+                ✓
+              </span>
             ) : (
-              <span className="w-5 font-black text-black/40">
+              <span className="w-5 shrink-0 font-black text-black/40">
                 0{index + 1}
               </span>
             )}
+
             <span>{item}</span>
           </li>
         ))}

@@ -31,6 +31,25 @@ function formatDate(date: string) {
   }).format(new Date(date));
 }
 
+export const metadata: Metadata = {
+  title: "AKANUKE JOURNAL｜メンズ美容・垢抜け情報",
+
+  description:
+    "男性が垢抜けるための髪型・眉毛・スキンケア・メンズ美容など、第一印象を整えるために役立つ情報を発信するAKANUKE.AIのメディアです。",
+
+  alternates: {
+    canonical: "/media",
+  },
+
+  openGraph: {
+    title: "AKANUKE JOURNAL｜メンズ美容・垢抜け情報",
+    description:
+      "髪型・眉毛・スキンケアなど、男性が第一印象を整えるためのメンズ美容・垢抜け情報を発信します。",
+    url: "/media",
+    type: "website",
+  },
+};
+
 export default function ArticlesPage() {
   const articles = getAllArticles();
 

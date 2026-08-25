@@ -33,8 +33,25 @@ export const metadata: Metadata = {
   description:
     "AIがあなたの魅力を分析し、髪型・眉毛・肌・印象から、あなただけの垢抜けプランを提案する男性向け美容AIサービス。",
 
+  keywords: [
+    "垢抜け メンズ",
+    "メンズ 美容",
+    "垢抜け メンズメイク",
+    "男性 垢抜け",
+    "AI垢抜け診断",
+  ],
+
   applicationName:
     "AKANUKE.AI",
+
+  alternates: {
+    canonical: "/",
+  },
+
+  robots: {
+    index: true,
+    follow: true,
+  },
 
   other: {
     "google-adsense-account":
@@ -44,22 +61,31 @@ export const metadata: Metadata = {
   openGraph: {
     title:
       "AKANUKE.AI｜第一印象は、変えられる。",
+
     description:
       "AIが、あなただけの垢抜けプランを提案。男性向け美容AIサービス AKANUKE.AI。",
+
     url:
       "https://akanukeai.com",
+
     siteName:
       "AKANUKE.AI",
+
     locale:
       "ja_JP",
+
     type:
       "website",
+
     images: [
       {
         url:
           "/ogp/akanuke-ai-og.png",
+
         width: 1200,
+
         height: 630,
+
         alt:
           "AKANUKE.AI｜第一印象は、変えられる。",
       },
@@ -69,10 +95,13 @@ export const metadata: Metadata = {
   twitter: {
     card:
       "summary_large_image",
+
     title:
       "AKANUKE.AI｜第一印象は、変えられる。",
+
     description:
       "AIが、あなただけの垢抜けプランを提案。男性向け美容AIサービス AKANUKE.AI。",
+
     images: [
       "/ogp/akanuke-ai-og.png",
     ],
@@ -80,8 +109,10 @@ export const metadata: Metadata = {
 
   appleWebApp: {
     capable: true,
+
     title:
       "AKANUKE.AI",
+
     statusBarStyle:
       "default",
   },
@@ -91,8 +122,10 @@ export const metadata: Metadata = {
       {
         url:
           "/apple-icon.png",
+
         sizes:
           "1024x1024",
+
         type:
           "image/png",
       },
@@ -103,7 +136,9 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width:
     "device-width",
+
   initialScale: 1,
+
   themeColor:
     "#FFFFFF",
 };

@@ -4,7 +4,7 @@ import Link from "next/link";
 import Logo from "../components/Logo";
 import AdSenseAd from "../components/AdSenseAd";
 import { getAllArticles } from "../../data/articles";
-
+import JournalFooter from "./components/JournalFooter";
 
 function ArrowRightIcon() {
   return (
@@ -188,15 +188,7 @@ export default function ArticlesPage() {
   </div>
 </section>
 
-      <footer className="border-t border-black/10 py-8">
-        <div className="mx-auto flex w-full max-w-[1180px] flex-col items-center justify-between gap-4 px-5 text-center sm:flex-row sm:text-left">
-          <Logo href="/media" />
-
-          <p className="text-[10px] text-black/35">
-            © AKANUKE.AI All Rights Reserved.
-          </p>
-        </div>
-      </footer>
+<JournalFooter />
     </main>
   </>
   );

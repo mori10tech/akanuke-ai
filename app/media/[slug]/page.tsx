@@ -16,6 +16,7 @@ import JournalServiceCta from "../components/JournalServiceCta";
 import ArticleStructuredData from "./ArticleStructuredData";
 import AkanukenaiManFeaturesArticle from "./articles/AkanukenaiManFeaturesArticle";
 import MensAkanukeHairstyleArticle from "./articles/MensAkanukeHairstyleArticle";
+import JournalFooter from "../components/JournalFooter";
 
 type ArticlePageProps = {
   params: Promise<{
@@ -293,42 +294,6 @@ function ArticleHero({
   );
 }
 
-function ArticleFooter() {
-  return (
-    <footer className="border-t border-black/10 py-8">
-      <div className="mx-auto flex w-full max-w-[980px] flex-col items-center justify-between gap-4 px-5 text-center sm:flex-row sm:text-left">
-        <Link href="/">
-          <p className="text-[14px] font-black tracking-[0.14em]">
-            AKANUKE.AI
-          </p>
-
-          <p className="mt-1 text-[8px] font-bold tracking-[0.24em] text-[#1677FF]">
-            MEN&apos;S AI BEAUTY
-          </p>
-        </Link>
-
-        <div className="flex flex-wrap justify-center gap-x-5 gap-y-2 text-[10px] text-black/45">
-          <Link href="/">トップページ</Link>
-
-          <Link href="/media">記事一覧</Link>
-
-          <a
-            href="https://www.leafworks.jp/doc/privacy.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            個人情報保護方針
-          </a>
-        </div>
-
-        <p className="text-[10px] text-black/35">
-          © AKANUKE.AI All Rights Reserved.
-        </p>
-      </div>
-    </footer>
-  );
-}
-
 export function generateStaticParams() {
   return getAllArticles().map((article) => ({
     slug: article.slug,
@@ -398,7 +363,7 @@ export default async function ArticleDetailPage({
             <AkanukenaiManFeaturesArticle article={article} />
           </article>
 
-          <ArticleFooter />
+          <JournalFooter />
         </main>
       </>
     );
@@ -418,7 +383,7 @@ export default async function ArticleDetailPage({
             <MensAkanukeHairstyleArticle article={article} />
           </article>
 
-          <ArticleFooter />
+          <JournalFooter />
         </main>
       </>
     );
@@ -787,7 +752,7 @@ export default async function ArticleDetailPage({
           </div>
         </article>
 
-        <ArticleFooter />
+        <JournalFooter />
       </main>
     </>
   );

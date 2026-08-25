@@ -17,6 +17,7 @@ const RESULT_BACK_HREF_STORAGE_KEY = "akanukeResultBackHref";
 const SAVED_AFTER_IMAGE_STORAGE_KEY = "akanukeSavedAfterImageUrl";
 
 const REDIRECT_DELAY_MS = 700;
+const PROGRESS_UPDATE_INTERVAL_MS = 250;
 
 const analysisSteps = [
   {
@@ -55,64 +56,61 @@ const analysisSteps = [
  * OpenAI APIから実際の進捗率は取得できないため、
  * 経過時間に応じた「進捗の目安」を表示します。
  *
- * 前半はテンポよく進み、
- * 後半は徐々にゆっくり進みます。
+ * 重要:
+ * API完了前は99%を超えません。
+ * 100%は実際に診断が完了した場合のみ表示します。
  *
- * API完了前は最大99%まで。
- * 100%は本当に診断が完了したときだけ表示します。
+ * 以前よりも中盤〜後半を細かく進めることで、
+ * 50〜60%台で止まって見える時間を減らします。
  */
 function getAnalyzingProgress(
   elapsedSeconds: number,
 ) {
-  if (elapsedSeconds < 5) {
-    return 5 + elapsedSeconds * 4;
+  if (elapsedSeconds < 4) {
+    return 5 + elapsedSeconds * 5;
   }
 
-  if (elapsedSeconds < 10) {
-    return 25 + (elapsedSeconds - 5) * 3;
+  if (elapsedSeconds < 8) {
+    return 25 + (elapsedSeconds - 4) * 4;
   }
 
-  if (elapsedSeconds < 20) {
-    return 40 + (elapsedSeconds - 10) * 2;
+  if (elapsedSeconds < 13) {
+    return 41 + (elapsedSeconds - 8) * 3.2;
   }
 
-  if (elapsedSeconds < 30) {
-    return 60 + (elapsedSeconds - 20) * 1.5;
+  if (elapsedSeconds < 18) {
+    return 57 + (elapsedSeconds - 13) * 2.6;
   }
 
-  if (elapsedSeconds < 40) {
-    return 75 + (elapsedSeconds - 30);
+  if (elapsedSeconds < 24) {
+    return 70 + (elapsedSeconds - 18) * 1.8;
   }
 
-  if (elapsedSeconds < 50) {
-    return 85 + (elapsedSeconds - 40) * 0.5;
+  if (elapsedSeconds < 32) {
+    return 80.8 + (elapsedSeconds - 24) * 1;
   }
 
-  if (elapsedSeconds < 65) {
-    return 90 + (elapsedSeconds - 50) * 0.2;
+  if (elapsedSeconds < 42) {
+    return 88.8 + (elapsedSeconds - 32) * 0.45;
   }
 
-  if (elapsedSeconds < 85) {
-    return 93 + (elapsedSeconds - 65) * 0.1;
+  if (elapsedSeconds < 55) {
+    return 93.3 + (elapsedSeconds - 42) * 0.2;
   }
 
-  if (elapsedSeconds < 110) {
-    return 95 + (elapsedSeconds - 85) * 0.08;
+  if (elapsedSeconds < 75) {
+    return 95.9 + (elapsedSeconds - 55) * 0.08;
+  }
+
+  if (elapsedSeconds < 100) {
+    return 97.5 + (elapsedSeconds - 75) * 0.04;
   }
 
   /*
-   * 110秒を超えても完全停止させず、
-   * 30秒ごとに1%ずつ進めます。
-   *
-   * ただしAPI完了前は99%を超えません。
+   * 長時間かかった場合も99%で待機します。
+   * API完了前に100%にはしません。
    */
-  return Math.min(
-    99,
-    97 +
-      Math.floor(
-        (elapsedSeconds - 110) / 30,
-      ),
-  );
+  return 99;
 }
 
 function CheckIcon() {
@@ -128,30 +126,6 @@ function CheckIcon() {
       strokeLinejoin="round"
     >
       <path d="m5 12 4 4L19 6" />
-    </svg>
-  );
-}
-
-function LockIcon() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      aria-hidden="true"
-      className="h-4 w-4"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <rect
-        x="5"
-        y="10"
-        width="14"
-        height="10"
-        rx="2"
-      />
-      <path d="M8 10V7a4 4 0 0 1 8 0v3" />
     </svg>
   );
 }
@@ -181,9 +155,9 @@ export default function AnalyzingPage() {
   const router = useRouter();
 
   const hasStartedRef = useRef(false);
-const progressRef = useRef(0);
+  const progressRef = useRef(0);
 
-const [progress, setProgress] = useState(0);
+  const [progress, setProgress] = useState(0);
   const [image, setImage] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -220,67 +194,84 @@ const [progress, setProgress] = useState(0);
 
       setImage(savedImage);
       setErrorMessage("");
+
       window.sessionStorage.setItem(
         RESULT_BACK_HREF_STORAGE_KEY,
         "/upload",
       );
+
       window.sessionStorage.removeItem(
         SAVED_AFTER_IMAGE_STORAGE_KEY,
       );
+
       window.sessionStorage.removeItem(
         DIAGNOSIS_ID_STORAGE_KEY,
       );
 
       /*
- * 診断開始直後から5%を表示して、
- * 処理が始まっていることを明確にします。
- */
-progressRef.current = 5;
-setProgress(5);
+       * 診断開始直後から5%を表示します。
+       */
+      progressRef.current = 5;
+      setProgress(5);
 
-const startedAt = Date.now();
+      const startedAt = performance.now();
 
       const updateProgress = () => {
         const elapsedSeconds =
-          Math.floor(
-            (Date.now() - startedAt) / 1000,
+          (performance.now() - startedAt) /
+          1000;
+
+        const calculatedProgress =
+          getAnalyzingProgress(
+            elapsedSeconds,
           );
 
         const nextProgress =
           Math.min(
             99,
-            Math.round(
-              getAnalyzingProgress(
-                elapsedSeconds,
-              ),
+            Math.floor(
+              calculatedProgress,
             ),
           );
 
-        if (!isCancelled) {
-  const updatedProgress =
-    Math.max(
-      progressRef.current,
-      nextProgress,
-    );
+        if (isCancelled) {
+          return;
+        }
 
-  progressRef.current =
-    updatedProgress;
+        const updatedProgress =
+          Math.max(
+            progressRef.current,
+            nextProgress,
+          );
 
-  setProgress(
-    updatedProgress,
-  );
-}
+        if (
+          updatedProgress ===
+          progressRef.current
+        ) {
+          return;
+        }
+
+        progressRef.current =
+          updatedProgress;
+
+        setProgress(
+          updatedProgress,
+        );
       };
 
       updateProgress();
 
       /*
-       * 1秒ごとに進捗の目安を更新します。
+       * 250msごとに進捗を確認します。
+       *
+       * 数字自体は整数ですが、
+       * CSSのwidthアニメーションと組み合わせることで
+       * 以前より滑らかに見えるようにします。
        */
       progressTimer =
         window.setInterval(
           updateProgress,
-          1000,
+          PROGRESS_UPDATE_INTERVAL_MS,
         );
 
       try {
@@ -345,25 +336,28 @@ const startedAt = Date.now();
 
         /*
          * ログイン中の場合だけ診断結果をSupabaseへ保存します。
-         * 未ログイン（401）や保存失敗でも、今回の診断結果表示は続行します。
+         *
+         * 未ログイン（401）や保存失敗でも、
+         * 今回の診断結果表示は続行します。
          */
         try {
-          const saveResponse = await fetch(
-            "/api/diagnoses",
-            {
-              method: "POST",
-              cache: "no-store",
-              headers: {
-                "Content-Type":
-                  "application/json",
+          const saveResponse =
+            await fetch(
+              "/api/diagnoses",
+              {
+                method: "POST",
+                cache: "no-store",
+                headers: {
+                  "Content-Type":
+                    "application/json",
+                },
+                body: JSON.stringify({
+                  analysis: data,
+                  beforeImageDataUrl:
+                    savedImage,
+                }),
               },
-              body: JSON.stringify({
-                analysis: data,
-                beforeImageDataUrl:
-                  savedImage,
-              }),
-            },
-          );
+            );
 
           if (saveResponse.ok) {
             const savedDiagnosis =
@@ -377,7 +371,9 @@ const startedAt = Date.now();
                 savedDiagnosis.id,
               );
             }
-          } else if (saveResponse.status !== 401) {
+          } else if (
+            saveResponse.status !== 401
+          ) {
             console.warn(
               "[AKANUKE.AI] 診断結果を履歴へ保存できませんでした:",
               saveResponse.status,
@@ -390,97 +386,102 @@ const startedAt = Date.now();
           );
         }
 
-       /*
- * API完了後は現在の進捗から100%まで
- * なだらかに進めてからResult画面へ移動します。
- */
-const completionStartedAt =
-  performance.now();
+        /*
+         * API完了後は現在の進捗から100%まで
+         * なだらかに進めてからResult画面へ移動します。
+         */
+        const completionStartedAt =
+          performance.now();
 
-const completionStartProgress =
-  progressRef.current;
+        const completionStartProgress =
+          progressRef.current;
 
-const completionDurationMs = 2500;
+        const completionDurationMs =
+          1800;
 
-await new Promise<void>(
-  (resolve) => {
-    const animateCompletion = (
-      now: number,
-    ) => {
-      if (isCancelled) {
-        resolve();
-        return;
-      }
+        await new Promise<void>(
+          (resolve) => {
+            const animateCompletion = (
+              now: number,
+            ) => {
+              if (isCancelled) {
+                resolve();
+                return;
+              }
 
-      const elapsed =
-        now - completionStartedAt;
+              const elapsed =
+                now -
+                completionStartedAt;
 
-      const ratio =
-        Math.min(
-          1,
-          elapsed /
-            completionDurationMs,
+              const ratio =
+                Math.min(
+                  1,
+                  elapsed /
+                    completionDurationMs,
+                );
+
+              /*
+               * smoothstep。
+               * 開始・終了の両方が自然になります。
+               */
+              const easedRatio =
+                ratio *
+                ratio *
+                (3 - 2 * ratio);
+
+              const nextProgress =
+                Math.min(
+                  100,
+                  Math.round(
+                    completionStartProgress +
+                      (100 -
+                        completionStartProgress) *
+                        easedRatio,
+                  ),
+                );
+
+              progressRef.current =
+                nextProgress;
+
+              setProgress(
+                nextProgress,
+              );
+
+              if (ratio < 1) {
+                window.requestAnimationFrame(
+                  animateCompletion,
+                );
+
+                return;
+              }
+
+              progressRef.current =
+                100;
+
+              setProgress(100);
+
+              resolve();
+            };
+
+            window.requestAnimationFrame(
+              animateCompletion,
+            );
+          },
         );
 
-      /*
-       * ease-outで終盤ほど自然に減速します。
-       */
-      const easedRatio =
-  ratio < 0.5
-    ? 2 * ratio * ratio
-    : 1 -
-      Math.pow(
-        -2 * ratio + 2,
-        2,
-      ) / 2;
+        if (isCancelled) {
+          return;
+        }
 
-      const nextProgress =
-        Math.min(
-          100,
-          Math.round(
-            completionStartProgress +
-              (100 -
-                completionStartProgress) *
-                easedRatio,
-          ),
-        );
-
-      progressRef.current =
-        nextProgress;
-
-      setProgress(
-        nextProgress,
-      );
-
-      if (ratio < 1) {
-        window.requestAnimationFrame(
-          animateCompletion,
-        );
-        return;
-      }
-
-      progressRef.current = 100;
-      setProgress(100);
-      resolve();
-    };
-
-    window.requestAnimationFrame(
-      animateCompletion,
-    );
-  },
-);
-
-if (isCancelled) {
-  return;
-}
-
-redirectTimer =
-  window.setTimeout(() => {
-    router.push(
-      "/result",
-    );
-  }, REDIRECT_DELAY_MS);
-
+        redirectTimer =
+          window.setTimeout(
+            () => {
+              router.push(
+                "/result",
+              );
+            },
+            REDIRECT_DELAY_MS,
+          );
       } catch (error) {
         console.error(
           "[AKANUKE.AI] Analysis error:",
@@ -507,24 +508,21 @@ redirectTimer =
 
     /*
      * Next.js開発モードのEffect再実行対策。
-     *
-     * 初回の検証用Effectではタイマーがcleanupされ、
-     * 実際に有効なEffectだけがrunAnalysisを開始します。
-     * OpenAI APIの二重実行も防ぎます。
      */
     const startTimer =
-      window.setTimeout(() => {
-        void runAnalysis();
-      }, 100);
+      window.setTimeout(
+        () => {
+          void runAnalysis();
+        },
+        100,
+      );
 
     return () => {
       isCancelled = true;
 
-      if (startTimer) {
-        window.clearTimeout(
-          startTimer,
-        );
-      }
+      window.clearTimeout(
+        startTimer,
+      );
 
       if (progressTimer) {
         window.clearInterval(
@@ -601,19 +599,19 @@ redirectTimer =
 
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/5 via-transparent to-black/45" />
 
-              <div className="pointer-events-none absolute left-[7%] right-[7%] top-[7%] bottom-[15%] z-10 overflow-hidden rounded-[24px]">
-  {/* AI解析グリッド */}
-  <div className="akanuke-ai-grid absolute inset-0" />
+              <div className="pointer-events-none absolute bottom-[15%] left-[7%] right-[7%] top-[7%] z-10 overflow-hidden rounded-[24px]">
+                <div className="akanuke-ai-grid absolute inset-0" />
 
-  {/* グリッド上を流れる解析光 */}
-  <div className="akanuke-grid-scan absolute inset-x-0 top-0 h-[30%]" />
+                <div className="akanuke-grid-scan absolute inset-x-0 top-0 h-[30%]" />
 
-  {/* 四隅の解析フレーム */}
-  <span className="absolute left-0 top-0 h-8 w-8 rounded-tl-[24px] border-l-2 border-t-2 border-[#1677FF]/70" />
-  <span className="absolute right-0 top-0 h-8 w-8 rounded-tr-[24px] border-r-2 border-t-2 border-[#1677FF]/70" />
-  <span className="absolute bottom-0 left-0 h-8 w-8 rounded-bl-[24px] border-b-2 border-l-2 border-[#1677FF]/70" />
-  <span className="absolute bottom-0 right-0 h-8 w-8 rounded-br-[24px] border-b-2 border-r-2 border-[#1677FF]/70" />
-</div>
+                <span className="absolute left-0 top-0 h-8 w-8 rounded-tl-[24px] border-l-2 border-t-2 border-[#1677FF]/70" />
+
+                <span className="absolute right-0 top-0 h-8 w-8 rounded-tr-[24px] border-r-2 border-t-2 border-[#1677FF]/70" />
+
+                <span className="absolute bottom-0 left-0 h-8 w-8 rounded-bl-[24px] border-b-2 border-l-2 border-[#1677FF]/70" />
+
+                <span className="absolute bottom-0 right-0 h-8 w-8 rounded-br-[24px] border-b-2 border-r-2 border-[#1677FF]/70" />
+              </div>
 
               <div className="absolute inset-x-4 bottom-4 rounded-[14px] border border-white/25 bg-black/60 px-4 py-3 text-white backdrop-blur-md">
                 <div className="flex items-center justify-between gap-3">
@@ -639,7 +637,7 @@ redirectTimer =
             <div className="p-4">
               <div className="h-2 overflow-hidden rounded-full bg-black/10">
                 <div
-                  className="h-full rounded-full bg-[#1677FF] transition-[width] duration-500 ease-out"
+                  className="h-full rounded-full bg-[#1677FF] transition-[width] duration-300 ease-out"
                   style={{
                     width: `${progress}%`,
                   }}
@@ -650,8 +648,7 @@ redirectTimer =
                 <p className="text-[11px] font-black text-[#1677FF]">
                   {errorMessage
                     ? "AI診断でエラーが発生しました"
-                    : progress ===
-                        100
+                    : progress === 100
                       ? "分析が完了しました"
                       : activeStep.description}
                 </p>
@@ -717,15 +714,12 @@ redirectTimer =
                   const isActive =
                     index ===
                       activeStepIndex &&
-                    progress <
-                      100 &&
+                    progress < 100 &&
                     !errorMessage;
 
                   return (
                     <div
-                      key={
-                        step.label
-                      }
+                      key={step.label}
                       className="flex items-center gap-3 border-b border-black/10 py-3.5 last:border-b-0"
                     >
                       <span
@@ -756,9 +750,7 @@ redirectTimer =
                                 : "text-black/35"
                             }`}
                           >
-                            {
-                              step.label
-                            }
+                            {step.label}
                           </p>
 
                           <p
@@ -779,9 +771,7 @@ redirectTimer =
                         </div>
 
                         <p className="mt-1 truncate text-[10px] text-black/35">
-                          {
-                            step.description
-                          }
+                          {step.description}
                         </p>
                       </div>
                     </div>
@@ -789,8 +779,8 @@ redirectTimer =
                 },
               )}
             </div>
-          </section>      
-          
+          </section>
+
           <p className="mt-5 text-center text-[10px] leading-5 text-black/35">
             {errorMessage ? (
               <>
@@ -808,104 +798,100 @@ redirectTimer =
           </p>
         </div>
       </div>
-            <style jsx global>{`
-  .akanuke-ai-grid {
-    background-image:
-      linear-gradient(
-        rgba(22, 119, 255, 0.14) 1px,
-        transparent 1px
-      ),
-      linear-gradient(
-        90deg,
-        rgba(22, 119, 255, 0.14) 1px,
-        transparent 1px
-      );
 
-    background-size:
-      36px 36px;
+      <style jsx global>{`
+        .akanuke-ai-grid {
+          background-image:
+            linear-gradient(
+              rgba(22, 119, 255, 0.14) 1px,
+              transparent 1px
+            ),
+            linear-gradient(
+              90deg,
+              rgba(22, 119, 255, 0.14) 1px,
+              transparent 1px
+            );
 
-    mask-image:
-      linear-gradient(
-        to bottom,
-        transparent 0%,
-        black 8%,
-        black 88%,
-        transparent 100%
-      );
+          background-size: 36px 36px;
 
-    -webkit-mask-image:
-      linear-gradient(
-        to bottom,
-        transparent 0%,
-        black 8%,
-        black 88%,
-        transparent 100%
-      );
-  }
+          mask-image: linear-gradient(
+            to bottom,
+            transparent 0%,
+            black 8%,
+            black 88%,
+            transparent 100%
+          );
 
-  @keyframes akanuke-grid-scan {
-    0% {
-      transform: translateY(-120%);
-      opacity: 0;
-    }
+          -webkit-mask-image: linear-gradient(
+            to bottom,
+            transparent 0%,
+            black 8%,
+            black 88%,
+            transparent 100%
+          );
+        }
 
-    12% {
-      opacity: 1;
-    }
+        @keyframes akanuke-grid-scan {
+          0% {
+            transform: translateY(-120%);
+            opacity: 0;
+          }
 
-    50% {
-      opacity: 1;
-    }
+          12% {
+            opacity: 1;
+          }
 
-    88% {
-      opacity: 1;
-    }
+          50% {
+            opacity: 1;
+          }
 
-    100% {
-      transform: translateY(390%);
-      opacity: 0;
-    }
-  }
+          88% {
+            opacity: 1;
+          }
 
-  .akanuke-grid-scan {
-  background:
-    linear-gradient(
-      to bottom,
-      transparent 0%,
-      rgba(22, 119, 255, 0.02) 18%,
-      rgba(22, 119, 255, 0.12) 48%,
-      rgba(22, 119, 255, 0.03) 78%,
-      transparent 100%
-    );
+          100% {
+            transform: translateY(390%);
+            opacity: 0;
+          }
+        }
 
-  filter:
-    drop-shadow(
-      0 0 10px
-      rgba(22, 119, 255, 0.18)
-    );
+        .akanuke-grid-scan {
+          background: linear-gradient(
+            to bottom,
+            transparent 0%,
+            rgba(22, 119, 255, 0.02) 18%,
+            rgba(22, 119, 255, 0.12) 48%,
+            rgba(22, 119, 255, 0.03) 78%,
+            transparent 100%
+          );
 
-  animation:
-    akanuke-grid-scan
-    4.2s
-    linear
-    infinite;
+          filter: drop-shadow(
+            0 0 10px
+              rgba(22, 119, 255, 0.18)
+          );
 
-  will-change:
-    transform,
-    opacity;
-}
+          animation:
+            akanuke-grid-scan
+            4.2s
+            linear
+            infinite;
 
-  @media (
-    prefers-reduced-motion:
-      reduce
-  ) {
-    .akanuke-grid-scan {
-      animation: none;
-      top: 33%;
-      opacity: 0.65;
-    }
-  }
-`}</style>
+          will-change:
+            transform,
+            opacity;
+        }
+
+        @media (
+          prefers-reduced-motion:
+            reduce
+        ) {
+          .akanuke-grid-scan {
+            animation: none;
+            top: 33%;
+            opacity: 0.65;
+          }
+        }
+      `}</style>
     </main>
   );
 }

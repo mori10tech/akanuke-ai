@@ -233,7 +233,7 @@ function ArticleHeader() {
           記事一覧
         </Link>
 
-        <Logo href="/media" />
+        <Logo href="/" />
 
         <JournalServiceCta />
       </div>

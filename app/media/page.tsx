@@ -40,11 +40,18 @@ export default function ArticlesPage() {
           <Logo href="/media" />
 
           <Link
-            href="/"
-            className="flex min-h-[42px] items-center justify-center rounded-[10px] bg-[#FFD400] px-4 text-[11px] font-black text-[#111111] shadow-[0_8px_20px_rgba(255,212,0,0.2)] transition hover:-translate-y-0.5"
-          >
-            無料で診断
-          </Link>
+  href="/"
+  className="flex min-h-[42px] items-center justify-center gap-2 rounded-[10px] bg-[#FFD400] px-4 text-[11px] font-black text-[#111111] shadow-[0_8px_20px_rgba(255,212,0,0.2)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_10px_24px_rgba(255,212,0,0.28)] active:translate-y-0 active:scale-[0.98] active:shadow-[0_4px_10px_rgba(255,212,0,0.18)]"
+>
+  <span>無料で診断をはじめる</span>
+
+  <span
+    aria-hidden="true"
+    className="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-black/10 text-[14px] font-black leading-none transition-transform duration-200 group-active:translate-x-0.5"
+  >
+    ›
+  </span>
+</Link>
         </div>
       </header>
 

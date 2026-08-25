@@ -3,10 +3,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Fragment } from "react";
+
 import {
   getAllArticles,
   getArticleBySlug,
 } from "../../../data/articles";
+
 import AdSenseAd from "../../components/AdSenseAd";
 import Logo from "../../components/Logo";
 
@@ -140,38 +142,46 @@ const methods = [
 
 const faqs = [
   {
-    question: "メンズが垢抜けるには、まず何をすればいいですか？",
+    question:
+      "メンズが垢抜けるには、まず何をすればいいですか？",
     answer:
       "最初は髪型・眉毛・肌の3つを見直すのがおすすめです。顔周りは第一印象への影響が大きく、服をすべて買い替えなくても変化を感じやすい部分です。",
   },
   {
-    question: "垢抜けるまでどのくらいかかりますか？",
+    question:
+      "垢抜けるまでどのくらいかかりますか？",
     answer:
       "髪型や眉毛は比較的すぐに変化を感じられます。肌や体型、生活習慣は数週間から数か月かけて整えていくものです。短期間で全部を変えようとせず、継続できる方法を選びましょう。",
   },
   {
-    question: "お金をかけなくても垢抜けられますか？",
+    question:
+      "お金をかけなくても垢抜けられますか？",
     answer:
       "可能です。髪や眉毛を整える、服のサイズ感を見直す、姿勢を良くする、靴をきれいにするなど、費用をほとんどかけずに改善できる項目も多くあります。",
   },
   {
-    question: "ファッションに詳しくなくても大丈夫ですか？",
+    question:
+      "ファッションに詳しくなくても大丈夫ですか？",
     answer:
       "問題ありません。最初は白・黒・ネイビー・グレーなどの色を中心にし、無地でサイズの合う服を選ぶだけでも整った印象になります。",
   },
   {
-    question: "自分に似合う髪型や眉毛が分かりません",
+    question:
+      "自分に似合う髪型や眉毛が分かりません",
     answer:
       "美容師や眉毛サロンへ相談する方法があります。また、自分の顔写真を客観的に見て、髪型・眉毛・肌のどこから改善するか整理することも有効です。",
   },
 ];
 
 function formatDate(date: string) {
-  return new Intl.DateTimeFormat("ja-JP", {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-  }).format(new Date(date));
+  return new Intl.DateTimeFormat(
+    "ja-JP",
+    {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    },
+  ).format(new Date(date));
 }
 
 function ArrowLeftIcon() {
@@ -210,44 +220,98 @@ function CheckIcon() {
 }
 
 export function generateStaticParams() {
-  return getAllArticles().map((article) => ({
-    slug: article.slug,
-  }));
+  return getAllArticles().map(
+    (article) => ({
+      slug: article.slug,
+    }),
+  );
 }
 
 export async function generateMetadata({
   params,
 }: ArticlePageProps): Promise<Metadata> {
   const { slug } = await params;
-  const article = getArticleBySlug(slug);
+  const article =
+    getArticleBySlug(slug);
 
   if (!article) {
     return {
-      title: "記事が見つかりません｜AKANUKE.AI",
+      title:
+        "記事が見つかりません｜AKANUKE.AI",
+      robots: {
+        index: false,
+        follow: false,
+      },
     };
   }
 
+  const canonicalUrl =
+    `/media/${article.slug}`;
+
+  const seoTitle =
+    `${article.title}｜AKANUKE.AI`;
+
   return {
-    title: article.title,
-    description: article.description,
-    keywords: article.keywords,
+    title: seoTitle,
+    description:
+      article.description,
+    keywords:
+      article.keywords,
+
     alternates: {
-      canonical: `/articles/${article.slug}`,
+      canonical:
+        canonicalUrl,
     },
+
     openGraph: {
-      title: article.title,
-      description: article.description,
-      type: "article",
-      publishedTime: article.publishedAt,
-      modifiedTime: article.updatedAt ?? article.publishedAt,
-      images: article.image
-        ? [
-            {
-              url: article.image,
-              alt: article.title,
-            },
-          ]
-        : undefined,
+      title:
+        seoTitle,
+      description:
+        article.description,
+      url:
+        canonicalUrl,
+      siteName:
+        "AKANUKE.AI",
+      locale:
+        "ja_JP",
+      type:
+        "article",
+      publishedTime:
+        article.publishedAt,
+      modifiedTime:
+        article.updatedAt ??
+        article.publishedAt,
+      images:
+        article.image
+          ? [
+              {
+                url:
+                  article.image,
+                alt:
+                  article.title,
+              },
+            ]
+          : undefined,
+    },
+
+    twitter: {
+      card:
+        "summary_large_image",
+      title:
+        seoTitle,
+      description:
+        article.description,
+      images:
+        article.image
+          ? [
+              article.image,
+            ]
+          : undefined,
+    },
+
+    robots: {
+      index: true,
+      follow: true,
     },
   };
 }
@@ -256,9 +320,15 @@ export default async function ArticleDetailPage({
   params,
 }: ArticlePageProps) {
   const { slug } = await params;
-  const article = getArticleBySlug(slug);
 
-  if (!article || article.slug !== "mens-akanuke-guide") {
+  const article =
+    getArticleBySlug(slug);
+
+  if (
+    !article ||
+    article.slug !==
+      "mens-akanuke-guide"
+  ) {
     notFound();
   }
 
@@ -267,21 +337,30 @@ export default async function ArticleDetailPage({
       <header className="sticky top-0 z-40 border-b border-black/10 bg-white/95 backdrop-blur-xl">
         <div className="mx-auto flex h-[68px] w-full max-w-[980px] items-center justify-between gap-4 px-5">
           <Link
-            href="/articles"
+            href="/media"
             className="flex items-center gap-2 text-[11px] font-black text-black/55 transition hover:text-[#1677FF]"
           >
             <ArrowLeftIcon />
             記事一覧
           </Link>
 
-          <Logo href="/articles" />
+          <Logo href="/media" />
 
           <Link
-            href="/"
-            className="rounded-[9px] bg-[#FFD400] px-3 py-2.5 text-[10px] font-black"
-          >
-            無料診断
-          </Link>
+  href="/upload"
+  className="group flex min-h-[42px] items-center justify-center gap-2 rounded-[10px] bg-[#FFD400] px-4 text-[11px] font-black text-[#111111] shadow-[0_8px_20px_rgba(255,212,0,0.2)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_10px_24px_rgba(255,212,0,0.28)] active:translate-y-0 active:scale-[0.98] active:shadow-[0_4px_10px_rgba(255,212,0,0.18)]"
+>
+  <span>
+    無料で診断をはじめる
+  </span>
+
+  <span
+    aria-hidden="true"
+    className="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-black/10 text-[14px] font-black leading-none transition-transform duration-200 group-active:translate-x-0.5"
+  >
+    ›
+  </span>
+</Link>
         </div>
       </header>
 
@@ -307,21 +386,39 @@ export default async function ArticleDetailPage({
             </p>
 
             <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-[10px] font-bold text-black/35">
-              <time dateTime={article.publishedAt}>
-                公開日：{formatDate(article.publishedAt)}
+              <time
+                dateTime={
+                  article.publishedAt
+                }
+              >
+                公開日：
+                {formatDate(
+                  article.publishedAt,
+                )}
               </time>
 
               {article.updatedAt && (
-                <time dateTime={article.updatedAt}>
-                  更新日：{formatDate(article.updatedAt)}
+                <time
+                  dateTime={
+                    article.updatedAt
+                  }
+                >
+                  更新日：
+                  {formatDate(
+                    article.updatedAt,
+                  )}
                 </time>
               )}
             </div>
 
             <div className="relative mt-9 aspect-[1200/630] overflow-hidden rounded-[28px] border border-black/5 bg-[#EEF6FF] shadow-[0_18px_55px_rgba(15,23,42,0.08)]">
               <Image
-                src={article.image}
-                alt={article.title}
+                src={
+                  article.image
+                }
+                alt={
+                  article.title
+                }
                 fill
                 priority
                 sizes="(max-width: 767px) 100vw, 860px"
@@ -346,20 +443,39 @@ export default async function ArticleDetailPage({
               </p>
 
               <ol className="mt-4 space-y-3">
-                {tableOfContents.map((item, index) => (
-                  <li key={item.id}>
-                    <a
-                      href={`#${item.id}`}
-                      className="flex gap-3 text-[11px] leading-5 text-black/55 transition hover:text-[#1677FF]"
+                {tableOfContents.map(
+                  (
+                    item,
+                    index,
+                  ) => (
+                    <li
+                      key={
+                        item.id
+                      }
                     >
-                      <span className="shrink-0 font-black text-[#1677FF]">
-                        {String(index + 1).padStart(2, "0")}
-                      </span>
+                      <a
+                        href={`#${item.id}`}
+                        className="flex gap-3 text-[11px] leading-5 text-black/55 transition hover:text-[#1677FF]"
+                      >
+                        <span className="shrink-0 font-black text-[#1677FF]">
+                          {String(
+                            index +
+                              1,
+                          ).padStart(
+                            2,
+                            "0",
+                          )}
+                        </span>
 
-                      <span>{item.label}</span>
-                    </a>
-                  </li>
-                ))}
+                        <span>
+                          {
+                            item.label
+                          }
+                        </span>
+                      </a>
+                    </li>
+                  ),
+                )}
               </ol>
             </nav>
           </aside>
@@ -413,18 +529,22 @@ export default async function ArticleDetailPage({
                     "清潔感を保つ",
                     "自分の顔立ちや体型に合うものを選ぶ",
                     "一度に変えず、継続できる方法を選ぶ",
-                  ].map((item) => (
-                    <div
-                      key={item}
-                      className="flex items-start gap-3 text-[12px] font-bold text-black/65"
-                    >
-                      <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-white text-[#1677FF]">
-                        <CheckIcon />
-                      </span>
+                  ].map(
+                    (item) => (
+                      <div
+                        key={
+                          item
+                        }
+                        className="flex items-start gap-3 text-[12px] font-bold text-black/65"
+                      >
+                        <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-white text-[#1677FF]">
+                          <CheckIcon />
+                        </span>
 
-                      {item}
-                    </div>
-                  ))}
+                        {item}
+                      </div>
+                    ),
+                  )}
                 </div>
               </div>
             </section>
@@ -446,43 +566,62 @@ export default async function ArticleDetailPage({
               </p>
 
               <div className="mt-8 space-y-5">
-                {methods.map((method, index) => (
-                  <Fragment key={method.number}>
-                    <section className="rounded-[22px] border border-black/10 bg-white p-5 shadow-[0_8px_28px_rgba(15,23,42,0.04)] sm:p-6">
-                      <div className="flex items-start gap-4">
-                        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[13px] bg-[#111111] text-[12px] font-black text-white">
-                          {method.number}
-                        </span>
+                {methods.map(
+                  (
+                    method,
+                    index,
+                  ) => (
+                    <Fragment
+                      key={
+                        method.number
+                      }
+                    >
+                      <section className="rounded-[22px] border border-black/10 bg-white p-5 shadow-[0_8px_28px_rgba(15,23,42,0.04)] sm:p-6">
+                        <div className="flex items-start gap-4">
+                          <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[13px] bg-[#111111] text-[12px] font-black text-white">
+                            {
+                              method.number
+                            }
+                          </span>
 
-                        <div className="min-w-0">
-                          <h3 className="text-[19px] font-semibold tracking-[-0.035em]">
-                            {method.title}
-                          </h3>
+                          <div className="min-w-0">
+                            <h3 className="text-[19px] font-semibold tracking-[-0.035em]">
+                              {
+                                method.title
+                              }
+                            </h3>
 
-                          <p className="mt-3 text-[13px] leading-7 text-black/65">
-                            {method.description}
-                          </p>
-
-                          <div className="mt-4 rounded-[14px] bg-[#FFF9D9] px-4 py-3">
-                            <p className="text-[11px] font-bold leading-5 text-black/65">
-                              <span className="mr-2 font-black text-[#9A7800]">
-                                POINT
-                              </span>
-                              {method.point}
+                            <p className="mt-3 text-[13px] leading-7 text-black/65">
+                              {
+                                method.description
+                              }
                             </p>
+
+                            <div className="mt-4 rounded-[14px] bg-[#FFF9D9] px-4 py-3">
+                              <p className="text-[11px] font-bold leading-5 text-black/65">
+                                <span className="mr-2 font-black text-[#9A7800]">
+                                  POINT
+                                </span>
+
+                                {
+                                  method.point
+                                }
+                              </p>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </section>
+                      </section>
 
-                    {index === 5 && (
-                      <AdSenseAd
-                        className="my-8"
-                        format="rectangle"
-                      />
-                    )}
-                  </Fragment>
-                ))}
+                      {index ===
+                        5 && (
+                        <AdSenseAd
+                          className="my-8"
+                          format="rectangle"
+                        />
+                      )}
+                    </Fragment>
+                  ),
+                )}
               </div>
             </section>
 
@@ -505,77 +644,107 @@ export default async function ArticleDetailPage({
               <div className="mt-7 grid gap-3 sm:grid-cols-3">
                 {[
                   {
-                    number: "1",
-                    label: "髪型",
-                    note: "顔全体の印象を整える",
+                    number:
+                      "1",
+                    label:
+                      "髪型",
+                    note:
+                      "顔全体の印象を整える",
                   },
                   {
-                    number: "2",
-                    label: "眉毛",
-                    note: "目元を引き締める",
+                    number:
+                      "2",
+                    label:
+                      "眉毛",
+                    note:
+                      "目元を引き締める",
                   },
                   {
-                    number: "3",
-                    label: "肌",
-                    note: "清潔感を高める",
+                    number:
+                      "3",
+                    label:
+                      "肌",
+                    note:
+                      "清潔感を高める",
                   },
-                ].map((item) => (
-                  <div
-                    key={item.number}
-                    className="rounded-[18px] border border-black/10 bg-[#F8FAFC] p-5"
-                  >
-                    <span className="text-[11px] font-black text-[#1677FF]">
-                      STEP {item.number}
-                    </span>
+                ].map(
+                  (item) => (
+                    <div
+                      key={
+                        item.number
+                      }
+                      className="rounded-[18px] border border-black/10 bg-[#F8FAFC] p-5"
+                    >
+                      <span className="text-[11px] font-black text-[#1677FF]">
+                        STEP{" "}
+                        {
+                          item.number
+                        }
+                      </span>
 
-                    <p className="mt-2 text-[17px] font-black">
-                      {item.label}
-                    </p>
+                      <p className="mt-2 text-[17px] font-black">
+                        {
+                          item.label
+                        }
+                      </p>
 
-                    <p className="mt-2 text-[10px] leading-5 text-black/45">
-                      {item.note}
-                    </p>
-                  </div>
-                ))}
+                      <p className="mt-2 text-[10px] leading-5 text-black/45">
+                        {
+                          item.note
+                        }
+                      </p>
+                    </div>
+                  ),
+                )}
               </div>
             </section>
 
             <section className="mt-16 overflow-hidden rounded-[26px] border border-[#1677FF]/15 bg-gradient-to-br from-[#F7FBFF] via-white to-[#EEF6FF] px-6 py-9 shadow-[0_16px_40px_rgba(22,119,255,0.08)] sm:px-9">
-  <div className="inline-flex items-center rounded-full bg-[#EEF6FF] px-3 py-1.5">
-    <span className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
-      AI BEAUTY DIAGNOSIS
-    </span>
-  </div>
+              <div className="inline-flex items-center rounded-full bg-[#EEF6FF] px-3 py-1.5">
+                <span className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
+                  AI BEAUTY
+                  DIAGNOSIS
+                </span>
+              </div>
 
-  <h2 className="mt-4 text-[26px] font-semibold leading-[1.45] tracking-[-0.04em] text-[#111111]">
-    自分に必要な改善を、
-    <br />
-    AIで確認してみませんか？
-  </h2>
+              <h2 className="mt-4 text-[26px] font-semibold leading-[1.45] tracking-[-0.04em] text-[#111111]">
+                自分に必要な改善を、
+                <br />
+                AIで確認してみませんか？
+              </h2>
 
-  <p className="mt-4 text-[12px] leading-6 text-black/55">
-    AKANUKE.AIでは、顔写真をもとに髪型・眉毛・肌・全体の印象を分析します。何から始めればいいか分からない方にもおすすめです。
-  </p>
+              <p className="mt-4 text-[12px] leading-6 text-black/55">
+                AKANUKE.AIでは、顔写真をもとに髪型・眉毛・肌・全体の印象を分析します。何から始めればいいか分からない方にもおすすめです。
+              </p>
 
-  <Link
-    href="/upload"
-    className="mt-6 flex min-h-[52px] w-full items-center justify-center rounded-[13px] bg-[#1677FF] px-5 text-[13px] font-black text-white shadow-[0_10px_24px_rgba(22,119,255,0.22)] transition hover:-translate-y-0.5 hover:bg-[#0F6EE8]"
-  >
-    無料で診断をはじめる
-    <span
-      className="ml-2"
-      aria-hidden="true"
-    >
-      →
-    </span>
-  </Link>
+              <Link
+                href="/upload"
+                className="mt-6 flex min-h-[52px] w-full items-center justify-center rounded-[13px] bg-[#1677FF] px-5 text-[13px] font-black text-white shadow-[0_10px_24px_rgba(22,119,255,0.22)] transition hover:-translate-y-0.5 hover:bg-[#0F6EE8]"
+              >
+                無料で診断をはじめる
 
-  <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-[9px] font-bold text-black/40">
-    <span>約1分で完了</span>
-    <span>無料で利用可能</span>
-    <span>メンズ向け</span>
-  </div>
-</section>
+                <span
+                  className="ml-2"
+                  aria-hidden="true"
+                >
+                  →
+                </span>
+              </Link>
+
+              <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-[9px] font-bold text-black/40">
+                <span>
+                  約1分で完了
+                </span>
+
+                <span>
+                  無料で利用可能
+                </span>
+
+                <span>
+                  メンズ向け
+                </span>
+              </div>
+            </section>
 
             <section
               id="faq"
@@ -590,24 +759,32 @@ export default async function ArticleDetailPage({
               </h2>
 
               <div className="mt-7 space-y-3">
-                {faqs.map((faq) => (
-                  <details
-                    key={faq.question}
-                    className="group overflow-hidden rounded-[16px] border border-black/10 bg-white"
-                  >
-                    <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-[13px] font-black">
-                      {faq.question}
+                {faqs.map(
+                  (faq) => (
+                    <details
+                      key={
+                        faq.question
+                      }
+                      className="group overflow-hidden rounded-[16px] border border-black/10 bg-white"
+                    >
+                      <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-[13px] font-black">
+                        {
+                          faq.question
+                        }
 
-                      <span className="shrink-0 text-[#1677FF] transition group-open:rotate-180">
-                        ⌄
-                      </span>
-                    </summary>
+                        <span className="shrink-0 text-[#1677FF] transition group-open:rotate-180">
+                          ⌄
+                        </span>
+                      </summary>
 
-                    <p className="border-t border-black/5 px-5 py-4 text-[12px] leading-6 text-black/60">
-                      {faq.answer}
-                    </p>
-                  </details>
-                ))}
+                      <p className="border-t border-black/5 px-5 py-4 text-[12px] leading-6 text-black/60">
+                        {
+                          faq.answer
+                        }
+                      </p>
+                    </details>
+                  ),
+                )}
               </div>
             </section>
 
@@ -637,7 +814,7 @@ export default async function ArticleDetailPage({
 
               <div className="mt-8 flex flex-col gap-3 border-t border-black/10 pt-8 sm:flex-row">
                 <Link
-                  href="/articles"
+                  href="/media"
                   className="flex min-h-[48px] flex-1 items-center justify-center rounded-[12px] border border-black/10 bg-white px-5 text-[12px] font-black"
                 >
                   記事一覧へ戻る
@@ -663,14 +840,19 @@ export default async function ArticleDetailPage({
             </p>
 
             <p className="mt-1 text-[8px] font-bold tracking-[0.24em] text-[#1677FF]">
-              MEN&apos;S AI BEAUTY
+              MEN&apos;S AI
+              BEAUTY
             </p>
           </Link>
 
           <div className="flex flex-wrap justify-center gap-x-5 gap-y-2 text-[10px] text-black/45">
-            <Link href="/">トップページ</Link>
+            <Link href="/">
+              トップページ
+            </Link>
 
-            <Link href="/articles">記事一覧</Link>
+            <Link href="/media">
+              記事一覧
+            </Link>
 
             <a
               href="https://www.leafworks.jp/doc/privacy.pdf"
@@ -682,7 +864,8 @@ export default async function ArticleDetailPage({
           </div>
 
           <p className="text-[10px] text-black/35">
-            © AKANUKE.AI All Rights Reserved.
+            © AKANUKE.AI All
+            Rights Reserved.
           </p>
         </div>
       </footer>

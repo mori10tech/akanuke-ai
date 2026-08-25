@@ -61,13 +61,15 @@ export default function ArticlesPage() {
 
           <Link
   href="/"
-  className="flex min-h-[42px] items-center justify-center gap-2 rounded-[10px] bg-[#FFD400] px-4 text-[11px] font-black text-[#111111] shadow-[0_8px_20px_rgba(255,212,0,0.2)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_10px_24px_rgba(255,212,0,0.28)] active:translate-y-0 active:scale-[0.98] active:shadow-[0_4px_10px_rgba(255,212,0,0.18)]"
+  className="group flex min-h-[46px] shrink-0 items-center justify-center rounded-[12px] bg-[#FFD400] px-5 text-[11px] font-black text-[#111111] shadow-[0_8px_20px_rgba(255,212,0,0.2)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_12px_26px_rgba(255,212,0,0.28)] active:scale-[0.98] sm:min-h-[48px] sm:px-6 sm:text-[12px]"
 >
-  <span>AI垢抜け診断を見る</span>
+  <span className="whitespace-nowrap">
+    AKANUKE.AIを見る
+  </span>
 
   <span
+    className="ml-2.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-black/10 text-[15px] font-black leading-none text-[#111111] transition-transform duration-200 group-hover:translate-x-1"
     aria-hidden="true"
-    className="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-black/10 text-[14px] font-black leading-none transition-transform duration-200 group-active:translate-x-0.5"
   >
     ›
   </span>
@@ -77,7 +79,7 @@ export default function ArticlesPage() {
 
       <section className="border-b border-black/10 bg-gradient-to-b from-white to-[#EEF6FF]">
         <div className="mx-auto w-full max-w-[1180px] px-5 pb-14 pt-14 sm:pb-20 sm:pt-20">
-          <h1 className="whitespace-nowrap text-[32px] font-black leading-[1.1] tracking-[-0.045em] text-[#111111] sm:text-[56px]">
+          <h1 className="whitespace-nowrap text-[32px] font-black leading-[1.1] tracking-[0.04em] text-[#111111] sm:text-[56px]">
   AKANUKE JOURNAL
 </h1>
 
@@ -176,7 +178,7 @@ export default function ArticlesPage() {
       href="/"
       className="mx-auto mt-6 flex min-h-[52px] w-full max-w-[320px] items-center justify-center rounded-[12px] bg-[#FFD400] px-5 text-[13px] font-black text-[#111111] shadow-[0_10px_24px_rgba(255,212,0,0.22)] transition hover:-translate-y-0.5"
     >
-      AI垢抜け診断を見る
+      AKANUKE.AIを見る
       <span className="ml-2" aria-hidden="true">
         →
       </span>

@@ -292,7 +292,7 @@ if (article.slug === "akanukenai-man-features") {
   className="group flex min-h-[42px] shrink-0 items-center justify-center rounded-[10px] bg-[#FFD400] px-3 text-[10px] font-black text-[#111111] shadow-[0_8px_20px_rgba(255,212,0,0.2)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_12px_26px_rgba(255,212,0,0.28)] sm:px-4 sm:text-[11px]"
 >
   <span className="whitespace-nowrap">
-    AI垢抜け診断を見る
+    AKANUKE.AIを見る
   </span>
 
   <span
@@ -412,7 +412,7 @@ if (article.slug === "mens-akanuke-hairstyle") {
   className="group flex min-h-[42px] shrink-0 items-center justify-center rounded-[10px] bg-[#FFD400] px-3 text-[10px] font-black text-[#111111] shadow-[0_8px_20px_rgba(255,212,0,0.2)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_12px_26px_rgba(255,212,0,0.28)] sm:px-4 sm:text-[11px]"
 >
   <span className="whitespace-nowrap">
-    AI垢抜け診断を見る
+    AKANUKE.AIを見る
   </span>
 
   <span
@@ -531,7 +531,7 @@ if (article.slug === "mens-akanuke-hairstyle") {
   className="group flex min-h-[42px] shrink-0 items-center justify-center rounded-[10px] bg-[#FFD400] px-3 text-[10px] font-black text-[#111111] shadow-[0_8px_20px_rgba(255,212,0,0.2)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_12px_26px_rgba(255,212,0,0.28)] sm:px-4 sm:text-[11px]"
 >
   <span className="whitespace-nowrap">
-    AI垢抜け診断を見る
+    AKANUKE.AIを見る
   </span>
 
   <span

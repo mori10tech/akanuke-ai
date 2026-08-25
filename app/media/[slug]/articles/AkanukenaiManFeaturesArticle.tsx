@@ -115,10 +115,11 @@ const features = [
 
 const improvementSteps = [
   {
-    number: "01",
-    title: "髪型",
-    description: "顔全体の印象を整える",
-  },
+  number: "01",
+  title: "髪型",
+  description: "顔全体の印象を整える",
+  href: "/media/mens-akanuke-hairstyle",
+},
   {
     number: "02",
     title: "眉毛",
@@ -333,24 +334,51 @@ export default function AkanukenaiManFeaturesArticle({
             </p>
 
             <div className="mt-7 grid gap-3 sm:grid-cols-2">
-              {improvementSteps.map((step) => (
-                <div
-                  key={step.number}
-                  className="rounded-[18px] border border-black/10 bg-[#F8FAFC] p-5"
-                >
-                  <span className="text-[10px] font-black tracking-[0.12em] text-[#1677FF]">
-                    STEP {step.number}
-                  </span>
+              {improvementSteps.map((step) => {
+  const content = (
+    <>
+      <span className="text-[10px] font-black tracking-[0.12em] text-[#1677FF]">
+        STEP {step.number}
+      </span>
 
-                  <p className="mt-2 text-[18px] font-black">
-                    {step.title}
-                  </p>
+      <p className="mt-2 text-[18px] font-black">
+        {step.title}
+      </p>
 
-                  <p className="mt-2 text-[11px] leading-5 text-black/45">
-                    {step.description}
-                  </p>
-                </div>
-              ))}
+      <p className="mt-2 text-[11px] leading-5 text-black/45">
+        {step.description}
+      </p>
+
+      {"href" in step && step.href && (
+        <span className="mt-4 flex items-center gap-1 text-[11px] font-black text-[#1677FF]">
+          詳しく見る
+          <span aria-hidden="true">→</span>
+        </span>
+      )}
+    </>
+  );
+
+  if ("href" in step && step.href) {
+    return (
+      <Link
+        key={step.number}
+        href={step.href}
+        className="rounded-[18px] border border-[#1677FF]/15 bg-[#F8FAFC] p-5 transition hover:-translate-y-0.5 hover:bg-[#EEF6FF]"
+      >
+        {content}
+      </Link>
+    );
+  }
+
+  return (
+    <div
+      key={step.number}
+      className="rounded-[18px] border border-black/10 bg-[#F8FAFC] p-5"
+    >
+      {content}
+    </div>
+  );
+})}
             </div>
 
             <div className="mt-8 rounded-[20px] border border-black/10 bg-white p-5 sm:p-6">

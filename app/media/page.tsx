@@ -5,6 +5,7 @@ import Logo from "../components/Logo";
 import AdSenseAd from "../components/AdSenseAd";
 import { getAllArticles } from "../../data/articles";
 
+
 function ArrowRightIcon() {
   return (
     <svg
@@ -54,6 +55,7 @@ export default function ArticlesPage() {
   const articles = getAllArticles();
 
   return (
+  <>
     <main className="min-h-screen bg-white text-[#111111]">
       <header className="sticky top-0 z-40 border-b border-black/10 bg-white/95 backdrop-blur-xl">
         <div className="mx-auto flex h-[72px] w-full max-w-[1180px] items-center justify-between px-5">
@@ -196,5 +198,6 @@ export default function ArticlesPage() {
         </div>
       </footer>
     </main>
+  </>
   );
 }

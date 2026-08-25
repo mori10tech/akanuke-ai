@@ -1,8 +1,19 @@
+import type { Metadata } from "next";
 import type { ReactNode } from "react";
+
 import { redirect } from "next/navigation";
+
 import { createClient } from "../../lib/supabase/server";
 
 export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  title: "マイページ｜AKANUKE.AI",
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 type DashboardLayoutProps = {
   children: ReactNode;

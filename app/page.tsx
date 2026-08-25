@@ -629,30 +629,30 @@ export default function Home() {
   </div>
 </section>
 
-      <section className="section-border pb-10 pt-0 sm:pb-16 sm:pt-0">
+      {/* 診断フロー後のCTA */}
+<div className="-mt-7 flex justify-center px-4 pb-8 sm:-mt-5 sm:pb-10">
+  <Link
+    href="/upload"
+    className="primary-button w-full max-w-[355px]"
+  >
+    <span>無料で診断をはじめる</span>
+
+    <span
+      aria-hidden="true"
+      className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-black/10 text-[16px] leading-none"
+    >
+      ›
+    </span>
+  </Link>
+</div>
+
+{/* BEFORE / AFTER */}
+<section className="section-border pb-10 pt-8 sm:pb-16 sm:pt-12">
   <div className="site-container">
     <div className="text-center">
-      <div className="flex flex-col items-center">
-        <div className="flex w-full justify-center py-7 sm:h-[150px] sm:items-center sm:py-0">
-          <Link
-            href="/upload"
-            className="primary-button w-full max-w-[355px]"
-          >
-            <span>無料で診断をはじめる</span>
-
-            <span
-              aria-hidden="true"
-              className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-black/10 text-[16px] leading-none"
-            >
-              ›
-            </span>
-          </Link>
-        </div>
-
-        <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF] sm:text-[11px]">
-          BEFORE / AFTER
-        </p>
-      </div>
+      <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF] sm:text-[11px]">
+        BEFORE / AFTER
+      </p>
 
       <SectionTitle centered>
         現在の印象と、目指す理想像

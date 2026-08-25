@@ -179,14 +179,42 @@ function Icon({
     );
   }
 
-  if (name === "brain") {
-    return (
-      <svg {...common}>
-        <path d="M9.5 4A3.5 3.5 0 0 0 6 7.5c0 .5.1 1 .3 1.4A3.6 3.6 0 0 0 5 15.8 3.5 3.5 0 0 0 9.5 19V4Zm5 0A3.5 3.5 0 0 1 18 7.5c0 .5-.1 1-.3 1.4a3.6 3.6 0 0 1 1.3 6.9 3.5 3.5 0 0 1-4.5 3.2V4Z" />
-        <path d="M9.5 9H7m7.5 2H17m-7.5 4H7m7.5-8H17" />
-      </svg>
-    );
-  }
+ if (name === "brain") {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      className={className}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      {/* AIを囲む円 */}
+      <circle
+        cx="11.5"
+        cy="12"
+        r="7"
+      />
+
+      {/* AI */}
+      <text
+        x="11.5"
+        y="12.4"
+        textAnchor="middle"
+        dominantBaseline="middle"
+        fill="currentColor"
+        stroke="none"
+        fontSize="6"
+        fontWeight="800"
+        fontFamily="Arial, sans-serif"
+      >
+        AI
+      </text>
+    </svg>
+  );
+}
 
   if (name === "document") {
     return (
@@ -529,53 +557,82 @@ export default function Home() {
     </div>
 
     <div
-      id="flow"
-      className="flex h-full flex-col"
-    >
-      <SectionTitle>診断の流れ</SectionTitle>
+  id="flow"
+  className="flex h-full flex-col"
+>
+  <SectionTitle>
+    診断の流れ
+  </SectionTitle>
 
-      <div className="mt-6 grid flex-1 grid-cols-2 gap-3 sm:grid-cols-4">
-        <FlowStep
-          step="STEP 1"
-          icon="upload"
-          label="顔写真をアップロード"
-        />
+  <p className="mt-3 text-[12px] leading-6 text-black/55 sm:text-[13px]">
+    写真を1枚選ぶだけ。
+    AIが分析から改善プランの作成まで行います。
+  </p>
 
-        <FlowStep
-          step="STEP 2"
-          icon="brain"
-          label="AIがあなたの特徴を分析"
-        />
+  <div className="mt-5 overflow-hidden rounded-[22px] border border-black/[0.07] bg-white px-4 shadow-[0_8px_28px_rgba(15,23,42,0.04)] sm:grid sm:flex-1 sm:grid-cols-4 sm:gap-0 sm:px-0">
+    <FlowStep
+      step="01"
+      icon="upload"
+      label="顔写真をアップロード"
+      description="正面から撮影した顔写真を1枚選びます。"
+      first
+    />
 
-        <FlowStep
-          step="STEP 3"
-          icon="document"
-          label="改善ポイントを提案"
-        />
+    <FlowStep
+      step="02"
+      icon="brain"
+      label="AIがあなたの特徴を分析"
+      description="髪型・眉毛・肌・全体の印象をAIが分析します。"
+    />
 
-        <FlowStep
-          step="STEP 4"
-          icon="calendar"
-          label="垢抜けプランを作成"
-        />
-      </div>
+    <FlowStep
+      step="03"
+      icon="document"
+      label="改善ポイントを提案"
+      description="今のあなたが優先して整えるポイントを整理します。"
+    />
 
-      <div className="mt-3 grid grid-cols-2 gap-3 rounded-2xl bg-[#EEF6FF] px-5 py-4 text-center text-sm font-bold text-[#1677FF]">
-        <span>
-          診断時間　
-          <strong className="text-xl">
-            約1分
-          </strong>
-        </span>
+    <FlowStep
+      step="04"
+      icon="calendar"
+      label="垢抜けプランを作成"
+      description="診断結果を具体的な行動プランにまとめます。"
+      last
+    />
+  </div>
 
-        <span>
-          料金　
-          <strong className="text-xl">
-            完全無料
-          </strong>
-        </span>
-      </div>
+  <div className="mt-3 flex items-center justify-center divide-x divide-[#1677FF]/15 rounded-[16px] bg-[#EEF6FF] px-4 py-3.5">
+    <div className="flex flex-1 items-center justify-center gap-2">
+      <Icon
+        name="clock"
+        className="h-4 w-4 text-[#1677FF]"
+      />
+
+      <span className="text-[10px] font-bold text-black/45">
+        診断時間
+      </span>
+
+      <strong className="text-[15px] font-black text-[#1677FF]">
+        約1分
+      </strong>
     </div>
+
+    <div className="flex flex-1 items-center justify-center gap-2">
+      <Icon
+        name="yen"
+        className="h-4 w-4 text-[#1677FF]"
+      />
+
+      <span className="text-[10px] font-bold text-black/45">
+        料金
+      </span>
+
+      <strong className="text-[15px] font-black text-[#1677FF]">
+        完全無料
+      </strong>
+    </div>
+  </div>
+</div>
   </div>
 </section>
 
@@ -1143,23 +1200,68 @@ function FlowStep({
   step,
   icon,
   label,
+  description,
+  first = false,
+  last = false,
 }: {
   step: string;
   icon: IconName;
   label: string;
+  description: string;
+  first?: boolean;
+  last?: boolean;
 }) {
   return (
-    <div className="rounded-2xl border border-black/[0.07] bg-[#F7F9FC] p-4 text-center">
-      <p className="text-[10px] font-black text-[#1677FF]">
-        {step}
-      </p>
-      <Icon
-        name={icon}
-        className="mx-auto mt-4 h-8 w-8 text-[#1677FF]"
-      />
-      <p className="mt-4 text-xs font-bold leading-5">
-        {label}
-      </p>
+    <div
+      className={`relative flex gap-4 py-4 sm:flex-col sm:items-center sm:px-3 sm:py-5 sm:text-center ${
+        !last
+          ? "border-b border-black/[0.07] sm:border-b-0 sm:border-r"
+          : ""
+      }`}
+    >
+      {/* スマホでは縦ラインで手順を表現 */}
+      {!last && (
+        <span
+          aria-hidden="true"
+          className="absolute bottom-[-12px] left-[19px] top-[52px] w-px bg-[#1677FF]/20 sm:hidden"
+        />
+      )}
+
+      {/* STEP番号 */}
+      <div className="relative z-10 shrink-0">
+        <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#EEF6FF] text-[11px] font-black text-[#1677FF]">
+          {step}
+        </span>
+      </div>
+
+      <div className="min-w-0 flex-1 sm:flex sm:flex-col sm:items-center">
+        <div className="flex items-center gap-3 sm:flex-col">
+          <span className="flex h-8 w-8 shrink-0 items-center justify-center text-[#1677FF] sm:h-10 sm:w-10">
+            <Icon
+  name={icon}
+  className={
+    icon === "brain"
+      ? "h-8 w-8 sm:h-9 sm:w-9"
+      : "h-6 w-6 sm:h-7 sm:w-7"
+  }
+/>
+          </span>
+
+          <p className="text-[13px] font-black leading-5 text-[#111111] sm:text-[12px]">
+            {label}
+          </p>
+        </div>
+
+        <p className="mt-1.5 max-w-[270px] text-[11px] font-medium leading-5 text-black/60 sm:mt-3">
+  {description}
+</p>
+      </div>
+
+      {first && (
+        <span className="sr-only">
+          診断開始
+        </span>
+      )}
     </div>
   );
 }

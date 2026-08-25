@@ -44,13 +44,17 @@ const tableOfContents = [
 
 const methods = [
   {
-    number: "01",
-    title: "髪型を変える",
-    description:
-      "髪型は顔全体の印象を大きく左右します。まずは寝ぐせや伸びっぱなしの状態を避け、自分の輪郭や髪質に合うスタイルを美容師へ相談しましょう。前髪やサイドのボリュームを整えるだけでも、清潔感は大きく変わります。",
-    point:
-      "美容室では「清潔感を出したい」「セットしやすい髪型にしたい」と具体的に伝えるのがおすすめです。",
+  number: "01",
+  title: "髪型を変える",
+  description:
+    "髪型は顔全体の印象を大きく左右します。まずは寝ぐせや伸びっぱなしの状態を避け、自分の輪郭や髪質に合うスタイルを美容師へ相談しましょう。前髪やサイドのボリュームを整えるだけでも、清潔感は大きく変わります。",
+  point:
+    "美容室では「清潔感を出したい」「セットしやすい髪型にしたい」と具体的に伝えるのがおすすめです。",
+  relatedArticle: {
+    href: "/media/mens-akanuke-hairstyle",
+    label: "メンズが垢抜ける髪型を詳しく見る",
   },
+},
   {
     number: "02",
     title: "眉毛を整える",
@@ -699,6 +703,18 @@ if (article.slug === "mens-akanuke-hairstyle") {
                               {method.point}
                             </p>
                           </div>
+
+{"relatedArticle" in method && method.relatedArticle && (
+  <Link
+    href={method.relatedArticle.href}
+    className="mt-4 flex min-h-[44px] items-center justify-between rounded-[12px] border border-[#1677FF]/15 bg-[#EEF6FF] px-4 text-[11px] font-black text-[#1677FF] transition hover:bg-[#E3F0FF]"
+  >
+    <span>{method.relatedArticle.label}</span>
+
+    <span aria-hidden="true">→</span>
+  </Link>
+)}
+
                         </div>
                       </div>
                     </section>

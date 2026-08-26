@@ -143,108 +143,193 @@ export default function DashboardPage() {
 
           {/* MENU */}
           <section className="mt-7">
-            <p className="px-1 text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
-              MENU
-            </p>
+  <p className="px-1 text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
+    MENU
+  </p>
 
-            <h1 className="mt-1 px-1 text-[18px] font-black tracking-[-0.03em] text-[#111111]">
-              マイメニュー
-            </h1>
+  <h2 className="mt-1 px-1 text-[18px] font-black tracking-[-0.03em] text-[#111111]">
+    マイメニュー
+  </h2>
 
-            <div className="mt-3 overflow-hidden rounded-[20px] border border-black/10 bg-white shadow-[0_10px_34px_rgba(15,23,42,0.05)]">
-              <Link
-                href="/history"
-                className="flex items-center gap-4 border-b border-black/10 px-5 py-4 transition hover:bg-[#F7F9FC]"
-              >
-                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#EEF6FF] text-[#1677FF]">
-                  <SparkleIcon />
-                </span>
+  {/* ユーザー機能 */}
+  <div className="mt-3 overflow-hidden rounded-[20px] border border-black/10 bg-white shadow-[0_10px_34px_rgba(15,23,42,0.05)]">
+    <Link
+      href="/plan"
+      className="flex items-center gap-4 border-b border-black/10 px-5 py-4 transition hover:bg-[#F7F9FC]"
+    >
+      <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#EEF6FF] text-[#1677FF]">
+        <svg
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+          className="h-5 w-5"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <rect
+            x="4"
+            y="5"
+            width="16"
+            height="15"
+            rx="2"
+          />
+          <path d="M8 3v4" />
+          <path d="M16 3v4" />
+          <path d="M4 10h16" />
+          <path d="m9 15 2 2 4-4" />
+        </svg>
+      </span>
 
-                <span className="min-w-0 flex-1">
-                  <span className="block text-[13px] font-black text-[#111111]">
-                    診断履歴
-                  </span>
+      <span className="min-w-0 flex-1">
+        <span className="block text-[13px] font-black text-[#111111]">
+          垢抜けプラン
+        </span>
 
-                  <span className="mt-0.5 block text-[10px] text-black/35">
-                    保存した診断結果を確認する
-                  </span>
-                </span>
+        <span className="mt-0.5 block text-[10px] text-black/35">
+          あなた専用の改善プランを確認する
+        </span>
+      </span>
 
-                <span className="text-[#1677FF]">
-                  <ChevronRightIcon />
-                </span>
-              </Link>
+      <span className="text-[#1677FF]">
+        <ChevronRightIcon />
+      </span>
+    </Link>
 
-              <Link
-                href="/products"
-                className="flex items-center gap-4 border-b border-black/10 px-5 py-4 transition hover:bg-[#F7F9FC]"
-              >
-                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#EEF6FF] text-[#1677FF]">
-                  <ProductIcon />
-                </span>
+    <Link
+      href="/products"
+      className="flex items-center gap-4 border-b border-black/10 px-5 py-4 transition hover:bg-[#F7F9FC]"
+    >
+      <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#EEF6FF] text-[#1677FF]">
+        <ProductIcon />
+      </span>
 
-                <span className="min-w-0 flex-1">
-                  <span className="block text-[13px] font-black text-[#111111]">
-                    おすすめ商品
-                  </span>
+      <span className="min-w-0 flex-1">
+        <span className="block text-[13px] font-black text-[#111111]">
+          おすすめ商品
+        </span>
 
-                  <span className="mt-0.5 block text-[10px] text-black/35">
-                    AIがおすすめする商品を見る
-                  </span>
-                </span>
+        <span className="mt-0.5 block text-[10px] text-black/35">
+          AIがおすすめする商品を見る
+        </span>
+      </span>
 
-                <span className="text-[#1677FF]">
-                  <ChevronRightIcon />
-                </span>
-              </Link>
+      <span className="text-[#1677FF]">
+        <ChevronRightIcon />
+      </span>
+    </Link>
 
-              <Link
-                href="/dashboard/account"
-                className="flex items-center gap-4 border-b border-black/10 px-5 py-4 transition hover:bg-[#F7F9FC]"
-              >
-                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#EEF6FF] text-[#1677FF]">
-                  <SettingsIcon />
-                </span>
+    <Link
+      href="/history"
+      className="flex items-center gap-4 border-b border-black/10 px-5 py-4 transition hover:bg-[#F7F9FC]"
+    >
+      <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#EEF6FF] text-[#1677FF]">
+        <SparkleIcon />
+      </span>
 
-                <span className="min-w-0 flex-1">
-                  <span className="block text-[13px] font-black text-[#111111]">
-                    アカウント設定
-                  </span>
+      <span className="min-w-0 flex-1">
+        <span className="block text-[13px] font-black text-[#111111]">
+          診断履歴
+        </span>
 
-                  <span className="mt-0.5 block text-[10px] text-black/35">
-                    会員情報と退会手続きを管理
-                  </span>
-                </span>
+        <span className="mt-0.5 block text-[10px] text-black/35">
+          保存した診断結果を確認する
+        </span>
+      </span>
 
-                <span className="text-[#1677FF]">
-                  <ChevronRightIcon />
-                </span>
-              </Link>
+      <span className="text-[#1677FF]">
+        <ChevronRightIcon />
+      </span>
+    </Link>
 
-              <Link
-                href="/"
-                className="flex items-center gap-4 px-5 py-4 transition hover:bg-[#F7F9FC]"
-              >
-                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#EEF6FF] text-[#1677FF]">
-                  <HomeIcon />
-                </span>
+    <Link
+      href="/dashboard/account"
+      className="flex items-center gap-4 px-5 py-4 transition hover:bg-[#F7F9FC]"
+    >
+      <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#EEF6FF] text-[#1677FF]">
+        <SettingsIcon />
+      </span>
 
-                <span className="min-w-0 flex-1">
-                  <span className="block text-[13px] font-black text-[#111111]">
-                    トップページ
-                  </span>
+      <span className="min-w-0 flex-1">
+        <span className="block text-[13px] font-black text-[#111111]">
+          アカウント設定
+        </span>
 
-                  <span className="mt-0.5 block text-[10px] text-black/35">
-                    AKANUKE.AIのトップへ戻る
-                  </span>
-                </span>
+        <span className="mt-0.5 block text-[10px] text-black/35">
+          会員情報と退会手続きを管理
+        </span>
+      </span>
 
-                <span className="text-[#1677FF]">
-                  <ChevronRightIcon />
-                </span>
-              </Link>
-            </div>
-          </section>
+      <span className="text-[#1677FF]">
+        <ChevronRightIcon />
+      </span>
+    </Link>
+  </div>
+
+  {/* コンテンツ・サイト導線 */}
+  <div className="mt-4 overflow-hidden rounded-[20px] border border-black/10 bg-white shadow-[0_10px_34px_rgba(15,23,42,0.05)]">
+    <Link
+      href="/media"
+      className="flex items-center gap-4 border-b border-black/10 px-5 py-4 transition hover:bg-[#F7F9FC]"
+    >
+      <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#EEF6FF] text-[#1677FF]">
+        <svg
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+          className="h-5 w-5"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3V4Z" />
+          <path d="M8 4v13a3 3 0 0 0 3 3" />
+          <path d="M11 8h5" />
+          <path d="M11 12h5" />
+        </svg>
+      </span>
+
+      <span className="min-w-0 flex-1">
+        <span className="block text-[13px] font-black text-[#111111]">
+          AKANUKE JOURNAL
+        </span>
+
+        <span className="mt-0.5 block text-[10px] text-black/35">
+          メンズ美容の記事を読む
+        </span>
+      </span>
+
+      <span className="text-[#1677FF]">
+        <ChevronRightIcon />
+      </span>
+    </Link>
+
+    <Link
+      href="/"
+      className="flex items-center gap-4 px-5 py-4 transition hover:bg-[#F7F9FC]"
+    >
+      <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#EEF6FF] text-[#1677FF]">
+        <HomeIcon />
+      </span>
+
+      <span className="min-w-0 flex-1">
+        <span className="block text-[13px] font-black text-[#111111]">
+          トップページ
+        </span>
+
+        <span className="mt-0.5 block text-[10px] text-black/35">
+          AKANUKE.AIのトップへ戻る
+        </span>
+      </span>
+
+      <span className="text-[#1677FF]">
+        <ChevronRightIcon />
+      </span>
+    </Link>
+  </div>
+</section>
 
           {/* LATEST REPORT */}
           <Suspense

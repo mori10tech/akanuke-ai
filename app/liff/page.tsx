@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import liff from "@line/liff";
 
 import { createClient } from "../../lib/supabase/client";
+import Image from "next/image";
 
 export default function LiffPage() {
   const [message, setMessage] = useState(
@@ -149,9 +150,16 @@ export default function LiffPage() {
   return (
     <main className="flex min-h-screen items-center justify-center bg-white px-5 text-[#111111]">
       <div className="w-full max-w-[420px] text-center">
-        <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-[18px] bg-[#EEF6FF] text-[25px] text-[#1677FF] shadow-[0_6px_22px_rgba(15,23,42,0.04)]">
-          ✦
-        </span>
+        <div className="mx-auto flex h-20 w-20 items-center justify-center overflow-hidden rounded-[20px] bg-white shadow-[0_8px_28px_rgba(15,23,42,0.08)]">
+  <Image
+    src="/icon-512.png"
+    alt="AKANUKE.AI"
+    width={80}
+    height={80}
+    priority
+    className="h-full w-full object-cover"
+  />
+</div>
 
         <p className="mt-6 text-[11px] font-black tracking-[0.16em] text-[#1677FF]">
           AKANUKE.AI

@@ -524,8 +524,8 @@ export default function PlanPage() {
         target.getBoundingClientRect();
 
       setShowStickyStatus(
-        rect.bottom <= 68,
-      );
+  rect.bottom <= 52,
+);
     };
 
     handleScroll();
@@ -758,7 +758,7 @@ export default function PlanPage() {
         />
 
         {showStickyStatus && (
-          <div className="sticky top-[68px] z-30 border-b border-[#1677FF]/10 bg-white/95 px-4 py-2.5 backdrop-blur-xl">
+  <div className="fixed left-1/2 top-[68px] z-30 w-full max-w-[480px] -translate-x-1/2 border-b border-[#1677FF]/10 bg-white/95 px-4 py-2.5 shadow-[0_6px_18px_rgba(15,23,42,0.05)] backdrop-blur-xl">
             <div className="flex items-center gap-3">
               <div className="min-w-0 flex-1">
                 <p className="text-[8px] font-black tracking-[0.14em] text-[#1677FF]">

@@ -1,69 +1,123 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+
+import {
+  useEffect,
+  useState,
+} from "react";
+
 import AppHeader from "../components/AppHeader";
+
 import { createClient } from "../../lib/supabase/client";
 
 export default function LoginPage() {
-  const [isLineLoading, setIsLineLoading] =
-    useState(false);
+  const [
+    isLineLoading,
+    setIsLineLoading,
+  ] = useState(false);
 
-  const [errorMessage, setErrorMessage] =
-    useState("");
+  const [
+    errorMessage,
+    setErrorMessage,
+  ] = useState("");
+
+  useEffect(() => {
+    const searchParams =
+      new URLSearchParams(
+        window.location.search,
+      );
+
+    const reason =
+      searchParams.get("reason");
+
+    if (
+      reason === "line_friend_required"
+    ) {
+      setErrorMessage(
+        "AKANUKE.AIのご利用には、LINE公式アカウントの友だち追加が必要です。友だち追加後、もう一度LINEでログインしてください。",
+      );
+
+      return;
+    }
+
+    if (
+      reason ===
+      "line_friend_check_failed"
+    ) {
+      setErrorMessage(
+        "LINEの友だち追加状況を確認できませんでした。時間をおいて、もう一度LINEでログインしてください。",
+      );
+
+      return;
+    }
+
+    if (reason === "auth_failed") {
+      setErrorMessage(
+        "LINEログインに失敗しました。もう一度お試しください。",
+      );
+    }
+  }, []);
 
   async function handleLineLogin() {
-  if (isLineLoading) {
-    return;
-  }
-
-  setErrorMessage("");
-  setIsLineLoading(true);
-
-  try {
-    const supabase = createClient();
-
-    const searchParams = new URLSearchParams(
-      window.location.search,
-    );
-
-    const requestedNext =
-      searchParams.get("next");
-
-    const safeNext =
-      requestedNext?.startsWith("/") &&
-      !requestedNext.startsWith("//")
-        ? requestedNext
-        : "/dashboard";
-
-    const { error } =
-      await supabase.auth.signInWithOAuth({
-        provider: "custom:line",
-        options: {
-          redirectTo:
-            `${window.location.origin}/auth/callback?next=${encodeURIComponent(safeNext)}`,
-          queryParams: {
-            bot_prompt: "normal",
-          },
-        },
-      });
-
-    if (error) {
-      throw error;
+    if (isLineLoading) {
+      return;
     }
-  } catch (error) {
-    console.error(
-      "LINE login error:",
-      error,
-    );
 
-    setErrorMessage(
-      "LINEログインを開始できませんでした。時間をおいてもう一度お試しください。",
-    );
+    setErrorMessage("");
+    setIsLineLoading(true);
 
-    setIsLineLoading(false);
+    try {
+      const supabase =
+        createClient();
+
+      const searchParams =
+        new URLSearchParams(
+          window.location.search,
+        );
+
+      const requestedNext =
+        searchParams.get("next");
+
+      const safeNext =
+        requestedNext?.startsWith("/") &&
+        !requestedNext.startsWith("//")
+          ? requestedNext
+          : "/dashboard";
+
+      const { error } =
+        await supabase.auth.signInWithOAuth({
+          provider: "custom:line",
+
+          options: {
+            redirectTo:
+              `${window.location.origin}/auth/callback?next=${encodeURIComponent(
+                safeNext,
+              )}`,
+
+            queryParams: {
+              bot_prompt:
+                "aggressive",
+            },
+          },
+        });
+
+      if (error) {
+        throw error;
+      }
+    } catch (error) {
+      console.error(
+        "LINE login error:",
+        error,
+      );
+
+      setErrorMessage(
+        "LINEログインを開始できませんでした。時間をおいてもう一度お試しください。",
+      );
+
+      setIsLineLoading(false);
+    }
   }
-}
 
   return (
     <main className="min-h-screen bg-white text-[#111111]">
@@ -91,7 +145,7 @@ export default function LoginPage() {
             <p className="mt-3 text-[13px] leading-6 text-black/55">
               AKANUKE.AIのご利用には、
               <br />
-              LINE登録が必要です。
+              LINE公式アカウントの友だち追加が必要です。
             </p>
           </div>
 
@@ -102,9 +156,17 @@ export default function LoginPage() {
               </p>
 
               <ul className="mt-3 space-y-2 text-[11px] font-bold leading-5 text-black/55">
-                <li>・診断結果をいつでも確認</li>
-                <li>・あなた専用の垢抜けプランを保存</li>
-                <li>・おすすめ商品をすぐに確認</li>
+                <li>
+                  ・診断結果をいつでも確認
+                </li>
+
+                <li>
+                  ・あなた専用の垢抜けプランを保存
+                </li>
+
+                <li>
+                  ・おすすめ商品をすぐに確認
+                </li>
               </ul>
             </div>
 

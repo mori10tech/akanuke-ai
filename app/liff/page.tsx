@@ -36,49 +36,109 @@ export default function LiffPage() {
         }
 
         setMessage(
-          "LINEアカウントを確認しています...",
+          "LINE公式アカウントを確認しています...",
         );
 
-        const idToken =
-          liff.getIDToken();
+        /*
+         * LINE公式アカウントとの友だち状態を確認
+         */
+        let friendship =
+          await liff.getFriendship();
 
-        if (!idToken) {
-          throw new Error(
-            "LINEのIDトークンを取得できませんでした。",
+        /*
+         * 未追加またはブロック中なら、
+         * LINE公式の友だち追加画面を表示
+         */
+        if (!friendship.friendFlag) {
+          setMessage(
+            "AKANUKE.AI公式LINEの友だち追加が必要です...",
           );
+
+          try {
+            await liff.requestFriendship();
+          } catch (error) {
+            console.error(
+              "LINE friendship request error:",
+              error,
+            );
+          }
+
+          /*
+           * 友だち追加画面を閉じた後、
+           * 状態をもう一度取得
+           */
+          friendship =
+            await liff.getFriendship();
+
+          if (!friendship.friendFlag) {
+            setMessage(
+              "AKANUKE.AIを利用するには、LINE公式アカウントの友だち追加が必要です。",
+            );
+
+            return;
+          }
         }
+
+        setMessage(
+          "ログイン状態を確認しています...",
+        );
 
         const supabase =
           createClient();
 
+        /*
+         * すでにSupabaseへログイン済みなら
+         * OAuthをやり直さず診断へ
+         */
         const {
-          data,
-          error,
+          data: { user },
         } =
-          await supabase.auth.signInWithIdToken({
+          await supabase.auth.getUser();
+
+        if (user) {
+          window.location.replace(
+            "/upload",
+          );
+
+          return;
+        }
+
+        setMessage(
+          "AKANUKE.AIにログインしています...",
+        );
+
+        /*
+         * 既存の正常動作している
+         * custom:line OAuthを使用
+         */
+        const { error } =
+          await supabase.auth.signInWithOAuth({
             provider: "custom:line",
-            token: idToken,
+
+            options: {
+              redirectTo:
+                `${window.location.origin}/auth/callback?next=${encodeURIComponent(
+                  "/upload",
+                )}`,
+
+              queryParams: {
+                bot_prompt:
+                  "aggressive",
+              },
+            },
           });
 
         if (error) {
           throw error;
         }
-
-        if (!data.session) {
-          throw new Error(
-            "Supabaseセッションを作成できませんでした。",
-          );
-        }
-
-        window.location.replace("/upload");
       } catch (error) {
         console.error(
-          "LIFF login error:",
+          "LIFF initialization error:",
           error,
         );
 
         setMessage(
-          "LINEログインに失敗しました。もう一度お試しください。",
+          "LINEとの接続に失敗しました。もう一度お試しください。",
         );
       }
     }

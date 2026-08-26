@@ -24,17 +24,16 @@ export default function LiffPage() {
         }
 
         await liff.init({
-          liffId,
-          withLoginOnExternalBrowser: true,
-        });
+  liffId,
+});
 
-        if (!liff.isLoggedIn()) {
-          liff.login({
-            redirectUri: window.location.href,
-          });
+if (!liff.isInClient() && !liff.isLoggedIn()) {
+  liff.login({
+    redirectUri: window.location.href,
+  });
 
-          return;
-        }
+  return;
+}
 
         setMessage(
           "LINE公式アカウントを確認しています...",

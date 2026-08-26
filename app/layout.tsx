@@ -153,20 +153,20 @@ export default function RootLayout({
     <html
       lang="ja"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <head>
-        <Script
-          id="google-adsense"
-          async
-          strategy="beforeInteractive"
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1051975714621683"
-          crossOrigin="anonymous"
-        />
-      </head>
-
+    >      
       <body className="flex min-h-full flex-col">
-        {children}
-      </body>
+  {children}
+
+  {process.env.NODE_ENV === "production" && (
+    <Script
+      id="google-adsense"
+      async
+      strategy="afterInteractive"
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1051975714621683"
+      crossOrigin="anonymous"
+    />
+  )}
+</body>
     </html>
   );
 }

@@ -96,9 +96,9 @@ export default function LoginPage() {
               )}`,
 
             queryParams: {
-              bot_prompt:
-                "aggressive",
-            },
+  bot_prompt: "aggressive",
+  disable_auto_login: "true",
+},
           },
         });
 

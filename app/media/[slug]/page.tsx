@@ -225,18 +225,26 @@ function CheckIcon() {
 function ArticleHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-black/10 bg-white/95 backdrop-blur-xl">
-      <div className="mx-auto flex h-[68px] w-full max-w-[980px] items-center justify-between gap-4 px-5">
+      <div className="mx-auto grid h-[64px] w-full max-w-[980px] grid-cols-[40px_minmax(0,1fr)_auto] items-center gap-2 px-3 sm:flex sm:h-[68px] sm:justify-between sm:gap-4 sm:px-5">
         <Link
           href="/media"
-          className="flex items-center gap-2 text-[11px] font-black text-black/55 transition hover:text-[#1677FF]"
+          aria-label="記事一覧へ戻る"
+          className="flex h-10 w-10 shrink-0 items-center justify-center text-black/50 transition hover:text-[#1677FF] sm:h-auto sm:w-auto sm:justify-start sm:gap-2 sm:text-[11px] sm:font-black"
         >
           <ArrowLeftIcon />
-          記事一覧
+
+          <span className="hidden sm:inline">
+            記事一覧
+          </span>
         </Link>
 
-        <Logo href="/" />
+        <div className="flex min-w-0 items-center justify-start sm:justify-center">
+          <Logo href="/" />
+        </div>
 
-        <JournalServiceCta />
+        <div className="shrink-0">
+          <JournalServiceCta />
+        </div>
       </div>
     </header>
   );
@@ -249,7 +257,7 @@ function ArticleHero({
 }) {
   return (
     <header className="border-b border-black/10 bg-gradient-to-b from-white to-[#EEF6FF]">
-      <div className="mx-auto max-w-[860px] px-5 pb-12 pt-12 sm:pb-16 sm:pt-16">
+      <div className="mx-auto max-w-[860px] px-5 pb-10 pt-8 sm:pb-16 sm:pt-16">
         <div className="flex flex-wrap items-center gap-2">
           <span className="rounded-full bg-white px-3 py-1.5 text-[9px] font-black text-[#1677FF] shadow-sm">
             {article.category}
@@ -260,15 +268,15 @@ function ArticleHero({
           </span>
         </div>
 
-        <h1 className="mt-5 text-[32px] font-semibold leading-[1.35] tracking-[-0.05em] sm:text-[48px]">
+        <h1 className="mt-5 text-[28px] font-semibold leading-[1.4] tracking-[-0.045em] sm:text-[48px] sm:leading-[1.35] sm:tracking-[-0.05em]">
           {article.title}
         </h1>
 
-        <p className="mt-5 max-w-[720px] text-[13px] leading-7 text-black/55 sm:text-[15px]">
+        <p className="mt-4 max-w-[720px] text-[13px] leading-7 text-black/55 sm:mt-5 sm:text-[15px]">
           {article.description}
         </p>
 
-        <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-[10px] font-bold text-black/35">
+        <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-[10px] font-bold text-black/35 sm:mt-6">
           <time dateTime={article.publishedAt}>
             公開日：{formatDate(article.publishedAt)}
           </time>
@@ -280,7 +288,7 @@ function ArticleHero({
           )}
         </div>
 
-        <div className="relative mt-9 aspect-[1200/630] overflow-hidden rounded-[28px] border border-black/5 bg-[#EEF6FF] shadow-[0_18px_55px_rgba(15,23,42,0.08)]">
+        <div className="relative mt-7 aspect-[1200/630] overflow-hidden rounded-[20px] border border-black/5 bg-[#EEF6FF] shadow-[0_12px_36px_rgba(15,23,42,0.07)] sm:mt-9 sm:rounded-[28px] sm:shadow-[0_18px_55px_rgba(15,23,42,0.08)]">
           <Image
             src={article.image}
             alt={article.title}

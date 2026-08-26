@@ -25,6 +25,9 @@ export const maxDuration = 60;
 const MAX_REQUEST_BYTES =
   14 * 1024 * 1024;
 
+const AFTER_SIGNED_URL_SECONDS =
+  60 * 60;
+
 type GenerateAfterRequestBody = {
   diagnosisId?: string;
   imageDataUrl?: string;
@@ -65,14 +68,18 @@ function normalizeImageMimeType(
     };
   }
 
-  if (normalized === "image/png") {
+  if (
+    normalized === "image/png"
+  ) {
     return {
       mimeType: "image/png",
       extension: "png" as const,
     };
   }
 
-  if (normalized === "image/webp") {
+  if (
+    normalized === "image/webp"
+  ) {
     return {
       mimeType: "image/webp",
       extension: "webp" as const,
@@ -85,9 +92,10 @@ function normalizeImageMimeType(
 function parseDataUrl(
   imageSource: string,
 ): ParsedImage | null {
-  const match = imageSource.match(
-  /^data:([^;,]+);base64,([\s\S]+)$/,
-);
+  const match =
+    imageSource.match(
+      /^data:([^;,]+);base64,([\s\S]+)$/,
+    );
 
   if (!match) {
     return null;
@@ -104,10 +112,11 @@ function parseDataUrl(
     );
   }
 
-  const base64 = match[2].replace(
-    /\s/g,
-    "",
-  );
+  const base64 =
+    match[2].replace(
+      /\s/g,
+      "",
+    );
 
   const buffer =
     Buffer.from(
@@ -115,7 +124,9 @@ function parseDataUrl(
       "base64",
     );
 
-  if (buffer.length === 0) {
+  if (
+    buffer.length === 0
+  ) {
     throw new Error(
       "画像データを読み込めませんでした。",
     );
@@ -145,8 +156,10 @@ async function fetchRemoteImage(
   }
 
   if (
-    parsedUrl.protocol !== "https:" &&
-    parsedUrl.protocol !== "http:"
+    parsedUrl.protocol !==
+      "https:" &&
+    parsedUrl.protocol !==
+      "http:"
   ) {
     throw new Error(
       "画像データの形式が正しくありません。",
@@ -154,9 +167,12 @@ async function fetchRemoteImage(
   }
 
   const response =
-    await fetch(imageUrl, {
-      cache: "no-store",
-    });
+    await fetch(
+      imageUrl,
+      {
+        cache: "no-store",
+      },
+    );
 
   if (!response.ok) {
     throw new Error(
@@ -188,7 +204,9 @@ async function fetchRemoteImage(
       arrayBuffer,
     );
 
-  if (buffer.length === 0) {
+  if (
+    buffer.length === 0
+  ) {
     throw new Error(
       "元画像を取得できませんでした。",
     );
@@ -357,25 +375,25 @@ export async function POST(
 
     /*
      * ログインユーザー本人の診断か確認します。
-     * 保存済みAfterがある場合は再生成しません。
      */
     const {
       data: diagnosis,
       error: diagnosisError,
-    } = await supabase
-      .from("diagnoses")
-      .select(
-        "id, after_image_path",
-      )
-      .eq(
-        "id",
-        diagnosisId,
-      )
-      .eq(
-        "user_id",
-        user.id,
-      )
-      .maybeSingle();
+    } =
+      await supabase
+        .from("diagnoses")
+        .select(
+          "id, after_image_path",
+        )
+        .eq(
+          "id",
+          diagnosisId,
+        )
+        .eq(
+          "user_id",
+          user.id,
+        )
+        .maybeSingle();
 
     if (
       diagnosisError ||
@@ -398,7 +416,8 @@ export async function POST(
     }
 
     /*
-     * 保存済みAfter画像を再利用します。
+     * すでにAfter画像が保存されている場合は、
+     * OpenAIで再生成せずStorageの画像を再利用します。
      */
     if (
       diagnosis.after_image_path
@@ -406,14 +425,15 @@ export async function POST(
       const {
         data: signedData,
         error: signedError,
-      } = await supabase.storage
-        .from(
-          DIAGNOSIS_IMAGE_BUCKET,
-        )
-        .createSignedUrl(
-          diagnosis.after_image_path,
-          60 * 60,
-        );
+      } =
+        await supabase.storage
+          .from(
+            DIAGNOSIS_IMAGE_BUCKET,
+          )
+          .createSignedUrl(
+            diagnosis.after_image_path,
+            AFTER_SIGNED_URL_SECONDS,
+          );
 
       if (
         !signedError &&
@@ -448,8 +468,8 @@ export async function POST(
 
     /*
      * 新規診断ではData URL、
-     * 履歴から開いた診断ではSupabaseの署名URLが
-     * 入る可能性があるため両方に対応します。
+     * 履歴では署名URLが入る可能性があるため
+     * 両方に対応します。
      */
     const {
       mimeType,
@@ -460,24 +480,31 @@ export async function POST(
         imageSource,
       );
 
+    const imageArrayBuffer =
+      new ArrayBuffer(
+        buffer.byteLength,
+      );
+
+    const imageBytes =
+      new Uint8Array(
+        imageArrayBuffer,
+      );
+
+    imageBytes.set(
+      buffer,
+    );
+
+    const imageBlob =
+      new Blob(
+        [imageArrayBuffer],
+        {
+          type: mimeType,
+        },
+      );
+
     const formData =
       new FormData();
 
-    const imageArrayBuffer =
-  new ArrayBuffer(buffer.byteLength);
-
-const imageBytes =
-  new Uint8Array(imageArrayBuffer);
-
-imageBytes.set(buffer);
-
-const imageBlob =
-  new Blob(
-    [imageArrayBuffer],
-    {
-      type: mimeType,
-    },
-  );
     formData.append(
       "image",
       imageBlob,
@@ -521,12 +548,20 @@ const imageBlob =
         diagnosisId,
         inputMimeType:
           mimeType,
+        inputBytes:
+          buffer.byteLength,
       },
     );
 
     const generationStartedAt =
       Date.now();
 
+    /*
+     * OpenAIでAfter画像を生成します。
+     *
+     * ここはVercelのmaxDuration=60秒以内に
+     * 完了する必要があります。
+     */
     const response =
       await fetch(
         "https://api.openai.com/v1/images/edits",
@@ -564,12 +599,27 @@ const imageBlob =
       );
     }
 
-    const afterImageDataUrl =
-      `data:image/webp;base64,${base64Image}`;
-
     const generationDurationMs =
       Date.now() -
       generationStartedAt;
+
+    /*
+     * OpenAIから受け取ったBase64を
+     * WebPバイナリへ変換します。
+     */
+    const afterBuffer =
+      Buffer.from(
+        base64Image,
+        "base64",
+      );
+
+    if (
+      afterBuffer.byteLength === 0
+    ) {
+      throw new Error(
+        "生成されたAfter画像を読み込めませんでした。",
+      );
+    }
 
     console.log(
       "[AKANUKE.AI] After画像生成が完了しました:",
@@ -579,12 +629,150 @@ const imageBlob =
         diagnosisId,
         durationMs:
           generationDurationMs,
+        outputBytes:
+          afterBuffer.byteLength,
       },
     );
 
+    /*
+     * ユーザー単位・診断単位で
+     * After画像をStorageへ永続保存します。
+     */
+    const afterImagePath =
+      `${user.id}/${diagnosisId}/after.webp`;
+
+    const {
+      error: uploadError,
+    } =
+      await supabase.storage
+        .from(
+          DIAGNOSIS_IMAGE_BUCKET,
+        )
+        .upload(
+          afterImagePath,
+          afterBuffer,
+          {
+            contentType:
+              "image/webp",
+            upsert: true,
+          },
+        );
+
+    if (uploadError) {
+      console.error(
+        "[AKANUKE.AI] After画像Storage保存エラー:",
+        uploadError,
+      );
+
+      throw new Error(
+        "After画像の保存に失敗しました。",
+      );
+    }
+
+    /*
+     * diagnosesテーブルへStorageパスを保存します。
+     * これにより履歴からAfterを再表示できます。
+     */
+    const {
+      error: updateError,
+    } =
+      await supabase
+        .from("diagnoses")
+        .update({
+          after_image_path:
+            afterImagePath,
+        })
+        .eq(
+          "id",
+          diagnosisId,
+        )
+        .eq(
+          "user_id",
+          user.id,
+        );
+
+    if (updateError) {
+      console.error(
+        "[AKANUKE.AI] After画像パスDB保存エラー:",
+        updateError,
+      );
+
+      /*
+       * DB保存に失敗した場合は、
+       * 孤立したStorageファイルを残さないよう削除します。
+       */
+      const {
+        error: cleanupError,
+      } =
+        await supabase.storage
+          .from(
+            DIAGNOSIS_IMAGE_BUCKET,
+          )
+          .remove([
+            afterImagePath,
+          ]);
+
+      if (cleanupError) {
+        console.error(
+          "[AKANUKE.AI] After画像クリーンアップエラー:",
+          cleanupError,
+        );
+      }
+
+      throw new Error(
+        "After画像の保存情報を更新できませんでした。",
+      );
+    }
+
+    /*
+     * 非公開Bucketなので、
+     * ブラウザ表示用の署名URLを発行します。
+     */
+    const {
+      data: signedData,
+      error: signedError,
+    } =
+      await supabase.storage
+        .from(
+          DIAGNOSIS_IMAGE_BUCKET,
+        )
+        .createSignedUrl(
+          afterImagePath,
+          AFTER_SIGNED_URL_SECONDS,
+        );
+
+    if (
+      signedError ||
+      !signedData?.signedUrl
+    ) {
+      console.error(
+        "[AKANUKE.AI] After画像署名URL生成エラー:",
+        signedError,
+      );
+
+      throw new Error(
+        "After画像の表示URLを作成できませんでした。",
+      );
+    }
+
+    console.log(
+      "[AKANUKE.AI] After画像の保存が完了しました:",
+      {
+        userId:
+          user.id,
+        diagnosisId,
+        afterImagePath,
+      },
+    );
+
+    /*
+     * 巨大なBase64画像は返さず、
+     * 軽量な署名URLだけをブラウザへ返します。
+     */
     return NextResponse.json(
       {
-        afterImageDataUrl,
+        afterImageUrl:
+          signedData.signedUrl,
         reused: false,
       },
       {

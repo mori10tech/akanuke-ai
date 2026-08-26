@@ -13,10 +13,7 @@ import {
 import AppShell from "../components/AppShell";
 import AdSenseAd from "../components/AdSenseAd";
 import type { AkanukeAnalysis } from "../../lib/openai/schemas";
-import {
-  loadAfterImage,
-  saveAfterImage,
-} from "../../lib/client/afterImageStore";
+
 import AppHeader from "../components/AppHeader";
 
 import ShareResultButton from "./ShareResultButton";
@@ -301,16 +298,8 @@ export default function ResultPage() {
   const [analysis, setAnalysis] =
     useState<AkanukeAnalysis | null>(null);
 
-  const [rawAnalysisResult, setRawAnalysisResult] =
-    useState("");
-
   const [afterImage, setAfterImage] =
     useState<string | null>(null);
-
-  const [
-    hasCheckedSavedAfter,
-    setHasCheckedSavedAfter,
-  ] = useState(false);
 
   const [isGeneratingAfter, setIsGeneratingAfter] =
     useState(false);
@@ -393,7 +382,6 @@ export default function ResultPage() {
 
       setImage(savedImage);
       setAnalysis(parsed);
-      setRawAnalysisResult(rawResult);
       setIsReady(true);
 
       const targetProgress =
@@ -507,67 +495,6 @@ export default function ResultPage() {
     }
   }, []);
 
-  /*
-* 同じ診断結果のAfter画像がIndexedDBに保存されている場合は、
-* 保存済み画像を復元してAPIの再実行を防ぎます。
-*/
-  useEffect(() => {
-    if (
-      !isReady ||
-      !rawAnalysisResult
-    ) {
-      return;
-    }
-
-    let isCancelled = false;
-
-    async function restoreSavedAfterImage() {
-      try {
-        const savedAfterImage =
-          await loadAfterImage(
-            rawAnalysisResult,
-          );
-
-        if (isCancelled) {
-          return;
-        }
-
-        if (savedAfterImage) {
-          setAfterImage(
-            savedAfterImage,
-          );
-
-          afterProgressValueRef.current =
-            100;
-
-          setAfterGenerationProgress(
-            100,
-          );
-        }
-      } catch (error) {
-        console.warn(
-          "[AKANUKE.AI] 保存済みAfter画像を復元できませんでした:",
-          error,
-        );
-      } finally {
-        if (!isCancelled) {
-          setHasCheckedSavedAfter(
-            true,
-          );
-        }
-      }
-    }
-
-    void restoreSavedAfterImage();
-
-    return () => {
-      isCancelled = true;
-    };
-  }, [
-    isReady,
-    rawAnalysisResult,
-  ]);
-
   const stopAfterProgressTimer = useCallback(() => {
     if (
       afterProgressTimerRef.current !== null
@@ -634,23 +561,23 @@ export default function ResultPage() {
 
   /*
  * 診断結果と元画像が揃ったら、
- * After画像を1回だけ自動生成します。
+ * After画像の取得処理を1回だけ実行します。
  *
- * IndexedDBに同じ診断結果のAfter画像がある場合は、
- * 保存済み画像を復元してAPIを再実行しません。
+ * API側で保存済みAfter画像を確認し、
+ * 存在する場合はOpenAIで再生成せず
+ * Supabase Storageの画像を再利用します。
  */
   useEffect(() => {
     if (
-      !isReady ||
-      !hasCheckedSavedAfter ||
-      isHistoryView ||
-      !image ||
-      !analysis ||
-      afterImage ||
-      afterRequestStartedRef.current
-    ) {
-      return;
-    }
+  !isReady ||
+  isHistoryView ||
+  !image ||
+  !analysis ||
+  afterImage ||
+  afterRequestStartedRef.current
+) {
+  return;
+}
 
     let isCancelled = false;
     async function generateAfterImage() {
@@ -827,63 +754,7 @@ if (!resolvedAfterImage) {
 
         setAfterImage(
   resolvedAfterImage,
-);  
-
-        if (
-  !data.reused &&
-  data.afterImageDataUrl
-) {
-  try {
-    const saveImageResponse =
-      await fetch(
-        `/api/diagnoses/${diagnosisId}/image`,
-        {
-          method: "PUT",
-          cache: "no-store",
-          headers: {
-            "Content-Type":
-              "application/json",
-          },
-          body: JSON.stringify({
-            kind: "after",
-            imageDataUrl:
-              data.afterImageDataUrl,
-          }),
-        },
-      );
-
-    if (!saveImageResponse.ok) {
-      console.warn(
-        "[AKANUKE.AI] After画像を診断履歴へ保存できませんでした:",
-        saveImageResponse.status,
-      );
-    }
-  } catch (saveImageError) {
-    console.warn(
-      "[AKANUKE.AI] After画像の履歴保存をスキップしました:",
-      saveImageError,
-    );
-  }
-}
-
-        if (
-  !data.reused &&
-  data.afterImageDataUrl
-) {
-  try {
-    await saveAfterImage({
-      sourceResult:
-        rawAnalysisResult,
-      imageDataUrl:
-        data.afterImageDataUrl,
-    });
-  } catch (storageError) {
-    console.warn(
-      "[AKANUKE.AI] After画像をIndexedDBへ保存できませんでした:",
-      storageError,
-    );
-  }
-}
+);
 
         console.log(
           "[AKANUKE.AI] Result画面へのAfter画像表示が完了しました",
@@ -936,17 +807,15 @@ if (!resolvedAfterImage) {
       stopAfterProgressTimer();
     };
   }, [
-    isReady,
-    hasCheckedSavedAfter,
-    isHistoryView,
-    image,
-    analysis,
-    afterImage,
-    afterRetryCount,
-    rawAnalysisResult,
-    startAfterProgressTimer,
-    stopAfterProgressTimer,
-  ]);
+  isReady,
+  isHistoryView,
+  image,
+  analysis,
+  afterImage,
+  afterRetryCount,
+  startAfterProgressTimer,
+  stopAfterProgressTimer,
+]);
 
   const handleRetryAfter = () => {
     stopAfterProgressTimer();

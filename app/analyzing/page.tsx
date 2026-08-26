@@ -87,7 +87,7 @@ function getAnalyzingProgress(
   }
 
   if (elapsedSeconds < 32) {
-    return 80.8 + (elapsedSeconds - 24) * 1;
+    return 80.8 + (elapsedSeconds - 24);
   }
 
   if (elapsedSeconds < 42) {
@@ -98,17 +98,17 @@ function getAnalyzingProgress(
     return 93.3 + (elapsedSeconds - 42) * 0.2;
   }
 
-  if (elapsedSeconds < 75) {
-    return 95.9 + (elapsedSeconds - 55) * 0.08;
+  if (elapsedSeconds < 70) {
+    return 95.9 + (elapsedSeconds - 55) * 0.1;
   }
 
-  if (elapsedSeconds < 100) {
-    return 97.5 + (elapsedSeconds - 75) * 0.04;
+  if (elapsedSeconds < 90) {
+    return 97.4 + (elapsedSeconds - 70) * 0.05;
   }
 
-  /*
-   * 長時間かかった場合も99%で待機します。
-   * API完了前に100%にはしません。
+   /*
+   * 長時間かかってもAPI完了前は99%で待機します。
+   * 100%は実際に診断が完了した場合のみ表示します。
    */
   return 99;
 }
@@ -227,12 +227,12 @@ export default function AnalyzingPage() {
           );
 
         const nextProgress =
-          Math.min(
-            99,
-            Math.floor(
-              calculatedProgress,
-            ),
-          );
+  Math.min(
+    99,
+    Math.floor(
+      calculatedProgress,
+    ),
+  );
 
         if (isCancelled) {
           return;
@@ -655,9 +655,19 @@ export default function AnalyzingPage() {
 
                 {!errorMessage && (
                   <p className="shrink-0 text-[10px] text-black/35">
-                    {progress >= 95
-                      ? "最終調整中"
-                      : "AI解析中"}
+                    <span className="inline-flex items-center gap-1.5">
+  <span>
+    {progress >= 95
+      ? "最終調整中"
+      : "AI解析中"}
+  </span>
+
+  <span className="flex gap-0.5">
+    <span className="h-1 w-1 animate-pulse rounded-full bg-black/30" />
+    <span className="h-1 w-1 animate-pulse rounded-full bg-black/30 [animation-delay:150ms]" />
+    <span className="h-1 w-1 animate-pulse rounded-full bg-black/30 [animation-delay:300ms]" />
+  </span>
+</span>
                   </p>
                 )}
               </div>

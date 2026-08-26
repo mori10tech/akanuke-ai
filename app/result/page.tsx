@@ -273,9 +273,9 @@ function AnalysisDetail({
           CURRENT
         </p>
 
-        <p className="mt-1 text-[12px] leading-6 text-black/65">
-          {observation}
-        </p>
+        <p className="mt-1 text-[13px] leading-6 text-black/70">
+  {observation}
+</p>
       </div>
 
       <div className="mt-3 rounded-[12px] bg-[#EEF6FF] p-3">
@@ -283,9 +283,9 @@ function AnalysisDetail({
           ADVICE
         </p>
 
-        <p className="mt-1 text-[12px] leading-6 text-black/70">
-          {advice}
-        </p>
+        <p className="mt-1 text-[13px] leading-6 text-black/75">
+  {advice}
+</p>
       </div>
     </article>
   );
@@ -1039,9 +1039,9 @@ if (!resolvedAfterImage) {
               {analysis.summary.headline}
             </h2>
 
-            <p className="mt-3 text-[12px] leading-6 text-black/55">
-              {analysis.summary.body}
-            </p>
+            <p className="mt-3 text-[13px] leading-6 text-black/70">
+  {analysis.summary.body}
+</p>
 
             <div className="mt-4 rounded-[14px] bg-white/70 px-4 py-3">
               <p className="text-[9px] font-black tracking-[0.1em] text-[#1677FF]">
@@ -1182,9 +1182,9 @@ if (!resolvedAfterImage) {
                     現在の印象
                   </p>
 
-                  <p className="mt-1 text-[12px] leading-6 text-black/70">
-                    {analysis.currentImpression}
-                  </p>
+                  <p className="mt-1 text-[12px] leading-6 text-black/75">
+  {analysis.currentImpression}
+</p>
                 </div>
               </div>
 
@@ -1338,9 +1338,9 @@ if (!resolvedAfterImage) {
                   </div>
                 </div>
 
-                <p className="mt-3 text-[12px] leading-6 text-black/70">
-                  {afterSummary.body}
-                </p>
+                <p className="mt-3 text-[13px] leading-6 text-black/75">
+  {afterSummary.body}
+</p>
               </div>
 
               <div className="border-t border-[#1677FF]/10 bg-white p-4">
@@ -1362,8 +1362,9 @@ if (!resolvedAfterImage) {
                           />
                         </span>
 
-                        <p className="min-w-0 flex-1 text-[12px] leading-6 text-black/70">                          {change}
-                        </p>
+                        <p className="min-w-0 flex-1 text-[13px] leading-6 text-black/75">
+  {change}
+</p>
                       </div>
                     ),
                   )}
@@ -1427,9 +1428,9 @@ if (!resolvedAfterImage) {
             {label}
           </p>
 
-          <p className="mt-1 text-[12px] leading-6 text-black/65">
-            {value}
-          </p>
+          <p className="mt-1 text-[13px] leading-6 text-black/70">
+  {value}
+</p>
         </div>
       ),
     )}

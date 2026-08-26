@@ -9,19 +9,8 @@ type LineFriendshipResponse = {
   friendFlag?: boolean;
 };
 
-function getSafeNext(
-  value: string | null,
-) {
-  if (
-    value &&
-    value.startsWith("/") &&
-    !value.startsWith("//")
-  ) {
-    return value;
-  }
-
-  return "/dashboard";
-}
+const AKANUKE_LINE_TALK_URL =
+  "https://line.me/R/oaMessage/@507rwrwg";
 
 function createLoginRedirect(
   request: NextRequest,
@@ -53,11 +42,6 @@ export async function GET(
 
   const code =
     requestUrl.searchParams.get("code");
-
-  const safeNext =
-    getSafeNext(
-      requestUrl.searchParams.get("next"),
-    );
 
   if (!code) {
     return createLoginRedirect(
@@ -151,14 +135,15 @@ export async function GET(
       );
     }
 
-    const redirectUrl =
-      request.nextUrl.clone();
-
-    redirectUrl.pathname = safeNext;
-    redirectUrl.search = "";
-
+    /*
+     * LINE認証成功
+     * ＋
+     * AKANUKE.AI公式LINEを友だち追加済み
+     *
+     * → AKANUKE.AI公式LINEのトーク画面へ
+     */
     return NextResponse.redirect(
-      redirectUrl,
+      AKANUKE_LINE_TALK_URL,
     );
   } catch (error) {
     console.error(

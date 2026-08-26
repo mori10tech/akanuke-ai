@@ -344,6 +344,12 @@ export default function UploadPage() {
   const router = useRouter();
   const preferenceSectionRef = useRef<HTMLElement | null>(null);
 
+  const cameraInputRef =
+    useRef<HTMLInputElement | null>(null);
+
+  const libraryInputRef =
+    useRef<HTMLInputElement | null>(null);
+
   const [preview, setPreview] = useState<string | null>(null);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [notice, setNotice] = useState<string | null>(null);
@@ -812,53 +818,80 @@ useEffect(() => {
             </div>
 
             <div className="p-4">
-              <label className="block cursor-pointer overflow-hidden rounded-[16px] border border-dashed border-black/20 bg-white transition text-[#1677FF]">
-                {preview ? (
-                  <div className="relative bg-[#EEF6FF]">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={preview}
-                      alt="選択した顔写真"
-                      className="block max-h-[500px] min-h-[320px] w-full object-contain"
-                    />
 
-                    <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent px-4 pb-4 pt-16">
-                      <p className="text-center text-[12px] font-black text-white">
-                        タップして写真を変更
-                      </p>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="flex min-h-[300px] items-center justify-center px-6 text-center">
-                    <div>
-                      <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-black text-white shadow-lg">
-                        <CameraIcon />
-                      </span>
+              <div className="overflow-hidden rounded-[16px] border border-dashed border-black/20 bg-white">
+  {preview ? (
+    <div className="relative bg-[#EEF6FF]">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={preview}
+        alt="選択した顔写真"
+        className="block max-h-[500px] min-h-[320px] w-full object-contain"
+      />
+    </div>
+  ) : (
+    <div className="flex min-h-[230px] items-center justify-center px-6 text-center">
+      <div>
+        <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-black text-white shadow-lg">
+          <CameraIcon />
+        </span>
 
-                      <p className="mt-5 text-[17px] font-black text-[#111111]">
-                        タップして写真を選択
-                      </p>
+        <p className="mt-5 text-[17px] font-black text-[#111111]">
+          顔写真を用意してください
+        </p>
 
-                      <p className="mt-2 text-[12px] leading-5 text-black/60">
-                        顔全体がはっきり見える
-                        <br />
-                        正面の写真がおすすめです
-                      </p>
+        <p className="mt-2 text-[12px] leading-5 text-black/60">
+          顔全体がはっきり見える
+          <br />
+          正面の写真がおすすめです
+        </p>
 
-                      <span className="mt-5 inline-flex rounded-full bg-[#FFF9D9] px-3 py-1.5 text-[10px] font-black text-[#1677FF]">
-                        写真は診断以外には使用しません
-                      </span>
-                    </div>
-                  </div>
-                )}
+        <span className="mt-5 inline-flex rounded-full bg-[#FFF9D9] px-3 py-1.5 text-[10px] font-black text-[#1677FF]">
+          写真は診断以外には使用しません
+        </span>
+      </div>
+    </div>
+  )}
+</div>
 
-                <input
-                  type="file"
-                  accept="image/jpeg,image/png,image/webp"
-                  onChange={handleImage}
-                  className="hidden"
-                />
-              </label>
+<div className="mt-3 grid grid-cols-2 gap-2.5">
+  <button
+    type="button"
+    onClick={() =>
+      cameraInputRef.current?.click()
+    }
+    className="flex min-h-[52px] items-center justify-center rounded-[12px] bg-[#1677FF] px-3 text-[13px] font-black text-white shadow-[0_6px_18px_rgba(22,119,255,0.18)] transition active:scale-[0.98]"
+  >
+    写真を撮る
+  </button>
+
+  <button
+    type="button"
+    onClick={() =>
+      libraryInputRef.current?.click()
+    }
+    className="flex min-h-[52px] items-center justify-center rounded-[12px] border border-[#1677FF]/20 bg-[#EEF6FF] px-3 text-[13px] font-black text-[#1677FF] transition active:scale-[0.98]"
+  >
+    写真を選ぶ
+  </button>
+</div>
+
+<input
+  ref={cameraInputRef}
+  type="file"
+  accept="image/*"
+  capture="user"
+  onChange={handleImage}
+  className="hidden"
+/>
+
+<input
+  ref={libraryInputRef}
+  type="file"
+  accept="image/jpeg,image/png,image/webp"
+  onChange={handleImage}
+  className="hidden"
+/>
 
               {preview && (
                 <button

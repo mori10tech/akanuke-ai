@@ -1240,7 +1240,7 @@ if (!resolvedAfterImage) {
                           経過 {afterElapsedSeconds}秒
                         </p>
 
-                        <p className="mt-3 hidden text-[7px] leading-3.5 text-black/35 sm:block">
+                        <p className="mt-3 text-[9px] font-medium leading-[1.6] text-black/60">
                           高品質なAfterを生成しているため、
                           <br />
                           少し時間がかかる場合があります

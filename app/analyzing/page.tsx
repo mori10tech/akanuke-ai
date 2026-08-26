@@ -599,7 +599,7 @@ export default function AnalyzingPage() {
 
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/5 via-transparent to-black/45" />
 
-              <div className="pointer-events-none absolute bottom-[15%] left-[7%] right-[7%] top-[7%] z-10 overflow-hidden rounded-[24px]">
+              <div className="pointer-events-none absolute bottom-[24%] left-[7%] right-[7%] top-[7%] z-10 overflow-hidden rounded-[24px]">
                 <div className="akanuke-ai-grid absolute inset-0" />
 
                 <div className="akanuke-grid-scan absolute inset-x-0 top-0 h-[30%]" />

@@ -1,15 +1,72 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import liff from "@line/liff";
 
 import { createClient } from "../../lib/supabase/client";
-import Image from "next/image";
+
+const DEFAULT_NEXT = "/upload";
+
+const ALLOWED_NEXT_PATHS = new Set([
+  "/",
+  "/upload",
+  "/line/result",
+  "/products",
+  "/media",
+  "/dashboard",
+]);
+
+function getSafeNext() {
+  const searchParams = new URLSearchParams(
+    window.location.search,
+  );
+
+  const requestedNext =
+    searchParams.get("next");
+
+  if (
+    requestedNext &&
+    ALLOWED_NEXT_PATHS.has(requestedNext)
+  ) {
+    return requestedNext;
+  }
+
+  return DEFAULT_NEXT;
+}
+
+function getPageTitle(path: string) {
+  switch (path) {
+    case "/upload":
+      return "AI垢抜け診断";
+
+    case "/line/result":
+      return "診断結果";
+
+    case "/products":
+      return "おすすめ商品";
+
+    case "/media":
+      return "AKANUKE JOURNAL";
+
+    case "/dashboard":
+      return "マイページ";
+
+    case "/":
+      return "AKANUKE.AI";
+
+    default:
+      return "AKANUKE.AI";
+  }
+}
 
 export default function LiffPage() {
   const [message, setMessage] = useState(
     "AKANUKE.AIを準備しています...",
   );
+
+  const [pageTitle, setPageTitle] =
+    useState("AKANUKE.AI");
 
   useEffect(() => {
     async function initializeLiff() {
@@ -23,31 +80,49 @@ export default function LiffPage() {
           );
         }
 
+        const safeNext = getSafeNext();
+
+        setPageTitle(
+          getPageTitle(safeNext),
+        );
+
         await liff.init({
-  liffId,
-});
+          liffId,
+        });
 
-if (!liff.isInClient() && !liff.isLoggedIn()) {
-  liff.login({
-    redirectUri: window.location.href,
-  });
+        /*
+         * LINEアプリ外からLIFFを開いた場合のみ
+         * LINEログインを実行する。
+         *
+         * LINEアプリ内では
+         * liff.init() によるログイン状態を利用する。
+         */
+        if (
+          !liff.isInClient() &&
+          !liff.isLoggedIn()
+        ) {
+          liff.login({
+            redirectUri:
+              window.location.href,
+          });
 
-  return;
-}
+          return;
+        }
 
         setMessage(
           "LINE公式アカウントを確認しています...",
         );
 
         /*
-         * LINE公式アカウントとの友だち状態を確認
+         * AKANUKE.AI公式LINEとの
+         * 友だち状態を確認
          */
         let friendship =
           await liff.getFriendship();
 
         /*
-         * 未追加またはブロック中なら、
-         * LINE公式の友だち追加画面を表示
+         * 未追加またはブロック中の場合は
+         * 友だち追加を促す
          */
         if (!friendship.friendFlag) {
           setMessage(
@@ -64,8 +139,7 @@ if (!liff.isInClient() && !liff.isLoggedIn()) {
           }
 
           /*
-           * 友だち追加画面を閉じた後、
-           * 状態をもう一度取得
+           * 追加画面を閉じた後に再確認
            */
           friendship =
             await liff.getFriendship();
@@ -87,17 +161,26 @@ if (!liff.isInClient() && !liff.isLoggedIn()) {
           createClient();
 
         /*
-         * すでにSupabaseへログイン済みなら
-         * OAuthをやり直さず診断へ
+         * LIFFブラウザ内ですでに
+         * Supabaseログイン済みなら
+         * そのまま目的ページへ
          */
         const {
           data: { user },
+          error: userError,
         } =
           await supabase.auth.getUser();
 
+        if (userError) {
+          console.warn(
+            "Supabase user check error:",
+            userError,
+          );
+        }
+
         if (user) {
           window.location.replace(
-            "/upload",
+            safeNext,
           );
 
           return;
@@ -108,18 +191,27 @@ if (!liff.isInClient() && !liff.isLoggedIn()) {
         );
 
         /*
-         * 既存の正常動作している
-         * custom:line OAuthを使用
+         * Supabase未ログインの場合のみ
+         * 既存custom:line OAuthを実行。
+         *
+         * source=liff を付けることで
+         * callback側で公式LINEトークではなく
+         * safeNextへ戻す。
          */
+        const callbackUrl =
+          `${window.location.origin}/auth/callback` +
+          `?source=liff` +
+          `&next=${encodeURIComponent(
+            safeNext,
+          )}`;
+
         const { error } =
           await supabase.auth.signInWithOAuth({
             provider: "custom:line",
 
             options: {
               redirectTo:
-                `${window.location.origin}/auth/callback?next=${encodeURIComponent(
-                  "/upload",
-                )}`,
+                callbackUrl,
 
               queryParams: {
                 bot_prompt:
@@ -150,18 +242,18 @@ if (!liff.isInClient() && !liff.isLoggedIn()) {
     <main className="flex min-h-screen items-center justify-center bg-white px-5 text-[#111111]">
       <div className="w-full max-w-[420px] text-center">
         <div className="mx-auto flex h-20 w-20 items-center justify-center overflow-hidden rounded-[20px] bg-white shadow-[0_8px_28px_rgba(15,23,42,0.08)]">
-  <Image
-    src="/icon-512.png"
-    alt="AKANUKE.AI"
-    width={80}
-    height={80}
-    priority
-    className="h-full w-full object-cover"
-  />
-</div>
+          <Image
+            src="/icon-512.png"
+            alt="AKANUKE.AI"
+            width={80}
+            height={80}
+            priority
+            className="h-full w-full object-cover"
+          />
+        </div>
 
-        <h1 className="mt-3 text-[26px] font-black tracking-[-0.04em]">
-          AI垢抜け診断
+        <h1 className="mt-4 text-[26px] font-black tracking-[-0.04em]">
+          {pageTitle}
         </h1>
 
         <p className="mt-4 text-[13px] leading-7 text-black/50">

@@ -12,6 +12,30 @@ type LineFriendshipResponse = {
 const AKANUKE_LINE_TALK_URL =
   "https://line.me/R/ti/p/%40507rwrwg";
 
+const DEFAULT_NEXT = "/upload";
+
+const ALLOWED_NEXT_PATHS = new Set([
+  "/",
+  "/upload",
+  "/line/result",
+  "/products",
+  "/media",
+  "/dashboard",
+]);
+
+function getSafeNext(
+  value: string | null,
+) {
+  if (
+    value &&
+    ALLOWED_NEXT_PATHS.has(value)
+  ) {
+    return value;
+  }
+
+  return DEFAULT_NEXT;
+}
+
 function createLoginRedirect(
   request: NextRequest,
   reason?: string,
@@ -34,6 +58,21 @@ function createLoginRedirect(
   );
 }
 
+function createInternalRedirect(
+  request: NextRequest,
+  pathname: string,
+) {
+  const redirectUrl =
+    request.nextUrl.clone();
+
+  redirectUrl.pathname = pathname;
+  redirectUrl.search = "";
+
+  return NextResponse.redirect(
+    redirectUrl,
+  );
+}
+
 export async function GET(
   request: NextRequest,
 ) {
@@ -42,6 +81,14 @@ export async function GET(
 
   const code =
     requestUrl.searchParams.get("code");
+
+  const source =
+    requestUrl.searchParams.get("source");
+
+  const safeNext =
+    getSafeNext(
+      requestUrl.searchParams.get("next"),
+    );
 
   if (!code) {
     return createLoginRedirect(
@@ -95,10 +142,12 @@ export async function GET(
         "https://api.line.me/friendship/v1/status",
         {
           method: "GET",
+
           headers: {
             Authorization:
               `Bearer ${providerToken}`,
           },
+
           cache: "no-store",
         },
       );
@@ -124,6 +173,11 @@ export async function GET(
     const friendshipData =
       (await friendshipResponse.json()) as LineFriendshipResponse;
 
+    /*
+     * 友だち追加していない、
+     * またはブロック中なら
+     * AKANUKE.AIを利用させない
+     */
     if (
       friendshipData.friendFlag !== true
     ) {
@@ -136,11 +190,24 @@ export async function GET(
     }
 
     /*
-     * LINE認証成功
-     * ＋
-     * AKANUKE.AI公式LINEを友だち追加済み
+     * LIFF経由のログインの場合
      *
-     * → AKANUKE.AI公式LINEのトーク画面へ
+     * LINEトークには戻さず、
+     * リッチメニューで指定された
+     * AKANUKE.AIページへ進む
+     */
+    if (source === "liff") {
+      return createInternalRedirect(
+        request,
+        safeNext,
+      );
+    }
+
+    /*
+     * 通常のAKANUKE.AIログインの場合
+     *
+     * 初回導線として
+     * AKANUKE.AI公式LINEへ遷移
      */
     return NextResponse.redirect(
       AKANUKE_LINE_TALK_URL,

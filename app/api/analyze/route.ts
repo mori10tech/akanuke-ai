@@ -298,7 +298,7 @@ export async function POST(
          * After生成に必要な情報量は維持しつつ、
          * レスポンス生成時間を抑えます。
          */
-        max_output_tokens: 4000,
+        max_output_tokens: 2500,
 
         input: [
           {
@@ -331,31 +331,54 @@ AKANUKE PROGRESSは、
 容姿の点数ではなく、
 希望するAfterイメージへの現在の到達度として算出してください。
 
-【回答量】
-診断速度を優先するため、
-必要な情報を簡潔かつ具体的に回答してください。
+【回答量】 
+スマートフォンで短時間に理解できることを最優先してください。
 
-- currentImpression：2文以内
-- summary.headline：1文
-- summary.body：3文以内
-- afterSummary.headline：1文
-- afterSummary.body：3文以内
-- afterSummary.changes：3〜5件
-- hair.observation：2文以内
-- hair.advice：3文以内
-- eyebrows.observation：2文以内
-- eyebrows.advice：3文以内
-- skin.observation：2文以内
-- skin.advice：3文以内
-- grooming.observation：2文以内
-- grooming.advice：3文以内
-- priorities.description：各3文以内
-- afterDirection：各項目2〜3文以内
+文章は必要最小限にし、
+前置き・一般論・同じ内容の言い換えは不要です。
+
+文字数上限まで埋める必要はありません。
+短く伝わる場合は、より短く回答してください。
+
+- currentImpression：60文字以内
+- summary.headline：30文字以内
+- summary.body：90文字以内
+- afterSummary.headline：30文字以内
+- afterSummary.body：90文字以内
+- afterSummary.changes：3〜4件、各35文字以内
+
+- hair.observation：60文字以内
+- hair.advice：85文字以内
+
+- eyebrows.observation：60文字以内
+- eyebrows.advice：85文字以内
+
+- skin.observation：60文字以内
+- skin.advice：85文字以内
+
+- grooming.observation：60文字以内
+- grooming.advice：85文字以内
+
+- priorities.description：各70文字以内
+
+- afterDirection.hair：70文字以内
+- afterDirection.eyebrows：70文字以内
+- afterDirection.skin：70文字以内
+- afterDirection.grooming：70文字以内
+- afterDirection.styling：70文字以内
+
+【各項目の役割】
+- currentImpression：現在の印象を短く要約する
+- observation：写真から確認できる現在の状態だけを書く
+- advice：具体的に何を変えるべきかを書く
+- priorities.description：なぜその項目を優先するかを書く
+- afterDirection：After画像でどのように見た目を変えるかを書く
+
+各項目で同じ内容を繰り返さないでください。
 
 afterDirectionはAfter画像生成に使用するため、
-短くしても具体的な視覚変更内容は必ず残してください。
-
-同じ内容の言い換えや重複説明は不要です。
+短くしても髪型・眉・肌・身だしなみ・スタイリングの
+具体的な視覚変更内容は必ず残してください。
                 `.trim(),
               },
 

@@ -758,12 +758,21 @@ export default function ProductsPage() {
               </p>
             </aside>
 
-            <Link
-              href="/result"
-              className="mt-5 flex min-h-[50px] items-center justify-center rounded-[12px] border border-black/10 bg-white px-5 text-[11px] font-black transition hover:bg-[#EEF6FF]"
-            >
-              診断結果へ戻る
-            </Link>
+            <div className="mt-6 space-y-3">
+  <Link
+    href="/dashboard"
+    className="flex min-h-[56px] w-full items-center justify-center rounded-[14px] bg-[#1677FF] px-5 text-[13px] font-black text-white shadow-[0_10px_28px_rgba(22,119,255,0.22)] transition hover:-translate-y-0.5 hover:bg-[#0F6FEF] active:scale-[0.99]"
+  >
+    マイページへ
+  </Link>
+
+  <Link
+    href="/result"
+    className="flex min-h-[50px] w-full items-center justify-center rounded-[12px] border border-black/10 bg-white px-5 text-[11px] font-black text-black/60 transition hover:bg-[#EEF6FF] active:scale-[0.99]"
+  >
+    診断結果へ戻る
+  </Link>
+</div>
           </div>
         </main>
       </div>

@@ -1605,7 +1605,7 @@ if (!resolvedAfterImage) {
   </div>
 </section>
 
-          <section className="mx-4 mt-8 overflow-hidden rounded-[26px] border border-[#1677FF]/15 bg-gradient-to-br from-[#EEF6FF] via-white to-[#FFF9D9] shadow-[0_14px_44px_rgba(22,119,255,0.10)]">
+          <section className="mx-4 mb-8 mt-8 overflow-hidden rounded-[26px] border border-[#1677FF]/20 bg-gradient-to-br from-[#EEF6FF] via-white to-[#FFF9D9] shadow-[0_16px_48px_rgba(22,119,255,0.12)]">
   <div className="px-5 pb-5 pt-6">
     <div className="flex items-start gap-4">
       <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white text-[#1677FF] shadow-[0_8px_24px_rgba(15,23,42,0.06)]">
@@ -1631,61 +1631,63 @@ if (!resolvedAfterImage) {
       </div>
     </div>
 
-    {/* メインCTA */}
-<Link
-  href="/plan"
-  className="mt-6 flex min-h-[56px] w-full items-center gap-3 rounded-[16px] border border-[#FFD400]/70 bg-[#FFF9D9] px-4 text-[#111111] shadow-[0_6px_20px_rgba(15,23,42,0.04)] transition hover:-translate-y-0.5 hover:bg-[#FFF5BF] active:scale-[0.99]"
->
-  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#FFD400] text-[#111111]">
-    <Icon
-      name="calendar"
-      className="h-4 w-4"
-    />
-  </span>
-
-  <div className="min-w-0 flex-1 text-left">
-    <p className="text-[12px] font-black">
-      垢抜けプランを見る
-    </p>
-
-    <p className="mt-0.5 text-[9px] font-medium text-black/45">
-      優先順位に沿って改善を始める
-    </p>
-  </div>
-
-  <span
-    aria-hidden="true"
-    className="shrink-0 text-[18px] font-black text-[#111111]"
-  >
-    →
-  </span>
-</Link>
-
-    {/* サブCTA */}
+    {/* 最優先CTA */}
     <Link
-      href="/products"
-      className="mt-3 flex min-h-[56px] w-full items-center gap-4 rounded-[16px] border border-[#1677FF]/15 bg-white px-5 text-[#111111] transition hover:bg-[#F7F9FC] active:scale-[0.99]"
+      href="/plan"
+      className="mt-6 flex min-h-[64px] w-full items-center gap-3 rounded-[16px] bg-[#FFD400] px-4 text-[#111111] shadow-[0_10px_28px_rgba(255,212,0,0.28)] transition hover:-translate-y-0.5 hover:bg-[#FFCF00] active:scale-[0.99]"
     >
-      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#EEF6FF] text-[#1677FF]">
+      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[13px] bg-white/75 text-[#111111]">
         <Icon
-          name="bag"
-          className="h-4 w-4"
+          name="calendar"
+          className="h-5 w-5"
         />
       </span>
 
       <div className="min-w-0 flex-1 text-left">
-        <p className="text-[12px] font-black">
+        <div className="flex items-center gap-2">
+          <p className="text-[13px] font-black">
+            垢抜けプランを見る
+          </p>        
+        </div>
+
+        <p className="mt-1 text-[9px] font-bold text-black/55">
+          優先順位に沿って改善を始める
+        </p>
+      </div>
+
+      <span
+        aria-hidden="true"
+        className="shrink-0 text-[20px] font-black text-[#111111]"
+      >
+        →
+      </span>
+    </Link>
+
+    {/* 商品CTA */}
+    <Link
+      href="/products"
+      className="mt-3 flex min-h-[60px] w-full items-center gap-3 rounded-[16px] border border-[#1677FF]/25 bg-[#EEF6FF] px-4 text-[#111111] shadow-[0_6px_18px_rgba(22,119,255,0.06)] transition hover:-translate-y-0.5 hover:bg-[#E4F1FF] active:scale-[0.99]"
+    >
+      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[13px] bg-white text-[#1677FF]">
+        <Icon
+          name="bag"
+          className="h-5 w-5"
+        />
+      </span>
+
+      <div className="min-w-0 flex-1 text-left">
+        <p className="text-[13px] font-black">
           おすすめ商品を見る
         </p>
 
-        <p className="mt-0.5 text-[9px] text-black/45">
+        <p className="mt-1 text-[9px] font-medium text-black/50">
           今のあなたに必要なアイテムを確認
         </p>
       </div>
 
       <span
         aria-hidden="true"
-        className="shrink-0 text-[18px] font-bold text-[#1677FF]"
+        className="shrink-0 text-[20px] font-black text-[#1677FF]"
       >
         →
       </span>
@@ -1695,12 +1697,13 @@ if (!resolvedAfterImage) {
 
 <Link
   href="/dashboard"
-  className="mt-4 flex min-h-[44px] w-full items-center justify-center gap-2 text-[11px] font-black text-black/45 transition hover:text-[#1677FF]"
+  className="mx-4 mt-5 flex min-h-[54px] items-center justify-center gap-2 rounded-[14px] bg-[#1677FF] px-5 text-[12px] font-black text-white shadow-[0_8px_24px_rgba(22,119,255,0.18)] transition hover:-translate-y-0.5 hover:bg-[#0F6FEF] active:scale-[0.99]"
 >
   マイページへ
+
   <span
     aria-hidden="true"
-    className="text-[15px]"
+    className="text-[16px] font-black"
   >
     →
   </span>

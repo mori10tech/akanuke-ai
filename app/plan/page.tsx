@@ -1113,22 +1113,34 @@ export default function PlanPage() {
             </section>
           )}
 
-          <button
-            type="button"
-            onClick={() =>
-              setCompletedIds(
-                [],
-              )
-            }
-            className="mx-auto mt-6 flex items-center gap-2 text-[10px] font-black text-black/35"
-          >
-            <Icon
-              name="reset"
-              className="h-4 w-4"
-            />
+          <Link
+  href="/dashboard"
+  className="mx-4 mt-6 flex min-h-[54px] items-center justify-center gap-2 rounded-[14px] bg-[#1677FF] px-5 text-[12px] font-black text-white shadow-[0_8px_24px_rgba(22,119,255,0.18)] transition hover:-translate-y-0.5 hover:bg-[#0F6FEF] active:scale-[0.99]"
+>
+  マイページへ
 
-            チェック状況をリセット
-          </button>
+  <span
+    aria-hidden="true"
+    className="text-[16px] font-black"
+  >
+    →
+  </span>
+</Link>
+
+<button
+  type="button"
+  onClick={() =>
+    setCompletedIds([])
+  }
+  className="mx-auto mt-5 flex items-center gap-2 text-[10px] font-black text-black/35 transition hover:text-black/55"
+>
+  <Icon
+    name="reset"
+    className="h-4 w-4"
+  />
+
+  チェック状況をリセット
+</button>
         </div>
       </div>
     </AppShell>

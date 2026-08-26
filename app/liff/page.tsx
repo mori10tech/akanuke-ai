@@ -161,10 +161,6 @@ export default function LiffPage() {
   />
 </div>
 
-        <p className="mt-6 text-[11px] font-black tracking-[0.16em] text-[#1677FF]">
-          AKANUKE.AI
-        </p>
-
         <h1 className="mt-3 text-[26px] font-black tracking-[-0.04em]">
           AI垢抜け診断
         </h1>

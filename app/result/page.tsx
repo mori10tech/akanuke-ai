@@ -52,38 +52,52 @@ const priorityLabels = [
   "継続改善",
 ] as const;
 
-const AFTER_PROGRESS_MAX_BEFORE_COMPLETE = 94;
+const AFTER_PROGRESS_MAX_BEFORE_COMPLETE = 99;
 
 function getAfterGenerationProgress(
   elapsedSeconds: number,
 ) {
   if (elapsedSeconds < 5) {
-    return 6 + elapsedSeconds * 2;
+    return 6 + elapsedSeconds * 3;
   }
 
-  if (elapsedSeconds < 15) {
-    return 16 + (elapsedSeconds - 5) * 1.7;
+  if (elapsedSeconds < 10) {
+    return 21 + (elapsedSeconds - 5) * 3;
+  }
+
+  if (elapsedSeconds < 20) {
+    return 36 + (elapsedSeconds - 10) * 2;
   }
 
   if (elapsedSeconds < 30) {
-    return 33 + (elapsedSeconds - 15) * 1.4;
+    return 56 + (elapsedSeconds - 20) * 1.4;
   }
 
-  if (elapsedSeconds < 50) {
-    return 54 + (elapsedSeconds - 30) * 0.95;
+  if (elapsedSeconds < 45) {
+    return 70 + (elapsedSeconds - 30) * 0.8;
+  }
+
+  if (elapsedSeconds < 60) {
+    return 82 + (elapsedSeconds - 45) * 0.4;
   }
 
   if (elapsedSeconds < 75) {
-    return 73 + (elapsedSeconds - 50) * 0.56;
+    return 88 + (elapsedSeconds - 60) * 0.2;
   }
 
-  return Math.min(
-    AFTER_PROGRESS_MAX_BEFORE_COMPLETE,
-    87 +
-    Math.floor(
-      (elapsedSeconds - 75) / 10,
-    ),
-  );
+  if (elapsedSeconds < 90) {
+    return 91 + (elapsedSeconds - 75) * 0.13;
+  }
+
+  if (elapsedSeconds < 120) {
+    return 93 + (elapsedSeconds - 90) * 0.1;
+  }
+
+  if (elapsedSeconds < 150) {
+    return 96 + (elapsedSeconds - 120) * 0.06;
+  }
+
+  return AFTER_PROGRESS_MAX_BEFORE_COMPLETE;
 }
 
 function getAfterGenerationStage(

@@ -46,12 +46,6 @@ function createResultAnimationId(
 
 const GOAL_PROGRESS = 100;
 
-const priorityLabels = [
-  "最優先",
-  "効果が高い",
-  "継続改善",
-] as const;
-
 const AFTER_PROGRESS_MAX_BEFORE_COMPLETE = 99;
 
 function getAfterGenerationProgress(
@@ -1315,7 +1309,8 @@ if (!resolvedAfterImage) {
                     理想の印象
                   </p>
 
-                  <p className="mt-1 text-[9px] font-bold leading-4 text-[#1677FF]">
+                  <p className="mt-1 text-[12px] font-bold leading-6 text-[#1677FF]">
+
                     {afterSummary.headline}
                   </p>
                 </div>
@@ -1386,53 +1381,6 @@ if (!resolvedAfterImage) {
             className="mx-4 mt-7"
             format="rectangle"
           />
-          
-          <section className="mx-4 mt-7">
-            <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
-              PRIORITY
-            </p>
-
-            <h2 className="mt-1 text-[21px] font-black tracking-[-0.035em]">
-              改善優先順位
-            </h2>
-
-            <p className="mt-2 text-[11px] leading-5 text-black/55">
-              Afterに近づくために、
-              優先して取り組みたい項目から整理しています。
-            </p>
-
-            <div className="mt-4 space-y-3">
-              {analysis.priorities.map(
-                (item, index) => (
-                  <article
-                    key={`${item.rank}-${item.title}`}
-                    className="rounded-[18px] border border-black/10 bg-white p-4 shadow-[0_10px_34px_rgba(15,23,42,0.05)]"
-                  >
-                    <div className="flex items-start gap-3">
-                      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[13px] bg-[#EEF6FF] text-[17px] font-black text-[#1677FF]">
-                        {item.rank}
-                      </span>
-
-                      <div className="min-w-0 flex-1">
-                        <h3 className="text-[16px] font-black">
-                          {item.title}
-                        </h3>
-
-                        <span className="mt-1.5 inline-flex rounded-full bg-[#FFF9D9] px-2.5 py-1 text-[8px] font-black text-[#1677FF]">
-                          {priorityLabels[index] ??
-                            "改善項目"}
-                        </span>
-
-                        <p className="mt-3 text-[12px] leading-6 text-black/65">
-                          {item.description}
-                        </p>
-                      </div>
-                    </div>
-                  </article>
-                ),
-              )}
-            </div>
-          </section>
 
           <section className="mx-4 mt-7">
   <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
@@ -1508,9 +1456,9 @@ if (!resolvedAfterImage) {
         </h2>
 
         <p className="mt-2 text-[11px] leading-5 text-black/55">
-          あなたの改善ポイントは整理できました。
-          次は、優先順位に沿って少しずつ垢抜けを進めていきましょう。
-        </p>
+  あなたの改善ポイントは整理できました。
+  次は、垢抜けプランに沿って少しずつ改善を進めていきましょう。
+</p>
       </div>
     </div>
 
@@ -1534,7 +1482,7 @@ if (!resolvedAfterImage) {
         </div>
 
         <p className="mt-1 text-[9px] font-bold text-black/55">
-          優先順位に沿って改善を始める
+          あなた専用の改善プランを確認
         </p>
       </div>
 

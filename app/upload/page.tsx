@@ -819,7 +819,7 @@ useEffect(() => {
 
             <div className="p-4">
 
-              <div className="overflow-hidden rounded-[16px] border border-dashed border-black/20 bg-white">
+              <div className="overflow-hidden rounded-[16px] border border-black/[0.06] bg-[#FAFAFA]">
   {preview ? (
     <div className="relative bg-[#EEF6FF]">
       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -830,27 +830,23 @@ useEffect(() => {
       />
     </div>
   ) : (
-    <div className="flex min-h-[230px] items-center justify-center px-6 text-center">
-      <div>
-        <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-black text-white shadow-lg">
-          <CameraIcon />
-        </span>
+    <div className="flex min-h-[170px] items-center justify-center px-6 text-center">
+  <div>
+    <p className="text-[16px] font-black text-[#111111]">
+      顔写真を用意してください
+    </p>
 
-        <p className="mt-5 text-[17px] font-black text-[#111111]">
-          顔写真を用意してください
-        </p>
+    <p className="mt-2 text-[12px] leading-6 text-black/60">
+      顔全体がはっきり見える
+      <br />
+      正面の写真がおすすめです
+    </p>
 
-        <p className="mt-2 text-[12px] leading-5 text-black/60">
-          顔全体がはっきり見える
-          <br />
-          正面の写真がおすすめです
-        </p>
-
-        <span className="mt-5 inline-flex rounded-full bg-[#FFF9D9] px-3 py-1.5 text-[10px] font-black text-[#1677FF]">
-          写真は診断以外には使用しません
-        </span>
-      </div>
-    </div>
+    <span className="mt-4 inline-flex rounded-full bg-[#FFF9D9] px-3 py-1.5 text-[10px] font-black text-[#1677FF]">
+      写真は診断以外には使用しません
+    </span>
+  </div>
+</div>
   )}
 </div>
 
@@ -862,7 +858,7 @@ useEffect(() => {
     }
     className="flex min-h-[52px] items-center justify-center rounded-[12px] bg-[#1677FF] px-3 text-[13px] font-black text-white shadow-[0_6px_18px_rgba(22,119,255,0.18)] transition active:scale-[0.98]"
   >
-    写真を撮る
+    今すぐ撮影
   </button>
 
   <button
@@ -872,7 +868,7 @@ useEffect(() => {
     }
     className="flex min-h-[52px] items-center justify-center rounded-[12px] border border-[#1677FF]/20 bg-[#EEF6FF] px-3 text-[13px] font-black text-[#1677FF] transition active:scale-[0.98]"
   >
-    写真を選ぶ
+    写真を選択
   </button>
 </div>
 

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { DiagnosisRow } from "../../../lib/diagnoses/types";
@@ -163,9 +164,16 @@ export default function LatestResultRedirect({
             </>
           ) : (
             <>
-              <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-[18px] bg-[#EEF6FF] text-[25px] text-[#1677FF]">
-                ✦
-              </span>
+              <div className="mx-auto flex h-20 w-20 items-center justify-center overflow-hidden rounded-[20px] bg-white shadow-[0_8px_28px_rgba(15,23,42,0.08)]">
+  <Image
+    src="/icon-512.png"
+    alt="AKANUKE.AI"
+    width={80}
+    height={80}
+    priority
+    className="h-full w-full object-cover"
+  />
+</div>
 
               <p className="mt-5 text-[11px] font-black tracking-[0.14em] text-[#1677FF]">
                 LOADING RESULT

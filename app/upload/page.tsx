@@ -373,11 +373,6 @@ export default function UploadPage() {
 
   useEffect(() => {
     const savedImage = window.sessionStorage.getItem(IMAGE_STORAGE_KEY);
-    const savedResult =
-      window.sessionStorage.getItem(
-        RESULT_STORAGE_KEY,
-      );
-    setHasPreviousResult(Boolean(savedResult));
 
     const savedImpressions = window.sessionStorage.getItem(
       IMPRESSION_STORAGE_KEY,
@@ -403,6 +398,48 @@ export default function UploadPage() {
 
     setIsLoaded(true);
   }, []);
+
+useEffect(() => {
+  let isActive = true;
+
+  async function checkPreviousResult() {
+    try {
+      const response = await fetch(
+        "/api/diagnoses/latest",
+        {
+          method: "GET",
+          cache: "no-store",
+        },
+      );
+
+      if (!response.ok) {
+        return;
+      }
+
+      const data =
+        (await response.json()) as {
+          hasDiagnosis?: boolean;
+        };
+
+      if (isActive) {
+        setHasPreviousResult(
+          data.hasDiagnosis === true,
+        );
+      }
+    } catch (error) {
+      console.error(
+        "[AKANUKE.AI] 診断履歴確認エラー",
+        error,
+      );
+    }
+  }
+
+  void checkPreviousResult();
+
+  return () => {
+    isActive = false;
+  };
+}, []);
 
     useEffect(() => {
     let isActive = true;
@@ -578,7 +615,6 @@ export default function UploadPage() {
     setPreview(null);
     setSelectedIds([]);
     setNotice(null);
-    setHasPreviousResult(false);
 
     window.sessionStorage.removeItem(IMAGE_STORAGE_KEY);
     window.sessionStorage.removeItem(IMPRESSION_STORAGE_KEY);
@@ -682,8 +718,6 @@ export default function UploadPage() {
     window.sessionStorage.removeItem(
       RESULT_BACK_HREF_STORAGE_KEY,
     );
-
-    setHasPreviousResult(false);
 
     router.push("/analyzing");
   };

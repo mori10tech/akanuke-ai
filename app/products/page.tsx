@@ -6,9 +6,12 @@ import {
   useState,
 } from "react";
 import Link from "next/link";
+import liff from "@line/liff";
+
 import AppHeader from "../components/AppHeader";
 import AppShell from "../components/AppShell";
 import AdSenseAd from "../components/AdSenseAd";
+
 import {
   activeProducts,
   categories,
@@ -23,7 +26,9 @@ import {
 } from "../../data/productNeeds";
 
 function formatPrice(price: number) {
-  return new Intl.NumberFormat("ja-JP").format(price);
+  return new Intl.NumberFormat(
+    "ja-JP",
+  ).format(price);
 }
 
 const RESULT_STORAGE_KEY =
@@ -44,7 +49,9 @@ function getProductScore(
   product: Product,
   diagnosisNeeds: ProductNeed[],
 ) {
-  return (product.needTags ?? []).reduce(
+  return (
+    product.needTags ?? []
+  ).reduce(
     (totalScore, tag) => {
       const needIndex =
         diagnosisNeeds.indexOf(tag);
@@ -143,6 +150,42 @@ function CheckIcon() {
   );
 }
 
+/*
+ * Amazonなどの外部販売サイトを開きます。
+ *
+ * LIFFブラウザ内の場合:
+ *   LINE内ブラウザではなく、
+ *   Safari / Chromeなどの外部ブラウザで開きます。
+ *
+ * 通常ブラウザの場合:
+ *   通常の新規タブとして開きます。
+ */
+function openExternalProductUrl(
+  url: string,
+) {
+  try {
+    if (liff.isInClient()) {
+      liff.openWindow({
+        url,
+        external: true,
+      });
+
+      return;
+    }
+  } catch (error) {
+    console.warn(
+      "[AKANUKE.AI] LIFF外部ブラウザ起動に失敗しました:",
+      error,
+    );
+  }
+
+  window.open(
+    url,
+    "_blank",
+    "noopener,noreferrer",
+  );
+}
+
 function AffiliateButtons({
   product,
 }: {
@@ -153,15 +196,18 @@ function AffiliateButtons({
 
   return (
     <div className="mt-4">
-      <a
-        href={product.amazon.url}
-        target="_blank"
-        rel="noopener noreferrer sponsored"
+      <button
+        type="button"
+        onClick={() =>
+          openExternalProductUrl(
+            product.amazon.url,
+          )
+        }
         className={`${baseClass} w-full bg-[#111111]`}
       >
         Amazonで見る
         <ExternalLinkIcon />
-      </a>
+      </button>
     </div>
   );
 }
@@ -249,20 +295,25 @@ function ProductCard({
 
           {product.price !== null ? (
             <p className="shrink-0 text-[17px] font-black">
-              ¥{formatPrice(product.price)}
+              ¥
+              {formatPrice(
+                product.price,
+              )}
             </p>
           ) : null}
         </div>
 
         <div className="mt-4 flex flex-wrap gap-1.5">
-          {product.badges.map((badge) => (
-            <span
-              key={badge}
-              className="rounded-full bg-[#FFF9D9] px-2 py-1 text-[8px] font-black text-[#111111]"
-            >
-              {badge}
-            </span>
-          ))}
+          {product.badges.map(
+            (badge) => (
+              <span
+                key={badge}
+                className="rounded-full bg-[#FFF9D9] px-2 py-1 text-[8px] font-black text-[#111111]"
+              >
+                {badge}
+              </span>
+            ),
+          )}
         </div>
 
         <div className="mt-4 rounded-[14px] bg-[#EEF6FF] p-3.5">
@@ -277,7 +328,7 @@ function ProductCard({
           </div>
 
           <div className="mt-3 flex flex-wrap gap-1.5">
-                        {displayedReasons.map(
+            {displayedReasons.map(
               (item) => (
                 <span
                   key={item}
@@ -291,7 +342,9 @@ function ProductCard({
           </div>
         </div>
 
-        <AffiliateButtons product={product} />
+        <AffiliateButtons
+          product={product}
+        />
       </div>
     </article>
   );
@@ -307,154 +360,159 @@ export default function ProductsPage() {
     selectedCategory,
     setSelectedCategory,
   ] = useState<ProductCategory>(
-    categories[0]?.id ?? "skincare",
+    categories[0]?.id ??
+      "skincare",
   );
 
-    const [
+  const [
     showAllProducts,
     setShowAllProducts,
   ] = useState(false);
 
   useEffect(() => {
-  /*
-   * Result・Planなどのページ途中から遷移しても、
-   * 商品ページは必ず最上部から表示します。
-   */
-  window.scrollTo({
-    top: 0,
-    left: 0,
-    behavior: "auto",
-  });
+    /*
+     * Result・Planなどのページ途中から遷移しても、
+     * 商品ページは必ず最上部から表示します。
+     */
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "auto",
+    });
 
-  const timeoutId =
-    window.setTimeout(() => {
-      /*
-       * Next.jsやブラウザによるスクロール位置復元より
-       * 後でもう一度最上部へ戻します。
-       */
-      window.scrollTo({
-        top: 0,
-        left: 0,
-        behavior: "auto",
-      });
+    const timeoutId =
+      window.setTimeout(() => {
+        /*
+         * Next.jsやブラウザによるスクロール位置復元より
+         * 後でもう一度最上部へ戻します。
+         */
+        window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: "auto",
+        });
 
-      const requestedCategory =
-        categories.find(
-          (category) =>
-            category.id ===
-            new URLSearchParams(
-              window.location.search,
-            ).get("category"),
-        )?.id;
-
-      /*
-       * URLでカテゴリが指定されている場合は、
-       * そのカテゴリを最初に表示します。
-       */
-      if (requestedCategory) {
-        setSelectedCategory(
-          requestedCategory,
-        );
-      }
-
-      const rawResult =
-        window.sessionStorage.getItem(
-          RESULT_STORAGE_KEY,
-        );
-
-      if (!rawResult) {
-        return;
-      }
-
-      try {
-        const parsed = JSON.parse(
-          rawResult,
-        ) as {
-          productNeeds?: unknown;
-        };
-
-        if (
-          !Array.isArray(
-            parsed.productNeeds,
-          )
-        ) {
-          return;
-        }
-
-        const validNeeds =
-          parsed.productNeeds.filter(
-            isProductNeed,
-          );
-
-        if (
-          validNeeds.length === 0
-        ) {
-          return;
-        }
-
-        setDiagnosisNeeds(
-          validNeeds,
-        );
+        const requestedCategory =
+          categories.find(
+            (category) =>
+              category.id ===
+              new URLSearchParams(
+                window.location.search,
+              ).get("category"),
+          )?.id;
 
         /*
          * URLでカテゴリが指定されている場合は、
-         * 診断結果によるカテゴリ変更を行いません。
-         *
-         * 商品の並び順については、
-         * 指定されたカテゴリ内で診断結果を反映します。
+         * そのカテゴリを最初に表示します。
          */
         if (requestedCategory) {
+          setSelectedCategory(
+            requestedCategory,
+          );
+        }
+
+        const rawResult =
+          window.sessionStorage.getItem(
+            RESULT_STORAGE_KEY,
+          );
+
+        if (!rawResult) {
           return;
         }
 
-        const recommendedCategory =
-          [...categories].sort(
-            (a, b) =>
-              getCategoryScore(
-                b.id,
-                validNeeds,
-              ) -
-              getCategoryScore(
-                a.id,
-                validNeeds,
-              ),
-          )[0];
+        try {
+          const parsed =
+            JSON.parse(
+              rawResult,
+            ) as {
+              productNeeds?: unknown;
+            };
 
-        if (recommendedCategory) {
-          setSelectedCategory(
-            recommendedCategory.id,
+          if (
+            !Array.isArray(
+              parsed.productNeeds,
+            )
+          ) {
+            return;
+          }
+
+          const validNeeds =
+            parsed.productNeeds.filter(
+              isProductNeed,
+            );
+
+          if (
+            validNeeds.length === 0
+          ) {
+            return;
+          }
+
+          setDiagnosisNeeds(
+            validNeeds,
+          );
+
+          /*
+           * URLでカテゴリが指定されている場合は、
+           * 診断結果によるカテゴリ変更を行いません。
+           *
+           * 商品の並び順については、
+           * 指定されたカテゴリ内で診断結果を反映します。
+           */
+          if (requestedCategory) {
+            return;
+          }
+
+          const recommendedCategory =
+            [...categories].sort(
+              (a, b) =>
+                getCategoryScore(
+                  b.id,
+                  validNeeds,
+                ) -
+                getCategoryScore(
+                  a.id,
+                  validNeeds,
+                ),
+            )[0];
+
+          if (
+            recommendedCategory
+          ) {
+            setSelectedCategory(
+              recommendedCategory.id,
+            );
+          }
+        } catch (error) {
+          console.warn(
+            "[AKANUKE.AI] 商品レコメンド用の診断結果を読み込めませんでした:",
+            error,
           );
         }
-      } catch (error) {
-        console.warn(
-          "[AKANUKE.AI] 商品レコメンド用の診断結果を読み込めませんでした:",
-          error,
-        );
-      }
-    }, 0);
+      }, 0);
 
-  return () => {
-    window.clearTimeout(
-      timeoutId,
+    return () => {
+      window.clearTimeout(
+        timeoutId,
+      );
+    };
+  }, []);
+
+  const availableCategories =
+    useMemo(
+      () =>
+        [...categories].sort(
+          (a, b) =>
+            getCategoryScore(
+              b.id,
+              diagnosisNeeds,
+            ) -
+            getCategoryScore(
+              a.id,
+              diagnosisNeeds,
+            ),
+        ),
+      [diagnosisNeeds],
     );
-  };
-}, []);
-
-  const availableCategories = useMemo(
-    () =>
-      [...categories].sort(
-        (a, b) =>
-          getCategoryScore(
-            b.id,
-            diagnosisNeeds,
-          ) -
-          getCategoryScore(
-            a.id,
-            diagnosisNeeds,
-          ),
-      ),
-    [diagnosisNeeds],
-  );
 
   const selectedCategoryData =
     availableCategories.find(
@@ -463,38 +521,41 @@ export default function ProductsPage() {
         selectedCategory,
     ) ?? availableCategories[0];
 
-  const selectedProducts = useMemo(
-    () =>
-      activeProducts
-        .filter(
-          (product) =>
-            product.category ===
-            selectedCategory,
-        )
-        .sort((a, b) => {
-          const scoreDifference =
-            getProductScore(
-              b,
-              diagnosisNeeds,
-            ) -
-            getProductScore(
-              a,
-              diagnosisNeeds,
-            );
+  const selectedProducts =
+    useMemo(
+      () =>
+        activeProducts
+          .filter(
+            (product) =>
+              product.category ===
+              selectedCategory,
+          )
+          .sort((a, b) => {
+            const scoreDifference =
+              getProductScore(
+                b,
+                diagnosisNeeds,
+              ) -
+              getProductScore(
+                a,
+                diagnosisNeeds,
+              );
 
-          if (scoreDifference !== 0) {
-            return scoreDifference;
-          }
+            if (
+              scoreDifference !== 0
+            ) {
+              return scoreDifference;
+            }
 
-          return a.rank - b.rank;
-        }),
-    [
-      selectedCategory,
-      diagnosisNeeds,
-    ],
-  );
+            return a.rank - b.rank;
+          }),
+      [
+        selectedCategory,
+        diagnosisNeeds,
+      ],
+    );
 
-    const displayedProducts =
+  const displayedProducts =
     showAllProducts
       ? selectedProducts
       : selectedProducts.slice(0, 3);
@@ -515,10 +576,10 @@ export default function ProductsPage() {
     <AppShell background="white">
       <div className="overflow-x-clip bg-white">
         <AppHeader
-  backHref="/result"
-  backMode="history"
-  backLabel="前のページへ戻る"
-/>
+          backHref="/result"
+          backMode="history"
+          backLabel="前のページへ戻る"
+        />
 
         <main className="pb-32 pt-6">
           <div className="px-4">
@@ -548,21 +609,28 @@ export default function ProductsPage() {
 
                   return (
                     <button
-                      key={category.id}
+                      key={
+                        category.id
+                      }
                       type="button"
                       onClick={() => {
-  setSelectedCategory(
-    category.id,
-  );
-  setShowAllProducts(false);
-}}
+                        setSelectedCategory(
+                          category.id,
+                        );
+
+                        setShowAllProducts(
+                          false,
+                        );
+                      }}
                       className={`min-h-[42px] shrink-0 rounded-full border px-4 text-[10px] font-black transition active:scale-[0.98] ${
                         isActive
                           ? "border-[#1677FF] bg-[#1677FF] text-white shadow-[0_8px_24px_rgba(22,119,255,0.16)]"
                           : "border-black/10 bg-white text-black/55 hover:border-[#1677FF]/30 hover:bg-[#EEF6FF] hover:text-[#1677FF]"
                       }`}
                     >
-                      {category.label}
+                      {
+                        category.label
+                      }
                     </button>
                   );
                 },
@@ -583,12 +651,17 @@ export default function ProductsPage() {
                   </p>
 
                   <h2 className="mt-1 text-[24px] font-black tracking-[-0.04em]">
-                    {selectedCategoryData.label}
+                    {
+                      selectedCategoryData.label
+                    }
                   </h2>
                 </div>
 
                 <span className="shrink-0 rounded-full bg-[#EEF6FF] px-3 py-1.5 text-[9px] font-black text-[#1677FF]">
-                  {selectedProducts.length}商品
+                  {
+                    selectedProducts.length
+                  }
+                  商品
                 </span>
               </div>
 
@@ -609,28 +682,40 @@ export default function ProductsPage() {
                   </p>
 
                   <p className="mt-1 text-[10px] leading-5 text-black/55">
-                    {selectedCategoryData.advice}
+                    {
+                      selectedCategoryData.advice
+                    }
                   </p>
                 </div>
               </div>
 
               <div className="mt-5 grid gap-4">
                 {displayedProducts.map(
-                  (product, index) => (
+                  (
+                    product,
+                    index,
+                  ) => (
                     <div
-                      key={product.id}
+                      key={
+                        product.id
+                      }
                       className="grid gap-4"
                     >
                       <ProductCard
-                        product={product}
+                        product={
+                          product
+                        }
                         diagnosisNeeds={
                           diagnosisNeeds
                         }
-                        featured={index === 0}
+                        featured={
+                          index === 0
+                        }
                       />
 
                       {index === 0 &&
-                      displayedProducts.length > 1 ? (
+                      displayedProducts.length >
+                        1 ? (
                         <AdSenseAd
                           className="my-2"
                           format="rectangle"
@@ -641,21 +726,28 @@ export default function ProductsPage() {
                 )}
               </div>
 
-{selectedProducts.length > 3 ? (
-  <button
-    type="button"
-    onClick={() =>
-      setShowAllProducts(
-        (current) => !current,
-      )
-    }
-    className="mt-4 flex min-h-[48px] w-full items-center justify-center rounded-[12px] border border-[#1677FF]/15 bg-white px-5 text-[11px] font-black text-[#1677FF] transition hover:bg-[#EEF6FF] active:scale-[0.99]"
-  >
-    {showAllProducts
-      ? "候補商品を閉じる"
-      : `他の候補商品を見る（${selectedProducts.length - 3}件）`}
-  </button>
-) : null}
+              {selectedProducts.length >
+              3 ? (
+                <button
+                  type="button"
+                  onClick={() =>
+                    setShowAllProducts(
+                      (
+                        current,
+                      ) =>
+                        !current,
+                    )
+                  }
+                  className="mt-4 flex min-h-[48px] w-full items-center justify-center rounded-[12px] border border-[#1677FF]/15 bg-white px-5 text-[11px] font-black text-[#1677FF] transition hover:bg-[#EEF6FF] active:scale-[0.99]"
+                >
+                  {showAllProducts
+                    ? "候補商品を閉じる"
+                    : `他の候補商品を見る（${
+                        selectedProducts.length -
+                        3
+                      }件）`}
+                </button>
+              ) : null}
             </section>
 
             <aside className="mt-9 rounded-[16px] bg-[#F7F9FC] px-4 py-4">

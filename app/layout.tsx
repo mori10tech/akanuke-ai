@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   ),
 
   title:
-    "AKANUKE.AI",
+    "メンズ垢抜けAI診断｜AKANUKE.AI",
 
   description:
     "AIがあなたの魅力を分析し、髪型・眉毛・肌・印象から、あなただけの垢抜けプランを提案する男性向け美容AIサービス。",

@@ -10,7 +10,7 @@ type LineFriendshipResponse = {
 };
 
 const AKANUKE_LINE_TALK_URL =
-  "https://line.me/R/oaMessage/%40507rwrwg";
+  "https://line.me/R/ti/p/%40507rwrwg";
 
 function createLoginRedirect(
   request: NextRequest,

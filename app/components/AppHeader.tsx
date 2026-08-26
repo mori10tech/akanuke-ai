@@ -39,6 +39,9 @@ function ArrowLeftIcon() {
   );
 }
 
+const backButtonClassName =
+  "flex h-10 w-10 items-center justify-center rounded-full text-[#111111] transition-[transform,background-color,color] duration-150 ease-out hover:bg-[#EEF6FF] active:scale-[0.94] active:bg-[#DCEBFF] active:text-[#1677FF]";
+
 export default function AppHeader({
   backHref,
   backLabel = "前のページへ戻る",
@@ -74,7 +77,7 @@ export default function AppHeader({
         type="button"
         onClick={handleHistoryBack}
         aria-label={backLabel}
-        className="flex h-10 w-10 items-center justify-center rounded-full transition hover:bg-[#EEF6FF] active:scale-95"
+        className={backButtonClassName}
       >
         <ArrowLeftIcon />
       </button>
@@ -82,7 +85,7 @@ export default function AppHeader({
       <Link
         href={backHref ?? "/"}
         aria-label={backLabel}
-        className="flex h-10 w-10 items-center justify-center rounded-full transition hover:bg-[#EEF6FF] active:scale-95"
+        className={backButtonClassName}
       >
         <ArrowLeftIcon />
       </Link>

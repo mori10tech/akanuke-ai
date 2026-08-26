@@ -627,12 +627,8 @@ export default function UploadPage() {
     selectedIds.length === 0;
 
   const handleReturnToResult = () => {
-    window.sessionStorage.removeItem(
-      RESULT_BACK_HREF_STORAGE_KEY,
-    );
-
-    router.push("/result");
-  };
+  router.push("/line/result");
+};
 
     const handleDiagnosis = () => {
     if (

@@ -16,15 +16,18 @@ export default async function LineResultPage() {
     redirect("/login?next=/line/result");
   }
 
-  const { data: latestDiagnosis, error } =
-    await supabase
-      .from("diagnoses")
-      .select("id")
-      .order("created_at", {
-        ascending: false,
-      })
-      .limit(1)
-      .maybeSingle();
+  const {
+    data: latestDiagnosis,
+    error,
+  } = await supabase
+    .from("diagnoses")
+    .select("id")
+    .eq("user_id", user.id)
+    .order("created_at", {
+      ascending: false,
+    })
+    .limit(1)
+    .maybeSingle();
 
   if (error) {
     console.error(

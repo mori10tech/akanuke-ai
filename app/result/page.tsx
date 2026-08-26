@@ -1317,6 +1317,10 @@ if (!resolvedAfterImage) {
               </div>
             </div>
 
+            <p className="mt-3 text-center text-[10px] leading-4 text-black/60">
+              ※AIが生成した参考イメージです。変化を保証するものではありません。
+            </p>
+
             <div className="mt-3 overflow-hidden rounded-[18px] border border-[#1677FF]/10 bg-[#EEF6FF]">
               <div className="p-4">
                 <div className="flex items-start gap-3">
@@ -1372,10 +1376,6 @@ if (!resolvedAfterImage) {
               </div>
             </div>
 
-            <p className="mt-3 text-center text-[9px] leading-4 text-black/60">
-              ※AfterはAIが改善の方向性を可視化した参考イメージです。
-              実際の変化を保証するものではありません。
-            </p>
           </section>
 
           <AdSenseAd

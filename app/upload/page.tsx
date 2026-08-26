@@ -1028,7 +1028,7 @@ useEffect(() => {
           )}
         </div>
 
-        <div className="fixed bottom-0 left-1/2 z-50 w-full max-w-[480px] -translate-x-1/2 border-t border-black/10 bg-white/95 px-4 pb-[max(14px,env(safe-area-inset-bottom))] pt-3 backdrop-blur-xl">
+        <div className="fixed inset-x-0 bottom-0 z-50 mx-auto w-full max-w-[480px] border-t border-black/10 bg-white px-4 pb-[max(14px,env(safe-area-inset-bottom))] pt-3 shadow-[0_-4px_16px_rgba(15,23,42,0.04)]">
   <div className="mx-auto w-full max-w-[448px]">
             <div className="mb-2 flex items-center justify-between">
               <p className="text-[10px] font-bold text-black/45">

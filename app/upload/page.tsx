@@ -28,6 +28,12 @@ const IMPRESSION_STORAGE_KEY = "akanukeDesiredImpressions";
 const TARGET_STORAGE_KEY = "akanukeTargetImpression";
 const RESULT_STORAGE_KEY = "akanukeAnalysisResult";
 const RESULT_BACK_HREF_STORAGE_KEY = "akanukeResultBackHref";
+const MAX_IMAGE_FILE_SIZE =
+  10 * 1024 * 1024;
+
+const MAX_IMAGE_DIMENSION = 1600;
+
+const IMAGE_JPEG_QUALITY = 0.85;
 
 const impressionOptions: ImpressionOption[] = [
   {
@@ -143,6 +149,195 @@ function CheckIcon() {
       <path d="m5 12 4 4L19 6" />
     </svg>
   );
+}
+
+function loadImage(
+  dataUrl: string,
+): Promise<HTMLImageElement> {
+  return new Promise(
+    (resolve, reject) => {
+      const image =
+        new window.Image();
+
+      image.onload = () => {
+        resolve(image);
+      };
+
+      image.onerror = () => {
+        reject(
+          new Error(
+            "画像を読み込めませんでした。",
+          ),
+        );
+      };
+
+      image.src = dataUrl;
+    },
+  );
+}
+
+function readFileAsDataUrl(
+  file: File,
+): Promise<string> {
+  return new Promise(
+    (resolve, reject) => {
+      const reader =
+        new FileReader();
+
+      reader.onload = () => {
+        if (
+          typeof reader.result !==
+          "string"
+        ) {
+          reject(
+            new Error(
+              "画像データを読み込めませんでした。",
+            ),
+          );
+
+          return;
+        }
+
+        resolve(reader.result);
+      };
+
+      reader.onerror = () => {
+        reject(
+          new Error(
+            "画像の読み込みに失敗しました。",
+          ),
+        );
+      };
+
+      reader.readAsDataURL(file);
+    },
+  );
+}
+
+async function resizeImage(
+  file: File,
+): Promise<string> {
+  const originalDataUrl =
+    await readFileAsDataUrl(file);
+
+  const image =
+    await loadImage(
+      originalDataUrl,
+    );
+
+  const originalWidth =
+    image.naturalWidth;
+
+  const originalHeight =
+    image.naturalHeight;
+
+  if (
+    originalWidth <= 0 ||
+    originalHeight <= 0
+  ) {
+    throw new Error(
+      "画像サイズを取得できませんでした。",
+    );
+  }
+
+  const longestSide =
+    Math.max(
+      originalWidth,
+      originalHeight,
+    );
+
+  /*
+   * 長辺1600px以内なら、
+   * 不要な拡大は行いません。
+   */
+  const scale =
+    Math.min(
+      1,
+      MAX_IMAGE_DIMENSION /
+        longestSide,
+    );
+
+  const resizedWidth =
+    Math.max(
+      1,
+      Math.round(
+        originalWidth * scale,
+      ),
+    );
+
+  const resizedHeight =
+    Math.max(
+      1,
+      Math.round(
+        originalHeight * scale,
+      ),
+    );
+
+  const canvas =
+    document.createElement(
+      "canvas",
+    );
+
+  canvas.width =
+    resizedWidth;
+
+  canvas.height =
+    resizedHeight;
+
+  const context =
+    canvas.getContext("2d");
+
+  if (!context) {
+    throw new Error(
+      "画像処理を開始できませんでした。",
+    );
+  }
+
+  /*
+   * JPEG化するため背景を白にします。
+   * PNGの透過部分が黒くなることを防ぎます。
+   */
+  context.fillStyle =
+    "#FFFFFF";
+
+  context.fillRect(
+    0,
+    0,
+    resizedWidth,
+    resizedHeight,
+  );
+
+  context.imageSmoothingEnabled =
+    true;
+
+  context.imageSmoothingQuality =
+    "high";
+
+  context.drawImage(
+    image,
+    0,
+    0,
+    resizedWidth,
+    resizedHeight,
+  );
+
+  const resizedDataUrl =
+    canvas.toDataURL(
+      "image/jpeg",
+      IMAGE_JPEG_QUALITY,
+    );
+
+  if (
+    !resizedDataUrl.startsWith(
+      "data:image/jpeg",
+    )
+  ) {
+    throw new Error(
+      "画像の変換に失敗しました。",
+    );
+  }
+
+  return resizedDataUrl;
 }
 
 export default function UploadPage() {
@@ -271,50 +466,113 @@ export default function UploadPage() {
     [selectedIds],
   );
 
-  const handleImage = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
+  const handleImage = async (
+  event: React.ChangeEvent<HTMLInputElement>,
+) => {
+  const file =
+    event.target.files?.[0];
 
-    if (!file) {
-      return;
-    }
+  if (!file) {
+    return;
+  }
 
-    if (!file.type.startsWith("image/")) {
-      alert("画像ファイルを選択してください。");
-      event.target.value = "";
-      return;
-    }
+  if (
+    !file.type.startsWith(
+      "image/",
+    )
+  ) {
+    setNotice(
+      "画像ファイルを選択してください。",
+    );
 
-    if (file.size > 10 * 1024 * 1024) {
-      alert("10MB以下の画像を選択してください。");
-      event.target.value = "";
-      return;
-    }
+    event.target.value = "";
 
-    const reader = new FileReader();
+    return;
+  }
 
-    reader.onload = () => {
-      if (typeof reader.result !== "string") {
-        return;
-      }
+  if (
+    ![
+      "image/jpeg",
+      "image/png",
+      "image/webp",
+    ].includes(file.type)
+  ) {
+    setNotice(
+      "JPG・PNG・WEBP形式の画像を選択してください。",
+    );
 
-      setPreview(reader.result);
-      setNotice(null);
-      window.sessionStorage.setItem(IMAGE_STORAGE_KEY, reader.result);
+    event.target.value = "";
 
-      window.setTimeout(() => {
-        preferenceSectionRef.current?.scrollIntoView({
+    return;
+  }
+
+  if (
+    file.size >
+    MAX_IMAGE_FILE_SIZE
+  ) {
+    setNotice(
+      "画像の容量が大きすぎます。10MB以下の写真を選択してください。",
+    );
+
+    event.target.value = "";
+
+    return;
+  }
+
+  try {
+    setNotice(
+      "写真を診断用に最適化しています...",
+    );
+
+    const optimizedImage =
+      await resizeImage(file);
+
+    /*
+     * 先にsessionStorageへ保存して、
+     * 容量超過などが発生しないことを確認します。
+     */
+    window.sessionStorage.setItem(
+      IMAGE_STORAGE_KEY,
+      optimizedImage,
+    );
+
+    setPreview(
+      optimizedImage,
+    );
+
+    setNotice(null);
+
+    window.setTimeout(() => {
+      preferenceSectionRef.current?.scrollIntoView(
+        {
           behavior: "smooth",
           block: "start",
-        });
-      }, 250);
-    };
+        },
+      );
+    }, 250);
+  } catch (error) {
+    console.error(
+      "[AKANUKE.AI] 画像最適化エラー",
+      error,
+    );
 
-    reader.onerror = () => {
-      alert("画像の読み込みに失敗しました。別の画像を選択してください。");
-    };
+    setPreview(null);
 
-    reader.readAsDataURL(file);
-  };
+    window.sessionStorage.removeItem(
+      IMAGE_STORAGE_KEY,
+    );
+
+    setNotice(
+      "写真を読み込めませんでした。別の写真を選択して、もう一度お試しください。",
+    );
+  } finally {
+    /*
+     * 同じ写真をもう一度選択した場合でも
+     * onChangeが発火できるようにします。
+     */
+    event.target.value = "";
+  }
+};
 
   const handleResetImage = () => {
     setPreview(null);

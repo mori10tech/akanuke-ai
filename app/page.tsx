@@ -31,6 +31,18 @@ type AnalysisItem = {
   note: string;
 };
 
+const websiteStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "AKANUKE.AI",
+  alternateName: "メンズ垢抜けAI診断",
+  url: "https://akanukeai.com/",
+  description:
+    "AIがあなたの魅力を分析し、髪型・眉毛・肌・印象から、あなただけの垢抜けプランを提案する男性向け美容AIサービス。",
+  image:
+    "https://akanukeai.com/seo/akanuke-ai-search.png",
+};
+
 const analysisItems: AnalysisItem[] = [
   {
     icon: "hair",
@@ -355,6 +367,13 @@ export default function Home() {
     .filter(({ index }) => index % 2 === 1);
 
   return (
+  <>
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(websiteStructuredData),
+      }}
+    />
 
     <main className="overflow-x-clip bg-white text-[#111111]">
       <header className="sticky top-0 z-50 border-b border-black/10 bg-white/90 backdrop-blur-xl">
@@ -980,8 +999,9 @@ export default function Home() {
             © AKANUKE.AI All Rights Reserved.
           </p>
         </div>
-      </footer>
+            </footer>
     </main>
+  </>
   );
 }
 

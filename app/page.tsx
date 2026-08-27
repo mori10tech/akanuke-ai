@@ -398,6 +398,7 @@ export default function Home() {
           <div className="flex items-center">
   <Link
     href="/upload"
+    prefetch={false}
     className="primary-button header-diagnosis-button"
   >
     <span>無料で診断をはじめる</span>
@@ -443,6 +444,7 @@ export default function Home() {
 
       <Link
   href="/upload"
+  prefetch={false}
   className="primary-button mt-8 w-full max-w-[355px]"
 >
   <span>無料で診断をはじめる</span>
@@ -652,6 +654,7 @@ export default function Home() {
 <div className="-mt-7 flex justify-center px-4 pb-8 sm:-mt-5 sm:pb-10">
   <Link
     href="/upload"
+    prefetch={false}
     className="primary-button w-full max-w-[355px]"
   >
     <span>無料で診断をはじめる</span>
@@ -744,6 +747,7 @@ export default function Home() {
 <div className="flex justify-center px-4 pb-10 pt-2 sm:-mt-4 sm:pb-14 sm:pt-4">
   <Link
     href="/upload"
+    prefetch={false}
     className="primary-button w-full max-w-[355px]"
   >
     <span>無料で診断をはじめる</span>
@@ -919,6 +923,7 @@ export default function Home() {
 
             <Link
   href="/upload"
+  prefetch={false}
   className="primary-button w-full max-w-[355px]"
 >
   <span>無料で診断をはじめる</span>

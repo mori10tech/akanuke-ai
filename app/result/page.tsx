@@ -1262,119 +1262,77 @@ if (!resolvedAfterImage) {
             className="mx-4 mt-7"
             format="rectangle"
           />
+<section className="mx-4 mt-7 overflow-hidden rounded-[24px] border border-[#1677FF]/10 bg-white shadow-[0_10px_34px_rgba(15,23,42,0.05)]">
+  <div className="grid grid-cols-[42%_58%]">
+    <div className="relative min-h-[230px] overflow-hidden bg-[#F7F9FC]">
+      {image ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={image}
+          alt="今回診断した顔写真"
+          className="h-full w-full object-cover"
+        />
+      ) : (
+        <div className="flex h-full min-h-[230px] items-center justify-center px-4 text-center text-black/40">
+          <p className="text-[11px] font-bold">
+            写真が見つかりません
+          </p>
+        </div>
+      )}
+    </div>
 
-          <section className="mx-4 mt-7 overflow-hidden rounded-[24px] border border-[#1677FF]/10 bg-white shadow-[0_10px_34px_rgba(15,23,42,0.05)]">
-            <div className="grid grid-cols-[48%_52%]">
-              <div className="relative min-h-[250px] overflow-hidden bg-[#F7F9FC]">
-                {image ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={image}
-                    alt="今回診断した顔写真"
-                    className="h-full w-full object-cover"
-                  />
-                ) : (
-                  <div className="flex h-full min-h-[250px] items-center justify-center px-4 text-center text-black/40">
-                    <p className="text-[11px] font-bold">
-                      写真が見つかりません
-                    </p>
-                  </div>
-                )}
+    <div className="flex flex-col justify-center bg-[#EEF6FF] px-4 py-5">
+      <div className="flex items-center justify-between gap-2">
+        <p className="text-[8px] font-black tracking-[0.14em] text-[#1677FF]">
+          AKANUKE SCORE
+        </p>
 
-                {image && (
-                  <>
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+        <span className="rounded-full border border-[#1677FF]/10 bg-white px-2 py-1 text-[7px] font-bold text-[#1677FF]">
+          解析完了
+        </span>
+      </div>
 
-                    <span className="absolute bottom-3 left-3 flex items-center gap-1.5 rounded-full bg-white/95 px-2.5 py-1.5 text-[8px] font-black text-[#111111] shadow-sm">
-                      <Icon
-                        name="check"
-                        className="h-3 w-3 text-[#1677FF]"
-                      />
-                      AI解析済み
-                    </span>
-                  </>
-                )}
-              </div>
+      <p className="mt-5 text-[10px] font-bold text-black/45">
+        現在の垢抜けスコア
+      </p>
 
-              <div className="flex flex-col items-center justify-center bg-[#EEF6FF] px-3 py-4">
-                <p className="mb-1 text-[7px] font-black tracking-[0.14em] text-[#1677FF]">
-                  AKANUKE PROGRESS
-                </p>
+      <div className="mt-1 flex items-end gap-1">
+        <span className="text-[46px] font-bold leading-none tracking-[-0.055em] text-[#1677FF]">
+          {displayProgress}
+        </span>
 
-                <CircularProgress
-                  progress={displayProgress}
-                />
+        <span className="pb-1 text-[13px] font-bold text-[#1677FF]/70">
+          %
+        </span>
+      </div>
 
-                <div className="mt-3 w-full rounded-[13px] border border-[#1677FF]/10 bg-white px-3 py-2.5">
-                  <p className="text-[7px] font-bold tracking-[0.1em] text-black/35">
-                    AFTER GOAL
-                  </p>
+      <p className="mt-3 text-[9px] leading-4 text-black/45">
+        今の印象から、改善できるポイントをAIが分析しました。
+      </p>
+    </div>
+  </div>
 
-                  <div className="mt-1 flex items-center justify-between gap-2">
-                    <p className="text-[18px] font-black tracking-[-0.04em] text-[#1677FF]">
-                      {GOAL_PROGRESS}%
-                    </p>
+  <div className="border-t border-black/10 bg-white px-4 py-4">
+    <p className="text-[8px] font-black tracking-[0.12em] text-[#1677FF]">
+      TARGET
+    </p>
 
-                    <span className="rounded-full bg-[#FFD400] px-2 py-1 text-[8px] font-black text-[#111111]">
-                      GOAL
-                    </span>
-                  </div>
+    <p className="mt-1.5 text-[14px] font-black leading-6 text-[#111111]">
+      {analysis.targetImpression}
+    </p>
 
-                  <p className="mt-1 text-[8px] leading-4 text-black/40">
-                    AIが提案するAfterへの目標状態
-                  </p>
-                </div>
-              </div>
-            </div>
+    <p className="mt-2 text-[10px] leading-5 text-black/45">
+      この印象を目指して、髪・眉・肌・身だしなみを整えていきます。
+    </p>
 
-            <div className="border-t border-black/10 bg-white px-4 py-3.5">
-              <div className="flex items-center justify-between gap-3">
-                <div>
-                  <p className="text-[7px] font-black tracking-[0.12em] text-black/35">
-                    CURRENT
-                  </p>
+    <p className="mt-3 border-t border-black/5 pt-3 text-[9px] leading-4 text-black/45">
+      ※容姿を採点するものではありません。
+      今回のAfterイメージに近づくための目安です。
+    </p>
+  </div>
+</section>          
 
-                  <p className="mt-1 text-[12px] font-black text-[#1677FF]">
-                    現在 {analysis.progress}%
-                  </p>
-                </div>
-
-                <div className="min-w-0 flex-1">
-                  <div className="h-2 overflow-hidden rounded-full bg-[#EEF6FF]">
-                    <div
-                      className="h-full rounded-full bg-[#1677FF]"
-                      style={{
-                        width: `${Math.max(
-                          0,
-                          Math.min(
-                            100,
-                            analysis.progress,
-                          ),
-                        )}%`,
-                      }}
-                    />
-                  </div>
-                </div>
-
-                <div className="text-right">
-                  <p className="text-[7px] font-black tracking-[0.12em] text-black/35">
-                    AFTER
-                  </p>
-
-                  <p className="mt-1 text-[12px] font-black text-[#1677FF]">
-                    100%
-                  </p>
-                </div>
-              </div>
-
-              <p className="mt-3 text-[9px] leading-4 text-black/55">
-                ※容姿を採点するものではありません。
-                今回のAfterイメージに近づくための目安です。
-              </p>
-            </div>
-          </section>
-
-          <section className="mx-4 mt-5 rounded-[20px] border border-[#FFD400]/40 bg-[#FFF9D9] p-5">
+<section className="mx-4 mt-5 rounded-[20px] border border-[#FFD400]/40 bg-[#FFF9D9] p-5">
             <div className="flex items-center gap-2 text-[#1677FF]">
               <Icon name="sparkle" />
 
@@ -1430,63 +1388,6 @@ if (!resolvedAfterImage) {
             <p className="mt-3 text-center text-[10px] leading-5 text-black/50">
               顔写真やAfter画像は投稿されません
             </p>
-          </section>
-
-          <section className="mx-4 mt-7">
-            <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
-              AI ANALYSIS
-            </p>
-
-            <h2 className="mt-1 text-[21px] font-black tracking-[-0.035em]">
-              パーツ別診断
-            </h2>
-
-            <p className="mt-2 text-[11px] leading-5 text-black/55">
-              写真から確認できる内容をもとに、
-              改善しやすいポイントを整理しています。
-            </p>
-
-            <div className="mt-4 grid gap-3">
-              <AnalysisDetail
-                title="髪型"
-                observation={
-                  analysis.hair.observation
-                }
-                advice={
-                  analysis.hair.advice
-                }
-              />
-
-              <AnalysisDetail
-                title="眉毛"
-                observation={
-                  analysis.eyebrows.observation
-                }
-                advice={
-                  analysis.eyebrows.advice
-                }
-              />
-
-              <AnalysisDetail
-                title="肌"
-                observation={
-                  analysis.skin.observation
-                }
-                advice={
-                  analysis.skin.advice
-                }
-              />
-
-              <AnalysisDetail
-                title="清潔感・身だしなみ"
-                observation={
-                  analysis.grooming.observation
-                }
-                advice={
-                  analysis.grooming.advice
-                }
-              />
-            </div>
           </section>
 
           <section className="mx-4 mb-8 mt-8 overflow-hidden rounded-[26px] border border-[#1677FF]/20 bg-gradient-to-br from-[#EEF6FF] via-white to-[#FFF9D9] shadow-[0_16px_48px_rgba(22,119,255,0.12)]">

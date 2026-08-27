@@ -1,9 +1,17 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import type { DiagnosisRow } from "../../../lib/diagnoses/types";
+import {
+  useEffect,
+  useState,
+} from "react";
+import {
+  useRouter,
+} from "next/navigation";
+
+import type {
+  DiagnosisRow,
+} from "../../../lib/diagnoses/types";
 
 const IMAGE_STORAGE_KEY =
   "akanukeImage";
@@ -21,28 +29,76 @@ const SAVED_AFTER_IMAGE_STORAGE_KEY =
   "akanukeSavedAfterImageUrl";
 
 type LatestResultRedirectProps = {
-  diagnosisId: string;
+  diagnosisId?: string;
 };
 
 export default function LatestResultRedirect({
   diagnosisId,
 }: LatestResultRedirectProps) {
-  const router = useRouter();
+  const router =
+    useRouter();
 
-  const [errorMessage, setErrorMessage] =
-    useState("");
+  const [
+    errorMessage,
+    setErrorMessage,
+  ] = useState("");
 
   useEffect(() => {
     let isMounted = true;
 
-    async function loadLatestDiagnosis() {
-      try {
-        const response = await fetch(
-          `/api/diagnoses/${diagnosisId}`,
+    async function resolveDiagnosisId() {
+      if (diagnosisId) {
+        return diagnosisId;
+      }
+
+      const response =
+        await fetch(
+          "/api/diagnoses/latest",
           {
-            cache: "no-store",
+            cache:
+              "no-store",
           },
         );
+
+      const data =
+        (await response.json()) as {
+          hasDiagnosis?: boolean;
+          diagnosisId?: string | null;
+          error?: string;
+        };
+
+      if (!response.ok) {
+        throw new Error(
+          data.error ??
+            "最新の診断結果を確認できませんでした。",
+        );
+      }
+
+      if (
+        !data.hasDiagnosis ||
+        !data.diagnosisId
+      ) {
+        throw new Error(
+          "診断結果がまだありません。",
+        );
+      }
+
+      return data.diagnosisId;
+    }
+
+    async function loadLatestDiagnosis() {
+      try {
+        const resolvedDiagnosisId =
+          await resolveDiagnosisId();
+
+        const response =
+          await fetch(
+            `/api/diagnoses/${resolvedDiagnosisId}`,
+            {
+              cache:
+                "no-store",
+            },
+          );
 
         const data =
           (await response.json()) as {
@@ -106,7 +162,9 @@ export default function LatestResultRedirect({
           );
         }
 
-        router.replace("/result");
+        router.replace(
+          "/result",
+        );
       } catch (error) {
         console.error(
           "[AKANUKE.AI] LINE診断結果読み込みエラー:",
@@ -125,12 +183,15 @@ export default function LatestResultRedirect({
       }
     }
 
-    loadLatestDiagnosis();
+    void loadLatestDiagnosis();
 
     return () => {
       isMounted = false;
     };
-  }, [diagnosisId, router]);
+  }, [
+    diagnosisId,
+    router,
+  ]);
 
   return (
     <main className="min-h-screen bg-white text-[#111111]">
@@ -147,7 +208,9 @@ export default function LatestResultRedirect({
               </h1>
 
               <p className="mt-3 text-[12px] leading-6 text-black/50">
-                {errorMessage}
+                {
+                  errorMessage
+                }
               </p>
 
               <button
@@ -165,15 +228,15 @@ export default function LatestResultRedirect({
           ) : (
             <>
               <div className="mx-auto flex h-20 w-20 items-center justify-center overflow-hidden rounded-[20px] bg-white shadow-[0_8px_28px_rgba(15,23,42,0.08)]">
-  <Image
-    src="/icon-512.png"
-    alt="AKANUKE.AI"
-    width={80}
-    height={80}
-    priority
-    className="h-full w-full object-cover"
-  />
-</div>
+                <Image
+                  src="/icon-512.png"
+                  alt="AKANUKE.AI"
+                  width={80}
+                  height={80}
+                  priority
+                  className="h-full w-full object-cover"
+                />
+              </div>
 
               <p className="mt-5 text-[11px] font-black tracking-[0.14em] text-[#1677FF]">
                 LOADING RESULT

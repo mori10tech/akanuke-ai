@@ -1,5 +1,3 @@
-import { redirect } from "next/navigation";
-
 import LatestResultRedirect from "./LatestResultRedirect";
 
 export const dynamic =
@@ -21,19 +19,25 @@ export default async function LineResultPage({
     params.diagnosisId?.trim();
 
   /*
-   * /uploadですでに最新診断IDを取得しているため、
-   * ここではSupabaseへ同じ検索を繰り返しません。
-   *
-   * diagnosisIdがない場合のみ、
-   * 診断履歴から選び直してもらいます。
+   * diagnosisIdがURLに付いている場合は、
+   * その診断結果をそのまま読み込みます。
    */
-  if (!diagnosisId) {
-    redirect("/history");
+  if (diagnosisId) {
+    return (
+      <LatestResultRedirect
+        diagnosisId={
+          diagnosisId
+        }
+      />
+    );
   }
 
+  /*
+   * LINEリッチメニューから開いた場合は
+   * diagnosisIdが付いていないため、
+   * クライアント側で最新診断を取得します。
+   */
   return (
-    <LatestResultRedirect
-      diagnosisId={diagnosisId}
-    />
+    <LatestResultRedirect />
   );
 }

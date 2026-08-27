@@ -2,6 +2,7 @@
 
 /* eslint-disable react-hooks/set-state-in-effect -- sessionStorageの状態を初回表示時に復元するため */
 
+import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import AppHeader from "../components/AppHeader";
@@ -373,11 +374,16 @@ export default function UploadPage() {
   ] = useState<string | null>(null);
 
   const [
-    hasPreviousResult,
-    setHasPreviousResult,
-  ] = useState(false);
+  hasPreviousResult,
+  setHasPreviousResult,
+] = useState(false);
 
-  const [
+const [
+  isPreviousResultLoading,
+  setIsPreviousResultLoading,
+] = useState(true);
+
+const [
   latestDiagnosisId,
   setLatestDiagnosisId,
 ] = useState<string | null>(null);
@@ -395,8 +401,24 @@ const [
     );
 
     if (savedImage) {
-      setPreview(savedImage);
-    }
+  const isValidStoredImage =
+    savedImage.startsWith(
+      "data:image/",
+    ) ||
+    savedImage.startsWith(
+      "https://",
+    );
+
+  if (isValidStoredImage) {
+    setPreview(savedImage);
+  } else {
+    window.sessionStorage.removeItem(
+      IMAGE_STORAGE_KEY,
+    );
+
+    setPreview(null);
+  }
+}
 
     if (savedImpressions) {
       try {
@@ -433,25 +455,29 @@ useEffect(() => {
       }
 
       const data =
-  (await response.json()) as {
-    hasDiagnosis?: boolean;
-    diagnosisId?: string | null;
-  };
+        (await response.json()) as {
+          hasDiagnosis?: boolean;
+          diagnosisId?: string | null;
+        };
 
-if (isActive) {
-  setHasPreviousResult(
-    data.hasDiagnosis === true,
-  );
+      if (isActive) {
+        setHasPreviousResult(
+          data.hasDiagnosis === true,
+        );
 
-  setLatestDiagnosisId(
-    data.diagnosisId ?? null,
-  );
-}
+        setLatestDiagnosisId(
+          data.diagnosisId ?? null,
+        );
+      }
     } catch (error) {
       console.error(
         "[AKANUKE.AI] 診断履歴確認エラー",
         error,
       );
+    } finally {
+      if (isActive) {
+        setIsPreviousResultLoading(false);
+      }
     }
   }
 
@@ -756,16 +782,46 @@ if (isActive) {
     router.push("/analyzing");
   };
 
-  if (!isLoaded) {
-    return (
-      <main className="flex min-h-screen items-center justify-center bg-[#EEF6FF]">
-        <div
-          className="h-9 w-9 animate-spin rounded-full border-[3px] border-black/10 text-[#1677FF]"
-          aria-label="読み込み中"
-        />
-      </main>
-    );
-  }
+  if (
+  !isLoaded ||
+  isPreviousResultLoading ||
+  isUsageLoading
+) {
+  return (
+    <main className="min-h-screen bg-white text-[#111111]">
+      <div className="mx-auto flex min-h-screen w-full max-w-[480px] items-center justify-center bg-white px-6">
+        <div className="w-full text-center">
+          <div className="mx-auto flex h-20 w-20 items-center justify-center overflow-hidden rounded-[20px] bg-white shadow-[0_8px_28px_rgba(15,23,42,0.08)]">
+            <Image
+              src="/icon-512.png"
+              alt="AKANUKE.AI"
+              width={80}
+              height={80}
+              priority
+              className="h-full w-full object-cover"
+            />
+          </div>
+
+          <p className="mt-5 text-[11px] font-black tracking-[0.14em] text-[#1677FF]">
+            CHECKING DIAGNOSIS
+          </p>
+
+          <h1 className="mt-2 text-[19px] font-black tracking-[-0.03em]">
+            診断情報を確認しています
+          </h1>
+
+          <p className="mt-3 text-[11px] leading-5 text-black/45">
+            前回の診断結果と利用状況を確認しています。
+            <br />
+            そのまま少しお待ちください。
+          </p>
+
+          <div className="mx-auto mt-6 h-6 w-6 animate-spin rounded-full border-2 border-[#1677FF]/20 border-t-[#1677FF]" />
+        </div>
+      </div>
+    </main>
+  );
+}
 
   return (
     <main className="min-h-screen bg-[#EEF6FF] text-[#111111]">
@@ -860,10 +916,21 @@ if (isActive) {
     <div className="relative bg-[#EEF6FF]">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src={preview}
-        alt="選択した顔写真"
-        className="block max-h-[500px] min-h-[320px] w-full object-contain"
-      />
+  src={preview}
+  alt="選択した顔写真"
+  onError={() => {
+    console.warn(
+      "[AKANUKE.AI] 保存画像を読み込めなかったため削除します。",
+    );
+
+    setPreview(null);
+
+    window.sessionStorage.removeItem(
+      IMAGE_STORAGE_KEY,
+    );
+  }}
+  className="block max-h-[500px] min-h-[320px] w-full object-contain"
+/>
     </div>
   ) : (
     <div className="flex min-h-[170px] items-center justify-center px-6 text-center">

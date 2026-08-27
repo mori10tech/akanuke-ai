@@ -78,9 +78,6 @@ export default function LoginPage() {
   const [errorMessage, setErrorMessage] =
     useState("");
 
-  const [showLoginHelp, setShowLoginHelp] =
-    useState(false);
-
   const [copyMessage, setCopyMessage] =
     useState("");
 
@@ -127,7 +124,6 @@ export default function LoginPage() {
             "LINEログインに失敗しました。もう一度お試しください。",
           );
 
-          setShowLoginHelp(true);
         }
 
         const requestedNext =
@@ -197,7 +193,6 @@ export default function LoginPage() {
             "LINEログインを開始できませんでした。時間をおいてもう一度お試しください。",
           );
           setIsLineLoading(false);
-          setShowLoginHelp(true);
         }
       }
     }
@@ -374,46 +369,20 @@ export default function LoginPage() {
               </button>
             )}
 
-            <button
-              type="button"
-              onClick={() =>
-                setShowLoginHelp(
-                  (current) => !current,
-                )
-              }
-              className="mt-4 flex w-full items-center justify-center gap-1.5 py-1 text-[10px] font-black text-[#1677FF]"
-              aria-expanded={showLoginHelp}
-            >
-              LINEアプリが開かない場合
-              <span
-                aria-hidden="true"
-                className={`text-[12px] transition-transform ${
-                  showLoginHelp
-                    ? "rotate-180"
-                    : ""
-                }`}
-              >
-                ▾
-              </span>
-            </button>
-
-            {showLoginHelp && (
+<div className="mt-4"></div>
+            
               <div className="mt-3 rounded-[16px] border border-[#1677FF]/10 bg-[#EEF6FF] p-4">
                 <p className="text-[12px] font-black text-[#111111]">
                   LINEのログイン画面が表示された場合
                 </p>
 
-                <ol className="mt-3 space-y-2 text-[11px] font-bold leading-5 text-black/60">
+                <ol className="mt-3 space-y-2 text-[11px] font-bold leading-5 text-black/80">
                   <li>
-                    1. 画面下部の「LINEアプリでログインする」をタップしてください。
+                    ・ 画面下部の「LINEアプリでログインする」をタップしてください。
                   </li>
 
                   <li>
-                    2. iPhoneでLINEが開かない場合は、そのリンクを長押しして「LINEで開く」を選んでください。
-                  </li>
-
-                  <li>
-                    3. Instagram・Xなどのアプリ内ブラウザでは、Safari（iPhone）またはChrome（Android）でこのページを開き直してください。
+                    ・ Instagram・Xなどのアプリ内ブラウザの場合、SafariまたはChromeでこのページを開き直してください。
                   </li>
                 </ol>
 
@@ -442,7 +411,6 @@ export default function LoginPage() {
                   LINE公式ヘルプを確認
                 </a>
               </div>
-            )}
 
             <p className="mt-4 text-center text-[10px] leading-5 text-black/40">
               続行すると、

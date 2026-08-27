@@ -1,50 +1,39 @@
 import { redirect } from "next/navigation";
-import { createClient } from "../../../lib/supabase/server";
+
 import LatestResultRedirect from "./LatestResultRedirect";
 
-export const dynamic = "force-dynamic";
+export const dynamic =
+  "force-dynamic";
 
-export default async function LineResultPage() {
-  const supabase = await createClient();
+type LineResultPageProps = {
+  searchParams: Promise<{
+    diagnosisId?: string;
+  }>;
+};
 
-  const {
-    data: { user },
-    error: userError,
-  } = await supabase.auth.getUser();
+export default async function LineResultPage({
+  searchParams,
+}: LineResultPageProps) {
+  const params =
+    await searchParams;
 
-  if (userError || !user) {
-    redirect("/login?next=/line/result");
-  }
+  const diagnosisId =
+    params.diagnosisId?.trim();
 
-  const {
-    data: latestDiagnosis,
-    error,
-  } = await supabase
-    .from("diagnoses")
-    .select("id")
-    .eq("user_id", user.id)
-    .order("created_at", {
-      ascending: false,
-    })
-    .limit(1)
-    .maybeSingle();
-
-  if (error) {
-    console.error(
-      "[AKANUKE.AI] LINE診断結果取得エラー:",
-      error,
-    );
-
+  /*
+   * /uploadですでに最新診断IDを取得しているため、
+   * ここではSupabaseへ同じ検索を繰り返しません。
+   *
+   * diagnosisIdがない場合のみ、
+   * 診断履歴から選び直してもらいます。
+   */
+  if (!diagnosisId) {
     redirect("/history");
-  }
-
-  if (!latestDiagnosis) {
-    redirect("/upload");
   }
 
   return (
     <LatestResultRedirect
-      diagnosisId={latestDiagnosis.id}
+      diagnosisId={diagnosisId}
     />
   );
 }

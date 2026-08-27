@@ -377,6 +377,16 @@ export default function UploadPage() {
     setHasPreviousResult,
   ] = useState(false);
 
+  const [
+  latestDiagnosisId,
+  setLatestDiagnosisId,
+] = useState<string | null>(null);
+
+const [
+  isReturningToResult,
+  setIsReturningToResult,
+] = useState(false);
+
   useEffect(() => {
     const savedImage = window.sessionStorage.getItem(IMAGE_STORAGE_KEY);
 
@@ -423,15 +433,20 @@ useEffect(() => {
       }
 
       const data =
-        (await response.json()) as {
-          hasDiagnosis?: boolean;
-        };
+  (await response.json()) as {
+    hasDiagnosis?: boolean;
+    diagnosisId?: string | null;
+  };
 
-      if (isActive) {
-        setHasPreviousResult(
-          data.hasDiagnosis === true,
-        );
-      }
+if (isActive) {
+  setHasPreviousResult(
+    data.hasDiagnosis === true,
+  );
+
+  setLatestDiagnosisId(
+    data.diagnosisId ?? null,
+  );
+}
     } catch (error) {
       console.error(
         "[AKANUKE.AI] 診断履歴確認エラー",
@@ -669,7 +684,20 @@ useEffect(() => {
     selectedIds.length === 0;
 
   const handleReturnToResult = () => {
-  router.push("/line/result");
+  if (
+    isReturningToResult ||
+    !latestDiagnosisId
+  ) {
+    return;
+  }
+
+  setIsReturningToResult(true);
+
+  router.push(
+    `/line/result?diagnosisId=${encodeURIComponent(
+      latestDiagnosisId,
+    )}`,
+  );
 };
 
     const handleDiagnosis = () => {
@@ -779,19 +807,27 @@ useEffect(() => {
     </p>
 
     <button
-      type="button"
-      onClick={handleReturnToResult}
-      className="mt-3 flex min-h-[52px] w-full items-center justify-center rounded-[12px] bg-[#FFD400] px-5 text-[13px] font-black text-[#111111] shadow-[0_10px_34px_rgba(15,23,42,0.08)] transition hover:-translate-y-0.5 active:scale-[0.99]"
-    >
-      診断結果に戻る
+  type="button"
+  onClick={handleReturnToResult}
+  disabled={
+    isReturningToResult ||
+    !latestDiagnosisId
+  }
+  className="mt-3 flex min-h-[52px] w-full items-center justify-center rounded-[12px] bg-[#FFD400] px-5 text-[13px] font-black text-[#111111] shadow-[0_10px_34px_rgba(15,23,42,0.08)] transition active:scale-[0.97] disabled:cursor-wait disabled:opacity-60"
+>
+  {isReturningToResult
+    ? "診断結果を読み込み中…"
+    : "診断結果に戻る"}
 
-      <span
-        className="ml-3"
-        aria-hidden="true"
-      >
-        →
-      </span>
-    </button>
+  {!isReturningToResult && (
+    <span
+      className="ml-3"
+      aria-hidden="true"
+    >
+      →
+    </span>
+  )}
+</button>
   </div>
 )}
 

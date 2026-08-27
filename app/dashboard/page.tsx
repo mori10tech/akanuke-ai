@@ -186,7 +186,11 @@ export default async function DashboardPage() {
   {/* ユーザー機能 */}
   <div className="mt-3 overflow-hidden rounded-[20px] border border-black/10 bg-white shadow-[0_10px_34px_rgba(15,23,42,0.05)]">
     <Link
-      href={diagnosisRequiredHref("/plan")}
+      href={
+  hasDiagnosis
+    ? "/plan?from=dashboard"
+    : "/upload"
+}
       className="flex items-center gap-4 border-b border-black/10 px-5 py-4 transition hover:bg-[#F7F9FC]"
     >
       <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#EEF6FF] text-[#1677FF]">

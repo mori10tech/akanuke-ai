@@ -456,6 +456,38 @@ function SalonOrderGuide({
 }
 
 export default function PlanPage() {
+    const [
+    backHref,
+    setBackHref,
+  ] = useState("/result");
+
+  const [
+    backLabel,
+    setBackLabel,
+  ] = useState(
+    "診断結果へ戻る",
+  );
+
+  useEffect(() => {
+    const searchParams =
+      new URLSearchParams(
+        window.location.search,
+      );
+
+    if (
+      searchParams.get("from") ===
+      "dashboard"
+    ) {
+      setBackHref(
+        "/dashboard",
+      );
+
+      setBackLabel(
+        "マイページへ戻る",
+      );
+    }
+  }, []);
+
   const [
     completedIds,
     setCompletedIds,
@@ -972,10 +1004,9 @@ if (!loaded) {
     <AppShell background="white">
       <div className="overflow-x-clip bg-white">
         <AppHeader
-          backHref="/result"
-          backLabel="診断結果へ戻る"
-        />
-
+  backHref={backHref}
+  backLabel={backLabel}
+/>
         {showStickyStatus && (
   <div className="fixed left-1/2 top-[68px] z-30 w-full max-w-[480px] -translate-x-1/2 border-b border-[#1677FF]/10 bg-white/95 px-4 py-2.5 shadow-[0_6px_18px_rgba(15,23,42,0.05)] backdrop-blur-xl">
             <div className="flex items-center gap-3">

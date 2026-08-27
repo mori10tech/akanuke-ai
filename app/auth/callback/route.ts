@@ -9,9 +9,6 @@ type LineFriendshipResponse = {
   friendFlag?: boolean;
 };
 
-const AKANUKE_LINE_TALK_URL =
-  "https://line.me/R/ti/p/%40507rwrwg";
-
 const DEFAULT_NEXT = "/upload";
 
 const ALLOWED_NEXT_PATHS = new Set([
@@ -82,12 +79,11 @@ export async function GET(
   const code =
     requestUrl.searchParams.get("code");
 
-  const source =
-    requestUrl.searchParams.get("source");
-
   const safeNext =
     getSafeNext(
-      requestUrl.searchParams.get("next"),
+      requestUrl.searchParams.get(
+        "next",
+      ),
     );
 
   if (!code) {
@@ -190,27 +186,23 @@ export async function GET(
     }
 
     /*
-     * LIFF経由のログインの場合
+     * LINE認証・友だち確認が
+     * 正常に完了したら、
+     * 認証を開始したブラウザ上で
+     * AKANUKE.AIへ戻す。
      *
-     * LINEトークには戻さず、
-     * リッチメニューで指定された
-     * AKANUKE.AIページへ進む
-     */
-    if (source === "liff") {
-      return createInternalRedirect(
-        request,
-        safeNext,
-      );
-    }
-
-    /*
-     * 通常のAKANUKE.AIログインの場合
+     * Safariから開始
+     * → SafariでsafeNextへ
      *
-     * 初回導線として
-     * AKANUKE.AI公式LINEへ遷移
+     * LIFFから開始
+     * → LIFFでsafeNextへ
+     *
+     * ブラウザを強制的に
+     * LINEトークへ移動させない。
      */
-    return NextResponse.redirect(
-      AKANUKE_LINE_TALK_URL,
+    return createInternalRedirect(
+      request,
+      safeNext,
     );
   } catch (error) {
     console.error(

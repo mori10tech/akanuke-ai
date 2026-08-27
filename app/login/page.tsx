@@ -10,9 +10,6 @@ import {
 
 import AppHeader from "../components/AppHeader";
 
-import { createClient } from "../../lib/supabase/client";
-
-
 export default function LoginPage() {
   const [
     isLineLoading,
@@ -61,7 +58,7 @@ export default function LoginPage() {
     }
   }, []);
 
-  async function handleLineLogin() {
+  function handleLineLogin() {
     if (isLineLoading) {
       return;
     }
@@ -70,8 +67,15 @@ export default function LoginPage() {
     setIsLineLoading(true);
 
     try {
-      const supabase =
-        createClient();
+      const liffId =
+        process.env
+          .NEXT_PUBLIC_LINE_LIFF_ID;
+
+      if (!liffId) {
+        throw new Error(
+          "LIFF IDが設定されていません。",
+        );
+      }
 
       const searchParams =
         new URLSearchParams(
@@ -87,25 +91,26 @@ export default function LoginPage() {
           ? requestedNext
           : "/dashboard";
 
-      const { error } =
-        await supabase.auth.signInWithOAuth({
-          provider: "custom:line",
+      const liffUrl = new URL(
+        `https://liff.line.me/${liffId}`,
+      );
 
-          options: {
-            redirectTo:
-              `${window.location.origin}/auth/callback?next=${encodeURIComponent(
-                safeNext,
-              )}`,
+      liffUrl.searchParams.set(
+        "next",
+        safeNext,
+      );
 
-            queryParams: {
-  bot_prompt: "aggressive",
-},
-          },
-        });
-
-      if (error) {
-        throw error;
-      }
+      /*
+       * LINE LoginのOAuth URLへ直接遷移すると、
+       * Safari等ではLINEのWebログイン画面が先に表示される。
+       *
+       * 先にLIFF URLへ遷移することで、
+       * iOSのUniversal Link / AndroidのApp Linkを利用して
+       * LINEアプリ内のLIFFブラウザを起点にログインを開始する。
+       */
+      window.location.assign(
+        liffUrl.toString(),
+      );
     } catch (error) {
       console.error(
         "LINE login error:",
@@ -132,15 +137,15 @@ export default function LoginPage() {
         <div className="px-5 pb-12 pt-10">
           <div className="text-center">
             <div className="mx-auto flex h-20 w-20 items-center justify-center overflow-hidden rounded-[20px] bg-white shadow-[0_8px_28px_rgba(15,23,42,0.08)]">
-  <Image
-    src="/icon-512.png"
-    alt="AKANUKE.AI"
-    width={80}
-    height={80}
-    priority
-    className="h-full w-full object-cover"
-  />
-</div>
+              <Image
+                src="/icon-512.png"
+                alt="AKANUKE.AI"
+                width={80}
+                height={80}
+                priority
+                className="h-full w-full object-cover"
+              />
+            </div>
 
             <p className="mt-6 text-[11px] font-black tracking-[0.16em] text-[#1677FF]">
               WELCOME TO AKANUKE.AI

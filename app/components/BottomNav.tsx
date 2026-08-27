@@ -45,12 +45,15 @@ function NavIcon({
 }) {
   const commonProps = {
     viewBox: "0 0 24 24",
-    className: "h-[22px] w-[22px]",
+    className:
+      "h-[22px] w-[22px]",
     fill: "none",
     stroke: "currentColor",
     strokeWidth: 1.7,
-    strokeLinecap: "round" as const,
-    strokeLinejoin: "round" as const,
+    strokeLinecap:
+      "round" as const,
+    strokeLinejoin:
+      "round" as const,
     "aria-hidden": true,
   };
 
@@ -59,7 +62,11 @@ function NavIcon({
       <svg {...commonProps}>
         <path d="M8 20h8" />
         <path d="M12 16v4" />
-        <circle cx="12" cy="9" r="6" />
+        <circle
+          cx="12"
+          cy="9"
+          r="6"
+        />
         <path d="M9 10.5c.7.8 1.7 1.2 3 1.2s2.3-.4 3-1.2" />
       </svg>
     );
@@ -140,7 +147,7 @@ export default function BottomNav() {
                     ? "page"
                     : undefined
                 }
-                className={`flex min-w-0 flex-col items-center justify-center gap-1 rounded-xl px-0.5 py-1.5 transition duration-150 active:scale-[0.95] ${
+                className={`flex min-w-0 touch-manipulation select-none flex-col items-center justify-center gap-1 rounded-[12px] px-0.5 py-1.5 transition-[transform,background-color,color,opacity] duration-100 ease-out active:scale-[0.90] active:bg-[#EEF6FF] active:text-[#1677FF] active:opacity-70 ${
                   active
                     ? "font-black text-[#1677FF]"
                     : "font-bold text-neutral-500 hover:text-black"

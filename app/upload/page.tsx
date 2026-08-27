@@ -461,14 +461,30 @@ useEffect(() => {
         };
 
       if (isActive) {
-        setHasPreviousResult(
-          data.hasDiagnosis === true,
-        );
+  const hasDiagnosis =
+    data.hasDiagnosis === true;
 
-        setLatestDiagnosisId(
-          data.diagnosisId ?? null,
-        );
-      }
+  setHasPreviousResult(
+    hasDiagnosis,
+  );
+
+  setLatestDiagnosisId(
+    data.diagnosisId ?? null,
+  );
+
+  /*
+   * 診断済みユーザーが再診断する場合は、
+   * 前回の診断時にsessionStorageへ残った
+   * 顔写真を新しい診断へ引き継がない。
+   */
+  if (hasDiagnosis) {
+    setPreview(null);
+
+    window.sessionStorage.removeItem(
+      IMAGE_STORAGE_KEY,
+    );
+  }
+}
     } catch (error) {
       console.error(
         "[AKANUKE.AI] 診断履歴確認エラー",
@@ -858,35 +874,54 @@ useEffect(() => {
       診断済みの方
     </p>
 
-    <p className="mt-1 text-[10px] leading-5 text-black/55">
-      再診断せず、保存されている結果を確認できます。
+    <p className="mt-1 text-[10px] leading-5 text-black/80">
+      再診断せずに保存されている過去の結果を確認できます。
     </p>
 
-    <button
-  type="button"
-  onClick={handleReturnToResult}
-  disabled={
-    isReturningToResult ||
-    !latestDiagnosisId
-  }
-  className="mt-3 flex min-h-[52px] w-full items-center justify-center rounded-[12px] bg-[#FFD400] px-5 text-[13px] font-black text-[#111111] shadow-[0_10px_34px_rgba(15,23,42,0.08)] transition active:scale-[0.97] disabled:cursor-wait disabled:opacity-60"
->
-  {isReturningToResult
-    ? "診断結果を読み込み中…"
-    : "診断結果に戻る"}
+    <div className="mt-3 space-y-2.5">
+      <button
+        type="button"
+        onClick={handleReturnToResult}
+        disabled={
+          isReturningToResult ||
+          !latestDiagnosisId
+        }
+        className="flex min-h-[52px] w-full touch-manipulation items-center justify-center rounded-[12px] bg-[#FFD400] px-5 text-[13px] font-black text-[#111111] shadow-[0_10px_34px_rgba(15,23,42,0.08)] transition duration-150 active:scale-[0.97] active:bg-[#F3C900] disabled:cursor-wait disabled:opacity-60"
+      >
+        {isReturningToResult
+          ? "診断結果を読み込み中…"
+          : "診断結果に戻る"}
 
-  {!isReturningToResult && (
-    <span
-      className="ml-3"
-      aria-hidden="true"
-    >
-      →
-    </span>
-  )}
+        {!isReturningToResult && (
+          <span
+            className="ml-3"
+            aria-hidden="true"
+          >
+            →
+          </span>
+        )}
+      </button>
+
+      <button
+  type="button"
+  onClick={() =>
+    router.push("/dashboard")
+  }
+  className="flex min-h-[46px] w-full touch-manipulation items-center justify-center rounded-[12px] bg-[#1677FF] px-5 text-[12px] font-black text-white shadow-[0_6px_18px_rgba(22,119,255,0.18)] transition duration-150 active:scale-[0.97] active:bg-[#1267DE]"
+>
+  マイページへ
+
+  <span
+    className="ml-2"
+    aria-hidden="true"
+  >
+    →
+  </span>
 </button>
+    </div>
   </div>
 )}
-
+    
           <div className="mt-5 flex items-center gap-2">
             <div className="h-1.5 flex-1 rounded-full text-[#1677FF]" />
             <div

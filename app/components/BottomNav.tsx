@@ -2,6 +2,10 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import {
+  useEffect,
+  useState,
+} from "react";
 
 type NavItem = {
   name: string;
@@ -89,13 +93,13 @@ function NavIcon({
   }
 
   if (type === "product") {
-  return (
-    <svg {...commonProps}>
-      <path d="M5 8h14l-1 12H6L5 8Z" />
-      <path d="M9 8V6a3 3 0 0 1 6 0v2" />
-    </svg>
-  );
-}
+    return (
+      <svg {...commonProps}>
+        <path d="M5 8h14l-1 12H6L5 8Z" />
+        <path d="M9 8V6a3 3 0 0 1 6 0v2" />
+      </svg>
+    );
+  }
 
   return (
     <svg {...commonProps}>
@@ -113,8 +117,30 @@ export default function BottomNav() {
   const pathname =
     usePathname();
 
+  const [
+    isLineBrowser,
+    setIsLineBrowser,
+  ] = useState(false);
+
+  useEffect(() => {
+    const userAgent =
+      window.navigator.userAgent;
+
+    setIsLineBrowser(
+      /Line\//i.test(
+        userAgent,
+      ),
+    );
+  }, []);
+
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-50 border-t border-[#dedede] bg-white pb-[max(7px,env(safe-area-inset-bottom))] pt-2 shadow-[0_-4px_18px_rgba(15,23,42,0.04)]">
+    <nav
+      className={`fixed inset-x-0 bottom-0 z-50 border-t border-[#dedede] bg-white pt-2 shadow-[0_-4px_18px_rgba(15,23,42,0.04)] ${
+        isLineBrowser
+          ? "pb-[calc(max(7px,env(safe-area-inset-bottom))+12px)]"
+          : "pb-[max(7px,env(safe-area-inset-bottom))]"
+      }`}
+    >
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 top-full h-[100px] bg-white"
@@ -140,7 +166,11 @@ export default function BottomNav() {
                     ? "page"
                     : undefined
                 }
-                className={`flex min-w-0 touch-manipulation select-none flex-col items-center justify-center gap-1 rounded-[12px] px-0.5 py-1.5 transition-[transform,background-color,color,opacity] duration-100 ease-out active:scale-[0.90] active:bg-[#EEF6FF] active:text-[#1677FF] active:opacity-70 ${
+                className={`flex min-w-0 touch-manipulation select-none flex-col items-center justify-center gap-1 rounded-[12px] px-0.5 transition-[transform,background-color,color,opacity] duration-100 ease-out active:scale-[0.90] active:bg-[#EEF6FF] active:text-[#1677FF] active:opacity-70 ${
+                  isLineBrowser
+                    ? "py-2"
+                    : "py-1.5"
+                } ${
                   active
                     ? "font-black text-[#1677FF]"
                     : "font-bold text-neutral-500 hover:text-black"

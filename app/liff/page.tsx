@@ -15,6 +15,7 @@ const ALLOWED_NEXT_PATHS = new Set([
   "/products",
   "/media",
   "/dashboard",
+  "/debug-user",
 ]);
 
 function getSafeNext() {

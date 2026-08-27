@@ -923,17 +923,13 @@ if (!resolvedAfterImage) {
                 </p>
 
                 <h2 className="mt-1 text-[21px] font-black tracking-[-0.035em]">
-                  まずは、変化イメージをチェック
+                  変化イメージをチェック
                 </h2>
               </div>
 
               {isGeneratingAfter && !afterImage ? (
                 <span className="shrink-0 rounded-full bg-[#EEF6FF] px-2.5 py-1.5 text-[8px] font-black text-[#1677FF]">
                   生成中
-                </span>
-              ) : afterImage ? (
-                <span className="shrink-0 rounded-full bg-[#FFD400] px-2.5 py-1.5 text-[8px] font-black text-[#111111]">
-                  完成
                 </span>
               ) : null}
             </div>
@@ -943,154 +939,158 @@ if (!resolvedAfterImage) {
             </p>
 
             <div className="mt-4 grid grid-cols-2 gap-3">
-              <div className="overflow-hidden rounded-[18px] border border-black/10 bg-white">
-                <div className="relative aspect-[4/5] bg-[#F7F9FC]">
-                  {image ? (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img
-                      src={image}
-                      alt="Before"
-                      className="h-full w-full object-cover"
-                    />
-                  ) : null}
+              <div>
+                <p className="mb-2 text-center text-[10px] font-black tracking-[0.08em] text-black/45">
+                  Before
+                </p>
 
-                  <span className="absolute left-3 top-3 rounded-full bg-[#111111] px-2.5 py-1 text-[9px] font-black text-white">
-                    Before
-                  </span>
-                </div>
+                <div className="overflow-hidden rounded-[18px] border border-black/10 bg-white">
+                  <div className="relative aspect-[4/5] bg-[#F7F9FC]">
+                    {image ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={image}
+                        alt="Before"
+                        className="h-full w-full object-cover"
+                      />
+                    ) : null}
+                  </div>
 
-                <div className="p-3">
-                  <p className="text-[11px] font-black">
-                    現在の印象
-                  </p>
+                  <div className="p-3">
+                    <p className="text-[11px] font-black">
+                      現在の印象
+                    </p>
 
-                  <p className="mt-1 text-[12px] leading-6 text-black/75">
-                    {analysis.currentImpression}
-                  </p>
+                    <p className="mt-1 text-[12px] leading-6 text-black/75">
+                      {analysis.currentImpression}
+                    </p>
+                  </div>
                 </div>
               </div>
 
-              <div className="overflow-hidden rounded-[18px] border border-[#FFD400]/60 bg-[#FFF9D9]">
-                <div className="relative aspect-[4/5] overflow-hidden bg-gradient-to-br from-[#EEF6FF] via-white to-[#FFF9D9]">
-                  {afterImage ? (
-                    <>
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={afterImage}
-                        alt="AIが生成したAfterイメージ"
-                        className="h-full w-full object-cover"
-                      />
+              <div>
+                <p className="mb-2 text-center text-[10px] font-black tracking-[0.08em] text-[#1677FF]">
+                  After
+                </p>
 
-                      <span className="absolute left-3 top-3 rounded-full bg-[#FFD400] px-2.5 py-1 text-[9px] font-black text-[#111111] shadow-sm">
-                        After
-                      </span>
-                    </>
-                  ) : isGeneratingAfter ? (
-                    <div className="flex h-full w-full items-center justify-center overflow-hidden p-2 sm:p-3">
-                      <div className="w-full min-w-0 max-w-[170px] text-center">
-                        <span className="relative mx-auto flex h-9 w-9 items-center justify-center rounded-full bg-white text-[#1677FF] shadow-[0_6px_20px_rgba(15,23,42,0.05)] sm:h-14 sm:w-14">
-                          <span className="absolute inset-0 animate-ping rounded-full border border-[#1677FF]/20" />
-                          <span className="absolute inset-[5px] animate-pulse rounded-full bg-[#EEF6FF] sm:inset-[7px]" />
+                <div className="overflow-hidden rounded-[18px] border border-[#FFD400]/60 bg-[#FFF9D9]">
+                  <div className="relative aspect-[4/5] overflow-hidden bg-gradient-to-br from-[#EEF6FF] via-white to-[#FFF9D9]">
+                    {afterImage ? (
+                      <>
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={afterImage}
+                          alt="AIが生成したAfterイメージ"
+                          className="h-full w-full object-cover"
+                        />
+                      </>
+                    ) : isGeneratingAfter ? (
+                      <div className="flex h-full w-full items-center justify-center overflow-hidden p-2 sm:p-3">
+                        <div className="w-full min-w-0 max-w-[170px] text-center">
+                          <span className="relative mx-auto flex h-9 w-9 items-center justify-center rounded-full bg-white text-[#1677FF] shadow-[0_6px_20px_rgba(15,23,42,0.05)] sm:h-14 sm:w-14">
+                            <span className="absolute inset-0 animate-ping rounded-full border border-[#1677FF]/20" />
+                            <span className="absolute inset-[5px] animate-pulse rounded-full bg-[#EEF6FF] sm:inset-[7px]" />
+                            <Icon
+                              name="sparkle"
+                              className="relative z-10 h-4 w-4 sm:h-6 sm:w-6"
+                            />
+                          </span>
+
+                          <p className="mt-2 truncate text-[7px] font-black tracking-[0.04em] text-[#1677FF] sm:mt-4 sm:text-[9px]">
+                            AFTER GENERATING
+                          </p>
+
+                          <div className="mt-1 flex items-end justify-center gap-0.5 sm:mt-2">
+                            <span className="text-[20px] font-black leading-none tracking-[-0.05em] text-[#1677FF] sm:text-[24px]">
+                              {afterGenerationProgress}
+                            </span>
+                            <span className="pb-0.5 text-[8px] font-black text-[#1677FF] sm:text-[9px]">
+                              %
+                            </span>
+                          </div>
+
+                          <p className="mt-2 line-clamp-2 min-h-[24px] break-words text-[8px] font-bold leading-3 text-[#111111]/65 sm:mt-3 sm:min-h-[32px] sm:text-[9px] sm:leading-4">
+                            {getAfterGenerationStage(afterElapsedSeconds)}
+                          </p>
+
+                          <div className="mt-2 h-1 w-full overflow-hidden rounded-full bg-black/5 sm:mt-3 sm:h-1.5">
+                            <div
+                              className="h-full rounded-full bg-[#1677FF] transition-[width] duration-1000 ease-out"
+                              style={{
+                                width: `${afterGenerationProgress}%`,
+                              }}
+                            />
+                          </div>
+
+                          <p className="mt-1.5 whitespace-nowrap text-[7px] font-bold text-black/35 sm:mt-2">
+                            経過 {afterElapsedSeconds}秒
+                          </p>
+
+                          <p className="mt-3 text-[9px] font-medium leading-[1.6] text-black/60">
+                            高品質なAfterを生成しているため、
+                            <br />
+                            少し時間がかかる場合があります
+                          </p>
+                        </div>
+                      </div>
+                    ) : afterError ? (
+                      <div className="flex h-full w-full items-center justify-center p-4">
+                        <div className="text-center">
+                          <p className="text-[10px] font-black text-red-500">
+                            After画像を生成できませんでした
+                          </p>
+
+                          <p className="mt-2 line-clamp-4 text-[8px] leading-4 text-black/40">
+                            {afterError}
+                          </p>
+
+                          <button
+                            type="button"
+                            onClick={handleRetryAfter}
+                            className="mt-4 rounded-[10px] bg-[#111111] px-4 py-2.5 text-[9px] font-black text-white"
+                          >
+                            もう一度生成
+                          </button>
+                        </div>
+                      </div>
+                    ) : isHistoryView ? (
+                      <div className="flex h-full w-full items-center justify-center p-4">
+                        <div className="text-center">
                           <Icon
                             name="sparkle"
-                            className="relative z-10 h-4 w-4 sm:h-6 sm:w-6"
+                            className="mx-auto h-6 w-6 text-black/25"
                           />
-                        </span>
 
-                        <p className="mt-2 truncate text-[7px] font-black tracking-[0.04em] text-[#1677FF] sm:mt-4 sm:text-[9px]">
-                          AFTER GENERATING
-                        </p>
-
-                        <div className="mt-1 flex items-end justify-center gap-0.5 sm:mt-2">
-                          <span className="text-[20px] font-black leading-none tracking-[-0.05em] text-[#1677FF] sm:text-[24px]">
-                            {afterGenerationProgress}
-                          </span>
-                          <span className="pb-0.5 text-[8px] font-black text-[#1677FF] sm:text-[9px]">
-                            %
-                          </span>
+                          <p className="mt-3 text-[9px] font-black text-black/35">
+                            After画像が保存されていません
+                          </p>
                         </div>
-
-                        <p className="mt-2 line-clamp-2 min-h-[24px] break-words text-[8px] font-bold leading-3 text-[#111111]/65 sm:mt-3 sm:min-h-[32px] sm:text-[9px] sm:leading-4">
-                          {getAfterGenerationStage(afterElapsedSeconds)}
-                        </p>
-
-                        <div className="mt-2 h-1 w-full overflow-hidden rounded-full bg-black/5 sm:mt-3 sm:h-1.5">
-                          <div
-                            className="h-full rounded-full bg-[#1677FF] transition-[width] duration-1000 ease-out"
-                            style={{
-                              width: `${afterGenerationProgress}%`,
-                            }}
+                      </div>
+                    ) : (
+                      <div className="flex h-full w-full items-center justify-center p-4">
+                        <div className="text-center">
+                          <Icon
+                            name="sparkle"
+                            className="mx-auto h-6 w-6 text-[#1677FF]"
                           />
+
+                          <p className="mt-3 text-[9px] font-black text-[#1677FF]">
+                            After準備中
+                          </p>
                         </div>
-
-                        <p className="mt-1.5 whitespace-nowrap text-[7px] font-bold text-black/35 sm:mt-2">
-                          経過 {afterElapsedSeconds}秒
-                        </p>
-
-                        <p className="mt-3 text-[9px] font-medium leading-[1.6] text-black/60">
-                          高品質なAfterを生成しているため、
-                          <br />
-                          少し時間がかかる場合があります
-                        </p>
                       </div>
-                    </div>
-                  ) : afterError ? (
-                    <div className="flex h-full w-full items-center justify-center p-4">
-                      <div className="text-center">
-                        <p className="text-[10px] font-black text-red-500">
-                          After画像を生成できませんでした
-                        </p>
+                    )}
+                  </div>
 
-                        <p className="mt-2 line-clamp-4 text-[8px] leading-4 text-black/40">
-                          {afterError}
-                        </p>
+                  <div className="p-3">
+                    <p className="text-[11px] font-black">
+                      理想の印象
+                    </p>
 
-                        <button
-                          type="button"
-                          onClick={handleRetryAfter}
-                          className="mt-4 rounded-[10px] bg-[#111111] px-4 py-2.5 text-[9px] font-black text-white"
-                        >
-                          もう一度生成
-                        </button>
-                      </div>
-                    </div>
-                  ) : isHistoryView ? (
-                    <div className="flex h-full w-full items-center justify-center p-4">
-                      <div className="text-center">
-                        <Icon
-                          name="sparkle"
-                          className="mx-auto h-6 w-6 text-black/25"
-                        />
-
-                        <p className="mt-3 text-[9px] font-black text-black/35">
-                          After画像が保存されていません
-                        </p>
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="flex h-full w-full items-center justify-center p-4">
-                      <div className="text-center">
-                        <Icon
-                          name="sparkle"
-                          className="mx-auto h-6 w-6 text-[#1677FF]"
-                        />
-
-                        <p className="mt-3 text-[9px] font-black text-[#1677FF]">
-                          After準備中
-                        </p>
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                <div className="p-3">
-                  <p className="text-[11px] font-black">
-                    理想の印象
-                  </p>
-
-                  <p className="mt-1 text-[12px] font-bold leading-6 text-[#1677FF]">
-                    {afterSummary.headline}
-                  </p>
+                    <p className="mt-1 text-[12px] font-bold leading-6 text-[#1677FF]">
+                      {afterSummary.headline}
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>

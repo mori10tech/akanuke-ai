@@ -623,26 +623,55 @@ export default function PlanPage() {
   /*
    * 現在の診断IDごとに、
    * 垢抜けプランのチェック状態を復元します。
+   *
+   * SafariとLINE内ブラウザではsessionStorageが共有されないため、
+   * 診断IDが保存されていない場合は最新診断IDをAPIから取得します。
    */
   useEffect(() => {
-  let isActive = true;
+    let isActive = true;
 
-  async function loadPlanProgress() {
-    const diagnosisId =
-      window.sessionStorage.getItem(
-        DIAGNOSIS_ID_STORAGE_KEY,
+    async function getLatestDiagnosisId() {
+      const response = await fetch(
+        "/api/diagnoses/latest",
+        {
+          method: "GET",
+          cache: "no-store",
+        },
       );
 
-    if (!diagnosisId) {
-      if (isActive) {
-        setCompletedIds([]);
-        setLoaded(true);
+      const data =
+        (await response.json()) as {
+          diagnosisId?: string | null;
+          error?: string;
+        };
+
+      if (!response.ok) {
+        throw new Error(
+          data.error ??
+            "最新の診断情報を取得できませんでした。",
+        );
       }
 
-      return;
+      const latestDiagnosisId =
+        typeof data.diagnosisId ===
+          "string" &&
+        data.diagnosisId.trim().length > 0
+          ? data.diagnosisId
+          : null;
+
+      if (latestDiagnosisId) {
+        window.sessionStorage.setItem(
+          DIAGNOSIS_ID_STORAGE_KEY,
+          latestDiagnosisId,
+        );
+      }
+
+      return latestDiagnosisId;
     }
 
-    try {
+    async function fetchPlanProgress(
+      diagnosisId: string,
+    ) {
       const response = await fetch(
         `/api/plan-progress?diagnosisId=${encodeURIComponent(
           diagnosisId,
@@ -659,159 +688,257 @@ export default function PlanPage() {
           error?: string;
         };
 
-      if (!response.ok) {
-        throw new Error(
-          data.error ??
-            "プランの進捗を取得できませんでした。",
+      return {
+        response,
+        data,
+      };
+    }
+
+    async function loadPlanProgress() {
+      try {
+        let diagnosisId =
+          window.sessionStorage.getItem(
+            DIAGNOSIS_ID_STORAGE_KEY,
+          );
+
+        if (!diagnosisId) {
+          diagnosisId =
+            await getLatestDiagnosisId();
+        }
+
+        if (!diagnosisId) {
+          if (isActive) {
+            setCompletedIds([]);
+          }
+
+          return;
+        }
+
+        let { response, data } =
+          await fetchPlanProgress(
+            diagnosisId,
+          );
+
+        /*
+         * sessionStorageに古い診断IDが残っている場合は、
+         * 最新診断IDを取り直して1回だけ再取得します。
+         */
+        if (response.status === 404) {
+          const latestDiagnosisId =
+            await getLatestDiagnosisId();
+
+          if (
+            latestDiagnosisId &&
+            latestDiagnosisId !==
+              diagnosisId
+          ) {
+            diagnosisId =
+              latestDiagnosisId;
+
+            ({ response, data } =
+              await fetchPlanProgress(
+                diagnosisId,
+              ));
+          }
+        }
+
+        if (!response.ok) {
+          throw new Error(
+            data.error ??
+              "プランの進捗を取得できませんでした。",
+          );
+        }
+
+        if (!isActive) {
+          return;
+        }
+
+        const validCompletedIds =
+          Array.isArray(
+            data.completedTaskIds,
+          )
+            ? data.completedTaskIds.filter(
+                (id): id is string =>
+                  typeof id ===
+                    "string" &&
+                  planTasks.some(
+                    (task) =>
+                      task.id === id,
+                  ),
+              )
+            : [];
+
+        setCompletedIds(
+          validCompletedIds,
         );
+      } catch (error) {
+        console.error(
+          "[AKANUKE.AI] プラン進捗取得エラー:",
+          error,
+        );
+
+        if (isActive) {
+          setCompletedIds([]);
+        }
+      } finally {
+        if (isActive) {
+          setLoaded(true);
+        }
       }
+    }
 
-      if (!isActive) {
-        return;
-      }
+    void loadPlanProgress();
 
-      const validCompletedIds =
-        Array.isArray(
-          data.completedTaskIds,
-        )
-          ? data.completedTaskIds.filter(
-              (id): id is string =>
-                typeof id ===
-                  "string" &&
-                planTasks.some(
-                  (task) =>
-                    task.id === id,
-                ),
-            )
-          : [];
+    return () => {
+      isActive = false;
+    };
+  }, []);
 
-      setCompletedIds(
-        validCompletedIds,
+  const completedCount =
+    completedIds.length;
+
+  const progress = useMemo(
+    () =>
+      Math.round(
+        (completedCount /
+          planTasks.length) *
+          100,
+      ),
+    [completedCount],
+  );
+
+  async function resolveDiagnosisId() {
+    const storedDiagnosisId =
+      window.sessionStorage.getItem(
+        DIAGNOSIS_ID_STORAGE_KEY,
       );
-    } catch (error) {
-      console.error(
-        "[AKANUKE.AI] プラン進捗取得エラー:",
-        error,
-      );
 
-      if (isActive) {
-        setCompletedIds([]);
-      }
-    } finally {
-      if (isActive) {
-        setLoaded(true);
-      }
+    if (storedDiagnosisId) {
+      return storedDiagnosisId;
+    }
+
+    const response = await fetch(
+      "/api/diagnoses/latest",
+      {
+        method: "GET",
+        cache: "no-store",
+      },
+    );
+
+    const data =
+      (await response.json()) as {
+        diagnosisId?: string | null;
+        error?: string;
+      };
+
+    if (!response.ok) {
+      throw new Error(
+        data.error ??
+          "最新の診断情報を取得できませんでした。",
+      );
+    }
+
+    const latestDiagnosisId =
+      typeof data.diagnosisId ===
+        "string" &&
+      data.diagnosisId.trim().length > 0
+        ? data.diagnosisId
+        : null;
+
+    if (!latestDiagnosisId) {
+      throw new Error(
+        "診断IDを確認できませんでした。",
+      );
+    }
+
+    window.sessionStorage.setItem(
+      DIAGNOSIS_ID_STORAGE_KEY,
+      latestDiagnosisId,
+    );
+
+    return latestDiagnosisId;
+  }
+
+  async function savePlanProgress(
+    nextCompletedIds: string[],
+  ) {
+    const diagnosisId =
+      await resolveDiagnosisId();
+
+    const response = await fetch(
+      "/api/plan-progress",
+      {
+        method: "PUT",
+
+        headers: {
+          "Content-Type":
+            "application/json",
+        },
+
+        body: JSON.stringify({
+          diagnosisId,
+          completedTaskIds:
+            nextCompletedIds,
+        }),
+      },
+    );
+
+    const data =
+      (await response.json()) as {
+        completedTaskIds?: string[];
+        error?: string;
+      };
+
+    if (!response.ok) {
+      throw new Error(
+        data.error ??
+          "プランの進捗を保存できませんでした。",
+      );
     }
   }
 
-  void loadPlanProgress();
+  const toggleCompleted = (
+    id: string,
+  ) => {
+    const previousCompletedIds =
+      completedIds;
 
-  return () => {
-    isActive = false;
-  };
-}, []);
-
-  const completedCount =
-  completedIds.length;
-
-const progress = useMemo(
-  () =>
-    Math.round(
-      (completedCount /
-        planTasks.length) *
-        100,
-    ),
-  [completedCount],
-);
-
-async function savePlanProgress(
-  nextCompletedIds: string[],
-) {
-  const diagnosisId =
-    window.sessionStorage.getItem(
-      DIAGNOSIS_ID_STORAGE_KEY,
-    );
-
-  if (!diagnosisId) {
-    throw new Error(
-      "診断IDを確認できませんでした。",
-    );
-  }
-
-  const response = await fetch(
-    "/api/plan-progress",
-    {
-      method: "PUT",
-
-      headers: {
-        "Content-Type":
-          "application/json",
-      },
-
-      body: JSON.stringify({
-        diagnosisId,
-        completedTaskIds:
-          nextCompletedIds,
-      }),
-    },
-  );
-
-  const data =
-    (await response.json()) as {
-      completedTaskIds?: string[];
-      error?: string;
-    };
-
-  if (!response.ok) {
-    throw new Error(
-      data.error ??
-        "プランの進捗を保存できませんでした。",
-    );
-  }
-}
-
-const toggleCompleted = (
-  id: string,
-) => {
-  const previousCompletedIds =
-    completedIds;
-
-  const nextCompletedIds =
-    completedIds.includes(id)
-      ? completedIds.filter(
-          (item) =>
-            item !== id,
-        )
-      : [
-          ...completedIds,
-          id,
-        ];
-
-  /*
-   * 画面上はすぐにチェック状態を変更し、
-   * 裏側でSupabaseへ保存します。
-   */
-  setCompletedIds(
-    nextCompletedIds,
-  );
-
-  void savePlanProgress(
-    nextCompletedIds,
-  ).catch((error) => {
-    console.error(
-      "[AKANUKE.AI] プラン進捗保存エラー:",
-      error,
-    );
+    const nextCompletedIds =
+      completedIds.includes(id)
+        ? completedIds.filter(
+            (item) =>
+              item !== id,
+          )
+        : [
+            ...completedIds,
+            id,
+          ];
 
     /*
-     * 保存に失敗した場合は、
-     * チェック状態を元に戻します。
+     * 画面上はすぐにチェック状態を変更し、
+     * 裏側でSupabaseへ保存します。
      */
     setCompletedIds(
-      previousCompletedIds,
+      nextCompletedIds,
     );
-  });
-};
+
+    void savePlanProgress(
+      nextCompletedIds,
+    ).catch((error) => {
+      console.error(
+        "[AKANUKE.AI] プラン進捗保存エラー:",
+        error,
+      );
+
+      /*
+       * 保存に失敗した場合は、
+       * チェック状態を元に戻します。
+       */
+      setCompletedIds(
+        previousCompletedIds,
+      );
+    });
+  };
 
 const resetCompleted = () => {
   const previousCompletedIds =

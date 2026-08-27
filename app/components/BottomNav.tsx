@@ -9,7 +9,6 @@ type NavItem = {
   icon:
     | "result"
     | "plan"
-    | "salon"
     | "product"
     | "account";
 };
@@ -26,18 +25,13 @@ const items: NavItem[] = [
     icon: "plan",
   },
   {
-    name: "サロン",
-    href: "/salon",
-    icon: "salon",
-  },
-  {
     name: "商品",
     href: "/products",
     icon: "product",
   },
   {
     name: "マイページ",
-    href: "/",
+    href: "/dashboard",
     icon: "account",
   },
 ];
@@ -51,15 +45,12 @@ function NavIcon({
 }) {
   const commonProps = {
     viewBox: "0 0 24 24",
-    className:
-      "h-[22px] w-[22px]",
+    className: "h-[22px] w-[22px]",
     fill: "none",
     stroke: "currentColor",
     strokeWidth: 1.7,
-    strokeLinecap:
-      "round" as const,
-    strokeLinejoin:
-      "round" as const,
+    strokeLinecap: "round" as const,
+    strokeLinejoin: "round" as const,
     "aria-hidden": true,
   };
 
@@ -68,11 +59,7 @@ function NavIcon({
       <svg {...commonProps}>
         <path d="M8 20h8" />
         <path d="M12 16v4" />
-        <circle
-          cx="12"
-          cy="9"
-          r="6"
-        />
+        <circle cx="12" cy="9" r="6" />
         <path d="M9 10.5c.7.8 1.7 1.2 3 1.2s2.3-.4 3-1.2" />
       </svg>
     );
@@ -90,18 +77,6 @@ function NavIcon({
         />
         <path d="m8 10 2 2 5-5" />
         <path d="M8 16h8" />
-      </svg>
-    );
-  }
-
-  if (type === "salon") {
-    return (
-      <svg {...commonProps}>
-        <path d="M6 21v-7" />
-        <path d="M18 21v-7" />
-        <path d="M4 21h16" />
-        <path d="M8 14V8a4 4 0 0 1 8 0v6" />
-        <path d="M8 11h8" />
       </svg>
     );
   }
@@ -145,7 +120,7 @@ export default function BottomNav() {
         className="pointer-events-none absolute inset-x-0 top-full h-[100px] bg-white"
       />
 
-      <div className="relative mx-auto grid w-full max-w-[480px] grid-cols-5 px-1">
+      <div className="relative mx-auto grid w-full max-w-[480px] grid-cols-4 px-1">
         {items.map(
           (item) => {
             const active =
@@ -165,9 +140,9 @@ export default function BottomNav() {
                     ? "page"
                     : undefined
                 }
-                className={`flex min-w-0 flex-col items-center justify-center gap-1 rounded-xl px-0.5 py-1.5 transition active:scale-95 ${
+                className={`flex min-w-0 flex-col items-center justify-center gap-1 rounded-xl px-0.5 py-1.5 transition duration-150 active:scale-[0.95] ${
                   active
-                    ? "font-black text-black"
+                    ? "font-black text-[#1677FF]"
                     : "font-bold text-neutral-500 hover:text-black"
                 }`}
               >

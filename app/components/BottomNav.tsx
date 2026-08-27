@@ -89,20 +89,13 @@ function NavIcon({
   }
 
   if (type === "product") {
-    return (
-      <svg
-        {...commonProps}
-        fill={
-          active
-            ? "currentColor"
-            : "none"
-        }
-      >
-        <path d="M5 8h14l-1 12H6L5 8Z" />
-        <path d="M9 8V6a3 3 0 0 1 6 0v2" />
-      </svg>
-    );
-  }
+  return (
+    <svg {...commonProps}>
+      <path d="M5 8h14l-1 12H6L5 8Z" />
+      <path d="M9 8V6a3 3 0 0 1 6 0v2" />
+    </svg>
+  );
+}
 
   return (
     <svg {...commonProps}>

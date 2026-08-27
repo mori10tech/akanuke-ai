@@ -4,6 +4,7 @@ import { Suspense } from "react";
 import AppShell from "../components/AppShell";
 import AppHeader from "../components/AppHeader";
 import LogoutButton from "../components/LogoutButton";
+import { createClient } from "../../lib/supabase/server";
 
 import LatestReport from "./LatestReport";
 import LatestReportLoading from "./LatestReportLoading";
@@ -99,7 +100,38 @@ function SparkleIcon() {
   );
 }
 
-export default function DashboardPage() {
+export default async function DashboardPage() {
+  const supabase =
+    await createClient();
+
+  const {
+    data: latestDiagnosis,
+    error: diagnosisError,
+  } = await supabase
+    .from("diagnoses")
+    .select("id")
+    .order("created_at", {
+      ascending: false,
+    })
+    .limit(1)
+    .maybeSingle();
+
+  if (diagnosisError) {
+    console.error(
+      "Dashboard diagnosis check error:",
+      diagnosisError,
+    );
+  }
+
+  const hasDiagnosis =
+    Boolean(latestDiagnosis);
+
+  const diagnosisRequiredHref =
+    (href: string) =>
+      hasDiagnosis
+        ? href
+        : "/upload";
+
   return (
     <AppShell background="white">
       <div className="overflow-x-clip bg-white">
@@ -154,7 +186,7 @@ export default function DashboardPage() {
   {/* ユーザー機能 */}
   <div className="mt-3 overflow-hidden rounded-[20px] border border-black/10 bg-white shadow-[0_10px_34px_rgba(15,23,42,0.05)]">
     <Link
-      href="/plan"
+      href={diagnosisRequiredHref("/plan")}
       className="flex items-center gap-4 border-b border-black/10 px-5 py-4 transition hover:bg-[#F7F9FC]"
     >
       <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#EEF6FF] text-[#1677FF]">
@@ -198,7 +230,7 @@ export default function DashboardPage() {
     </Link>
 
     <Link
-      href="/products"
+      href={diagnosisRequiredHref("/products")}
       className="flex items-center gap-4 border-b border-black/10 px-5 py-4 transition hover:bg-[#F7F9FC]"
     >
       <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#EEF6FF] text-[#1677FF]">
@@ -221,7 +253,7 @@ export default function DashboardPage() {
     </Link>
 
     <Link
-      href="/history"
+      href={diagnosisRequiredHref("/history")}
       className="flex items-center gap-4 border-b border-black/10 px-5 py-4 transition hover:bg-[#F7F9FC]"
     >
       <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#EEF6FF] text-[#1677FF]">

@@ -1,34 +1,44 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import {
+  useEffect,
+  useState,
+} from "react";
 import liff from "@line/liff";
 
-import { createClient } from "../../lib/supabase/client";
+import {
+  createClient,
+} from "../../lib/supabase/client";
 
-const DEFAULT_NEXT = "/upload";
+const DEFAULT_NEXT =
+  "/upload";
 
-const ALLOWED_NEXT_PATHS = new Set([
-  "/",
-  "/upload",
-  "/line/result",
-  "/products",
-  "/media",
-  "/dashboard",
-  "/debug-user",
-]);
+const ALLOWED_NEXT_PATHS =
+  new Set([
+    "/",
+    "/upload",
+    "/line/result",
+    "/products",
+    "/media",
+    "/dashboard",
+    "/debug-user",
+  ]);
 
 function getSafeNext() {
-  const searchParams = new URLSearchParams(
-    window.location.search,
-  );
+  const searchParams =
+    new URLSearchParams(
+      window.location.search,
+    );
 
   const requestedNext =
     searchParams.get("next");
 
   if (
     requestedNext &&
-    ALLOWED_NEXT_PATHS.has(requestedNext)
+    ALLOWED_NEXT_PATHS.has(
+      requestedNext,
+    )
   ) {
     return requestedNext;
   }
@@ -36,7 +46,9 @@ function getSafeNext() {
   return DEFAULT_NEXT;
 }
 
-function getPageTitle(path: string) {
+function getPageTitle(
+  path: string,
+) {
   switch (path) {
     case "/upload":
       return "AI垢抜け診断";
@@ -61,19 +73,89 @@ function getPageTitle(path: string) {
   }
 }
 
+/*
+ * リッチメニューから要求されたページと
+ * 診断履歴の有無から実際の遷移先を決定する。
+ *
+ * 診断結果・おすすめ商品は
+ * 診断データを前提とするため、
+ * 未診断ユーザーは診断画面へ誘導する。
+ *
+ * マイページ・メディア・トップ・AI診断は
+ * 診断履歴の有無に関係なくアクセス可能。
+ */
+function resolveNextPath(
+  requestedPath: string,
+  hasDiagnosis: boolean,
+) {
+  if (
+    requestedPath ===
+    "/line/result"
+  ) {
+    return hasDiagnosis
+      ? "/line/result"
+      : "/upload";
+  }
+
+  if (
+    requestedPath ===
+    "/products"
+  ) {
+    return hasDiagnosis
+      ? "/products"
+      : "/upload";
+  }
+
+  return requestedPath;
+}
+
+async function getHasDiagnosis() {
+  const response =
+    await fetch(
+      "/api/diagnoses/latest",
+      {
+        method: "GET",
+        cache: "no-store",
+      },
+    );
+
+  if (!response.ok) {
+    throw new Error(
+      "診断履歴を確認できませんでした。",
+    );
+  }
+
+  const data =
+    (await response.json()) as {
+      hasDiagnosis?: boolean;
+    };
+
+  return Boolean(
+    data.hasDiagnosis,
+  );
+}
+
 export default function LiffPage() {
-  const [message, setMessage] = useState(
+  const [
+    message,
+    setMessage,
+  ] = useState(
     "AKANUKE.AIを準備しています...",
   );
 
-  const [pageTitle, setPageTitle] =
-    useState("AKANUKE.AI");
+  const [
+    pageTitle,
+    setPageTitle,
+  ] = useState(
+    "AKANUKE.AI",
+  );
 
   useEffect(() => {
     async function initializeLiff() {
       try {
         const liffId =
-          process.env.NEXT_PUBLIC_LINE_LIFF_ID;
+          process.env
+            .NEXT_PUBLIC_LINE_LIFF_ID;
 
         if (!liffId) {
           throw new Error(
@@ -81,10 +163,13 @@ export default function LiffPage() {
           );
         }
 
-        const safeNext = getSafeNext();
+        const safeNext =
+          getSafeNext();
 
         setPageTitle(
-          getPageTitle(safeNext),
+          getPageTitle(
+            safeNext,
+          ),
         );
 
         await liff.init({
@@ -92,11 +177,13 @@ export default function LiffPage() {
         });
 
         /*
-         * LINEアプリ外からLIFFを開いた場合のみ
+         * LINEアプリ外から
+         * LIFFを開いた場合のみ
          * LINEログインを実行する。
          *
          * LINEアプリ内では
-         * liff.init() によるログイン状態を利用する。
+         * liff.init() による
+         * ログイン状態を利用する。
          */
         if (
           !liff.isInClient() &&
@@ -104,7 +191,8 @@ export default function LiffPage() {
         ) {
           liff.login({
             redirectUri:
-              window.location.href,
+              window.location
+                .href,
           });
 
           return;
@@ -116,16 +204,19 @@ export default function LiffPage() {
 
         /*
          * AKANUKE.AI公式LINEとの
-         * 友だち状態を確認
+         * 友だち状態を確認する。
          */
         let friendship =
           await liff.getFriendship();
 
         /*
-         * 未追加またはブロック中の場合は
-         * 友だち追加を促す
+         * 未追加または
+         * ブロック中の場合は
+         * 友だち追加を促す。
          */
-        if (!friendship.friendFlag) {
+        if (
+          !friendship.friendFlag
+        ) {
           setMessage(
             "AKANUKE.AI公式LINEの友だち追加が必要です...",
           );
@@ -140,12 +231,15 @@ export default function LiffPage() {
           }
 
           /*
-           * 追加画面を閉じた後に再確認
+           * 追加画面を閉じた後に
+           * 友だち状態を再確認する。
            */
           friendship =
             await liff.getFriendship();
 
-          if (!friendship.friendFlag) {
+          if (
+            !friendship.friendFlag
+          ) {
             setMessage(
               "AKANUKE.AIを利用するには、LINE公式アカウントの友だち追加が必要です。",
             );
@@ -161,14 +255,12 @@ export default function LiffPage() {
         const supabase =
           createClient();
 
-        /*
-         * LIFFブラウザ内ですでに
-         * Supabaseログイン済みなら
-         * そのまま目的ページへ
-         */
         const {
-          data: { user },
-          error: userError,
+          data: {
+            user,
+          },
+          error:
+            userError,
         } =
           await supabase.auth.getUser();
 
@@ -179,7 +271,47 @@ export default function LiffPage() {
           );
         }
 
+        /*
+         * LIFFブラウザ内ですでに
+         * Supabaseログイン済みの場合。
+         *
+         * 診断結果・おすすめ商品への
+         * アクセスでは診断履歴を確認してから
+         * 遷移先を決定する。
+         */
         if (user) {
+          if (
+            safeNext ===
+              "/line/result" ||
+            safeNext ===
+              "/products"
+          ) {
+            setMessage(
+              "診断履歴を確認しています...",
+            );
+
+            const hasDiagnosis =
+              await getHasDiagnosis();
+
+            const resolvedNext =
+              resolveNextPath(
+                safeNext,
+                hasDiagnosis,
+              );
+
+            window.location.replace(
+              resolvedNext,
+            );
+
+            return;
+          }
+
+          /*
+           * AI診断・マイページ・
+           * メディア・トップなどは
+           * 診断履歴に関係なく
+           * そのままアクセスする。
+           */
           window.location.replace(
             safeNext,
           );
@@ -193,11 +325,11 @@ export default function LiffPage() {
 
         /*
          * Supabase未ログインの場合のみ
-         * 既存custom:line OAuthを実行。
+         * custom:line OAuthを実行する。
          *
-         * source=liff を付けることで
-         * callback側で公式LINEトークではなく
-         * safeNextへ戻す。
+         * callback側でも
+         * safeNextと診断履歴を確認して
+         * 最終的な遷移先を決定する。
          */
         const callbackUrl =
           `${window.location.origin}/auth/callback` +
@@ -206,22 +338,25 @@ export default function LiffPage() {
             safeNext,
           )}`;
 
-        const { error } =
-          await supabase.auth.signInWithOAuth({
-            provider: "custom:line",
+        const {
+          error,
+        } =
+          await supabase.auth.signInWithOAuth(
+            {
+              provider:
+                "custom:line",
 
-            options: {
-              redirectTo:
-                callbackUrl,
+              options: {
+                redirectTo:
+                  callbackUrl,
 
-              queryParams: {
-  bot_prompt:
-    "aggressive",
-  prompt:
-    "none",
-},
+                queryParams: {
+                  bot_prompt:
+                    "aggressive",
+                },
+              },
             },
-          });
+          );
 
         if (error) {
           throw error;

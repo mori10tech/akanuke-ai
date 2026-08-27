@@ -137,7 +137,7 @@ export default function BottomNav() {
     <nav
       className={`fixed inset-x-0 bottom-0 z-50 border-t border-[#dedede] bg-white pt-2 shadow-[0_-4px_18px_rgba(15,23,42,0.04)] ${
         isLineBrowser
-          ? "pb-[calc(max(7px,env(safe-area-inset-bottom))+12px)]"
+          ? "pb-[calc(max(7px,env(safe-area-inset-bottom))+16px)]"
           : "pb-[max(7px,env(safe-area-inset-bottom))]"
       }`}
     >

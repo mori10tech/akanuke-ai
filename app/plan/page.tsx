@@ -18,9 +18,6 @@ import AppHeader from "../components/AppHeader";
 import AppShell from "../components/AppShell";
 import AdSenseAd from "../components/AdSenseAd";
 
-const STORAGE_KEY_PREFIX =
-  "akanukePlanCompletedTasks";
-
 const DIAGNOSIS_ID_STORAGE_KEY =
   "akanukeDiagnosisId";
 
@@ -628,120 +625,215 @@ export default function PlanPage() {
    * 垢抜けプランのチェック状態を復元します。
    */
   useEffect(() => {
+  let isActive = true;
+
+  async function loadPlanProgress() {
     const diagnosisId =
       window.sessionStorage.getItem(
         DIAGNOSIS_ID_STORAGE_KEY,
       );
 
     if (!diagnosisId) {
-      setCompletedIds([]);
-      setLoaded(true);
-      return;
-    }
+      if (isActive) {
+        setCompletedIds([]);
+        setLoaded(true);
+      }
 
-    const storageKey =
-      `${STORAGE_KEY_PREFIX}:${diagnosisId}`;
-
-    const raw =
-      window.localStorage.getItem(
-        storageKey,
-      );
-
-    if (!raw) {
-      setCompletedIds([]);
-      setLoaded(true);
       return;
     }
 
     try {
-      const parsed =
-        JSON.parse(raw);
-
-      if (
-        Array.isArray(parsed)
-      ) {
-        setCompletedIds(
-          parsed.filter(
-            (
-              id,
-            ): id is string =>
-              typeof id ===
-              "string",
-          ),
-        );
-      } else {
-        setCompletedIds([]);
-      }
-    } catch {
-      setCompletedIds([]);
-    }
-
-    setLoaded(true);
-  }, []);
-
-  /*
-   * チェック状態が変わったら、
-   * 現在の診断ID専用のlocalStorageへ保存します。
-   */
-  useEffect(() => {
-    if (!loaded) {
-      return;
-    }
-
-    const diagnosisId =
-      window.sessionStorage.getItem(
-        DIAGNOSIS_ID_STORAGE_KEY,
+      const response = await fetch(
+        `/api/plan-progress?diagnosisId=${encodeURIComponent(
+          diagnosisId,
+        )}`,
+        {
+          method: "GET",
+          cache: "no-store",
+        },
       );
 
-    if (!diagnosisId) {
-      return;
+      const data =
+        (await response.json()) as {
+          completedTaskIds?: string[];
+          error?: string;
+        };
+
+      if (!response.ok) {
+        throw new Error(
+          data.error ??
+            "プランの進捗を取得できませんでした。",
+        );
+      }
+
+      if (!isActive) {
+        return;
+      }
+
+      const validCompletedIds =
+        Array.isArray(
+          data.completedTaskIds,
+        )
+          ? data.completedTaskIds.filter(
+              (id): id is string =>
+                typeof id ===
+                  "string" &&
+                planTasks.some(
+                  (task) =>
+                    task.id === id,
+                ),
+            )
+          : [];
+
+      setCompletedIds(
+        validCompletedIds,
+      );
+    } catch (error) {
+      console.error(
+        "[AKANUKE.AI] プラン進捗取得エラー:",
+        error,
+      );
+
+      if (isActive) {
+        setCompletedIds([]);
+      }
+    } finally {
+      if (isActive) {
+        setLoaded(true);
+      }
     }
+  }
 
-    const storageKey =
-      `${STORAGE_KEY_PREFIX}:${diagnosisId}`;
+  void loadPlanProgress();
 
-    window.localStorage.setItem(
-      storageKey,
-      JSON.stringify(
-        completedIds,
-      ),
-    );
-  }, [
-    completedIds,
-    loaded,
-  ]);
+  return () => {
+    isActive = false;
+  };
+}, []);
 
   const completedCount =
-    completedIds.length;
+  completedIds.length;
 
-  const progress = useMemo(
-    () =>
-      Math.round(
-        (completedCount /
-          planTasks.length) *
-          100,
-      ),
-    [completedCount],
+const progress = useMemo(
+  () =>
+    Math.round(
+      (completedCount /
+        planTasks.length) *
+        100,
+    ),
+  [completedCount],
+);
+
+async function savePlanProgress(
+  nextCompletedIds: string[],
+) {
+  const diagnosisId =
+    window.sessionStorage.getItem(
+      DIAGNOSIS_ID_STORAGE_KEY,
+    );
+
+  if (!diagnosisId) {
+    throw new Error(
+      "診断IDを確認できませんでした。",
+    );
+  }
+
+  const response = await fetch(
+    "/api/plan-progress",
+    {
+      method: "PUT",
+
+      headers: {
+        "Content-Type":
+          "application/json",
+      },
+
+      body: JSON.stringify({
+        diagnosisId,
+        completedTaskIds:
+          nextCompletedIds,
+      }),
+    },
   );
 
-  const toggleCompleted = (
-    id: string,
-  ) => {
-    setCompletedIds(
-      (current) =>
-        current.includes(id)
-          ? current.filter(
-              (item) =>
-                item !== id,
-            )
-          : [
-              ...current,
-              id,
-            ],
-    );
-  };
+  const data =
+    (await response.json()) as {
+      completedTaskIds?: string[];
+      error?: string;
+    };
 
-  if (!loaded) {
+  if (!response.ok) {
+    throw new Error(
+      data.error ??
+        "プランの進捗を保存できませんでした。",
+    );
+  }
+}
+
+const toggleCompleted = (
+  id: string,
+) => {
+  const previousCompletedIds =
+    completedIds;
+
+  const nextCompletedIds =
+    completedIds.includes(id)
+      ? completedIds.filter(
+          (item) =>
+            item !== id,
+        )
+      : [
+          ...completedIds,
+          id,
+        ];
+
+  /*
+   * 画面上はすぐにチェック状態を変更し、
+   * 裏側でSupabaseへ保存します。
+   */
+  setCompletedIds(
+    nextCompletedIds,
+  );
+
+  void savePlanProgress(
+    nextCompletedIds,
+  ).catch((error) => {
+    console.error(
+      "[AKANUKE.AI] プラン進捗保存エラー:",
+      error,
+    );
+
+    /*
+     * 保存に失敗した場合は、
+     * チェック状態を元に戻します。
+     */
+    setCompletedIds(
+      previousCompletedIds,
+    );
+  });
+};
+
+const resetCompleted = () => {
+  const previousCompletedIds =
+    completedIds;
+
+  setCompletedIds([]);
+
+  void savePlanProgress(
+    [],
+  ).catch((error) => {
+    console.error(
+      "[AKANUKE.AI] プラン進捗リセットエラー:",
+      error,
+    );
+
+    setCompletedIds(
+      previousCompletedIds,
+    );
+  });
+};
+
+if (!loaded) {
     return (
       <main className="flex min-h-screen items-center justify-center bg-white">
         <div className="h-9 w-9 animate-spin rounded-full border-[3px] border-black/10 border-t-[#1677FF]" />
@@ -1129,9 +1221,8 @@ export default function PlanPage() {
 
 <button
   type="button"
-  onClick={() =>
-    setCompletedIds([])
-  }
+  onClick={resetCompleted}
+  
   className="mx-auto mt-5 flex items-center gap-2 text-[10px] font-black text-black/35 transition hover:text-black/55"
 >
   <Icon

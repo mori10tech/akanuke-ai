@@ -215,9 +215,11 @@ export default function LiffPage() {
                 callbackUrl,
 
               queryParams: {
-                bot_prompt:
-                  "aggressive",
-              },
+  bot_prompt:
+    "aggressive",
+  prompt:
+    "none",
+},
             },
           });
 

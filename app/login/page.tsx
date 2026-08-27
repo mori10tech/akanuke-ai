@@ -11,6 +11,63 @@ import {
 import AppHeader from "../components/AppHeader";
 import { createClient } from "../../lib/supabase/client";
 
+type BrowserEnvironment = {
+  isIos: boolean;
+  isAndroid: boolean;
+  isLineBrowser: boolean;
+  isRecommendedExternalBrowser: boolean;
+  isLikelyInAppBrowser: boolean;
+  recommendedBrowserName: string;
+};
+
+function detectBrowserEnvironment(): BrowserEnvironment {
+  const userAgent = window.navigator.userAgent;
+
+  const isIos =
+    /iPhone|iPad|iPod/i.test(userAgent);
+
+  const isAndroid =
+    /Android/i.test(userAgent);
+
+  const isLineBrowser =
+    /Line\//i.test(userAgent);
+
+  const isIosSafari =
+    isIos &&
+    /Safari/i.test(userAgent) &&
+    !/CriOS|FxiOS|EdgiOS|OPiOS/i.test(userAgent);
+
+  const isAndroidChrome =
+    isAndroid &&
+    /Chrome\//i.test(userAgent) &&
+    !/SamsungBrowser|EdgA|OPR\//i.test(userAgent);
+
+  const knownInAppBrowser =
+    /Instagram|FBAN|FBAV|Twitter|X\//i.test(userAgent);
+
+  const isRecommendedExternalBrowser =
+    isIosSafari || isAndroidChrome;
+
+  const isLikelyInAppBrowser =
+    !isLineBrowser &&
+    (knownInAppBrowser ||
+      ((isIos || isAndroid) &&
+        !isRecommendedExternalBrowser));
+
+  return {
+    isIos,
+    isAndroid,
+    isLineBrowser,
+    isRecommendedExternalBrowser,
+    isLikelyInAppBrowser,
+    recommendedBrowserName: isIos
+      ? "Safari"
+      : isAndroid
+        ? "Chrome"
+        : "Safari / Chrome",
+  };
+}
+
 export default function LoginPage() {
   const [lineLoginUrl, setLineLoginUrl] =
     useState<string | null>(null);
@@ -21,11 +78,27 @@ export default function LoginPage() {
   const [errorMessage, setErrorMessage] =
     useState("");
 
+  const [showLoginHelp, setShowLoginHelp] =
+    useState(false);
+
+  const [copyMessage, setCopyMessage] =
+    useState("");
+
+  const [browserEnvironment, setBrowserEnvironment] =
+    useState<BrowserEnvironment | null>(null);
+
   useEffect(() => {
     let cancelled = false;
 
     async function prepareLineLogin() {
       try {
+        const environment =
+          detectBrowserEnvironment();
+
+        if (!cancelled) {
+          setBrowserEnvironment(environment);
+        }
+
         const searchParams =
           new URLSearchParams(
             window.location.search,
@@ -53,6 +126,8 @@ export default function LoginPage() {
           setErrorMessage(
             "LINEログインに失敗しました。もう一度お試しください。",
           );
+
+          setShowLoginHelp(true);
         }
 
         const requestedNext =
@@ -67,15 +142,16 @@ export default function LoginPage() {
         const supabase = createClient();
 
         /*
-         * LINE Loginの認可URLだけ先に生成する。
+         * 認可URLだけを先に生成し、実際の遷移は
+         * ユーザー自身が下の <a> をタップした瞬間に行う。
          *
-         * skipBrowserRedirect を指定することで、
-         * signInWithOAuth() からJavaScriptで即リダイレクトせず、
-         * 実際の遷移はユーザーが下の <a> をタップした瞬間に行う。
+         * iOSのUniversal LinkではJavaScriptによる自動遷移より
+         * ユーザー操作による直接遷移の方がLINEアプリを
+         * 起動しやすいため、この方式を維持する。
          *
-         * Safari上でPKCEのcode verifierを保持したまま
-         * LINEの自動ログインを開始できるため、認証完了後の
-         * SupabaseセッションもSafari側へ作成できる。
+         * prompt=none は自動ログインできない環境で
+         * LOGIN_REQUIRED / INTERACTION_REQUIRED になるため
+         * 全ユーザーには付与しない。
          */
         const { data, error } =
           await supabase.auth.signInWithOAuth({
@@ -91,6 +167,7 @@ export default function LoginPage() {
 
               queryParams: {
                 bot_prompt: "aggressive",
+                ui_locales: "ja-JP",
               },
             },
           });
@@ -120,6 +197,7 @@ export default function LoginPage() {
             "LINEログインを開始できませんでした。時間をおいてもう一度お試しください。",
           );
           setIsLineLoading(false);
+          setShowLoginHelp(true);
         }
       }
     }
@@ -130,6 +208,39 @@ export default function LoginPage() {
       cancelled = true;
     };
   }, []);
+
+  async function copyCurrentUrl() {
+    try {
+      await navigator.clipboard.writeText(
+        window.location.href,
+      );
+
+      setCopyMessage(
+        "URLをコピーしました",
+      );
+
+      window.setTimeout(() => {
+        setCopyMessage("");
+      }, 2500);
+    } catch (error) {
+      console.error(
+        "Copy login URL error:",
+        error,
+      );
+
+      setCopyMessage(
+        "URLをコピーできませんでした",
+      );
+    }
+  }
+
+  const showExternalBrowserWarning =
+    browserEnvironment?.isLikelyInAppBrowser ===
+    true;
+
+  const recommendedBrowserName =
+    browserEnvironment?.recommendedBrowserName ??
+    "Safari / Chrome";
 
   return (
     <main className="min-h-screen bg-white text-[#111111]">
@@ -167,6 +278,36 @@ export default function LoginPage() {
               LINE公式アカウントの友だち追加が必要です。
             </p>
           </div>
+
+          {showExternalBrowserWarning && (
+            <div className="mt-7 rounded-[18px] border border-[#FFD400]/50 bg-[#FFF9D9] p-4">
+              <p className="text-[12px] font-black text-[#111111]">
+                {recommendedBrowserName}でのログインがおすすめです
+              </p>
+
+              <p className="mt-2 text-[11px] leading-5 text-black/60">
+                アプリ内ブラウザではLINEアプリが自動で開かない場合があります。このページを
+                {recommendedBrowserName}
+                で開いてからログインしてください。
+              </p>
+
+              <button
+                type="button"
+                onClick={() =>
+                  void copyCurrentUrl()
+                }
+                className="mt-3 flex min-h-[42px] w-full items-center justify-center rounded-[11px] border border-black/10 bg-white px-4 text-[11px] font-black text-[#111111]"
+              >
+                このページのURLをコピー
+              </button>
+
+              {copyMessage && (
+                <p className="mt-2 text-center text-[10px] font-bold text-black/45">
+                  {copyMessage}
+                </p>
+              )}
+            </div>
+          )}
 
           <div className="mt-8 rounded-[22px] border border-black/10 bg-white p-5 shadow-[0_10px_34px_rgba(15,23,42,0.05)]">
             <div className="rounded-[16px] bg-[#F7F9FC] px-4 py-4">
@@ -231,6 +372,76 @@ export default function LoginPage() {
                   ? "LINEログインを準備中..."
                   : "LINEで登録・ログイン"}
               </button>
+            )}
+
+            <button
+              type="button"
+              onClick={() =>
+                setShowLoginHelp(
+                  (current) => !current,
+                )
+              }
+              className="mt-4 flex w-full items-center justify-center gap-1.5 py-1 text-[10px] font-black text-[#1677FF]"
+              aria-expanded={showLoginHelp}
+            >
+              LINEアプリが開かない場合
+              <span
+                aria-hidden="true"
+                className={`text-[12px] transition-transform ${
+                  showLoginHelp
+                    ? "rotate-180"
+                    : ""
+                }`}
+              >
+                ▾
+              </span>
+            </button>
+
+            {showLoginHelp && (
+              <div className="mt-3 rounded-[16px] border border-[#1677FF]/10 bg-[#EEF6FF] p-4">
+                <p className="text-[12px] font-black text-[#111111]">
+                  LINEのログイン画面が表示された場合
+                </p>
+
+                <ol className="mt-3 space-y-2 text-[11px] font-bold leading-5 text-black/60">
+                  <li>
+                    1. 画面下部の「LINEアプリでログインする」をタップしてください。
+                  </li>
+
+                  <li>
+                    2. iPhoneでLINEが開かない場合は、そのリンクを長押しして「LINEで開く」を選んでください。
+                  </li>
+
+                  <li>
+                    3. Instagram・Xなどのアプリ内ブラウザでは、Safari（iPhone）またはChrome（Android）でこのページを開き直してください。
+                  </li>
+                </ol>
+
+                <button
+                  type="button"
+                  onClick={() =>
+                    void copyCurrentUrl()
+                  }
+                  className="mt-4 flex min-h-[42px] w-full items-center justify-center rounded-[11px] bg-white px-4 text-[11px] font-black text-[#1677FF] shadow-[0_4px_14px_rgba(15,23,42,0.04)]"
+                >
+                  このページのURLをコピー
+                </button>
+
+                {copyMessage && (
+                  <p className="mt-2 text-center text-[10px] font-bold text-black/45">
+                    {copyMessage}
+                  </p>
+                )}
+
+                <a
+                  href="https://help.line.me/line/ios/sp?lang=ja&contentId=20020693"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-3 flex min-h-[40px] items-center justify-center text-[10px] font-bold text-black/45 underline underline-offset-2"
+                >
+                  LINE公式ヘルプを確認
+                </a>
+              </div>
             )}
 
             <p className="mt-4 text-center text-[10px] leading-5 text-black/40">

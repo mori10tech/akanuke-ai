@@ -19,6 +19,7 @@ const ALLOWED_NEXT_PATHS =
     "/",
     "/upload",
     "/line/result",
+    "/plan",
     "/products",
     "/media",
     "/dashboard",
@@ -55,6 +56,9 @@ function getPageTitle(
 
     case "/line/result":
       return "診断結果";
+
+    case "/plan":
+  　　return "垢抜けプラン";
 
     case "/products":
       return "おすすめ商品";
@@ -96,6 +100,15 @@ function resolveNextPath(
       ? "/line/result"
       : "/upload";
   }
+
+if (
+  requestedPath ===
+  "/plan"
+) {
+  return hasDiagnosis
+    ? "/plan"
+    : "/upload";
+}
 
   if (
     requestedPath ===
@@ -281,11 +294,13 @@ export default function LiffPage() {
          */
         if (user) {
           if (
-            safeNext ===
-              "/line/result" ||
-            safeNext ===
-              "/products"
-          ) {
+  safeNext ===
+    "/line/result" ||
+  safeNext ===
+    "/plan" ||
+  safeNext ===
+    "/products"
+) {
             setMessage(
               "診断履歴を確認しています...",
             );

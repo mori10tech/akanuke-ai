@@ -19,6 +19,7 @@ const ALLOWED_NEXT_PATHS =
     "/",
     "/upload",
     "/line/result",
+    "/plan",
     "/products",
     "/media",
     "/dashboard",
@@ -84,8 +85,8 @@ function createInternalRedirect(
 
 /*
  * LINEリッチメニューから
- * 診断結果・おすすめ商品を
- * 開いた場合のみ、
+ * 診断結果・垢抜けプラン・おすすめ商品を
+ * 開いた場合は、
  * 診断履歴によって遷移先を変更する。
  */
 async function resolveNextPath(
@@ -98,13 +99,15 @@ async function resolveNextPath(
   requestedPath: string,
 ) {
   if (
-    requestedPath !==
-      "/line/result" &&
-    requestedPath !==
-      "/products"
-  ) {
-    return requestedPath;
-  }
+  requestedPath !==
+    "/line/result" &&
+  requestedPath !==
+    "/plan" &&
+  requestedPath !==
+    "/products"
+) {
+  return requestedPath;
+}
 
   const {
     data: {
@@ -299,13 +302,13 @@ export async function GET(
     }
 
     /*
-     * LINE認証と友だち確認が
-     * 正常に完了した後、
-     *
-     * 診断結果・おすすめ商品については
-     * 診断履歴を確認して
-     * 最終遷移先を決定する。
-     */
+ * LINE認証と友だち確認が
+ * 正常に完了した後、
+ *
+ * 診断結果・垢抜けプラン・おすすめ商品については
+ * 診断履歴を確認して
+ * 最終遷移先を決定する。
+ */
     const resolvedNext =
       await resolveNextPath(
         supabase,

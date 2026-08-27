@@ -9,121 +9,127 @@ import {
 } from "react";
 
 import AppHeader from "../components/AppHeader";
+import { createClient } from "../../lib/supabase/client";
 
 export default function LoginPage() {
-  const [
-    isLineLoading,
-    setIsLineLoading,
-  ] = useState(false);
+  const [lineLoginUrl, setLineLoginUrl] =
+    useState<string | null>(null);
 
-  const [
-    errorMessage,
-    setErrorMessage,
-  ] = useState("");
+  const [isLineLoading, setIsLineLoading] =
+    useState(true);
+
+  const [errorMessage, setErrorMessage] =
+    useState("");
 
   useEffect(() => {
-    const searchParams =
-      new URLSearchParams(
-        window.location.search,
-      );
+    let cancelled = false;
 
-    const reason =
-      searchParams.get("reason");
+    async function prepareLineLogin() {
+      try {
+        const searchParams =
+          new URLSearchParams(
+            window.location.search,
+          );
 
-    if (
-      reason === "line_friend_required"
-    ) {
-      setErrorMessage(
-        "AKANUKE.AIのご利用には、LINE公式アカウントの友だち追加が必要です。友だち追加後、もう一度LINEでログインしてください。",
-      );
+        const reason =
+          searchParams.get("reason");
 
-      return;
-    }
+        if (
+          reason === "line_friend_required"
+        ) {
+          setErrorMessage(
+            "AKANUKE.AIのご利用には、LINE公式アカウントの友だち追加が必要です。友だち追加後、もう一度LINEでログインしてください。",
+          );
+        } else if (
+          reason ===
+          "line_friend_check_failed"
+        ) {
+          setErrorMessage(
+            "LINEの友だち追加状況を確認できませんでした。時間をおいて、もう一度LINEでログインしてください。",
+          );
+        } else if (
+          reason === "auth_failed"
+        ) {
+          setErrorMessage(
+            "LINEログインに失敗しました。もう一度お試しください。",
+          );
+        }
 
-    if (
-      reason ===
-      "line_friend_check_failed"
-    ) {
-      setErrorMessage(
-        "LINEの友だち追加状況を確認できませんでした。時間をおいて、もう一度LINEでログインしてください。",
-      );
+        const requestedNext =
+          searchParams.get("next");
 
-      return;
-    }
+        const safeNext =
+          requestedNext?.startsWith("/") &&
+          !requestedNext.startsWith("//")
+            ? requestedNext
+            : "/dashboard";
 
-    if (reason === "auth_failed") {
-      setErrorMessage(
-        "LINEログインに失敗しました。もう一度お試しください。",
-      );
-    }
-  }, []);
+        const supabase = createClient();
 
-  function handleLineLogin() {
-    if (isLineLoading) {
-      return;
-    }
+        /*
+         * LINE Loginの認可URLだけ先に生成する。
+         *
+         * skipBrowserRedirect を指定することで、
+         * signInWithOAuth() からJavaScriptで即リダイレクトせず、
+         * 実際の遷移はユーザーが下の <a> をタップした瞬間に行う。
+         *
+         * Safari上でPKCEのcode verifierを保持したまま
+         * LINEの自動ログインを開始できるため、認証完了後の
+         * SupabaseセッションもSafari側へ作成できる。
+         */
+        const { data, error } =
+          await supabase.auth.signInWithOAuth({
+            provider: "custom:line",
 
-    setErrorMessage("");
-    setIsLineLoading(true);
+            options: {
+              redirectTo:
+                `${window.location.origin}/auth/callback?next=${encodeURIComponent(
+                  safeNext,
+                )}`,
 
-    try {
-      const liffId =
-        process.env
-          .NEXT_PUBLIC_LINE_LIFF_ID;
+              skipBrowserRedirect: true,
 
-      if (!liffId) {
-        throw new Error(
-          "LIFF IDが設定されていません。",
+              queryParams: {
+                bot_prompt: "aggressive",
+              },
+            },
+          });
+
+        if (error) {
+          throw error;
+        }
+
+        if (!data.url) {
+          throw new Error(
+            "LINE Login URLを取得できませんでした。",
+          );
+        }
+
+        if (!cancelled) {
+          setLineLoginUrl(data.url);
+          setIsLineLoading(false);
+        }
+      } catch (error) {
+        console.error(
+          "LINE login preparation error:",
+          error,
         );
+
+        if (!cancelled) {
+          setErrorMessage(
+            "LINEログインを開始できませんでした。時間をおいてもう一度お試しください。",
+          );
+          setIsLineLoading(false);
+        }
       }
-
-      const searchParams =
-        new URLSearchParams(
-          window.location.search,
-        );
-
-      const requestedNext =
-        searchParams.get("next");
-
-      const safeNext =
-        requestedNext?.startsWith("/") &&
-        !requestedNext.startsWith("//")
-          ? requestedNext
-          : "/dashboard";
-
-      const liffUrl = new URL(
-        `https://liff.line.me/${liffId}`,
-      );
-
-      liffUrl.searchParams.set(
-        "next",
-        safeNext,
-      );
-
-      /*
-       * LINE LoginのOAuth URLへ直接遷移すると、
-       * Safari等ではLINEのWebログイン画面が先に表示される。
-       *
-       * 先にLIFF URLへ遷移することで、
-       * iOSのUniversal Link / AndroidのApp Linkを利用して
-       * LINEアプリ内のLIFFブラウザを起点にログインを開始する。
-       */
-      window.location.assign(
-        liffUrl.toString(),
-      );
-    } catch (error) {
-      console.error(
-        "LINE login error:",
-        error,
-      );
-
-      setErrorMessage(
-        "LINEログインを開始できませんでした。時間をおいてもう一度お試しください。",
-      );
-
-      setIsLineLoading(false);
     }
-  }
+
+    void prepareLineLogin();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   return (
     <main className="min-h-screen bg-white text-[#111111]">
@@ -194,23 +200,38 @@ export default function LoginPage() {
               </div>
             )}
 
-            <button
-              type="button"
-              onClick={handleLineLogin}
-              disabled={isLineLoading}
-              className="mt-5 flex min-h-[56px] w-full items-center justify-center gap-3 rounded-[12px] bg-[#06C755] px-5 text-[14px] font-black text-white shadow-[0_10px_34px_rgba(15,23,42,0.08)] transition hover:-translate-y-0.5 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0"
-            >
-              <span
-                aria-hidden="true"
-                className="flex h-7 min-w-7 items-center justify-center rounded-full bg-white px-1 text-[8px] font-black text-[#06C755]"
+            {lineLoginUrl ? (
+              <a
+                href={lineLoginUrl}
+                className="mt-5 flex min-h-[56px] w-full items-center justify-center gap-3 rounded-[12px] bg-[#06C755] px-5 text-[14px] font-black text-white shadow-[0_10px_34px_rgba(15,23,42,0.08)] transition hover:-translate-y-0.5 active:scale-[0.99]"
               >
-                LINE
-              </span>
+                <span
+                  aria-hidden="true"
+                  className="flex h-7 min-w-7 items-center justify-center rounded-full bg-white px-1 text-[8px] font-black text-[#06C755]"
+                >
+                  LINE
+                </span>
 
-              {isLineLoading
-                ? "LINEへ移動中..."
-                : "LINEで登録・ログイン"}
-            </button>
+                LINEで登録・ログイン
+              </a>
+            ) : (
+              <button
+                type="button"
+                disabled
+                className="mt-5 flex min-h-[56px] w-full items-center justify-center gap-3 rounded-[12px] bg-[#06C755] px-5 text-[14px] font-black text-white opacity-50 shadow-[0_10px_34px_rgba(15,23,42,0.08)]"
+              >
+                <span
+                  aria-hidden="true"
+                  className="flex h-7 min-w-7 items-center justify-center rounded-full bg-white px-1 text-[8px] font-black text-[#06C755]"
+                >
+                  LINE
+                </span>
+
+                {isLineLoading
+                  ? "LINEログインを準備中..."
+                  : "LINEで登録・ログイン"}
+              </button>
+            )}
 
             <p className="mt-4 text-center text-[10px] leading-5 text-black/40">
               続行すると、

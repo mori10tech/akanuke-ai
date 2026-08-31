@@ -779,20 +779,20 @@ export default function ProductsPage() {
           backLabel="前のページへ戻る"
         />
 
-        <main className="pb-32 pt-6">
-          <div className="px-4">
-            <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
-              PERSONAL PRODUCT GUIDE
-            </p>
+        <main className="pb-32">
+  <section className="px-5 pb-6 pt-7 text-center">
+    <p className="text-[10px] font-black tracking-[0.18em] text-[#1677FF]">
+      PERSONAL PRODUCT GUIDE
+    </p>
 
-            <h1 className="mt-2 text-[29px] font-black tracking-[-0.045em]">
-              あなた専用のおすすめ商品
-            </h1>
+    <h1 className="mt-2 text-[29px] font-black tracking-[-0.045em]">
+      あなた専用のおすすめ商品
+    </h1>
 
-            <p className="mt-3 text-[13px] leading-6 text-black/70">
-              AI診断結果をもとに、あなたに合ったケア用品をカテゴリ別に紹介します。
-            </p>
-          </div>
+    <p className="mx-auto mt-2 max-w-[340px] text-[12px] leading-5 text-black/70">
+      AI診断結果をもとに、あなたに合ったケア用品をカテゴリ別に紹介します。
+    </p>
+  </section>
 
           {/* CATEGORY SCROLL */}
           <div className="mt-6">

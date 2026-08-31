@@ -1243,15 +1243,18 @@ export default function ResultPage() {
                   顔写真やAfter画像は投稿されません
                 </p>
 
-                <div className="mt-4 flex items-center justify-center gap-2 text-[#1677FF]">
-                  <span className="animate-bounce text-[18px] font-black leading-none">
-                    ↓
-                  </span>
+                <div className="mt-5 flex flex-col items-center">
+  <p className="text-[10px] font-bold tracking-[0.04em] text-black/55">
+    下にスクロールして Before / After をチェック
+  </p>
 
-                  <span className="text-[11px] font-black">
-                    Before / Afterを見る
-                  </span>
-                </div>
+  <span
+    aria-hidden="true"
+    className="mt-1 animate-bounce text-[18px] font-black leading-none text-[#1677FF]"
+  >
+    ↓
+  </span>
+</div>
               </div>
             </section>
           )}

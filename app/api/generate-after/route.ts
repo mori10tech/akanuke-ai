@@ -28,6 +28,34 @@ const MAX_REQUEST_BYTES =
 const AFTER_SIGNED_URL_SECONDS =
   60 * 60;
 
+const OPENAI_IMAGE_ENDPOINT =
+  "https://api.openai.com/v1/images/edits";
+
+const OPENAI_MAX_ATTEMPTS = 2;
+
+const OPENAI_RETRY_DELAY_MS =
+  1200;
+
+/*
+ * maxDuration=60秒のため、
+ * 1回目の失敗までに時間がかかりすぎた場合は
+ * 2回目を開始せず、Vercelタイムアウトを避けます。
+ *
+ * OpenAI側の503等は通常、短時間で返るため、
+ * 一時障害に対する救済を目的としています。
+ */
+const OPENAI_RETRY_START_LIMIT_MS =
+  12_000;
+
+const RETRYABLE_OPENAI_STATUSES =
+  new Set([
+    429,
+    500,
+    502,
+    503,
+    504,
+  ]);
+
 type GenerateAfterRequestBody = {
   diagnosisId?: string;
   imageDataUrl?: string;
@@ -47,6 +75,11 @@ type ParsedImage = {
   mimeType: string;
   extension: "jpg" | "png" | "webp";
   buffer: Buffer;
+};
+
+type OpenAIImageGenerationResult = {
+  data: OpenAIImageResponse;
+  attempt: number;
 };
 
 function normalizeImageMimeType(
@@ -248,6 +281,364 @@ async function parseImageSource(
 
   throw new Error(
     "画像データの形式が正しくありません。",
+  );
+}
+
+function wait(
+  milliseconds: number,
+) {
+  return new Promise<void>(
+    (resolve) => {
+      setTimeout(
+        resolve,
+        milliseconds,
+      );
+    },
+  );
+}
+
+/*
+ * OpenAIへ送るFormDataは
+ * 試行ごとに必ず新しく生成します。
+ *
+ * リトライ時に使用済みのFormDataやBlobを
+ * 再利用しないための処理です。
+ */
+function createOpenAIFormData({
+  buffer,
+  mimeType,
+  extension,
+  analysis,
+}: {
+  buffer: Buffer;
+  mimeType: string;
+  extension:
+    | "jpg"
+    | "png"
+    | "webp";
+  analysis: AkanukeAnalysis;
+}) {
+  const imageArrayBuffer =
+    new ArrayBuffer(
+      buffer.byteLength,
+    );
+
+  const imageBytes =
+    new Uint8Array(
+      imageArrayBuffer,
+    );
+
+  imageBytes.set(
+    buffer,
+  );
+
+  const imageBlob =
+    new Blob(
+      [imageArrayBuffer],
+      {
+        type: mimeType,
+      },
+    );
+
+  const formData =
+    new FormData();
+
+  formData.append(
+    "image",
+    imageBlob,
+    `before.${extension}`,
+  );
+
+  formData.append(
+    "model",
+    process.env
+      .OPENAI_IMAGE_MODEL ??
+      "gpt-image-2",
+  );
+
+  formData.append(
+    "prompt",
+    createAfterImagePrompt(
+      analysis,
+    ),
+  );
+
+  formData.append(
+    "quality",
+    "medium",
+  );
+
+  formData.append(
+    "size",
+    "1024x1536",
+  );
+
+  formData.append(
+    "output_format",
+    "webp",
+  );
+
+  return formData;
+}
+
+/*
+ * OpenAIが502/503等を返した際、
+ * HTMLや空レスポンスになる可能性も考慮して
+ * response.json()だけに依存しません。
+ */
+async function readOpenAIResponse(
+  response: Response,
+): Promise<OpenAIImageResponse> {
+  const responseText =
+    await response.text();
+
+  if (!responseText) {
+    return {};
+  }
+
+  try {
+    return JSON.parse(
+      responseText,
+    ) as OpenAIImageResponse;
+  } catch {
+    return {
+      error: {
+        message:
+          response.ok
+            ? "OpenAIから画像生成結果を読み込めませんでした。"
+            : `OpenAI画像生成APIでエラーが発生しました。（HTTP ${response.status}）`,
+      },
+    };
+  }
+}
+
+/*
+ * OpenAI画像生成を実行します。
+ *
+ * 429 / 500 / 502 / 503 / 504 の
+ * 一時的なエラーのみ最大1回再試行します。
+ *
+ * ただしVercelのmaxDuration=60秒を考慮し、
+ * 1回目の失敗までに一定時間以上かかった場合は
+ * 2回目を開始しません。
+ */
+async function generateAfterWithRetry({
+  apiKey,
+  buffer,
+  mimeType,
+  extension,
+  analysis,
+  userId,
+  diagnosisId,
+}: {
+  apiKey: string;
+  buffer: Buffer;
+  mimeType: string;
+  extension:
+    | "jpg"
+    | "png"
+    | "webp";
+  analysis: AkanukeAnalysis;
+  userId: string;
+  diagnosisId: string;
+}): Promise<OpenAIImageGenerationResult> {
+  const retryWindowStartedAt =
+    Date.now();
+
+  for (
+    let attempt = 1;
+    attempt <=
+    OPENAI_MAX_ATTEMPTS;
+    attempt += 1
+  ) {
+    const attemptStartedAt =
+      Date.now();
+
+    console.log(
+      "[AKANUKE.AI] OpenAI After画像生成リクエスト:",
+      {
+        userId,
+        diagnosisId,
+        attempt,
+        maxAttempts:
+          OPENAI_MAX_ATTEMPTS,
+      },
+    );
+
+    /*
+     * 各試行でFormDataを
+     * 必ず作り直します。
+     */
+    const formData =
+      createOpenAIFormData({
+        buffer,
+        mimeType,
+        extension,
+        analysis,
+      });
+
+    let response: Response;
+
+    try {
+      response =
+        await fetch(
+          OPENAI_IMAGE_ENDPOINT,
+          {
+            method: "POST",
+            headers: {
+              Authorization:
+                `Bearer ${apiKey}`,
+            },
+            body: formData,
+          },
+        );
+    } catch (error) {
+      /*
+       * fetch自体のネットワークエラーも、
+       * 1回目かつ短時間なら再試行します。
+       */
+      const elapsedMs =
+        Date.now() -
+        retryWindowStartedAt;
+
+      const canRetry =
+        attempt <
+          OPENAI_MAX_ATTEMPTS &&
+        elapsedMs <
+          OPENAI_RETRY_START_LIMIT_MS;
+
+      console.error(
+        "[AKANUKE.AI] OpenAI After画像生成通信エラー:",
+        {
+          userId,
+          diagnosisId,
+          attempt,
+          elapsedMs,
+          canRetry,
+          error,
+        },
+      );
+
+      if (!canRetry) {
+        throw error;
+      }
+
+      console.warn(
+        "[AKANUKE.AI] OpenAI一時通信エラーのためAfter生成を自動再試行します:",
+        {
+          userId,
+          diagnosisId,
+          nextAttempt:
+            attempt + 1,
+          retryAfterMs:
+            OPENAI_RETRY_DELAY_MS,
+        },
+      );
+
+      await wait(
+        OPENAI_RETRY_DELAY_MS,
+      );
+
+      continue;
+    }
+
+    const data =
+      await readOpenAIResponse(
+        response,
+      );
+
+    const attemptDurationMs =
+      Date.now() -
+      attemptStartedAt;
+
+    if (response.ok) {
+      console.log(
+        "[AKANUKE.AI] OpenAI After画像生成リクエスト成功:",
+        {
+          userId,
+          diagnosisId,
+          attempt,
+          durationMs:
+            attemptDurationMs,
+        },
+      );
+
+      return {
+        data,
+        attempt,
+      };
+    }
+
+    const elapsedMs =
+      Date.now() -
+      retryWindowStartedAt;
+
+    const isRetryableStatus =
+      RETRYABLE_OPENAI_STATUSES.has(
+        response.status,
+      );
+
+    const canRetry =
+      isRetryableStatus &&
+      attempt <
+        OPENAI_MAX_ATTEMPTS &&
+      elapsedMs <
+        OPENAI_RETRY_START_LIMIT_MS;
+
+    console.error(
+      "[AKANUKE.AI] After image OpenAI error:",
+      {
+        userId,
+        diagnosisId,
+        attempt,
+        status:
+          response.status,
+        durationMs:
+          attemptDurationMs,
+        elapsedMs,
+        isRetryableStatus,
+        canRetry,
+        error:
+          data.error,
+      },
+    );
+
+    /*
+     * 400 / 401 / 403 等は
+     * 再試行しても改善しにくいため即終了します。
+     */
+    if (!canRetry) {
+      throw new Error(
+        data.error?.message ??
+          `After画像を生成できませんでした。（HTTP ${response.status}）`,
+      );
+    }
+
+    console.warn(
+      "[AKANUKE.AI] OpenAI一時エラーのためAfter生成を自動再試行します:",
+      {
+        userId,
+        diagnosisId,
+        status:
+          response.status,
+        nextAttempt:
+          attempt + 1,
+        retryAfterMs:
+          OPENAI_RETRY_DELAY_MS,
+      },
+    );
+
+    await wait(
+      OPENAI_RETRY_DELAY_MS,
+    );
+  }
+
+  /*
+   * 通常ここには到達しませんが、
+   * TypeScript上の戻り値保証として残します。
+   */
+  throw new Error(
+    "After画像を生成できませんでした。",
   );
 }
 
@@ -480,66 +871,6 @@ export async function POST(
         imageSource,
       );
 
-    const imageArrayBuffer =
-      new ArrayBuffer(
-        buffer.byteLength,
-      );
-
-    const imageBytes =
-      new Uint8Array(
-        imageArrayBuffer,
-      );
-
-    imageBytes.set(
-      buffer,
-    );
-
-    const imageBlob =
-      new Blob(
-        [imageArrayBuffer],
-        {
-          type: mimeType,
-        },
-      );
-
-    const formData =
-      new FormData();
-
-    formData.append(
-      "image",
-      imageBlob,
-      `before.${extension}`,
-    );
-
-    formData.append(
-      "model",
-      process.env
-        .OPENAI_IMAGE_MODEL ??
-        "gpt-image-2",
-    );
-
-    formData.append(
-      "prompt",
-      createAfterImagePrompt(
-        analysis,
-      ),
-    );
-
-    formData.append(
-      "quality",
-      "medium",
-    );
-
-    formData.append(
-      "size",
-      "1024x1536",
-    );
-
-    formData.append(
-      "output_format",
-      "webp",
-    );
-
     console.log(
       "[AKANUKE.AI] After画像生成を開始します",
       {
@@ -550,6 +881,8 @@ export async function POST(
           mimeType,
         inputBytes:
           buffer.byteLength,
+        quality:
+          "medium",
       },
     );
 
@@ -559,36 +892,27 @@ export async function POST(
     /*
      * OpenAIでAfter画像を生成します。
      *
-     * ここはVercelのmaxDuration=60秒以内に
-     * 完了する必要があります。
+     * 一時エラーの場合のみ、
+     * maxDuration=60秒を考慮しながら
+     * 最大1回自動再試行します。
      */
-    const response =
-      await fetch(
-        "https://api.openai.com/v1/images/edits",
+    const {
+      data,
+      attempt:
+        successfulAttempt,
+    } =
+      await generateAfterWithRetry(
         {
-          method: "POST",
-          headers: {
-            Authorization:
-              `Bearer ${apiKey}`,
-          },
-          body: formData,
+          apiKey,
+          buffer,
+          mimeType,
+          extension,
+          analysis,
+          userId:
+            user.id,
+          diagnosisId,
         },
       );
-
-    const data =
-      (await response.json()) as OpenAIImageResponse;
-
-    if (!response.ok) {
-      console.error(
-        "[AKANUKE.AI] After image OpenAI error:",
-        data,
-      );
-
-      throw new Error(
-        data.error?.message ??
-          "After画像を生成できませんでした。",
-      );
-    }
 
     const base64Image =
       data.data?.[0]?.b64_json;
@@ -627,6 +951,7 @@ export async function POST(
         userId:
           user.id,
         diagnosisId,
+        successfulAttempt,
         durationMs:
           generationDurationMs,
         outputBytes:

@@ -122,6 +122,40 @@ It does NOT require preserving:
 
 These changeable elements SHOULD visibly improve.
 
+CRITICAL DISTINCTION:
+
+Identity preservation means preserving WHO the person is.
+
+It does NOT mean preserving the original styling or grooming appearance.
+
+Do not preserve a weak or unchanged Before appearance merely to maintain resemblance.
+
+The following areas are explicitly UNLOCKED for meaningful transformation:
+
+- hairstyle silhouette
+- fringe shape and direction
+- forehead exposure
+- parting
+- hair volume and texture
+- eyebrow grooming and visible shape refinement
+- beard shadow and visible stubble
+- temporary skin condition
+- complexion presentation
+- lip dryness
+- grooming quality
+
+For these reversible areas, prioritize the personalized diagnosis over visual similarity to the original styling.
+
+The After image should preserve the person's permanent facial anatomy while intentionally creating a clearly different grooming state.
+
+Think:
+
+"SAME FACE, DIFFERENT GROOMING."
+
+Do not think:
+
+"KEEP THE WHOLE IMAGE AS SIMILAR AS POSSIBLE."
+
 ==================================================
 2. PERSONALIZED TARGET
 ==================================================
@@ -180,18 +214,38 @@ Do not create the impression of improvement mainly through:
 - clothing changes
 
 ==================================================
-4. HAIR — CLEARLY CHANGE THE STYLE
+4. HAIR — MANDATORY VISIBLE STYLE TRANSFORMATION
 ==================================================
 
 HAIR RECOMMENDATION:
 
 ${analysis.afterDirection.hair}
 
-Translate this recommendation into a clearly visible professional haircut and styling result.
+The hairstyle is the PRIMARY visual transformation in this After image.
 
-Do NOT simply make the existing hairstyle slightly neater.
+Translate the personalized hair recommendation into a clearly different,
+professionally cut and professionally styled hairstyle.
 
-When appropriate, concretely determine:
+IMPORTANT:
+
+Do NOT merely clean up, comb, neaten, or add subtle texture to the existing hairstyle.
+
+Do NOT preserve the original hairstyle simply because it already looks acceptable.
+
+Do NOT produce an After image that could reasonably be described as:
+
+"the same haircut, just styled a little better."
+
+Unless the personalized diagnosis EXPLICITLY recommends keeping the current hairstyle substantially unchanged,
+the After must show a clearly recognizable hairstyle transformation.
+
+==================================================
+MANDATORY HAIRSTYLE DIFFERENCE
+==================================================
+
+Compare the proposed hairstyle directly with the original hairstyle.
+
+The After must visibly change AT LEAST THREE of the following characteristics:
 
 - fringe shape
 - fringe direction
@@ -206,60 +260,147 @@ When appropriate, concretely determine:
 - separation
 - movement
 - styling direction
-- overall hair silhouette
-
-The hairstyle should look intentionally selected for:
-
-- this person's face
-- this person's existing hair characteristics
-- the target impression
-- the personalized diagnosis
-
-Unless the personalized recommendation explicitly calls for preserving the current hairstyle,
-the After hairstyle should show a noticeable salon-level transformation.
-
-When appropriate, at least TWO major hairstyle characteristics should visibly change.
-
-Examples include:
-
-- fringe shape
-- forehead exposure
-- parting
-- top volume
-- side volume
 - overall silhouette
-- texture
-- movement
 
-If the original hair is heavy or flat,
-consider a cleaner fringe, more forehead exposure,
-better top volume, reduced side heaviness,
-and a more intentional silhouette when consistent with the diagnosis.
+These differences must be visible at normal smartphone viewing size.
 
-If the current hairstyle already resembles the recommended style,
-increase the haircut and professional styling refinement enough that the difference remains clearly visible.
+Small strand-level differences do NOT count.
 
-The desired reaction is:
+Subtle tidying does NOT count.
 
-"He went to a good Japanese men's hair salon."
+Slightly increasing texture alone does NOT count.
+
+The overall hairstyle should be recognizably more intentional and professionally designed.
+
+==================================================
+FRINGE AND SILHOUETTE
+==================================================
+
+Pay particular attention to the fringe and overall silhouette.
+
+If the original hairstyle has:
+
+- a heavy fringe
+- a flat fringe
+- a straight-down fringe
+- excessive side volume
+- a rounded or undefined silhouette
+- little top volume
+
+and the personalized diagnosis supports changing these characteristics,
+
+make the difference clearly visible.
+
+Appropriate transformations may include:
+
+- opening part of the forehead
+- changing the direction of the fringe
+- creating a clearer part
+- creating controlled top volume
+- reducing excessive side heaviness
+- refining the temple area
+- creating more intentional separation
+- creating a cleaner vertical or three-dimensional silhouette
+- adding believable professional movement and texture
+
+Do not default to preserving the original fringe.
+
+The fringe is a major visual component of the makeover and should change when the diagnosis supports it.
+
+==================================================
+PERSONALIZED SALON RESULT
+==================================================
+
+The hairstyle must remain consistent with:
+
+- ${analysis.afterDirection.hair}
+- this person's face
+- this person's natural hairline
+- this person's believable hair density
+- this person's apparent hair texture
+- ${analysis.targetImpression}
+
+Do NOT choose a random fashionable hairstyle.
+
+Do NOT ignore the personalized diagnosis merely to create a larger difference.
+
+The transformation must be:
+
+PERSONALIZED + VISIBLE + REALISTIC.
+
+Imagine that the person showed the AKANUKE.AI diagnosis to a skilled Japanese men's hairstylist,
+received an appropriate haircut,
+and then received professional salon styling.
+
+The viewer should think:
+
+"He clearly changed his hairstyle at a good men's salon."
 
 Not:
 
-"He combed his hair slightly differently."
+"He styled the same hair a little more carefully."
+
+==================================================
+HAIR IDENTITY SAFETY
+==================================================
+
+Changing the hairstyle does NOT mean changing the person's identity.
 
 Preserve:
 
 - natural hairline
+- forehead anatomy
+- head shape
+- facial anatomy
 - believable hair density
+- believable hair growth direction
 - realistic hair texture
-- realistic hair growth
 
-Do NOT create:
+Do NOT:
 
-- unrealistic hair density
-- a wig-like appearance
-- an unrelated extreme fashion hairstyle
-- a dramatically different natural hairline
+- move the natural hairline unrealistically
+- invent excessive hair density
+- hide identity changes behind the hairstyle
+- alter forehead anatomy
+- alter face shape
+- alter jaw shape
+- create a wig-like result
+- create an extreme unrelated fashion hairstyle
+
+If a stronger hairstyle transformation is needed,
+change the CUT, FRINGE, PARTING, VOLUME, TEXTURE, and SILHOUETTE.
+
+Never change facial anatomy to make the hairstyle appear more flattering.
+
+==================================================
+HAIR FINAL CHECK
+==================================================
+
+Before finalizing, compare the After hairstyle with the original hairstyle.
+
+Ask:
+
+1. Is this visibly more than simple styling or tidying?
+2. Are at least THREE major hairstyle characteristics clearly different?
+3. Is the difference obvious on a smartphone?
+4. Does it follow the personalized hair recommendation?
+5. Does it still look realistically achievable from the person's original hair?
+
+If answers 1, 2, or 3 are NO:
+
+increase the hairstyle transformation.
+
+If answer 4 or 5 is NO:
+
+correct the hairstyle while preserving a clearly visible transformation.
+
+The final hairstyle must satisfy BOTH:
+
+"clearly different from Before"
+
+AND
+
+"realistically achievable for this exact person."
 
 ==================================================
 5. EYEBROWS — PROFESSIONAL GROOMING
@@ -463,7 +604,7 @@ rather than fashion.
 
 Maintain strong photographic continuity with the original.
 
-Preserve as much as reasonably possible:
+Preserve:
 
 - camera perspective
 - head orientation
@@ -475,13 +616,24 @@ Preserve as much as reasonably possible:
 - background
 - clothing
 
+However, photographic continuity must NOT reduce the requested grooming transformation.
+
+Do not preserve the original hairstyle, eyebrow condition, beard shadow, skin condition, or grooming quality simply because they are part of the original photograph.
+
+The photograph should remain clearly continuous,
+while the reversible beauty and grooming elements should be intentionally transformed.
+
 Do not create a completely different portrait.
 
 The result should feel like:
 
-"the same photograph taken after professional grooming"
+"the exact same person photographed from the same setup after a genuinely noticeable professional grooming makeover"
 
 rather than:
+
+"the same person with only tiny cosmetic corrections"
+
+and rather than:
 
 "a new photoshoot of a similar-looking person."
 

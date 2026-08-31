@@ -192,7 +192,7 @@ function AffiliateButtons({
   product: Product;
 }) {
   const baseClass =
-    "flex min-h-10 items-center justify-center gap-1 rounded-[10px] px-2 text-[8px] font-black text-white transition hover:-translate-y-0.5 active:scale-[0.98]";
+    "flex min-h-11 items-center justify-center gap-1.5 rounded-[10px] px-3 text-[11px] font-black text-white transition hover:-translate-y-0.5 active:scale-[0.98]";
 
   return (
     <div className="mt-4">
@@ -248,14 +248,14 @@ function ProductCard({
     >
       {featured ? (
         <div className="bg-[#1677FF] px-4 py-2">
-          <p className="text-[9px] font-black tracking-[0.12em] text-white">
+          <p className="text-[10px] font-black tracking-[0.12em] text-white">
             AI PICK
           </p>
         </div>
       ) : null}
 
       <div className="p-4">
-        <p className="text-[9px] font-black tracking-[0.08em] text-black/35">
+        <p className="text-[12px] font-black tracking-[0.08em] text-black/65">
           {product.brand}
         </p>
 
@@ -269,7 +269,7 @@ function ProductCard({
           {product.name}
         </h3>
 
-        <p className="mt-3 text-[11px] leading-6 text-black/55">
+        <p className="mt-3 text-[13px] leading-6 text-black/70">
           {product.description}
         </p>
 
@@ -278,16 +278,16 @@ function ProductCard({
             {product.rating &&
             product.reviewCount ? (
               <>
-                <p className="text-[9px] font-black text-[#111111]">
+                <p className="text-[11px] font-black text-[#111111]">
                   ★ {product.rating}
                 </p>
 
-                <p className="mt-0.5 text-[8px] text-black/35">
+                <p className="mt-0.5 text-[10px] text-black/55">
                   {product.reviewCount}
                 </p>
               </>
             ) : (
-              <p className="text-[8px] leading-4 text-black/35">
+              <p className="text-[10px] leading-5 text-black/55">
                 商品情報は販売サイトで確認
               </p>
             )}
@@ -308,7 +308,7 @@ function ProductCard({
             (badge) => (
               <span
                 key={badge}
-                className="rounded-full bg-[#FFF9D9] px-2 py-1 text-[8px] font-black text-[#111111]"
+                className="rounded-full bg-[#FFF9D9] px-2.5 py-1.5 text-[10px] font-black text-[#111111]"
               >
                 {badge}
               </span>
@@ -318,11 +318,11 @@ function ProductCard({
 
         <div className="mt-4 rounded-[14px] bg-[#EEF6FF] p-3.5">
           <div className="flex items-center gap-2">
-            <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white text-[#1677FF]">
+            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white text-[#1677FF]">
               <SparkleIcon className="h-4 w-4" />
             </span>
 
-            <p className="text-[9px] font-black text-[#1677FF]">
+            <p className="text-[11px] font-black text-[#1677FF]">
               あなたにおすすめの理由
             </p>
           </div>
@@ -332,7 +332,7 @@ function ProductCard({
               (item) => (
                 <span
                   key={item}
-                  className="flex items-center gap-1 rounded-full bg-white px-2 py-1 text-[8px] font-black text-[#1677FF]"
+                  className="flex items-center gap-1 rounded-full bg-white px-2.5 py-1.5 text-[10px] font-black text-[#1677FF]"
                 >
                   <CheckIcon />
                   {item}
@@ -564,7 +564,7 @@ export default function ProductsPage() {
     return (
       <AppShell background="white">
         <div className="flex min-h-screen items-center justify-center px-5 text-center">
-          <p className="text-[13px] font-bold text-black/55">
+          <p className="text-[13px] font-bold text-black/70">
             現在掲載中の商品はありません。
           </p>
         </div>
@@ -591,7 +591,7 @@ export default function ProductsPage() {
               あなた専用のおすすめ商品
             </h1>
 
-            <p className="mt-3 text-[11px] leading-5 text-black/55">
+            <p className="mt-3 text-[13px] leading-6 text-black/70">
               AI診断結果をもとに、あなたに合ったケア用品をカテゴリ別に紹介します。
             </p>
           </div>
@@ -622,10 +622,10 @@ export default function ProductsPage() {
                           false,
                         );
                       }}
-                      className={`min-h-[42px] shrink-0 rounded-full border px-4 text-[10px] font-black transition active:scale-[0.98] ${
+                      className={`min-h-[42px] shrink-0 rounded-full border px-4 text-[11px] font-black transition active:scale-[0.98] ${
                         isActive
                           ? "border-[#1677FF] bg-[#1677FF] text-white shadow-[0_8px_24px_rgba(22,119,255,0.16)]"
-                          : "border-black/10 bg-white text-black/55 hover:border-[#1677FF]/30 hover:bg-[#EEF6FF] hover:text-[#1677FF]"
+                          : "border-black/10 bg-white text-black/70 hover:border-[#1677FF]/30 hover:bg-[#EEF6FF] hover:text-[#1677FF]"
                       }`}
                     >
                       {
@@ -644,7 +644,7 @@ export default function ProductsPage() {
             <section>
               <div className="flex items-end justify-between gap-4">
                 <div>
-                  <p className="text-[9px] font-black tracking-[0.14em] text-[#1677FF]">
+                  <p className="text-[10px] font-black tracking-[0.14em] text-[#1677FF]">
                     {
                       selectedCategoryData.englishLabel
                     }
@@ -657,7 +657,7 @@ export default function ProductsPage() {
                   </h2>
                 </div>
 
-                <span className="shrink-0 rounded-full bg-[#EEF6FF] px-3 py-1.5 text-[9px] font-black text-[#1677FF]">
+                <span className="shrink-0 rounded-full bg-[#EEF6FF] px-3 py-1.5 text-[10px] font-black text-[#1677FF]">
                   {
                     selectedProducts.length
                   }
@@ -665,7 +665,7 @@ export default function ProductsPage() {
                 </span>
               </div>
 
-              <p className="mt-3 text-[11px] leading-5 text-black/55">
+              <p className="mt-3 text-[12px] leading-6 text-black/70">
                 {
                   selectedCategoryData.description
                 }
@@ -677,11 +677,11 @@ export default function ProductsPage() {
                 </span>
 
                 <div>
-                  <p className="text-[10px] font-black text-[#1677FF]">
+                  <p className="text-[11px] font-black text-[#1677FF]">
                     AIからのアドバイス
                   </p>
 
-                  <p className="mt-1 text-[10px] leading-5 text-black/55">
+                  <p className="mt-1 text-[12px] leading-6 text-black/70">
                     {
                       selectedCategoryData.advice
                     }
@@ -738,7 +738,7 @@ export default function ProductsPage() {
                         !current,
                     )
                   }
-                  className="mt-4 flex min-h-[48px] w-full items-center justify-center rounded-[12px] border border-[#1677FF]/15 bg-white px-5 text-[11px] font-black text-[#1677FF] transition hover:bg-[#EEF6FF] active:scale-[0.99]"
+                  className="mt-4 flex min-h-[48px] w-full items-center justify-center rounded-[12px] border border-[#1677FF]/15 bg-white px-5 text-[12px] font-black text-[#1677FF] transition hover:bg-[#EEF6FF] active:scale-[0.99]"
                 >
                   {showAllProducts
                     ? "候補商品を閉じる"
@@ -751,28 +751,35 @@ export default function ProductsPage() {
             </section>
 
             <aside className="mt-9 rounded-[16px] bg-[#F7F9FC] px-4 py-4">
-              <p className="text-center text-[9px] leading-5 text-black/35">
+              <p className="text-[10px] leading-5 text-black/65">
+                ※AKANUKE.AIのAI診断結果をもとに、
+                ユーザーごとの改善ポイントに合わせて商品を選定・紹介しています。
+                本コンテンツにはプロモーションが含まれます。
+              </p>
+
+              <div className="my-3 h-px w-full bg-black/5" />
+
+              <p className="text-[10px] leading-5 text-black/60">
                 ※商品情報・価格・在庫状況は変更される場合があります。
-                <br />
                 最新情報は各販売サイトでご確認ください。
               </p>
             </aside>
 
             <div className="mt-6 space-y-3">
-  <Link
-    href="/dashboard"
-    className="flex min-h-[56px] w-full items-center justify-center rounded-[14px] bg-[#1677FF] px-5 text-[13px] font-black text-white shadow-[0_10px_28px_rgba(22,119,255,0.22)] transition hover:-translate-y-0.5 hover:bg-[#0F6FEF] active:scale-[0.99]"
-  >
-    マイページへ
-  </Link>
+              <Link
+                href="/dashboard"
+                className="flex min-h-[56px] w-full items-center justify-center rounded-[14px] bg-[#1677FF] px-5 text-[13px] font-black text-white shadow-[0_10px_28px_rgba(22,119,255,0.22)] transition hover:-translate-y-0.5 hover:bg-[#0F6FEF] active:scale-[0.99]"
+              >
+                マイページへ
+              </Link>
 
-  <Link
-    href="/result"
-    className="flex min-h-[50px] w-full items-center justify-center rounded-[12px] border border-black/10 bg-white px-5 text-[11px] font-black text-black/60 transition hover:bg-[#EEF6FF] active:scale-[0.99]"
-  >
-    診断結果へ戻る
-  </Link>
-</div>
+              <Link
+                href="/result"
+                className="flex min-h-[50px] w-full items-center justify-center rounded-[12px] border border-black/10 bg-white px-5 text-[12px] font-black text-black/70 transition hover:bg-[#EEF6FF] active:scale-[0.99]"
+              >
+                診断結果へ戻る
+              </Link>
+            </div>
           </div>
         </main>
       </div>

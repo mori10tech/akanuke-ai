@@ -48,8 +48,6 @@ function createResultAnimationId(
   return `${rawResult.length}:${hash}`;
 }
 
-const GOAL_PROGRESS = 100;
-
 const AFTER_PROGRESS_MAX_BEFORE_COMPLETE =
   99;
 
@@ -191,22 +189,6 @@ function Icon({
         <path d="M9 8V6a3 3 0 0 1 6 0v2" />
       </>
     ),
-    scissors: (
-      <>
-        <circle
-          cx="6"
-          cy="7"
-          r="2.5"
-        />
-        <circle
-          cx="6"
-          cy="17"
-          r="2.5"
-        />
-        <path d="m8.2 8.2 11.3 8.3" />
-        <path d="m8.2 15.8 11.3-8.3" />
-      </>
-    ),
     calendar: (
       <>
         <rect
@@ -237,112 +219,6 @@ function Icon({
     >
       {paths[name]}
     </svg>
-  );
-}
-
-function CircularProgress({
-  progress,
-}: {
-  progress: number;
-}) {
-  const radius = 43;
-
-  const circumference =
-    2 * Math.PI * radius;
-
-  const offset =
-    circumference -
-    (progress / 100) *
-      circumference;
-
-  return (
-    <div className="relative h-[112px] w-[112px]">
-      <svg
-        viewBox="0 0 104 104"
-        className="h-full w-full -rotate-90"
-        aria-hidden="true"
-      >
-        <circle
-          cx="52"
-          cy="52"
-          r={radius}
-          fill="none"
-          stroke="#FFFFFF"
-          strokeWidth="6"
-        />
-
-        <circle
-          cx="52"
-          cy="52"
-          r={radius}
-          fill="none"
-          stroke="#1677FF"
-          strokeWidth="6"
-          strokeLinecap="round"
-          strokeDasharray={
-            circumference
-          }
-          strokeDashoffset={
-            offset
-          }
-          className="transition-[stroke-dashoffset] duration-1000 ease-out"
-        />
-      </svg>
-
-      <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <div className="flex items-end gap-0.5">
-          <span className="text-[34px] font-black leading-none tracking-[-0.06em] text-[#1677FF]">
-            {progress}
-          </span>
-
-          <span className="pb-0.5 text-[10px] font-black text-[#1677FF]">
-            %
-          </span>
-        </div>
-
-        <span className="mt-1 text-[9px] font-bold tracking-[0.12em] text-black/55">
-          CURRENT
-        </span>
-      </div>
-    </div>
-  );
-}
-
-function AnalysisDetail({
-  title,
-  observation,
-  advice,
-}: {
-  title: string;
-  observation: string;
-  advice: string;
-}) {
-  return (
-    <article className="rounded-[18px] border border-black/10 bg-white p-4">
-      <h3 className="text-[13px] font-black text-[#111111]">
-        {title}
-      </h3>
-
-      <div className="mt-3">
-        <p className="text-[10px] font-black tracking-[0.1em] text-black/55">
-          CURRENT
-        </p>
-
-        <p className="mt-1 text-[13px] leading-6 text-black/70">
-          {observation}
-        </p>
-      </div>
-
-      <div className="mt-3 rounded-[12px] bg-[#EEF6FF] p-3">
-        <p className="text-[10px] font-black tracking-[0.1em] text-[#1677FF]">
-          ADVICE
-        </p>
-
-        <p className="mt-1 text-[13px] leading-6 text-black/75">
-          {advice}
-        </p>
-      </div>
-    </article>
   );
 }
 
@@ -511,7 +387,6 @@ export default function ResultPage() {
       setDisplayProgress(0);
 
       const duration = 1400;
-
       const startedAt =
         performance.now();
 
@@ -914,11 +789,9 @@ export default function ResultPage() {
     return () => {
       isCancelled = true;
 
-      if (startTimer) {
-        window.clearTimeout(
-          startTimer,
-        );
-      }
+      window.clearTimeout(
+        startTimer,
+      );
 
       stopAfterProgressTimer();
     };
@@ -1002,14 +875,10 @@ export default function ResultPage() {
       body:
         "AIが分析した改善ポイントをもとに、髪型・眉・肌・身だしなみを整えたAfterイメージです。",
       changes: [
-        analysis.afterDirection
-          .hair,
-        analysis.afterDirection
-          .eyebrows,
-        analysis.afterDirection
-          .skin,
-        analysis.afterDirection
-          .grooming,
+        analysis.afterDirection.hair,
+        analysis.afterDirection.eyebrows,
+        analysis.afterDirection.skin,
+        analysis.afterDirection.grooming,
       ],
     };
 
@@ -1077,9 +946,7 @@ export default function ResultPage() {
 
                 <div className="mt-1 flex items-end gap-1">
                   <span className="text-[46px] font-bold leading-none tracking-[-0.055em] text-[#1677FF]">
-                    {
-                      displayProgress
-                    }
+                    {displayProgress}
                   </span>
 
                   <span className="pb-1 text-[13px] font-bold text-[#1677FF]/70">
@@ -1099,9 +966,7 @@ export default function ResultPage() {
               </p>
 
               <p className="mt-1.5 text-[14px] font-black leading-6 text-[#111111]">
-                {
-                  analysis.targetImpression
-                }
+                {analysis.targetImpression}
               </p>
 
               <p className="mt-2 text-[11px] leading-5 text-black/80">
@@ -1125,17 +990,11 @@ export default function ResultPage() {
             </div>
 
             <h2 className="mt-3 text-[16px] font-black leading-[1.5] tracking-[-0.03em]">
-              {
-                analysis.summary
-                  .headline
-              }
+              {analysis.summary.headline}
             </h2>
 
             <p className="mt-3 text-[13px] leading-6 text-black/75">
-              {
-                analysis.summary
-                  .body
-              }
+              {analysis.summary.body}
             </p>
 
             <div className="mt-4 rounded-[14px] bg-white/70 px-4 py-3">
@@ -1144,9 +1003,7 @@ export default function ResultPage() {
               </p>
 
               <p className="mt-1 text-[12px] font-black text-[#111111]">
-                {
-                  analysis.targetImpression
-                }
+                {analysis.targetImpression}
               </p>
             </div>
           </section>
@@ -1193,11 +1050,9 @@ export default function ResultPage() {
                         </p>
 
                         <p className="mt-1 text-[11px] font-bold text-black/70">
-                          {
-                            getAfterGenerationStage(
-                              afterElapsedSeconds,
-                            )
-                          }
+                          {getAfterGenerationStage(
+                            afterElapsedSeconds,
+                          )}
                         </p>
                       </div>
 
@@ -1244,17 +1099,17 @@ export default function ResultPage() {
                 </p>
 
                 <div className="mt-5 flex flex-col items-center">
-  <p className="text-[10px] font-bold tracking-[0.04em] text-black/55">
-    下にスクロールして Before / After をチェック
-  </p>
+                  <p className="text-[10px] font-bold tracking-[0.04em] text-black/55">
+                    下にスクロールして Before / After をチェック
+                  </p>
 
-  <span
-    aria-hidden="true"
-    className="mt-1 animate-bounce text-[18px] font-black leading-none text-[#1677FF]"
-  >
-    ↓
-  </span>
-</div>
+                  <span
+                    aria-hidden="true"
+                    className="mt-1 animate-bounce text-[18px] font-black leading-none text-[#1677FF]"
+                  >
+                    ↓
+                  </span>
+                </div>
               </div>
             </section>
           )}
@@ -1283,14 +1138,14 @@ export default function ResultPage() {
               現在の状態と、AIが提案する改善後のイメージを比較できます。
             </p>
 
-            <div className="mt-4 grid grid-cols-2 gap-3">
-              <div>
+            <div className="mt-4 grid grid-cols-2 items-stretch gap-3">
+              <div className="flex h-full flex-col">
                 <p className="mb-2 text-center text-[11px] font-black tracking-[0.08em] text-black/60">
                   Before
                 </p>
 
-                <div className="overflow-hidden rounded-[18px] border border-black/10 bg-white">
-                  <div className="relative aspect-[4/5] bg-[#F7F9FC]">
+                <div className="flex flex-1 flex-col overflow-hidden rounded-[18px] border border-black/10 bg-white">
+                  <div className="relative aspect-[4/5] w-full shrink-0 overflow-hidden bg-[#F7F9FC]">
                     {image ? (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img
@@ -1301,7 +1156,7 @@ export default function ResultPage() {
                     ) : null}
                   </div>
 
-                  <div className="p-3">
+                  <div className="flex flex-1 flex-col p-3">
                     <p className="text-[11px] font-black">
                       現在の印象
                     </p>
@@ -1315,13 +1170,13 @@ export default function ResultPage() {
                 </div>
               </div>
 
-              <div>
+              <div className="flex h-full flex-col">
                 <p className="mb-2 text-center text-[11px] font-black tracking-[0.08em] text-[#1677FF]">
                   After
                 </p>
 
-                <div className="overflow-hidden rounded-[18px] border border-[#FFD400]/60 bg-[#FFF9D9]">
-                  <div className="relative aspect-[4/5] overflow-hidden bg-gradient-to-br from-[#EEF6FF] via-white to-[#FFF9D9]">
+                <div className="flex flex-1 flex-col overflow-hidden rounded-[18px] border border-[#FFD400]/60 bg-[#FFF9D9]">
+                  <div className="relative aspect-[4/5] w-full shrink-0 overflow-hidden bg-gradient-to-br from-[#EEF6FF] via-white to-[#FFF9D9]">
                     {afterImage ? (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img
@@ -1362,11 +1217,9 @@ export default function ResultPage() {
                           </div>
 
                           <p className="mt-2 line-clamp-2 min-h-[24px] break-words text-[9px] font-bold leading-4 text-[#111111]/70 sm:mt-3 sm:min-h-[32px] sm:text-[10px] sm:leading-4">
-                            {
-                              getAfterGenerationStage(
-                                afterElapsedSeconds,
-                              )
-                            }
+                            {getAfterGenerationStage(
+                              afterElapsedSeconds,
+                            )}
                           </p>
 
                           <div className="mt-2 h-1 w-full overflow-hidden rounded-full bg-black/5 sm:mt-3 sm:h-1.5">
@@ -1440,7 +1293,7 @@ export default function ResultPage() {
                     )}
                   </div>
 
-                  <div className="p-3">
+                  <div className="flex flex-1 flex-col p-3">
                     <p className="text-[11px] font-black">
                       理想の印象
                     </p>
@@ -1459,222 +1312,222 @@ export default function ResultPage() {
               ※AIが生成した参考イメージです。変化を保証するものではありません。
             </p>
 
-<div className="mt-5 border-t border-black/[0.06] pt-5">
-  <div>
-    <p className="text-[10px] font-black tracking-[0.14em] text-[#1677FF]">
-      NEXT STEP
-    </p>
+            <div className="mt-5 border-t border-black/[0.06] pt-5">
+              <div>
+                <p className="text-[10px] font-black tracking-[0.14em] text-[#1677FF]">
+                  NEXT STEP
+                </p>
 
-    <h3 className="mt-1.5 text-[17px] font-black leading-6 tracking-[-0.03em] text-[#111111]">
-      このAfterに近づくために、次の一歩へ。
-    </h3>
+                <h3 className="mt-1.5 text-[17px] font-black leading-6 tracking-[-0.03em] text-[#111111]">
+                  このAfterに近づくために、次の一歩へ。
+                </h3>
 
-    <p className="mt-2 text-[12px] leading-5 text-black/75">
-    あなた専用の改善プランと必要な商品を確認できます。
-    </p>
-  </div>
+                <p className="mt-2 text-[12px] leading-5 text-black/75">
+                  あなた専用の改善プランと必要な商品を確認できます。
+                </p>
+              </div>
 
-  <Link
-    href="/plan"
-    className="mt-4 flex min-h-[58px] w-full items-center gap-3 rounded-[15px] bg-[#FFD400] px-4 text-[#111111] shadow-[0_8px_24px_rgba(255,212,0,0.22)] transition hover:-translate-y-0.5 hover:bg-[#FFCF00] active:scale-[0.99]"
-  >
-    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[12px] bg-white/75 text-[#111111]">
-      <Icon
-        name="calendar"
-        className="h-[18px] w-[18px]"
-      />
-    </span>
+              <Link
+                href="/plan"
+                className="mt-4 flex min-h-[58px] w-full items-center gap-3 rounded-[15px] bg-[#FFD400] px-4 text-[#111111] shadow-[0_8px_24px_rgba(255,212,0,0.22)] transition hover:-translate-y-0.5 hover:bg-[#FFCF00] active:scale-[0.99]"
+              >
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[12px] bg-white/75 text-[#111111]">
+                  <Icon
+                    name="calendar"
+                    className="h-[18px] w-[18px]"
+                  />
+                </span>
 
-    <div className="min-w-0 flex-1 text-left">
-      <p className="text-[12px] font-black">
-        このAfterに近づくプランを見る
-      </p>
+                <div className="min-w-0 flex-1 text-left">
+                  <p className="text-[12px] font-black">
+                    このAfterに近づくプランを見る
+                  </p>
 
-      <p className="mt-0.5 text-[10px] font-bold text-black/65">
-        あなた専用の改善ステップを確認
-      </p>
-    </div>
+                  <p className="mt-0.5 text-[10px] font-bold text-black/65">
+                    あなた専用の改善ステップを確認
+                  </p>
+                </div>
 
-    <span
-      aria-hidden="true"
-      className="shrink-0 text-[19px] font-black"
-    >
-      →
-    </span>
-  </Link>
+                <span
+                  aria-hidden="true"
+                  className="shrink-0 text-[19px] font-black"
+                >
+                  →
+                </span>
+              </Link>
 
-  <Link
-    href="/products"
-    className="mt-2.5 flex min-h-[54px] w-full items-center gap-3 rounded-[15px] border border-[#1677FF]/15 bg-[#EEF6FF] px-4 text-[#111111] transition hover:bg-[#E4F1FF] active:scale-[0.99]"
-  >
-    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[11px] bg-white text-[#1677FF]">
-      <Icon
-        name="bag"
-        className="h-[17px] w-[17px]"
-      />
-    </span>
+              <Link
+                href="/products"
+                className="mt-2.5 flex min-h-[54px] w-full items-center gap-3 rounded-[15px] border border-[#1677FF]/15 bg-[#EEF6FF] px-4 text-[#111111] transition hover:bg-[#E4F1FF] active:scale-[0.99]"
+              >
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[11px] bg-white text-[#1677FF]">
+                  <Icon
+                    name="bag"
+                    className="h-[17px] w-[17px]"
+                  />
+                </span>
 
-    <div className="min-w-0 flex-1 text-left">
-      <p className="text-[12px] font-black">
-        おすすめ商品を見る
-      </p>
+                <div className="min-w-0 flex-1 text-left">
+                  <p className="text-[12px] font-black">
+                    おすすめ商品を見る
+                  </p>
 
-      <p className="mt-0.5 text-[10px] font-medium text-black/65">
-        今のあなたに必要な商品を確認
-      </p>
-    </div>
+                  <p className="mt-0.5 text-[10px] font-medium text-black/65">
+                    今のあなたに必要な商品を確認
+                  </p>
+                </div>
 
-    <span
-      aria-hidden="true"
-      className="shrink-0 text-[18px] font-black text-[#1677FF]"
-    >
-      →
-    </span>
-  </Link>
-</div>
+                <span
+                  aria-hidden="true"
+                  className="shrink-0 text-[18px] font-black text-[#1677FF]"
+                >
+                  →
+                </span>
+              </Link>
+            </div>
           </section>
 
-                    <AdSenseAd
+          <AdSenseAd
             className="mx-4 mt-7"
             format="rectangle"
           />
 
           <section className="mx-4 mt-7">
-  <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
-    YOUR IMPROVEMENTS
-  </p>
-
-  <h2 className="mt-1 text-[21px] font-black tracking-[-0.035em]">
-    今回の主な改善ポイント
-  </h2>
-
-  <p className="mt-2 text-[13px] leading-6 text-black/75">
-    AIが今回のAfterに反映した、特に重要なポイントをまとめました。
-  </p>
-
-  <div className="mt-4 overflow-hidden rounded-[18px] border border-black/10 bg-white">
-    {[
-      [
-        "髪型",
-        analysis.afterDirection.hair,
-      ],
-      [
-        "眉毛",
-        analysis.afterDirection.eyebrows,
-      ],
-      [
-        "肌",
-        analysis.afterDirection.skin,
-      ],
-      [
-        "身だしなみ",
-        analysis.afterDirection.grooming,
-      ],
-    ].map(
-      ([
-        label,
-        value,
-      ]) => (
-        <div
-          key={label}
-          className="flex items-start gap-3 border-b border-black/10 px-4 py-5 last:border-b-0"
-        >
-          <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#EEF6FF] text-[#1677FF]">
-            <Icon
-              name="check"
-              className="h-4 w-4"
-            />
-          </span>
-
-          <div className="min-w-0 flex-1">
-            <p className="text-[13px] font-black text-[#111111]">
-              {label}
+            <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
+              YOUR IMPROVEMENTS
             </p>
 
-            <p className="mt-1.5 text-[13px] leading-6 text-black/80">
-              {value}
+            <h2 className="mt-1 text-[21px] font-black tracking-[-0.035em]">
+              今回の主な改善ポイント
+            </h2>
+
+            <p className="mt-2 text-[13px] leading-6 text-black/75">
+              AIが今回のAfterに反映した、特に重要なポイントをまとめました。
             </p>
-          </div>
-        </div>
-      ),
-    )}
-  </div>
-</section>
+
+            <div className="mt-4 overflow-hidden rounded-[18px] border border-black/10 bg-white">
+              {[
+                [
+                  "髪型",
+                  analysis.afterDirection.hair,
+                ],
+                [
+                  "眉毛",
+                  analysis.afterDirection.eyebrows,
+                ],
+                [
+                  "肌",
+                  analysis.afterDirection.skin,
+                ],
+                [
+                  "身だしなみ",
+                  analysis.afterDirection.grooming,
+                ],
+              ].map(
+                ([
+                  label,
+                  value,
+                ]) => (
+                  <div
+                    key={label}
+                    className="flex items-start gap-3 border-b border-black/10 px-4 py-5 last:border-b-0"
+                  >
+                    <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#EEF6FF] text-[#1677FF]">
+                      <Icon
+                        name="check"
+                        className="h-4 w-4"
+                      />
+                    </span>
+
+                    <div className="min-w-0 flex-1">
+                      <p className="text-[13px] font-black text-[#111111]">
+                        {label}
+                      </p>
+
+                      <p className="mt-1.5 text-[13px] leading-6 text-black/80">
+                        {value}
+                      </p>
+                    </div>
+                  </div>
+                ),
+              )}
+            </div>
+          </section>
 
           <section className="mx-4 mb-8 mt-8 overflow-hidden rounded-[24px] border border-[#1677FF]/15 bg-gradient-to-br from-[#EEF6FF] via-white to-[#FFF9D9] shadow-[0_12px_36px_rgba(22,119,255,0.10)]">
-  <div className="px-5 pb-5 pt-5">
-    <p className="text-[10px] font-black tracking-[0.14em] text-[#1677FF]">
-      NEXT ACTION
-    </p>
+            <div className="px-5 pb-5 pt-5">
+              <p className="text-[10px] font-black tracking-[0.14em] text-[#1677FF]">
+                NEXT ACTION
+              </p>
 
-    <h2 className="mt-1.5 text-[19px] font-black leading-7 tracking-[-0.035em] text-[#111111]">
-      診断結果を、行動に変えよう。
-    </h2>
+              <h2 className="mt-1.5 text-[19px] font-black leading-7 tracking-[-0.035em] text-[#111111]">
+                診断結果を、行動に変えよう。
+              </h2>
 
-    <p className="mt-2 text-[12px] leading-6 text-black/75">
-      あなたの改善ポイントは整理できました。
-      次は、垢抜けプランに沿って少しずつ改善を進めていきましょう。
-    </p>
+              <p className="mt-2 text-[12px] leading-6 text-black/75">
+                あなたの改善ポイントは整理できました。
+                次は、垢抜けプランに沿って少しずつ改善を進めていきましょう。
+              </p>
 
-    <Link
-      href="/plan"
-      className="mt-4 flex min-h-[60px] w-full items-center gap-3 rounded-[15px] bg-[#FFD400] px-4 text-[#111111] shadow-[0_8px_24px_rgba(255,212,0,0.22)] transition hover:-translate-y-0.5 hover:bg-[#FFCF00] active:scale-[0.99]"
-    >
-      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[12px] bg-white/75 text-[#111111]">
-        <Icon
-          name="calendar"
-          className="h-[18px] w-[18px]"
-        />
-      </span>
+              <Link
+                href="/plan"
+                className="mt-4 flex min-h-[60px] w-full items-center gap-3 rounded-[15px] bg-[#FFD400] px-4 text-[#111111] shadow-[0_8px_24px_rgba(255,212,0,0.22)] transition hover:-translate-y-0.5 hover:bg-[#FFCF00] active:scale-[0.99]"
+              >
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[12px] bg-white/75 text-[#111111]">
+                  <Icon
+                    name="calendar"
+                    className="h-[18px] w-[18px]"
+                  />
+                </span>
 
-      <div className="min-w-0 flex-1 text-left">
-        <p className="text-[12px] font-black">
-          垢抜けプランを見る
-        </p>
+                <div className="min-w-0 flex-1 text-left">
+                  <p className="text-[12px] font-black">
+                    垢抜けプランを見る
+                  </p>
 
-        <p className="mt-0.5 text-[10px] font-bold text-black/65">
-          あなた専用の改善ステップを確認
-        </p>
-      </div>
+                  <p className="mt-0.5 text-[10px] font-bold text-black/65">
+                    あなた専用の改善ステップを確認
+                  </p>
+                </div>
 
-      <span
-        aria-hidden="true"
-        className="shrink-0 text-[19px] font-black"
-      >
-        →
-      </span>
-    </Link>
+                <span
+                  aria-hidden="true"
+                  className="shrink-0 text-[19px] font-black"
+                >
+                  →
+                </span>
+              </Link>
 
-    <Link
-      href="/products"
-      className="mt-2.5 flex min-h-[54px] w-full items-center gap-3 rounded-[15px] border border-[#1677FF]/15 bg-[#EEF6FF] px-4 text-[#111111] transition hover:bg-[#E4F1FF] active:scale-[0.99]"
-    >
-      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[11px] bg-white text-[#1677FF]">
-        <Icon
-          name="bag"
-          className="h-[17px] w-[17px]"
-        />
-      </span>
+              <Link
+                href="/products"
+                className="mt-2.5 flex min-h-[54px] w-full items-center gap-3 rounded-[15px] border border-[#1677FF]/15 bg-[#EEF6FF] px-4 text-[#111111] transition hover:bg-[#E4F1FF] active:scale-[0.99]"
+              >
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[11px] bg-white text-[#1677FF]">
+                  <Icon
+                    name="bag"
+                    className="h-[17px] w-[17px]"
+                  />
+                </span>
 
-      <div className="min-w-0 flex-1 text-left">
-        <p className="text-[12px] font-black">
-          おすすめ商品を見る
-        </p>
+                <div className="min-w-0 flex-1 text-left">
+                  <p className="text-[12px] font-black">
+                    おすすめ商品を見る
+                  </p>
 
-        <p className="mt-0.5 text-[10px] font-medium text-black/65">
-          今のあなたに必要な商品を確認
-        </p>
-      </div>
+                  <p className="mt-0.5 text-[10px] font-medium text-black/65">
+                    今のあなたに必要な商品を確認
+                  </p>
+                </div>
 
-      <span
-        aria-hidden="true"
-        className="shrink-0 text-[18px] font-black text-[#1677FF]"
-      >
-        →
-      </span>
-    </Link>
-  </div>
-</section>
+                <span
+                  aria-hidden="true"
+                  className="shrink-0 text-[18px] font-black text-[#1677FF]"
+                >
+                  →
+                </span>
+              </Link>
+            </div>
+          </section>
 
           <AdSenseAd
             className="mx-4 mt-7"

@@ -1,8 +1,5 @@
 "use client";
 
-import {
-  loadAfterImage,
-} from "../../lib/client/afterImageStore";
 import type {
   AkanukeAnalysis,
 } from "../../lib/openai/schemas";
@@ -586,135 +583,68 @@ export default function PlanPage() {
   }, []);
 
 /*
- * Result画面で生成されたAfter画像と診断内容を復元します。
+ * Supabaseに保存されている最新診断を正として、
+ * After画像と診断内容を復元します。
  *
- * まず同じブラウザ内のsessionStorage / IndexedDBを確認し、
- * 取得できない場合はSupabaseに保存されている最新診断から
- * After画像と診断内容を取得します。
- *
- * SafariとLINE内ブラウザではブラウザストレージを共有できないため、
- * Supabaseをフォールバックとして利用します。
+ * SafariとLINE内ブラウザではブラウザストレージを共有できず、
+ * ローカルデータが古い可能性もあるため、
+ * Plan画面では常にSupabaseの最新診断を利用します。
  */
 useEffect(() => {
   let isCancelled = false;
 
-  async function restoreAfterImage() {
+  async function restoreLatestDiagnosis() {
     try {
-      const rawResult =
-        window.sessionStorage.getItem(
-          "akanukeAnalysisResult",
+      const latestResponse =
+        await fetch(
+          "/api/diagnoses/latest",
+          {
+            method: "GET",
+            cache: "no-store",
+          },
         );
 
-      /*
-       * まず、現在のブラウザ内に診断結果がある場合は
-       * 既存のIndexedDBからAfter画像を取得します。
-       */
-      if (rawResult) {
-        try {
-          const parsed =
-            JSON.parse(
-              rawResult,
-            ) as AkanukeAnalysis;
+      const latestData =
+        (await latestResponse.json()) as {
+          diagnosisId?: string | null;
+          error?: string;
+        };
 
-          if (
-            !isCancelled &&
-            parsed.afterDirection?.hair &&
-            parsed.afterDirection?.eyebrows &&
-            parsed.hair?.advice &&
-            parsed.eyebrows?.advice
-          ) {
-            setSalonAnalysis(
-              parsed,
-            );
-          }
-
-          const savedAfterImage =
-            await loadAfterImage(
-              rawResult,
-            );
-
-          if (
-            !isCancelled &&
-            savedAfterImage
-          ) {
-            setSalonAfterImage(
-              savedAfterImage,
-            );
-
-            return;
-          }
-        } catch (error) {
-          console.warn(
-            "[AKANUKE.AI] Plan画面のローカルAfter画像を読み込めませんでした:",
-            error,
-          );
-        }
-      }
-
-      /*
-       * SafariとLINEではIndexedDBが共有されないため、
-       * ローカルから取得できなかった場合は
-       * 現在の診断IDを確認します。
-       */
-      let diagnosisId =
-        window.sessionStorage.getItem(
-          DIAGNOSIS_ID_STORAGE_KEY,
+      if (!latestResponse.ok) {
+        throw new Error(
+          latestData.error ??
+            "最新の診断情報を取得できませんでした。",
         );
-
-      /*
-       * diagnosisIdもブラウザ間では共有されないため、
-       * 保存されていなければ最新診断IDをAPIから取得します。
-       */
-      if (!diagnosisId) {
-        const latestResponse =
-          await fetch(
-            "/api/diagnoses/latest",
-            {
-              method: "GET",
-              cache: "no-store",
-            },
-          );
-
-        const latestData =
-          (await latestResponse.json()) as {
-            diagnosisId?: string | null;
-            error?: string;
-          };
-
-        if (!latestResponse.ok) {
-          throw new Error(
-            latestData.error ??
-              "最新の診断情報を取得できませんでした。",
-          );
-        }
-
-        diagnosisId =
-          typeof latestData.diagnosisId ===
-            "string" &&
-          latestData.diagnosisId.trim().length > 0
-            ? latestData.diagnosisId
-            : null;
-
-        if (diagnosisId) {
-          window.sessionStorage.setItem(
-            DIAGNOSIS_ID_STORAGE_KEY,
-            diagnosisId,
-          );
-        }
       }
 
-      if (!diagnosisId) {
+      const latestDiagnosisId =
+        typeof latestData.diagnosisId ===
+          "string" &&
+        latestData.diagnosisId.trim().length > 0
+          ? latestData.diagnosisId
+          : null;
+
+      if (
+        !latestDiagnosisId ||
+        isCancelled
+      ) {
+        if (!isCancelled) {
+          setSalonAfterImage(null);
+          setSalonAnalysis(null);
+        }
+
         return;
       }
 
-      /*
-       * Supabaseに保存されている診断結果と
-       * After画像の署名付きURLを取得します。
-       */
+      window.sessionStorage.setItem(
+        DIAGNOSIS_ID_STORAGE_KEY,
+        latestDiagnosisId,
+      );
+
       const diagnosisResponse =
         await fetch(
           `/api/diagnoses/${encodeURIComponent(
-            diagnosisId,
+            latestDiagnosisId,
           )}`,
           {
             method: "GET",
@@ -746,39 +676,38 @@ useEffect(() => {
       }
 
       const savedAnalysis =
-        diagnosisData.diagnosis
-          .analysis;
+        diagnosisData.diagnosis.analysis;
 
-      if (
-        savedAnalysis &&
-        savedAnalysis.afterDirection?.hair &&
-        savedAnalysis.afterDirection?.eyebrows &&
-        savedAnalysis.hair?.advice &&
-        savedAnalysis.eyebrows?.advice
-      ) {
+      if (savedAnalysis) {
         setSalonAnalysis(
           savedAnalysis,
         );
+      } else {
+        setSalonAnalysis(null);
       }
 
-      const savedAfterImageUrl =
+      setSalonAfterImage(
         diagnosisData.diagnosis
-          .afterImageUrl;
-
-      if (savedAfterImageUrl) {
-        setSalonAfterImage(
-          savedAfterImageUrl,
-        );
-      }
+          .afterImageUrl ?? null,
+      );
     } catch (error) {
-      console.warn(
-        "[AKANUKE.AI] Plan画面でAfter画像を読み込めませんでした:",
+      console.error(
+        "[AKANUKE.AI] Plan画面で最新診断を読み込めませんでした:",
         error,
       );
+
+      /*
+       * 最新データを確認できなかった場合、
+       * 古い診断データを誤表示しないようにします。
+       */
+      if (!isCancelled) {
+        setSalonAfterImage(null);
+        setSalonAnalysis(null);
+      }
     }
   }
 
-  void restoreAfterImage();
+  void restoreLatestDiagnosis();
 
   return () => {
     isCancelled = true;
@@ -861,51 +790,21 @@ useEffect(() => {
 
     async function loadPlanProgress() {
       try {
-        let diagnosisId =
-          window.sessionStorage.getItem(
-            DIAGNOSIS_ID_STORAGE_KEY,
-          );
+        const diagnosisId =
+  await getLatestDiagnosisId();
 
-        if (!diagnosisId) {
-          diagnosisId =
-            await getLatestDiagnosisId();
-        }
+if (!diagnosisId) {
+  if (isActive) {
+    setCompletedIds([]);
+  }
 
-        if (!diagnosisId) {
-          if (isActive) {
-            setCompletedIds([]);
-          }
+  return;
+}
 
-          return;
-        }
-
-        let { response, data } =
-          await fetchPlanProgress(
-            diagnosisId,
-          );
-
-        /*
-         * sessionStorageに古い診断IDが残っている場合は、
-         * 最新診断IDを取り直して1回だけ再取得します。
-         */
-        if (response.status === 404) {
-          const latestDiagnosisId =
-            await getLatestDiagnosisId();
-
-          if (
-            latestDiagnosisId &&
-            latestDiagnosisId !==
-              diagnosisId
-          ) {
-            diagnosisId =
-              latestDiagnosisId;
-
-            ({ response, data } =
-              await fetchPlanProgress(
-                diagnosisId,
-              ));
-          }
-        }
+const { response, data } =
+  await fetchPlanProgress(
+    diagnosisId,
+  );
 
         if (!response.ok) {
           throw new Error(
@@ -972,57 +871,48 @@ useEffect(() => {
     [completedCount],
   );
 
-  async function resolveDiagnosisId() {
-    const storedDiagnosisId =
-      window.sessionStorage.getItem(
-        DIAGNOSIS_ID_STORAGE_KEY,
-      );
+async function resolveDiagnosisId() {
+  const response = await fetch(
+    "/api/diagnoses/latest",
+    {
+      method: "GET",
+      cache: "no-store",
+    },
+  );
 
-    if (storedDiagnosisId) {
-      return storedDiagnosisId;
-    }
+  const data =
+    (await response.json()) as {
+      diagnosisId?: string | null;
+      error?: string;
+    };
 
-    const response = await fetch(
-      "/api/diagnoses/latest",
-      {
-        method: "GET",
-        cache: "no-store",
-      },
+  if (!response.ok) {
+    throw new Error(
+      data.error ??
+        "最新の診断情報を取得できませんでした。",
     );
-
-    const data =
-      (await response.json()) as {
-        diagnosisId?: string | null;
-        error?: string;
-      };
-
-    if (!response.ok) {
-      throw new Error(
-        data.error ??
-          "最新の診断情報を取得できませんでした。",
-      );
-    }
-
-    const latestDiagnosisId =
-      typeof data.diagnosisId ===
-        "string" &&
-      data.diagnosisId.trim().length > 0
-        ? data.diagnosisId
-        : null;
-
-    if (!latestDiagnosisId) {
-      throw new Error(
-        "診断IDを確認できませんでした。",
-      );
-    }
-
-    window.sessionStorage.setItem(
-      DIAGNOSIS_ID_STORAGE_KEY,
-      latestDiagnosisId,
-    );
-
-    return latestDiagnosisId;
   }
+
+  const latestDiagnosisId =
+    typeof data.diagnosisId ===
+      "string" &&
+    data.diagnosisId.trim().length > 0
+      ? data.diagnosisId
+      : null;
+
+  if (!latestDiagnosisId) {
+    throw new Error(
+      "診断IDを確認できませんでした。",
+    );
+  }
+
+  window.sessionStorage.setItem(
+    DIAGNOSIS_ID_STORAGE_KEY,
+    latestDiagnosisId,
+  );
+
+  return latestDiagnosisId;
+}
 
   async function savePlanProgress(
     nextCompletedIds: string[],

@@ -12,6 +12,25 @@ CORE OBJECTIVE
 
 Create a realistic TOTAL BEAUTY MAKEOVER of THE EXACT SAME PERSON.
 
+IMPORTANT EDITING MODE:
+
+Treat this task as a LOCALIZED PHOTO EDIT of the provided original photograph,
+NOT as generating a new portrait inspired by the person.
+
+Use the original photograph as the visual source of truth for the person's face.
+
+Keep the original facial pixels and facial appearance as unchanged as reasonably possible
+except for reversible grooming-related surface changes explicitly requested below.
+
+Do not reinterpret, reconstruct, idealize, beautify, or regenerate the person's facial anatomy.
+
+The safest successful result is:
+
+"the original photograph with professionally improved hair, eyebrows, skin presentation, beard grooming, and grooming details."
+
+If a requested improvement risks making the person look like a different individual,
+reduce that improvement until the person's identity is unmistakably preserved.
+
 The result should represent what this person could realistically achieve through:
 
 - a suitable professional haircut
@@ -245,7 +264,7 @@ MANDATORY HAIRSTYLE DIFFERENCE
 
 Compare the proposed hairstyle directly with the original hairstyle.
 
-The After must visibly change AT LEAST THREE of the following characteristics:
+The After should visibly change AT LEAST TWO of the following characteristics when supported by the personalized diagnosis:
 
 - fringe shape
 - fringe direction
@@ -381,14 +400,17 @@ Before finalizing, compare the After hairstyle with the original hairstyle.
 Ask:
 
 1. Is this visibly more than simple styling or tidying?
-2. Are at least THREE major hairstyle characteristics clearly different?
+2. Are at least TWO meaningful hairstyle characteristics clearly different when supported by the diagnosis?
 3. Is the difference obvious on a smartphone?
 4. Does it follow the personalized hair recommendation?
 5. Does it still look realistically achievable from the person's original hair?
 
-If answers 1, 2, or 3 are NO:
+If the hairstyle improvement is too subtle:
 
-increase the hairstyle transformation.
+increase only the reversible hairstyle transformation
+while keeping the original face completely unchanged.
+
+Do not increase hairstyle transformation if doing so causes facial identity drift.
 
 If answer 4 or 5 is NO:
 
@@ -761,10 +783,28 @@ Never solve insufficient transformation by redesigning the face.
 
 FINAL PRIORITY:
 
-IDENTITY MUST BE PRESERVED.
-GROOMING MUST BE VISIBLY IMPROVED.
+1. EXACT FACIAL IDENTITY PRESERVATION
+2. PHOTOREALISTIC CONTINUITY WITH THE ORIGINAL PHOTO
+3. REALISTIC ACHIEVABILITY
+4. PERSONALIZED HAIRSTYLE IMPROVEMENT
+5. EYEBROW, SKIN, BEARD, AND GROOMING IMPROVEMENT
+6. VISIBLE BEFORE / AFTER DIFFERENCE
 
-Both conditions must be satisfied.
+Identity preservation is the non-negotiable requirement.
+
+A slightly more conservative makeover of the exact same person
+is always better than a stronger makeover that makes the person look different.
+
+If there is any uncertainty about whether an edit changes facial identity,
+preserve the original facial feature.
+
+The final result must look like:
+
+"THIS EXACT PERSON after professional grooming."
+
+Never:
+
+"A better-looking person who resembles the original."
 
 ==================================================
 14. IMAGE QUALITY

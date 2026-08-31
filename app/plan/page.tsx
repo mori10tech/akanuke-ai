@@ -585,72 +585,205 @@ export default function PlanPage() {
     };
   }, []);
 
-  /*
-   * Result画面で生成・保存されたAfter画像を
-   * IndexedDBから読み込みます。
-   */
-  useEffect(() => {
-    let isCancelled = false;
+/*
+ * Result画面で生成されたAfter画像と診断内容を復元します。
+ *
+ * まず同じブラウザ内のsessionStorage / IndexedDBを確認し、
+ * 取得できない場合はSupabaseに保存されている最新診断から
+ * After画像と診断内容を取得します。
+ *
+ * SafariとLINE内ブラウザではブラウザストレージを共有できないため、
+ * Supabaseをフォールバックとして利用します。
+ */
+useEffect(() => {
+  let isCancelled = false;
 
-    async function restoreAfterImage() {
+  async function restoreAfterImage() {
+    try {
       const rawResult =
         window.sessionStorage.getItem(
           "akanukeAnalysisResult",
         );
 
-      if (!rawResult) {
+      /*
+       * まず、現在のブラウザ内に診断結果がある場合は
+       * 既存のIndexedDBからAfter画像を取得します。
+       */
+      if (rawResult) {
+        try {
+          const parsed =
+            JSON.parse(
+              rawResult,
+            ) as AkanukeAnalysis;
+
+          if (
+            !isCancelled &&
+            parsed.afterDirection?.hair &&
+            parsed.afterDirection?.eyebrows &&
+            parsed.hair?.advice &&
+            parsed.eyebrows?.advice
+          ) {
+            setSalonAnalysis(
+              parsed,
+            );
+          }
+
+          const savedAfterImage =
+            await loadAfterImage(
+              rawResult,
+            );
+
+          if (
+            !isCancelled &&
+            savedAfterImage
+          ) {
+            setSalonAfterImage(
+              savedAfterImage,
+            );
+
+            return;
+          }
+        } catch (error) {
+          console.warn(
+            "[AKANUKE.AI] Plan画面のローカルAfter画像を読み込めませんでした:",
+            error,
+          );
+        }
+      }
+
+      /*
+       * SafariとLINEではIndexedDBが共有されないため、
+       * ローカルから取得できなかった場合は
+       * 現在の診断IDを確認します。
+       */
+      let diagnosisId =
+        window.sessionStorage.getItem(
+          DIAGNOSIS_ID_STORAGE_KEY,
+        );
+
+      /*
+       * diagnosisIdもブラウザ間では共有されないため、
+       * 保存されていなければ最新診断IDをAPIから取得します。
+       */
+      if (!diagnosisId) {
+        const latestResponse =
+          await fetch(
+            "/api/diagnoses/latest",
+            {
+              method: "GET",
+              cache: "no-store",
+            },
+          );
+
+        const latestData =
+          (await latestResponse.json()) as {
+            diagnosisId?: string | null;
+            error?: string;
+          };
+
+        if (!latestResponse.ok) {
+          throw new Error(
+            latestData.error ??
+              "最新の診断情報を取得できませんでした。",
+          );
+        }
+
+        diagnosisId =
+          typeof latestData.diagnosisId ===
+            "string" &&
+          latestData.diagnosisId.trim().length > 0
+            ? latestData.diagnosisId
+            : null;
+
+        if (diagnosisId) {
+          window.sessionStorage.setItem(
+            DIAGNOSIS_ID_STORAGE_KEY,
+            diagnosisId,
+          );
+        }
+      }
+
+      if (!diagnosisId) {
         return;
       }
 
-      try {
-        const parsed =
-          JSON.parse(
-            rawResult,
-          ) as AkanukeAnalysis;
+      /*
+       * Supabaseに保存されている診断結果と
+       * After画像の署名付きURLを取得します。
+       */
+      const diagnosisResponse =
+        await fetch(
+          `/api/diagnoses/${encodeURIComponent(
+            diagnosisId,
+          )}`,
+          {
+            method: "GET",
+            cache: "no-store",
+          },
+        );
 
-        if (
-          !isCancelled &&
-          parsed.afterDirection
-            ?.hair &&
-          parsed.afterDirection
-            ?.eyebrows &&
-          parsed.hair
-            ?.advice &&
-          parsed.eyebrows
-            ?.advice
-        ) {
-          setSalonAnalysis(
-            parsed,
-          );
-        }
+      const diagnosisData =
+        (await diagnosisResponse.json()) as {
+          diagnosis?: {
+            analysis?: AkanukeAnalysis;
+            afterImageUrl?: string | null;
+          };
+          error?: string;
+        };
 
-        const savedAfterImage =
-          await loadAfterImage(
-            rawResult,
-          );
-
-        if (
-          !isCancelled &&
-          savedAfterImage
-        ) {
-          setSalonAfterImage(
-            savedAfterImage,
-          );
-        }
-      } catch (error) {
-        console.warn(
-          "[AKANUKE.AI] Plan画面でAfter画像を読み込めませんでした:",
-          error,
+      if (!diagnosisResponse.ok) {
+        throw new Error(
+          diagnosisData.error ??
+            "診断結果を取得できませんでした。",
         );
       }
+
+      if (
+        isCancelled ||
+        !diagnosisData.diagnosis
+      ) {
+        return;
+      }
+
+      const savedAnalysis =
+        diagnosisData.diagnosis
+          .analysis;
+
+      if (
+        savedAnalysis &&
+        savedAnalysis.afterDirection?.hair &&
+        savedAnalysis.afterDirection?.eyebrows &&
+        savedAnalysis.hair?.advice &&
+        savedAnalysis.eyebrows?.advice
+      ) {
+        setSalonAnalysis(
+          savedAnalysis,
+        );
+      }
+
+      const savedAfterImageUrl =
+        diagnosisData.diagnosis
+          .afterImageUrl;
+
+      if (savedAfterImageUrl) {
+        setSalonAfterImage(
+          savedAfterImageUrl,
+        );
+      }
+    } catch (error) {
+      console.warn(
+        "[AKANUKE.AI] Plan画面でAfter画像を読み込めませんでした:",
+        error,
+      );
     }
+  }
 
-    void restoreAfterImage();
+  void restoreAfterImage();
 
-    return () => {
-      isCancelled = true;
-    };
-  }, []);
+  return () => {
+    isCancelled = true;
+  };
+}, []);
 
   /*
    * 現在の診断IDごとに、

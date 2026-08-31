@@ -1458,238 +1458,223 @@ export default function ResultPage() {
             <p className="mt-3 text-center text-[10px] leading-5 text-black/65">
               ※AIが生成した参考イメージです。変化を保証するものではありません。
             </p>
+
+<div className="mt-5 border-t border-black/[0.06] pt-5">
+  <div>
+    <p className="text-[10px] font-black tracking-[0.14em] text-[#1677FF]">
+      NEXT STEP
+    </p>
+
+    <h3 className="mt-1.5 text-[17px] font-black leading-6 tracking-[-0.03em] text-[#111111]">
+      このAfterに近づくために、次の一歩へ。
+    </h3>
+
+    <p className="mt-2 text-[12px] leading-5 text-black/75">
+    あなた専用の改善プランと必要な商品を確認できます。
+    </p>
+  </div>
+
+  <Link
+    href="/plan"
+    className="mt-4 flex min-h-[58px] w-full items-center gap-3 rounded-[15px] bg-[#FFD400] px-4 text-[#111111] shadow-[0_8px_24px_rgba(255,212,0,0.22)] transition hover:-translate-y-0.5 hover:bg-[#FFCF00] active:scale-[0.99]"
+  >
+    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[12px] bg-white/75 text-[#111111]">
+      <Icon
+        name="calendar"
+        className="h-[18px] w-[18px]"
+      />
+    </span>
+
+    <div className="min-w-0 flex-1 text-left">
+      <p className="text-[12px] font-black">
+        このAfterに近づくプランを見る
+      </p>
+
+      <p className="mt-0.5 text-[10px] font-bold text-black/65">
+        あなた専用の改善ステップを確認
+      </p>
+    </div>
+
+    <span
+      aria-hidden="true"
+      className="shrink-0 text-[19px] font-black"
+    >
+      →
+    </span>
+  </Link>
+
+  <Link
+    href="/products"
+    className="mt-2.5 flex min-h-[54px] w-full items-center gap-3 rounded-[15px] border border-[#1677FF]/15 bg-[#EEF6FF] px-4 text-[#111111] transition hover:bg-[#E4F1FF] active:scale-[0.99]"
+  >
+    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[11px] bg-white text-[#1677FF]">
+      <Icon
+        name="bag"
+        className="h-[17px] w-[17px]"
+      />
+    </span>
+
+    <div className="min-w-0 flex-1 text-left">
+      <p className="text-[12px] font-black">
+        おすすめ商品を見る
+      </p>
+
+      <p className="mt-0.5 text-[10px] font-medium text-black/65">
+        今のあなたに必要な商品を確認
+      </p>
+    </div>
+
+    <span
+      aria-hidden="true"
+      className="shrink-0 text-[18px] font-black text-[#1677FF]"
+    >
+      →
+    </span>
+  </Link>
+</div>
           </section>
 
-          <AdSenseAd
+                    <AdSenseAd
             className="mx-4 mt-7"
             format="rectangle"
           />
 
           <section className="mx-4 mt-7">
-            <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
-              YOUR AFTER
+  <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
+    YOUR IMPROVEMENTS
+  </p>
+
+  <h2 className="mt-1 text-[21px] font-black tracking-[-0.035em]">
+    今回の主な改善ポイント
+  </h2>
+
+  <p className="mt-2 text-[13px] leading-6 text-black/75">
+    AIが今回のAfterに反映した、特に重要なポイントをまとめました。
+  </p>
+
+  <div className="mt-4 overflow-hidden rounded-[18px] border border-black/10 bg-white">
+    {[
+      [
+        "髪型",
+        analysis.afterDirection.hair,
+      ],
+      [
+        "眉毛",
+        analysis.afterDirection.eyebrows,
+      ],
+      [
+        "肌",
+        analysis.afterDirection.skin,
+      ],
+      [
+        "身だしなみ",
+        analysis.afterDirection.grooming,
+      ],
+    ].map(
+      ([
+        label,
+        value,
+      ]) => (
+        <div
+          key={label}
+          className="flex items-start gap-3 border-b border-black/10 px-4 py-5 last:border-b-0"
+        >
+          <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#EEF6FF] text-[#1677FF]">
+            <Icon
+              name="check"
+              className="h-4 w-4"
+            />
+          </span>
+
+          <div className="min-w-0 flex-1">
+            <p className="text-[13px] font-black text-[#111111]">
+              {label}
             </p>
 
-            <h2 className="mt-1 text-[21px] font-black tracking-[-0.035em]">
-              Afterの改善イメージ
-            </h2>
-
-            <p className="mt-2 text-[12px] leading-6 text-black/75">
-              AIが今回のAfterに反映した主な変化をまとめています。
+            <p className="mt-1.5 text-[13px] leading-6 text-black/80">
+              {value}
             </p>
+          </div>
+        </div>
+      ),
+    )}
+  </div>
+</section>
 
-            <div className="mt-4 overflow-hidden rounded-[18px] border border-[#1677FF]/10 bg-[#EEF6FF]">
-              <div className="p-4">
-                <div className="flex items-start gap-3">
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white text-[#1677FF] shadow-[0_6px_18px_rgba(15,23,42,0.04)]">
-                    <Icon
-                      name="sparkle"
-                      className="h-[18px] w-[18px]"
-                    />
-                  </span>
+          <section className="mx-4 mb-8 mt-8 overflow-hidden rounded-[24px] border border-[#1677FF]/15 bg-gradient-to-br from-[#EEF6FF] via-white to-[#FFF9D9] shadow-[0_12px_36px_rgba(22,119,255,0.10)]">
+  <div className="px-5 pb-5 pt-5">
+    <p className="text-[10px] font-black tracking-[0.14em] text-[#1677FF]">
+      NEXT ACTION
+    </p>
 
-                  <div className="min-w-0 flex-1">
-                    <p className="text-[10px] font-black tracking-[0.12em] text-[#1677FF]">
-                      YOUR AFTER
-                    </p>
+    <h2 className="mt-1.5 text-[19px] font-black leading-7 tracking-[-0.035em] text-[#111111]">
+      診断結果を、行動に変えよう。
+    </h2>
 
-                    <h3 className="mt-1.5 text-[16px] font-black leading-[1.5] tracking-[-0.025em] text-[#111111]">
-                      {
-                        afterSummary.headline
-                      }
-                    </h3>
-                  </div>
-                </div>
+    <p className="mt-2 text-[12px] leading-6 text-black/75">
+      あなたの改善ポイントは整理できました。
+      次は、垢抜けプランに沿って少しずつ改善を進めていきましょう。
+    </p>
 
-                <p className="mt-3 text-[13px] leading-6 text-black/75">
-                  {
-                    afterSummary.body
-                  }
-                </p>
-              </div>
+    <Link
+      href="/plan"
+      className="mt-4 flex min-h-[60px] w-full items-center gap-3 rounded-[15px] bg-[#FFD400] px-4 text-[#111111] shadow-[0_8px_24px_rgba(255,212,0,0.22)] transition hover:-translate-y-0.5 hover:bg-[#FFCF00] active:scale-[0.99]"
+    >
+      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[12px] bg-white/75 text-[#111111]">
+        <Icon
+          name="calendar"
+          className="h-[18px] w-[18px]"
+        />
+      </span>
 
-              <div className="border-t border-[#1677FF]/10 bg-white p-4">
-                <p className="text-[10px] font-black tracking-[0.1em] text-black/60">
-                  主な変更
-                </p>
+      <div className="min-w-0 flex-1 text-left">
+        <p className="text-[12px] font-black">
+          垢抜けプランを見る
+        </p>
 
-                <div className="mt-3 space-y-2.5">
-                  {afterSummary.changes.map(
-                    (
-                      change,
-                      index,
-                    ) => (
-                      <div
-                        key={`${index}-${change}`}
-                        className="flex items-start gap-2.5"
-                      >
-                        <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#EEF6FF] text-[#1677FF]">
-                          <Icon
-                            name="check"
-                            className="h-3 w-3"
-                          />
-                        </span>
+        <p className="mt-0.5 text-[10px] font-bold text-black/65">
+          あなた専用の改善ステップを確認
+        </p>
+      </div>
 
-                        <p className="min-w-0 flex-1 text-[13px] leading-6 text-black/75">
-                          {
-                            change
-                          }
-                        </p>
-                      </div>
-                    ),
-                  )}
-                </div>
-              </div>
-            </div>
-          </section>
+      <span
+        aria-hidden="true"
+        className="shrink-0 text-[19px] font-black"
+      >
+        →
+      </span>
+    </Link>
 
-          <section className="mx-4 mt-7">
-            <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
-              AFTER DIRECTION
-            </p>
+    <Link
+      href="/products"
+      className="mt-2.5 flex min-h-[54px] w-full items-center gap-3 rounded-[15px] border border-[#1677FF]/15 bg-[#EEF6FF] px-4 text-[#111111] transition hover:bg-[#E4F1FF] active:scale-[0.99]"
+    >
+      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[11px] bg-white text-[#1677FF]">
+        <Icon
+          name="bag"
+          className="h-[17px] w-[17px]"
+        />
+      </span>
 
-            <h2 className="mt-1 text-[21px] font-black tracking-[-0.035em]">
-              Afterの設計方針
-            </h2>
+      <div className="min-w-0 flex-1 text-left">
+        <p className="text-[12px] font-black">
+          おすすめ商品を見る
+        </p>
 
-            <p className="mt-2 text-[12px] leading-6 text-black/70">
-              AIがAfter画像に反映した改善方針です。
-            </p>
+        <p className="mt-0.5 text-[10px] font-medium text-black/65">
+          今のあなたに必要な商品を確認
+        </p>
+      </div>
 
-            <div className="mt-4 overflow-hidden rounded-[18px] border border-black/10 bg-white">
-              {[
-                [
-                  "髪型",
-                  analysis.afterDirection
-                    .hair,
-                ],
-                [
-                  "眉毛",
-                  analysis.afterDirection
-                    .eyebrows,
-                ],
-                [
-                  "肌",
-                  analysis.afterDirection
-                    .skin,
-                ],
-                [
-                  "身だしなみ",
-                  analysis.afterDirection
-                    .grooming,
-                ],
-                [
-                  "スタイリング",
-                  analysis.afterDirection
-                    .styling,
-                ],
-              ].map(
-                ([
-                  label,
-                  value,
-                ]) => (
-                  <div
-                    key={label}
-                    className="border-b border-black/10 px-4 py-4 last:border-b-0"
-                  >
-                    <p className="text-[11px] font-black text-[#1677FF]">
-                      {label}
-                    </p>
-
-                    <p className="mt-1 text-[13px] leading-6 text-black/75">
-                      {value}
-                    </p>
-                  </div>
-                ),
-              )}
-            </div>
-          </section>
-
-          <section className="mx-4 mb-8 mt-8 overflow-hidden rounded-[26px] border border-[#1677FF]/20 bg-gradient-to-br from-[#EEF6FF] via-white to-[#FFF9D9] shadow-[0_16px_48px_rgba(22,119,255,0.12)]">
-            <div className="px-5 pb-5 pt-6">
-              <div className="flex items-start gap-4">
-                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white text-[#1677FF] shadow-[0_8px_24px_rgba(15,23,42,0.06)]">
-                  <Icon
-                    name="sparkle"
-                    className="h-5 w-5"
-                  />
-                </span>
-
-                <div className="min-w-0 flex-1">
-                  <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
-                    NEXT ACTION
-                  </p>
-
-                  <h2 className="mt-1.5 text-[21px] font-black tracking-[-0.04em] text-[#111111]">
-                    診断結果を、行動に変えよう。
-                  </h2>
-
-                  <p className="mt-2 text-[12px] leading-6 text-black/75">
-                    あなたの改善ポイントは整理できました。
-                    次は、垢抜けプランに沿って少しずつ改善を進めていきましょう。
-                  </p>
-                </div>
-              </div>
-
-              <Link
-                href="/products"
-                className="mt-3 flex min-h-[60px] w-full items-center gap-3 rounded-[16px] border border-[#1677FF]/25 bg-[#EEF6FF] px-4 text-[#111111] shadow-[0_6px_18px_rgba(22,119,255,0.06)] transition hover:-translate-y-0.5 hover:bg-[#E4F1FF] active:scale-[0.99]"
-              >
-                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[13px] bg-white text-[#1677FF]">
-                  <Icon
-                    name="bag"
-                    className="h-5 w-5"
-                  />
-                </span>
-
-                <div className="min-w-0 flex-1 text-left">
-                  <p className="text-[13px] font-black">
-                    おすすめ商品を見る
-                  </p>
-
-                  <p className="mt-1 text-[10px] font-medium text-black/65">
-                    今のあなたに必要なアイテムを確認
-                  </p>
-                </div>
-
-                <span
-                  aria-hidden="true"
-                  className="shrink-0 text-[20px] font-black text-[#1677FF]"
-                >
-                  →
-                </span>
-              </Link>
-
-              <Link
-                href="/plan"
-                className="mt-6 flex min-h-[64px] w-full items-center gap-3 rounded-[16px] bg-[#FFD400] px-4 text-[#111111] shadow-[0_10px_28px_rgba(255,212,0,0.28)] transition hover:-translate-y-0.5 hover:bg-[#FFCF00] active:scale-[0.99]"
-              >
-                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[13px] bg-white/75 text-[#111111]">
-                  <Icon
-                    name="calendar"
-                    className="h-5 w-5"
-                  />
-                </span>
-
-                <div className="min-w-0 flex-1 text-left">
-                  <p className="text-[13px] font-black">
-                    垢抜けプランを見る
-                  </p>
-
-                  <p className="mt-1 text-[10px] font-bold text-black/65">
-                    あなた専用の改善プランを確認
-                  </p>
-                </div>
-
-                <span
-                  aria-hidden="true"
-                  className="shrink-0 text-[20px] font-black text-[#111111]"
-                >
-                  →
-                </span>
-              </Link>
-            </div>
-          </section>
+      <span
+        aria-hidden="true"
+        className="shrink-0 text-[18px] font-black text-[#1677FF]"
+      >
+        →
+      </span>
+    </Link>
+  </div>
+</section>
 
           <AdSenseAd
             className="mx-4 mt-7"

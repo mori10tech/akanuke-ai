@@ -1,8 +1,10 @@
 "use client";
 
 import {
+  useCallback,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from "react";
 import Link from "next/link";
@@ -255,7 +257,7 @@ function ProductCard({
       ) : null}
 
       <div className="p-4">
-        <p className="text-[12px] font-black tracking-[0.08em] text-black/65">
+        <p className="text-[12px] font-black tracking-[0.06em] text-black/65">
           {product.brand}
         </p>
 
@@ -351,6 +353,26 @@ function ProductCard({
 }
 
 export default function ProductsPage() {
+  const categoryScrollRef =
+    useRef<HTMLDivElement | null>(
+      null,
+    );
+
+  const [
+    categoryScrollProgress,
+    setCategoryScrollProgress,
+  ] = useState(0);
+
+  const [
+    categoryIndicatorWidth,
+    setCategoryIndicatorWidth,
+  ] = useState(100);
+
+  const [
+    hasCategoryOverflow,
+    setHasCategoryOverflow,
+  ] = useState(false);
+
   const [
     diagnosisNeeds,
     setDiagnosisNeeds,
@@ -368,6 +390,149 @@ export default function ProductsPage() {
     showAllProducts,
     setShowAllProducts,
   ] = useState(false);
+
+  /*
+   * 横スクロール量から、
+   * 下部インジケーターの幅と位置を計算します。
+   */
+  const updateCategoryScrollIndicator =
+    useCallback(() => {
+      const element =
+        categoryScrollRef.current;
+
+      if (!element) {
+        setHasCategoryOverflow(
+          false,
+        );
+
+        setCategoryScrollProgress(
+          0,
+        );
+
+        setCategoryIndicatorWidth(
+          100,
+        );
+
+        return;
+      }
+
+      const {
+        scrollWidth,
+        clientWidth,
+        scrollLeft,
+      } = element;
+
+      const hasOverflow =
+        scrollWidth >
+        clientWidth + 2;
+
+      setHasCategoryOverflow(
+        hasOverflow,
+      );
+
+      if (!hasOverflow) {
+        setCategoryScrollProgress(
+          0,
+        );
+
+        setCategoryIndicatorWidth(
+          100,
+        );
+
+        return;
+      }
+
+      const maxScroll =
+        Math.max(
+          scrollWidth -
+            clientWidth,
+          1,
+        );
+
+      const progress =
+        Math.min(
+          1,
+          Math.max(
+            0,
+            scrollLeft /
+              maxScroll,
+          ),
+        );
+
+      const visibleRatio =
+        Math.min(
+          1,
+          clientWidth /
+            scrollWidth,
+        );
+
+      /*
+       * 短すぎるバーにならないよう、
+       * 最低24%は確保します。
+       */
+      const indicatorWidth =
+        Math.max(
+          24,
+          visibleRatio * 100,
+        );
+
+      setCategoryScrollProgress(
+        progress,
+      );
+
+      setCategoryIndicatorWidth(
+        indicatorWidth,
+      );
+    }, []);
+
+  /*
+   * 初回表示・画面幅変更時に
+   * スクロール可能かを再計算します。
+   */
+  useEffect(() => {
+    const element =
+      categoryScrollRef.current;
+
+    if (!element) {
+      return;
+    }
+
+    const frameId =
+      window.requestAnimationFrame(
+        () => {
+          updateCategoryScrollIndicator();
+        },
+      );
+
+    const resizeObserver =
+      new ResizeObserver(() => {
+        updateCategoryScrollIndicator();
+      });
+
+    resizeObserver.observe(
+      element,
+    );
+
+    window.addEventListener(
+      "resize",
+      updateCategoryScrollIndicator,
+    );
+
+    return () => {
+      window.cancelAnimationFrame(
+        frameId,
+      );
+
+      resizeObserver.disconnect();
+
+      window.removeEventListener(
+        "resize",
+        updateCategoryScrollIndicator,
+      );
+    };
+  }, [
+    updateCategoryScrollIndicator,
+  ]);
 
   useEffect(() => {
     /*
@@ -514,6 +679,28 @@ export default function ProductsPage() {
       [diagnosisNeeds],
     );
 
+  /*
+   * AI診断結果によってカテゴリの並び順が変わった場合も、
+   * インジケーターを再計算します。
+   */
+  useEffect(() => {
+    const frameId =
+      window.requestAnimationFrame(
+        () => {
+          updateCategoryScrollIndicator();
+        },
+      );
+
+    return () => {
+      window.cancelAnimationFrame(
+        frameId,
+      );
+    };
+  }, [
+    availableCategories,
+    updateCategoryScrollIndicator,
+  ]);
+
   const selectedCategoryData =
     availableCategories.find(
       (category) =>
@@ -572,6 +759,17 @@ export default function ProductsPage() {
     );
   }
 
+  /*
+   * インジケーターの青いバーが移動できる残り幅。
+   */
+  const indicatorTravel =
+    100 -
+    categoryIndicatorWidth;
+
+  const indicatorLeft =
+    indicatorTravel *
+    categoryScrollProgress;
+
   return (
     <AppShell background="white">
       <div className="overflow-x-clip bg-white">
@@ -596,47 +794,74 @@ export default function ProductsPage() {
             </p>
           </div>
 
-          <nav
-            aria-label="商品カテゴリー"
-            className="mt-6 overflow-x-auto px-4 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-          >
-            <div className="flex w-max gap-2">
-              {availableCategories.map(
-                (category) => {
-                  const isActive =
-                    selectedCategory ===
-                    category.id;
+          {/* CATEGORY SCROLL */}
+          <div className="mt-6">
+            <div
+              ref={
+                categoryScrollRef
+              }
+              role="navigation"
+              aria-label="商品カテゴリー"
+              onScroll={
+                updateCategoryScrollIndicator
+              }
+              className="overflow-x-auto px-4 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            >
+              <div className="flex w-max gap-2 pr-4">
+                {availableCategories.map(
+                  (category) => {
+                    const isActive =
+                      selectedCategory ===
+                      category.id;
 
-                  return (
-                    <button
-                      key={
-                        category.id
-                      }
-                      type="button"
-                      onClick={() => {
-                        setSelectedCategory(
-                          category.id,
-                        );
+                    return (
+                      <button
+                        key={
+                          category.id
+                        }
+                        type="button"
+                        onClick={() => {
+                          setSelectedCategory(
+                            category.id,
+                          );
 
-                        setShowAllProducts(
-                          false,
-                        );
-                      }}
-                      className={`min-h-[42px] shrink-0 rounded-full border px-4 text-[11px] font-black transition active:scale-[0.98] ${
-                        isActive
-                          ? "border-[#1677FF] bg-[#1677FF] text-white shadow-[0_8px_24px_rgba(22,119,255,0.16)]"
-                          : "border-black/10 bg-white text-black/70 hover:border-[#1677FF]/30 hover:bg-[#EEF6FF] hover:text-[#1677FF]"
-                      }`}
-                    >
-                      {
-                        category.label
-                      }
-                    </button>
-                  );
-                },
-              )}
+                          setShowAllProducts(
+                            false,
+                          );
+                        }}
+                        className={`min-h-[42px] shrink-0 rounded-full border px-4 text-[11px] font-black transition active:scale-[0.98] ${
+                          isActive
+                            ? "border-[#1677FF] bg-[#1677FF] text-white shadow-[0_8px_24px_rgba(22,119,255,0.16)]"
+                            : "border-black/10 bg-white text-black/70 hover:border-[#1677FF]/30 hover:bg-[#EEF6FF] hover:text-[#1677FF]"
+                        }`}
+                      >
+                        {
+                          category.label
+                        }
+                      </button>
+                    );
+                  },
+                )}
+              </div>
             </div>
-          </nav>
+
+            {hasCategoryOverflow ? (
+              <div
+                aria-hidden="true"
+                className="mx-4 mt-1.5 h-[3px] overflow-hidden rounded-full bg-black/[0.06]"
+              >
+                <div
+                  className="h-full rounded-full bg-[#1677FF] transition-[left,width] duration-150 ease-out"
+                  style={{
+                    position:
+                      "relative",
+                    width: `${categoryIndicatorWidth}%`,
+                    left: `${indicatorLeft}%`,
+                  }}
+                />
+              </div>
+            ) : null}
+          </div>
 
           <div className="mt-4 border-t border-black/5" />
 
@@ -753,7 +978,7 @@ export default function ProductsPage() {
             <aside className="mt-9 rounded-[16px] bg-[#F7F9FC] px-4 py-4">
               <p className="text-[10px] leading-5 text-black/65">
                 ※AKANUKE.AIのAI診断結果をもとに、
-                ユーザーごとの改善ポイントに合わせて商品を選定しています。
+                ユーザーごとの改善ポイントに合わせて商品を選定・紹介しています。
                 本コンテンツにはプロモーションが含まれます。
               </p>
 

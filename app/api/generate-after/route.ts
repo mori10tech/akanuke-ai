@@ -527,7 +527,7 @@ export async function POST(
 
     formData.append(
       "quality",
-      "high",
+      "medium",
     );
 
     formData.append(

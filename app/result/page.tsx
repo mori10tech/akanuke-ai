@@ -901,9 +901,9 @@ if (!resolvedAfterImage) {
 
         <div className="pb-32">
           <section className="px-5 pb-6 pt-7 text-center">
-            <p className="mt-4 text-[10px] font-black tracking-[0.18em] text-[#1677FF]">
-              PERSONAL BEAUTY REPORT
-            </p>
+            <p className="text-[10px] font-black tracking-[0.18em] text-[#1677FF]">
+  PERSONAL BEAUTY REPORT
+</p>
 
             <h1 className="mt-2 text-[29px] font-black tracking-[-0.045em]">
               あなたの診断結果

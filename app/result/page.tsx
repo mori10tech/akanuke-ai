@@ -1096,8 +1096,8 @@ export default function ResultPage() {
                   </span>
                 </div>
 
-                <p className="mt-3 text-[9px] leading-4 text-black/60">
-                  今の印象から、改善できるポイントをAIが分析しました。
+                <p className="mt-3 text-[10px] leading-4 text-black/80">
+                  改善できるポイントをAIが分析しました。
                 </p>
               </div>
             </div>
@@ -1113,7 +1113,7 @@ export default function ResultPage() {
                 }
               </p>
 
-              <p className="mt-2 text-[10px] leading-5 text-black/65">
+              <p className="mt-2 text-[10px] leading-5 text-black/80">
                 この印象を目指して、髪・眉・肌・身だしなみを整えていきます。
               </p>
 

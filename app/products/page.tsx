@@ -753,7 +753,7 @@ export default function ProductsPage() {
             <aside className="mt-9 rounded-[16px] bg-[#F7F9FC] px-4 py-4">
               <p className="text-[10px] leading-5 text-black/65">
                 ※AKANUKE.AIのAI診断結果をもとに、
-                ユーザーごとの改善ポイントに合わせて商品を選定・紹介しています。
+                ユーザーごとの改善ポイントに合わせて商品を選定しています。
                 本コンテンツにはプロモーションが含まれます。
               </p>
 

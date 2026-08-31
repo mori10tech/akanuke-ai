@@ -300,7 +300,7 @@ function CircularProgress({
           </span>
         </div>
 
-        <span className="mt-1 text-[7px] font-bold tracking-[0.12em] text-black/35">
+        <span className="mt-1 text-[9px] font-bold tracking-[0.12em] text-black/55">
           CURRENT
         </span>
       </div>
@@ -324,7 +324,7 @@ function AnalysisDetail({
       </h3>
 
       <div className="mt-3">
-        <p className="text-[9px] font-black tracking-[0.1em] text-black/35">
+        <p className="text-[10px] font-black tracking-[0.1em] text-black/55">
           CURRENT
         </p>
 
@@ -334,7 +334,7 @@ function AnalysisDetail({
       </div>
 
       <div className="mt-3 rounded-[12px] bg-[#EEF6FF] p-3">
-        <p className="text-[9px] font-black tracking-[0.1em] text-[#1677FF]">
+        <p className="text-[10px] font-black tracking-[0.1em] text-[#1677FF]">
           ADVICE
         </p>
 
@@ -508,10 +508,6 @@ export default function ResultPage() {
         return;
       }
 
-      /*
-       * 初回表示では0%から診断結果まで
-       * AKANUKE PROGRESSをアニメーションさせます。
-       */
       setDisplayProgress(0);
 
       const duration = 1400;
@@ -666,10 +662,6 @@ export default function ResultPage() {
       stopAfterProgressTimer,
     ]);
 
-  /*
-   * 診断結果と元画像が揃ったら、
-   * After画像の取得処理を1回だけ実行します。
-   */
   useEffect(() => {
     if (
       !isReady ||
@@ -987,7 +979,7 @@ export default function ResultPage() {
               診断結果を表示できません
             </p>
 
-            <p className="mt-2 text-[11px] leading-5 text-red-600/80">
+            <p className="mt-2 text-[12px] leading-5 text-red-600/80">
               {loadError}
             </p>
 
@@ -1049,7 +1041,6 @@ export default function ResultPage() {
             </p>
           </section>
 
-          {/* AKANUKE SCORE */}
           <section className="mx-4 overflow-hidden rounded-[24px] border border-[#1677FF]/10 bg-white shadow-[0_10px_34px_rgba(15,23,42,0.05)]">
             <div className="grid grid-cols-[42%_58%]">
               <div className="relative min-h-[230px] overflow-hidden bg-[#F7F9FC]">
@@ -1061,8 +1052,8 @@ export default function ResultPage() {
                     className="h-full w-full object-cover"
                   />
                 ) : (
-                  <div className="flex h-full min-h-[230px] items-center justify-center px-4 text-center text-black/50">
-                    <p className="text-[11px] font-bold">
+                  <div className="flex h-full min-h-[230px] items-center justify-center px-4 text-center text-black/60">
+                    <p className="text-[12px] font-bold">
                       写真が見つかりません
                     </p>
                   </div>
@@ -1071,16 +1062,16 @@ export default function ResultPage() {
 
               <div className="flex flex-col justify-center bg-[#EEF6FF] px-4 py-5">
                 <div className="flex items-center justify-between gap-2">
-                  <p className="text-[8px] font-black tracking-[0.14em] text-[#1677FF]">
+                  <p className="text-[10px] font-black tracking-[0.14em] text-[#1677FF]">
                     AKANUKE SCORE
                   </p>
 
-                  <span className="rounded-full border border-[#1677FF]/10 bg-white px-2 py-1 text-[7px] font-bold text-[#1677FF]">
+                  <span className="rounded-full border border-[#1677FF]/10 bg-white px-2 py-1 text-[9px] font-bold text-[#1677FF]">
                     解析完了
                   </span>
                 </div>
 
-                <p className="mt-5 text-[10px] font-bold text-black/60">
+                <p className="mt-5 text-[11px] font-bold text-black/70">
                   現在の垢抜けスコア
                 </p>
 
@@ -1096,14 +1087,14 @@ export default function ResultPage() {
                   </span>
                 </div>
 
-                <p className="mt-3 text-[10px] leading-4 text-black/80">
+                <p className="mt-3 text-[11px] leading-5 text-black/80">
                   改善できるポイントをAIが分析しました。
                 </p>
               </div>
             </div>
 
             <div className="border-t border-black/10 bg-white px-4 py-4">
-              <p className="text-[8px] font-black tracking-[0.12em] text-[#1677FF]">
+              <p className="text-[10px] font-black tracking-[0.12em] text-[#1677FF]">
                 TARGET
               </p>
 
@@ -1113,18 +1104,17 @@ export default function ResultPage() {
                 }
               </p>
 
-              <p className="mt-2 text-[10px] leading-5 text-black/80">
+              <p className="mt-2 text-[11px] leading-5 text-black/80">
                 この印象を目指して、髪・眉・肌・身だしなみを整えていきます。
               </p>
 
-              <p className="mt-3 border-t border-black/5 pt-3 text-[9px] leading-4 text-black/55">
+              <p className="mt-3 border-t border-black/5 pt-3 text-[10px] leading-5 text-black/60">
                 ※容姿を採点するものではありません。
                 今回のAfterイメージに近づくための目安です。
               </p>
             </div>
           </section>
 
-          {/* AI総合コメント */}
           <section className="mx-4 mt-5 rounded-[20px] border border-[#FFD400]/40 bg-[#FFF9D9] p-5">
             <div className="flex items-center gap-2 text-[#1677FF]">
               <Icon name="sparkle" />
@@ -1141,7 +1131,7 @@ export default function ResultPage() {
               }
             </h2>
 
-            <p className="mt-3 text-[12px] leading-6 text-black/70">
+            <p className="mt-3 text-[13px] leading-6 text-black/75">
               {
                 analysis.summary
                   .body
@@ -1149,7 +1139,7 @@ export default function ResultPage() {
             </p>
 
             <div className="mt-4 rounded-[14px] bg-white/70 px-4 py-3">
-              <p className="text-[9px] font-black tracking-[0.1em] text-[#1677FF]">
+              <p className="text-[10px] font-black tracking-[0.1em] text-[#1677FF]">
                 TARGET
               </p>
 
@@ -1161,7 +1151,6 @@ export default function ResultPage() {
             </div>
           </section>
 
-          {/* After生成案内 + Xシェア */}
           {!isHistoryView && (
             <section className="mx-4 mt-5 overflow-hidden rounded-[22px] border border-[#1677FF]/15 bg-gradient-to-br from-[#EEF6FF] via-white to-white shadow-[0_10px_30px_rgba(22,119,255,0.07)]">
               <div className="p-5">
@@ -1174,7 +1163,7 @@ export default function ResultPage() {
                   </span>
 
                   <div className="min-w-0 flex-1">
-                    <p className="text-[9px] font-black tracking-[0.14em] text-[#1677FF]">
+                    <p className="text-[10px] font-black tracking-[0.14em] text-[#1677FF]">
                       BEFORE / AFTER
                     </p>
 
@@ -1185,7 +1174,7 @@ export default function ResultPage() {
                         : "Before / Afterはこの下で確認できます"}
                     </h2>
 
-                    <p className="mt-2 text-[11px] leading-5 text-black/70">
+                    <p className="mt-2 text-[12px] leading-6 text-black/75">
                       {isGeneratingAfter &&
                       !afterImage
                         ? "完成まで少し時間がかかる場合があります。待っている間に診断結果をチェックしたり、Xへシェアしてみましょう。"
@@ -1199,11 +1188,11 @@ export default function ResultPage() {
                   <div className="mt-4 rounded-[14px] bg-white px-4 py-3">
                     <div className="flex items-center justify-between gap-3">
                       <div>
-                        <p className="text-[9px] font-black text-[#1677FF]">
+                        <p className="text-[10px] font-black text-[#1677FF]">
                           AFTER GENERATING
                         </p>
 
-                        <p className="mt-1 text-[10px] font-bold text-black/60">
+                        <p className="mt-1 text-[11px] font-bold text-black/70">
                           {
                             getAfterGenerationStage(
                               afterElapsedSeconds,
@@ -1219,7 +1208,7 @@ export default function ResultPage() {
                           }
                         </span>
 
-                        <span className="pb-0.5 text-[9px] font-black text-[#1677FF]">
+                        <span className="pb-0.5 text-[10px] font-black text-[#1677FF]">
                           %
                         </span>
                       </div>
@@ -1250,7 +1239,7 @@ export default function ResultPage() {
                   />
                 </div>
 
-                <p className="mt-2.5 text-center text-[9px] leading-4 text-black/55">
+                <p className="mt-2.5 text-center text-[10px] leading-5 text-black/60">
                   顔写真やAfter画像は投稿されません
                 </p>
 
@@ -1259,7 +1248,7 @@ export default function ResultPage() {
                     ↓
                   </span>
 
-                  <span className="text-[10px] font-black">
+                  <span className="text-[11px] font-black">
                     Before / Afterを見る
                   </span>
                 </div>
@@ -1267,7 +1256,6 @@ export default function ResultPage() {
             </section>
           )}
 
-          {/* BEFORE / AFTER */}
           <section className="mx-4 mt-5 overflow-hidden rounded-[24px] border border-[#1677FF]/10 bg-white p-4 shadow-[0_10px_34px_rgba(15,23,42,0.05)]">
             <div className="flex items-end justify-between gap-3">
               <div>
@@ -1282,19 +1270,19 @@ export default function ResultPage() {
 
               {isGeneratingAfter &&
               !afterImage ? (
-                <span className="shrink-0 rounded-full bg-[#EEF6FF] px-2.5 py-1.5 text-[8px] font-black text-[#1677FF]">
+                <span className="shrink-0 rounded-full bg-[#EEF6FF] px-2.5 py-1.5 text-[9px] font-black text-[#1677FF]">
                   生成中
                 </span>
               ) : null}
             </div>
 
-            <p className="mt-2 text-[11px] leading-5 text-black/70">
+            <p className="mt-2 text-[12px] leading-6 text-black/75">
               現在の状態と、AIが提案する改善後のイメージを比較できます。
             </p>
 
             <div className="mt-4 grid grid-cols-2 gap-3">
               <div>
-                <p className="mb-2 text-center text-[10px] font-black tracking-[0.08em] text-black/55">
+                <p className="mb-2 text-center text-[11px] font-black tracking-[0.08em] text-black/60">
                   Before
                 </p>
 
@@ -1325,7 +1313,7 @@ export default function ResultPage() {
               </div>
 
               <div>
-                <p className="mb-2 text-center text-[10px] font-black tracking-[0.08em] text-[#1677FF]">
+                <p className="mb-2 text-center text-[11px] font-black tracking-[0.08em] text-[#1677FF]">
                   After
                 </p>
 
@@ -1354,7 +1342,7 @@ export default function ResultPage() {
                             />
                           </span>
 
-                          <p className="mt-2 truncate text-[7px] font-black tracking-[0.04em] text-[#1677FF] sm:mt-4 sm:text-[9px]">
+                          <p className="mt-2 truncate text-[9px] font-black tracking-[0.04em] text-[#1677FF] sm:mt-4 sm:text-[10px]">
                             AFTER GENERATING
                           </p>
 
@@ -1365,12 +1353,12 @@ export default function ResultPage() {
                               }
                             </span>
 
-                            <span className="pb-0.5 text-[8px] font-black text-[#1677FF] sm:text-[9px]">
+                            <span className="pb-0.5 text-[9px] font-black text-[#1677FF] sm:text-[10px]">
                               %
                             </span>
                           </div>
 
-                          <p className="mt-2 line-clamp-2 min-h-[24px] break-words text-[8px] font-bold leading-3 text-[#111111]/65 sm:mt-3 sm:min-h-[32px] sm:text-[9px] sm:leading-4">
+                          <p className="mt-2 line-clamp-2 min-h-[24px] break-words text-[9px] font-bold leading-4 text-[#111111]/70 sm:mt-3 sm:min-h-[32px] sm:text-[10px] sm:leading-4">
                             {
                               getAfterGenerationStage(
                                 afterElapsedSeconds,
@@ -1387,7 +1375,7 @@ export default function ResultPage() {
                             />
                           </div>
 
-                          <p className="mt-1.5 whitespace-nowrap text-[7px] font-bold text-black/45 sm:mt-2">
+                          <p className="mt-1.5 whitespace-nowrap text-[9px] font-bold text-black/55 sm:mt-2">
                             経過{" "}
                             {
                               afterElapsedSeconds
@@ -1403,7 +1391,7 @@ export default function ResultPage() {
                             After画像を生成できませんでした
                           </p>
 
-                          <p className="mt-2 line-clamp-4 text-[8px] leading-4 text-black/50">
+                          <p className="mt-2 line-clamp-4 text-[9px] leading-4 text-black/60">
                             {
                               afterError
                             }
@@ -1414,7 +1402,7 @@ export default function ResultPage() {
                             onClick={
                               handleRetryAfter
                             }
-                            className="mt-4 rounded-[10px] bg-[#111111] px-4 py-2.5 text-[9px] font-black text-white"
+                            className="mt-4 rounded-[10px] bg-[#111111] px-4 py-2.5 text-[10px] font-black text-white"
                           >
                             もう一度生成
                           </button>
@@ -1425,10 +1413,10 @@ export default function ResultPage() {
                         <div className="text-center">
                           <Icon
                             name="sparkle"
-                            className="mx-auto h-6 w-6 text-black/25"
+                            className="mx-auto h-6 w-6 text-black/30"
                           />
 
-                          <p className="mt-3 text-[9px] font-black text-black/45">
+                          <p className="mt-3 text-[10px] font-black text-black/55">
                             After画像が保存されていません
                           </p>
                         </div>
@@ -1441,7 +1429,7 @@ export default function ResultPage() {
                             className="mx-auto h-6 w-6 text-[#1677FF]"
                           />
 
-                          <p className="mt-3 text-[9px] font-black text-[#1677FF]">
+                          <p className="mt-3 text-[10px] font-black text-[#1677FF]">
                             After準備中
                           </p>
                         </div>
@@ -1464,7 +1452,7 @@ export default function ResultPage() {
               </div>
             </div>
 
-            <p className="mt-3 text-center text-[10px] leading-4 text-black/60">
+            <p className="mt-3 text-center text-[10px] leading-5 text-black/65">
               ※AIが生成した参考イメージです。変化を保証するものではありません。
             </p>
           </section>
@@ -1474,7 +1462,6 @@ export default function ResultPage() {
             format="rectangle"
           />
 
-          {/* YOUR AFTER */}
           <section className="mx-4 mt-7">
             <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
               YOUR AFTER
@@ -1484,7 +1471,7 @@ export default function ResultPage() {
               Afterの改善イメージ
             </h2>
 
-            <p className="mt-2 text-[11px] leading-5 text-black/70">
+            <p className="mt-2 text-[12px] leading-6 text-black/75">
               AIが今回のAfterに反映した主な変化をまとめています。
             </p>
 
@@ -1499,7 +1486,7 @@ export default function ResultPage() {
                   </span>
 
                   <div className="min-w-0 flex-1">
-                    <p className="text-[9px] font-black tracking-[0.12em] text-[#1677FF]">
+                    <p className="text-[10px] font-black tracking-[0.12em] text-[#1677FF]">
                       YOUR AFTER
                     </p>
 
@@ -1519,7 +1506,7 @@ export default function ResultPage() {
               </div>
 
               <div className="border-t border-[#1677FF]/10 bg-white p-4">
-                <p className="text-[9px] font-black tracking-[0.1em] text-black/50">
+                <p className="text-[10px] font-black tracking-[0.1em] text-black/60">
                   主な変更
                 </p>
 
@@ -1553,7 +1540,6 @@ export default function ResultPage() {
             </div>
           </section>
 
-          {/* AFTER DIRECTION */}
           <section className="mx-4 mt-7">
             <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
               AFTER DIRECTION
@@ -1563,7 +1549,7 @@ export default function ResultPage() {
               Afterの設計方針
             </h2>
 
-            <p className="mt-2 text-[12px] leading-6 text-black/65">
+            <p className="mt-2 text-[12px] leading-6 text-black/70">
               AIがAfter画像に反映した改善方針です。
             </p>
 
@@ -1603,11 +1589,11 @@ export default function ResultPage() {
                     key={label}
                     className="border-b border-black/10 px-4 py-4 last:border-b-0"
                   >
-                    <p className="text-[10px] font-black text-[#1677FF]">
+                    <p className="text-[11px] font-black text-[#1677FF]">
                       {label}
                     </p>
 
-                    <p className="mt-1 text-[13px] leading-6 text-black/70">
+                    <p className="mt-1 text-[13px] leading-6 text-black/75">
                       {value}
                     </p>
                   </div>
@@ -1616,7 +1602,6 @@ export default function ResultPage() {
             </div>
           </section>
 
-          {/* NEXT ACTION */}
           <section className="mx-4 mb-8 mt-8 overflow-hidden rounded-[26px] border border-[#1677FF]/20 bg-gradient-to-br from-[#EEF6FF] via-white to-[#FFF9D9] shadow-[0_16px_48px_rgba(22,119,255,0.12)]">
             <div className="px-5 pb-5 pt-6">
               <div className="flex items-start gap-4">
@@ -1628,7 +1613,7 @@ export default function ResultPage() {
                 </span>
 
                 <div className="min-w-0 flex-1">
-                  <p className="text-[9px] font-black tracking-[0.16em] text-[#1677FF]">
+                  <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
                     NEXT ACTION
                   </p>
 
@@ -1636,7 +1621,7 @@ export default function ResultPage() {
                     診断結果を、行動に変えよう。
                   </h2>
 
-                  <p className="mt-2 text-[11px] leading-5 text-black/70">
+                  <p className="mt-2 text-[12px] leading-6 text-black/75">
                     あなたの改善ポイントは整理できました。
                     次は、垢抜けプランに沿って少しずつ改善を進めていきましょう。
                   </p>
@@ -1659,7 +1644,7 @@ export default function ResultPage() {
                     おすすめ商品を見る
                   </p>
 
-                  <p className="mt-1 text-[9px] font-medium text-black/60">
+                  <p className="mt-1 text-[10px] font-medium text-black/65">
                     今のあなたに必要なアイテムを確認
                   </p>
                 </div>
@@ -1688,7 +1673,7 @@ export default function ResultPage() {
                     垢抜けプランを見る
                   </p>
 
-                  <p className="mt-1 text-[9px] font-bold text-black/60">
+                  <p className="mt-1 text-[10px] font-bold text-black/65">
                     あなた専用の改善プランを確認
                   </p>
                 </div>
@@ -1724,7 +1709,7 @@ export default function ResultPage() {
 
           <Link
             href="/upload"
-            className="mx-4 mt-5 flex min-h-12 items-center justify-center gap-2 rounded-[12px] border border-black/10 bg-white px-4 text-[11px] font-black transition hover:bg-[#F7F9FC]"
+            className="mx-4 mt-5 flex min-h-12 items-center justify-center gap-2 rounded-[12px] border border-black/10 bg-white px-4 text-[12px] font-black transition hover:bg-[#F7F9FC]"
           >
             <Icon
               name="refresh"

@@ -176,7 +176,7 @@ export default function MensBeautyBeginnerArticle({
               <li key={item.id}>
                 <a
                   href={`#${item.id}`}
-                  className="flex gap-3 text-[11px] leading-5 text-black/55 transition hover:text-[#1677FF]"
+                  className="flex gap-3 text-[11px] font-medium leading-5 text-black/70 transition hover:text-[#1677FF]"
                 >
                   <span className="shrink-0 font-black text-[#1677FF]">
                     {String(index + 1).padStart(2, "0")}
@@ -191,7 +191,7 @@ export default function MensBeautyBeginnerArticle({
       </aside>
 
       <div className="min-w-0">
-        <section className="text-[14px] leading-8 text-black/70">
+        <section className="text-[14px] leading-8 text-black/80">
           <p>
             「美容に興味はあるけれど、何から始めればいいか分からない」と感じている男性は少なくありません。
           </p>
@@ -219,7 +219,7 @@ export default function MensBeautyBeginnerArticle({
             メンズ美容は何から始める？
           </h2>
 
-          <div className="mt-6 text-[14px] leading-8 text-black/70">
+          <div className="mt-6 text-[14px] leading-8 text-black/80">
             <p>
               メンズ美容初心者が最初に意識したいのは、「美容アイテムを増やすこと」ではなく「清潔感と第一印象を整えること」です。
             </p>
@@ -254,7 +254,7 @@ export default function MensBeautyBeginnerArticle({
             メンズ美容初心者がまずやるべき5つ
           </h2>
 
-          <p className="mt-4 text-[13px] leading-7 text-black/55">
+          <p className="mt-4 text-[13px] font-medium leading-7 text-black/70">
             何から始めるか迷った場合は、以下の順番を目安にしてください。
           </p>
 
@@ -274,7 +274,7 @@ export default function MensBeautyBeginnerArticle({
                       {step.title}
                     </h3>
 
-                    <p className="mt-3 text-[13px] leading-7 text-black/65">
+                    <p className="mt-3 text-[13px] leading-7 text-black/75">
                       {step.description}
                     </p>
 
@@ -321,7 +321,7 @@ export default function MensBeautyBeginnerArticle({
             メンズ美容初心者が最低限そろえたいもの
           </h2>
 
-          <p className="mt-4 text-[13px] leading-7 text-black/55">
+          <p className="mt-4 text-[13px] font-medium leading-7 text-black/70">
             最初から多くの商品を買う必要はありません。基本となるアイテムから始めましょう。
           </p>
 
@@ -335,7 +335,7 @@ export default function MensBeautyBeginnerArticle({
                   {item.title}
                 </h3>
 
-                <p className="mt-3 text-[12px] leading-6 text-black/60">
+                <p className="mt-3 text-[12px] font-medium leading-6 text-black/70">
                   {item.description}
                 </p>
               </article>
@@ -363,7 +363,7 @@ export default function MensBeautyBeginnerArticle({
             メンズ美容初心者がやりがちな失敗
           </h2>
 
-          <p className="mt-5 text-[14px] leading-8 text-black/70">
+          <p className="mt-5 text-[14px] leading-8 text-black/80">
             美容を始めると、さまざまな商品や情報が気になります。しかし、最初からすべてを取り入れると続かなくなることもあります。
           </p>
 
@@ -397,7 +397,7 @@ export default function MensBeautyBeginnerArticle({
             メンズ美容にかかる費用の目安
           </h2>
 
-          <p className="mt-5 text-[14px] leading-8 text-black/70">
+          <p className="mt-5 text-[14px] leading-8 text-black/80">
             メンズ美容は、お金をかければ必ず垢抜けるというものではありません。まずは必要なものだけに絞ることが大切です。
           </p>
 
@@ -417,14 +417,14 @@ export default function MensBeautyBeginnerArticle({
                   {label}
                 </span>
 
-                <span className="text-right text-[11px] font-bold text-black/50">
+                <span className="text-right text-[11px] font-bold text-black/65">
                   {price}
                 </span>
               </div>
             ))}
           </div>
 
-          <p className="mt-4 text-[10px] leading-5 text-black/40">
+          <p className="mt-4 text-[10px] font-medium leading-5 text-black/60">
             ※費用は店舗・商品・地域などによって異なります。目安として参考にしてください。
           </p>
         </section>
@@ -441,7 +441,7 @@ export default function MensBeautyBeginnerArticle({
             何から変えるか迷ったら？
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/70">
+          <div className="mt-5 text-[14px] leading-8 text-black/80">
             <p>
               人によって必要な美容ケアは異なります。肌を整えることが優先の人もいれば、髪型を変えるだけで大きく印象が変わる人もいます。
             </p>
@@ -464,7 +464,7 @@ export default function MensBeautyBeginnerArticle({
                 垢抜けない男の特徴10選
               </p>
 
-              <p className="mt-3 text-[11px] leading-5 text-black/45">
+              <p className="mt-3 text-[11px] font-medium leading-5 text-black/65">
                 自分がどこで損をしているのか確認したい方はこちら。
               </p>
             </Link>
@@ -481,7 +481,7 @@ export default function MensBeautyBeginnerArticle({
                 メンズ垢抜け完全ガイド
               </p>
 
-              <p className="mt-3 text-[11px] leading-5 text-black/45">
+              <p className="mt-3 text-[11px] font-medium leading-5 text-black/65">
                 垢抜け全体の方法をまとめて確認したい方はこちら。
               </p>
             </Link>
@@ -501,7 +501,7 @@ export default function MensBeautyBeginnerArticle({
             AIで確認。
           </h2>
 
-          <p className="mt-4 text-[12px] leading-6 text-black/55">
+          <p className="mt-4 text-[13px] font-medium leading-6 text-black/70">
             AKANUKE.AIでは、顔写真をもとに髪型・眉毛・肌・全体の印象を分析し、あなたに合った垢抜けプランを提案します。
           </p>
 
@@ -519,7 +519,7 @@ export default function MensBeautyBeginnerArticle({
             </span>
           </Link>
 
-          <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-[9px] font-bold text-black/40">
+          <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-[10px] font-bold text-black/60">
             <span>約1分で完了</span>
             <span>無料で利用可能</span>
             <span>メンズ向け</span>
@@ -552,7 +552,7 @@ export default function MensBeautyBeginnerArticle({
                   </span>
                 </summary>
 
-                <p className="border-t border-black/5 px-5 py-4 text-[12px] leading-6 text-black/60">
+                <p className="border-t border-black/5 px-5 py-4 text-[12px] font-medium leading-6 text-black/70">
                   {faq.answer}
                 </p>
               </details>
@@ -574,7 +574,7 @@ export default function MensBeautyBeginnerArticle({
             メンズ美容は、できることから始めればいい
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/70">
+          <div className="mt-5 text-[14px] leading-8 text-black/80">
             <p>
               メンズ美容初心者は、最初からたくさんの商品や知識をそろえる必要はありません。まずは髪型・眉毛・肌など、第一印象への影響が大きい部分から始めましょう。
             </p>

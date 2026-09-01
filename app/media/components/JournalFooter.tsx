@@ -14,7 +14,7 @@ export default function JournalFooter() {
           </p>
         </Link>
 
-        <div className="flex flex-wrap justify-center gap-x-6 gap-y-3 text-[10px] font-medium text-black/45">
+        <div className="flex flex-wrap justify-center gap-x-6 gap-y-3 text-[10px] font-medium text-black/65">
           <Link
             href="/"
             className="transition hover:text-[#1677FF]"
@@ -65,7 +65,7 @@ export default function JournalFooter() {
           </a>
         </div>
 
-        <p className="text-[10px] text-black/35">
+        <p className="text-[10px] text-black/55">
           © AKANUKE.AI All Rights Reserved.
         </p>
       </div>

@@ -264,7 +264,7 @@ function ArticleHero({
             {article.category}
           </span>
 
-          <span className="text-[10px] font-bold text-black/35">
+          <span className="text-[10px] font-bold text-black/65">
             {article.readingTime}
           </span>
         </div>
@@ -273,11 +273,11 @@ function ArticleHero({
           {article.title}
         </h1>
 
-        <p className="mt-4 max-w-[720px] text-[13px] leading-7 text-black/55 sm:mt-5 sm:text-[15px]">
+        <p className="mt-4 max-w-[720px] text-[13px] font-medium leading-7 text-black/70 sm:mt-5 sm:text-[15px]">
           {article.description}
         </p>
 
-        <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-[10px] font-bold text-black/35 sm:mt-6">
+        <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-[10px] font-bold text-black/65 sm:mt-6">
           <time dateTime={article.publishedAt}>
             公開日：{formatDate(article.publishedAt)}
           </time>
@@ -430,7 +430,7 @@ export default async function ArticleDetailPage({
               {article.category}
             </span>
 
-            <span className="text-[10px] font-bold text-black/35">
+            <span className="text-[10px] font-bold text-black/55">
               {article.readingTime}
             </span>
           </div>
@@ -443,7 +443,7 @@ export default async function ArticleDetailPage({
             {article.description}
           </p>
 
-          <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 text-[10px] font-bold text-black/35">
+          <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 text-[10px] font-bold text-black/55">
             <span>
               公開日 {article.publishedAt.replaceAll("-", ".")}
             </span>
@@ -549,7 +549,7 @@ export default async function ArticleDetailPage({
                     <li key={item.id}>
                       <a
                         href={`#${item.id}`}
-                        className="flex gap-3 text-[11px] leading-5 text-black/55 transition hover:text-[#1677FF]"
+                        className="flex gap-3 text-[11px] font-medium leading-5 text-black/70 transition hover:text-[#1677FF]"
                       >
                         <span className="shrink-0 font-black text-[#1677FF]">
                           {String(index + 1).padStart(2, "0")}
@@ -564,7 +564,7 @@ export default async function ArticleDetailPage({
             </aside>
 
             <div className="min-w-0">
-              <section className="text-[14px] leading-8 text-black/70">
+              <section className="text-[14px] leading-8 text-black/80">
                 <p>
                   「垢抜けたいけれど、何から始めればいいか分からない」と感じている男性は少なくありません。
                 </p>
@@ -592,7 +592,7 @@ export default async function ArticleDetailPage({
                   メンズが垢抜けるとは？
                 </h2>
 
-                <div className="mt-6 text-[14px] leading-8 text-black/70">
+                <div className="mt-6 text-[14px] leading-8 text-black/80">
                   <p>
                     メンズが垢抜けるとは、髪型・眉毛・肌・服装などを自分に合う状態へ整え、清潔感や洗練された印象を高めることです。
                   </p>
@@ -640,7 +640,7 @@ export default async function ArticleDetailPage({
                   メンズが垢抜ける12の方法
                 </h2>
 
-                <p className="mt-4 text-[13px] leading-7 text-black/55">
+                <p className="mt-4 text-[13px] font-medium leading-7 text-black/70">
                   優先順位は人によって異なります。現在できていない項目や、改善すると印象が変わりやすい項目から進めましょう。
                 </p>
 
@@ -658,7 +658,7 @@ export default async function ArticleDetailPage({
                               {method.title}
                             </h3>
 
-                            <p className="mt-3 text-[13px] leading-7 text-black/65">
+                            <p className="mt-3 text-[13px] leading-7 text-black/75">
                               {method.description}
                             </p>
 
@@ -714,7 +714,7 @@ export default async function ArticleDetailPage({
                   何から始めればいい？
                 </h2>
 
-                <p className="mt-5 text-[14px] leading-8 text-black/70">
+                <p className="mt-5 text-[14px] leading-8 text-black/80">
                   迷った場合は、まず顔周りから始めるのがおすすめです。髪型・眉毛・肌は、相手が最初に見る部分であり、変化も比較的感じやすいからです。
                 </p>
 
@@ -748,7 +748,7 @@ export default async function ArticleDetailPage({
                         {item.label}
                       </p>
 
-                      <p className="mt-2 text-[10px] leading-5 text-black/45">
+                      <p className="mt-2 text-[11px] font-medium leading-5 text-black/65">
                         {item.note}
                       </p>
                     </div>
@@ -769,7 +769,7 @@ export default async function ArticleDetailPage({
                   AIで確認してみませんか？
                 </h2>
 
-                <p className="mt-4 text-[12px] leading-6 text-black/55">
+                <p className="mt-4 text-[13px] font-medium leading-6 text-black/70">
                   AKANUKE.AIでは、顔写真をもとに髪型・眉毛・肌・全体の印象を分析します。何から始めればいいか分からない方にもおすすめです。
                 </p>
 
@@ -789,7 +789,7 @@ export default async function ArticleDetailPage({
                   </span>
                 </Link>
 
-                <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-[9px] font-bold text-black/40">
+                <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-[10px] font-bold text-black/60">
                   <span>約1分で完了</span>
                   <span>無料で利用可能</span>
                   <span>メンズ向け</span>
@@ -822,7 +822,7 @@ export default async function ArticleDetailPage({
                         </span>
                       </summary>
 
-                      <p className="border-t border-black/5 px-5 py-4 text-[12px] leading-6 text-black/60">
+                      <p className="border-t border-black/5 px-5 py-4 text-[12px] font-medium leading-6 text-black/70">
                         {faq.answer}
                       </p>
                     </details>
@@ -844,7 +844,7 @@ export default async function ArticleDetailPage({
                   メンズの垢抜けは、小さな改善の積み重ね
                 </h2>
 
-                <div className="mt-5 text-[14px] leading-8 text-black/70">
+                <div className="mt-5 text-[14px] leading-8 text-black/80">
                   <p>
                     メンズが垢抜けるために、すべてを一度に変える必要はありません。まずは髪型・眉毛・肌など、第一印象への影響が大きい部分から始めましょう。
                   </p>

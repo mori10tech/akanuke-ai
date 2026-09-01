@@ -192,7 +192,7 @@ export default function AkanukenaiManFeaturesArticle({
                 <li key={item.id}>
                   <a
                     href={`#${item.id}`}
-                    className="flex gap-3 text-[11px] leading-5 text-black/55 transition hover:text-[#1677FF]"
+                    className="flex gap-3 text-[11px] font-medium leading-5 text-black/70 transition hover:text-[#1677FF]"
                   >
                     <span className="shrink-0 font-black text-[#1677FF]">
                       {String(index + 1).padStart(2, "0")}
@@ -207,7 +207,7 @@ export default function AkanukenaiManFeaturesArticle({
         </aside>
 
         <div className="min-w-0">
-          <section className="text-[14px] leading-8 text-black/70">
+          <section className="text-[14px] leading-8 text-black/80">
             <p>
               「垢抜けたいと思って髪型や服装を変えてみたけれど、なぜかあまり変わらない」と感じていませんか？
             </p>
@@ -235,7 +235,7 @@ export default function AkanukenaiManFeaturesArticle({
               垢抜けない男には共通する特徴がある
             </h2>
 
-            <div className="mt-6 text-[14px] leading-8 text-black/70">
+            <div className="mt-6 text-[14px] leading-8 text-black/80">
               <p>
                 「垢抜けている人」と「垢抜けていない人」の違いは、一つの大きなポイントだけで決まるものではありません。
               </p>
@@ -254,7 +254,7 @@ export default function AkanukenaiManFeaturesArticle({
                 大切なのは「自分に必要な改善」を知ること
               </p>
 
-              <p className="mt-3 text-[12px] leading-6 text-black/60">
+              <p className="mt-3 text-[12px] font-medium leading-6 text-black/70">
                 SNSで見つけた髪型やファッションをそのまま真似するのではなく、自分の顔立ち・髪質・肌・体型に合う改善から始めることが重要です。
               </p>
             </div>
@@ -272,7 +272,7 @@ export default function AkanukenaiManFeaturesArticle({
               垢抜けない男の特徴10選
             </h2>
 
-            <p className="mt-4 text-[13px] leading-7 text-black/55">
+            <p className="mt-4 text-[13px] font-medium leading-7 text-black/70">
               当てはまる項目があっても、すべてを一度に直す必要はありません。改善しやすいところから順番に見直してみましょう。
             </p>
 
@@ -290,7 +290,7 @@ export default function AkanukenaiManFeaturesArticle({
                           {feature.title}
                         </h3>
 
-                        <p className="mt-3 text-[13px] leading-7 text-black/65">
+                        <p className="mt-3 text-[13px] leading-7 text-black/75">
                           {feature.description}
                         </p>
 
@@ -329,7 +329,7 @@ export default function AkanukenaiManFeaturesArticle({
               垢抜けるために何から変える？
             </h2>
 
-            <p className="mt-5 text-[14px] leading-8 text-black/70">
+            <p className="mt-5 text-[14px] leading-8 text-black/80">
               何から始めればいいか迷った場合は、第一印象への影響が大きい顔周りから整えるのがおすすめです。
             </p>
 
@@ -345,7 +345,7 @@ export default function AkanukenaiManFeaturesArticle({
         {step.title}
       </p>
 
-      <p className="mt-2 text-[11px] leading-5 text-black/45">
+      <p className="mt-2 text-[11px] font-medium leading-5 text-black/65">
         {step.description}
       </p>
 
@@ -386,7 +386,7 @@ export default function AkanukenaiManFeaturesArticle({
                 さらに詳しく知りたい方はこちら
               </p>
 
-              <p className="mt-2 text-[12px] leading-6 text-black/55">
+              <p className="mt-2 text-[12px] font-medium leading-6 text-black/70">
                 髪型・眉毛・スキンケアなど、男性が垢抜ける方法をまとめて確認できます。
               </p>
 
@@ -413,7 +413,7 @@ export default function AkanukenaiManFeaturesArticle({
     変えるべき？
   </h2>
 
-  <p className="mt-4 text-[12px] leading-6 text-black/55">
+  <p className="mt-4 text-[13px] font-medium leading-6 text-black/70">
     AKANUKE.AIでは、顔写真をもとに髪型・眉毛・肌・全体の印象をAIが分析。あなたが優先して改善したいポイントを整理します。
   </p>
 
@@ -433,7 +433,7 @@ export default function AkanukenaiManFeaturesArticle({
   </span>
 </Link>
 
-  <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-[9px] font-bold text-black/40">
+  <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-[10px] font-bold text-black/60">
     <span>約1分で完了</span>
     <span>無料で利用可能</span>
     <span>メンズ専用</span>
@@ -466,7 +466,7 @@ export default function AkanukenaiManFeaturesArticle({
                     </span>
                   </summary>
 
-                  <p className="border-t border-black/5 px-5 py-4 text-[12px] leading-6 text-black/60">
+                  <p className="border-t border-black/5 px-5 py-4 text-[12px] font-medium leading-6 text-black/70">
                     {faq.answer}
                   </p>
                 </details>
@@ -488,7 +488,7 @@ export default function AkanukenaiManFeaturesArticle({
               垢抜けない原因を知ることが、最初の一歩
             </h2>
 
-            <div className="mt-5 text-[14px] leading-8 text-black/70">
+            <div className="mt-5 text-[14px] leading-8 text-black/80">
               <p>
                 垢抜けない男性には、髪型・眉毛・肌・服装・清潔感など、いくつかの共通しやすい特徴があります。
               </p>

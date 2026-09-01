@@ -198,7 +198,7 @@ export default function MensAkanukeHairstyleArticle({
               <li key={item.id}>
                 <a
                   href={`#${item.id}`}
-                  className="flex gap-3 text-[11px] leading-5 text-black/55 transition hover:text-[#1677FF]"
+                  className="flex gap-3 text-[11px] font-medium leading-5 text-black/70 transition hover:text-[#1677FF]"
                 >
                   <span className="shrink-0 font-black text-[#1677FF]">
                     {String(index + 1).padStart(2, "0")}
@@ -212,7 +212,7 @@ export default function MensAkanukeHairstyleArticle({
       </aside>
 
       <div className="min-w-0">
-        <section className="text-[14px] leading-8 text-black/70">
+        <section className="text-[14px] leading-8 text-black/80">
           <p>
             「垢抜けたいけれど、どんな髪型にすればいいか分からない」と悩む男性は少なくありません。
           </p>
@@ -241,7 +241,7 @@ export default function MensAkanukeHairstyleArticle({
             垢抜けたい男性は、まず髪型を変えるべき？
           </h2>
 
-          <div className="mt-6 text-[14px] leading-8 text-black/70">
+          <div className="mt-6 text-[14px] leading-8 text-black/80">
             <p>
               垢抜けるために見直せるポイントは、眉毛・肌・服装・姿勢などさまざまです。その中でも髪型は、比較的変化を実感しやすいポイントです。
             </p>
@@ -256,7 +256,7 @@ export default function MensAkanukeHairstyleArticle({
               人気より「自分に似合うか」を優先
             </p>
 
-            <p className="mt-3 text-[12px] leading-6 text-black/60">
+            <p className="mt-3 text-[12px] font-medium leading-6 text-black/70">
               SNSで人気の髪型でも、顔型や髪質によって見え方は変わります。「この髪型にしたい」だけでなく「自分に似合う形に調整してほしい」と美容師へ相談するのがおすすめです。
             </p>
           </div>
@@ -287,7 +287,7 @@ export default function MensAkanukeHairstyleArticle({
                       {point.title}
                     </h3>
 
-                    <p className="mt-3 text-[13px] leading-7 text-black/65">
+                    <p className="mt-3 text-[13px] leading-7 text-black/75">
                       {point.description}
                     </p>
 
@@ -317,7 +317,7 @@ export default function MensAkanukeHairstyleArticle({
             顔型別｜似合いやすい髪型の考え方
           </h2>
 
-          <p className="mt-5 text-[13px] leading-7 text-black/55">
+          <p className="mt-5 text-[13px] font-medium leading-7 text-black/70">
             顔型は髪型選びの参考になります。ただし、同じ顔型でもパーツや髪質は異なるため、あくまで一つの目安として考えましょう。
           </p>
 
@@ -329,7 +329,7 @@ export default function MensAkanukeHairstyleArticle({
               >
                 <h3 className="text-[18px] font-black">{face.name}</h3>
 
-                <p className="mt-3 text-[12px] leading-6 text-black/55">
+                <p className="mt-3 text-[12px] font-medium leading-6 text-black/70">
                   {face.description}
                 </p>
 
@@ -350,7 +350,7 @@ export default function MensAkanukeHairstyleArticle({
             垢抜けたい男性におすすめの髪型
           </h2>
 
-          <p className="mt-5 text-[13px] leading-7 text-black/55">
+          <p className="mt-5 text-[13px] font-medium leading-7 text-black/70">
             ここでは代表的なスタイルを紹介します。特定の髪型を正解と考えるのではなく、自分に合う方向性を探す参考にしてください。
           </p>
 
@@ -370,7 +370,7 @@ export default function MensAkanukeHairstyleArticle({
                   </h3>
                 </div>
 
-                <p className="mt-3 text-[12px] leading-6 text-black/60">
+                <p className="mt-3 text-[12px] font-medium leading-6 text-black/70">
                   {hairstyle.description}
                 </p>
 
@@ -393,7 +393,7 @@ export default function MensAkanukeHairstyleArticle({
             美容室で失敗しにくい頼み方
           </h2>
 
-          <p className="mt-5 text-[14px] leading-8 text-black/70">
+          <p className="mt-5 text-[14px] leading-8 text-black/80">
             美容室では、髪型の名前だけを伝えるより「どんな印象になりたいか」「普段どのくらいセットできるか」まで共有すると、美容師も提案しやすくなります。
           </p>
 
@@ -444,7 +444,7 @@ export default function MensAkanukeHairstyleArticle({
             AIで確認してみませんか？
           </h2>
 
-          <p className="mt-4 text-[12px] leading-6 text-black/55">
+          <p className="mt-4 text-[13px] font-medium leading-6 text-black/70">
             AKANUKE.AIでは、顔写真をもとに髪型・眉毛・肌・全体の印象をAIが分析します。自分がどこから改善すればいいか分からない方にもおすすめです。
           </p>
 
@@ -464,7 +464,7 @@ export default function MensAkanukeHairstyleArticle({
   </span>
 </Link>
 
-          <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-[9px] font-bold text-black/40">
+          <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-[10px] font-bold text-black/60">
             <span>約1分で完了</span>
             <span>無料で利用可能</span>
             <span>メンズ向け</span>
@@ -494,7 +494,7 @@ export default function MensAkanukeHairstyleArticle({
                   </span>
                 </summary>
 
-                <p className="border-t border-black/5 px-5 py-4 text-[12px] leading-6 text-black/60">
+                <p className="border-t border-black/5 px-5 py-4 text-[12px] font-medium leading-6 text-black/70">
                   {faq.answer}
                 </p>
               </details>
@@ -513,7 +513,7 @@ export default function MensAkanukeHairstyleArticle({
             垢抜ける髪型は「自分に似合うこと」が重要
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/70">
+          <div className="mt-5 text-[14px] leading-8 text-black/80">
             <p>
               メンズが髪型で垢抜けるためには、流行だけでなく顔型・髪質・清潔感・セットのしやすさまで考えることが大切です。
             </p>

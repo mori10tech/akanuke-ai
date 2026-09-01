@@ -107,7 +107,7 @@ export default function ArticlesPage() {
             </h2>
           </div>
 
-          <span className="text-[11px] font-bold text-black/35">
+          <span className="text-[11px] font-bold text-black/50">
             全{articles.length}件
           </span>
         </div>
@@ -130,7 +130,7 @@ export default function ArticlesPage() {
               </div>
 
               <div className="p-5 sm:p-6">
-                <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-[10px] font-bold text-black/35">
+                <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-[10px] font-bold text-black/50">
                   <time dateTime={article.publishedAt}>
                     {formatDate(article.publishedAt)}
                   </time>
@@ -144,7 +144,7 @@ export default function ArticlesPage() {
                   {article.title}
                 </h3>
 
-                <p className="mt-3 text-[12px] leading-6 text-black/55">
+                <p className="mt-3 text-[12px] leading-6 text-black/65">
                   {article.description}
                 </p>
 
@@ -172,9 +172,9 @@ export default function ArticlesPage() {
       自分に合う改善方法を知りたい方へ
     </h2>
 
-    <p className="mx-auto mt-4 max-w-[500px] text-[12px] leading-6 text-black/55">
-      顔写真をもとに、髪型・眉毛・肌・全体の印象をAIが分析します。
-    </p>
+    <p className="mx-auto mt-4 max-w-[500px] text-[13px] font-medium leading-6 text-black/70">
+  顔写真をもとに、髪型・眉毛・肌・全体の印象をAIが分析します。
+</p>
 
     <Link
       href="/"

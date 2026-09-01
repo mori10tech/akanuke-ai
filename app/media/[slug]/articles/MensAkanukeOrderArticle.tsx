@@ -197,7 +197,7 @@ export default function MensAkanukeOrderArticle({
               <li key={item.id}>
                 <a
                   href={`#${item.id}`}
-                  className="flex gap-3 text-[11px] leading-5 text-black/55 transition hover:text-[#1677FF]"
+                  className="flex gap-3 text-[11px] font-medium leading-5 text-black/70 transition hover:text-[#1677FF]"
                 >
                   <span className="shrink-0 font-black text-[#1677FF]">
                     {String(index + 1).padStart(2, "0")}
@@ -212,7 +212,7 @@ export default function MensAkanukeOrderArticle({
       </aside>
 
       <div className="min-w-0">
-        <section className="text-[14px] leading-8 text-black/70">
+        <section className="text-[14px] leading-8 text-black/80">
           <p>
             「垢抜けたいけれど、髪型・眉毛・肌・服装のどこから変えればいいか分からない」と悩んでいませんか？
           </p>
@@ -240,7 +240,7 @@ export default function MensAkanukeOrderArticle({
             メンズの垢抜けは順番が大切
           </h2>
 
-          <div className="mt-6 text-[14px] leading-8 text-black/70">
+          <div className="mt-6 text-[14px] leading-8 text-black/80">
             <p>
               垢抜けようと思ったとき、最初にファッションや高価な美容アイテムへお金をかける必要はありません。
             </p>
@@ -277,7 +277,7 @@ export default function MensAkanukeOrderArticle({
             メンズが垢抜けるおすすめの順番
           </h2>
 
-          <p className="mt-4 text-[13px] leading-7 text-black/55">
+          <p className="mt-4 text-[13px] font-medium leading-7 text-black/70">
             すべてを一度に変える必要はありません。できていない項目から順番に進めていきましょう。
           </p>
 
@@ -297,7 +297,7 @@ export default function MensAkanukeOrderArticle({
                       {step.title}
                     </h3>
 
-                    <p className="mt-3 text-[13px] leading-7 text-black/65">
+                    <p className="mt-3 text-[13px] leading-7 text-black/75">
                       {step.description}
                     </p>
 
@@ -344,7 +344,7 @@ export default function MensAkanukeOrderArticle({
             お金をかけずに垢抜けるなら何から始める？
           </h2>
 
-          <p className="mt-5 text-[14px] leading-8 text-black/70">
+          <p className="mt-5 text-[14px] leading-8 text-black/80">
             垢抜けるために、最初から高価な美容サービスやブランド服を購入する必要はありません。まずは今あるものを整えるだけでも印象を改善できます。
           </p>
 
@@ -358,7 +358,7 @@ export default function MensAkanukeOrderArticle({
                   {item.title}
                 </h3>
 
-                <p className="mt-3 text-[12px] leading-6 text-black/60">
+                <p className="mt-3 text-[12px] font-medium leading-6 text-black/70">
                   {item.description}
                 </p>
               </article>
@@ -378,7 +378,7 @@ export default function MensAkanukeOrderArticle({
             順番を間違えると垢抜けにくい理由
           </h2>
 
-          <p className="mt-5 text-[14px] leading-8 text-black/70">
+          <p className="mt-5 text-[14px] leading-8 text-black/80">
             垢抜けに正解の順番が一つだけあるわけではありません。ただし、基本的な清潔感を整える前に細かいおしゃれへ力を入れると、変化を感じにくいことがあります。
           </p>
 
@@ -398,7 +398,7 @@ export default function MensAkanukeOrderArticle({
                       {mistake.title}
                     </h3>
 
-                    <p className="mt-2 text-[12px] leading-6 text-black/55">
+                    <p className="mt-2 text-[12px] font-medium leading-6 text-black/70">
                       {mistake.description}
                     </p>
                   </div>
@@ -420,7 +420,7 @@ export default function MensAkanukeOrderArticle({
             自分が何から変えるべきか分からない場合は？
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/70">
+          <div className="mt-5 text-[14px] leading-8 text-black/80">
             <p>
               ここまで紹介した順番は、あくまで一般的な目安です。すでに髪型が整っている人なら、眉毛や肌から始めた方が効率的な場合もあります。
             </p>
@@ -443,7 +443,7 @@ export default function MensAkanukeOrderArticle({
                 垢抜けない男の特徴10選
               </p>
 
-              <p className="mt-3 text-[11px] leading-5 text-black/45">
+              <p className="mt-3 text-[11px] font-medium leading-5 text-black/65">
                 自分がどこで損をしているのか確認したい方はこちら。
               </p>
             </Link>
@@ -460,7 +460,7 @@ export default function MensAkanukeOrderArticle({
                 メンズ垢抜け完全ガイド
               </p>
 
-              <p className="mt-3 text-[11px] leading-5 text-black/45">
+              <p className="mt-3 text-[11px] font-medium leading-5 text-black/65">
                 垢抜け全体の方法をまとめて確認したい方はこちら。
               </p>
             </Link>
@@ -480,7 +480,7 @@ export default function MensAkanukeOrderArticle({
             変えるべき？
           </h2>
 
-          <p className="mt-4 text-[12px] leading-6 text-black/55">
+          <p className="mt-4 text-[13px] font-medium leading-6 text-black/70">
             AKANUKE.AIでは、顔写真をもとに髪型・眉毛・肌・全体の印象をAIが分析し、あなたに合った垢抜けプランを提案します。
           </p>
 
@@ -500,7 +500,7 @@ export default function MensAkanukeOrderArticle({
             </span>
           </Link>
 
-          <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-[9px] font-bold text-black/40">
+          <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-[10px] font-bold text-black/60">
             <span>約1分で完了</span>
             <span>無料で利用可能</span>
             <span>メンズ専用</span>
@@ -533,7 +533,7 @@ export default function MensAkanukeOrderArticle({
                   </span>
                 </summary>
 
-                <p className="border-t border-black/5 px-5 py-4 text-[12px] leading-6 text-black/60">
+                <p className="border-t border-black/5 px-5 py-4 text-[12px] font-medium leading-6 text-black/70">
                   {faq.answer}
                 </p>
               </details>
@@ -555,7 +555,7 @@ export default function MensAkanukeOrderArticle({
             メンズの垢抜けは、変化が大きい部分から順番に
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/70">
+          <div className="mt-5 text-[14px] leading-8 text-black/80">
             <p>
               メンズが垢抜けたい場合は、髪型・眉毛・肌など第一印象への影響が大きい部分から整えるのがおすすめです。
             </p>

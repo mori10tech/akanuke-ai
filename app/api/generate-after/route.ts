@@ -19,6 +19,10 @@ import {
   DIAGNOSIS_IMAGE_BUCKET,
 } from "../../../lib/diagnoses/images";
 
+import {
+  isAkanukeAnalysis,
+} from "../../../lib/diagnoses/types";
+
 export const runtime = "nodejs";
 export const maxDuration = 60;
 
@@ -58,8 +62,6 @@ const RETRYABLE_OPENAI_STATUSES =
 
 type GenerateAfterRequestBody = {
   diagnosisId?: string;
-  imageDataUrl?: string;
-  analysis?: AkanukeAnalysis;
 };
 
 type OpenAIImageResponse = {
@@ -69,12 +71,6 @@ type OpenAIImageResponse = {
   error?: {
     message?: string;
   };
-};
-
-type ParsedImage = {
-  mimeType: string;
-  extension: "jpg" | "png" | "webp";
-  buffer: Buffer;
 };
 
 type OpenAIImageGenerationResult = {
@@ -120,168 +116,6 @@ function normalizeImageMimeType(
   }
 
   return null;
-}
-
-function parseDataUrl(
-  imageSource: string,
-): ParsedImage | null {
-  const match =
-    imageSource.match(
-      /^data:([^;,]+);base64,([\s\S]+)$/,
-    );
-
-  if (!match) {
-    return null;
-  }
-
-  const imageType =
-    normalizeImageMimeType(
-      match[1],
-    );
-
-  if (!imageType) {
-    throw new Error(
-      "対応していない画像形式です。JPEG・PNG・WebP形式の画像をご利用ください。",
-    );
-  }
-
-  const base64 =
-    match[2].replace(
-      /\s/g,
-      "",
-    );
-
-  const buffer =
-    Buffer.from(
-      base64,
-      "base64",
-    );
-
-  if (
-    buffer.length === 0
-  ) {
-    throw new Error(
-      "画像データを読み込めませんでした。",
-    );
-  }
-
-  return {
-    mimeType:
-      imageType.mimeType,
-    extension:
-      imageType.extension,
-    buffer,
-  };
-}
-
-async function fetchRemoteImage(
-  imageUrl: string,
-): Promise<ParsedImage> {
-  let parsedUrl: URL;
-
-  try {
-    parsedUrl =
-      new URL(imageUrl);
-  } catch {
-    throw new Error(
-      "画像データの形式が正しくありません。",
-    );
-  }
-
-  if (
-    parsedUrl.protocol !==
-      "https:" &&
-    parsedUrl.protocol !==
-      "http:"
-  ) {
-    throw new Error(
-      "画像データの形式が正しくありません。",
-    );
-  }
-
-  const response =
-    await fetch(
-      imageUrl,
-      {
-        cache: "no-store",
-      },
-    );
-
-  if (!response.ok) {
-    throw new Error(
-      "元画像を取得できませんでした。",
-    );
-  }
-
-  const contentType =
-    response.headers.get(
-      "content-type",
-    ) ?? "";
-
-  const imageType =
-    normalizeImageMimeType(
-      contentType,
-    );
-
-  if (!imageType) {
-    throw new Error(
-      "対応していない画像形式です。JPEG・PNG・WebP形式の画像をご利用ください。",
-    );
-  }
-
-  const arrayBuffer =
-    await response.arrayBuffer();
-
-  const buffer =
-    Buffer.from(
-      arrayBuffer,
-    );
-
-  if (
-    buffer.length === 0
-  ) {
-    throw new Error(
-      "元画像を取得できませんでした。",
-    );
-  }
-
-  return {
-    mimeType:
-      imageType.mimeType,
-    extension:
-      imageType.extension,
-    buffer,
-  };
-}
-
-async function parseImageSource(
-  imageSource: string,
-): Promise<ParsedImage> {
-  const dataUrlImage =
-    parseDataUrl(
-      imageSource,
-    );
-
-  if (dataUrlImage) {
-    return dataUrlImage;
-  }
-
-  if (
-    imageSource.startsWith(
-      "https://",
-    ) ||
-    imageSource.startsWith(
-      "http://",
-    )
-  ) {
-    return fetchRemoteImage(
-      imageSource,
-    );
-  }
-
-  throw new Error(
-    "画像データの形式が正しくありません。",
-  );
 }
 
 function wait(
@@ -722,41 +556,11 @@ export async function POST(
     const diagnosisId =
       body.diagnosisId?.trim();
 
-    const imageSource =
-      body.imageDataUrl?.trim();
-
-    const analysis =
-      body.analysis;
-
     if (!diagnosisId) {
       return NextResponse.json(
         {
           error:
             "診断IDを確認できませんでした。",
-        },
-        {
-          status: 400,
-        },
-      );
-    }
-
-    if (!imageSource) {
-      return NextResponse.json(
-        {
-          error:
-            "After生成に使用する元画像がありません。",
-        },
-        {
-          status: 400,
-        },
-      );
-    }
-
-    if (!analysis) {
-      return NextResponse.json(
-        {
-          error:
-            "After生成に使用する診断結果がありません。",
         },
         {
           status: 400,
@@ -774,8 +578,8 @@ export async function POST(
       await supabase
         .from("diagnoses")
         .select(
-          "id, after_image_path",
-        )
+  "id, analysis, before_image_path, after_image_path",
+)
         .eq(
           "id",
           diagnosisId,
@@ -805,6 +609,45 @@ export async function POST(
         },
       );
     }
+
+if (
+  !isAkanukeAnalysis(
+    diagnosis.analysis,
+  )
+) {
+  console.error(
+    "[AKANUKE.AI] After生成対象の診断データ形式が不正です:",
+    {
+      userId: user.id,
+      diagnosisId,
+    },
+  );
+
+  return NextResponse.json(
+    {
+      error:
+        "After生成に使用する診断結果を確認できませんでした。",
+    },
+    {
+      status: 422,
+    },
+  );
+}
+
+const analysis =
+  diagnosis.analysis;
+
+if (!diagnosis.before_image_path) {
+  return NextResponse.json(
+    {
+      error:
+        "After生成に使用する元画像を確認できませんでした。",
+    },
+    {
+      status: 422,
+    },
+  );
+}
 
     /*
      * すでにAfter画像が保存されている場合は、
@@ -858,18 +701,86 @@ export async function POST(
     }
 
     /*
-     * 新規診断ではData URL、
-     * 履歴では署名URLが入る可能性があるため
-     * 両方に対応します。
-     */
-    const {
-      mimeType,
-      extension,
-      buffer,
-    } =
-      await parseImageSource(
-        imageSource,
-      );
+ * After生成の元画像は、
+ * クライアントから受け取らず
+ * 本人の診断に保存されているBefore画像を
+ * 非公開Storageから直接取得します。
+ */
+const {
+  data: beforeImageBlob,
+  error: beforeImageError,
+} =
+  await supabase.storage
+    .from(
+      DIAGNOSIS_IMAGE_BUCKET,
+    )
+    .download(
+      diagnosis.before_image_path,
+    );
+
+if (
+  beforeImageError ||
+  !beforeImageBlob
+) {
+  console.error(
+    "[AKANUKE.AI] Before画像取得エラー:",
+    beforeImageError,
+  );
+
+  return NextResponse.json(
+    {
+      error:
+        "After生成に使用する元画像を取得できませんでした。",
+    },
+    {
+      status: 500,
+    },
+  );
+}
+
+const mimeType =
+  beforeImageBlob.type ||
+  "image/jpeg";
+
+const imageType =
+  normalizeImageMimeType(
+    mimeType,
+  );
+
+if (!imageType) {
+  return NextResponse.json(
+    {
+      error:
+        "保存されている元画像の形式に対応していません。",
+    },
+    {
+      status: 422,
+    },
+  );
+}
+
+const beforeArrayBuffer =
+  await beforeImageBlob.arrayBuffer();
+
+const buffer =
+  Buffer.from(
+    beforeArrayBuffer,
+  );
+
+if (buffer.byteLength === 0) {
+  return NextResponse.json(
+    {
+      error:
+        "After生成に使用する元画像を読み込めませんでした。",
+    },
+    {
+      status: 500,
+    },
+  );
+}
+
+const extension =
+  imageType.extension;
 
     console.log(
       "[AKANUKE.AI] After画像生成を開始します",

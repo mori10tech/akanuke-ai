@@ -781,14 +781,9 @@ export default function ResultPage() {
                 "Content-Type":
                   "application/json",
               },
-              body: JSON.stringify(
-                {
-                  diagnosisId,
-                  imageDataUrl:
-                    image,
-                  analysis,
-                },
-              ),
+              body: JSON.stringify({
+  diagnosisId,
+}),
             },
           );
 

@@ -92,13 +92,15 @@ export default function LatestResultRedirect({
           await resolveDiagnosisId();
 
         const response =
-          await fetch(
-            `/api/diagnoses/${resolvedDiagnosisId}`,
-            {
-              cache:
-                "no-store",
-            },
-          );
+  await fetch(
+    `/api/diagnoses/${encodeURIComponent(
+      resolvedDiagnosisId,
+    )}`,
+    {
+      cache:
+        "no-store",
+    },
+  );
 
         const data =
           (await response.json()) as {

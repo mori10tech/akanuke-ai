@@ -33,9 +33,6 @@ function formatPrice(price: number) {
   ).format(price);
 }
 
-const RESULT_STORAGE_KEY =
-  "akanukeAnalysisResult";
-
 function isProductNeed(
   value: unknown,
 ): value is ProductNeed {
@@ -535,132 +532,191 @@ export default function ProductsPage() {
   ]);
 
   useEffect(() => {
-    /*
-     * Result・Planなどのページ途中から遷移しても、
-     * 商品ページは必ず最上部から表示します。
-     */
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: "auto",
-    });
+  let isCancelled = false;
 
-    const timeoutId =
-      window.setTimeout(() => {
-        /*
-         * Next.jsやブラウザによるスクロール位置復元より
-         * 後でもう一度最上部へ戻します。
-         */
+  /*
+   * Result・Planなどのページ途中から遷移しても、
+   * 商品ページは必ず最上部から表示します。
+   */
+  window.scrollTo({
+    top: 0,
+    left: 0,
+    behavior: "auto",
+  });
+
+  async function restoreLatestDiagnosis() {
+    try {
+      const requestedCategory =
+        categories.find(
+          (category) =>
+            category.id ===
+            new URLSearchParams(
+              window.location.search,
+            ).get("category"),
+        )?.id;
+
+      if (requestedCategory) {
+        setSelectedCategory(
+          requestedCategory,
+        );
+      }
+
+      const latestResponse =
+        await fetch(
+          "/api/diagnoses/latest",
+          {
+            method: "GET",
+            cache: "no-store",
+          },
+        );
+
+      const latestData =
+        (await latestResponse.json()) as {
+          diagnosisId?: string | null;
+          error?: string;
+        };
+
+      if (!latestResponse.ok) {
+        throw new Error(
+          latestData.error ??
+            "最新の診断情報を取得できませんでした。",
+        );
+      }
+
+      const latestDiagnosisId =
+        typeof latestData.diagnosisId ===
+          "string" &&
+        latestData.diagnosisId.trim().length > 0
+          ? latestData.diagnosisId
+          : null;
+
+      if (
+        !latestDiagnosisId ||
+        isCancelled
+      ) {
+        return;
+      }
+
+      const diagnosisResponse =
+        await fetch(
+          `/api/diagnoses/${encodeURIComponent(
+            latestDiagnosisId,
+          )}`,
+          {
+            method: "GET",
+            cache: "no-store",
+          },
+        );
+
+      const diagnosisData =
+        (await diagnosisResponse.json()) as {
+          diagnosis?: {
+            analysis?: {
+              productNeeds?: unknown;
+            };
+          };
+          error?: string;
+        };
+
+      if (!diagnosisResponse.ok) {
+        throw new Error(
+          diagnosisData.error ??
+            "診断結果を取得できませんでした。",
+        );
+      }
+
+      if (
+        isCancelled ||
+        !diagnosisData.diagnosis
+      ) {
+        return;
+      }
+
+      const productNeedsValue =
+        diagnosisData.diagnosis
+          .analysis?.productNeeds;
+
+      if (
+        !Array.isArray(
+          productNeedsValue,
+        )
+      ) {
+        return;
+      }
+
+      const validNeeds =
+        productNeedsValue.filter(
+          isProductNeed,
+        );
+
+      if (
+        validNeeds.length === 0
+      ) {
+        return;
+      }
+
+      setDiagnosisNeeds(
+        validNeeds,
+      );
+
+      /*
+       * URLでカテゴリ指定がある場合は、
+       * そのカテゴリを優先します。
+       */
+      if (requestedCategory) {
+        return;
+      }
+
+      const recommendedCategory =
+        [...categories].sort(
+          (a, b) =>
+            getCategoryScore(
+              b.id,
+              validNeeds,
+            ) -
+            getCategoryScore(
+              a.id,
+              validNeeds,
+            ),
+        )[0];
+
+      if (
+        recommendedCategory
+      ) {
+        setSelectedCategory(
+          recommendedCategory.id,
+        );
+      }
+    } catch (error) {
+      console.warn(
+        "[AKANUKE.AI] 商品レコメンド用の最新診断結果を読み込めませんでした:",
+        error,
+      );
+    }
+  }
+
+  const timeoutId =
+    window.setTimeout(
+      () => {
         window.scrollTo({
           top: 0,
           left: 0,
           behavior: "auto",
         });
 
-        const requestedCategory =
-          categories.find(
-            (category) =>
-              category.id ===
-              new URLSearchParams(
-                window.location.search,
-              ).get("category"),
-          )?.id;
+        void restoreLatestDiagnosis();
+      },
+      0,
+    );
 
-        /*
-         * URLでカテゴリが指定されている場合は、
-         * そのカテゴリを最初に表示します。
-         */
-        if (requestedCategory) {
-          setSelectedCategory(
-            requestedCategory,
-          );
-        }
+  return () => {
+    isCancelled = true;
 
-        const rawResult =
-          window.sessionStorage.getItem(
-            RESULT_STORAGE_KEY,
-          );
-
-        if (!rawResult) {
-          return;
-        }
-
-        try {
-          const parsed =
-            JSON.parse(
-              rawResult,
-            ) as {
-              productNeeds?: unknown;
-            };
-
-          if (
-            !Array.isArray(
-              parsed.productNeeds,
-            )
-          ) {
-            return;
-          }
-
-          const validNeeds =
-            parsed.productNeeds.filter(
-              isProductNeed,
-            );
-
-          if (
-            validNeeds.length === 0
-          ) {
-            return;
-          }
-
-          setDiagnosisNeeds(
-            validNeeds,
-          );
-
-          /*
-           * URLでカテゴリが指定されている場合は、
-           * 診断結果によるカテゴリ変更を行いません。
-           *
-           * 商品の並び順については、
-           * 指定されたカテゴリ内で診断結果を反映します。
-           */
-          if (requestedCategory) {
-            return;
-          }
-
-          const recommendedCategory =
-            [...categories].sort(
-              (a, b) =>
-                getCategoryScore(
-                  b.id,
-                  validNeeds,
-                ) -
-                getCategoryScore(
-                  a.id,
-                  validNeeds,
-                ),
-            )[0];
-
-          if (
-            recommendedCategory
-          ) {
-            setSelectedCategory(
-              recommendedCategory.id,
-            );
-          }
-        } catch (error) {
-          console.warn(
-            "[AKANUKE.AI] 商品レコメンド用の診断結果を読み込めませんでした:",
-            error,
-          );
-        }
-      }, 0);
-
-    return () => {
-      window.clearTimeout(
-        timeoutId,
-      );
-    };
-  }, []);
+    window.clearTimeout(
+      timeoutId,
+    );
+  };
+}, []);
 
   const availableCategories =
     useMemo(

@@ -3,6 +3,7 @@
 /* eslint-disable react-hooks/set-state-in-effect -- sessionStorageとIndexedDBの状態を初回表示時に復元するため */
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   useCallback,
   useEffect,
@@ -223,6 +224,7 @@ function Icon({
 }
 
 export default function ResultPage() {
+  const router = useRouter();
   const afterRequestStartedRef =
     useRef(false);
 
@@ -295,172 +297,352 @@ export default function ResultPage() {
   ] = useState(false);
 
   useEffect(() => {
-    const savedImage =
-      window.sessionStorage.getItem(
-        IMAGE_STORAGE_KEY,
-      );
+    let isCancelled = false;
+    let animationFrame = 0;
 
-    const rawResult =
-      window.sessionStorage.getItem(
-        RESULT_STORAGE_KEY,
-      );
-
-    const savedAfterImageUrl =
-      window.sessionStorage.getItem(
-        SAVED_AFTER_IMAGE_STORAGE_KEY,
-      );
-
-    const savedBackHref =
-      window.sessionStorage.getItem(
-        RESULT_BACK_HREF_STORAGE_KEY,
-      );
-
-    if (savedAfterImageUrl) {
-      setAfterImage(
-        savedAfterImageUrl,
-      );
-    }
-
-    if (
-      savedBackHref ===
-      "/history"
-    ) {
-      setIsHistoryView(
-        true,
-      );
-    }
-
-    if (!rawResult) {
-      setImage(savedImage);
-
-      setLoadError(
-        "診断結果が見つかりません。もう一度AI診断を実行してください。",
-      );
-
-      setIsReady(true);
-
-      return;
-    }
-
-    try {
-      const parsed =
-        JSON.parse(
-          rawResult,
-        ) as AkanukeAnalysis;
-
-      setImage(savedImage);
-      setAnalysis(parsed);
-      setIsReady(true);
-
-      const targetProgress =
-        Math.max(
-          0,
-          Math.min(
-            100,
-            Math.round(
-              parsed.progress,
-            ),
-          ),
-        );
-
-      const animationResultId =
-        createResultAnimationId(
-          rawResult,
-        );
-
-      const previousAnimationResultId =
+    async function loadResult() {
+      const savedImage =
         window.sessionStorage.getItem(
-          PROGRESS_ANIMATION_STORAGE_KEY,
+          IMAGE_STORAGE_KEY,
         );
 
-      if (
-        previousAnimationResultId ===
-        animationResultId
-      ) {
-        setDisplayProgress(
-          targetProgress,
+      const rawResult =
+        window.sessionStorage.getItem(
+          RESULT_STORAGE_KEY,
         );
 
-        return;
+      const savedAfterImageUrl =
+        window.sessionStorage.getItem(
+          SAVED_AFTER_IMAGE_STORAGE_KEY,
+        );
+
+      const savedBackHref =
+        window.sessionStorage.getItem(
+          RESULT_BACK_HREF_STORAGE_KEY,
+        );
+
+      if (savedAfterImageUrl) {
+        setAfterImage(
+          savedAfterImageUrl,
+        );
       }
 
-      setDisplayProgress(0);
-
-      const duration = 1400;
-      const startedAt =
-        performance.now();
-
-      let frame = 0;
-
-      const animate = (
-        now: number,
-      ) => {
-        const progress =
-          Math.min(
-            (now -
-              startedAt) /
-              duration,
-            1,
-          );
-
-        const eased =
-          1 -
-          Math.pow(
-            1 - progress,
-            3,
-          );
-
-        setDisplayProgress(
-          Math.round(
-            targetProgress *
-              eased,
-          ),
+      if (
+        savedBackHref ===
+        "/history"
+      ) {
+        setIsHistoryView(
+          true,
         );
+      }
 
-        if (progress < 1) {
-          frame =
-            window.requestAnimationFrame(
-              animate,
+      /*
+       * sessionStorageに診断結果がない場合は、
+       * Supabaseの最新診断へ復帰します。
+       *
+       * SafariとLINE内ブラウザでは
+       * sessionStorageが共有されないため、
+       * ブラウザストレージだけを診断有無の正にしません。
+       */
+      if (!rawResult) {
+        try {
+          const response =
+            await fetch(
+              "/api/diagnoses/latest",
+              {
+                method: "GET",
+                cache: "no-store",
+              },
             );
+
+          const data =
+            (await response.json()) as {
+              hasDiagnosis?: boolean;
+              diagnosisId?: string | null;
+              error?: string;
+            };
+
+          if (
+            isCancelled
+          ) {
+            return;
+          }
+
+          if (
+            response.ok &&
+            data.hasDiagnosis === true &&
+            typeof data.diagnosisId ===
+              "string" &&
+            data.diagnosisId.trim()
+              .length > 0
+          ) {
+            window.sessionStorage.setItem(
+              DIAGNOSIS_ID_STORAGE_KEY,
+              data.diagnosisId,
+            );
+
+            router.replace(
+              `/line/result?diagnosisId=${encodeURIComponent(
+                data.diagnosisId,
+              )}`,
+            );
+
+            return;
+          }
+
+          setImage(
+            savedImage,
+          );
+
+          setLoadError(
+            "診断結果が見つかりません。もう一度AI診断を実行してください。",
+          );
+
+          setIsReady(true);
+
+          return;
+        } catch (error) {
+          console.error(
+            "[AKANUKE.AI] Result復帰用の最新診断取得エラー:",
+            error,
+          );
+
+          if (
+            isCancelled
+          ) {
+            return;
+          }
+
+          setImage(
+            savedImage,
+          );
+
+          setLoadError(
+            "診断結果を確認できませんでした。ページを再読み込みして、もう一度お試しください。",
+          );
+
+          setIsReady(true);
+
+          return;
+        }
+      }
+
+      try {
+        const parsed =
+          JSON.parse(
+            rawResult,
+          ) as AkanukeAnalysis;
+
+        if (
+          isCancelled
+        ) {
+          return;
+        }
+
+        setImage(savedImage);
+        setAnalysis(parsed);
+        setIsReady(true);
+
+        const targetProgress =
+          Math.max(
+            0,
+            Math.min(
+              100,
+              Math.round(
+                parsed.progress,
+              ),
+            ),
+          );
+
+        const animationResultId =
+          createResultAnimationId(
+            rawResult,
+          );
+
+        const previousAnimationResultId =
+          window.sessionStorage.getItem(
+            PROGRESS_ANIMATION_STORAGE_KEY,
+          );
+
+        if (
+          previousAnimationResultId ===
+          animationResultId
+        ) {
+          setDisplayProgress(
+            targetProgress,
+          );
 
           return;
         }
 
-        window.sessionStorage.setItem(
+        setDisplayProgress(0);
+
+        const duration = 1400;
+        const startedAt =
+          performance.now();
+
+        const animate = (
+          now: number,
+        ) => {
+          if (
+            isCancelled
+          ) {
+            return;
+          }
+
+          const progress =
+            Math.min(
+              (now -
+                startedAt) /
+                duration,
+              1,
+            );
+
+          const eased =
+            1 -
+            Math.pow(
+              1 - progress,
+              3,
+            );
+
+          setDisplayProgress(
+            Math.round(
+              targetProgress *
+                eased,
+            ),
+          );
+
+          if (
+            progress < 1
+          ) {
+            animationFrame =
+              window.requestAnimationFrame(
+                animate,
+              );
+
+            return;
+          }
+
+          window.sessionStorage.setItem(
+            PROGRESS_ANIMATION_STORAGE_KEY,
+            animationResultId,
+          );
+
+          setDisplayProgress(
+            targetProgress,
+          );
+        };
+
+        animationFrame =
+          window.requestAnimationFrame(
+            animate,
+          );
+      
+                } catch (error) {
+        console.error(
+          "[AKANUKE.AI] sessionStorageの診断結果を読み込めませんでした:",
+          error,
+        );
+
+        if (isCancelled) {
+          return;
+        }
+
+        /*
+         * sessionStorageに古い・壊れた診断結果が残っている場合も、
+         * そのデータを正として扱わずSupabaseの最新診断へ復帰します。
+         */
+        window.sessionStorage.removeItem(
+          RESULT_STORAGE_KEY,
+        );
+
+        window.sessionStorage.removeItem(
           PROGRESS_ANIMATION_STORAGE_KEY,
-          animationResultId,
         );
 
-        setDisplayProgress(
-          targetProgress,
-        );
-      };
+        try {
+          const response =
+            await fetch(
+              "/api/diagnoses/latest",
+              {
+                method: "GET",
+                cache: "no-store",
+              },
+            );
 
-      frame =
-        window.requestAnimationFrame(
-          animate,
-        );
+          const data =
+            (await response.json()) as {
+              hasDiagnosis?: boolean;
+              diagnosisId?: string | null;
+              error?: string;
+            };
 
-      return () => {
-        window.cancelAnimationFrame(
-          frame,
-        );
-      };
-    } catch (error) {
-      console.error(
-        "Result parse error:",
-        error,
-      );
+          if (isCancelled) {
+            return;
+          }
 
-      setImage(savedImage);
+          if (
+            response.ok &&
+            data.hasDiagnosis === true &&
+            typeof data.diagnosisId ===
+              "string" &&
+            data.diagnosisId.trim().length >
+              0
+          ) {
+            window.sessionStorage.setItem(
+              DIAGNOSIS_ID_STORAGE_KEY,
+              data.diagnosisId,
+            );
 
-      setLoadError(
-        "診断結果を読み込めませんでした。もう一度AI診断を実行してください。",
-      );
+            router.replace(
+              `/line/result?diagnosisId=${encodeURIComponent(
+                data.diagnosisId,
+              )}`,
+            );
 
-      setIsReady(true);
+            return;
+          }
+
+          setImage(savedImage);
+
+          setLoadError(
+            "診断結果が見つかりません。もう一度AI診断を実行してください。",
+          );
+
+          setIsReady(true);
+        } catch (fallbackError) {
+          console.error(
+            "[AKANUKE.AI] Result復帰用の最新診断取得エラー:",
+            fallbackError,
+          );
+
+          if (isCancelled) {
+            return;
+          }
+
+          setImage(savedImage);
+
+          setLoadError(
+            "診断結果を確認できませんでした。ページを再読み込みして、もう一度お試しください。",
+          );
+
+          setIsReady(true);
+        }
+      }
     }
-  }, []);
+
+    void loadResult();
+
+    return () => {
+      isCancelled = true;
+
+      if (animationFrame) {
+        window.cancelAnimationFrame(
+          animationFrame,
+        );
+      }
+    };
+  }, [router]);
 
   const stopAfterProgressTimer =
     useCallback(() => {

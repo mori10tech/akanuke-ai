@@ -120,6 +120,125 @@ const planTasks: PlanTask[] = [
   },
 ];
 
+type PlanCategory =
+  | "髪型"
+  | "眉毛"
+  | "肌"
+  | "身だしなみ";
+
+function detectPriorityCategory(
+  text: string,
+): PlanCategory | null {
+  const normalized =
+    text.toLowerCase();
+
+  if (
+    normalized.includes("眉")
+  ) {
+    return "眉毛";
+  }
+
+  if (
+    normalized.includes("髪") ||
+    normalized.includes("ヘア") ||
+    normalized.includes("前髪")
+  ) {
+    return "髪型";
+  }
+
+  if (
+    normalized.includes("肌") ||
+    normalized.includes("毛穴") ||
+    normalized.includes("くすみ") ||
+    normalized.includes("乾燥") ||
+    normalized.includes("テカリ") ||
+    normalized.includes("スキン")
+  ) {
+    return "肌";
+  }
+
+  if (
+    normalized.includes("身だしなみ") ||
+    normalized.includes("ヒゲ") ||
+    normalized.includes("髭") ||
+    normalized.includes("鼻毛") ||
+    normalized.includes("爪")
+  ) {
+    return "身だしなみ";
+  }
+
+  return null;
+}
+
+function createPlanCategoryPriorities(
+  analysis: AkanukeAnalysis | null,
+) {
+  const defaultOrder: PlanCategory[] =
+    [
+      "髪型",
+      "眉毛",
+      "肌",
+      "身だしなみ",
+    ];
+
+  if (!analysis) {
+    return new Map(
+      defaultOrder.map(
+        (category, index) => [
+          category,
+          index + 1,
+        ],
+      ),
+    );
+  }
+
+  const detectedCategories: PlanCategory[] =
+    [];
+
+  for (
+    const priority of analysis.priorities
+  ) {
+    const category =
+      detectPriorityCategory(
+        `${priority.title} ${priority.description}`,
+      );
+
+    if (
+      category &&
+      !detectedCategories.includes(
+        category,
+      )
+    ) {
+      detectedCategories.push(
+        category,
+      );
+    }
+  }
+
+  for (
+    const category of defaultOrder
+  ) {
+    if (
+      !detectedCategories.includes(
+        category,
+      )
+    ) {
+      detectedCategories.push(
+        category,
+      );
+    }
+  }
+
+  return new Map(
+    detectedCategories.map(
+      (category, index) => [
+        category,
+        index + 1,
+      ],
+    ),
+  );
+}
+
 function Icon({
   name,
   className = "h-5 w-5",
@@ -858,6 +977,53 @@ const { response, data } =
     };
   }, []);
 
+  const categoryPriorities =
+  useMemo(
+    () =>
+      createPlanCategoryPriorities(
+        salonAnalysis,
+      ),
+    [salonAnalysis],
+  );
+
+const orderedPlanTasks =
+  useMemo(
+    () =>
+      [...planTasks].sort(
+        (a, b) => {
+          const aPriority =
+            categoryPriorities.get(
+              a.category as PlanCategory,
+            ) ?? 999;
+
+          const bPriority =
+            categoryPriorities.get(
+              b.category as PlanCategory,
+            ) ?? 999;
+
+          if (
+            aPriority !==
+            bPriority
+          ) {
+            return (
+              aPriority -
+              bPriority
+            );
+          }
+
+          /*
+           * 同じカテゴリ内では、
+           * 今までのタスク順を維持します。
+           */
+          return (
+            a.priority -
+            b.priority
+          );
+        },
+      ),
+    [categoryPriorities],
+  );
+
   const completedCount =
     completedIds.length;
 
@@ -1161,8 +1327,8 @@ if (!loaded) {
             </div>
 
             <div className="mt-4 space-y-3">
-              {planTasks.map(
-                (task) => {
+              {orderedPlanTasks.map(
+  (task, index) => {
                   const completed =
                     completedIds.includes(
                       task.id,
@@ -1222,15 +1388,11 @@ if (!loaded) {
                           <div className="flex items-start justify-between gap-3">
                             <div>
                               <p className="text-[9px] font-black text-[#1677FF]">
-                                優先度{" "}
-                                {
-                                  task.priority
-                                }
-                                ・
-                                {
-                                  task.category
-                                }
-                              </p>
+  優先度{" "}
+  {index + 1}
+  ・
+  {task.category}
+</p>
 
                               <h3
                                 className={`mt-1 text-[15px] font-black ${

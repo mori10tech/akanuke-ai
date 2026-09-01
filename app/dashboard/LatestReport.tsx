@@ -73,7 +73,7 @@ export default async function LatestReport() {
           まだ診断結果がありません
         </h2>
 
-        <p className="mt-2 text-[11px] leading-5 text-black/45">
+        <p className="mt-2 text-[11px] leading-5 text-black/65">
           AI診断を完了すると、最新レポートがここに表示されます。
         </p>
       </section>
@@ -118,7 +118,7 @@ export default async function LatestReport() {
               </span>
             </div>
 
-            <p className="mt-2 text-[9px] leading-4 text-black/35">
+            <p className="mt-2 text-[10px] leading-4 text-black/65">
               Afterイメージを100%とした現在の目安
             </p>
           </div>
@@ -129,7 +129,7 @@ export default async function LatestReport() {
         </div>
 
         <div className="mt-4 flex items-center gap-3">
-          <span className="text-[8px] font-black text-black/35">
+          <span className="text-[8px] font-black text-black/60">
             CURRENT
           </span>
 
@@ -160,7 +160,7 @@ export default async function LatestReport() {
             </h3>
           </div>
 
-          <p className="text-[9px] text-black/35">
+          <p className="text-[9px] font-bold text-black/60">
             上から優先
           </p>
         </div>
@@ -181,7 +181,7 @@ export default async function LatestReport() {
                     {item.title}
                   </p>
 
-                  <p className="mt-0.5 truncate text-[9px] text-black/35">
+                  <p className="mt-1 text-[10px] leading-5 text-black/70">
                     {item.description}
                   </p>
                 </div>

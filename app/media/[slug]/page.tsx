@@ -16,6 +16,7 @@ import JournalServiceCta from "../components/JournalServiceCta";
 import ArticleStructuredData from "./ArticleStructuredData";
 import AkanukenaiManFeaturesArticle from "./articles/AkanukenaiManFeaturesArticle";
 import MensAkanukeHairstyleArticle from "./articles/MensAkanukeHairstyleArticle";
+import MensAkanukeOrderArticle from "./articles/MensAkanukeOrderArticle";
 import JournalFooter from "../components/JournalFooter";
 import MensBeautyBeginnerArticle from "./articles/MensBeautyBeginnerArticle";
 
@@ -397,6 +398,107 @@ export default async function ArticleDetailPage({
       </>
     );
   }
+
+  if (article.slug === "mens-akanuke-order") {
+  return (
+    <main className="min-h-screen bg-white text-[#111111]">
+      <header className="sticky top-0 z-40 border-b border-black/5 bg-white/90 backdrop-blur-xl">
+        <div className="mx-auto flex h-[64px] max-w-[1120px] items-center justify-between px-5">
+          <Link
+            href="/media"
+            className="flex items-center gap-2 text-[11px] font-bold text-black/50 transition hover:text-black"
+          >
+            <ArrowLeftIcon />
+            記事一覧
+          </Link>
+
+          <Logo href="/media" />
+
+          <Link
+            href="/"
+            className="flex min-h-[36px] items-center justify-center rounded-full bg-[#FFD400] px-4 text-[11px] font-black text-[#111111]"
+          >
+            無料診断
+          </Link>
+        </div>
+      </header>
+
+      <article>
+        <header className="mx-auto max-w-[900px] px-5 pb-8 pt-12 sm:pt-16">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="rounded-full bg-[#EEF6FF] px-3 py-1.5 text-[10px] font-black text-[#1677FF]">
+              {article.category}
+            </span>
+
+            <span className="text-[10px] font-bold text-black/35">
+              {article.readingTime}
+            </span>
+          </div>
+
+          <h1 className="mt-5 max-w-[800px] text-[30px] font-semibold leading-[1.4] tracking-[-0.045em] sm:text-[40px]">
+            {article.title}
+          </h1>
+
+          <p className="mt-5 max-w-[760px] text-[13px] leading-7 text-black/55 sm:text-[14px]">
+            {article.description}
+          </p>
+
+          <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 text-[10px] font-bold text-black/35">
+            <span>
+              公開日 {article.publishedAt.replaceAll("-", ".")}
+            </span>
+
+            {article.updatedAt && (
+              <span>
+                更新日 {article.updatedAt.replaceAll("-", ".")}
+              </span>
+            )}
+          </div>
+
+          <div className="relative mt-8 aspect-[1200/560] overflow-hidden rounded-[24px] bg-[#F3F6F9]">
+            <Image
+              src={article.image}
+              alt={article.title}
+              fill
+              priority
+              sizes="(max-width: 900px) 100vw, 900px"
+              className="object-cover"
+            />
+          </div>
+        </header>
+
+        <MensAkanukeOrderArticle article={article} />
+      </article>
+
+      <footer className="mt-20 border-t border-black/10 bg-[#F8FAFC]">
+        <div className="mx-auto flex max-w-[1120px] flex-col gap-6 px-5 py-10 sm:flex-row sm:items-center sm:justify-between">
+          <Link
+            href="/"
+            className="text-[13px] font-black tracking-[-0.02em]"
+          >
+            AKANUKE.AI
+          </Link>
+
+          <div className="flex flex-wrap gap-x-5 gap-y-3 text-[10px] font-bold text-black/45">
+            <Link
+              href="/"
+              className="transition hover:text-black"
+            >
+              トップページ
+            </Link>
+
+            <Link
+              href="/media"
+              className="transition hover:text-black"
+            >
+              記事一覧
+            </Link>
+          </div>
+        </div>
+      </footer>
+    </main>
+  );
+}
 
   if (article.slug === "mens-beauty-beginner") {
     return (

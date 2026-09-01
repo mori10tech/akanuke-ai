@@ -12,6 +12,32 @@ export type Article = {
 
 export const articles: Article[] = [
   {
+    slug: "mens-akanuke-order",
+
+    title:
+      "メンズが垢抜ける順番｜初心者が最初にやるべき7ステップ",
+
+    description:
+      "垢抜けたい男性向けに、何から始めればいいのかを7ステップで解説。髪型・眉毛・肌・ヒゲ・服装など、初心者でも取り組みやすいおすすめの順番を紹介します。",
+
+    category: "メンズ垢抜け",
+
+    publishedAt: "2026-09-01",
+
+    readingTime: "約8分",
+
+    image: "/media/mens-akanuke-order.png",
+
+    keywords: [
+      "メンズ 垢抜け 順番",
+      "男 垢抜け 順番",
+      "垢抜ける 順番 男",
+      "垢抜け 何から 男",
+      "メンズ 垢抜け 方法",
+    ],
+  },
+
+  {
     slug: "mens-beauty-beginner",
 
     title:

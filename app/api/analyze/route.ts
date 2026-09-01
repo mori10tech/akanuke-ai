@@ -4,8 +4,9 @@ import {
   NextResponse,
 } from "next/server";
 
-import { createAdminClient } from "../../../lib/supabase/admin";
-import { createClient } from "../../../lib/supabase/server";
+import {
+  createClient,
+} from "../../../lib/supabase/server";
 
 import {
   ANALYSIS_SYSTEM_PROMPT,
@@ -21,72 +22,39 @@ type AnalyzeRequestBody = {
   targetImpression?: string;
 };
 
+type ClaimDiagnosisUsageRow = {
+  allowed: boolean;
+  exempt: boolean;
+  used: number;
+  remaining: number;
+  resets_at: string;
+};
+
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
 const MONTHLY_DIAGNOSIS_LIMIT = 3;
 
-const JST_OFFSET_HOURS = 9;
-
-function getMonthlyPeriodJst() {
-  const now = new Date();
-
-  const jstNow = new Date(
-    now.getTime() +
-      JST_OFFSET_HOURS *
-        60 *
-        60 *
-        1000,
-  );
-
-  const year =
-    jstNow.getUTCFullYear();
-
-  const month =
-    jstNow.getUTCMonth();
-
-  const periodStart = new Date(
-    Date.UTC(
-      year,
-      month,
-      1,
-      -JST_OFFSET_HOURS,
-    ),
-  );
-
-  const nextPeriodStart = new Date(
-    Date.UTC(
-      year,
-      month + 1,
-      1,
-      -JST_OFFSET_HOURS,
-    ),
-  );
-
-  return {
-    periodStart:
-      periodStart.toISOString(),
-    nextPeriodStart:
-      nextPeriodStart.toISOString(),
-  };
-}
-
 export async function POST(
   request: NextRequest,
 ) {
   const startedAt = Date.now();
 
-    try {
+  try {
     const supabase =
       await createClient();
 
     const {
       data: { user },
       error: userError,
-    } = await supabase.auth.getUser();
+    } =
+      await supabase.auth.getUser();
 
-    if (userError || !user) {
+    if (
+      userError ||
+      !user
+    ) {
       return NextResponse.json(
         {
           error:
@@ -100,7 +68,15 @@ export async function POST(
       );
     }
 
-    if (!process.env.OPENAI_API_KEY) {
+    /*
+     * APIキー設定不備では
+     * 診断回数を消費させないため、
+     * 利用枠確保より先に確認します。
+     */
+    if (
+      !process.env
+        .OPENAI_API_KEY
+    ) {
       return NextResponse.json(
         {
           error:
@@ -121,6 +97,10 @@ export async function POST(
     const targetImpression =
       body.targetImpression?.trim();
 
+    /*
+     * 不正なリクエストでは
+     * 診断回数を消費させません。
+     */
     if (!imageDataUrl) {
       return NextResponse.json(
         {
@@ -161,72 +141,28 @@ export async function POST(
       );
     }
 
-        const {
-      periodStart,
-      nextPeriodStart,
-    } = getMonthlyPeriodJst();
-
-        const adminClient =
-      createAdminClient();
-
     /*
-     * 診断上限の対象外として登録された
-     * テストアカウントか確認します。
+     * PostgreSQL側で診断枠を原子的に確保します。
+     *
+     * 同じユーザーから同時に複数リクエストが来ても、
+     * DB側で順番に処理されるため、
+     * 月3回の上限を超えてOpenAIを実行しません。
+     *
+     * diagnosis_limit_exemptionsに登録されたユーザーは
+     * RPC側で制限対象外になります。
      */
     const {
-      data: exemption,
-      error: exemptionError,
-    } = await adminClient
-      .from(
-        "diagnosis_limit_exemptions",
-      )
-      .select("user_id")
-      .eq("user_id", user.id)
-      .maybeSingle();
+      data: claimData,
+      error: claimError,
+    } =
+      await supabase.rpc(
+        "claim_diagnosis_usage",
+      );
 
-    if (exemptionError) {
+    if (claimError) {
       console.error(
-        "[AKANUKE.AI] 診断上限除外確認エラー",
-        exemptionError,
-      );
-
-      return NextResponse.json(
-        {
-          error:
-            "診断上限の設定を確認できませんでした。時間をおいて再度お試しください。",
-        },
-        {
-          status: 500,
-        },
-      );
-    }
-
-    const isExempt =
-      Boolean(exemption);
-
-    const {
-      count: diagnosisCount,
-      error: countError,
-    } = await adminClient
-      .from("diagnoses")
-      .select("id", {
-        count: "exact",
-        head: true,
-      })
-      .eq("user_id", user.id)
-      .gte(
-        "created_at",
-        periodStart,
-      )
-      .lt(
-        "created_at",
-        nextPeriodStart,
-      );
-
-    if (countError) {
-      console.error(
-        "[AKANUKE.AI] 診断回数取得エラー",
-        countError,
+        "[AKANUKE.AI] 診断利用枠確保エラー:",
+        claimError,
       );
 
       return NextResponse.json(
@@ -240,14 +176,44 @@ export async function POST(
       );
     }
 
-    const usedCount =
-      diagnosisCount ?? 0;
+    const claim =
+      Array.isArray(
+        claimData,
+      ) &&
+      claimData.length > 0
+        ? (claimData[0] as ClaimDiagnosisUsageRow)
+        : null;
 
-        if (
-      !isExempt &&
-      usedCount >=
-        MONTHLY_DIAGNOSIS_LIMIT
+    if (
+      !claim ||
+      typeof claim.allowed !==
+        "boolean" ||
+      typeof claim.exempt !==
+        "boolean" ||
+      typeof claim.used !==
+        "number" ||
+      typeof claim.remaining !==
+        "number" ||
+      typeof claim.resets_at !==
+        "string"
     ) {
+      console.error(
+        "[AKANUKE.AI] 診断利用枠確保RPCのレスポンス形式が不正です:",
+        claimData,
+      );
+
+      return NextResponse.json(
+        {
+          error:
+            "診断回数を確認できませんでした。時間をおいて再度お試しください。",
+        },
+        {
+          status: 500,
+        },
+      );
+    }
+
+    if (!claim.allowed) {
       return NextResponse.json(
         {
           error:
@@ -256,11 +222,14 @@ export async function POST(
             "DIAGNOSIS_LIMIT_REACHED",
           limit:
             MONTHLY_DIAGNOSIS_LIMIT,
-                    exempt: isExempt,
-          used: usedCount,
-          remaining: 0,
+          exempt:
+            claim.exempt,
+          used:
+            claim.used,
+          remaining:
+            claim.remaining,
           resetsAt:
-            nextPeriodStart,
+            claim.resets_at,
         },
         {
           status: 429,
@@ -272,12 +241,21 @@ export async function POST(
       "[AKANUKE.AI] AI診断開始",
       {
         userId: user.id,
-        used: usedCount,
+        used:
+          claim.used,
+        remaining:
+          claim.remaining,
         limit:
           MONTHLY_DIAGNOSIS_LIMIT,
+        exempt:
+          claim.exempt,
       },
     );
 
+    /*
+     * 診断利用枠を確保できた場合だけ
+     * OpenAIを実行します。
+     */
     const response =
       await openai.responses.create({
         model:
@@ -291,13 +269,6 @@ export async function POST(
           effort: "none",
         },
 
-        /*
-         * 診断結果は構造化JSONなので、
-         * 不必要に長い出力を生成させません。
-         *
-         * After生成に必要な情報量は維持しつつ、
-         * レスポンス生成時間を抑えます。
-         */
         max_output_tokens: 2500,
 
         input: [
@@ -306,7 +277,8 @@ export async function POST(
             content: [
               {
                 type: "input_text",
-                text: ANALYSIS_SYSTEM_PROMPT,
+                text:
+                  ANALYSIS_SYSTEM_PROMPT,
               },
             ],
           },
@@ -331,7 +303,7 @@ AKANUKE PROGRESSは、
 容姿の点数ではなく、
 希望するAfterイメージへの現在の到達度として算出してください。
 
-【回答量】 
+【回答量】
 スマートフォンで短時間に理解できることを最優先してください。
 
 文章は必要最小限にし、
@@ -384,7 +356,8 @@ afterDirectionはAfter画像生成に使用するため、
 
               {
                 type: "input_image",
-                image_url: imageDataUrl,
+                image_url:
+                  imageDataUrl,
                 detail: "auto",
               },
             ],
@@ -394,7 +367,8 @@ afterDirectionはAfter画像生成に使用するため、
         text: {
           format: {
             type: "json_schema",
-            name: "akanuke_analysis",
+            name:
+              "akanuke_analysis",
             strict: true,
             schema:
               akanukeAnalysisJsonSchema,
@@ -402,7 +376,9 @@ afterDirectionはAfter画像生成に使用するため、
         },
       });
 
-    if (!response.output_text) {
+    if (
+      !response.output_text
+    ) {
       throw new Error(
         "OpenAIから診断結果が返されませんでした。",
       );
@@ -413,43 +389,56 @@ afterDirectionはAfter画像生成に使用するため、
         response.output_text,
       ) as AkanukeAnalysis;
 
-    const normalizedResult: AkanukeAnalysis = {
-      ...parsed,
+    const normalizedResult: AkanukeAnalysis =
+      {
+        ...parsed,
 
-      progress: Math.max(
-        0,
-        Math.min(
-          100,
-          Math.round(
-            parsed.progress,
+        progress:
+          Math.max(
+            0,
+            Math.min(
+              100,
+              Math.round(
+                parsed.progress,
+              ),
+            ),
           ),
-        ),
-      ),
 
-      targetImpression,
+        targetImpression,
 
-      priorities: [
-        {
-          ...parsed.priorities[0],
-          rank: 1,
-        },
-        {
-          ...parsed.priorities[1],
-          rank: 2,
-        },
-        {
-          ...parsed.priorities[2],
-          rank: 3,
-        },
-      ],
-    };
+        priorities: [
+          {
+            ...parsed.priorities[0],
+            rank: 1,
+          },
+          {
+            ...parsed.priorities[1],
+            rank: 2,
+          },
+          {
+            ...parsed.priorities[2],
+            rank: 3,
+          },
+        ],
+      };
 
     const durationMs =
-      Date.now() - startedAt;
+      Date.now() -
+      startedAt;
 
     console.log(
       "[AKANUKE.AI] AI診断完了:",
-      `${durationMs}ms`,
+      {
+        userId:
+          user.id,
+        durationMs,
+        used:
+          claim.used,
+        remaining:
+          claim.remaining,
+        exempt:
+          claim.exempt,
+      },
     );
 
     return NextResponse.json(
@@ -460,7 +449,8 @@ afterDirectionはAfter画像生成に使用するため、
     );
   } catch (error) {
     const durationMs =
-      Date.now() - startedAt;
+      Date.now() -
+      startedAt;
 
     const errorMessage =
       error instanceof Error
@@ -475,11 +465,19 @@ afterDirectionはAfter画像生成に使用するため、
       },
     );
 
+    /*
+     * OpenAI実行開始後のエラーについては、
+     * 確保済みの診断回数を戻しません。
+     *
+     * 月3回制限をOpenAI実行回数の
+     * コスト制御として確実に機能させるためです。
+     */
     return NextResponse.json(
       {
         error:
-          process.env.NODE_ENV ===
-          "development"
+          process.env
+              .NODE_ENV ===
+            "development"
             ? errorMessage
             : "AI診断中にエラーが発生しました。時間をおいてもう一度お試しください。",
       },

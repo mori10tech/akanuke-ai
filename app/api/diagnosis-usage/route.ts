@@ -1,59 +1,82 @@
-import { NextResponse } from "next/server";
+import {
+  NextResponse,
+} from "next/server";
 
-import { createAdminClient } from "../../../lib/supabase/admin";
-import { createClient } from "../../../lib/supabase/server";
+import {
+  createAdminClient,
+} from "../../../lib/supabase/admin";
 
-const MONTHLY_DIAGNOSIS_LIMIT = 3;
+import {
+  createClient,
+} from "../../../lib/supabase/server";
+
+const MONTHLY_DIAGNOSIS_LIMIT =
+  3;
+
 const JST_OFFSET_HOURS = 9;
 
 function getMonthlyPeriodJst() {
-  const now = new Date();
+  const now =
+    new Date();
 
-  const jstNow = new Date(
-    now.getTime() +
-      JST_OFFSET_HOURS *
-        60 *
-        60 *
-        1000,
-  );
+  const jstNow =
+    new Date(
+      now.getTime() +
+        JST_OFFSET_HOURS *
+          60 *
+          60 *
+          1000,
+    );
 
-  const year = jstNow.getUTCFullYear();
-  const month = jstNow.getUTCMonth();
+  const year =
+    jstNow.getUTCFullYear();
 
-  const startsAt = new Date(
-    Date.UTC(
-      year,
-      month,
-      1,
-      -JST_OFFSET_HOURS,
-    ),
-  );
+  const month =
+    jstNow.getUTCMonth();
 
-  const resetsAt = new Date(
-    Date.UTC(
-      year,
+  const monthNumber =
+    String(
       month + 1,
-      1,
-      -JST_OFFSET_HOURS,
-    ),
-  );
+    ).padStart(
+      2,
+      "0",
+    );
+
+  const periodStart =
+    `${year}-${monthNumber}-01`;
+
+  const resetsAt =
+    new Date(
+      Date.UTC(
+        year,
+        month + 1,
+        1,
+        -JST_OFFSET_HOURS,
+      ),
+    );
 
   return {
-    startsAt: startsAt.toISOString(),
-    resetsAt: resetsAt.toISOString(),
+    periodStart,
+    resetsAt:
+      resetsAt.toISOString(),
   };
 }
 
 export async function GET() {
   try {
-    const supabase = await createClient();
+    const supabase =
+      await createClient();
 
     const {
       data: { user },
       error: userError,
-    } = await supabase.auth.getUser();
+    } =
+      await supabase.auth.getUser();
 
-    if (userError || !user) {
+    if (
+      userError ||
+      !user
+    ) {
       return NextResponse.json(
         {
           error:
@@ -66,25 +89,37 @@ export async function GET() {
     }
 
     const {
-      startsAt,
+      periodStart,
       resetsAt,
-    } = getMonthlyPeriodJst();
+    } =
+      getMonthlyPeriodJst();
 
     const adminClient =
       createAdminClient();
 
+    /*
+     * テスター等の診断上限除外設定を確認します。
+     */
     const {
       data: exemption,
       error: exemptionError,
-    } = await adminClient
-      .from(
-        "diagnosis_limit_exemptions",
-      )
-      .select("user_id")
-      .eq("user_id", user.id)
-      .maybeSingle();
+    } =
+      await adminClient
+        .from(
+          "diagnosis_limit_exemptions",
+        )
+        .select(
+          "user_id",
+        )
+        .eq(
+          "user_id",
+          user.id,
+        )
+        .maybeSingle();
 
-    if (exemptionError) {
+    if (
+      exemptionError
+    ) {
       console.error(
         "[AKANUKE.AI] 診断上限除外確認エラー",
         exemptionError,
@@ -102,25 +137,43 @@ export async function GET() {
     }
 
     const isExempt =
-      Boolean(exemption);
+      Boolean(
+        exemption,
+      );
 
+    /*
+     * 新しい月次利用回数テーブルを正として確認します。
+     *
+     * diagnosesの件数から利用回数を逆算しません。
+     * OpenAI診断開始時に確保された利用枠を表示します。
+     */
     const {
-      count,
-      error: countError,
-    } = await adminClient
-      .from("diagnoses")
-      .select("id", {
-        count: "exact",
-        head: true,
-      })
-      .eq("user_id", user.id)
-      .gte("created_at", startsAt)
-      .lt("created_at", resetsAt);
+      data: usage,
+      error: usageError,
+    } =
+      await adminClient
+        .from(
+          "diagnosis_monthly_usage",
+        )
+        .select(
+          "used_count",
+        )
+        .eq(
+          "user_id",
+          user.id,
+        )
+        .eq(
+          "period_start",
+          periodStart,
+        )
+        .maybeSingle();
 
-    if (countError) {
+    if (
+      usageError
+    ) {
       console.error(
-        "[AKANUKE.AI] 診断回数取得エラー",
-        countError,
+        "[AKANUKE.AI] 診断利用回数取得エラー",
+        usageError,
       );
 
       return NextResponse.json(
@@ -134,8 +187,12 @@ export async function GET() {
       );
     }
 
-        const used =
-      count ?? 0;
+    const used =
+      typeof usage
+        ?.used_count ===
+        "number"
+        ? usage.used_count
+        : 0;
 
     const remaining =
       isExempt
@@ -146,20 +203,30 @@ export async function GET() {
               used,
           );
 
-    return NextResponse.json({
-      limit:
-        MONTHLY_DIAGNOSIS_LIMIT,
-      used,
-      remaining,
-      reached:
-        isExempt
-          ? false
-          : used >=
-            MONTHLY_DIAGNOSIS_LIMIT,
-      resetsAt,
-      exempt:
-        isExempt,
-    });
+    return NextResponse.json(
+      {
+        limit:
+          MONTHLY_DIAGNOSIS_LIMIT,
+
+        used,
+
+        remaining,
+
+        reached:
+          isExempt
+            ? false
+            : used >=
+              MONTHLY_DIAGNOSIS_LIMIT,
+
+        resetsAt,
+
+        exempt:
+          isExempt,
+      },
+      {
+        status: 200,
+      },
+    );
   } catch (error) {
     console.error(
       "[AKANUKE.AI] 診断回数取得処理エラー",

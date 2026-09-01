@@ -1182,11 +1182,11 @@ useEffect(() => {
             </div>
 
             <button
-              type="button"
-              onClick={handleDiagnosis}
-              disabled={cannotStartDiagnosis}
-              className="min-h-[52px] w-full rounded-[11px] bg-black px-4 text-[14px] font-black text-white shadow-lg transition hover:bg-black/85 active:scale-[0.99] disabled:cursor-not-allowed disabled:bg-black/10 disabled:text-black/40 disabled:shadow-none"
-            >
+  type="button"
+  onClick={handleDiagnosis}
+  disabled={cannotStartDiagnosis}
+  className="group min-h-[52px] w-full touch-manipulation rounded-[11px] bg-black px-4 text-[14px] font-black text-white shadow-[0_8px_20px_rgba(0,0,0,0.18)] transition-all duration-100 hover:bg-black/85 active:translate-y-[1px] active:scale-[0.97] active:bg-black/80 active:shadow-[0_2px_6px_rgba(0,0,0,0.12)] disabled:cursor-not-allowed disabled:bg-black/10 disabled:text-black/40 disabled:shadow-none disabled:active:translate-y-0 disabled:active:scale-100"
+>
               {isUsageLoading
                 ? "診断回数を確認中…"
                 : usageError
@@ -1196,13 +1196,13 @@ useEffect(() => {
                     : "AI診断をはじめる"}
 
               {!cannotStartDiagnosis ? (
-                <span
-                  className="ml-2"
-                  aria-hidden="true"
-                >
-                  →
-                </span>
-              ) : null}
+  <span
+    className="ml-2 inline-block transition-transform duration-100 group-active:translate-x-1"
+    aria-hidden="true"
+  >
+    →
+  </span>
+) : null}
             </button>
 
             <p className="mt-2 text-center text-[9px] font-bold text-black/35">

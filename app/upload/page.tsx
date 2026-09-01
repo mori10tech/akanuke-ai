@@ -849,29 +849,28 @@ useEffect(() => {
 />
 
         <div className="px-4 pb-36 pt-5">
-          <div        >
-            <div>
-              <p className="text-[11px] font-black tracking-[0.14em] text-[#1677FF]">
-                AI BEAUTY DIAGNOSIS
-              </p>
+          <section className="pb-6 pt-2 text-center">
+  <p className="text-[10px] font-black tracking-[0.18em] text-[#1677FF]">
+    AI BEAUTY DIAGNOSIS
+  </p>
 
-              <h1 className="mt-2 text-[28px] font-black leading-[1.25] tracking-[-0.04em]">
-                写真をもとに、
-                <br />
-                あなたの魅力を分析。
-              </h1>
-            </div>
+  <h1 className="mt-2 text-[29px] font-black leading-[1.25] tracking-[-0.045em]">
+    写真をもとに、
+    <br />
+    あなたの魅力を分析。
+  </h1>
 
-          </div>
-
-          <p className="mt-4 text-[13px] leading-6 text-black/60">
-            顔写真となりたい印象をもとに、髪型・眉毛・肌・全体の印象をAIが分析します。
-          </p>
+  <p className="mx-auto mt-2 max-w-[340px] text-[12px] leading-5 text-black/70">
+    顔写真となりたい印象をもとに、
+    <br />
+    髪型・眉毛・肌・全体の印象をAIが分析します。
+  </p>
+</section>
           
           {hasPreviousResult && (
-  <div className="mt-5 rounded-[18px] border border-[#FFD400]/40 bg-[#FFF9D9] p-4">
+  <div className="mt-1 rounded-[18px] border border-[#FFD400]/40 bg-[#FFF9D9] p-4">
     <p className="text-[11px] font-black text-[#111111]">
-      診断済みの方
+      既に診断済みの方
     </p>
 
     <p className="mt-1 text-[10px] leading-5 text-black/80">
@@ -921,16 +920,8 @@ useEffect(() => {
     </div>
   </div>
 )}
-    
-          <div className="mt-5 flex items-center gap-2">
-            <div className="h-1.5 flex-1 rounded-full text-[#1677FF]" />
-            <div
-              className={`h-1.5 flex-1 rounded-full transition-colors ${preview ? "text-[#1677FF]" : "bg-neutral-200"
-                }`}
-            />
-          </div>
 
-          <section className="mt-5 overflow-hidden rounded-[18px] border border-black/10 bg-white shadow-[0_6px_22px_rgba(0,0,0,0.05)]">
+          <section className="mt-4 overflow-hidden rounded-[18px] border border-black/10 bg-white shadow-[0_6px_22px_rgba(0,0,0,0.05)]">
             <div className="flex items-center gap-3 border-b border-black/10 px-4 py-4">
               <span className="flex h-8 w-8 items-center justify-center rounded-full bg-black text-[12px] font-black text-white">
                 1
@@ -946,49 +937,7 @@ useEffect(() => {
 
             <div className="p-4">
 
-              <div className="overflow-hidden rounded-[16px] border border-black/[0.06] bg-[#FAFAFA]">
-  {preview ? (
-    <div className="relative bg-[#EEF6FF]">
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-  src={preview}
-  alt="選択した顔写真"
-  onError={() => {
-    console.warn(
-      "[AKANUKE.AI] 保存画像を読み込めなかったため削除します。",
-    );
-
-    setPreview(null);
-
-    window.sessionStorage.removeItem(
-      IMAGE_STORAGE_KEY,
-    );
-  }}
-  className="block max-h-[500px] min-h-[320px] w-full object-contain"
-/>
-    </div>
-  ) : (
-    <div className="flex min-h-[170px] items-center justify-center px-6 text-center">
-  <div>
-    <p className="text-[16px] font-black text-[#111111]">
-      顔写真を用意してください
-    </p>
-
-    <p className="mt-2 text-[12px] leading-6 text-black/60">
-      顔全体がはっきり見える
-      <br />
-      正面の写真がおすすめです
-    </p>
-
-    <span className="mt-4 inline-flex rounded-full bg-[#FFF9D9] px-3 py-1.5 text-[10px] font-black text-[#1677FF]">
-      写真は診断以外には使用しません
-    </span>
-  </div>
-</div>
-  )}
-</div>
-
-<div className="mt-3 grid grid-cols-2 gap-2.5">
+              <div className="grid grid-cols-2 gap-2.5">
   <button
     type="button"
     onClick={() =>
@@ -1026,6 +975,48 @@ useEffect(() => {
   onChange={handleImage}
   className="hidden"
 />
+
+<div className="mt-3 overflow-hidden rounded-[16px] border border-black/[0.06] bg-[#FAFAFA]">
+  {preview ? (
+    <div className="relative bg-[#EEF6FF]">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={preview}
+        alt="選択した顔写真"
+        onError={() => {
+          console.warn(
+            "[AKANUKE.AI] 保存画像を読み込めなかったため削除します。",
+          );
+
+          setPreview(null);
+
+          window.sessionStorage.removeItem(
+            IMAGE_STORAGE_KEY,
+          );
+        }}
+        className="block max-h-[500px] min-h-[320px] w-full object-contain"
+      />
+    </div>
+  ) : (
+    <div className="flex min-h-[170px] items-center justify-center px-6 text-center">
+      <div>
+        <p className="text-[16px] font-black text-[#111111]">
+          顔写真を用意してください
+        </p>
+
+        <p className="mt-2 text-[12px] leading-6 text-black/60">
+          顔全体がはっきり見える
+          <br />
+          正面の写真がおすすめです
+        </p>
+
+        <span className="mt-4 inline-flex rounded-full bg-[#FFF9D9] px-3 py-1.5 text-[10px] font-black text-[#1677FF]">
+          写真は診断以外には使用しません
+        </span>
+      </div>
+    </div>
+  )}
+</div>
 
               {preview && (
                 <button

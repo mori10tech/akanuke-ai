@@ -12,6 +12,16 @@ type SavePlanProgressBody = {
   completedTaskIds?: string[];
 };
 
+const ALLOWED_PLAN_TASK_IDS =
+  new Set([
+    "hair-salon",
+    "eyebrow",
+    "sunscreen",
+    "moisturize",
+    "hair-set",
+    "grooming",
+  ]);
+
 export async function GET(
   request: NextRequest,
 ) {
@@ -22,9 +32,13 @@ export async function GET(
     const {
       data: { user },
       error: userError,
-    } = await supabase.auth.getUser();
+    } =
+      await supabase.auth.getUser();
 
-    if (userError || !user) {
+    if (
+      userError ||
+      !user
+    ) {
       return NextResponse.json(
         {
           error:
@@ -60,12 +74,19 @@ export async function GET(
     const {
       data: diagnosis,
       error: diagnosisError,
-    } = await supabase
-      .from("diagnoses")
-      .select("id")
-      .eq("id", diagnosisId)
-      .eq("user_id", user.id)
-      .maybeSingle();
+    } =
+      await supabase
+        .from("diagnoses")
+        .select("id")
+        .eq(
+          "id",
+          diagnosisId,
+        )
+        .eq(
+          "user_id",
+          user.id,
+        )
+        .maybeSingle();
 
     if (diagnosisError) {
       console.error(
@@ -99,19 +120,23 @@ export async function GET(
     const {
       data: progress,
       error: progressError,
-    } = await supabase
-      .from(
-        "diagnosis_plan_progress",
-      )
-      .select(
-        "completed_task_ids, updated_at",
-      )
-      .eq(
-        "diagnosis_id",
-        diagnosisId,
-      )
-      .eq("user_id", user.id)
-      .maybeSingle();
+    } =
+      await supabase
+        .from(
+          "diagnosis_plan_progress",
+        )
+        .select(
+          "completed_task_ids, updated_at",
+        )
+        .eq(
+          "diagnosis_id",
+          diagnosisId,
+        )
+        .eq(
+          "user_id",
+          user.id,
+        )
+        .maybeSingle();
 
     if (progressError) {
       console.error(
@@ -136,7 +161,8 @@ export async function GET(
           progress?.completed_task_ids ??
           [],
         updatedAt:
-          progress?.updated_at ?? null,
+          progress?.updated_at ??
+          null,
       },
       {
         status: 200,
@@ -170,9 +196,13 @@ export async function PUT(
     const {
       data: { user },
       error: userError,
-    } = await supabase.auth.getUser();
+    } =
+      await supabase.auth.getUser();
 
-    if (userError || !user) {
+    if (
+      userError ||
+      !user
+    ) {
       return NextResponse.json(
         {
           error:
@@ -190,25 +220,67 @@ export async function PUT(
     const diagnosisId =
       body.diagnosisId?.trim();
 
-    const completedTaskIds =
-      Array.isArray(
-        body.completedTaskIds,
-      )
-        ? body.completedTaskIds.filter(
-            (
-              taskId,
-            ): taskId is string =>
-              typeof taskId ===
-                "string" &&
-              taskId.trim().length > 0,
-          )
-        : [];
-
     if (!diagnosisId) {
       return NextResponse.json(
         {
           error:
             "診断IDが指定されていません。",
+        },
+        {
+          status: 400,
+        },
+      );
+    }
+
+    if (
+      !Array.isArray(
+        body.completedTaskIds,
+      )
+    ) {
+      return NextResponse.json(
+        {
+          error:
+            "プランの進捗データの形式が正しくありません。",
+        },
+        {
+          status: 400,
+        },
+      );
+    }
+
+    const completedTaskIds =
+      body.completedTaskIds.filter(
+        (
+          taskId,
+        ): taskId is string =>
+          typeof taskId ===
+            "string" &&
+          taskId.trim().length >
+            0,
+      );
+
+    const hasInvalidTaskId =
+      completedTaskIds.some(
+        (taskId) =>
+          !ALLOWED_PLAN_TASK_IDS.has(
+            taskId,
+          ),
+      );
+
+    if (hasInvalidTaskId) {
+      console.warn(
+        "[AKANUKE.AI] 不正なプランタスクIDを拒否しました:",
+        {
+          userId: user.id,
+          diagnosisId,
+          completedTaskIds,
+        },
+      );
+
+      return NextResponse.json(
+        {
+          error:
+            "プランの進捗データに無効な項目が含まれています。",
         },
         {
           status: 400,
@@ -222,7 +294,9 @@ export async function PUT(
      */
     const uniqueCompletedTaskIds =
       Array.from(
-        new Set(completedTaskIds),
+        new Set(
+          completedTaskIds,
+        ),
       );
 
     /*
@@ -232,12 +306,19 @@ export async function PUT(
     const {
       data: diagnosis,
       error: diagnosisError,
-    } = await supabase
-      .from("diagnoses")
-      .select("id")
-      .eq("id", diagnosisId)
-      .eq("user_id", user.id)
-      .maybeSingle();
+    } =
+      await supabase
+        .from("diagnoses")
+        .select("id")
+        .eq(
+          "id",
+          diagnosisId,
+        )
+        .eq(
+          "user_id",
+          user.id,
+        )
+        .maybeSingle();
 
     if (diagnosisError) {
       console.error(
@@ -274,29 +355,31 @@ export async function PUT(
     const {
       data: progress,
       error: progressError,
-    } = await supabase
-      .from(
-        "diagnosis_plan_progress",
-      )
-      .upsert(
-        {
-          diagnosis_id:
-            diagnosisId,
-          user_id: user.id,
-          completed_task_ids:
-            uniqueCompletedTaskIds,
-          updated_at:
-            updatedAt,
-        },
-        {
-          onConflict:
-            "diagnosis_id",
-        },
-      )
-      .select(
-        "completed_task_ids, updated_at",
-      )
-      .single();
+    } =
+      await supabase
+        .from(
+          "diagnosis_plan_progress",
+        )
+        .upsert(
+          {
+            diagnosis_id:
+              diagnosisId,
+            user_id:
+              user.id,
+            completed_task_ids:
+              uniqueCompletedTaskIds,
+            updated_at:
+              updatedAt,
+          },
+          {
+            onConflict:
+              "diagnosis_id",
+          },
+        )
+        .select(
+          "completed_task_ids, updated_at",
+        )
+        .single();
 
     if (progressError) {
       console.error(

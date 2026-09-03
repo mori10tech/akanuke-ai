@@ -1311,7 +1311,7 @@ function BeforeAfterCard({
   after?: boolean;
 }) {
   return (
-    <article className="min-w-0 text-left">
+  <article className="flex h-full min-w-0 flex-col text-left">
       <div className="mb-2 flex justify-center sm:mb-3 sm:justify-start">
         <span
           className={`inline-flex rounded-full px-2.5 py-1 text-[9px] font-black sm:px-3 sm:py-1.5 sm:text-[11px] ${
@@ -1325,7 +1325,7 @@ function BeforeAfterCard({
       </div>
 
       <div
-        className={`overflow-hidden rounded-[18px] border bg-white shadow-sm sm:rounded-3xl ${
+  className={`flex flex-1 flex-col overflow-hidden rounded-[18px] border bg-white shadow-sm sm:rounded-3xl ${
           after
             ? "border-[#FFD400]"
             : "border-black/10"
@@ -1342,7 +1342,7 @@ function BeforeAfterCard({
           />
         </div>
 
-        <div className="p-3 sm:p-6">
+        <div className="flex flex-1 flex-col p-3 sm:p-6">
           <h3 className="text-[13px] font-black leading-5 text-[#111111] sm:text-lg">
             {title}
           </h3>

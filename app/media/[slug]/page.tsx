@@ -455,7 +455,7 @@ export default async function ArticleDetailPage({
             )}
           </div>
 
-          <div className="relative mt-8 aspect-[1200/560] overflow-hidden rounded-[24px] bg-[#F3F6F9]">
+          <div className="relative mt-8 aspect-[1730/910] overflow-hidden rounded-[24px] bg-[#F3F6F9]">
             <Image
               src={article.image}
               alt={article.title}

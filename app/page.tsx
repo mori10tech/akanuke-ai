@@ -434,7 +434,7 @@ export default function Home() {
 
     {/* PC・タブレットのみ表示 */}
     <div className="hidden md:block">
-      <p className="mt-6 text-[15px] font-semibold leading-[2] text-black/60 md:text-[16px]">
+      <p className="mt-6 text-[15px] font-semibold leading-[2] text-black/70 md:text-[16px]">
         顔写真をもとに、AIがあなたの魅力を分析。
         <br />
         髪型・眉毛・肌・印象まで、
@@ -622,7 +622,7 @@ export default function Home() {
         className="h-4 w-4 text-[#1677FF]"
       />
 
-      <span className="text-[10px] font-bold text-black/45">
+      <span className="text-[11px] font-bold text-black/65">
         診断時間
       </span>
 
@@ -637,7 +637,7 @@ export default function Home() {
         className="h-4 w-4 text-[#1677FF]"
       />
 
-      <span className="text-[10px] font-bold text-black/45">
+      <span className="text-[11px] font-bold text-black/65">
         料金
       </span>
 
@@ -680,7 +680,7 @@ export default function Home() {
         現在の印象と、目指す理想像
       </SectionTitle>
 
-      <p className="mx-auto mt-3 max-w-2xl text-[12px] leading-6 text-black/60 sm:mt-4 sm:text-sm sm:leading-7">
+      <p className="mx-auto mt-3 max-w-2xl text-[13px] leading-6 text-black/70 sm:mt-4 sm:text-sm sm:leading-7">
         AIが分析した現在の印象と、
         改善後に目指す理想イメージを比較できます。
       </p>
@@ -834,7 +834,7 @@ export default function Home() {
           垢抜けのヒント
         </h2>
 
-        <p className="mt-3 max-w-[560px] text-[13px] leading-6 text-black/55">
+        <p className="mt-3 max-w-[560px] text-[13px] leading-6 text-black/70">
           髪型・眉毛・スキンケアなど、
           今日から実践できるメンズ美容情報を紹介します。
         </p>
@@ -866,7 +866,7 @@ export default function Home() {
           </div>
 
           <div className="p-5">
-            <div className="flex items-center gap-2 text-[10px] font-bold text-black/35">
+            <div className="flex items-center gap-2 text-[10px] font-bold text-black/60">
               <span>{article.category}</span>
               <span aria-hidden="true">•</span>
               <span>{article.readingTime}</span>
@@ -876,7 +876,7 @@ export default function Home() {
               {article.title}
             </h3>
 
-            <p className="mt-3 line-clamp-2 text-[12px] leading-6 text-black/55">
+            <p className="mt-3 line-clamp-2 text-[12px] leading-6 text-black/70">
               {article.description}
             </p>
 
@@ -914,7 +914,7 @@ export default function Home() {
                 AKANUKE.AIと始めよう。
               </p>
 
-              <div className="mt-4 flex flex-wrap gap-4 text-xs font-bold text-black/60">
+              <div className="mt-4 flex flex-wrap gap-4 text-xs font-bold text-black/70">
                 <MiniBenefit icon="clock" label="約1分で完了" />
                 <MiniBenefit icon="yen" label="完全無料" />
                 <MiniBenefit icon="user" label="メンズ専用" />
@@ -958,7 +958,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="flex flex-wrap justify-center gap-x-7 gap-y-3 text-xs font-medium text-black/60">
+          <div className="flex flex-wrap justify-center gap-x-7 gap-y-3 text-xs font-medium text-black/70">
   
   <Link
   href="/media"
@@ -1000,7 +1000,7 @@ export default function Home() {
   </Link>
 </div>
 
-          <p className="text-[11px] text-black/40">
+          <p className="text-[11px] text-black/60">
             © AKANUKE.AI All Rights Reserved.
           </p>
         </div>
@@ -1283,7 +1283,7 @@ function FlowStep({
           </p>
         </div>
 
-        <p className="mt-1.5 max-w-[270px] text-[11px] font-medium leading-5 text-black/60 sm:mt-3">
+        <p className="mt-1.5 max-w-[270px] text-[11px] font-medium leading-5 text-black/70 sm:mt-3">
   {description}
 </p>
       </div>
@@ -1347,7 +1347,7 @@ function BeforeAfterCard({
             {title}
           </h3>
 
-          <p className="mt-1.5 text-[9px] leading-[1.7] text-black/55 sm:mt-3 sm:text-sm sm:leading-7">
+          <p className="mt-1.5 text-[10px] leading-[1.8] text-black/70 sm:mt-3 sm:text-sm sm:leading-7">
             {description}
           </p>
         </div>
@@ -1382,7 +1382,7 @@ function RecommendationCard({
           className="h-44 w-full object-cover"
         />
 
-        <p className="p-5 text-sm leading-7 text-black/60">
+        <p className="p-5 text-sm leading-7 text-black/70">
           {children}
         </p>
       </div>

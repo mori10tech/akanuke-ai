@@ -330,7 +330,7 @@ function FaqItem({
         }`}
       >
         <div className="overflow-hidden">
-          <p className="border-t border-black/5 px-5 pb-5 pt-4 text-[13px] leading-7 text-black/70">
+          <p className="border-t border-black/5 px-5 pb-5 pt-4 text-[13px] leading-7 text-black/85">
             {answer}
           </p>
         </div>

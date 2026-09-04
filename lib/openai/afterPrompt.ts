@@ -1,8 +1,66 @@
 import type { AkanukeAnalysis } from "./schemas";
 
+const MAX_PROMPT_FIELD_LENGTH = 800;
+
+function sanitizePromptField(
+  value: string,
+) {
+  return value
+    .replace(
+      /[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F-\u009F]/g,
+      "",
+    )
+    .replace(/\r\n?/g, "\n")
+    .replace(/\n{3,}/g, "\n\n")
+    .replace(
+      /={10,}/g,
+      "=========",
+    )
+    .trim()
+    .slice(
+      0,
+      MAX_PROMPT_FIELD_LENGTH,
+    );
+}
+
 export function createAfterImagePrompt(
   analysis: AkanukeAnalysis,
 ) {
+  const targetImpression =
+    sanitizePromptField(
+      analysis.targetImpression,
+    );
+
+  const currentImpression =
+    sanitizePromptField(
+      analysis.currentImpression,
+    );
+
+  const hair =
+    sanitizePromptField(
+      analysis.afterDirection.hair,
+    );
+
+  const eyebrows =
+    sanitizePromptField(
+      analysis.afterDirection.eyebrows,
+    );
+
+  const skin =
+    sanitizePromptField(
+      analysis.afterDirection.skin,
+    );
+
+  const grooming =
+    sanitizePromptField(
+      analysis.afterDirection.grooming,
+    );
+
+  const styling =
+    sanitizePromptField(
+      analysis.afterDirection.styling,
+    );
+
   return `
 Edit the provided original photograph to create a highly photorealistic and clearly improved "After" image for the Japanese men's beauty service "AKANUKE.AI".
 

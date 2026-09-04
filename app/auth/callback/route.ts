@@ -189,11 +189,6 @@ export async function GET(
       "code",
     );
 
-  const flowId =
-    requestUrl.searchParams.get(
-      "sb_flow_id",
-    );
-
   const safeNext =
     getSafeNext(
       requestUrl.searchParams.get(
@@ -211,18 +206,13 @@ export async function GET(
   const supabase =
     await createClient();
 
-    const {
+  const {
     data,
     error,
   } =
     await supabase.auth
       .exchangeCodeForSession(
         code,
-        flowId
-          ? {
-              flowId,
-            }
-          : undefined,
       );
 
   if (error) {

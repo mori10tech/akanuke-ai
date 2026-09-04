@@ -1,20 +1,11 @@
-import {
-  createBrowserClient,
-} from "@supabase/ssr";
+import { createBrowserClient } from "@supabase/ssr";
 
 export function createClient() {
-  const supabaseUrl =
-    process.env
-      .NEXT_PUBLIC_SUPABASE_URL;
-
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabasePublishableKey =
-    process.env
-      .NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
 
-  if (
-    !supabaseUrl ||
-    !supabasePublishableKey
-  ) {
+  if (!supabaseUrl || !supabasePublishableKey) {
     throw new Error(
       "Supabaseの環境変数が設定されていません。NEXT_PUBLIC_SUPABASE_URL と NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY を確認してください。",
     );
@@ -23,13 +14,5 @@ export function createClient() {
   return createBrowserClient(
     supabaseUrl,
     supabasePublishableKey,
-    {
-      auth: {
-        experimental: {
-          appendPkceFlowIdToRedirects:
-            true,
-        },
-      },
-    },
   );
 }

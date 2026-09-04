@@ -52,6 +52,9 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    const adminClient =
+      createAdminClient();
+
     const body =
       (await request.json()) as CreateDiagnosisRequest;
 
@@ -83,7 +86,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { data, error } = await supabase
+    const { data, error } = await adminClient
       .from("diagnoses")
       .insert({
         user_id: user.id,
@@ -131,7 +134,7 @@ export async function POST(request: NextRequest) {
           `${user.id}/${data.id}/before.${image.extension}`;
 
         const { error: uploadError } =
-          await supabase.storage
+          await adminClient.storage
             .from(
               DIAGNOSIS_IMAGE_BUCKET,
             )

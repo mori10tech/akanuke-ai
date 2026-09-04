@@ -78,6 +78,14 @@ type OpenAIImageGenerationResult = {
   attempt: number;
 };
 
+type AfterGenerationUsageClaim = {
+  allowed: boolean;
+  exempt: boolean;
+  used: number;
+  remaining: number;
+  resets_at: string;
+};
+
 function normalizeImageMimeType(
   mimeType: string,
 ) {
@@ -781,6 +789,127 @@ if (buffer.byteLength === 0) {
 
 const extension =
   imageType.extension;
+
+    /*
+     * OpenAI画像生成の直前に、
+     * After生成枠をDB側で原子的に確保します。
+     *
+     * 保存済みAfterの再表示では
+     * ここまで到達しないため、回数を消費しません。
+     */
+    const {
+      data: usageRows,
+      error: usageError,
+    } =
+      await supabase.rpc(
+        "claim_after_generation_usage",
+        {
+          p_diagnosis_id:
+            diagnosisId,
+        },
+      );
+
+    if (usageError) {
+      console.error(
+        "[AKANUKE.AI] After生成利用枠確保エラー:",
+        {
+          userId:
+            user.id,
+          diagnosisId,
+          error:
+            usageError,
+        },
+      );
+
+      return NextResponse.json(
+        {
+          error:
+            "After画像の生成回数を確認できませんでした。時間をおいて再度お試しください。",
+          code:
+            "AFTER_USAGE_CHECK_FAILED",
+        },
+        {
+          status: 503,
+        },
+      );
+    }
+
+    const usage =
+      Array.isArray(
+        usageRows,
+      ) &&
+      usageRows.length > 0
+        ? (
+            usageRows[0] as
+              AfterGenerationUsageClaim
+          )
+        : null;
+
+    if (
+      !usage ||
+      typeof usage.allowed !==
+        "boolean" ||
+      typeof usage.exempt !==
+        "boolean" ||
+      typeof usage.used !==
+        "number" ||
+      typeof usage.remaining !==
+        "number" ||
+      typeof usage.resets_at !==
+        "string"
+    ) {
+      console.error(
+        "[AKANUKE.AI] After生成利用枠RPCのレスポンス形式が不正です:",
+        usageRows,
+      );
+
+      return NextResponse.json(
+        {
+          error:
+            "After画像の生成回数を確認できませんでした。時間をおいて再度お試しください。",
+          code:
+            "AFTER_USAGE_CHECK_FAILED",
+        },
+        {
+          status: 503,
+        },
+      );
+    }
+
+    if (!usage.allowed) {
+      return NextResponse.json(
+        {
+          error:
+            "今月のAfter画像生成上限に達しました。翌月から再び生成できます。",
+          code:
+            "AFTER_GENERATION_LIMIT_REACHED",
+          used:
+            usage.used,
+          remaining:
+            usage.remaining,
+          resetsAt:
+            usage.resets_at,
+        },
+        {
+          status: 429,
+        },
+      );
+    }
+
+    console.log(
+      "[AKANUKE.AI] After生成利用枠を確保:",
+      {
+        userId:
+          user.id,
+        diagnosisId,
+        exempt:
+          usage.exempt,
+        used:
+          usage.used,
+        remaining:
+          usage.remaining,
+      },
+    );
 
     console.log(
       "[AKANUKE.AI] After画像生成を開始します",

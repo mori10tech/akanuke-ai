@@ -1,6 +1,10 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
 type AdSenseAdProps = {
   className?: string;
@@ -10,18 +14,23 @@ type AdSenseAdProps = {
 
 declare global {
   interface Window {
-    adsbygoogle?: Array<Record<string, unknown>>;
+    adsbygoogle?: Array<
+      Record<string, unknown>
+    >;
   }
 }
 
 const ADSENSE_CLIENT =
-  process.env.NEXT_PUBLIC_ADSENSE_CLIENT?.trim() ?? "";
+  process.env.NEXT_PUBLIC_ADSENSE_CLIENT?.trim() ??
+  "";
 
 const HORIZONTAL_SLOT =
-  process.env.NEXT_PUBLIC_ADSENSE_SLOT_HORIZONTAL?.trim() ?? "";
+  process.env.NEXT_PUBLIC_ADSENSE_SLOT_HORIZONTAL?.trim() ??
+  "";
 
 const RECTANGLE_SLOT =
-  process.env.NEXT_PUBLIC_ADSENSE_SLOT_RECTANGLE?.trim() ?? "";
+  process.env.NEXT_PUBLIC_ADSENSE_SLOT_RECTANGLE?.trim() ??
+  "";
 
 function isValidClient(value: string) {
   return /^ca-pub-\d{16}$/.test(value);
@@ -39,7 +48,9 @@ function DevelopmentPlaceholder({
   return (
     <div
       className={`flex items-center justify-center bg-[#F7F9FC] px-4 text-center ${
-        format === "rectangle" ? "min-h-[250px]" : "min-h-[118px]"
+        format === "rectangle"
+          ? "min-h-[250px]"
+          : "min-h-[118px]"
       }`}
     >
       <div>
@@ -60,33 +71,133 @@ export default function AdSenseAd({
   format = "horizontal",
   slot,
 }: AdSenseAdProps) {
-  const hasRequestedAd = useRef(false);
+  const hasRequestedAd =
+    useRef(false);
+
+  const adRef =
+    useRef<HTMLModElement | null>(
+      null,
+    );
+
+  const [isUnfilled, setIsUnfilled] =
+    useState(false);
+
   const resolvedSlot =
     slot?.trim() ||
-    (format === "rectangle" ? RECTANGLE_SLOT : HORIZONTAL_SLOT);
+    (format === "rectangle"
+      ? RECTANGLE_SLOT
+      : HORIZONTAL_SLOT);
 
   const isConfigured =
-    isValidClient(ADSENSE_CLIENT) && isValidSlot(resolvedSlot);
+    isValidClient(
+      ADSENSE_CLIENT,
+    ) &&
+    isValidSlot(
+      resolvedSlot,
+    );
 
   const canRequestAd =
-    process.env.NODE_ENV === "production" && isConfigured;
+    process.env.NODE_ENV ===
+      "production" &&
+    isConfigured;
 
   useEffect(() => {
-    if (!canRequestAd || hasRequestedAd.current) {
+    if (
+      !canRequestAd ||
+      hasRequestedAd.current
+    ) {
       return;
     }
 
-    hasRequestedAd.current = true;
+    hasRequestedAd.current =
+      true;
 
     try {
-      window.adsbygoogle = window.adsbygoogle ?? [];
-      window.adsbygoogle.push({});
+      window.adsbygoogle =
+        window.adsbygoogle ?? [];
+
+      window.adsbygoogle.push(
+        {},
+      );
     } catch (error) {
-      console.warn("[AKANUKE.AI] AdSense広告を読み込めませんでした:", error);
+      console.warn(
+        "[AKANUKE.AI] AdSense広告を読み込めませんでした:",
+        error,
+      );
     }
   }, [canRequestAd]);
 
-  if (!isConfigured && process.env.NODE_ENV === "production") {
+  useEffect(() => {
+    if (!canRequestAd) {
+      return;
+    }
+
+    const adElement =
+      adRef.current;
+
+    if (!adElement) {
+      return;
+    }
+
+    const updateAdStatus =
+      () => {
+        const status =
+          adElement.getAttribute(
+            "data-ad-status",
+          );
+
+        setIsUnfilled(
+          status === "unfilled",
+        );
+      };
+
+    updateAdStatus();
+
+    const observer =
+      new MutationObserver(
+        (mutations) => {
+          const statusChanged =
+            mutations.some(
+              (mutation) =>
+                mutation.type ===
+                  "attributes" &&
+                mutation.attributeName ===
+                  "data-ad-status",
+            );
+
+          if (statusChanged) {
+            updateAdStatus();
+          }
+        },
+      );
+
+    observer.observe(
+      adElement,
+      {
+        attributes: true,
+        attributeFilter: [
+          "data-ad-status",
+        ],
+      },
+    );
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [canRequestAd]);
+
+  if (
+    !isConfigured &&
+    process.env.NODE_ENV ===
+      "production"
+  ) {
+    return null;
+  }
+
+  if (
+    canRequestAd &&
+    isUnfilled
+  ) {
     return null;
   }
 
@@ -103,18 +214,34 @@ export default function AdSenseAd({
 
       {canRequestAd ? (
         <ins
+          ref={adRef}
           className="adsbygoogle block"
           style={{
             display: "block",
-            minHeight: format === "rectangle" ? 250 : 100,
+            minHeight:
+              format ===
+              "rectangle"
+                ? 250
+                : 100,
           }}
-          data-ad-client={ADSENSE_CLIENT}
-          data-ad-slot={resolvedSlot}
-          data-ad-format={format === "rectangle" ? "rectangle" : "auto"}
+          data-ad-client={
+            ADSENSE_CLIENT
+          }
+          data-ad-slot={
+            resolvedSlot
+          }
+          data-ad-format={
+            format ===
+            "rectangle"
+              ? "rectangle"
+              : "auto"
+          }
           data-full-width-responsive="true"
         />
       ) : (
-        <DevelopmentPlaceholder format={format} />
+        <DevelopmentPlaceholder
+          format={format}
+        />
       )}
     </aside>
   );

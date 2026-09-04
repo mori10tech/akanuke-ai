@@ -1180,23 +1180,26 @@ const extension =
      * diagnosesテーブルへStorageパスを保存します。
      * これにより履歴からAfterを再表示できます。
      */
-    const {
-      error: updateError,
-    } =
-      await supabase
-        .from("diagnoses")
-        .update({
-          after_image_path:
-            afterImagePath,
-        })
-        .eq(
-          "id",
-          diagnosisId,
-        )
-        .eq(
-          "user_id",
-          user.id,
-        );
+    const adminClient =
+  createAdminClient();
+
+const {
+  error: updateError,
+} =
+  await adminClient
+    .from("diagnoses")
+    .update({
+      after_image_path:
+        afterImagePath,
+    })
+    .eq(
+      "id",
+      diagnosisId,
+    )
+    .eq(
+      "user_id",
+      user.id,
+    );
 
     if (updateError) {
       console.error(

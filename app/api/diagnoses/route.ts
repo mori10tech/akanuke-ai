@@ -154,14 +154,14 @@ export async function POST(request: NextRequest) {
         }
 
         const { error: updateError } =
-          await supabase
-            .from("diagnoses")
-            .update({
-              before_image_path:
-                beforeImagePath,
-            })
-            .eq("id", data.id)
-            .eq("user_id", user.id);
+  await adminClient
+    .from("diagnoses")
+    .update({
+      before_image_path:
+        beforeImagePath,
+    })
+    .eq("id", data.id)
+    .eq("user_id", user.id);
 
         if (updateError) {
           throw updateError;
@@ -180,10 +180,7 @@ export async function POST(request: NextRequest) {
  * 最新3件だけ残し、
  * 4件目以降の診断と画像を削除します。
  */
-try {
-  const adminClient =
-    createAdminClient();
-
+try {  
   const {
     data: oldDiagnoses,
     error: oldDiagnosesError,

@@ -9,6 +9,10 @@ import {
 } from "../../../lib/supabase/server";
 
 import {
+  createAdminClient,
+} from "../../../lib/supabase/admin";
+
+import {
   ANALYSIS_SYSTEM_PROMPT,
 } from "../../../lib/openai/prompts";
 
@@ -30,11 +34,21 @@ type ClaimDiagnosisUsageRow = {
   resets_at: string;
 };
 
+type RateLimitClaimRow = {
+  allowed: boolean;
+  used: number;
+  remaining: number;
+  retry_after_seconds: number;
+};
+
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
 const MONTHLY_DIAGNOSIS_LIMIT = 3;
+
+const ANALYZE_RATE_LIMIT = 5;
+const ANALYZE_RATE_WINDOW_SECONDS = 60;
 
 export async function POST(
   request: NextRequest,
@@ -137,6 +151,128 @@ export async function POST(
         },
         {
           status: 400,
+        },
+      );
+    }
+
+    /*
+     * 短時間の連続リクエストから
+     * AI診断APIを保護します。
+     *
+     * 月3回の診断制限とは別に、
+     * ログインユーザー単位で
+     * 60秒間に最大5回まで許可します。
+     */
+    try {
+      const adminClient =
+        createAdminClient();
+
+      const {
+        data: rateLimitData,
+        error: rateLimitError,
+      } =
+        await adminClient.rpc(
+          "claim_api_rate_limit",
+          {
+            p_rate_key:
+              `analyze:${user.id}`,
+            p_limit:
+              ANALYZE_RATE_LIMIT,
+            p_window_seconds:
+              ANALYZE_RATE_WINDOW_SECONDS,
+          },
+        );
+
+      if (rateLimitError) {
+        console.error(
+          "[AKANUKE.AI] AI診断レート制限確認エラー:",
+          rateLimitError,
+        );
+
+        return NextResponse.json(
+          {
+            error:
+              "AI診断の利用状況を確認できませんでした。時間をおいて再度お試しください。",
+            code:
+              "RATE_LIMIT_CHECK_FAILED",
+          },
+          {
+            status: 503,
+          },
+        );
+      }
+
+      const rateLimit =
+        Array.isArray(
+          rateLimitData,
+        ) &&
+        rateLimitData.length > 0
+          ? (rateLimitData[0] as RateLimitClaimRow)
+          : null;
+
+      if (
+        !rateLimit ||
+        typeof rateLimit.allowed !==
+          "boolean" ||
+        typeof rateLimit.used !==
+          "number" ||
+        typeof rateLimit.remaining !==
+          "number" ||
+        typeof rateLimit.retry_after_seconds !==
+          "number"
+      ) {
+        console.error(
+          "[AKANUKE.AI] AI診断レート制限RPCのレスポンス形式が不正です:",
+          rateLimitData,
+        );
+
+        return NextResponse.json(
+          {
+            error:
+              "AI診断の利用状況を確認できませんでした。時間をおいて再度お試しください。",
+            code:
+              "RATE_LIMIT_CHECK_FAILED",
+          },
+          {
+            status: 503,
+          },
+        );
+      }
+
+      if (!rateLimit.allowed) {
+        return NextResponse.json(
+          {
+            error:
+              "短時間に診断リクエストが集中しています。少し時間をおいて再度お試しください。",
+            code:
+              "RATE_LIMIT_EXCEEDED",
+          },
+          {
+            status: 429,
+            headers: {
+              "Retry-After":
+                String(
+                  rateLimit.retry_after_seconds,
+                ),
+            },
+          },
+        );
+      }
+    } catch (rateLimitError) {
+      console.error(
+        "[AKANUKE.AI] AI診断レート制限処理エラー:",
+        rateLimitError,
+      );
+
+      return NextResponse.json(
+        {
+          error:
+            "AI診断の利用状況を確認できませんでした。時間をおいて再度お試しください。",
+          code:
+            "RATE_LIMIT_CHECK_FAILED",
+        },
+        {
+          status: 503,
         },
       );
     }

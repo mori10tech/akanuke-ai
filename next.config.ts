@@ -1,5 +1,11 @@
 import type { NextConfig } from "next";
 
+const contentSecurityPolicy = [
+  "base-uri 'self'",
+  "object-src 'none'",
+  "frame-ancestors 'self'",
+].join("; ");
+
 const securityHeaders = [
   {
     key: "X-Content-Type-Options",
@@ -22,6 +28,10 @@ const securityHeaders = [
     key: "Strict-Transport-Security",
     value:
       "max-age=31536000; includeSubDomains",
+  },
+  {
+    key: "Content-Security-Policy",
+    value: contentSecurityPolicy,
   },
 ];
 

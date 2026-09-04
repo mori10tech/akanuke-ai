@@ -3,7 +3,6 @@ import { Suspense } from "react";
 
 import AppShell from "../components/AppShell";
 import AppHeader from "../components/AppHeader";
-import AuthHistoryGuard from "../components/AuthHistoryGuard";
 import LogoutButton from "../components/LogoutButton";
 import { createClient } from "../../lib/supabase/server";
 
@@ -135,7 +134,6 @@ export default async function DashboardPage() {
 
   return (
     <AppShell background="white">
-      <AuthHistoryGuard />
 
       <div className="overflow-x-clip bg-white">
         <AppHeader

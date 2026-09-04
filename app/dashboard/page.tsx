@@ -134,7 +134,6 @@ export default async function DashboardPage() {
 
   return (
     <AppShell background="white">
-
       <div className="overflow-x-clip bg-white">
         <AppHeader
           backHref="/"

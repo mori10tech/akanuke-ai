@@ -350,9 +350,9 @@ export default function AnalyzingPage() {
 
         const data =
           (await response.json()) as {
-            analysis?: unknown;
-            diagnosisId?: string;
             error?: string;
+            [key: string]:
+              unknown;
           };
 
         if (!response.ok) {
@@ -361,21 +361,6 @@ export default function AnalyzingPage() {
               "string"
               ? data.error
               : "AI診断に失敗しました。",
-          );
-        }
-
-        if (
-          !data.analysis ||
-          typeof data.analysis !==
-            "object" ||
-          typeof data.diagnosisId !==
-            "string" ||
-          data.diagnosisId
-            .trim()
-            .length === 0
-        ) {
-          throw new Error(
-            "診断結果を正常に保存できませんでした。",
           );
         }
 
@@ -389,24 +374,62 @@ export default function AnalyzingPage() {
           );
         }
 
-        /*
-         * /api/analyze側ですでに
-         * 診断結果とBefore画像の保存まで完了しています。
-         *
-         * クライアントからanalysisを
-         * /api/diagnosesへ再送信しません。
-         */
         window.sessionStorage.setItem(
           RESULT_STORAGE_KEY,
-          JSON.stringify(
-            data.analysis,
-          ),
+          JSON.stringify(data),
         );
 
-        window.sessionStorage.setItem(
-          DIAGNOSIS_ID_STORAGE_KEY,
-          data.diagnosisId,
-        );
+        /*
+         * ログイン中の場合だけ診断結果をSupabaseへ保存します。
+         *
+         * 未ログイン（401）や保存失敗でも、
+         * 今回の診断結果表示は続行します。
+         */
+        try {
+          const saveResponse =
+            await fetch(
+              "/api/diagnoses",
+              {
+                method: "POST",
+                cache: "no-store",
+                headers: {
+                  "Content-Type":
+                    "application/json",
+                },
+                body: JSON.stringify({
+                  analysis: data,
+                  beforeImageDataUrl:
+                    savedImage,
+                }),
+              },
+            );
+
+          if (saveResponse.ok) {
+            const savedDiagnosis =
+              (await saveResponse.json()) as {
+                id?: string;
+              };
+
+            if (savedDiagnosis.id) {
+              window.sessionStorage.setItem(
+                DIAGNOSIS_ID_STORAGE_KEY,
+                savedDiagnosis.id,
+              );
+            }
+          } else if (
+            saveResponse.status !== 401
+          ) {
+            console.warn(
+              "[AKANUKE.AI] 診断結果を履歴へ保存できませんでした:",
+              saveResponse.status,
+            );
+          }
+        } catch (saveError) {
+          console.warn(
+            "[AKANUKE.AI] 診断結果の履歴保存をスキップしました:",
+            saveError,
+          );
+        }
 
         /*
          * API完了後は現在の進捗から100%まで

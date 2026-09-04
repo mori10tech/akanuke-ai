@@ -23,6 +23,7 @@ const ALLOWED_NEXT_PATHS =
     "/products",
     "/media",
     "/dashboard",
+    "/debug-user",
   ]);
 
 function getSafeNext() {

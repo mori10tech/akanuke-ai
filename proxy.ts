@@ -1,55 +1,25 @@
 import {
-  timingSafeEqual,
-} from "node:crypto";
-
-import {
   NextRequest,
   NextResponse,
 } from "next/server";
 import { updateSupabaseSession } from "./lib/supabase/proxy";
 
-function getFirstForwardedIp(
-  value: string | null,
-) {
-  if (!value) {
-    return null;
-  }
-
-  const ip =
-    value
-      .split(",")[0]
-      ?.trim();
-
-  return ip || null;
-}
-
 function getClientIp(
   request: NextRequest,
 ) {
-  /*
-   * Vercel上では、Basic認証のIPバイパス判定に
-   * Vercelが付与するヘッダーを使用します。
-   *
-   * Vercel環境でこのヘッダーを取得できない場合は
-   * x-forwarded-forへフォールバックせず、
-   * IPバイパスを無効にします。
-   */
-  if (process.env.VERCEL) {
-    return getFirstForwardedIp(
-      request.headers.get(
-        "x-vercel-forwarded-for",
-      ),
-    );
-  }
-
-  /*
-   * ローカル開発やVercel以外の環境向けです。
-   * 本番VercelのIPバイパス判定には使用しません。
-   */
-  return getFirstForwardedIp(
+  const forwardedFor =
     request.headers.get(
       "x-forwarded-for",
-    ),
+    );
+
+  if (!forwardedFor) {
+    return null;
+  }
+
+  return (
+    forwardedFor
+      .split(",")[0]
+      ?.trim() ?? null
   );
 }
 
@@ -119,47 +89,9 @@ function isBasicAuthValid(
         separatorIndex + 1,
       );
 
-        const encoder =
-      new TextEncoder();
-
-    const inputUsernameBytes =
-      encoder.encode(
-        inputUsername,
-      );
-
-    const usernameBytes =
-      encoder.encode(
-        username,
-      );
-
-    const inputPasswordBytes =
-      encoder.encode(
-        inputPassword,
-      );
-
-    const passwordBytes =
-      encoder.encode(
-        password,
-      );
-
-    if (
-      inputUsernameBytes.length !==
-        usernameBytes.length ||
-      inputPasswordBytes.length !==
-        passwordBytes.length
-    ) {
-      return false;
-    }
-
     return (
-      timingSafeEqual(
-        inputUsernameBytes,
-        usernameBytes,
-      ) &&
-      timingSafeEqual(
-        inputPasswordBytes,
-        passwordBytes,
-      )
+      inputUsername === username &&
+      inputPassword === password
     );
   } catch {
     return false;

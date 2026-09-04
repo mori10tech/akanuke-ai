@@ -68,7 +68,10 @@ function detectBrowserEnvironment(): BrowserEnvironment {
   };
 }
 
-export default function LoginPage() {  
+export default function LoginPage() {
+  const [lineLoginUrl, setLineLoginUrl] =
+    useState<string | null>(null);
+
   const [isLineLoading, setIsLineLoading] =
     useState(true);
 
@@ -81,117 +84,125 @@ export default function LoginPage() {
   const [browserEnvironment, setBrowserEnvironment] =
     useState<BrowserEnvironment | null>(null);
 
-    useEffect(() => {
-    const environment =
-      detectBrowserEnvironment();
+  useEffect(() => {
+    let cancelled = false;
 
-    setBrowserEnvironment(
-      environment,
-    );
+    async function prepareLineLogin() {
+      try {
+        const environment =
+          detectBrowserEnvironment();
 
-    const searchParams =
-      new URLSearchParams(
-        window.location.search,
-      );
+        if (!cancelled) {
+          setBrowserEnvironment(environment);
+        }
 
-    const reason =
-      searchParams.get("reason");
+        const searchParams =
+          new URLSearchParams(
+            window.location.search,
+          );
 
-    if (
-      reason ===
-      "line_friend_required"
-    ) {
-      setErrorMessage(
-        "AKANUKE.AIのご利用には、LINE公式アカウントの友だち追加が必要です。友だち追加後、もう一度LINEでログインしてください。",
-      );
-    } else if (
-      reason ===
-      "line_friend_check_failed"
-    ) {
-      setErrorMessage(
-        "LINEの友だち追加状況を確認できませんでした。時間をおいて、もう一度LINEでログインしてください。",
-      );
-    } else if (
-      reason === "auth_failed"
-    ) {
-      setErrorMessage(
-        "LINEログインに失敗しました。もう一度お試しください。",
-      );
-    }
+        const reason =
+          searchParams.get("reason");
 
-    setIsLineLoading(false);
-  }, []);
+        if (
+          reason === "line_friend_required"
+        ) {
+          setErrorMessage(
+            "AKANUKE.AIのご利用には、LINE公式アカウントの友だち追加が必要です。友だち追加後、もう一度LINEでログインしてください。",
+          );
+        } else if (
+          reason ===
+          "line_friend_check_failed"
+        ) {
+          setErrorMessage(
+            "LINEの友だち追加状況を確認できませんでした。時間をおいて、もう一度LINEでログインしてください。",
+          );
+        } else if (
+          reason === "auth_failed"
+        ) {
+          setErrorMessage(
+            "LINEログインに失敗しました。もう一度お試しください。",
+          );
 
-    async function startLineLogin() {
-    if (isLineLoading) {
-      return;
-    }
+        }
 
-    setIsLineLoading(true);
-    setErrorMessage("");
+        const requestedNext =
+          searchParams.get("next");
 
-    try {
-      const searchParams =
-        new URLSearchParams(
-          window.location.search,
-        );
+        const safeNext =
+          requestedNext?.startsWith("/") &&
+          !requestedNext.startsWith("//")
+            ? requestedNext
+            : "/dashboard";
 
-      const requestedNext =
-        searchParams.get("next");
+        const supabase = createClient();
 
-      const safeNext =
-        requestedNext?.startsWith("/") &&
-        !requestedNext.startsWith("//")
-          ? requestedNext
-          : "/dashboard";
+        /*
+         * 認可URLだけを先に生成し、実際の遷移は
+         * ユーザー自身が下の <a> をタップした瞬間に行う。
+         *
+         * iOSのUniversal LinkではJavaScriptによる自動遷移より
+         * ユーザー操作による直接遷移の方がLINEアプリを
+         * 起動しやすいため、この方式を維持する。
+         *
+         * prompt=none は自動ログインできない環境で
+         * LOGIN_REQUIRED / INTERACTION_REQUIRED になるため
+         * 全ユーザーには付与しない。
+         */
+        const { data, error } =
+          await supabase.auth.signInWithOAuth({
+            provider: "custom:line",
 
-      const supabase =
-        createClient();
+            options: {
+              redirectTo:
+                `${window.location.origin}/auth/callback?next=${encodeURIComponent(
+                  safeNext,
+                )}`,
 
-      const { data, error } =
-        await supabase.auth.signInWithOAuth({
-          provider: "custom:line",
+              skipBrowserRedirect: true,
 
-          options: {
-            redirectTo:
-              `${window.location.origin}/auth/callback?next=${encodeURIComponent(
-                safeNext,
-              )}`,
-
-            skipBrowserRedirect: true,
-
-            queryParams: {
-              bot_prompt: "aggressive",
-              ui_locales: "ja-JP",
+              queryParams: {
+                bot_prompt: "aggressive",
+                ui_locales: "ja-JP",
+              },
             },
-          },
-        });
+          });
 
-      if (error) {
-        throw error;
-      }
+        if (error) {
+          throw error;
+        }
 
-      if (!data.url) {
-        throw new Error(
-          "LINE Login URLを取得できませんでした。",
+        if (!data.url) {
+          throw new Error(
+            "LINE Login URLを取得できませんでした。",
+          );
+        }
+
+        if (!cancelled) {
+          setLineLoginUrl(data.url);
+          setIsLineLoading(false);
+        }
+      } catch (error) {
+        console.error(
+          "LINE login preparation error:",
+          error,
         );
+
+        if (!cancelled) {
+          setErrorMessage(
+            "LINEログインを開始できませんでした。時間をおいてもう一度お試しください。",
+          );
+          setIsLineLoading(false);
+        }
       }
-
-      window.location.href =
-        data.url;
-    } catch (error) {
-      console.error(
-        "LINE login start error:",
-        error,
-      );
-
-      setErrorMessage(
-        "LINEログインを開始できませんでした。時間をおいてもう一度お試しください。",
-      );
-
-      setIsLineLoading(false);
     }
-  }
+
+    void prepareLineLogin();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   async function copyCurrentUrl() {
     try {
@@ -324,25 +335,38 @@ export default function LoginPage() {
               </div>
             )}
 
-            <button
-  type="button"
-  onClick={() =>
-    void startLineLogin()
-  }
-  disabled={isLineLoading}
-  className="mt-5 flex min-h-[56px] w-full items-center justify-center gap-3 rounded-[12px] bg-[#06C755] px-5 text-[14px] font-black text-white shadow-[0_10px_34px_rgba(15,23,42,0.08)] transition hover:-translate-y-0.5 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-50"
->
-  <span
-    aria-hidden="true"
-    className="flex h-7 min-w-7 items-center justify-center rounded-full bg-white px-1 text-[8px] font-black text-[#06C755]"
-  >
-    LINE
-  </span>
+            {lineLoginUrl ? (
+              <a
+                href={lineLoginUrl}
+                className="mt-5 flex min-h-[56px] w-full items-center justify-center gap-3 rounded-[12px] bg-[#06C755] px-5 text-[14px] font-black text-white shadow-[0_10px_34px_rgba(15,23,42,0.08)] transition hover:-translate-y-0.5 active:scale-[0.99]"
+              >
+                <span
+                  aria-hidden="true"
+                  className="flex h-7 min-w-7 items-center justify-center rounded-full bg-white px-1 text-[8px] font-black text-[#06C755]"
+                >
+                  LINE
+                </span>
 
-  {isLineLoading
-    ? "LINEログインを準備中..."
-    : "LINEで登録・ログイン"}
-</button>
+                LINEで登録・ログイン
+              </a>
+            ) : (
+              <button
+                type="button"
+                disabled
+                className="mt-5 flex min-h-[56px] w-full items-center justify-center gap-3 rounded-[12px] bg-[#06C755] px-5 text-[14px] font-black text-white opacity-50 shadow-[0_10px_34px_rgba(15,23,42,0.08)]"
+              >
+                <span
+                  aria-hidden="true"
+                  className="flex h-7 min-w-7 items-center justify-center rounded-full bg-white px-1 text-[8px] font-black text-[#06C755]"
+                >
+                  LINE
+                </span>
+
+                {isLineLoading
+                  ? "LINEログインを準備中..."
+                  : "LINEで登録・ログイン"}
+              </button>
+            )}
 
 <div className="mt-4"></div>
             

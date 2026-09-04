@@ -47,6 +47,12 @@ const OPENAI_RETRY_DELAY_MS =
 const OPENAI_RETRY_START_LIMIT_MS =
   12_000;
 
+const AFTER_RATE_LIMIT_REQUESTS =
+  5;
+
+const AFTER_RATE_LIMIT_WINDOW_SECONDS =
+  60;  
+
 const RETRYABLE_OPENAI_STATUSES =
   new Set([
     429,
@@ -80,6 +86,13 @@ type AfterGenerationUsageClaim = {
   used: number;
   remaining: number;
   resets_at: string;
+};
+
+type ApiRateLimitRow = {
+  allowed: boolean;
+  used: number;
+  remaining: number;
+  retry_after_seconds: number;
 };
 
 function normalizeImageMimeType(
@@ -678,6 +691,132 @@ export async function POST(
         },
       );
     }
+
+/*
+     * =====================================================
+     * APIレート制限
+     * =====================================================
+     *
+     * 保存済みAfterの再表示ではなく、
+     * 新しくAfterを生成する場合だけ
+     * 短時間のAPI連打を制限します。
+     */
+    const {
+      data: rateRows,
+      error: rateError,
+    } =
+      await adminClient.rpc(
+        "claim_api_rate_limit",
+        {
+          p_rate_key:
+            `generate-after:user:${user.id}`,
+          p_limit:
+            AFTER_RATE_LIMIT_REQUESTS,
+          p_window_seconds:
+            AFTER_RATE_LIMIT_WINDOW_SECONDS,
+        },
+      );
+
+    if (rateError) {
+      console.error(
+        "[AKANUKE.AI] After生成レート制限確認エラー:",
+        {
+          userId:
+            user.id,
+          diagnosisId,
+          error:
+            rateError,
+        },
+      );
+
+      return NextResponse.json(
+        {
+          error:
+            "After画像の生成準備に失敗しました。時間をおいてもう一度お試しください。",
+          code:
+            "RATE_LIMIT_CHECK_FAILED",
+        },
+        {
+          status: 503,
+        },
+      );
+    }
+
+    const rate =
+      Array.isArray(rateRows)
+        ? (
+            rateRows[0] as
+              | ApiRateLimitRow
+              | undefined
+          )
+        : undefined;
+
+    if (
+      !rate ||
+      typeof rate.allowed !==
+        "boolean" ||
+      typeof rate.used !==
+        "number" ||
+      typeof rate.remaining !==
+        "number" ||
+      typeof rate.retry_after_seconds !==
+        "number"
+    ) {
+      console.error(
+        "[AKANUKE.AI] After生成レート制限レスポンス形式が不正です:",
+        {
+          userId:
+            user.id,
+          diagnosisId,
+          rateRows,
+        },
+      );
+
+      return NextResponse.json(
+        {
+          error:
+            "After画像の生成準備に失敗しました。時間をおいてもう一度お試しください。",
+          code:
+            "RATE_LIMIT_CHECK_FAILED",
+        },
+        {
+          status: 503,
+        },
+      );
+    }
+
+    if (!rate.allowed) {
+      console.warn(
+        "[AKANUKE.AI] After生成レート制限に到達:",
+        {
+          userId:
+            user.id,
+          diagnosisId,
+          used:
+            rate.used,
+          remaining:
+            rate.remaining,
+        },
+      );
+
+      return NextResponse.json(
+        {
+          error:
+            "短時間にAfter画像生成リクエストが集中しています。少し待ってからもう一度お試しください。",
+          code:
+            "RATE_LIMIT_REACHED",
+        },
+        {
+          status: 429,
+          headers: {
+            "Retry-After":
+              String(
+                rate.retry_after_seconds,
+              ),
+          },
+        },
+      );
+    }  
 
     /*
      * Before画像が実際に取得可能か確認してから

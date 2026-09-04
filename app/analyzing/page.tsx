@@ -8,6 +8,7 @@ import {
   useState,
 } from "react";
 import AppHeader from "../components/AppHeader";
+import AdSenseAd from "../components/AdSenseAd";
 
 const IMAGE_STORAGE_KEY = "akanukeImage";
 const TARGET_STORAGE_KEY = "akanukeTargetImpression";
@@ -127,27 +128,6 @@ function CheckIcon() {
     >
       <path d="m5 12 4 4L19 6" />
     </svg>
-  );
-}
-
-function AdPlaceholder() {
-  return (
-    <aside
-      aria-label="広告"
-      className="mt-5 overflow-hidden rounded-[18px] border border-black/10 bg-[#F7F9FC]"
-    >
-      <div className="flex min-h-[96px] items-center justify-center px-5 py-5">
-        <div className="text-center">
-          <p className="text-[9px] font-bold tracking-[0.16em] text-black/35">
-            ADVERTISEMENT
-          </p>
-
-          <p className="mt-2 text-[11px] leading-5 text-black/35">
-            広告掲載スペース
-          </p>
-        </div>
-      </div>
-    </aside>
   );
 }
 
@@ -746,7 +726,11 @@ export default function AnalyzingPage() {
             </section>
           )}
 
-          <AdPlaceholder />
+          <AdSenseAd
+  slot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_RECTANGLE}
+  format="rectangle"
+  className="mt-5"
+/>
 
           <section className="mt-5 overflow-hidden rounded-[18px] border border-black/10 bg-white shadow-[0_10px_34px_rgba(15,23,42,0.05)]">
             <div className="border-b border-black/10 px-4 py-4">

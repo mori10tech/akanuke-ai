@@ -1,4 +1,5 @@
 import OpenAI from "openai";
+
 import {
   NextRequest,
   NextResponse,
@@ -9,6 +10,10 @@ import {
 } from "../../../lib/supabase/server";
 
 import {
+  createAdminClient,
+} from "../../../lib/supabase/admin";
+
+import {
   ANALYSIS_SYSTEM_PROMPT,
 } from "../../../lib/openai/prompts";
 
@@ -16,6 +21,83 @@ import {
   akanukeAnalysisJsonSchema,
   type AkanukeAnalysis,
 } from "../../../lib/openai/schemas";
+
+import {
+  DIAGNOSIS_IMAGE_BUCKET,
+  parseImageDataUrl,
+} from "../../../lib/diagnoses/images";
+
+import {
+  isAkanukeAnalysis,
+} from "../../../lib/diagnoses/types";
+
+export const runtime = "nodejs";
+
+const MAX_REQUEST_BYTES =
+  14 * 1024 * 1024;
+
+const MAX_ANALYSIS_BYTES =
+  100_000;
+
+const MAX_SAVED_DIAGNOSES =
+  3;
+
+const MONTHLY_DIAGNOSIS_LIMIT =
+  3;
+
+const ALLOWED_IMPRESSION_LABELS:
+  readonly string[] = [
+    "爽やか",
+    "大人っぽい",
+    "清潔感",
+    "異性ウケ",
+    "ビジネス向き",
+    "韓国系",
+    "男らしい",
+    "優しそう",
+    "知的・スマート",
+  ];
+
+const AI_RECOMMENDED_TARGET =
+  "AIにおまかせ。写真から本人に似合う垢抜け方向を判断してください。";
+
+function isAllowedTargetImpression(
+  value: string,
+) {
+  if (
+    value ===
+    AI_RECOMMENDED_TARGET
+  ) {
+    return true;
+  }
+
+  const labels =
+    value.split("・");
+
+  if (
+    labels.length < 1 ||
+    labels.length > 2
+  ) {
+    return false;
+  }
+
+  const uniqueLabels =
+    new Set(labels);
+
+  if (
+    uniqueLabels.size !==
+    labels.length
+  ) {
+    return false;
+  }
+
+  return labels.every(
+    (label) =>
+      ALLOWED_IMPRESSION_LABELS.includes(
+        label,
+      ),
+  );
+}  
 
 type AnalyzeRequestBody = {
   imageDataUrl?: string;
@@ -30,20 +112,29 @@ type ClaimDiagnosisUsageRow = {
   resets_at: string;
 };
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-
-const MONTHLY_DIAGNOSIS_LIMIT = 3;
+const openai =
+  new OpenAI({
+    apiKey:
+      process.env.OPENAI_API_KEY,
+  });
 
 export async function POST(
   request: NextRequest,
 ) {
-  const startedAt = Date.now();
+  const startedAt =
+    Date.now();
 
   try {
+    /*
+     * =====================================================
+     * 認証
+     * =====================================================
+     */
     const supabase =
       await createClient();
+
+    const adminClient =
+      createAdminClient();
 
     const {
       data: { user },
@@ -69,9 +160,35 @@ export async function POST(
     }
 
     /*
+     * =====================================================
+     * リクエストサイズ確認
+     * =====================================================
+     */
+    const contentLength =
+      Number(
+        request.headers.get(
+          "content-length",
+        ) ?? 0,
+      );
+
+    if (
+      contentLength >
+      MAX_REQUEST_BYTES
+    ) {
+      return NextResponse.json(
+        {
+          error:
+            "画像データのサイズが大きすぎます。",
+        },
+        {
+          status: 413,
+        },
+      );
+    }
+
+    /*
      * APIキー設定不備では
-     * 診断回数を消費させないため、
-     * 利用枠確保より先に確認します。
+     * 診断回数を消費させません。
      */
     if (
       !process.env
@@ -80,7 +197,7 @@ export async function POST(
       return NextResponse.json(
         {
           error:
-            "OpenAI APIキーが設定されていません。",
+            "AI診断を開始できませんでした。",
         },
         {
           status: 500,
@@ -97,10 +214,6 @@ export async function POST(
     const targetImpression =
       body.targetImpression?.trim();
 
-    /*
-     * 不正なリクエストでは
-     * 診断回数を消費させません。
-     */
     if (!imageDataUrl) {
       return NextResponse.json(
         {
@@ -113,15 +226,32 @@ export async function POST(
       );
     }
 
-    if (
-      !imageDataUrl.startsWith(
-        "data:image/",
-      )
-    ) {
+    /*
+     * parseImageDataUrl()を使って、
+     * JPEG / PNG / WebPかつ既定サイズ内の画像だけ許可します。
+     *
+     * SVGなどの任意image/*は受け付けません。
+     */
+    let parsedImage:
+      ReturnType<
+        typeof parseImageDataUrl
+      >;
+
+    try {
+      parsedImage =
+        parseImageDataUrl(
+          imageDataUrl,
+        );
+    } catch (imageError) {
+      console.warn(
+        "[AKANUKE.AI] AI診断画像の検証エラー:",
+        imageError,
+      );
+
       return NextResponse.json(
         {
           error:
-            "画像データの形式が正しくありません。",
+            "画像データの形式またはサイズが正しくありません。",
         },
         {
           status: 400,
@@ -129,27 +259,45 @@ export async function POST(
       );
     }
 
-    if (!targetImpression) {
-      return NextResponse.json(
-        {
-          error:
-            "なりたい印象が指定されていません。",
-        },
-        {
-          status: 400,
-        },
-      );
-    }
+    if (
+  !targetImpression ||
+  !isAllowedTargetImpression(
+    targetImpression,
+  )
+) {
+  console.warn(
+    "[AKANUKE.AI] 許可されていないなりたい印象を拒否しました:",
+    {
+      userId: user.id,
+      targetImpression:
+        targetImpression
+          ?.slice(0, 100),
+    },
+  );
+
+  return NextResponse.json(
+    {
+      error:
+        "なりたい印象の指定が正しくありません。",
+    },
+    {
+      status: 400,
+    },
+  );
+}
 
     /*
-     * PostgreSQL側で診断枠を原子的に確保します。
+     * High：プロンプトインジェクション対策は
+     * 次の工程でホワイトリスト化します。
      *
-     * 同じユーザーから同時に複数リクエストが来ても、
-     * DB側で順番に処理されるため、
-     * 月3回の上限を超えてOpenAIを実行しません。
-     *
-     * diagnosis_limit_exemptionsに登録されたユーザーは
-     * RPC側で制限対象外になります。
+     * ここでは異常に長い入力だけ先に拒否します。
+     */
+    
+
+    /*
+     * =====================================================
+     * 月3回の診断枠を原子的に確保
+     * =====================================================
      */
     const {
       data: claimData,
@@ -181,7 +329,10 @@ export async function POST(
         claimData,
       ) &&
       claimData.length > 0
-        ? (claimData[0] as ClaimDiagnosisUsageRow)
+        ? (
+            claimData[0] as
+              ClaimDiagnosisUsageRow
+          )
         : null;
 
     if (
@@ -240,7 +391,8 @@ export async function POST(
     console.log(
       "[AKANUKE.AI] AI診断開始",
       {
-        userId: user.id,
+        userId:
+          user.id,
         used:
           claim.used,
         remaining:
@@ -253,8 +405,9 @@ export async function POST(
     );
 
     /*
-     * 診断利用枠を確保できた場合だけ
-     * OpenAIを実行します。
+     * =====================================================
+     * OpenAI診断
+     * =====================================================
      */
     const response =
       await openai.responses.create({
@@ -266,17 +419,21 @@ export async function POST(
         store: false,
 
         reasoning: {
-          effort: "none",
+          effort:
+            "none",
         },
 
-        max_output_tokens: 2500,
+        max_output_tokens:
+          2500,
 
         input: [
           {
-            role: "system",
+            role:
+              "system",
             content: [
               {
-                type: "input_text",
+                type:
+                  "input_text",
                 text:
                   ANALYSIS_SYSTEM_PROMPT,
               },
@@ -284,10 +441,12 @@ export async function POST(
           },
 
           {
-            role: "user",
+            role:
+              "user",
             content: [
               {
-                type: "input_text",
+                type:
+                  "input_text",
                 text: `
 ユーザーが希望するAfterイメージ：
 「${targetImpression}」
@@ -355,10 +514,12 @@ afterDirectionはAfter画像生成に使用するため、
               },
 
               {
-                type: "input_image",
+                type:
+                  "input_image",
                 image_url:
                   imageDataUrl,
-                detail: "auto",
+                detail:
+                  "auto",
               },
             ],
           },
@@ -366,10 +527,12 @@ afterDirectionはAfter画像生成に使用するため、
 
         text: {
           format: {
-            type: "json_schema",
+            type:
+              "json_schema",
             name:
               "akanuke_analysis",
-            strict: true,
+            strict:
+              true,
             schema:
               akanukeAnalysisJsonSchema,
           },
@@ -387,7 +550,20 @@ afterDirectionはAfter画像生成に使用するため、
     const parsed =
       JSON.parse(
         response.output_text,
-      ) as AkanukeAnalysis;
+      ) as unknown;
+
+    /*
+     * OpenAIレスポンスも実データ検証します。
+     */
+    if (
+      !isAkanukeAnalysis(
+        parsed,
+      )
+    ) {
+      throw new Error(
+        "AI診断結果の形式が正しくありません。",
+      );
+    }
 
     const normalizedResult: AkanukeAnalysis =
       {
@@ -408,19 +584,395 @@ afterDirectionはAfter画像生成に使用するため、
 
         priorities: [
           {
-            ...parsed.priorities[0],
+            ...parsed
+              .priorities[0],
             rank: 1,
           },
           {
-            ...parsed.priorities[1],
+            ...parsed
+              .priorities[1],
             rank: 2,
           },
           {
-            ...parsed.priorities[2],
+            ...parsed
+              .priorities[2],
             rank: 3,
           },
         ],
       };
+
+    const serializedAnalysis =
+      JSON.stringify(
+        normalizedResult,
+      );
+
+    if (
+      serializedAnalysis.length >
+      MAX_ANALYSIS_BYTES
+    ) {
+      throw new Error(
+        "AI診断結果のデータサイズが大きすぎます。",
+      );
+    }
+
+    /*
+     * =====================================================
+     * 診断結果をサーバー側で直接保存
+     * =====================================================
+     *
+     * クライアントへanalysisを返してから
+     * 再POSTさせることはしません。
+     */
+    const {
+      data: diagnosis,
+      error: diagnosisError,
+    } =
+      await adminClient
+        .from(
+          "diagnoses",
+        )
+        .insert({
+          user_id:
+            user.id,
+
+          target_impression:
+            normalizedResult
+              .targetImpression
+              .slice(
+                0,
+                200,
+              ),
+
+          overall_progress:
+            normalizedResult
+              .progress,
+
+          analysis:
+            normalizedResult,
+        })
+        .select(
+          "id",
+        )
+        .single();
+
+    if (
+      diagnosisError ||
+      !diagnosis
+    ) {
+      console.error(
+        "[AKANUKE.AI] AI診断結果DB保存エラー:",
+        diagnosisError,
+      );
+
+      throw new Error(
+        "診断結果を保存できませんでした。",
+      );
+    }
+
+    /*
+     * =====================================================
+     * Before画像を非公開Storageへ保存
+     * =====================================================
+     */
+    const beforeImagePath =
+      `${user.id}/${diagnosis.id}/before.${parsedImage.extension}`;
+
+    const {
+      error: beforeUploadError,
+    } =
+      await adminClient.storage
+        .from(
+          DIAGNOSIS_IMAGE_BUCKET,
+        )
+        .upload(
+          beforeImagePath,
+          parsedImage.buffer,
+          {
+            contentType:
+              parsedImage.contentType,
+            cacheControl:
+              "3600",
+            upsert:
+              true,
+          },
+        );
+
+    if (
+      beforeUploadError
+    ) {
+      console.error(
+        "[AKANUKE.AI] Before画像保存エラー:",
+        beforeUploadError,
+      );
+
+      /*
+       * Before画像が保存できない診断は
+       * After生成不能になるため、
+       * 不完全な診断レコードを残しません。
+       */
+      const {
+        error:
+          rollbackDiagnosisError,
+      } =
+        await adminClient
+          .from(
+            "diagnoses",
+          )
+          .delete()
+          .eq(
+            "id",
+            diagnosis.id,
+          )
+          .eq(
+            "user_id",
+            user.id,
+          );
+
+      if (
+        rollbackDiagnosisError
+      ) {
+        console.error(
+          "[AKANUKE.AI] 診断保存ロールバックエラー:",
+          rollbackDiagnosisError,
+        );
+      }
+
+      throw new Error(
+        "診断画像を保存できませんでした。",
+      );
+    }
+
+    const {
+      error:
+        beforePathUpdateError,
+    } =
+      await adminClient
+        .from(
+          "diagnoses",
+        )
+        .update({
+          before_image_path:
+            beforeImagePath,
+        })
+        .eq(
+          "id",
+          diagnosis.id,
+        )
+        .eq(
+          "user_id",
+          user.id,
+        );
+
+    if (
+      beforePathUpdateError
+    ) {
+      console.error(
+        "[AKANUKE.AI] Before画像パス保存エラー:",
+        beforePathUpdateError,
+      );
+
+      const {
+        error:
+          rollbackStorageError,
+      } =
+        await adminClient.storage
+          .from(
+            DIAGNOSIS_IMAGE_BUCKET,
+          )
+          .remove([
+            beforeImagePath,
+          ]);
+
+      if (
+        rollbackStorageError
+      ) {
+        console.error(
+          "[AKANUKE.AI] Before画像ロールバックエラー:",
+          rollbackStorageError,
+        );
+      }
+
+      const {
+        error:
+          rollbackDiagnosisError,
+      } =
+        await adminClient
+          .from(
+            "diagnoses",
+          )
+          .delete()
+          .eq(
+            "id",
+            diagnosis.id,
+          )
+          .eq(
+            "user_id",
+            user.id,
+          );
+
+      if (
+        rollbackDiagnosisError
+      ) {
+        console.error(
+          "[AKANUKE.AI] 診断保存ロールバックエラー:",
+          rollbackDiagnosisError,
+        );
+      }
+
+      throw new Error(
+        "診断結果の保存情報を更新できませんでした。",
+      );
+    }
+
+    /*
+     * =====================================================
+     * 最新3件だけ残す
+     * =====================================================
+     */
+    try {
+      const {
+        data:
+          oldDiagnoses,
+        error:
+          oldDiagnosesError,
+      } =
+        await adminClient
+          .from(
+            "diagnoses",
+          )
+          .select(
+            "id, before_image_path, after_image_path, created_at",
+          )
+          .eq(
+            "user_id",
+            user.id,
+          )
+          .order(
+            "created_at",
+            {
+              ascending:
+                false,
+            },
+          )
+          .range(
+            MAX_SAVED_DIAGNOSES,
+            999,
+          );
+
+      if (
+        oldDiagnosesError
+      ) {
+        throw oldDiagnosesError;
+      }
+
+      if (
+        oldDiagnoses &&
+        oldDiagnoses.length >
+          0
+      ) {
+        const storagePaths =
+          oldDiagnoses.flatMap(
+            (
+              oldDiagnosis,
+            ) => {
+              const paths:
+                string[] = [];
+
+              if (
+                oldDiagnosis
+                  .before_image_path
+              ) {
+                paths.push(
+                  oldDiagnosis
+                    .before_image_path,
+                );
+              }
+
+              if (
+                oldDiagnosis
+                  .after_image_path
+              ) {
+                paths.push(
+                  oldDiagnosis
+                    .after_image_path,
+                );
+              }
+
+              return paths;
+            },
+          );
+
+        if (
+          storagePaths.length >
+          0
+        ) {
+          const {
+            error:
+              storageDeleteError,
+          } =
+            await adminClient
+              .storage
+              .from(
+                DIAGNOSIS_IMAGE_BUCKET,
+              )
+              .remove(
+                storagePaths,
+              );
+
+          if (
+            storageDeleteError
+          ) {
+            console.error(
+              "[AKANUKE.AI] 古い診断画像の削除に失敗:",
+              storageDeleteError,
+            );
+          }
+        }
+
+        const oldDiagnosisIds =
+          oldDiagnoses.map(
+            (
+              oldDiagnosis,
+            ) =>
+              oldDiagnosis.id,
+          );
+
+        const {
+          error:
+            diagnosisDeleteError,
+        } =
+          await adminClient
+            .from(
+              "diagnoses",
+            )
+            .delete()
+            .eq(
+              "user_id",
+              user.id,
+            )
+            .in(
+              "id",
+              oldDiagnosisIds,
+            );
+
+        if (
+          diagnosisDeleteError
+        ) {
+          throw diagnosisDeleteError;
+        }
+      }
+    } catch (
+      cleanupError
+    ) {
+      /*
+       * 最新診断自体は正常保存されているため、
+       * 古い履歴整理の失敗で診断全体を失敗扱いにしません。
+       */
+      console.error(
+        "[AKANUKE.AI] 古い診断履歴の整理に失敗:",
+        cleanupError,
+      );
+    }
 
     const durationMs =
       Date.now() -
@@ -431,6 +983,8 @@ afterDirectionはAfter画像生成に使用するため、
       {
         userId:
           user.id,
+        diagnosisId:
+          diagnosis.id,
         durationMs,
         used:
           claim.used,
@@ -441,8 +995,21 @@ afterDirectionはAfter画像生成に使用するため、
       },
     );
 
+    /*
+     * Result表示用analysisと、
+     * サーバーが作成したdiagnosisIdのみ返します。
+     */
     return NextResponse.json(
-      normalizedResult,
+      {
+        analysis:
+          normalizedResult,
+
+        diagnosisId:
+          diagnosis.id,
+
+        beforeImageSaved:
+          true,
+      },
       {
         status: 200,
       },
@@ -465,13 +1032,6 @@ afterDirectionはAfter画像生成に使用するため、
       },
     );
 
-    /*
-     * OpenAI実行開始後のエラーについては、
-     * 確保済みの診断回数を戻しません。
-     *
-     * 月3回制限をOpenAI実行回数の
-     * コスト制御として確実に機能させるためです。
-     */
     return NextResponse.json(
       {
         error:

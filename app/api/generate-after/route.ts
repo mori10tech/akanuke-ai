@@ -16,6 +16,10 @@ import {
 } from "../../../lib/supabase/server";
 
 import {
+  createAdminClient,
+} from "../../../lib/supabase/admin";
+
+import {
   DIAGNOSIS_IMAGE_BUCKET,
 } from "../../../lib/diagnoses/images";
 
@@ -40,14 +44,6 @@ const OPENAI_MAX_ATTEMPTS = 2;
 const OPENAI_RETRY_DELAY_MS =
   1200;
 
-/*
- * maxDuration=60秒のため、
- * 1回目の失敗までに時間がかかりすぎた場合は
- * 2回目を開始せず、Vercelタイムアウトを避けます。
- *
- * OpenAI側の503等は通常、短時間で返るため、
- * 一時障害に対する救済を目的としています。
- */
 const OPENAI_RETRY_START_LIMIT_MS =
   12_000;
 
@@ -78,6 +74,14 @@ type OpenAIImageGenerationResult = {
   attempt: number;
 };
 
+type AfterGenerationUsageClaim = {
+  allowed: boolean;
+  exempt: boolean;
+  used: number;
+  remaining: number;
+  resets_at: string;
+};
+
 function normalizeImageMimeType(
   mimeType: string,
 ) {
@@ -97,18 +101,14 @@ function normalizeImageMimeType(
     };
   }
 
-  if (
-    normalized === "image/png"
-  ) {
+  if (normalized === "image/png") {
     return {
       mimeType: "image/png",
       extension: "png" as const,
     };
   }
 
-  if (
-    normalized === "image/webp"
-  ) {
+  if (normalized === "image/webp") {
     return {
       mimeType: "image/webp",
       extension: "webp" as const,
@@ -131,13 +131,6 @@ function wait(
   );
 }
 
-/*
- * OpenAIへ送るFormDataは
- * 試行ごとに必ず新しく生成します。
- *
- * リトライ時に使用済みのFormDataやBlobを
- * 再利用しないための処理です。
- */
 function createOpenAIFormData({
   buffer,
   mimeType,
@@ -162,9 +155,7 @@ function createOpenAIFormData({
       imageArrayBuffer,
     );
 
-  imageBytes.set(
-    buffer,
-  );
+  imageBytes.set(buffer);
 
   const imageBlob =
     new Blob(
@@ -215,11 +206,6 @@ function createOpenAIFormData({
   return formData;
 }
 
-/*
- * OpenAIが502/503等を返した際、
- * HTMLや空レスポンスになる可能性も考慮して
- * response.json()だけに依存しません。
- */
 async function readOpenAIResponse(
   response: Response,
 ): Promise<OpenAIImageResponse> {
@@ -246,16 +232,6 @@ async function readOpenAIResponse(
   }
 }
 
-/*
- * OpenAI画像生成を実行します。
- *
- * 429 / 500 / 502 / 503 / 504 の
- * 一時的なエラーのみ最大1回再試行します。
- *
- * ただしVercelのmaxDuration=60秒を考慮し、
- * 1回目の失敗までに一定時間以上かかった場合は
- * 2回目を開始しません。
- */
 async function generateAfterWithRetry({
   apiKey,
   buffer,
@@ -281,8 +257,7 @@ async function generateAfterWithRetry({
 
   for (
     let attempt = 1;
-    attempt <=
-    OPENAI_MAX_ATTEMPTS;
+    attempt <= OPENAI_MAX_ATTEMPTS;
     attempt += 1
   ) {
     const attemptStartedAt =
@@ -299,10 +274,6 @@ async function generateAfterWithRetry({
       },
     );
 
-    /*
-     * 各試行でFormDataを
-     * 必ず作り直します。
-     */
     const formData =
       createOpenAIFormData({
         buffer,
@@ -327,10 +298,6 @@ async function generateAfterWithRetry({
           },
         );
     } catch (error) {
-      /*
-       * fetch自体のネットワークエラーも、
-       * 1回目かつ短時間なら再試行します。
-       */
       const elapsedMs =
         Date.now() -
         retryWindowStartedAt;
@@ -437,10 +404,6 @@ async function generateAfterWithRetry({
       },
     );
 
-    /*
-     * 400 / 401 / 403 等は
-     * 再試行しても改善しにくいため即終了します。
-     */
     if (!canRetry) {
       throw new Error(
         data.error?.message ??
@@ -467,10 +430,6 @@ async function generateAfterWithRetry({
     );
   }
 
-  /*
-   * 通常ここには到達しませんが、
-   * TypeScript上の戻り値保証として残します。
-   */
   throw new Error(
     "After画像を生成できませんでした。",
   );
@@ -480,12 +439,15 @@ export async function POST(
   request: NextRequest,
 ) {
   try {
-    /*
+       /*
      * After画像生成はコストが発生するため、
      * ログインユーザーのみ許可します。
      */
     const supabase =
       await createClient();
+
+    const adminClient =
+      createAdminClient();
 
     const {
       data: { user },
@@ -510,9 +472,6 @@ export async function POST(
       );
     }
 
-    /*
-     * 極端に大きなリクエストを防止します。
-     */
     const contentLength =
       Number(
         request.headers.get(
@@ -542,7 +501,7 @@ export async function POST(
       return NextResponse.json(
         {
           error:
-            "OpenAI APIキーが設定されていません。",
+            "After画像を生成できませんでした。",
         },
         {
           status: 500,
@@ -569,7 +528,8 @@ export async function POST(
     }
 
     /*
-     * ログインユーザー本人の診断か確認します。
+     * 必ず本人の診断だけを取得します。
+     * analysis / Before画像パスはクライアントから受け取りません。
      */
     const {
       data: diagnosis,
@@ -578,8 +538,8 @@ export async function POST(
       await supabase
         .from("diagnoses")
         .select(
-  "id, analysis, before_image_path, after_image_path",
-)
+          "id, analysis, before_image_path, after_image_path",
+        )
         .eq(
           "id",
           diagnosisId,
@@ -610,48 +570,53 @@ export async function POST(
       );
     }
 
-if (
-  !isAkanukeAnalysis(
-    diagnosis.analysis,
-  )
-) {
-  console.error(
-    "[AKANUKE.AI] After生成対象の診断データ形式が不正です:",
-    {
-      userId: user.id,
-      diagnosisId,
-    },
-  );
+    if (
+      !isAkanukeAnalysis(
+        diagnosis.analysis,
+      )
+    ) {
+      console.error(
+        "[AKANUKE.AI] After生成対象の診断データ形式が不正です:",
+        {
+          userId:
+            user.id,
+          diagnosisId,
+        },
+      );
 
-  return NextResponse.json(
-    {
-      error:
-        "After生成に使用する診断結果を確認できませんでした。",
-    },
-    {
-      status: 422,
-    },
-  );
-}
+      return NextResponse.json(
+        {
+          error:
+            "After生成に使用する診断結果を確認できませんでした。",
+        },
+        {
+          status: 422,
+        },
+      );
+    }
 
-const analysis =
-  diagnosis.analysis;
+    const analysis =
+      diagnosis.analysis;
 
-if (!diagnosis.before_image_path) {
-  return NextResponse.json(
-    {
-      error:
-        "After生成に使用する元画像を確認できませんでした。",
-    },
-    {
-      status: 422,
-    },
-  );
-}
+    if (
+      !diagnosis.before_image_path
+    ) {
+      return NextResponse.json(
+        {
+          error:
+            "After生成に使用する元画像を確認できませんでした。",
+        },
+        {
+          status: 422,
+        },
+      );
+    }
 
     /*
-     * すでにAfter画像が保存されている場合は、
-     * OpenAIで再生成せずStorageの画像を再利用します。
+     * 保存済みAfterがある場合は最優先で再利用します。
+     *
+     * この処理を回数枠確保より先に行うことで、
+     * 結果画面の再表示では利用回数を消費しません。
      */
     if (
       diagnosis.after_image_path
@@ -694,93 +659,234 @@ if (!diagnosis.before_image_path) {
         );
       }
 
+      /*
+       * DBにAfterパスがあるのにStorageから取得できない場合、
+       * 勝手に再生成すると追加課金につながるためfail-closedにします。
+       */
       console.error(
         "[AKANUKE.AI] 保存済みAfter画像の取得に失敗:",
         signedError,
       );
+
+      return NextResponse.json(
+        {
+          error:
+            "保存済みのAfter画像を取得できませんでした。",
+        },
+        {
+          status: 500,
+        },
+      );
     }
 
     /*
- * After生成の元画像は、
- * クライアントから受け取らず
- * 本人の診断に保存されているBefore画像を
- * 非公開Storageから直接取得します。
- */
-const {
-  data: beforeImageBlob,
-  error: beforeImageError,
-} =
-  await supabase.storage
-    .from(
-      DIAGNOSIS_IMAGE_BUCKET,
-    )
-    .download(
-      diagnosis.before_image_path,
+     * Before画像が実際に取得可能か確認してから
+     * 有料のAfter生成枠を確保します。
+     */
+    const {
+      data: beforeImageBlob,
+      error: beforeImageError,
+    } =
+      await supabase.storage
+        .from(
+          DIAGNOSIS_IMAGE_BUCKET,
+        )
+        .download(
+          diagnosis.before_image_path,
+        );
+
+    if (
+      beforeImageError ||
+      !beforeImageBlob
+    ) {
+      console.error(
+        "[AKANUKE.AI] Before画像取得エラー:",
+        beforeImageError,
+      );
+
+      return NextResponse.json(
+        {
+          error:
+            "After生成に使用する元画像を取得できませんでした。",
+        },
+        {
+          status: 500,
+        },
+      );
+    }
+
+    const mimeType =
+      beforeImageBlob.type ||
+      "image/jpeg";
+
+    const imageType =
+      normalizeImageMimeType(
+        mimeType,
+      );
+
+    if (!imageType) {
+      return NextResponse.json(
+        {
+          error:
+            "保存されている元画像の形式に対応していません。",
+        },
+        {
+          status: 422,
+        },
+      );
+    }
+
+    const beforeArrayBuffer =
+      await beforeImageBlob.arrayBuffer();
+
+    const buffer =
+      Buffer.from(
+        beforeArrayBuffer,
+      );
+
+    if (
+      buffer.byteLength === 0
+    ) {
+      return NextResponse.json(
+        {
+          error:
+            "After生成に使用する元画像を読み込めませんでした。",
+        },
+        {
+          status: 500,
+        },
+      );
+    }
+
+    const extension =
+      imageType.extension;
+
+    /*
+     * =====================================================
+     * After生成枠をDBで原子的に確保
+     * =====================================================
+     *
+     * RPC失敗時はOpenAIを呼びません。
+     * 制限処理が壊れた際に課金だけ発生することを防ぎます。
+     */
+    const {
+      data: usageRows,
+      error: usageError,
+    } =
+      await supabase.rpc(
+        "claim_after_generation_usage",
+        {
+          p_diagnosis_id:
+            diagnosisId,
+        },
+      );
+
+    if (usageError) {
+      console.error(
+        "[AKANUKE.AI] After生成利用枠の確保に失敗:",
+        {
+          userId:
+            user.id,
+          diagnosisId,
+          error:
+            usageError,
+        },
+      );
+
+      return NextResponse.json(
+        {
+          error:
+            "After画像の生成準備に失敗しました。時間をおいてもう一度お試しください。",
+          code:
+            "AFTER_USAGE_CHECK_FAILED",
+        },
+        {
+          status: 503,
+        },
+      );
+    }
+
+    const usage =
+      Array.isArray(usageRows)
+        ? (
+            usageRows[0] as
+              | AfterGenerationUsageClaim
+              | undefined
+          )
+        : undefined;
+
+    if (!usage) {
+      console.error(
+        "[AKANUKE.AI] After生成利用枠の結果が空です:",
+        {
+          userId:
+            user.id,
+          diagnosisId,
+        },
+      );
+
+      return NextResponse.json(
+        {
+          error:
+            "After画像の生成準備に失敗しました。時間をおいてもう一度お試しください。",
+          code:
+            "AFTER_USAGE_CHECK_FAILED",
+        },
+        {
+          status: 503,
+        },
+      );
+    }
+
+    if (!usage.allowed) {
+      console.warn(
+        "[AKANUKE.AI] After生成上限に到達:",
+        {
+          userId:
+            user.id,
+          diagnosisId,
+          used:
+            usage.used,
+          remaining:
+            usage.remaining,
+          resetsAt:
+            usage.resets_at,
+        },
+      );
+
+      return NextResponse.json(
+        {
+          error:
+            "今月のAfter画像生成回数の上限に達しました。",
+          code:
+            "AFTER_GENERATION_LIMIT_REACHED",
+          used:
+            usage.used,
+          remaining:
+            usage.remaining,
+          resetsAt:
+            usage.resets_at,
+        },
+        {
+          status: 429,
+        },
+      );
+    }
+
+    console.log(
+      "[AKANUKE.AI] After生成利用枠を確保:",
+      {
+        userId:
+          user.id,
+        diagnosisId,
+        exempt:
+          usage.exempt,
+        used:
+          usage.used,
+        remaining:
+          usage.remaining,
+      },
     );
-
-if (
-  beforeImageError ||
-  !beforeImageBlob
-) {
-  console.error(
-    "[AKANUKE.AI] Before画像取得エラー:",
-    beforeImageError,
-  );
-
-  return NextResponse.json(
-    {
-      error:
-        "After生成に使用する元画像を取得できませんでした。",
-    },
-    {
-      status: 500,
-    },
-  );
-}
-
-const mimeType =
-  beforeImageBlob.type ||
-  "image/jpeg";
-
-const imageType =
-  normalizeImageMimeType(
-    mimeType,
-  );
-
-if (!imageType) {
-  return NextResponse.json(
-    {
-      error:
-        "保存されている元画像の形式に対応していません。",
-    },
-    {
-      status: 422,
-    },
-  );
-}
-
-const beforeArrayBuffer =
-  await beforeImageBlob.arrayBuffer();
-
-const buffer =
-  Buffer.from(
-    beforeArrayBuffer,
-  );
-
-if (buffer.byteLength === 0) {
-  return NextResponse.json(
-    {
-      error:
-        "After生成に使用する元画像を読み込めませんでした。",
-    },
-    {
-      status: 500,
-    },
-  );
-}
-
-const extension =
-  imageType.extension;
 
     console.log(
       "[AKANUKE.AI] After画像生成を開始します",
@@ -800,13 +906,6 @@ const extension =
     const generationStartedAt =
       Date.now();
 
-    /*
-     * OpenAIでAfter画像を生成します。
-     *
-     * 一時エラーの場合のみ、
-     * maxDuration=60秒を考慮しながら
-     * 最大1回自動再試行します。
-     */
     const {
       data,
       attempt:
@@ -838,10 +937,6 @@ const extension =
       Date.now() -
       generationStartedAt;
 
-    /*
-     * OpenAIから受け取ったBase64を
-     * WebPバイナリへ変換します。
-     */
     const afterBuffer =
       Buffer.from(
         base64Image,
@@ -870,10 +965,6 @@ const extension =
       },
     );
 
-    /*
-     * ユーザー単位・診断単位で
-     * After画像をStorageへ永続保存します。
-     */
     const afterImagePath =
       `${user.id}/${diagnosisId}/after.webp`;
 
@@ -905,14 +996,10 @@ const extension =
       );
     }
 
-    /*
-     * diagnosesテーブルへStorageパスを保存します。
-     * これにより履歴からAfterを再表示できます。
-     */
     const {
       error: updateError,
     } =
-      await supabase
+      await adminClient
         .from("diagnoses")
         .update({
           after_image_path:
@@ -933,10 +1020,6 @@ const extension =
         updateError,
       );
 
-      /*
-       * DB保存に失敗した場合は、
-       * 孤立したStorageファイルを残さないよう削除します。
-       */
       const {
         error: cleanupError,
       } =
@@ -960,10 +1043,6 @@ const extension =
       );
     }
 
-    /*
-     * 非公開Bucketなので、
-     * ブラウザ表示用の署名URLを発行します。
-     */
     const {
       data: signedData,
       error: signedError,
@@ -1001,10 +1080,6 @@ const extension =
       },
     );
 
-    /*
-     * 巨大なBase64画像は返さず、
-     * 軽量な署名URLだけをブラウザへ返します。
-     */
     return NextResponse.json(
       {
         afterImageUrl:
@@ -1021,12 +1096,18 @@ const extension =
       error,
     );
 
+    /*
+     * OpenAI等の内部エラーメッセージは
+     * 本番ブラウザへそのまま返しません。
+     */
     return NextResponse.json(
       {
         error:
+          process.env.NODE_ENV ===
+            "development" &&
           error instanceof Error
             ? error.message
-            : "After画像の生成中にエラーが発生しました。",
+            : "After画像の生成中にエラーが発生しました。時間をおいてもう一度お試しください。",
       },
       {
         status: 500,

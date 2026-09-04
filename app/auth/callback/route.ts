@@ -201,59 +201,6 @@ export async function GET(
       ),
     );
 
-      /*
-   * LINE LoginのPKCE問題を切り分けるための
-   * 一時的な診断ログです。
-   *
-   * code、flowId、Cookie値そのものは
-   * ログへ出力しません。
-   */
-  const requestCookieNames =
-    request.cookies
-      .getAll()
-      .map(
-        ({ name }) => name,
-      );
-
-  const hasMatchingFlowVerifierCookie =
-    flowId
-      ? requestCookieNames.some(
-          (name) =>
-            name.endsWith(
-              `-flow-${flowId}-code-verifier`,
-            ),
-        )
-      : false;
-
-  const hasLegacyVerifierCookie =
-    requestCookieNames.some(
-      (name) =>
-        name.endsWith(
-          "-auth-token-code-verifier",
-        ),
-    );
-
-  const verifierCookieCount =
-    requestCookieNames.filter(
-      (name) =>
-        name.includes(
-          "-code-verifier",
-        ),
-    ).length;
-
-  console.log(
-    "[AKANUKE.AI] Auth callback PKCE debug:",
-    {
-      hasCode:
-        Boolean(code),
-      hasFlowId:
-        Boolean(flowId),
-      hasMatchingFlowVerifierCookie,
-      hasLegacyVerifierCookie,
-      verifierCookieCount,
-    },
-  );
-
   if (!code) {
     return createLoginRedirect(
       request,

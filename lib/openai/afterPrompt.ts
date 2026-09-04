@@ -1,6 +1,6 @@
 import type { AkanukeAnalysis } from "./schemas";
 
-const MAX_PROMPT_FIELD_LENGTH = 800;
+const MAX_PROMPT_FIELD_LENGTH = 100;
 
 function sanitizePromptField(
   value: string,
@@ -239,28 +239,28 @@ Do not think:
 
 TARGET IMPRESSION:
 
-${analysis.targetImpression}
+${targetImpression}
 
 CURRENT IMPRESSION:
 
-${analysis.currentImpression}
+${currentImpression}
 
 Use the personalized AKANUKE.AI diagnosis below as the basis of the makeover.
 
 HAIR:
-${analysis.afterDirection.hair}
+${hair}
 
 EYEBROWS:
-${analysis.afterDirection.eyebrows}
+${eyebrows}
 
 SKIN:
-${analysis.afterDirection.skin}
+${skin}
 
 GROOMING:
-${analysis.afterDirection.grooming}
+${grooming}
 
 STYLING:
-${analysis.afterDirection.styling}
+${styling}
 
 Convert these recommendations into visible changes in the photograph.
 
@@ -296,7 +296,7 @@ Do not create the impression of improvement mainly through:
 
 HAIR RECOMMENDATION:
 
-${analysis.afterDirection.hair}
+${hair}
 
 The hairstyle is the PRIMARY visual transformation in this After image.
 
@@ -390,12 +390,12 @@ PERSONALIZED SALON RESULT
 
 The hairstyle must remain consistent with:
 
-- ${analysis.afterDirection.hair}
+- ${hair}
 - this person's face
 - this person's natural hairline
 - this person's believable hair density
 - this person's apparent hair texture
-- ${analysis.targetImpression}
+- ${targetImpression}
 
 Do NOT choose a random fashionable hairstyle.
 
@@ -488,7 +488,7 @@ AND
 
 EYEBROW RECOMMENDATION:
 
-${analysis.afterDirection.eyebrows}
+${eyebrows}
 
 Preserve the person's natural eyebrow identity while giving the eyebrows a clearly visible professional grooming improvement.
 
@@ -523,7 +523,7 @@ not through changing eye anatomy.
 
 SKIN RECOMMENDATION:
 
-${analysis.afterDirection.skin}
+${skin}
 
 Create a visibly:
 
@@ -625,7 +625,7 @@ do not invent unnecessary changes.
 
 GROOMING RECOMMENDATION:
 
-${analysis.afterDirection.grooming}
+${grooming}
 
 Increase the visible impression of:
 
@@ -652,7 +652,7 @@ Do not alter permanent facial anatomy.
 
 STYLING RECOMMENDATION:
 
-${analysis.afterDirection.styling}
+${styling}
 
 Keep clothing as close to the original photograph as reasonably possible.
 

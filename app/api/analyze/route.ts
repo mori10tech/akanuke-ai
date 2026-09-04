@@ -45,6 +45,57 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
+const ALLOWED_TARGET_IMPRESSIONS = [
+  "爽やか",
+  "大人っぽい",
+  "清潔感",
+  "異性ウケ",
+  "ビジネス向き",
+  "韓国系",
+  "男らしい",
+  "優しそう",
+  "知的・スマート",
+] as const;
+
+const AI_RECOMMENDED_TARGET_IMPRESSION =
+  "AIにおまかせ。写真から本人に似合う垢抜け方向を判断してください。";
+
+function isValidTargetImpression(
+  value: string,
+) {
+  if (
+    value ===
+    AI_RECOMMENDED_TARGET_IMPRESSION
+  ) {
+    return true;
+  }
+
+  const selections =
+    value.split("・");
+
+  if (
+    selections.length < 1 ||
+    selections.length > 2
+  ) {
+    return false;
+  }
+
+  if (
+    new Set(selections).size !==
+    selections.length
+  ) {
+    return false;
+  }
+
+  return selections.every(
+    (selection) =>
+      (
+        ALLOWED_TARGET_IMPRESSIONS as
+          readonly string[]
+      ).includes(selection),
+  );
+}  
+
 const MONTHLY_DIAGNOSIS_LIMIT = 3;
 
 const ANALYZE_RATE_LIMIT = 5;
@@ -148,6 +199,24 @@ export async function POST(
         {
           error:
             "なりたい印象が指定されていません。",
+        },
+        {
+          status: 400,
+        },
+      );
+    }
+
+        if (
+      !isValidTargetImpression(
+        targetImpression,
+      )
+    ) {
+      return NextResponse.json(
+        {
+          error:
+            "なりたい印象の指定が正しくありません。",
+          code:
+            "INVALID_TARGET_IMPRESSION",
         },
         {
           status: 400,

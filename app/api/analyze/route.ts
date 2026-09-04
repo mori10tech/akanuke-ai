@@ -45,6 +45,12 @@ const MAX_SAVED_DIAGNOSES =
 const MONTHLY_DIAGNOSIS_LIMIT =
   3;
 
+const ANALYZE_RATE_LIMIT_REQUESTS =
+  5;
+
+const ANALYZE_RATE_LIMIT_WINDOW_SECONDS =
+  60;
+
 const ALLOWED_IMPRESSION_LABELS:
   readonly string[] = [
     "爽やか",
@@ -110,6 +116,13 @@ type ClaimDiagnosisUsageRow = {
   used: number;
   remaining: number;
   resets_at: string;
+};
+
+type ApiRateLimitRow = {
+  allowed: boolean;
+  used: number;
+  remaining: number;
+  retry_after_seconds: number;
 };
 
 const openai =
@@ -204,6 +217,128 @@ export async function POST(
         },
       );
     }
+
+/*
+ * =====================================================
+ * APIレート制限
+ * =====================================================
+ *
+ * 月3回制限とは別に、
+ * 短時間のAPI連打を防止します。
+ */
+const {
+  data: rateRows,
+  error: rateError,
+} =
+  await adminClient.rpc(
+    "claim_api_rate_limit",
+    {
+      p_rate_key:
+        `analyze:user:${user.id}`,
+      p_limit:
+        ANALYZE_RATE_LIMIT_REQUESTS,
+      p_window_seconds:
+        ANALYZE_RATE_LIMIT_WINDOW_SECONDS,
+    },
+  );
+
+if (rateError) {
+  console.error(
+    "[AKANUKE.AI] AI診断レート制限確認エラー:",
+    {
+      userId:
+        user.id,
+      error:
+        rateError,
+    },
+  );
+
+  return NextResponse.json(
+    {
+      error:
+        "AI診断の利用状況を確認できませんでした。時間をおいて再度お試しください。",
+      code:
+        "RATE_LIMIT_CHECK_FAILED",
+    },
+    {
+      status: 503,
+    },
+  );
+}
+
+const rate =
+  Array.isArray(rateRows)
+    ? (
+        rateRows[0] as
+          | ApiRateLimitRow
+          | undefined
+      )
+    : undefined;
+
+if (
+  !rate ||
+  typeof rate.allowed !==
+    "boolean" ||
+  typeof rate.used !==
+    "number" ||
+  typeof rate.remaining !==
+    "number" ||
+  typeof rate.retry_after_seconds !==
+    "number"
+) {
+  console.error(
+    "[AKANUKE.AI] AI診断レート制限レスポンス形式が不正です:",
+    {
+      userId:
+        user.id,
+      rateRows,
+    },
+  );
+
+  return NextResponse.json(
+    {
+      error:
+        "AI診断の利用状況を確認できませんでした。時間をおいて再度お試しください。",
+      code:
+        "RATE_LIMIT_CHECK_FAILED",
+    },
+    {
+      status: 503,
+    },
+  );
+}
+
+if (!rate.allowed) {
+  console.warn(
+    "[AKANUKE.AI] AI診断レート制限に到達:",
+    {
+      userId:
+        user.id,
+      used:
+        rate.used,
+      remaining:
+        rate.remaining,
+    },
+  );
+
+  return NextResponse.json(
+    {
+      error:
+        "短時間に診断リクエストが集中しています。少し待ってからもう一度お試しください。",
+      code:
+        "RATE_LIMIT_REACHED",
+    },
+    {
+      status: 429,
+      headers: {
+        "Retry-After":
+          String(
+            rate.retry_after_seconds,
+          ),
+      },
+    },
+  );
+}
 
     const body =
       (await request.json()) as AnalyzeRequestBody;

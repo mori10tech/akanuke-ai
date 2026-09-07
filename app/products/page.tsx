@@ -392,12 +392,11 @@ export default function ProductsPage() {
   ] = useState<ProductNeed[]>([]);
 
   const [
-    selectedCategory,
-    setSelectedCategory,
-  ] = useState<ProductCategory>(
-    categories[0]?.id ??
-      "skincare",
-  );
+  selectedCategory,
+  setSelectedCategory,
+] = useState<ProductCategory | null>(
+  null,
+);
 
   const [
     showAllProducts,
@@ -616,6 +615,12 @@ export default function ProductsPage() {
   isCancelled
 ) {
   if (!isCancelled) {
+    setSelectedCategory(
+      requestedCategory ??
+        categories[0]?.id ??
+        "skincare",
+    );
+
     setIsDiagnosisReady(true);
   }
 
@@ -655,6 +660,12 @@ export default function ProductsPage() {
   !diagnosisData.diagnosis
 ) {
   if (!isCancelled) {
+    setSelectedCategory(
+      requestedCategory ??
+        categories[0]?.id ??
+        "skincare",
+    );
+
     setIsDiagnosisReady(true);
   }
 
@@ -671,6 +682,12 @@ export default function ProductsPage() {
   )
 ) {
   if (!isCancelled) {
+    setSelectedCategory(
+      requestedCategory ??
+        categories[0]?.id ??
+        "skincare",
+    );
+
     setIsDiagnosisReady(true);
   }
 
@@ -686,6 +703,12 @@ export default function ProductsPage() {
   validNeeds.length === 0
 ) {
   if (!isCancelled) {
+    setSelectedCategory(
+      requestedCategory ??
+        categories[0]?.id ??
+        "skincare",
+    );
+
     setIsDiagnosisReady(true);
   }
 
@@ -735,6 +758,11 @@ setIsDiagnosisReady(true);
   );
 
   if (!isCancelled) {
+    setSelectedCategory(
+      categories[0]?.id ??
+        "skincare",
+    );
+
     setIsDiagnosisReady(true);
   }
 }
@@ -803,45 +831,49 @@ setIsDiagnosisReady(true);
   ]);
 
   const selectedCategoryData =
-    availableCategories.find(
-      (category) =>
-        category.id ===
-        selectedCategory,
-    ) ?? availableCategories[0];
+  selectedCategory
+    ? availableCategories.find(
+        (category) =>
+          category.id ===
+          selectedCategory,
+      )
+    : undefined;
 
-  const selectedProducts =
-    useMemo(
-      () =>
-        activeProducts
-          .filter(
-            (product) =>
-              product.category ===
-              selectedCategory,
-          )
-          .sort((a, b) => {
-            const scoreDifference =
-              getProductScore(
-                b,
-                diagnosisNeeds,
-              ) -
-              getProductScore(
-                a,
-                diagnosisNeeds,
-              );
+const selectedProducts =
+  useMemo(() => {
+    if (!selectedCategory) {
+      return [];
+    }
 
-            if (
-              scoreDifference !== 0
-            ) {
-              return scoreDifference;
-            }
+    return activeProducts
+      .filter(
+        (product) =>
+          product.category ===
+          selectedCategory,
+      )
+      .sort((a, b) => {
+        const scoreDifference =
+          getProductScore(
+            b,
+            diagnosisNeeds,
+          ) -
+          getProductScore(
+            a,
+            diagnosisNeeds,
+          );
 
-            return a.rank - b.rank;
-          }),
-      [
-        selectedCategory,
-        diagnosisNeeds,
-      ],
-    );
+        if (
+          scoreDifference !== 0
+        ) {
+          return scoreDifference;
+        }
+
+        return a.rank - b.rank;
+      });
+  }, [
+    selectedCategory,
+    diagnosisNeeds,
+  ]);
 
   const displayedProducts =
     showAllProducts

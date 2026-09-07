@@ -46,17 +46,15 @@ export default function JournalFooter() {
             個人情報保護方針
           </a>
 
-          <a
-            href="https://www.leafworks.jp/contact/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="transition hover:text-[#1677FF]"
-          >
-            お問い合わせ
-          </a>
+          <Link
+  href="/contact"
+  className="transition hover:text-[#1677FF]"
+>
+  お問い合わせ
+</Link>
 
           <a
-            href="https://www.leafworks.jp/"
+            href="https://www.raygence.co.jp/company/outline.html"
             target="_blank"
             rel="noopener noreferrer"
             className="transition hover:text-[#1677FF]"

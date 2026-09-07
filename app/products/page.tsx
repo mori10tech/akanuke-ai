@@ -404,6 +404,11 @@ export default function ProductsPage() {
     setShowAllProducts,
   ] = useState(false);
 
+  const [
+  isDiagnosisReady,
+  setIsDiagnosisReady,
+] = useState(false);
+
   /*
    * 横スクロール量から、
    * 下部インジケーターの幅と位置を計算します。
@@ -607,11 +612,15 @@ export default function ProductsPage() {
           : null;
 
       if (
-        !latestDiagnosisId ||
-        isCancelled
-      ) {
-        return;
-      }
+  !latestDiagnosisId ||
+  isCancelled
+) {
+  if (!isCancelled) {
+    setIsDiagnosisReady(true);
+  }
+
+  return;
+}
 
       const diagnosisResponse =
         await fetch(
@@ -642,23 +651,31 @@ export default function ProductsPage() {
       }
 
       if (
-        isCancelled ||
-        !diagnosisData.diagnosis
-      ) {
-        return;
-      }
+  isCancelled ||
+  !diagnosisData.diagnosis
+) {
+  if (!isCancelled) {
+    setIsDiagnosisReady(true);
+  }
+
+  return;
+}
 
       const productNeedsValue =
         diagnosisData.diagnosis
           .analysis?.productNeeds;
 
       if (
-        !Array.isArray(
-          productNeedsValue,
-        )
-      ) {
-        return;
-      }
+  !Array.isArray(
+    productNeedsValue,
+  )
+) {
+  if (!isCancelled) {
+    setIsDiagnosisReady(true);
+  }
+
+  return;
+}
 
       const validNeeds =
         productNeedsValue.filter(
@@ -666,10 +683,14 @@ export default function ProductsPage() {
         );
 
       if (
-        validNeeds.length === 0
-      ) {
-        return;
-      }
+  validNeeds.length === 0
+) {
+  if (!isCancelled) {
+    setIsDiagnosisReady(true);
+  }
+
+  return;
+}
 
       setDiagnosisNeeds(
         validNeeds,
@@ -680,8 +701,10 @@ export default function ProductsPage() {
        * そのカテゴリを優先します。
        */
       if (requestedCategory) {
-        return;
-      }
+  setIsDiagnosisReady(true);
+
+  return;
+}
 
       const recommendedCategory =
         [...categories].sort(
@@ -697,18 +720,24 @@ export default function ProductsPage() {
         )[0];
 
       if (
-        recommendedCategory
-      ) {
-        setSelectedCategory(
-          recommendedCategory.id,
-        );
-      }
+  recommendedCategory
+) {
+  setSelectedCategory(
+    recommendedCategory.id,
+  );
+}
+
+setIsDiagnosisReady(true);
     } catch (error) {
-      console.warn(
-        "[AKANUKE.AI] 商品レコメンド用の最新診断結果を読み込めませんでした:",
-        error,
-      );
-    }
+  console.warn(
+    "[AKANUKE.AI] 商品レコメンド用の最新診断結果を読み込めませんでした:",
+    error,
+  );
+
+  if (!isCancelled) {
+    setIsDiagnosisReady(true);
+  }
+}
   }
 
   const timeoutId =
@@ -818,6 +847,24 @@ export default function ProductsPage() {
     showAllProducts
       ? selectedProducts
       : selectedProducts.slice(0, 3);
+
+if (!isDiagnosisReady) {
+  return (
+    <AppShell background="white">
+      <div className="min-h-screen bg-white">
+        <AppHeader
+          backHref="/result"
+          backMode="history"
+          backLabel="前のページへ戻る"
+        />
+
+        <div className="flex min-h-[60vh] items-center justify-center">
+          <div className="h-8 w-8 animate-spin rounded-full border-[3px] border-black/10 border-t-[#1677FF]" />
+        </div>
+      </div>
+    </AppShell>
+  );
+}
 
   if (!selectedCategoryData) {
     return (

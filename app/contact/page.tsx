@@ -1,7 +1,6 @@
 "use client";
 
-import AppHeader from "../components/AppHeader";
-import AppShell from "../components/AppShell";
+import Link from "next/link";
 
 const inquiryTypes = [
   "サービスの使い方について",
@@ -15,30 +14,36 @@ const inquiryTypes = [
 
 export default function ContactPage() {
   return (
-    <AppShell background="gray">
-      <AppHeader
-        backHref="/"
-        backLabel="トップページへ戻る"
-      />
+    <main className="min-h-screen bg-white text-[#111111]">
+      <header className="border-b border-black/10">
+  <div className="mx-auto flex h-[68px] w-full max-w-[760px] items-center px-5 sm:px-8">
+    <Link
+      href="/"
+      className="text-[18px] font-black tracking-[-0.03em] text-[#111111] transition-opacity hover:opacity-70"
+    >
+      AKANUKE.AI
+    </Link>
+  </div>
+</header>
 
-      <main className="px-4 pb-12 pt-6">
-        <section>
-          <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
-            CONTACT
-          </p>
+      <div className="mx-auto w-full max-w-[760px] px-5 pb-24 pt-12 sm:px-8 sm:pt-16">
+        <section className="border-b border-black/10 pb-10">
+          <p className="text-[11px] font-black tracking-[0.18em] text-[#1677FF]">
+  CONTACT
+</p>
 
-          <h1 className="mt-2 text-[24px] font-black tracking-[-0.04em] text-[#111111]">
+          <h1 className="mt-2 text-[26px] font-black tracking-[-0.04em] text-[#111111]">
             お問い合わせ
           </h1>
 
-          <p className="mt-3 text-[12px] leading-5 text-black/55">
+          <p className="mt-3 text-[12px] leading-6 text-black/55">
             AKANUKE.AIに関するご質問や不具合などは、
             以下のフォームからお問い合わせください。
           </p>
         </section>
 
         <form
-          className="mt-6 rounded-[24px] border border-black/10 bg-white p-5 shadow-[0_10px_34px_rgba(15,23,42,0.05)]"
+          className="mt-10 rounded-[24px] border border-black/[0.07] bg-white p-5 shadow-[0_10px_34px_rgba(15,23,42,0.05)] sm:p-6"
           onSubmit={(event) => {
             event.preventDefault();
           }}
@@ -62,7 +67,7 @@ export default function ContactPage() {
               required
               maxLength={100}
               placeholder="例：山田 太郎"
-              className="mt-2 h-[50px] w-full rounded-[14px] border border-black/10 bg-[#F7F9FC] px-4 text-[14px] text-[#111111] outline-none transition focus:border-[#1677FF] focus:bg-white focus:ring-2 focus:ring-[#1677FF]/10"
+              className="mt-2 h-[50px] w-full rounded-[14px] border border-black/10 bg-[#F7F9FC] px-4 text-[14px] text-[#111111] outline-none transition placeholder:text-black/30 focus:border-[#1677FF] focus:bg-white focus:ring-2 focus:ring-[#1677FF]/10"
             />
           </div>
 
@@ -86,7 +91,7 @@ export default function ContactPage() {
               required
               maxLength={254}
               placeholder="example@email.com"
-              className="mt-2 h-[50px] w-full rounded-[14px] border border-black/10 bg-[#F7F9FC] px-4 text-[14px] text-[#111111] outline-none transition focus:border-[#1677FF] focus:bg-white focus:ring-2 focus:ring-[#1677FF]/10"
+              className="mt-2 h-[50px] w-full rounded-[14px] border border-black/10 bg-[#F7F9FC] px-4 text-[14px] text-[#111111] outline-none transition placeholder:text-black/30 focus:border-[#1677FF] focus:bg-white focus:ring-2 focus:ring-[#1677FF]/10"
             />
           </div>
 
@@ -106,9 +111,12 @@ export default function ContactPage() {
               name="category"
               required
               defaultValue=""
-              className="mt-2 h-[50px] w-full appearance-none rounded-[14px] border border-black/10 bg-[#F7F9FC] px-4 text-[14px] text-[#111111] outline-none transition focus:border-[#1677FF] focus:bg-white focus:ring-2 focus:ring-[#1677FF]/10"
+              className="mt-2 h-[50px] w-full rounded-[14px] border border-black/10 bg-[#F7F9FC] px-4 text-[14px] text-[#111111] outline-none transition focus:border-[#1677FF] focus:bg-white focus:ring-2 focus:ring-[#1677FF]/10"
             >
-              <option value="" disabled>
+              <option
+                value=""
+                disabled
+              >
                 選択してください
               </option>
 
@@ -143,7 +151,7 @@ export default function ContactPage() {
               maxLength={3000}
               rows={7}
               placeholder="お問い合わせ内容をご入力ください"
-              className="mt-2 w-full resize-none rounded-[14px] border border-black/10 bg-[#F7F9FC] px-4 py-3 text-[14px] leading-6 text-[#111111] outline-none transition focus:border-[#1677FF] focus:bg-white focus:ring-2 focus:ring-[#1677FF]/10"
+              className="mt-2 w-full resize-none rounded-[14px] border border-black/10 bg-[#F7F9FC] px-4 py-3 text-[14px] leading-6 text-[#111111] outline-none transition placeholder:text-black/30 focus:border-[#1677FF] focus:bg-white focus:ring-2 focus:ring-[#1677FF]/10"
             />
           </div>
 
@@ -175,7 +183,7 @@ export default function ContactPage() {
           </p>
         </form>
 
-        <section className="mt-5 rounded-[20px] border border-black/10 bg-white p-5">
+        <section className="mt-5 rounded-[20px] border border-black/[0.07] bg-white p-5">
           <p className="text-[10px] font-black tracking-[0.14em] text-[#1677FF]">
             EMAIL
           </p>
@@ -196,7 +204,17 @@ export default function ContactPage() {
             info@akanukeai.com
           </a>
         </section>
-      </main>
-    </AppShell>
+        
+        <div className="mt-10">
+  <Link
+    href="/"
+    className="inline-flex items-center gap-2 text-[13px] font-bold text-[#1677FF] transition-opacity hover:opacity-70"
+  >
+    <span aria-hidden="true">←</span>
+    トップページへ戻る
+  </Link>
+</div>
+      </div>
+    </main>
   );
 }

@@ -979,21 +979,17 @@ export default function Home() {
     個人情報保護方針
   </a>
 
-  <a
-    href="https://www.leafworks.jp/contact/"
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    お問い合わせ
-  </a>
+  <Link href="/contact">
+  お問い合わせ
+</Link>
 
-  <a
-    href="https://www.leafworks.jp/"
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    運営会社
-  </a>
+<a
+  href="https://www.raygence.co.jp/company/outline.html"
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  運営会社
+</a>
 
   <Link href="/login">
     ログイン

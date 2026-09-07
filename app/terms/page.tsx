@@ -422,7 +422,7 @@ export default function TermsPage() {
           </h1>
 
           <p className="mt-5 text-[14px] leading-7 text-black/55">
-            株式会社リーフワークス（以下「当社」といいます。）が提供する「AKANUKE.AI」（以下「本サービス」といいます。）の利用について、以下のとおり本規約を定めます。
+            株式会社レイジェンス（以下「当社」といいます。）が提供する「AKANUKE.AI」（以下「本サービス」といいます。）の利用について、以下のとおり本規約を定めます。
           </p>
         </div>
 
@@ -449,7 +449,7 @@ export default function TermsPage() {
           </p>
 
           <p className="mt-1 text-[13px] leading-7 text-black/50">
-            株式会社リーフワークス
+            株式会社レイジェンス
           </p>
         </div>
 

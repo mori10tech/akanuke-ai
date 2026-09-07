@@ -38,6 +38,7 @@ export type Product = {
   visualType: ProductVisualType;
 
   imagePath?: string;
+  imageUrl?: string;
   imageAlt?: string;
 
   badges: string[];
@@ -84,6 +85,8 @@ export const products: Product[] = [
 
     imagePath:
   "/products/fancl-deep-clear-washing-powder.webp",
+    imageUrl:
+      "https://m.media-amazon.com/images/I/51QOhnDEycL._AC_SL1000_.jpg",
 imageAlt:
   "FANCL ディープクリア 洗顔パウダー",
 
@@ -115,6 +118,9 @@ imageAlt:
 
     visualType: "lotion",
 
+    imageUrl:
+      "https://m.media-amazon.com/images/I/71K7K2JNdpL._AC_SL1500_.jpg",
+
     badges: ["化粧水", "毎日ケア"],
     recommendedFor: ["保湿", "肌ケア", "化粧水"],
     needTags: ["moisturizing"],
@@ -142,6 +148,9 @@ imageAlt:
     reviewCount: null,
 
     visualType: "lotion",
+
+    imageUrl:
+      "https://m.media-amazon.com/images/I/61M6GzqOrmL._AC_SL1500_.jpg",
 
     badges: ["乳液", "保湿"],
     recommendedFor: ["乾燥", "保湿", "肌ケア"],
@@ -171,6 +180,9 @@ imageAlt:
 
     visualType: "hairOil",
 
+    imageUrl:
+      "https://m.media-amazon.com/images/I/41QwW36fXWL._AC_SL1200_.jpg",
+
     badges: ["クレンジング", "メイクオフ"],
     recommendedFor: ["BBクリーム", "メイクオフ", "洗浄"],
     needTags: ["makeupRemoval"],
@@ -198,6 +210,9 @@ imageAlt:
     reviewCount: null,
 
     visualType: "cleanser",
+
+    imageUrl:
+      "https://m.media-amazon.com/images/I/51bO3cEhu5L._AC_SL1500_.jpg",
 
     badges: ["酵素洗顔", "毛穴ケア"],
     recommendedFor: ["毛穴", "皮脂", "洗顔"],
@@ -227,6 +242,9 @@ imageAlt:
 
     visualType: "cleanser",
 
+    imageUrl:
+      "https://m.media-amazon.com/images/I/51Eupci-leL._AC_SL1500_.jpg",
+
     badges: ["メンズ洗顔", "毛穴ケア"],
     recommendedFor: ["毛穴", "皮脂", "男性向け"],
     needTags: ["poreCare", "oilControl"],
@@ -254,6 +272,9 @@ imageAlt:
     reviewCount: null,
 
     visualType: "cleanser",
+
+    imageUrl:
+      "https://m.media-amazon.com/images/I/71VjUfvZpXL._AC_SL1500_.jpg",
 
     badges: ["泡洗顔", "皮脂ケア"],
     recommendedFor: ["皮脂", "テカリ", "泡洗顔"],
@@ -283,6 +304,9 @@ imageAlt:
 
     visualType: "cleanser",
 
+    imageUrl:
+      "https://m.media-amazon.com/images/I/61xCICDabNL._AC_SL1500_.jpg",
+
     badges: ["洗顔", "角質ケア"],
     recommendedFor: ["毛穴", "皮脂", "角質汚れ"],
     needTags: ["poreCare", "oilControl"],
@@ -310,6 +334,9 @@ imageAlt:
     reviewCount: null,
 
     visualType: "lotion",
+
+    imageUrl:
+      "https://m.media-amazon.com/images/I/51-vwbXkskL._AC_SL1500_.jpg",
 
     badges: ["化粧水", "高保湿"],
     recommendedFor: ["乾燥", "保湿", "毎日ケア"],
@@ -339,6 +366,9 @@ imageAlt:
 
     visualType: "hairOil",
 
+    imageUrl:
+      "https://m.media-amazon.com/images/I/41qObf7auWL._AC_SL1500_.jpg",
+
     badges: ["クレンジング", "メイクオフ"],
     recommendedFor: ["BBクリーム", "メイクオフ", "洗浄"],
     needTags: ["makeupRemoval"],
@@ -366,6 +396,9 @@ imageAlt:
     reviewCount: null,
 
     visualType: "hairOil",
+
+    imageUrl:
+      "https://m.media-amazon.com/images/I/71tNJgFSmpL._AC_SL1500_.jpg",
 
     badges: ["クレンジング", "オイル"],
     recommendedFor: ["BBクリーム", "メイクオフ", "毛穴汚れ"],
@@ -403,6 +436,9 @@ imageAlt:
     recommendedFor: ["紫外線対策", "屋外", "毎日ケア"],
     needTags: ["uvProtection"],
 
+    imageUrl:
+      "https://m.media-amazon.com/images/I/71c3-MeeXQL._AC_SL1500_.jpg",
+
     amazon: {
       url: "https://amzn.to/45HA8Ae",
     },
@@ -431,6 +467,9 @@ imageAlt:
     recommendedFor: ["紫外線対策", "肌ケア", "日常使い"],
     needTags: ["uvProtection"],
 
+    imageUrl:
+      "https://m.media-amazon.com/images/I/71tvzp3-KWL._AC_SL1500_.jpg",
+
     amazon: {
       url: "https://amzn.to/45HAabk",
     },
@@ -458,6 +497,9 @@ imageAlt:
     badges: ["UVケア", "日常使い"],
     recommendedFor: ["紫外線対策", "毎日ケア", "肌"],
     needTags: ["uvProtection"],
+    imageUrl:
+      "https://m.media-amazon.com/images/I/71P4OIWcuiL._AC_SL1500_.jpg",
+
     amazon: {
       url: "https://amzn.to/4whE6u5",
     },
@@ -489,6 +531,9 @@ imageAlt:
     badges: ["ジェル", "セット力"],
     recommendedFor: ["キープ力", "毛流れ", "スタイリング"],
     needTags: ["hairHold", "hairFlow"],
+    imageUrl:
+      "https://m.media-amazon.com/images/I/61CbaeJfIBL._AC_SL1030_.jpg",
+
     amazon: {
       url: "https://amzn.to/4whEfxD",
     },
@@ -521,6 +566,9 @@ imageAlt:
       "hairManageability",
     ],
 
+    imageUrl:
+      "https://m.media-amazon.com/images/I/51WXliIdFlL._AC_SL1000_.jpg",
+
     amazon: {
       url: "https://amzn.to/3TYzkEs",
     },
@@ -552,6 +600,9 @@ imageAlt:
       "hairShine",
       "hairHold",
     ],
+
+    imageUrl:
+      "https://m.media-amazon.com/images/I/61HETm86RjL._AC_SL1500_.jpg",
 
     amazon: {
       url: "https://amzn.to/4wMT6BB",
@@ -588,6 +639,9 @@ imageAlt:
       "hairManageability",
     ],
 
+    imageUrl:
+      "https://m.media-amazon.com/images/I/718v+kHWpkL._AC_SL1500_.jpg",
+
     amazon: {
       url: "https://amzn.to/4qlVFrX",
     },
@@ -619,6 +673,9 @@ imageAlt:
       "hairRepair",
     ],
 
+    imageUrl:
+      "https://m.media-amazon.com/images/I/41Z6UhN1gVL._AC_SL1026_.jpg",
+
     amazon: {
       url: "https://amzn.to/4w8FdfT",
     },
@@ -649,6 +706,9 @@ imageAlt:
       "hairManageability",
       "hairRepair",
     ],
+
+    imageUrl:
+      "https://m.media-amazon.com/images/I/61mvvLMW1aL._AC_SL1500_.jpg",
 
     amazon: {
       url: "https://amzn.to/3TyjoJ4",
@@ -685,6 +745,9 @@ imageAlt:
       "beardShadowCover",
     ],
 
+    imageUrl:
+      "https://m.media-amazon.com/images/I/51WVR6Wof4L._AC_SL1500_.jpg",
+
     amazon: {
       url: "https://amzn.to/4z1F4NV",
     },
@@ -716,6 +779,9 @@ imageAlt:
       "uvProtection",
     ],
 
+    imageUrl:
+      "https://m.media-amazon.com/images/I/715oFJkcn0L._AC_SL1500_.jpg",
+
     amazon: {
       url: "https://amzn.to/4fIiNx1",
     },
@@ -746,6 +812,9 @@ imageAlt:
       "beardShadowCover",
       "skinToneCorrection",
     ],
+
+    imageUrl:
+      "https://m.media-amazon.com/images/I/51jaM3FaU9L._AC_SL1130_.jpg",
 
     amazon: {
       url: "https://amzn.to/3UiotoV",
@@ -779,6 +848,9 @@ imageAlt:
       "uvProtection",
     ],
 
+    imageUrl:
+      "https://m.media-amazon.com/images/I/71JPryuFwxL._AC_SL1500_.jpg",
+
     amazon: {
       url: "https://amzn.to/4xUeeWJ",
     },
@@ -806,6 +878,9 @@ imageAlt:
     badges: ["UVミスト", "塗り直し"],
     recommendedFor: ["紫外線対策", "外出先", "髪・全身"],
     needTags: ["uvProtection"],
+
+    imageUrl:
+      "https://m.media-amazon.com/images/I/71Xpm78HJmL._AC_SL1500_.jpg",
 
     amazon: {
       url: "https://amzn.to/4zs3obV",
@@ -835,6 +910,9 @@ imageAlt:
     recommendedFor: ["紫外線対策", "顔・体", "さらさら"],
     needTags: ["uvProtection"],
 
+    imageUrl:
+      "https://m.media-amazon.com/images/I/81yBlKEUjKL._AC_SL1500_.jpg",
+
     amazon: {
       url: "https://amzn.to/4xMnOe3",
     },
@@ -862,6 +940,9 @@ imageAlt:
     badges: ["UVケア", "屋外"],
     recommendedFor: ["紫外線対策", "レジャー", "顔・体"],
     needTags: ["uvProtection"],
+
+    imageUrl:
+      "https://m.media-amazon.com/images/I/71HYz6lMU9L._AC_SL1500_.jpg",
 
     amazon: {
       url: "https://amzn.to/4xiEdXN",
@@ -891,6 +972,9 @@ imageAlt:
     recommendedFor: ["紫外線対策", "日常使い", "顔・体"],
     needTags: ["uvProtection"],
 
+    imageUrl:
+      "https://m.media-amazon.com/images/I/51Q4z3PEJzL._AC_SL1500_.jpg",
+
     amazon: {
       url: "https://amzn.to/4zpGr9j",
     },
@@ -918,6 +1002,9 @@ imageAlt:
     badges: ["UVスプレー", "髪・全身"],
     recommendedFor: ["紫外線対策", "スポーツ", "髪・全身"],
     needTags: ["uvProtection"],
+
+    imageUrl:
+      "https://m.media-amazon.com/images/I/61lDJW6hCqL._AC_SL1500_.jpg",
 
     amazon: {
       url: "https://amzn.to/4qrLGRK",
@@ -947,6 +1034,9 @@ imageAlt:
     recommendedFor: ["紫外線対策", "毎日ケア", "顔・体"],
     needTags: ["uvProtection"],
 
+    imageUrl:
+      "https://m.media-amazon.com/images/I/51VurWWlsVL._AC_SL1000_.jpg",
+
     amazon: {
       url: "https://amzn.to/4gFLDhP",
     },
@@ -974,6 +1064,9 @@ imageAlt:
     badges: ["UVミスト", "屋外"],
     recommendedFor: ["紫外線対策", "塗り直し", "レジャー"],
     needTags: ["uvProtection"],
+
+    imageUrl:
+      "https://m.media-amazon.com/images/I/81Osm34z+6L._AC_SL1500_.jpg",
 
     amazon: {
       url: "https://amzn.to/45wdYku",
@@ -1003,6 +1096,9 @@ imageAlt:
     recommendedFor: ["毛流れ", "マット", "ナチュラル"],
     needTags: ["hairFlow", "hairHold"],
 
+    imageUrl:
+      "https://m.media-amazon.com/images/I/51SQNrK7TrL._AC_SL1000_.jpg",
+
     amazon: {
       url: "https://amzn.to/4wG7ElB",
     },
@@ -1030,6 +1126,9 @@ imageAlt:
     badges: ["ハードワックス", "キープ"],
     recommendedFor: ["立ち上げ", "束感", "キープ力"],
     needTags: ["hairHold", "hairFlow"],
+
+    imageUrl:
+      "https://m.media-amazon.com/images/I/413G3hSUQ5L._AC_SL1366_.jpg",
 
     amazon: {
       url: "https://amzn.to/4x3TPyh",
@@ -1059,6 +1158,9 @@ imageAlt:
     recommendedFor: ["マット", "束感", "キープ力"],
     needTags: ["hairHold", "hairFlow"],
 
+    imageUrl:
+      "https://m.media-amazon.com/images/I/51fegzRr9LL._AC_SL1500_.jpg",
+
     amazon: {
       url: "https://amzn.to/4bShjhq",
     },
@@ -1086,6 +1188,9 @@ imageAlt:
     badges: ["グリース", "ツヤ感"],
     recommendedFor: ["ツヤ", "濡れ髪", "キープ力"],
     needTags: ["hairShine", "hairHold"],
+
+    imageUrl:
+      "https://m.media-amazon.com/images/I/61eAjwhZ3lL._AC_SL1500_.jpg",
 
     amazon: {
       url: "https://amzn.to/3UGv1xP",
@@ -1115,6 +1220,9 @@ imageAlt:
     recommendedFor: ["ツヤ", "パーマ", "毛流れ"],
     needTags: ["hairShine", "hairFlow"],
 
+    imageUrl:
+      "https://m.media-amazon.com/images/I/41NqlaNfvVL._AC_.jpg",
+
     amazon: {
       url: "https://amzn.to/3U4YfGC",
     },
@@ -1143,6 +1251,9 @@ imageAlt:
     recommendedFor: ["センターパート", "毛流れ", "自然なツヤ"],
     needTags: ["hairFlow", "hairShine"],
 
+    imageUrl:
+      "https://m.media-amazon.com/images/I/41QaCNWywdL._AC_SL1000_.jpg",
+
     amazon: {
       url: "https://amzn.to/3Um69eH",
     },
@@ -1170,6 +1281,9 @@ imageAlt:
     badges: ["ヘアバーム", "キープ"],
     recommendedFor: ["毛流れ", "ナチュラル", "キープ力"],
     needTags: ["hairFlow", "hairHold"],
+
+    imageUrl:
+      "https://m.media-amazon.com/images/I/51O8K0H64ZL._AC_SL1024_.jpg",
 
     amazon: {
       url: "https://amzn.to/3SD4a5j",
@@ -1203,6 +1317,9 @@ imageAlt:
       "hairRepair",
     ],
 
+    imageUrl:
+      "https://m.media-amazon.com/images/I/61EzGgjGf9L._AC_SL1500_.jpg",
+
     amazon: {
       url: "https://amzn.to/4zpaSwf",
     },
@@ -1234,6 +1351,9 @@ imageAlt:
       "hairManageability",
     ],
 
+    imageUrl:
+      "https://m.media-amazon.com/images/I/31N+nhZPRwL._AC_SL1000_.jpg",
+
     amazon: {
       url: "https://amzn.to/4gE7DcS",
     },
@@ -1261,6 +1381,9 @@ imageAlt:
     badges: ["シャンプー", "濃密泡"],
     recommendedFor: ["毎日ケア", "泡立ち", "まとまり"],
     needTags: ["hairManageability"],
+
+    imageUrl:
+      "https://m.media-amazon.com/images/I/61WWjyvfjxL._AC_SL1500_.jpg",
 
     amazon: {
       url: "https://amzn.to/4qqdnug",
@@ -1293,6 +1416,9 @@ imageAlt:
       "hairRepair",
     ],
 
+    imageUrl:
+      "https://m.media-amazon.com/images/I/41HWJ9PGa4L._AC_SL1000_.jpg",
+
     amazon: {
       url: "https://amzn.to/4qtf4qP",
     },
@@ -1323,6 +1449,9 @@ imageAlt:
       "hairRepair",
       "hairManageability",
     ],
+
+    imageUrl:
+      "https://m.media-amazon.com/images/I/61wRGQZEUXL._AC_SL1500_.jpg",
 
     amazon: {
       url: "https://amzn.to/4xSobnu",
@@ -1355,6 +1484,9 @@ imageAlt:
       "hairManageability",
     ],
 
+    imageUrl:
+      "https://m.media-amazon.com/images/I/615H-DDEAML._AC_SL1500_.jpg",
+
     amazon: {
       url: "https://amzn.to/3UpYzQe",
     },
@@ -1386,6 +1518,9 @@ imageAlt:
       "hairManageability",
     ],
 
+    imageUrl:
+      "https://m.media-amazon.com/images/I/61NM3uT+RYL._AC_SL1500_.jpg",
+
     amazon: {
       url: "https://amzn.to/4cOgshX",
     },
@@ -1414,6 +1549,9 @@ imageAlt:
     badges: ["ファンデーション", "自然な仕上がり"],
     recommendedFor: ["毛穴", "色ムラ", "自然な肌補正"],
     needTags: ["skinToneCorrection"],
+
+    imageUrl:
+      "https://m.media-amazon.com/images/I/61PIHGw8OML._AC_SL1500_.jpg",
 
     amazon: {
       url: "https://amzn.to/3TZY2o9",
@@ -1446,6 +1584,9 @@ imageAlt:
       "skinToneCorrection",
     ],
 
+    imageUrl:
+      "https://m.media-amazon.com/images/I/5100iBwZC3L._AC_SL1270_.jpg",
+
     amazon: {
       url: "https://amzn.to/4g5B5Zh",
     },
@@ -1477,6 +1618,9 @@ imageAlt:
       "uvProtection",
     ],
 
+    imageUrl:
+      "https://m.media-amazon.com/images/I/51cQCgE6+gL._AC_SL1000_.jpg",
+
     amazon: {
       url: "https://amzn.to/4cxVyDJ",
     },
@@ -1504,6 +1648,9 @@ imageAlt:
     badges: ["コンシーラー", "部分カバー"],
     recommendedFor: ["ニキビ跡", "クマ", "部分補正"],
     needTags: ["skinToneCorrection"],
+
+    imageUrl:
+      "https://m.media-amazon.com/images/I/51kGSoQv-kL._AC_SL1300_.jpg",
 
     amazon: {
       url: "https://amzn.to/4gity83",
@@ -1536,6 +1683,9 @@ imageAlt:
       "skinToneCorrection",
     ],
 
+    imageUrl:
+      "https://m.media-amazon.com/images/I/71ch4xds+qL._AC_SL1500_.jpg",
+
     amazon: {
       url: "https://amzn.to/4xbKOTY",
     },
@@ -1566,6 +1716,9 @@ imageAlt:
       "beardShadowCover",
       "skinToneCorrection",
     ],
+
+    imageUrl:
+      "https://m.media-amazon.com/images/I/61ZfVapmBqL._AC_SL1500_.jpg",
 
     amazon: {
       url: "https://amzn.to/4zr0Omy",
@@ -1599,6 +1752,9 @@ imageAlt:
     recommendedFor: ["香り", "清潔感", "印象"],
     needTags: [],
 
+    imageUrl:
+      "https://m.media-amazon.com/images/I/61xYQcUSDyL._AC_SL1209_.jpg",
+
     amazon: {
       url: "https://amzn.to/4hkDTCS",
     },
@@ -1626,6 +1782,9 @@ imageAlt:
     badges: ["オーラルケア", "口元"],
     recommendedFor: ["歯", "口元", "清潔感"],
     needTags: [],
+
+    imageUrl:
+      "https://m.media-amazon.com/images/I/71YZOFchQRL._AC_SL1500_.jpg",
 
     amazon: {
       url: "https://amzn.to/45dcfQR",
@@ -1655,6 +1814,9 @@ imageAlt:
     recommendedFor: ["手元", "乾燥", "清潔感"],
     needTags: [],
     
+    imageUrl:
+      "https://m.media-amazon.com/images/I/51yLU9NK-VL._AC_SL1500_.jpg",
+
     amazon: {
       url: "https://amzn.to/45dauTK",
     },
@@ -1682,6 +1844,9 @@ imageAlt:
     badges: ["フレグランス", "清潔感"],
     recommendedFor: ["石けん系", "日常使い", "香水初心者"],
     needTags: [],
+
+    imageUrl:
+      "https://m.media-amazon.com/images/I/41-C0fSR7fL._AC_SL1040_.jpg",
 
     amazon: {
       url: "https://amzn.to/4gEH4nV",
@@ -1711,6 +1876,9 @@ imageAlt:
     recommendedFor: ["爽やかな香り", "ビジネス", "日常使い"],
     needTags: [],
 
+    imageUrl:
+      "https://m.media-amazon.com/images/I/51v1qIgUdFL._AC_SL1000_.jpg",
+
     amazon: {
       url: "https://amzn.to/4hIEcrd",
     },
@@ -1738,6 +1906,9 @@ imageAlt:
     badges: ["口臭ケア", "マウスウォッシュ"],
     recommendedFor: ["口臭", "口内ケア", "毎日ケア"],
     needTags: [],
+
+    imageUrl:
+      "https://m.media-amazon.com/images/I/61GVixG01qL._AC_SL1500_.jpg",
 
     amazon: {
       url: "https://amzn.to/4zi7142",
@@ -1767,6 +1938,9 @@ imageAlt:
     recommendedFor: ["口臭", "口内ケア", "爽快感"],
     needTags: [],
 
+    imageUrl:
+      "https://m.media-amazon.com/images/I/618dV2-kXYL._AC_SL1500_.jpg",
+
     amazon: {
       url: "https://amzn.to/4g7kVyB",
     },
@@ -1794,6 +1968,9 @@ imageAlt:
     badges: ["リップケア", "血色補正"],
     recommendedFor: ["唇の乾燥", "血色感", "自然な補正"],
     needTags: [],
+
+    imageUrl:
+      "https://m.media-amazon.com/images/I/71BJDfOoi-L._AC_SL1500_.jpg",
 
     amazon: {
       url: "https://amzn.to/45wVHnd",
@@ -1823,6 +2000,9 @@ imageAlt:
     recommendedFor: ["手元の乾燥", "ビジネス", "無香料"],
     needTags: [],
 
+    imageUrl:
+      "https://m.media-amazon.com/images/I/71ss-bcqImL._AC_SL1500_.jpg",
+
     amazon: {
       url: "https://amzn.to/45F3yiu",
     },
@@ -1850,6 +2030,9 @@ imageAlt:
     badges: ["リップケア", "無色・無香料"],
     recommendedFor: ["唇の乾燥", "自然な仕上がり", "男性向け"],
     needTags: [],
+
+    imageUrl:
+      "https://m.media-amazon.com/images/I/41FlzgCruvL._AC_SL1000_.jpg",
 
     amazon: {
       url: "https://amzn.to/3SnEoBM",

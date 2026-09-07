@@ -191,7 +191,7 @@ function AffiliateButtons({
   product: Product;
 }) {
   const baseClass =
-    "flex min-h-11 items-center justify-center gap-1.5 rounded-[10px] px-3 text-[11px] font-black text-white transition hover:-translate-y-0.5 active:scale-[0.98]";
+  "flex min-h-[50px] items-center justify-center gap-2 rounded-[12px] px-4 text-[12px] font-black text-white shadow-[0_8px_20px_rgba(0,0,0,0.14)] transition hover:-translate-y-0.5 hover:shadow-[0_10px_24px_rgba(0,0,0,0.18)] active:scale-[0.98]";
 
   return (
     <div className="mt-4">
@@ -254,6 +254,28 @@ function ProductCard({
       ) : null}
 
       <div className="p-4">
+        {product.imageUrl ? (
+  <button
+    type="button"
+    onClick={() =>
+      openExternalProductUrl(
+        product.amazon.url,
+      )
+    }
+    className="mb-4 flex w-full items-center justify-center overflow-hidden rounded-[16px] bg-white p-3"
+    aria-label={`${product.name}をAmazonで見る`}
+  >
+    {/* eslint-disable-next-line @next/next/no-img-element */}
+    <img
+      src={product.imageUrl}
+      alt={
+        product.imageAlt ??
+        product.name
+      }
+      className="h-[160px] w-full object-contain"
+    />
+  </button>
+) : null}
         <p className="text-[12px] font-black tracking-[0.06em] text-black/65">
           {product.brand}
         </p>
@@ -272,35 +294,35 @@ function ProductCard({
           {product.description}
         </p>
 
-        <div className="mt-4 flex items-end justify-between gap-3 border-t border-black/10 pt-4">
-          <div>
-            {product.rating &&
-            product.reviewCount ? (
-              <>
-                <p className="text-[11px] font-black text-[#111111]">
-                  ★ {product.rating}
-                </p>
+        {(product.rating &&
+  product.reviewCount) ||
+product.price !== null ? (
+  <div className="mt-4 flex items-end justify-between gap-3 border-t border-black/10 pt-4">
+    <div>
+      {product.rating &&
+      product.reviewCount ? (
+        <>
+          <p className="text-[11px] font-black text-[#111111]">
+            ★ {product.rating}
+          </p>
 
-                <p className="mt-0.5 text-[10px] text-black/55">
-                  {product.reviewCount}
-                </p>
-              </>
-            ) : (
-              <p className="text-[10px] leading-5 text-black/55">
-                商品情報は販売サイトで確認
-              </p>
-            )}
-          </div>
+          <p className="mt-0.5 text-[10px] text-black/55">
+            {product.reviewCount}
+          </p>
+        </>
+      ) : null}
+    </div>
 
-          {product.price !== null ? (
-            <p className="shrink-0 text-[17px] font-black">
-              ¥
-              {formatPrice(
-                product.price,
-              )}
-            </p>
-          ) : null}
-        </div>
+    {product.price !== null ? (
+      <p className="shrink-0 text-[17px] font-black">
+        ¥
+        {formatPrice(
+          product.price,
+        )}
+      </p>
+    ) : null}
+  </div>
+) : null}
 
         <div className="mt-4 flex flex-wrap gap-1.5">
           {product.badges.map(
@@ -316,30 +338,24 @@ function ProductCard({
         </div>
 
         <div className="mt-4 rounded-[14px] bg-[#EEF6FF] p-3.5">
-          <div className="flex items-center gap-2">
-            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white text-[#1677FF]">
-              <SparkleIcon className="h-4 w-4" />
-            </span>
+  <p className="text-[11px] font-black text-[#1677FF]">
+    あなたにおすすめの理由
+  </p>
 
-            <p className="text-[11px] font-black text-[#1677FF]">
-              あなたにおすすめの理由
-            </p>
-          </div>
-
-          <div className="mt-3 flex flex-wrap gap-1.5">
-            {displayedReasons.map(
-              (item) => (
-                <span
-                  key={item}
-                  className="flex items-center gap-1 rounded-full bg-white px-2.5 py-1.5 text-[10px] font-black text-[#1677FF]"
-                >
-                  <CheckIcon />
-                  {item}
-                </span>
-              ),
-            )}
-          </div>
-        </div>
+  <div className="mt-2.5 flex flex-wrap gap-1.5">
+    {displayedReasons.map(
+      (item) => (
+        <span
+          key={item}
+          className="flex items-center gap-1 rounded-full bg-white px-2.5 py-1.5 text-[10px] font-black text-[#1677FF]"
+        >
+          <CheckIcon />
+          {item}
+        </span>
+      ),
+    )}
+  </div>
+</div>
 
         <AffiliateButtons
           product={product}

@@ -79,10 +79,8 @@ export default function AdSenseAd({
       null,
     );
 
-  const [adStatus, setAdStatus] =
-    useState<
-      "loading" | "filled" | "unfilled"
-    >("loading");
+  const [isUnfilled, setIsUnfilled] =
+    useState(false);
 
   const resolvedSlot =
     slot?.trim() ||
@@ -148,12 +146,9 @@ export default function AdSenseAd({
             "data-ad-status",
           );
 
-        if (
-          status === "filled" ||
-          status === "unfilled"
-        ) {
-          setAdStatus(status);
-        }
+        setIsUnfilled(
+          status === "unfilled",
+        );
       };
 
     updateAdStatus();
@@ -199,33 +194,17 @@ export default function AdSenseAd({
     return null;
   }
 
-  if (!canRequestAd) {
-    return (
-      <aside
-        aria-label="スポンサーリンク"
-        className={`overflow-hidden rounded-[20px] border border-black/10 bg-white shadow-[0_8px_28px_rgba(15,23,42,0.04)] ${className}`}
-      >
-        <div className="border-b border-black/5 px-4 py-2.5">
-          <p className="text-center text-[9px] font-bold tracking-[0.08em] text-black/35">
-            スポンサーリンク
-          </p>
-        </div>
-
-        <DevelopmentPlaceholder
-          format={format}
-        />
-      </aside>
-    );
+  if (
+    canRequestAd &&
+    isUnfilled
+  ) {
+    return null;
   }
 
   return (
     <aside
       aria-label="スポンサーリンク"
-      className={
-        adStatus === "filled"
-          ? `overflow-hidden rounded-[20px] border border-black/10 bg-white shadow-[0_8px_28px_rgba(15,23,42,0.04)] ${className}`
-          : "hidden"
-      }
+      className={`overflow-hidden rounded-[20px] border border-black/10 bg-white shadow-[0_8px_28px_rgba(15,23,42,0.04)] ${className}`}
     >
       <div className="border-b border-black/5 px-4 py-2.5">
         <p className="text-center text-[9px] font-bold tracking-[0.08em] text-black/35">
@@ -233,30 +212,37 @@ export default function AdSenseAd({
         </p>
       </div>
 
-      <ins
-        ref={adRef}
-        className="adsbygoogle block"
-        style={{
-          display: "block",
-          minHeight:
+      {canRequestAd ? (
+        <ins
+          ref={adRef}
+          className="adsbygoogle block"
+          style={{
+            display: "block",
+            minHeight:
+              format ===
+              "rectangle"
+                ? 250
+                : 100,
+          }}
+          data-ad-client={
+            ADSENSE_CLIENT
+          }
+          data-ad-slot={
+            resolvedSlot
+          }
+          data-ad-format={
             format ===
             "rectangle"
-              ? 250
-              : 100,
-        }}
-        data-ad-client={
-          ADSENSE_CLIENT
-        }
-        data-ad-slot={
-          resolvedSlot
-        }
-        data-ad-format={
-          format === "rectangle"
-            ? "rectangle"
-            : "auto"
-        }
-        data-full-width-responsive="true"
-      />
+              ? "rectangle"
+              : "auto"
+          }
+          data-full-width-responsive="true"
+        />
+      ) : (
+        <DevelopmentPlaceholder
+          format={format}
+        />
+      )}
     </aside>
   );
 }

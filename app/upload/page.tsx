@@ -1010,9 +1010,15 @@ useEffect(() => {
           正面の写真がおすすめです
         </p>
 
-        <span className="mt-4 inline-flex rounded-full bg-[#FFF9D9] px-3 py-1.5 text-[10px] font-black text-[#1677FF]">
-          写真は診断以外には使用しません
-        </span>
+        <div className="mt-4 rounded-[14px] bg-[#FFF9D9] px-4 py-3">
+  <p className="text-[10px] font-black leading-5 text-[#1677FF]">
+    写真はAI診断・Afterイメージ生成のために使用します
+  </p>
+
+  <p className="mt-1 text-[9px] leading-4 text-black/55">
+    画像は一般公開されず、AI処理のため外部AIサービスを利用します。
+  </p>
+</div>
       </div>
     </div>
   )}

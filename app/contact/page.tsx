@@ -261,33 +261,45 @@ export default function ContactPage() {
             </span>
           </label>
 
-          <button
-  type="submit"
-  disabled={!contactFormEnabled || isSubmitting}
-  className={`mt-6 flex min-h-[52px] w-full items-center justify-center rounded-[14px] bg-[#1677FF] px-5 text-[13px] font-black text-white transition ${
-    !contactFormEnabled || isSubmitting
-      ? "cursor-not-allowed opacity-45"
-      : "active:scale-[0.99]"
-  }`}
->
-  {isSubmitting ? "送信中..." : "送信する"}
-</button>
+          {isSuccess ? (
+  <div className="mt-6 rounded-[18px] border border-[#1677FF]/15 bg-[#F3F8FF] px-5 py-6 text-center">
+    <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-[#1677FF] text-[18px] font-black text-white">
+      ✓
+    </div>
 
-{statusMessage ? (
-  <p
-    className={`mt-3 text-center text-[11px] font-bold leading-5 ${
-      isSuccess
-        ? "text-[#1677FF]"
-        : "text-red-600"
-    }`}
-  >
-    {statusMessage}
-  </p>
-) : !contactFormEnabled ? (
-  <p className="mt-3 text-center text-[10px] font-bold leading-4 text-black/50">
-    メール送信機能は現在準備中です。
-  </p>
-) : null}
+    <p className="mt-3 text-[15px] font-black text-[#111111]">
+      お問い合わせを送信しました
+    </p>
+
+    <p className="mt-2 text-[11px] font-bold leading-5 text-black/55">
+      内容を確認のうえ、担当者よりご連絡いたします。
+    </p>
+  </div>
+) : (
+  <>
+    <button
+      type="submit"
+      disabled={!contactFormEnabled || isSubmitting}
+      className={`mt-6 flex min-h-[52px] w-full items-center justify-center rounded-[14px] bg-[#1677FF] px-5 text-[13px] font-black text-white transition ${
+        !contactFormEnabled || isSubmitting
+          ? "cursor-not-allowed opacity-45"
+          : "active:scale-[0.99]"
+      }`}
+    >
+      {isSubmitting ? "送信中..." : "送信する"}
+    </button>
+
+    {statusMessage ? (
+      <p className="mt-3 text-center text-[11px] font-bold leading-5 text-red-600">
+        {statusMessage}
+      </p>
+    ) : !contactFormEnabled ? (
+      <p className="mt-3 text-center text-[10px] font-bold leading-4 text-black/50">
+        メール送信機能は現在準備中です。
+      </p>
+    ) : null}
+  </>
+)}
 
         </form>
 

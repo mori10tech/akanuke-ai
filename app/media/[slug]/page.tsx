@@ -16,6 +16,7 @@ import JournalServiceCta from "../components/JournalServiceCta";
 import ArticleStructuredData from "./ArticleStructuredData";
 import AkanukenaiManFeaturesArticle from "./articles/AkanukenaiManFeaturesArticle";
 import MensAkanukeHairstyleArticle from "./articles/MensAkanukeHairstyleArticle";
+import MensAkanukeEyebrowsArticle from "./articles/MensAkanukeEyebrowsArticle";
 import MensAkanukeOrderArticle from "./articles/MensAkanukeOrderArticle";
 import JournalFooter from "../components/JournalFooter";
 import MensBeautyBeginnerArticle from "./articles/MensBeautyBeginnerArticle";
@@ -418,6 +419,27 @@ export default async function ArticleDetailPage({
       </>
     );
   }
+
+    if (article.slug === "mens-akanuke-eyebrows") {
+    return (
+      <>
+        <ArticleStructuredData article={article} />
+
+        <main className="min-h-screen bg-white text-[#111111]">
+          <ArticleHeader />
+
+          <article>
+            <ArticleHero article={article} />
+
+            <MensAkanukeEyebrowsArticle article={article} />
+          </article>
+
+          <JournalFooter />
+        </main>
+      </>
+    );
+  }
+
 
   if (article.slug === "mens-beauty-beginner") {
     return (

@@ -11,6 +11,33 @@ export type Article = {
 };
 
 export const articles: Article[] = [
+
+  {
+    slug: "mens-akanuke-eyebrows",
+
+    title:
+      "メンズが垢抜ける眉毛の整え方｜初心者でも失敗しない基本を解説",
+
+    description:
+      "垢抜けたい男性向けに、眉毛の基本的な整え方を初心者にも分かりやすく解説。自然に見える形や剃りすぎを防ぐポイント、セルフケアと眉毛サロンの違いも紹介します。",
+
+    category: "眉毛",
+
+    publishedAt: "2026-09-08",
+
+    readingTime: "約8分",
+
+    image: "/media/mens-akanuke-eyebrows.png",
+
+    keywords: [
+      "メンズ 垢抜け 眉毛",
+      "メンズ 眉毛 整え方",
+      "男 眉毛 整え方",
+      "眉毛 垢抜け 男",
+      "メンズ 眉毛 初心者",
+    ],
+  },
+
   {
     slug: "mens-akanuke-order",
 

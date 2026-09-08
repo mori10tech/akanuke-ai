@@ -906,7 +906,7 @@ export default function Home() {
 
       <section className="px-4 pb-5 pt-4">
         <div className="site-container overflow-hidden rounded-[28px] bg-gradient-to-r from-[#EEF6FF] via-white to-[#EEF6FF] px-6 py-8 sm:px-10">
-          <div className="grid items-center gap-6 lg:grid-cols-[1fr_auto_0.55fr]">
+                    <div className="grid items-center gap-6 lg:mx-auto lg:max-w-[1050px] lg:grid-cols-[minmax(0,1fr)_355px] lg:gap-10">
             <div>
               <p className="text-2xl font-bold leading-snug sm:text-3xl">
                 変わりたい。最初の一歩を、
@@ -922,27 +922,19 @@ export default function Home() {
             </div>
 
             <Link
-  href="/upload"
-  prefetch={false}
-  className="primary-button w-full max-w-[355px]"
->
-  <span>無料で診断をはじめる</span>
+              href="/upload"
+              prefetch={false}
+              className="primary-button w-full max-w-[355px] lg:min-w-[355px]"
+            >
+              <span>無料で診断をはじめる</span>
 
-  <span
-    aria-hidden="true"
-    className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-black/10 text-[16px] leading-none"
-  >
-    ›
-  </span>
-</Link>
-
-            <Image
-              src="/lp/hero-man-v2.png"
-              width={390}
-              height={470}
-              alt="AKANUKE.AIを始める男性"
-              className="hidden h-40 w-full object-cover object-top mix-blend-multiply lg:block"
-            />
+              <span
+                aria-hidden="true"
+                className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-black/10 text-[16px] leading-none"
+              >
+                ›
+              </span>
+            </Link>
           </div>
         </div>
       </section>

@@ -16,21 +16,21 @@ export default function ContactPage() {
   return (
     <main className="min-h-screen bg-white text-[#111111]">
       <header className="border-b border-black/10">
-  <div className="mx-auto flex h-[68px] w-full max-w-[760px] items-center px-5 sm:px-8">
-    <Link
-      href="/"
-      className="text-[18px] font-black tracking-[-0.03em] text-[#111111] transition-opacity hover:opacity-70"
-    >
-      AKANUKE.AI
-    </Link>
-  </div>
-</header>
+        <div className="mx-auto flex h-[68px] w-full max-w-[760px] items-center px-5 sm:px-8">
+          <Link
+            href="/"
+            className="text-[18px] font-black tracking-[-0.03em] text-[#111111] transition-opacity hover:opacity-70"
+          >
+            AKANUKE.AI
+          </Link>
+        </div>
+      </header>
 
       <div className="mx-auto w-full max-w-[760px] px-5 pb-24 pt-12 sm:px-8 sm:pt-16">
         <section className="border-b border-black/10 pb-10">
           <p className="text-[11px] font-black tracking-[0.18em] text-[#1677FF]">
-  CONTACT
-</p>
+            CONTACT
+          </p>
 
           <h1 className="mt-2 text-[26px] font-black tracking-[-0.04em] text-[#111111]">
             お問い合わせ
@@ -106,31 +106,38 @@ export default function ContactPage() {
               </span>
             </label>
 
-            <select
-              id="category"
-              name="category"
-              required
-              defaultValue=""
-              className="mt-2 h-[50px] w-full rounded-[14px] border border-black/10 bg-[#F7F9FC] px-4 text-[14px] text-[#111111] outline-none transition focus:border-[#1677FF] focus:bg-white focus:ring-2 focus:ring-[#1677FF]/10"
-            >
-              <option
-                value=""
-                disabled
+            <div className="relative mt-2">
+              <select
+                id="category"
+                name="category"
+                required
+                defaultValue=""
+                className="h-[50px] w-full appearance-none rounded-[14px] border border-black/10 bg-[#F7F9FC] px-4 pr-12 text-[14px] text-[#111111] outline-none transition focus:border-[#1677FF] focus:bg-white focus:ring-2 focus:ring-[#1677FF]/10"
               >
-                選択してください
-              </option>
+                <option
+                  value=""
+                  disabled
+                >
+                  選択してください
+                </option>
 
-              {inquiryTypes.map(
-                (inquiryType) => (
-                  <option
-                    key={inquiryType}
-                    value={inquiryType}
-                  >
-                    {inquiryType}
-                  </option>
-                ),
-              )}
-            </select>
+                {inquiryTypes.map(
+                  (inquiryType) => (
+                    <option
+                      key={inquiryType}
+                      value={inquiryType}
+                    >
+                      {inquiryType}
+                    </option>
+                  ),
+                )}
+              </select>
+
+              <span
+  aria-hidden="true"
+  className="pointer-events-none absolute right-5 top-1/2 h-2 w-2 -translate-y-[65%] rotate-45 border-b-[1.5px] border-r-[1.5px] border-black"
+/>
+            </div>
           </div>
 
           <div className="mt-5">
@@ -204,16 +211,16 @@ export default function ContactPage() {
             info@akanukeai.com
           </a>
         </section>
-        
+
         <div className="mt-10">
-  <Link
-    href="/"
-    className="inline-flex items-center gap-2 text-[13px] font-bold text-[#1677FF] transition-opacity hover:opacity-70"
-  >
-    <span aria-hidden="true">←</span>
-    トップページへ戻る
-  </Link>
-</div>
+          <Link
+            href="/"
+            className="inline-flex items-center gap-2 text-[13px] font-bold text-[#1677FF] transition-opacity hover:opacity-70"
+          >
+            <span aria-hidden="true">←</span>
+            トップページへ戻る
+          </Link>
+        </div>
       </div>
     </main>
   );

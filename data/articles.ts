@@ -12,6 +12,32 @@ export type Article = {
 
 export const articles: Article[] = [
 
+    {
+    slug: "mens-skincare-beginner",
+
+    title:
+      "メンズスキンケアは何から始める？初心者向けの基本3ステップ",
+
+    description:
+      "メンズスキンケア初心者向けに、何から始めればいいのかを分かりやすく解説。洗顔・保湿・日焼け止めの基本3ステップや、肌質別の選び方、よくある失敗も紹介します。",
+
+    category: "スキンケア",
+
+    publishedAt: "2026-09-08",
+
+    readingTime: "約8分",
+
+    image: "/media/mens-skincare-beginner.png",
+
+    keywords: [
+      "メンズ スキンケア 初心者",
+      "メンズ スキンケア 何から",
+      "男性 スキンケア 初心者",
+      "男 スキンケア 方法",
+      "メンズ 肌ケア",
+    ],
+  },
+
   {
     slug: "mens-akanuke-eyebrows",
 

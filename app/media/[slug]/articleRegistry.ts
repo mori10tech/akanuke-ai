@@ -8,6 +8,7 @@ import MensAkanukeGuideArticle from "./articles/mens-akanuke-guide";
 import MensAkanukeHairstyleArticle from "./articles/mens-akanuke-hairstyle";
 import MensAkanukeOrderArticle from "./articles/mens-akanuke-order";
 import MensBeautyBeginnerArticle from "./articles/mens-beauty-beginner";
+import MensSkincareBeginnerArticle from "./articles/mens-skincare-beginner";
 
 type ArticleContentComponent = ComponentType<{
   article: Article;
@@ -23,4 +24,5 @@ export const articleRegistry: Record<
   "mens-beauty-beginner": MensBeautyBeginnerArticle,
   "mens-akanuke-order": MensAkanukeOrderArticle,
   "mens-akanuke-eyebrows": MensAkanukeEyebrowsArticle,
+  "mens-skincare-beginner": MensSkincareBeginnerArticle,
 };

@@ -36,7 +36,7 @@ export default function ContactPage() {
             お問い合わせ
           </h1>
 
-          <p className="mt-3 text-[12px] leading-6 text-black/55">
+          <p className="mt-3 text-[12px] font-bold leading-6 text-black/60">
             AKANUKE.AIに関するご質問や不具合などは、
             以下のフォームからお問い合わせください。
           </p>
@@ -67,7 +67,7 @@ export default function ContactPage() {
               required
               maxLength={100}
               placeholder="例：山田 太郎"
-              className="mt-2 h-[50px] w-full rounded-[14px] border border-black/10 bg-[#F7F9FC] px-4 text-[14px] text-[#111111] outline-none transition placeholder:text-black/30 focus:border-[#1677FF] focus:bg-white focus:ring-2 focus:ring-[#1677FF]/10"
+              className="mt-2 h-[50px] w-full rounded-[14px] border border-black/10 bg-[#F7F9FC] px-4 text-[14px] font-bold text-[#111111] outline-none transition placeholder:text-black/30 focus:border-[#1677FF] focus:bg-white focus:ring-2 focus:ring-[#1677FF]/10"
             />
           </div>
 
@@ -91,7 +91,7 @@ export default function ContactPage() {
               required
               maxLength={254}
               placeholder="example@email.com"
-              className="mt-2 h-[50px] w-full rounded-[14px] border border-black/10 bg-[#F7F9FC] px-4 text-[14px] text-[#111111] outline-none transition placeholder:text-black/30 focus:border-[#1677FF] focus:bg-white focus:ring-2 focus:ring-[#1677FF]/10"
+              className="mt-2 h-[50px] w-full rounded-[14px] border border-black/10 bg-[#F7F9FC] px-4 text-[14px] font-bold text-[#111111] outline-none transition placeholder:text-black/30 focus:border-[#1677FF] focus:bg-white focus:ring-2 focus:ring-[#1677FF]/10"
             />
           </div>
 
@@ -112,7 +112,7 @@ export default function ContactPage() {
                 name="category"
                 required
                 defaultValue=""
-                className="h-[50px] w-full appearance-none rounded-[14px] border border-black/10 bg-[#F7F9FC] px-4 pr-12 text-[14px] text-[#111111] outline-none transition focus:border-[#1677FF] focus:bg-white focus:ring-2 focus:ring-[#1677FF]/10"
+                className="h-[50px] w-full appearance-none rounded-[14px] border border-black/10 bg-[#F7F9FC] px-4 pr-12 text-[14px] font-bold text-[#111111] invalid:text-black/45 outline-none transition focus:border-[#1677FF] focus:bg-white focus:ring-2 focus:ring-[#1677FF]/10"
               >
                 <option
                   value=""
@@ -158,7 +158,7 @@ export default function ContactPage() {
               maxLength={3000}
               rows={7}
               placeholder="お問い合わせ内容をご入力ください"
-              className="mt-2 w-full resize-none rounded-[14px] border border-black/10 bg-[#F7F9FC] px-4 py-3 text-[14px] leading-6 text-[#111111] outline-none transition placeholder:text-black/30 focus:border-[#1677FF] focus:bg-white focus:ring-2 focus:ring-[#1677FF]/10"
+              className="mt-2 w-full resize-none rounded-[14px] border border-black/10 bg-[#F7F9FC] px-4 py-3 text-[14px] font-bold leading-6 text-[#111111] outline-none transition placeholder:text-black/30 focus:border-[#1677FF] focus:bg-white focus:ring-2 focus:ring-[#1677FF]/10"
             />
           </div>
 
@@ -170,7 +170,7 @@ export default function ContactPage() {
               className="mt-0.5 h-4 w-4 shrink-0 accent-[#1677FF]"
             />
 
-            <span className="text-[11px] leading-5 text-black/60">
+            <span className="text-[11px] font-bold leading-5 text-black/65">
               個人情報の取扱いについて確認し、
               お問い合わせ対応のために入力した情報が
               利用されることに同意します。
@@ -185,7 +185,7 @@ export default function ContactPage() {
             送信する
           </button>
 
-          <p className="mt-3 text-center text-[10px] leading-4 text-black/45">
+          <p className="mt-3 text-center text-[10px] font-bold leading-4 text-black/50">
             メール送信機能は現在準備中です。
           </p>
         </form>
@@ -199,7 +199,7 @@ export default function ContactPage() {
             メールでのお問い合わせ
           </h2>
 
-          <p className="mt-2 text-[11px] leading-5 text-black/55">
+          <p className="mt-2 text-[11px] font-bold leading-5 text-black/60">
             お急ぎの場合やフォームを利用できない場合は、
             以下のメールアドレスからお問い合わせいただけます。
           </p>

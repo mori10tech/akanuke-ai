@@ -1023,9 +1023,6 @@ function HeroAnalysisCard() {
           </p>
         </div>
 
-        <span className="analysis-panel-spark">
-          <Icon name="spark" className="h-4 w-4" />
-        </span>
       </div>
 
       <div className="analysis-panel-list">

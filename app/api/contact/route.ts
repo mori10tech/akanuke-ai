@@ -194,8 +194,6 @@ export async function POST(request: Request) {
       message,
       "",
       "------------------------------",
-      "AKANUKE.AI",
-      "https://akanukeai.com",
     ].join("\n");
 
     await transporter.sendMail({

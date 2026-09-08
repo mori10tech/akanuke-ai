@@ -1050,37 +1050,49 @@ function AnalysisScoreRow({
 }) {
   const customIconSrc =
     item.icon === "hair"
-      ? "/icons/hair.svg"
+      ? "/icons/analysis-hair.png"
       : item.icon === "brow"
-        ? "/icons/brow.svg"
-        : null;
+        ? "/icons/analysis-eyebrow.png"
+        : item.icon === "skin"
+          ? "/icons/analysis-skin.png"
+          : item.icon === "spark"
+            ? "/icons/analysis-impression.png"
+            : null;
+
+  const isBrow = item.icon === "brow";
 
   return (
     <div
-      className={`analysis-score-row ${
-        last ? "analysis-score-row-last" : ""
+      className={`grid grid-cols-[68px_minmax(0,1fr)] items-center gap-1.5 py-2 ${
+        last ? "" : "border-b border-black/10"
       }`}
     >
-      <div className="analysis-score-icon-wrap">
+      <div className="flex h-[64px] w-[68px] shrink-0 items-center justify-center">
         {customIconSrc ? (
           <Image
             src={customIconSrc}
             alt=""
-            width={32}
-            height={32}
-            className="analysis-score-icon object-contain"
+           width={isBrow ? 48 : 64}
+           height={isBrow ? 48 : 64}
+            className={
+  isBrow
+    ? "h-12 w-12 object-contain"
+    : "h-[64px] w-[64px] object-contain"
+}
           />
         ) : (
           <Icon
             name={item.icon}
-            className="analysis-score-icon"
+            className={
+              isBrow
+                ? "h-12 w-12"
+                : "h-16 w-16"
+            }
           />
         )}
-
-        <span className="analysis-score-icon-line" />
       </div>
 
-      <div className="analysis-score-content">
+      <div className="min-w-0">
         <p className="analysis-score-label">
           {item.label}
         </p>
@@ -1152,29 +1164,41 @@ function FeatureIcon({
   label: string;
 }) {
   const customIconSrc =
-    icon === "hair"
-      ? "/icons/hair.svg"
-      : icon === "brow"
-        ? "/icons/brow.svg"
-        : null;
+  icon === "hair"
+    ? "/icons/analysis-hair.png"
+    : icon === "brow"
+      ? "/icons/analysis-eyebrow.png"
+      : icon === "skin"
+        ? "/icons/analysis-skin.png"
+        : icon === "spark"
+          ? "/icons/analysis-impression.png"
+          : null;
 
   return (
     <div className="text-center">
-      <div className="mx-auto grid aspect-square max-w-24 place-items-center rounded-2xl border border-[#1677FF]/10 bg-[#F7FAFF] text-[#1677FF]">
+      <div className="mx-auto grid aspect-square max-w-24 place-items-center rounded-2xl border border-[#1677FF]/10 bg-white text-[#1677FF]">
         {customIconSrc ? (
-          <Image
-            src={customIconSrc}
-            alt=""
-            width={48}
-            height={48}
-            className="h-9 w-9 object-contain"
-          />
-        ) : (
-          <Icon
-            name={icon}
-            className="h-9 w-9"
-          />
-        )}
+  <Image
+    src={customIconSrc}
+    alt=""
+    width={icon === "brow" ? 72 : 84}
+    height={icon === "brow" ? 72 : 84}
+    className={
+      icon === "brow"
+        ? "h-[72px] w-[72px] object-contain"
+        : "h-[84px] w-[84px] object-contain"
+    }
+  />
+) : (
+  <Icon
+    name={icon}
+    className={
+      icon === "brow"
+        ? "h-[72px] w-[72px]"
+        : "h-[84px] w-[84px]"
+    }
+  />
+)}
       </div>
 
       <p className="mt-3 text-xs font-bold sm:text-sm">

@@ -2,12 +2,12 @@ import type { ComponentType } from "react";
 
 import type { Article } from "../../../data/articles";
 
-import AkanukenaiManFeaturesArticle from "./articles/AkanukenaiManFeaturesArticle";
-import MensAkanukeEyebrowsArticle from "./articles/MensAkanukeEyebrowsArticle";
-import MensAkanukeGuideArticle from "./articles/MensAkanukeGuideArticle";
-import MensAkanukeHairstyleArticle from "./articles/MensAkanukeHairstyleArticle";
-import MensAkanukeOrderArticle from "./articles/MensAkanukeOrderArticle";
-import MensBeautyBeginnerArticle from "./articles/MensBeautyBeginnerArticle";
+import AkanukenaiManFeaturesArticle from "./articles/akanukenai-man-features";
+import MensAkanukeEyebrowsArticle from "./articles/mens-akanuke-eyebrows";
+import MensAkanukeGuideArticle from "./articles/mens-akanuke-guide";
+import MensAkanukeHairstyleArticle from "./articles/mens-akanuke-hairstyle";
+import MensAkanukeOrderArticle from "./articles/mens-akanuke-order";
+import MensBeautyBeginnerArticle from "./articles/mens-beauty-beginner";
 
 type ArticleContentComponent = ComponentType<{
   article: Article;

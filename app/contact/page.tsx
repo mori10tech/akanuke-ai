@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { FormEvent, useState } from "react";
 
 const inquiryTypes = [
   "サービスの使い方について",
@@ -13,6 +14,74 @@ const inquiryTypes = [
 ];
 
 export default function ContactPage() {
+
+    const [isSubmitting, setIsSubmitting] = useState(false);
+  const [statusMessage, setStatusMessage] = useState("");
+  const [isSuccess, setIsSuccess] = useState(false);
+
+  const contactFormEnabled =
+    process.env.NEXT_PUBLIC_CONTACT_FORM_ENABLED === "true";
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    if (!contactFormEnabled || isSubmitting) {
+      return;
+    }
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+
+    setIsSubmitting(true);
+    setStatusMessage("");
+    setIsSuccess(false);
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.get("name"),
+          email: formData.get("email"),
+          category: formData.get("category"),
+          message: formData.get("message"),
+          privacyConsent: formData.get("privacyConsent") === "on",
+          website: formData.get("website"),
+        }),
+      });
+
+      const data = (await response.json()) as {
+        ok?: boolean;
+        message?: string;
+      };
+
+      if (!response.ok || !data.ok) {
+        throw new Error(
+          data.message ??
+            "お問い合わせの送信に失敗しました。",
+        );
+      }
+
+      form.reset();
+
+      setIsSuccess(true);
+      setStatusMessage(
+        data.message ?? "お問い合わせを送信しました。",
+      );
+    } catch (error) {
+      setIsSuccess(false);
+      setStatusMessage(
+        error instanceof Error
+          ? error.message
+          : "お問い合わせの送信に失敗しました。時間をおいてもう一度お試しください。",
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
   return (
     <main className="min-h-screen bg-white text-[#111111]">
       <header className="border-b border-black/10">
@@ -44,10 +113,25 @@ export default function ContactPage() {
 
         <form
           className="mt-10 rounded-[24px] border border-black/[0.07] bg-white p-5 shadow-[0_10px_34px_rgba(15,23,42,0.05)] sm:p-6"
-          onSubmit={(event) => {
-            event.preventDefault();
-          }}
+          onSubmit={handleSubmit}
         >
+<div
+  aria-hidden="true"
+  className="absolute left-[-9999px] top-auto h-px w-px overflow-hidden"
+>
+  <label htmlFor="website">
+    Website
+  </label>
+
+  <input
+    id="website"
+    name="website"
+    type="text"
+    tabIndex={-1}
+    autoComplete="off"
+  />
+</div>
+
           <div>
             <label
               htmlFor="name"
@@ -178,16 +262,33 @@ export default function ContactPage() {
           </label>
 
           <button
-            type="submit"
-            disabled
-            className="mt-6 flex min-h-[52px] w-full cursor-not-allowed items-center justify-center rounded-[14px] bg-[#1677FF] px-5 text-[13px] font-black text-white opacity-45"
-          >
-            送信する
-          </button>
+  type="submit"
+  disabled={!contactFormEnabled || isSubmitting}
+  className={`mt-6 flex min-h-[52px] w-full items-center justify-center rounded-[14px] bg-[#1677FF] px-5 text-[13px] font-black text-white transition ${
+    !contactFormEnabled || isSubmitting
+      ? "cursor-not-allowed opacity-45"
+      : "active:scale-[0.99]"
+  }`}
+>
+  {isSubmitting ? "送信中..." : "送信する"}
+</button>
 
-          <p className="mt-3 text-center text-[10px] font-bold leading-4 text-black/50">
-            メール送信機能は現在準備中です。
-          </p>
+{statusMessage ? (
+  <p
+    className={`mt-3 text-center text-[11px] font-bold leading-5 ${
+      isSuccess
+        ? "text-[#1677FF]"
+        : "text-red-600"
+    }`}
+  >
+    {statusMessage}
+  </p>
+) : !contactFormEnabled ? (
+  <p className="mt-3 text-center text-[10px] font-bold leading-4 text-black/50">
+    メール送信機能は現在準備中です。
+  </p>
+) : null}
+
         </form>
 
         <section className="mt-5 rounded-[20px] border border-black/[0.07] bg-white p-5">

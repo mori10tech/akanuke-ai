@@ -115,22 +115,22 @@ export default function ContactPage() {
                 className="h-[50px] w-full appearance-none rounded-[14px] border border-black/10 bg-[#F7F9FC] px-4 pr-12 text-[14px] font-bold text-[#111111] invalid:text-black/45 outline-none transition focus:border-[#1677FF] focus:bg-white focus:ring-2 focus:ring-[#1677FF]/10"
               >
                 <option
-                  value=""
-                  disabled
-                >
-                  選択してください
-                </option>
+  value=""
+  disabled
+  className="text-black/45"
+>
+  選択してください
+</option>
 
-                {inquiryTypes.map(
-                  (inquiryType) => (
-                    <option
-                      key={inquiryType}
-                      value={inquiryType}
-                    >
-                      {inquiryType}
-                    </option>
-                  ),
-                )}
+                {inquiryTypes.map((inquiryType) => (
+  <option
+    key={inquiryType}
+    value={inquiryType}
+    className="font-bold text-[#111111]"
+  >
+    {inquiryType}
+  </option>
+))}
               </select>
 
               <span

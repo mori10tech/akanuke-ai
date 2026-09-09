@@ -617,6 +617,9 @@ a {
   min-height: 380px;
   margin-top: 8px;
   overflow: hidden;
+
+  width: calc(100% + 12px);
+  margin-right: -12px;
 }
 
   .hero-person-wrap {
@@ -638,7 +641,7 @@ a {
 
   .analysis-panel {
   top: 10px;
-  right: 0;
+  right: 12px;
   bottom: auto;
   width: 50%;
   min-height: auto;

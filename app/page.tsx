@@ -404,11 +404,13 @@ export default function Home() {
     <span>無料で診断をはじめる</span>
 
     <span
-      aria-hidden="true"
-      className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-black/10 text-[16px] leading-none"
-    >
-      ›
-    </span>
+  aria-hidden="true"
+  className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-black/10 text-[16px] leading-none"
+>
+  <span className="-translate-y-px">
+    ›
+  </span>
+</span>
   </Link>
 </div>
         </div>
@@ -450,11 +452,13 @@ export default function Home() {
   <span>無料で診断をはじめる</span>
 
   <span
-    aria-hidden="true"
-    className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-black/10 text-[16px] leading-none"
-  >
+  aria-hidden="true"
+  className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-black/10 text-[16px] leading-none"
+>
+  <span className="-translate-y-px">
     ›
   </span>
+</span>
 </Link>
 
       <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm font-bold text-black/70">
@@ -658,11 +662,13 @@ export default function Home() {
     <span>無料で診断をはじめる</span>
 
     <span
-      aria-hidden="true"
-      className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-black/10 text-[16px] leading-none"
-    >
-      ›
-    </span>
+  aria-hidden="true"
+  className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-black/10 text-[16px] leading-none"
+>
+  <span className="-translate-y-px">
+    ›
+  </span>
+</span>
   </Link>
 </div>
 
@@ -751,11 +757,13 @@ export default function Home() {
     <span>無料で診断をはじめる</span>
 
     <span
-      aria-hidden="true"
-      className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-black/10 text-[16px] leading-none"
-    >
-      ›
-    </span>
+  aria-hidden="true"
+  className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-black/10 text-[16px] leading-none"
+>
+  <span className="-translate-y-px">
+    ›
+  </span>
+</span>
   </Link>
 </div>
 
@@ -927,11 +935,13 @@ export default function Home() {
               <span>無料で診断をはじめる</span>
 
               <span
-                aria-hidden="true"
-                className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-black/10 text-[16px] leading-none"
-              >
-                ›
-              </span>
+  aria-hidden="true"
+  className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-black/10 text-[16px] leading-none"
+>
+  <span className="-translate-y-px">
+    ›
+  </span>
+</span>
             </Link>
           </div>
         </div>

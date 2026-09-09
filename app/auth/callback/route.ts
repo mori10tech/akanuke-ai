@@ -68,6 +68,9 @@ function createLoginRedirect(
 function createInternalRedirect(
   request: NextRequest,
   pathname: string,
+  options?: {
+    loginComplete?: boolean;
+  },
 ) {
   const redirectUrl =
     request.nextUrl.clone();
@@ -77,6 +80,15 @@ function createInternalRedirect(
 
   redirectUrl.search =
     "";
+
+  if (
+    options?.loginComplete
+  ) {
+    redirectUrl.searchParams.set(
+      "login_complete",
+      "1",
+    );
+  }
 
   return NextResponse.redirect(
     redirectUrl,
@@ -99,15 +111,15 @@ async function resolveNextPath(
   requestedPath: string,
 ) {
   if (
-  requestedPath !==
-    "/line/result" &&
-  requestedPath !==
-    "/plan" &&
-  requestedPath !==
-    "/products"
-) {
-  return requestedPath;
-}
+    requestedPath !==
+      "/line/result" &&
+    requestedPath !==
+      "/plan" &&
+    requestedPath !==
+      "/products"
+  ) {
+    return requestedPath;
+  }
 
   const {
     data: {
@@ -249,7 +261,8 @@ export async function GET(
       await fetch(
         "https://api.line.me/friendship/v1/status",
         {
-          method: "GET",
+          method:
+            "GET",
 
           headers: {
             Authorization:
@@ -302,13 +315,13 @@ export async function GET(
     }
 
     /*
- * LINE認証と友だち確認が
- * 正常に完了した後、
- *
- * 診断結果・垢抜けプラン・おすすめ商品については
- * 診断履歴を確認して
- * 最終遷移先を決定する。
- */
+     * LINE認証と友だち確認が
+     * 正常に完了した後、
+     *
+     * 診断結果・垢抜けプラン・おすすめ商品については
+     * 診断履歴を確認して
+     * 最終遷移先を決定する。
+     */
     const resolvedNext =
       await resolveNextPath(
         supabase,
@@ -324,10 +337,19 @@ export async function GET(
      *
      * LINEトークへの
      * 強制遷移は行わない。
+     *
+     * login_complete=1 は、
+     * 遷移先の共通Analytics Trackerで
+     * LINEログイン成功を1回だけ
+     * GA4へ送信するために使用する。
      */
     return createInternalRedirect(
       request,
       resolvedNext,
+      {
+        loginComplete:
+          true,
+      },
     );
   } catch (error) {
     console.error(

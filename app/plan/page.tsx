@@ -14,6 +14,7 @@ import {
 import AppHeader from "../components/AppHeader";
 import AppShell from "../components/AppShell";
 import AdSenseAd from "../components/AdSenseAd";
+import { trackEvent } from "../../lib/analytics";
 
 const DIAGNOSIS_ID_STORAGE_KEY =
   "akanukeDiagnosisId";
@@ -572,6 +573,9 @@ function SalonOrderGuide({
 }
 
 export default function PlanPage() {
+    const planViewTrackedRef =
+    useRef(false);
+
     const [
     backHref,
     setBackHref,
@@ -1036,6 +1040,48 @@ const orderedPlanTasks =
       ),
     [completedCount],
   );
+
+  useEffect(() => {
+    if (
+      !loaded ||
+      planViewTrackedRef.current
+    ) {
+      return;
+    }
+
+    planViewTrackedRef.current =
+      true;
+
+    const searchParams =
+      new URLSearchParams(
+        window.location.search,
+      );
+
+    const entrySource =
+      searchParams.get("from") ===
+      "dashboard"
+        ? "dashboard"
+        : "result";
+
+    trackEvent(
+      "plan_view",
+      {
+        completed_task_count:
+          completedCount,
+
+        progress_percent:
+          progress,
+
+        entry_source:
+          entrySource,
+      },
+    );
+  }, [
+    loaded,
+    completedCount,
+    progress,
+  ]);
+
 
 async function resolveDiagnosisId() {
   const response = await fetch(

@@ -13,6 +13,7 @@ import liff from "@line/liff";
 import AppHeader from "../components/AppHeader";
 import AppShell from "../components/AppShell";
 import AdSenseAd from "../components/AdSenseAd";
+import { trackEvent } from "../../lib/analytics";
 
 import {
   activeProducts,
@@ -27,7 +28,9 @@ import {
   type ProductNeed,
 } from "../../data/productNeeds";
 
-function formatPrice(price: number) {
+function formatPrice(
+  price: number,
+) {
   return new Intl.NumberFormat(
     "ja-JP",
   ).format(price);
@@ -51,11 +54,18 @@ function getProductScore(
   return (
     product.needTags ?? []
   ).reduce(
-    (totalScore, tag) => {
+    (
+      totalScore,
+      tag,
+    ) => {
       const needIndex =
-        diagnosisNeeds.indexOf(tag);
+        diagnosisNeeds.indexOf(
+          tag,
+        );
 
-      if (needIndex === -1) {
+      if (
+        needIndex === -1
+      ) {
         return totalScore;
       }
 
@@ -76,10 +86,14 @@ function getCategoryScore(
   return activeProducts
     .filter(
       (product) =>
-        product.category === category,
+        product.category ===
+        category,
     )
     .reduce(
-      (highestScore, product) =>
+      (
+        highestScore,
+        product,
+      ) =>
         Math.max(
           highestScore,
           getProductScore(
@@ -119,7 +133,9 @@ function SparkleIcon({
     <svg
       viewBox="0 0 24 24"
       aria-hidden="true"
-      className={className}
+      className={
+        className
+      }
       fill="none"
       stroke="currentColor"
       strokeWidth="1.7"
@@ -152,18 +168,47 @@ function CheckIcon() {
 /*
  * Amazonなどの外部販売サイトを開きます。
  *
- * LIFFブラウザ内の場合:
- *   LINE内ブラウザではなく、
- *   Safari / Chromeなどの外部ブラウザで開きます。
- *
- * 通常ブラウザの場合:
- *   通常の新規タブとして開きます。
+ * GA4へ商品クリック情報を送信したあと、
+ * LIFF内では外部ブラウザ、
+ * 通常ブラウザでは新規タブで開きます。
  */
-function openExternalProductUrl(
-  url: string,
-) {
+function openExternalProductUrl({
+  url,
+  product,
+  clickPosition,
+  featured,
+}: {
+  url: string;
+  product: Product;
+  clickPosition:
+    | "image"
+    | "button";
+  featured: boolean;
+}) {
+  trackEvent(
+    "product_click",
+    {
+      product_id:
+        product.id,
+
+      product_category:
+        product.category,
+
+      affiliate_provider:
+        "amazon",
+
+      click_position:
+        clickPosition,
+
+      is_ai_pick:
+        featured,
+    },
+  );
+
   try {
-    if (liff.isInClient()) {
+    if (
+      liff.isInClient()
+    ) {
       liff.openWindow({
         url,
         external: true,
@@ -187,11 +232,13 @@ function openExternalProductUrl(
 
 function AffiliateButtons({
   product,
+  featured,
 }: {
   product: Product;
+  featured: boolean;
 }) {
   const baseClass =
-  "flex min-h-[50px] items-center justify-center gap-2 rounded-[12px] px-4 text-[12px] font-black text-white shadow-[0_8px_20px_rgba(0,0,0,0.14)] transition hover:-translate-y-0.5 hover:shadow-[0_10px_24px_rgba(0,0,0,0.18)] active:scale-[0.98]";
+    "flex min-h-[50px] items-center justify-center gap-2 rounded-[12px] px-4 text-[12px] font-black text-white shadow-[0_8px_20px_rgba(0,0,0,0.14)] transition hover:-translate-y-0.5 hover:shadow-[0_10px_24px_rgba(0,0,0,0.18)] active:scale-[0.98]";
 
   return (
     <div className="mt-4">
@@ -199,12 +246,25 @@ function AffiliateButtons({
         type="button"
         onClick={() =>
           openExternalProductUrl(
-            product.amazon.url,
+            {
+              url:
+                product
+                  .amazon
+                  .url,
+
+              product,
+
+              clickPosition:
+                "button",
+
+              featured,
+            },
           )
         }
         className={`${baseClass} w-full bg-[#111111]`}
       >
         Amazonで見る
+
         <ExternalLinkIcon />
       </button>
     </div>
@@ -217,23 +277,32 @@ function ProductCard({
   featured = false,
 }: {
   product: Product;
-  diagnosisNeeds: ProductNeed[];
+  diagnosisNeeds:
+    ProductNeed[];
   featured?: boolean;
 }) {
   const matchedReasons =
     diagnosisNeeds
-      .filter((need) =>
-        (
-          product.needTags ?? []
-        ).includes(need),
+      .filter(
+        (need) =>
+          (
+            product
+              .needTags ??
+            []
+          ).includes(
+            need,
+          ),
       )
       .map(
         (need) =>
-          productNeedLabels[need],
+          productNeedLabels[
+            need
+          ],
       );
 
   const displayedReasons =
-    matchedReasons.length > 0
+    matchedReasons.length >
+    0
       ? matchedReasons
       : product.recommendedFor;
 
@@ -255,27 +324,42 @@ function ProductCard({
 
       <div className="p-4">
         {product.imageUrl ? (
-  <button
-    type="button"
-    onClick={() =>
-      openExternalProductUrl(
-        product.amazon.url,
-      )
-    }
-    className="mb-4 flex w-full items-center justify-center overflow-hidden rounded-[16px] bg-white p-3"
-    aria-label={`${product.name}をAmazonで見る`}
-  >
-    {/* eslint-disable-next-line @next/next/no-img-element */}
-    <img
-      src={product.imageUrl}
-      alt={
-        product.imageAlt ??
-        product.name
-      }
-      className="h-[160px] w-full object-contain"
-    />
-  </button>
-) : null}
+          <button
+            type="button"
+            onClick={() =>
+              openExternalProductUrl(
+                {
+                  url:
+                    product
+                      .amazon
+                      .url,
+
+                  product,
+
+                  clickPosition:
+                    "image",
+
+                  featured,
+                },
+              )
+            }
+            className="mb-4 flex w-full items-center justify-center overflow-hidden rounded-[16px] bg-white p-3"
+            aria-label={`${product.name}をAmazonで見る`}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={
+                product.imageUrl
+              }
+              alt={
+                product.imageAlt ??
+                product.name
+              }
+              className="h-[160px] w-full object-contain"
+            />
+          </button>
+        ) : null}
+
         <p className="text-[12px] font-black tracking-[0.06em] text-black/65">
           {product.brand}
         </p>
@@ -291,44 +375,55 @@ function ProductCard({
         </h3>
 
         <p className="mt-3 text-[13px] leading-6 text-black/70">
-          {product.description}
+          {
+            product.description
+          }
         </p>
 
         {(product.rating &&
-  product.reviewCount) ||
-product.price !== null ? (
-  <div className="mt-4 flex items-end justify-between gap-3 border-t border-black/10 pt-4">
-    <div>
-      {product.rating &&
-      product.reviewCount ? (
-        <>
-          <p className="text-[11px] font-black text-[#111111]">
-            ★ {product.rating}
-          </p>
+          product.reviewCount) ||
+        product.price !==
+          null ? (
+          <div className="mt-4 flex items-end justify-between gap-3 border-t border-black/10 pt-4">
+            <div>
+              {product.rating &&
+              product.reviewCount ? (
+                <>
+                  <p className="text-[11px] font-black text-[#111111]">
+                    ★{" "}
+                    {
+                      product.rating
+                    }
+                  </p>
 
-          <p className="mt-0.5 text-[10px] text-black/55">
-            {product.reviewCount}
-          </p>
-        </>
-      ) : null}
-    </div>
+                  <p className="mt-0.5 text-[10px] text-black/55">
+                    {
+                      product.reviewCount
+                    }
+                  </p>
+                </>
+              ) : null}
+            </div>
 
-    {product.price !== null ? (
-      <p className="shrink-0 text-[17px] font-black">
-        ¥
-        {formatPrice(
-          product.price,
-        )}
-      </p>
-    ) : null}
-  </div>
-) : null}
+            {product.price !==
+            null ? (
+              <p className="shrink-0 text-[17px] font-black">
+                ¥
+                {formatPrice(
+                  product.price,
+                )}
+              </p>
+            ) : null}
+          </div>
+        ) : null}
 
         <div className="mt-4 flex flex-wrap gap-1.5">
           {product.badges.map(
             (badge) => (
               <span
-                key={badge}
+                key={
+                  badge
+                }
                 className="rounded-full bg-[#FFF9D9] px-2.5 py-1.5 text-[10px] font-black text-[#111111]"
               >
                 {badge}
@@ -338,27 +433,35 @@ product.price !== null ? (
         </div>
 
         <div className="mt-4 rounded-[14px] bg-[#EEF6FF] p-3.5">
-  <p className="text-[11px] font-black text-[#1677FF]">
-    あなたにおすすめの理由
-  </p>
+          <p className="text-[11px] font-black text-[#1677FF]">
+            あなたにおすすめの理由
+          </p>
 
-  <div className="mt-2.5 flex flex-wrap gap-1.5">
-    {displayedReasons.map(
-      (item) => (
-        <span
-          key={item}
-          className="flex items-center gap-1 rounded-full bg-white px-2.5 py-1.5 text-[10px] font-black text-[#1677FF]"
-        >
-          <CheckIcon />
-          {item}
-        </span>
-      ),
-    )}
-  </div>
-</div>
+          <div className="mt-2.5 flex flex-wrap gap-1.5">
+            {displayedReasons.map(
+              (item) => (
+                <span
+                  key={
+                    item
+                  }
+                  className="flex items-center gap-1 rounded-full bg-white px-2.5 py-1.5 text-[10px] font-black text-[#1677FF]"
+                >
+                  <CheckIcon />
+
+                  {item}
+                </span>
+              ),
+            )}
+          </div>
+        </div>
 
         <AffiliateButtons
-          product={product}
+          product={
+            product
+          }
+          featured={
+            featured
+          }
         />
       </div>
     </article>
@@ -366,6 +469,9 @@ product.price !== null ? (
 }
 
 export default function ProductsPage() {
+  const productsViewTrackedRef =
+    useRef(false);
+
   const categoryScrollRef =
     useRef<HTMLDivElement | null>(
       null,
@@ -389,14 +495,17 @@ export default function ProductsPage() {
   const [
     diagnosisNeeds,
     setDiagnosisNeeds,
-  ] = useState<ProductNeed[]>([]);
+  ] = useState<
+    ProductNeed[]
+  >([]);
 
   const [
-  selectedCategory,
-  setSelectedCategory,
-] = useState<ProductCategory | null>(
-  null,
-);
+    selectedCategory,
+    setSelectedCategory,
+  ] =
+    useState<ProductCategory | null>(
+      null,
+    );
 
   const [
     showAllProducts,
@@ -404,9 +513,9 @@ export default function ProductsPage() {
   ] = useState(false);
 
   const [
-  isDiagnosisReady,
-  setIsDiagnosisReady,
-] = useState(false);
+    isDiagnosisReady,
+    setIsDiagnosisReady,
+  ] = useState(false);
 
   /*
    * 横スクロール量から、
@@ -447,7 +556,9 @@ export default function ProductsPage() {
         hasOverflow,
       );
 
-      if (!hasOverflow) {
+      if (
+        !hasOverflow
+      ) {
         setCategoryScrollProgress(
           0,
         );
@@ -490,7 +601,8 @@ export default function ProductsPage() {
       const indicatorWidth =
         Math.max(
           24,
-          visibleRatio * 100,
+          visibleRatio *
+            100,
         );
 
       setCategoryScrollProgress(
@@ -522,9 +634,11 @@ export default function ProductsPage() {
       );
 
     const resizeObserver =
-      new ResizeObserver(() => {
-        updateCategoryScrollIndicator();
-      });
+      new ResizeObserver(
+        () => {
+          updateCategoryScrollIndicator();
+        },
+      );
 
     resizeObserver.observe(
       element,
@@ -552,250 +666,323 @@ export default function ProductsPage() {
   ]);
 
   useEffect(() => {
-  let isCancelled = false;
+    let isCancelled =
+      false;
 
-  /*
-   * Result・Planなどのページ途中から遷移しても、
-   * 商品ページは必ず最上部から表示します。
-   */
-  window.scrollTo({
-    top: 0,
-    left: 0,
-    behavior: "auto",
-  });
+    /*
+     * Result・Planなどのページ途中から遷移しても、
+     * 商品ページは必ず最上部から表示します。
+     */
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "auto",
+    });
 
-  async function restoreLatestDiagnosis() {
-    try {
-      const requestedCategory =
-        categories.find(
-          (category) =>
-            category.id ===
-            new URLSearchParams(
-              window.location.search,
-            ).get("category"),
-        )?.id;
+    async function restoreLatestDiagnosis() {
+      try {
+        const requestedCategory =
+          categories.find(
+            (
+              category,
+            ) =>
+              category.id ===
+              new URLSearchParams(
+                window.location
+                  .search,
+              ).get(
+                "category",
+              ),
+          )?.id;
 
-      if (requestedCategory) {
-        setSelectedCategory(
-          requestedCategory,
-        );
-      }
+        if (
+          requestedCategory
+        ) {
+          setSelectedCategory(
+            requestedCategory,
+          );
+        }
 
-      const latestResponse =
-        await fetch(
-          "/api/diagnoses/latest",
-          {
-            method: "GET",
-            cache: "no-store",
-          },
-        );
+        const latestResponse =
+          await fetch(
+            "/api/diagnoses/latest",
+            {
+              method:
+                "GET",
 
-      const latestData =
-        (await latestResponse.json()) as {
-          diagnosisId?: string | null;
-          error?: string;
-        };
+              cache:
+                "no-store",
+            },
+          );
 
-      if (!latestResponse.ok) {
-        throw new Error(
-          latestData.error ??
-            "最新の診断情報を取得できませんでした。",
-        );
-      }
+        const latestData =
+          (await latestResponse.json()) as {
+            diagnosisId?:
+              | string
+              | null;
 
-      const latestDiagnosisId =
-        typeof latestData.diagnosisId ===
-          "string" &&
-        latestData.diagnosisId.trim().length > 0
-          ? latestData.diagnosisId
-          : null;
-
-      if (
-  !latestDiagnosisId ||
-  isCancelled
-) {
-  if (!isCancelled) {
-    setSelectedCategory(
-      requestedCategory ??
-        categories[0]?.id ??
-        "skincare",
-    );
-
-    setIsDiagnosisReady(true);
-  }
-
-  return;
-}
-
-      const diagnosisResponse =
-        await fetch(
-          `/api/diagnoses/${encodeURIComponent(
-            latestDiagnosisId,
-          )}`,
-          {
-            method: "GET",
-            cache: "no-store",
-          },
-        );
-
-      const diagnosisData =
-        (await diagnosisResponse.json()) as {
-          diagnosis?: {
-            analysis?: {
-              productNeeds?: unknown;
-            };
+            error?: string;
           };
-          error?: string;
-        };
 
-      if (!diagnosisResponse.ok) {
-        throw new Error(
-          diagnosisData.error ??
-            "診断結果を取得できませんでした。",
+        if (
+          !latestResponse.ok
+        ) {
+          throw new Error(
+            latestData.error ??
+              "最新の診断情報を取得できませんでした。",
+          );
+        }
+
+        const latestDiagnosisId =
+          typeof latestData
+            .diagnosisId ===
+            "string" &&
+          latestData.diagnosisId
+            .trim()
+            .length > 0
+            ? latestData.diagnosisId
+            : null;
+
+        if (
+          !latestDiagnosisId ||
+          isCancelled
+        ) {
+          if (
+            !isCancelled
+          ) {
+            setSelectedCategory(
+              requestedCategory ??
+                categories[0]
+                  ?.id ??
+                "skincare",
+            );
+
+            setIsDiagnosisReady(
+              true,
+            );
+          }
+
+          return;
+        }
+
+        const diagnosisResponse =
+          await fetch(
+            `/api/diagnoses/${encodeURIComponent(
+              latestDiagnosisId,
+            )}`,
+            {
+              method:
+                "GET",
+
+              cache:
+                "no-store",
+            },
+          );
+
+        const diagnosisData =
+          (await diagnosisResponse.json()) as {
+            diagnosis?: {
+              analysis?: {
+                productNeeds?:
+                  unknown;
+              };
+            };
+
+            error?: string;
+          };
+
+        if (
+          !diagnosisResponse.ok
+        ) {
+          throw new Error(
+            diagnosisData.error ??
+              "診断結果を取得できませんでした。",
+          );
+        }
+
+        if (
+          isCancelled ||
+          !diagnosisData.diagnosis
+        ) {
+          if (
+            !isCancelled
+          ) {
+            setSelectedCategory(
+              requestedCategory ??
+                categories[0]
+                  ?.id ??
+                "skincare",
+            );
+
+            setIsDiagnosisReady(
+              true,
+            );
+          }
+
+          return;
+        }
+
+        const productNeedsValue =
+          diagnosisData
+            .diagnosis
+            .analysis
+            ?.productNeeds;
+
+        if (
+          !Array.isArray(
+            productNeedsValue,
+          )
+        ) {
+          if (
+            !isCancelled
+          ) {
+            setSelectedCategory(
+              requestedCategory ??
+                categories[0]
+                  ?.id ??
+                "skincare",
+            );
+
+            setIsDiagnosisReady(
+              true,
+            );
+          }
+
+          return;
+        }
+
+        const validNeeds =
+          productNeedsValue.filter(
+            isProductNeed,
+          );
+
+        if (
+          validNeeds.length ===
+          0
+        ) {
+          if (
+            !isCancelled
+          ) {
+            setSelectedCategory(
+              requestedCategory ??
+                categories[0]
+                  ?.id ??
+                "skincare",
+            );
+
+            setIsDiagnosisReady(
+              true,
+            );
+          }
+
+          return;
+        }
+
+        setDiagnosisNeeds(
+          validNeeds,
         );
+
+        /*
+         * URLでカテゴリ指定がある場合は、
+         * そのカテゴリを優先します。
+         */
+        if (
+          requestedCategory
+        ) {
+          setIsDiagnosisReady(
+            true,
+          );
+
+          return;
+        }
+
+        const recommendedCategory =
+          [
+            ...categories,
+          ].sort(
+            (
+              a,
+              b,
+            ) =>
+              getCategoryScore(
+                b.id,
+                validNeeds,
+              ) -
+              getCategoryScore(
+                a.id,
+                validNeeds,
+              ),
+          )[0];
+
+        if (
+          recommendedCategory
+        ) {
+          setSelectedCategory(
+            recommendedCategory
+              .id,
+          );
+        }
+
+        setIsDiagnosisReady(
+          true,
+        );
+      } catch (error) {
+        console.warn(
+          "[AKANUKE.AI] 商品レコメンド用の最新診断結果を読み込めませんでした:",
+          error,
+        );
+
+        if (
+          !isCancelled
+        ) {
+          setSelectedCategory(
+            categories[0]
+              ?.id ??
+              "skincare",
+          );
+
+          setIsDiagnosisReady(
+            true,
+          );
+        }
       }
+    }
 
-      if (
-  isCancelled ||
-  !diagnosisData.diagnosis
-) {
-  if (!isCancelled) {
-    setSelectedCategory(
-      requestedCategory ??
-        categories[0]?.id ??
-        "skincare",
-    );
+    const timeoutId =
+      window.setTimeout(
+        () => {
+          window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior:
+              "auto",
+          });
 
-    setIsDiagnosisReady(true);
-  }
-
-  return;
-}
-
-      const productNeedsValue =
-        diagnosisData.diagnosis
-          .analysis?.productNeeds;
-
-      if (
-  !Array.isArray(
-    productNeedsValue,
-  )
-) {
-  if (!isCancelled) {
-    setSelectedCategory(
-      requestedCategory ??
-        categories[0]?.id ??
-        "skincare",
-    );
-
-    setIsDiagnosisReady(true);
-  }
-
-  return;
-}
-
-      const validNeeds =
-        productNeedsValue.filter(
-          isProductNeed,
-        );
-
-      if (
-  validNeeds.length === 0
-) {
-  if (!isCancelled) {
-    setSelectedCategory(
-      requestedCategory ??
-        categories[0]?.id ??
-        "skincare",
-    );
-
-    setIsDiagnosisReady(true);
-  }
-
-  return;
-}
-
-      setDiagnosisNeeds(
-        validNeeds,
+          void restoreLatestDiagnosis();
+        },
+        0,
       );
 
-      /*
-       * URLでカテゴリ指定がある場合は、
-       * そのカテゴリを優先します。
-       */
-      if (requestedCategory) {
-  setIsDiagnosisReady(true);
+    return () => {
+      isCancelled =
+        true;
 
-  return;
-}
-
-      const recommendedCategory =
-        [...categories].sort(
-          (a, b) =>
-            getCategoryScore(
-              b.id,
-              validNeeds,
-            ) -
-            getCategoryScore(
-              a.id,
-              validNeeds,
-            ),
-        )[0];
-
-      if (
-  recommendedCategory
-) {
-  setSelectedCategory(
-    recommendedCategory.id,
-  );
-}
-
-setIsDiagnosisReady(true);
-    } catch (error) {
-  console.warn(
-    "[AKANUKE.AI] 商品レコメンド用の最新診断結果を読み込めませんでした:",
-    error,
-  );
-
-  if (!isCancelled) {
-    setSelectedCategory(
-      categories[0]?.id ??
-        "skincare",
-    );
-
-    setIsDiagnosisReady(true);
-  }
-}
-  }
-
-  const timeoutId =
-    window.setTimeout(
-      () => {
-        window.scrollTo({
-          top: 0,
-          left: 0,
-          behavior: "auto",
-        });
-
-        void restoreLatestDiagnosis();
-      },
-      0,
-    );
-
-  return () => {
-    isCancelled = true;
-
-    window.clearTimeout(
-      timeoutId,
-    );
-  };
-}, []);
+      window.clearTimeout(
+        timeoutId,
+      );
+    };
+  }, []);
 
   const availableCategories =
     useMemo(
       () =>
-        [...categories].sort(
-          (a, b) =>
+        [
+          ...categories,
+        ].sort(
+          (
+            a,
+            b,
+          ) =>
             getCategoryScore(
               b.id,
               diagnosisNeeds,
@@ -805,7 +992,9 @@ setIsDiagnosisReady(true);
               diagnosisNeeds,
             ),
         ),
-      [diagnosisNeeds],
+      [
+        diagnosisNeeds,
+      ],
     );
 
   /*
@@ -831,74 +1020,144 @@ setIsDiagnosisReady(true);
   ]);
 
   const selectedCategoryData =
-  selectedCategory
-    ? availableCategories.find(
-        (category) =>
-          category.id ===
-          selectedCategory,
-      )
-    : undefined;
+    selectedCategory
+      ? availableCategories.find(
+          (
+            category,
+          ) =>
+            category.id ===
+            selectedCategory,
+        )
+      : undefined;
 
-const selectedProducts =
-  useMemo(() => {
-    if (!selectedCategory) {
-      return [];
-    }
+  const selectedProducts =
+    useMemo(() => {
+      if (
+        !selectedCategory
+      ) {
+        return [];
+      }
 
-    return activeProducts
-      .filter(
-        (product) =>
-          product.category ===
-          selectedCategory,
-      )
-      .sort((a, b) => {
-        const scoreDifference =
-          getProductScore(
-            b,
-            diagnosisNeeds,
-          ) -
-          getProductScore(
+      return activeProducts
+        .filter(
+          (
+            product,
+          ) =>
+            product.category ===
+            selectedCategory,
+        )
+        .sort(
+          (
             a,
-            diagnosisNeeds,
-          );
+            b,
+          ) => {
+            const scoreDifference =
+              getProductScore(
+                b,
+                diagnosisNeeds,
+              ) -
+              getProductScore(
+                a,
+                diagnosisNeeds,
+              );
 
-        if (
-          scoreDifference !== 0
-        ) {
-          return scoreDifference;
-        }
+            if (
+              scoreDifference !==
+              0
+            ) {
+              return scoreDifference;
+            }
 
-        return a.rank - b.rank;
-      });
-  }, [
-    selectedCategory,
-    diagnosisNeeds,
-  ]);
+            return (
+              a.rank -
+              b.rank
+            );
+          },
+        );
+    }, [
+      selectedCategory,
+      diagnosisNeeds,
+    ]);
 
   const displayedProducts =
     showAllProducts
       ? selectedProducts
-      : selectedProducts.slice(0, 3);
+      : selectedProducts.slice(
+          0,
+          3,
+        );
 
-if (!isDiagnosisReady) {
-  return (
-    <AppShell background="white">
-      <div className="min-h-screen bg-white">
-        <AppHeader
-          backHref="/result"
-          backMode="history"
-          backLabel="前のページへ戻る"
-        />
+  /*
+   * 商品ページを実際に表示できる状態になった時点で
+   * 1回だけGA4へ送信します。
+   */
+  useEffect(() => {
+    if (
+      !isDiagnosisReady ||
+      !selectedCategory ||
+      productsViewTrackedRef.current
+    ) {
+      return;
+    }
 
-        <div className="flex min-h-[60vh] items-center justify-center">
-          <div className="h-8 w-8 animate-spin rounded-full border-[3px] border-black/10 border-t-[#1677FF]" />
+    productsViewTrackedRef.current =
+      true;
+
+    const searchParams =
+      new URLSearchParams(
+        window.location.search,
+      );
+
+    trackEvent(
+      "products_view",
+      {
+        initial_category:
+          selectedCategory,
+
+        has_diagnosis_needs:
+          diagnosisNeeds.length >
+          0,
+
+        diagnosis_need_count:
+          diagnosisNeeds.length,
+
+        entry_source:
+          searchParams.has(
+            "category",
+          )
+            ? "plan"
+            : "other",
+      },
+    );
+  }, [
+    isDiagnosisReady,
+    selectedCategory,
+    diagnosisNeeds,
+  ]);
+
+  if (
+    !isDiagnosisReady
+  ) {
+    return (
+      <AppShell background="white">
+        <div className="min-h-screen bg-white">
+          <AppHeader
+            backHref="/result"
+            backMode="history"
+            backLabel="前のページへ戻る"
+          />
+
+          <div className="flex min-h-[60vh] items-center justify-center">
+            <div className="h-8 w-8 animate-spin rounded-full border-[3px] border-black/10 border-t-[#1677FF]" />
+          </div>
         </div>
-      </div>
-    </AppShell>
-  );
-}
+      </AppShell>
+    );
+  }
 
-  if (!selectedCategoryData) {
+  if (
+    !selectedCategoryData
+  ) {
     return (
       <AppShell background="white">
         <div className="flex min-h-screen items-center justify-center px-5 text-center">
@@ -931,19 +1190,19 @@ if (!isDiagnosisReady) {
         />
 
         <main className="pb-32">
-  <section className="px-5 pb-6 pt-7 text-center">
-    <p className="text-[10px] font-black tracking-[0.18em] text-[#1677FF]">
-      PERSONAL PRODUCT GUIDE
-    </p>
+          <section className="px-5 pb-6 pt-7 text-center">
+            <p className="text-[10px] font-black tracking-[0.18em] text-[#1677FF]">
+              PERSONAL PRODUCT GUIDE
+            </p>
 
-    <h1 className="mt-2 text-[29px] font-black tracking-[-0.045em]">
-      あなた専用のおすすめ商品
-    </h1>
+            <h1 className="mt-2 text-[29px] font-black tracking-[-0.045em]">
+              あなた専用のおすすめ商品
+            </h1>
 
-    <p className="mx-auto mt-2 max-w-[340px] text-[12px] leading-5 text-black/70">
-      AI診断結果をもとに、あなたに合ったケア用品をカテゴリ別に紹介します。
-    </p>
-  </section>
+            <p className="mx-auto mt-2 max-w-[340px] text-[12px] leading-5 text-black/70">
+              AI診断結果をもとに、あなたに合ったケア用品をカテゴリ別に紹介します。
+            </p>
+          </section>
 
           {/* CATEGORY SCROLL */}
           <div className="mt-6">
@@ -960,7 +1219,9 @@ if (!isDiagnosisReady) {
             >
               <div className="flex w-max gap-2 pr-4">
                 {availableCategories.map(
-                  (category) => {
+                  (
+                    category,
+                  ) => {
                     const isActive =
                       selectedCategory ===
                       category.id;
@@ -1006,7 +1267,9 @@ if (!isDiagnosisReady) {
                   style={{
                     position:
                       "relative",
+
                     width: `${categoryIndicatorWidth}%`,
+
                     left: `${indicatorLeft}%`,
                   }}
                 />
@@ -1022,13 +1285,15 @@ if (!isDiagnosisReady) {
                 <div>
                   <p className="text-[10px] font-black tracking-[0.14em] text-[#1677FF]">
                     {
-                      selectedCategoryData.englishLabel
+                      selectedCategoryData
+                        .englishLabel
                     }
                   </p>
 
                   <h2 className="mt-1 text-[24px] font-black tracking-[-0.04em]">
                     {
-                      selectedCategoryData.label
+                      selectedCategoryData
+                        .label
                     }
                   </h2>
                 </div>
@@ -1043,7 +1308,8 @@ if (!isDiagnosisReady) {
 
               <p className="mt-3 text-[12px] leading-6 text-black/70">
                 {
-                  selectedCategoryData.description
+                  selectedCategoryData
+                    .description
                 }
               </p>
 
@@ -1059,7 +1325,8 @@ if (!isDiagnosisReady) {
 
                   <p className="mt-1 text-[12px] leading-6 text-black/70">
                     {
-                      selectedCategoryData.advice
+                      selectedCategoryData
+                        .advice
                     }
                   </p>
                 </div>
@@ -1085,11 +1352,13 @@ if (!isDiagnosisReady) {
                           diagnosisNeeds
                         }
                         featured={
-                          index === 0
+                          index ===
+                          0
                         }
                       />
 
-                      {index === 0 &&
+                      {index ===
+                        0 &&
                       displayedProducts.length >
                         1 ? (
                         <AdSenseAd

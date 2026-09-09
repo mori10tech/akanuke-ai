@@ -192,8 +192,6 @@ export async function POST(request: Request) {
       "",
       "■ お問い合わせ内容",
       message,
-      "",
-      "------------------------------",
     ].join("\n");
 
     await transporter.sendMail({

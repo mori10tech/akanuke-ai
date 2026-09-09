@@ -14,6 +14,7 @@ import {
 import AppShell from "../components/AppShell";
 import AdSenseAd from "../components/AdSenseAd";
 import type { AkanukeAnalysis } from "../../lib/openai/schemas";
+import { trackEvent } from "../../lib/analytics";
 
 import AppHeader from "../components/AppHeader";
 
@@ -225,6 +226,10 @@ function Icon({
 
 export default function ResultPage() {
   const router = useRouter();
+
+  const resultViewTrackedRef =
+  useRef(false);
+
   const afterRequestStartedRef =
     useRef(false);
 
@@ -440,10 +445,32 @@ export default function ResultPage() {
         }
 
         setImage(savedImage);
-        setAnalysis(parsed);
-        setIsReady(true);
+setAnalysis(parsed);
+setIsReady(true);
 
-        const targetProgress =
+if (
+  !resultViewTrackedRef.current
+) {
+  resultViewTrackedRef.current =
+    true;
+
+  trackEvent(
+    "result_view",
+    {
+      is_history_view:
+        savedBackHref ===
+        "/history",
+
+      has_after_image:
+        Boolean(
+          savedAfterImageUrl,
+        ),
+    },
+  );
+}
+
+const targetProgress =
+
           Math.max(
             0,
             Math.min(
@@ -745,6 +772,14 @@ export default function ResultPage() {
       afterRequestStartedRef.current =
         true;
 
+        trackEvent(
+  "after_generate_start",
+  {
+    retry_count:
+      afterRetryCount,
+  },
+);
+
       setAfterError("");
       setAfterElapsedSeconds(
         0,
@@ -755,7 +790,10 @@ export default function ResultPage() {
 
       startAfterProgressTimer();
 
-      try {
+const afterStartedAt =
+  performance.now();
+
+try {
         console.log(
           "[AKANUKE.AI] Result画面からAfter画像生成を開始します",
         );
@@ -919,23 +957,62 @@ export default function ResultPage() {
         }
 
         setAfterImage(
-          resolvedAfterImage,
-        );
+  resolvedAfterImage,
+);
 
-        console.log(
-          "[AKANUKE.AI] Result画面へのAfter画像表示が完了しました",
-        );
+trackEvent(
+  "after_generate_complete",
+  {
+    duration_seconds:
+      Math.max(
+        1,
+        Math.round(
+          (performance.now() -
+            afterStartedAt) /
+            1000,
+        ),
+      ),
+
+    reused:
+      data.reused === true,
+
+    retry_count:
+      afterRetryCount,
+  },
+);
+
+console.log(
+  "[AKANUKE.AI] Result画面へのAfter画像表示が完了しました",
+);
       } catch (error) {
-        console.error(
-          "[AKANUKE.AI] After generation error:",
-          error,
-        );
+  console.error(
+    "[AKANUKE.AI] After generation error:",
+    error,
+  );
 
-        if (isCancelled) {
-          return;
-        }
+  if (isCancelled) {
+    return;
+  }
 
-        stopAfterProgressTimer();
+  trackEvent(
+    "after_generate_error",
+    {
+      duration_seconds:
+        Math.max(
+          1,
+          Math.round(
+            (performance.now() -
+              afterStartedAt) /
+              1000,
+          ),
+        ),
+
+      retry_count:
+        afterRetryCount,
+    },
+  );
+
+  stopAfterProgressTimer();
 
         setAfterError(
           error instanceof Error

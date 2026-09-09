@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import AppHeader from "../components/AppHeader";
+import { trackEvent } from "../../lib/analytics";
 
 type ImpressionOption = {
   id: string;
@@ -795,7 +796,29 @@ useEffect(() => {
       RESULT_BACK_HREF_STORAGE_KEY,
     );
 
-    router.push("/analyzing");
+    trackEvent(
+  "diagnosis_start",
+  {
+    selected_impression_count:
+      selectedIds.length,
+
+    ai_recommended:
+      selectedIds.includes(
+        RECOMMENDED_OPTION_ID,
+      ),
+
+    diagnosis_used:
+      diagnosisUsage?.used ?? 0,
+
+    diagnosis_limit:
+      diagnosisUsage?.limit ?? 0,
+
+    has_previous_result:
+      hasPreviousResult,
+  },
+);
+
+router.push("/analyzing");
   };
 
   if (

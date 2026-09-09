@@ -12,24 +12,38 @@ import Script from "next/script";
 
 import "./globals.css";
 
+import LoginAnalyticsTracker from "./components/LoginAnalyticsTracker";
+
 const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+  variable:
+    "--font-geist-sans",
+
+  subsets: [
+    "latin",
+  ],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const geistMono =
+  Geist_Mono({
+    variable:
+      "--font-geist-mono",
+
+    subsets: [
+      "latin",
+    ],
+  });
 
 const GA_MEASUREMENT_ID =
-  process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID?.trim() ??
+  process.env
+    .NEXT_PUBLIC_GA_MEASUREMENT_ID
+    ?.trim() ??
   "";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    "https://akanukeai.com",
-  ),
+  metadataBase:
+    new URL(
+      "https://akanukeai.com",
+    ),
 
   title:
     "メンズ垢抜けAI診断｜AKANUKE.AI",
@@ -86,9 +100,11 @@ export const metadata: Metadata = {
         url:
           "/ogp/akanuke-ai-og.png",
 
-        width: 1200,
+        width:
+          1200,
 
-        height: 630,
+        height:
+          630,
 
         alt:
           "AKANUKE.AI｜第一印象は、変えられる。",
@@ -112,7 +128,8 @@ export const metadata: Metadata = {
   },
 
   appleWebApp: {
-    capable: true,
+    capable:
+      true,
 
     title:
       "AKANUKE.AI",
@@ -141,7 +158,8 @@ export const viewport: Viewport = {
   width:
     "device-width",
 
-  initialScale: 1,
+  initialScale:
+    1,
 
   themeColor:
     "#FFFFFF",
@@ -159,6 +177,8 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
+        <LoginAnalyticsTracker />
+
         {children}
 
         {process.env.NODE_ENV ===
@@ -186,14 +206,14 @@ export default function RootLayout({
 
         {process.env.NODE_ENV ===
           "production" && (
-          <Script
-            id="google-adsense"
-            async
-            strategy="afterInteractive"
-            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1051975714621683"
-            crossOrigin="anonymous"
-          />
-        )}
+            <Script
+              id="google-adsense"
+              async
+              strategy="afterInteractive"
+              src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1051975714621683"
+              crossOrigin="anonymous"
+            />
+          )}
       </body>
     </html>
   );

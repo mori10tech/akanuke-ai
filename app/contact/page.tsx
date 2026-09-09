@@ -1,7 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { FormEvent, useState } from "react";
+import {
+  FormEvent,
+  useState,
+} from "react";
+
+import {
+  trackEvent,
+} from "../../lib/analytics";
 
 const inquiryTypes = [
   "サービスの使い方について",
@@ -14,71 +21,166 @@ const inquiryTypes = [
 ];
 
 export default function ContactPage() {
+  const [
+    isSubmitting,
+    setIsSubmitting,
+  ] = useState(false);
 
-    const [isSubmitting, setIsSubmitting] = useState(false);
-  const [statusMessage, setStatusMessage] = useState("");
-  const [isSuccess, setIsSuccess] = useState(false);
+  const [
+    statusMessage,
+    setStatusMessage,
+  ] = useState("");
+
+  const [
+    isSuccess,
+    setIsSuccess,
+  ] = useState(false);
 
   const contactFormEnabled =
-    process.env.NEXT_PUBLIC_CONTACT_FORM_ENABLED === "true";
+    process.env
+      .NEXT_PUBLIC_CONTACT_FORM_ENABLED ===
+    "true";
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(
+    event:
+      FormEvent<HTMLFormElement>,
+  ) {
     event.preventDefault();
 
-    if (!contactFormEnabled || isSubmitting) {
+    if (
+      !contactFormEnabled ||
+      isSubmitting
+    ) {
       return;
     }
 
-    const form = event.currentTarget;
-    const formData = new FormData(form);
+    const form =
+      event.currentTarget;
 
-    setIsSubmitting(true);
-    setStatusMessage("");
-    setIsSuccess(false);
+    const formData =
+      new FormData(
+        form,
+      );
+
+    setIsSubmitting(
+      true,
+    );
+
+    setStatusMessage(
+      "",
+    );
+
+    setIsSuccess(
+      false,
+    );
 
     try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: formData.get("name"),
-          email: formData.get("email"),
-          category: formData.get("category"),
-          message: formData.get("message"),
-          privacyConsent: formData.get("privacyConsent") === "on",
-          website: formData.get("website"),
-        }),
-      });
+      const response =
+        await fetch(
+          "/api/contact",
+          {
+            method:
+              "POST",
 
-      const data = (await response.json()) as {
-        ok?: boolean;
-        message?: string;
-      };
+            headers: {
+              "Content-Type":
+                "application/json",
+            },
 
-      if (!response.ok || !data.ok) {
+            body:
+              JSON.stringify(
+                {
+                  name:
+                    formData.get(
+                      "name",
+                    ),
+
+                  email:
+                    formData.get(
+                      "email",
+                    ),
+
+                  category:
+                    formData.get(
+                      "category",
+                    ),
+
+                  message:
+                    formData.get(
+                      "message",
+                    ),
+
+                  privacyConsent:
+                    formData.get(
+                      "privacyConsent",
+                    ) ===
+                    "on",
+
+                  website:
+                    formData.get(
+                      "website",
+                    ),
+                },
+              ),
+          },
+        );
+
+      const data =
+        (await response.json()) as {
+          ok?: boolean;
+          message?: string;
+        };
+
+      if (
+        !response.ok ||
+        !data.ok
+      ) {
         throw new Error(
           data.message ??
             "お問い合わせの送信に失敗しました。",
         );
       }
 
+      const inquiryCategory =
+        formData.get(
+          "category",
+        );
+
+      trackEvent(
+        "contact_submit",
+        {
+          inquiry_category:
+            typeof inquiryCategory ===
+            "string"
+              ? inquiryCategory
+              : "unknown",
+        },
+      );
+
       form.reset();
 
-      setIsSuccess(true);
+      setIsSuccess(
+        true,
+      );
+
       setStatusMessage(
-        data.message ?? "お問い合わせを送信しました。",
+        data.message ??
+          "お問い合わせを送信しました。",
       );
     } catch (error) {
-      setIsSuccess(false);
+      setIsSuccess(
+        false,
+      );
+
       setStatusMessage(
         error instanceof Error
           ? error.message
           : "お問い合わせの送信に失敗しました。時間をおいてもう一度お試しください。",
       );
     } finally {
-      setIsSubmitting(false);
+      setIsSubmitting(
+        false,
+      );
     }
   }
 
@@ -113,24 +215,26 @@ export default function ContactPage() {
 
         <form
           className="mt-10 rounded-[24px] border border-black/[0.07] bg-white p-5 shadow-[0_10px_34px_rgba(15,23,42,0.05)] sm:p-6"
-          onSubmit={handleSubmit}
+          onSubmit={
+            handleSubmit
+          }
         >
-<div
-  aria-hidden="true"
-  className="absolute left-[-9999px] top-auto h-px w-px overflow-hidden"
->
-  <label htmlFor="website">
-    Website
-  </label>
+          <div
+            aria-hidden="true"
+            className="absolute left-[-9999px] top-auto h-px w-px overflow-hidden"
+          >
+            <label htmlFor="website">
+              Website
+            </label>
 
-  <input
-    id="website"
-    name="website"
-    type="text"
-    tabIndex={-1}
-    autoComplete="off"
-  />
-</div>
+            <input
+              id="website"
+              name="website"
+              type="text"
+              tabIndex={-1}
+              autoComplete="off"
+            />
+          </div>
 
           <div>
             <label
@@ -138,6 +242,7 @@ export default function ContactPage() {
               className="text-[12px] font-black text-[#111111]"
             >
               お名前
+
               <span className="ml-1 text-[#1677FF]">
                 *
               </span>
@@ -149,7 +254,9 @@ export default function ContactPage() {
               type="text"
               autoComplete="name"
               required
-              maxLength={100}
+              maxLength={
+                100
+              }
               placeholder="例：山田 太郎"
               className="mt-2 h-[50px] w-full rounded-[14px] border border-black/10 bg-[#F7F9FC] px-4 text-[14px] font-bold text-[#111111] outline-none transition placeholder:text-black/30 focus:border-[#1677FF] focus:bg-white focus:ring-2 focus:ring-[#1677FF]/10"
             />
@@ -161,6 +268,7 @@ export default function ContactPage() {
               className="text-[12px] font-black text-[#111111]"
             >
               メールアドレス
+
               <span className="ml-1 text-[#1677FF]">
                 *
               </span>
@@ -173,7 +281,9 @@ export default function ContactPage() {
               inputMode="email"
               autoComplete="email"
               required
-              maxLength={254}
+              maxLength={
+                254
+              }
               placeholder="example@email.com"
               className="mt-2 h-[50px] w-full rounded-[14px] border border-black/10 bg-[#F7F9FC] px-4 text-[14px] font-bold text-[#111111] outline-none transition placeholder:text-black/30 focus:border-[#1677FF] focus:bg-white focus:ring-2 focus:ring-[#1677FF]/10"
             />
@@ -185,6 +295,7 @@ export default function ContactPage() {
               className="text-[12px] font-black text-[#111111]"
             >
               お問い合わせ種別
+
               <span className="ml-1 text-[#1677FF]">
                 *
               </span>
@@ -199,28 +310,38 @@ export default function ContactPage() {
                 className="h-[50px] w-full appearance-none rounded-[14px] border border-black/10 bg-[#F7F9FC] px-4 pr-12 text-[14px] font-bold text-[#111111] invalid:text-black/45 outline-none transition focus:border-[#1677FF] focus:bg-white focus:ring-2 focus:ring-[#1677FF]/10"
               >
                 <option
-  value=""
-  disabled
-  className="text-black/45"
->
-  選択してください
-</option>
+                  value=""
+                  disabled
+                  className="text-black/45"
+                >
+                  選択してください
+                </option>
 
-                {inquiryTypes.map((inquiryType) => (
-  <option
-    key={inquiryType}
-    value={inquiryType}
-    className="font-bold text-[#111111]"
-  >
-    {inquiryType}
-  </option>
-))}
+                {inquiryTypes.map(
+                  (
+                    inquiryType,
+                  ) => (
+                    <option
+                      key={
+                        inquiryType
+                      }
+                      value={
+                        inquiryType
+                      }
+                      className="font-bold text-[#111111]"
+                    >
+                      {
+                        inquiryType
+                      }
+                    </option>
+                  ),
+                )}
               </select>
 
               <span
-  aria-hidden="true"
-  className="pointer-events-none absolute right-5 top-1/2 h-2 w-2 -translate-y-[65%] rotate-45 border-b-[1.5px] border-r-[1.5px] border-black"
-/>
+                aria-hidden="true"
+                className="pointer-events-none absolute right-5 top-1/2 h-2 w-2 -translate-y-[65%] rotate-45 border-b-[1.5px] border-r-[1.5px] border-black"
+              />
             </div>
           </div>
 
@@ -230,6 +351,7 @@ export default function ContactPage() {
               className="text-[12px] font-black text-[#111111]"
             >
               お問い合わせ内容
+
               <span className="ml-1 text-[#1677FF]">
                 *
               </span>
@@ -239,7 +361,9 @@ export default function ContactPage() {
               id="message"
               name="message"
               required
-              maxLength={3000}
+              maxLength={
+                3000
+              }
               rows={7}
               placeholder="お問い合わせ内容をご入力ください"
               className="mt-2 w-full resize-none rounded-[14px] border border-black/10 bg-[#F7F9FC] px-4 py-3 text-[14px] font-bold leading-6 text-[#111111] outline-none transition placeholder:text-black/30 focus:border-[#1677FF] focus:bg-white focus:ring-2 focus:ring-[#1677FF]/10"
@@ -262,45 +386,52 @@ export default function ContactPage() {
           </label>
 
           {isSuccess ? (
-  <div className="mt-6 rounded-[18px] border border-[#1677FF]/15 bg-[#F3F8FF] px-5 py-6 text-center">
-    <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-[#1677FF] text-[18px] font-black text-white">
-      ✓
-    </div>
+            <div className="mt-6 rounded-[18px] border border-[#1677FF]/15 bg-[#F3F8FF] px-5 py-6 text-center">
+              <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-[#1677FF] text-[18px] font-black text-white">
+                ✓
+              </div>
 
-    <p className="mt-3 text-[15px] font-black text-[#111111]">
-      お問い合わせを送信しました
-    </p>
+              <p className="mt-3 text-[15px] font-black text-[#111111]">
+                お問い合わせを送信しました
+              </p>
 
-    <p className="mt-2 text-[11px] font-bold leading-5 text-black/55">
-      内容を確認のうえ、担当者よりご連絡いたします。
-    </p>
-  </div>
-) : (
-  <>
-    <button
-      type="submit"
-      disabled={!contactFormEnabled || isSubmitting}
-      className={`mt-6 flex min-h-[52px] w-full items-center justify-center rounded-[14px] bg-[#1677FF] px-5 text-[13px] font-black text-white transition ${
-        !contactFormEnabled || isSubmitting
-          ? "cursor-not-allowed opacity-45"
-          : "active:scale-[0.99]"
-      }`}
-    >
-      {isSubmitting ? "送信中..." : "送信する"}
-    </button>
+              <p className="mt-2 text-[11px] font-bold leading-5 text-black/55">
+                内容を確認のうえ、担当者よりご連絡いたします。
+              </p>
+            </div>
+          ) : (
+            <>
+              <button
+                type="submit"
+                disabled={
+                  !contactFormEnabled ||
+                  isSubmitting
+                }
+                className={`mt-6 flex min-h-[52px] w-full items-center justify-center rounded-[14px] bg-[#1677FF] px-5 text-[13px] font-black text-white transition ${
+                  !contactFormEnabled ||
+                  isSubmitting
+                    ? "cursor-not-allowed opacity-45"
+                    : "active:scale-[0.99]"
+                }`}
+              >
+                {isSubmitting
+                  ? "送信中..."
+                  : "送信する"}
+              </button>
 
-    {statusMessage ? (
-      <p className="mt-3 text-center text-[11px] font-bold leading-5 text-red-600">
-        {statusMessage}
-      </p>
-    ) : !contactFormEnabled ? (
-      <p className="mt-3 text-center text-[10px] font-bold leading-4 text-black/50">
-        メール送信機能は現在準備中です。
-      </p>
-    ) : null}
-  </>
-)}
-
+              {statusMessage ? (
+                <p className="mt-3 text-center text-[11px] font-bold leading-5 text-red-600">
+                  {
+                    statusMessage
+                  }
+                </p>
+              ) : !contactFormEnabled ? (
+                <p className="mt-3 text-center text-[10px] font-bold leading-4 text-black/50">
+                  メール送信機能は現在準備中です。
+                </p>
+              ) : null}
+            </>
+          )}
         </form>
 
         <section className="mt-5 rounded-[20px] border border-black/[0.07] bg-white p-5">
@@ -330,7 +461,10 @@ export default function ContactPage() {
             href="/"
             className="inline-flex items-center gap-2 text-[13px] font-bold text-[#1677FF] transition-opacity hover:opacity-70"
           >
-            <span aria-hidden="true">←</span>
+            <span aria-hidden="true">
+              ←
+            </span>
+
             トップページへ戻る
           </Link>
         </div>

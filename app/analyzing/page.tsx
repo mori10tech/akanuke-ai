@@ -9,6 +9,7 @@ import {
 } from "react";
 import AppHeader from "../components/AppHeader";
 import AdSenseAd from "../components/AdSenseAd";
+import { trackEvent } from "../../lib/analytics";
 
 const IMAGE_STORAGE_KEY = "akanukeImage";
 const TARGET_STORAGE_KEY = "akanukeTargetImpression";
@@ -359,6 +360,21 @@ export default function AnalyzingPage() {
           JSON.stringify(data),
         );
 
+        trackEvent(
+  "diagnosis_complete",
+  {
+    duration_seconds:
+      Math.max(
+        1,
+        Math.round(
+          (performance.now() -
+            startedAt) /
+            1000,
+        ),
+      ),
+  },
+);
+
         /*
          * ログイン中の場合だけ診断結果をSupabaseへ保存します。
          *
@@ -512,6 +528,21 @@ export default function AnalyzingPage() {
           "[AKANUKE.AI] Analysis error:",
           error,
         );
+
+        trackEvent(
+  "diagnosis_error",
+  {
+    duration_seconds:
+      Math.max(
+        1,
+        Math.round(
+          (performance.now() -
+            startedAt) /
+            1000,
+        ),
+      ),
+  },
+);
 
         if (progressTimer) {
           window.clearInterval(

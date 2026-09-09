@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import type { Article } from "../../../../data/articles";
 import AdSenseAd from "../../../components/AdSenseAd";
+import JournalDiagnosisCta from "../../components/JournalDiagnosisCta";
 
 type Props = {
   article: Article;
@@ -234,14 +235,22 @@ export default function MensSkincareBeginnerArticle({ article }: Props) {
         </section>
 
         <section className="mt-16 overflow-hidden rounded-[26px] border border-[#1677FF]/15 bg-gradient-to-br from-[#F7FBFF] via-white to-[#EEF6FF] px-6 py-9 shadow-[0_16px_40px_rgba(22,119,255,0.08)] sm:px-9">
-          <div className="inline-flex items-center rounded-full bg-[#EEF6FF] px-3 py-1.5"><span className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">AI BEAUTY DIAGNOSIS</span></div>
-          <h2 className="mt-4 text-[26px] font-semibold leading-[1.45] tracking-[-0.04em] text-[#111111]">肌だけでなく、<br />顔全体の改善ポイントを確認</h2>
-          <p className="mt-4 text-[13px] font-medium leading-6 text-black/70">AKANUKE.AIでは、顔写真をもとに髪型・眉毛・肌・全体の印象をAIが分析。自分はどこから整えるべきかを確認できます。</p>
-          <Link href="/upload" className="group mt-6 flex min-h-[52px] w-full items-center justify-center rounded-[13px] bg-[#FFD400] px-5 text-[13px] font-black text-[#111111] shadow-[0_10px_24px_rgba(255,212,0,0.22)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_14px_30px_rgba(255,212,0,0.3)] active:scale-[0.98]">
-            <span>無料で診断をはじめる</span><span aria-hidden="true" className="ml-3 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-black/10 text-[15px] font-black leading-none text-[#111111] transition-transform duration-200 group-hover:translate-x-1">›</span>
-          </Link>
-          <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-[10px] font-bold text-black/60"><span>約1分で完了</span><span>無料で利用可能</span><span>メンズ向け</span></div>
-        </section>
+  <div className="inline-flex items-center rounded-full bg-[#EEF6FF] px-3 py-1.5">
+    <span className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
+      AI BEAUTY DIAGNOSIS
+    </span>
+  </div>
+
+  <h2 className="mt-4 text-[26px] font-semibold leading-[1.45] tracking-[-0.04em] text-[#111111]">
+    肌だけでなく、<br />顔全体の改善ポイントを確認
+  </h2>
+
+  <p className="mt-4 text-[13px] font-medium leading-6 text-black/70">
+    AKANUKE.AIでは、顔写真をもとに髪型・眉毛・肌・全体の印象をAIが分析。自分はどこから整えるべきかを確認できます。
+  </p>
+
+  <JournalDiagnosisCta />
+</section>
 
         <section id="faq" className="scroll-mt-24 pt-16">
           <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">FAQ</p>

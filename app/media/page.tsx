@@ -5,6 +5,7 @@ import Logo from "../components/Logo";
 import AdSenseAd from "../components/AdSenseAd";
 import { getAllArticles } from "../../data/articles";
 import JournalFooter from "./components/JournalFooter";
+import JournalServiceCta from "./components/JournalServiceCta";
 
 function ArrowRightIcon() {
   return (
@@ -60,22 +61,7 @@ export default function ArticlesPage() {
       <header className="sticky top-0 z-40 border-b border-black/10 bg-white/95 backdrop-blur-xl">
         <div className="mx-auto flex h-[72px] w-full max-w-[1180px] items-center justify-between px-5">
           <Logo href="/" />
-
-          <Link
-  href="/"
-  className="group flex min-h-[46px] shrink-0 items-center justify-center rounded-[12px] bg-[#FFD400] px-5 text-[11px] font-black text-[#111111] shadow-[0_8px_20px_rgba(255,212,0,0.2)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_12px_26px_rgba(255,212,0,0.28)] active:scale-[0.98] sm:min-h-[48px] sm:px-6 sm:text-[12px]"
->
-  <span className="whitespace-nowrap">
-    AKANUKE.AIを見る
-  </span>
-
-  <span
-    className="ml-2.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-black/10 text-[15px] font-black leading-none text-[#111111] transition-transform duration-200 group-hover:translate-x-1"
-    aria-hidden="true"
-  >
-    ›
-  </span>
-</Link>
+          <JournalServiceCta />
         </div>
       </header>
 
@@ -176,15 +162,9 @@ export default function ArticlesPage() {
   顔写真をもとに、髪型・眉毛・肌・全体の印象をAIが分析します。
 </p>
 
-    <Link
-      href="/"
-      className="mx-auto mt-6 flex min-h-[52px] w-full max-w-[320px] items-center justify-center rounded-[12px] bg-[#FFD400] px-5 text-[13px] font-black text-[#111111] shadow-[0_10px_24px_rgba(255,212,0,0.22)] transition hover:-translate-y-0.5"
-    >
-      AKANUKE.AIを見る
-      <span className="ml-2" aria-hidden="true">
-        →
-      </span>
-    </Link>
+    <div className="mt-6">
+  <JournalServiceCta variant="large" />
+</div>
   </div>
 </section>
 

@@ -80,7 +80,7 @@ export default function ArticlesPage() {
       </header>
 
       <section className="border-b border-black/10 bg-gradient-to-b from-white to-[#EEF6FF]">
-        <div className="mx-auto w-full max-w-[1180px] px-5 pb-14 pt-14 sm:pb-20 sm:pt-20">
+        <div className="mx-auto w-full max-w-[1180px] px-5 py-10 sm:py-12">
           <h1 className="whitespace-nowrap text-[32px] font-black leading-[1.1] tracking-[0.04em] text-[#111111] sm:text-[56px]">
   AKANUKE JOURNAL
 </h1>
@@ -95,7 +95,7 @@ export default function ArticlesPage() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-[1180px] px-5 py-12 sm:py-16">
+      <section className="mx-auto w-full max-w-[1180px] px-5 pb-12 pt-6 sm:pb-16 sm:pt-6">
         <div className="flex items-end justify-between gap-4">
           <div>
             <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
@@ -112,7 +112,7 @@ export default function ArticlesPage() {
           </span>
         </div>
 
-        <div className="mt-8 grid gap-5 md:grid-cols-2">
+        <div className="mt-6 grid gap-5 md:grid-cols-2">
           {articles.map((article) => (
             <Link
               key={article.slug}

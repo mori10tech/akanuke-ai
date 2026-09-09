@@ -12,6 +12,33 @@ export type Article = {
 
 export const articles: Article[] = [
 
+{
+  slug: "mens-cleanliness-guide",
+
+  title:
+    "メンズの清潔感を出す方法｜垢抜けたい男性が整えるべき7つのポイント",
+
+  description:
+    "清潔感を出したい男性向けに、髪型・眉毛・肌・ヒゲ・口元・服装・においなど、第一印象を整える7つのポイントを初心者にも分かりやすく解説します。",
+
+  category: "メンズ垢抜け",
+
+  publishedAt: "2026-09-09",
+
+  readingTime: "約8分",
+
+  image: "/media/mens-cleanliness-guide.png",
+
+  keywords: [
+    "メンズ 清潔感",
+    "男 清潔感",
+    "清潔感 出す方法 男",
+    "男性 清潔感 出す方法",
+    "清潔感 垢抜け メンズ",
+  ],
+},
+
+
     {
     slug: "mens-skincare-beginner",
 

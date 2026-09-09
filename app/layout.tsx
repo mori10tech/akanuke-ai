@@ -40,6 +40,12 @@ const GA_MEASUREMENT_ID =
     ?.trim() ??
   "";
 
+const ADSENSE_CLIENT =
+  process.env
+    .NEXT_PUBLIC_ADSENSE_CLIENT
+    ?.trim() ??
+  "ca-pub-9603801363980131";
+
 export const metadata: Metadata = {
   metadataBase:
     new URL(
@@ -74,7 +80,7 @@ export const metadata: Metadata = {
 
   other: {
     "google-adsense-account":
-      "ca-pub-1051975714621683",
+      ADSENSE_CLIENT,
   },
 
   openGraph: {
@@ -179,10 +185,10 @@ export default function RootLayout({
     >
       <body className="flex min-h-full flex-col">
         <Suspense fallback={null}>
-  <LoginAnalyticsTracker />
-</Suspense>
+          <LoginAnalyticsTracker />
+        </Suspense>
 
-{children}
+        {children}
 
         {process.env.NODE_ENV ===
           "production" &&
@@ -208,12 +214,13 @@ export default function RootLayout({
           )}
 
         {process.env.NODE_ENV ===
-          "production" && (
+          "production" &&
+          ADSENSE_CLIENT && (
             <Script
               id="google-adsense"
               async
               strategy="afterInteractive"
-              src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1051975714621683"
+              src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}`}
               crossOrigin="anonymous"
             />
           )}

@@ -9,6 +9,7 @@ import {
 } from "next/font/google";
 
 import Script from "next/script";
+import { Suspense } from "react";
 
 import "./globals.css";
 
@@ -177,9 +178,11 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
-        <LoginAnalyticsTracker />
+        <Suspense fallback={null}>
+  <LoginAnalyticsTracker />
+</Suspense>
 
-        {children}
+{children}
 
         {process.env.NODE_ENV ===
           "production" &&

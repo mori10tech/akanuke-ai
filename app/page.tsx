@@ -418,7 +418,7 @@ export default function Home() {
         <div className="hero-glow hero-glow-left" />
         <div className="hero-glow hero-glow-right" />
 
-        <div className="site-container grid min-h-[660px] items-center gap-3 py-8 md:gap-8 md:py-14 lg:grid-cols-[0.78fr_1.22fr] lg:gap-4 lg:py-16">
+        <div className="site-container grid min-h-0 items-center gap-1 py-5 md:min-h-[660px] md:gap-8 md:py-14 lg:grid-cols-[0.78fr_1.22fr] lg:gap-4 lg:py-16">
   <div className="relative z-10 max-w-[520px] lg:pb-4">
     <h1 className="text-balance text-[38px] font-semibold leading-[1.1] tracking-[-0.055em] text-[#111111] sm:text-[64px] lg:text-[76px]">
   第一印象は、
@@ -513,14 +513,14 @@ export default function Home() {
 </div>
       </section>
 
-      <section id="about" className="section-border py-14">
-        <div className="site-container grid gap-10 lg:grid-cols-2 lg:gap-16">
+      <section id="about" className="section-border py-9 sm:py-14">
+        <div className="site-container grid gap-7 lg:grid-cols-2 lg:gap-16">
           <div>
             <SectionTitle>
               こんなお悩み、ありませんか？
             </SectionTitle>
 
-            <div className="mt-7 grid gap-4 sm:grid-cols-2">
+            <div className="mt-5 grid gap-3 sm:mt-7 sm:gap-4 sm:grid-cols-2">
               {[
                 "自分に似合う髪型が分からない",
                 "眉毛の整え方が分からない",
@@ -536,7 +536,7 @@ export default function Home() {
           <div id="features">
             <SectionTitle>AKANUKE.AIで分かること</SectionTitle>
 
-            <div className="mt-6 grid grid-cols-4 gap-3">
+            <div className="mt-5 grid grid-cols-4 gap-3 sm:mt-6">
               <FeatureIcon icon="hair" label="髪型" />
               <FeatureIcon icon="brow" label="眉毛" />
               <FeatureIcon icon="skin" label="肌" />
@@ -546,12 +546,12 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section-border py-16">
-  <div className="site-container grid items-stretch gap-10 lg:grid-cols-2">
+      <section className="section-border py-10 sm:py-16">
+  <div className="site-container grid items-stretch gap-7 lg:grid-cols-2 lg:gap-10">
     <div className="flex h-full flex-col">
       <SectionTitle>診断結果</SectionTitle>
 
-      <div className="mt-6 grid flex-1 gap-3 rounded-3xl border border-black/10 bg-white p-4 shadow-sm sm:grid-cols-[0.9fr_1.1fr]">
+      <div className="mt-4 sm:mt-6 grid flex-1 gap-3 rounded-3xl border border-black/10 bg-white p-4 shadow-sm sm:grid-cols-[0.9fr_1.1fr]">
         <ResultList
           title="あなたの改善優先度"
           items={[
@@ -583,7 +583,7 @@ export default function Home() {
     診断の流れ
   </SectionTitle>
   
-  <div className="mt-5 overflow-hidden rounded-[22px] border border-black/[0.07] bg-white px-4 shadow-[0_8px_28px_rgba(15,23,42,0.04)] sm:grid sm:flex-1 sm:grid-cols-4 sm:gap-0 sm:px-0">
+  <div className="mt-4 overflow-hidden rounded-[22px] border border-black/[0.07] bg-white px-4 shadow-[0_8px_28px_rgba(15,23,42,0.04)] sm:grid sm:flex-1 sm:grid-cols-4 sm:gap-0 sm:px-0">
     <FlowStep
   step="01"
   icon="upload"
@@ -669,7 +669,7 @@ export default function Home() {
 </div>
 
 {/* BEFORE / AFTER */}
-<section className="section-border pb-10 pt-8 sm:pb-16 sm:pt-12">
+<section className="section-border pb-8 pt-6 sm:pb-16 sm:pt-12">
   <div className="site-container">
     <div className="text-center">
       <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF] sm:text-[11px]">
@@ -686,7 +686,7 @@ export default function Home() {
       </p>
     </div>
 
-    <div className="mx-auto mt-6 flex w-full max-w-4xl gap-3 sm:mt-8 sm:gap-5">
+    <div className="mx-auto mt-5 flex w-full max-w-4xl gap-3 sm:mt-8 sm:gap-5">
       <div className="min-w-0 flex-1">
         <BeforeAfterCard
           image="/lp/before-v3.png"
@@ -709,8 +709,8 @@ export default function Home() {
   </div>
 </section>
 
-      <section className="pb-8 pt-10 sm:py-16">
-  <div className="site-container grid gap-8 lg:grid-cols-3">
+      <section className="pb-6 pt-7 sm:py-16">
+  <div className="site-container grid gap-6 sm:gap-8 lg:grid-cols-3">
     <RecommendationCard
       title="あなた専用の垢抜けプラン"
       image="/lp/plan-v3.png"
@@ -744,7 +744,7 @@ export default function Home() {
   </div>
 </section>
 
-<div className="flex justify-center px-4 pb-10 pt-2 sm:-mt-4 sm:pb-14 sm:pt-4">
+<div className="flex justify-center px-4 pb-8 pt-0 sm:-mt-4 sm:pb-14 sm:pt-4">
   <Link
     href="/upload"
     prefetch={false}
@@ -763,14 +763,14 @@ export default function Home() {
 
 <section
   id="faq"
-  className="section-border pb-14 pt-8 sm:py-16"
+  className="section-border pb-10 pt-6 sm:py-16"
 >
   <div className="site-container">
     <div className="mx-auto w-full max-w-6xl">
       <SectionTitle>よくある質問</SectionTitle>
 
       {/* スマホ */}
-      <div className="mt-6 space-y-4 md:hidden">
+      <div className="mt-5 space-y-3 md:hidden">
         {faqs.map(([question, answer], index) => (
           <FaqItem
             key={question}
@@ -822,7 +822,7 @@ export default function Home() {
   </div>
 </section>
 
-<section className="border-t border-black/10 bg-[#F7F9FC] px-4 py-14 sm:py-18">
+<section className="border-t border-black/10 bg-[#F7F9FC] px-4 py-10 sm:py-18">
   <div className="site-container">
     <div className="flex items-end justify-between gap-4">
       <div>
@@ -842,7 +842,7 @@ export default function Home() {
     </div>
 
     <div
-      className={`mt-8 grid gap-5 ${
+      className={`mt-6 grid gap-4 sm:mt-8 sm:gap-5 ${
         featuredArticles.length > 1
           ? "md:grid-cols-2 lg:grid-cols-3"
           : "max-w-[520px]"

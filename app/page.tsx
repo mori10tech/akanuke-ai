@@ -420,9 +420,9 @@ export default function Home() {
 
         <div className="site-container grid min-h-0 items-center gap-1 py-5 md:min-h-[660px] md:gap-8 md:py-14 lg:grid-cols-[0.78fr_1.22fr] lg:gap-4 lg:py-16">
   <div className="relative z-10 max-w-[520px] lg:pb-4">
-    <h1 className="text-balance text-[38px] font-semibold leading-[1.1] tracking-[-0.055em] text-[#111111] sm:text-[64px] lg:text-[76px]">
+    <h1 className="whitespace-nowrap text-[30px] font-semibold leading-[1.1] tracking-[-0.055em] text-[#111111] sm:whitespace-normal sm:text-[64px] lg:text-[76px]">
   第一印象は、
-  <br />
+  <br className="hidden sm:block" />
   変えられる。
 </h1>
 
@@ -475,7 +475,7 @@ export default function Home() {
   </div>
 
   {/* 男性モデル ＋ AI ANALYSIS */}
-  <div className="hero-visual-wrap relative z-0 min-h-[480px] lg:min-h-[585px]">
+  <div className="hero-visual-wrap relative z-0 h-[335px] min-h-0 overflow-hidden md:h-auto md:min-h-[480px] lg:min-h-[585px]">
     <div className="hero-person-wrap">
       <Image
         src="/lp/hero-person-v6.png"
@@ -495,7 +495,7 @@ export default function Home() {
   <div className="md:hidden">
     
 
-    <div className="mt-5 flex flex-wrap justify-center gap-x-5 gap-y-3 text-[12px] font-bold text-black/70">
+    <div className="mt-1 flex flex-wrap justify-center gap-x-5 gap-y-3 text-[12px] font-bold text-black/70">
       <MiniBenefit
         icon="clock"
         label="約1分で完了"
@@ -1052,11 +1052,11 @@ function AnalysisScoreRow({
 
   return (
     <div
-      className={`grid grid-cols-[68px_minmax(0,1fr)] items-center gap-1.5 py-2 ${
+      className={`grid grid-cols-[64px_minmax(0,1fr)] items-center gap-1.5 py-1.5 sm:grid-cols-[68px_minmax(0,1fr)] sm:py-2 ${
         last ? "" : "border-b border-black/10"
       }`}
     >
-      <div className="flex h-[64px] w-[68px] shrink-0 items-center justify-center">
+      <div className="flex h-[60px] w-[64px] shrink-0 items-center justify-center sm:h-[64px] sm:w-[68px]">
         {customIconSrc ? (
           <Image
             src={customIconSrc}
@@ -1065,8 +1065,8 @@ function AnalysisScoreRow({
            height={isBrow ? 48 : 64}
             className={
   isBrow
-    ? "h-12 w-12 object-contain"
-    : "h-[64px] w-[64px] object-contain"
+    ? "h-[46px] w-[46px] object-contain sm:h-12 sm:w-12"
+    : "h-[60px] w-[60px] object-contain sm:h-[64px] sm:w-[64px]"
 }
           />
         ) : (

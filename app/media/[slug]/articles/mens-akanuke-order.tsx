@@ -2,6 +2,8 @@ import Link from "next/link";
 import type { Article } from "../../../../data/articles";
 import AdSenseAd from "../../../components/AdSenseAd";
 import JournalDiagnosisCta from "../../components/JournalDiagnosisCta";
+import JournalRelatedArticleLink from "../../components/JournalRelatedArticleLink";
+import JournalArticleFooterNav from "../../components/JournalArticleFooterNav";
 
 type MensAkanukeOrderArticleProps = {
   article: Article;
@@ -430,40 +432,19 @@ export default function MensAkanukeOrderArticle({
           </div>
 
           <div className="mt-7 grid gap-3 sm:grid-cols-2">
-            <Link
-              href="/media/akanukenai-man-features"
-              className="rounded-[18px] border border-black/10 bg-[#F8FAFC] p-5 transition hover:border-[#1677FF]/20 hover:bg-[#EEF6FF]"
-            >
-              <p className="text-[11px] font-black text-[#1677FF]">
-                RELATED ARTICLE
-              </p>
+  <JournalRelatedArticleLink
+    href="/media/akanukenai-man-features"
+    title="垢抜けない男の特徴10選"
+    description="自分がどこで損をしているのか確認したい方はこちら。"
+  />
 
-              <p className="mt-2 text-[15px] font-black leading-6">
-                垢抜けない男の特徴10選
-              </p>
+  <JournalRelatedArticleLink
+    href="/media/mens-akanuke-guide"
+    title="メンズ垢抜け完全ガイド"
+    description="垢抜け全体の方法をまとめて確認したい方はこちら。"
+  />
+</div>
 
-              <p className="mt-3 text-[11px] font-medium leading-5 text-black/65">
-                自分がどこで損をしているのか確認したい方はこちら。
-              </p>
-            </Link>
-
-            <Link
-              href="/media/mens-akanuke-guide"
-              className="rounded-[18px] border border-black/10 bg-[#F8FAFC] p-5 transition hover:border-[#1677FF]/20 hover:bg-[#EEF6FF]"
-            >
-              <p className="text-[11px] font-black text-[#1677FF]">
-                RELATED ARTICLE
-              </p>
-
-              <p className="mt-2 text-[15px] font-black leading-6">
-                メンズ垢抜け完全ガイド
-              </p>
-
-              <p className="mt-3 text-[11px] font-medium leading-5 text-black/65">
-                垢抜け全体の方法をまとめて確認したい方はこちら。
-              </p>
-            </Link>
-          </div>
         </section>
 
         <section className="mt-16 overflow-hidden rounded-[26px] border border-[#1677FF]/15 bg-gradient-to-br from-[#F7FBFF] via-white to-[#EEF6FF] px-6 py-9 shadow-[0_16px_40px_rgba(22,119,255,0.08)] sm:px-9">
@@ -547,21 +528,10 @@ export default function MensAkanukeOrderArticle({
             </p>
           </div>
 
-          <div className="mt-8 flex flex-col gap-3 border-t border-black/10 pt-8 sm:flex-row">
-            <Link
-              href="/media"
-              className="flex min-h-[48px] flex-1 items-center justify-center rounded-[12px] border border-black/10 bg-white px-5 text-[12px] font-black"
-            >
-              記事一覧へ戻る
-            </Link>
-
-            <Link
-              href="/media/mens-akanuke-guide"
-              className="flex min-h-[48px] flex-1 items-center justify-center rounded-[12px] bg-[#EEF6FF] px-5 text-[12px] font-black text-[#1677FF]"
-            >
-              垢抜け完全ガイドを見る
-            </Link>
-          </div>
+          <JournalArticleFooterNav
+  secondaryHref="/media/mens-akanuke-guide"
+  secondaryLabel="垢抜け完全ガイドを見る"
+/>
 
           <p className="sr-only">
             {article.title}

@@ -1,8 +1,12 @@
 import Link from "next/link";
 import { Fragment } from "react";
+
 import type { Article } from "../../../../data/articles";
+
 import AdSenseAd from "../../../components/AdSenseAd";
 import JournalDiagnosisCta from "../../components/JournalDiagnosisCta";
+import JournalRelatedArticleLink from "../../components/JournalRelatedArticleLink";
+import JournalArticleFooterNav from "../../components/JournalArticleFooterNav";
 
 type AkanukenaiManFeaturesArticleProps = {
   article: Article;
@@ -116,11 +120,11 @@ const features = [
 
 const improvementSteps = [
   {
-  number: "01",
-  title: "髪型",
-  description: "顔全体の印象を整える",
-  href: "/media/mens-akanuke-hairstyle",
-},
+    number: "01",
+    title: "髪型",
+    description: "顔全体の印象を整える",
+    href: "/media/mens-akanuke-hairstyle",
+  },
   {
     number: "02",
     title: "眉毛",
@@ -186,7 +190,9 @@ export default function AkanukenaiManFeaturesArticle({
               CONTENTS
             </p>
 
-            <p className="mt-1 text-[15px] font-black">目次</p>
+            <p className="mt-1 text-[15px] font-black">
+              目次
+            </p>
 
             <ol className="mt-4 space-y-3">
               {tableOfContents.map((item, index) => (
@@ -300,6 +306,7 @@ export default function AkanukenaiManFeaturesArticle({
                             <span className="mr-2 font-black text-[#9A7800]">
                               改善ポイント
                             </span>
+
                             {feature.improvement}
                           </p>
                         </div>
@@ -336,53 +343,61 @@ export default function AkanukenaiManFeaturesArticle({
 
             <div className="mt-7 grid gap-3 sm:grid-cols-2">
               {improvementSteps.map((step) => {
-  const content = (
-    <>
-      <span className="text-[10px] font-black tracking-[0.12em] text-[#1677FF]">
-        STEP {step.number}
-      </span>
+                const content = (
+                  <>
+                    <span className="text-[10px] font-black tracking-[0.12em] text-[#1677FF]">
+                      STEP {step.number}
+                    </span>
 
-      <p className="mt-2 text-[18px] font-black">
-        {step.title}
-      </p>
+                    <p className="mt-2 text-[18px] font-black">
+                      {step.title}
+                    </p>
 
-      <p className="mt-2 text-[11px] font-medium leading-5 text-black/65">
-        {step.description}
-      </p>
+                    <p className="mt-2 text-[11px] font-medium leading-5 text-black/65">
+                      {step.description}
+                    </p>
+                  </>
+                );
 
-      {"href" in step && step.href && (
-        <span className="mt-4 flex items-center gap-1 text-[11px] font-black text-[#1677FF]">
-          詳しく見る
-          <span aria-hidden="true">→</span>
-        </span>
-      )}
-    </>
-  );
+                if ("href" in step && step.href) {
+                  return (
+                    <Link
+                      key={step.number}
+                      href={step.href}
+                      className="group flex min-h-[150px] flex-col rounded-[18px] border border-[#1677FF]/25 bg-white p-5 shadow-[0_4px_14px_rgba(22,119,255,0.06)] transition-all duration-200 hover:-translate-y-0.5 hover:border-[#1677FF]/40 hover:bg-[#F7FBFF] hover:shadow-[0_8px_20px_rgba(22,119,255,0.10)] active:translate-y-0 active:scale-[0.99]"
+                    >
+                      {content}
 
-  if ("href" in step && step.href) {
-    return (
-      <Link
-        key={step.number}
-        href={step.href}
-        className="rounded-[18px] border border-[#1677FF]/15 bg-[#F8FAFC] p-5 transition hover:-translate-y-0.5 hover:bg-[#EEF6FF]"
-      >
-        {content}
-      </Link>
-    );
-  }
+                      <div className="mt-auto flex items-center justify-between pt-4">
+                        <span className="text-[11px] font-black text-[#1677FF]">
+                          詳しく見る
+                        </span>
 
-  return (
-    <div
-      key={step.number}
-      className="rounded-[18px] border border-black/10 bg-[#F8FAFC] p-5"
-    >
-      {content}
-    </div>
-  );
-})}
+                        <span
+                          aria-hidden="true"
+                          className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#1677FF] text-white transition-transform duration-200 group-hover:translate-x-1"
+                        >
+                          <span className="-translate-y-px">
+                            →
+                          </span>
+                        </span>
+                      </div>
+                    </Link>
+                  );
+                }
+
+                return (
+                  <div
+                    key={step.number}
+                    className="min-h-[150px] rounded-[18px] border border-black/10 bg-[#F8FAFC] p-5"
+                  >
+                    {content}
+                  </div>
+                );
+              })}
             </div>
 
-            <div className="mt-8 rounded-[20px] border border-black/10 bg-white p-5 sm:p-6">
+            <div className="mt-8">
               <p className="text-[13px] font-black">
                 さらに詳しく知りたい方はこちら
               </p>
@@ -391,33 +406,33 @@ export default function AkanukenaiManFeaturesArticle({
                 髪型・眉毛・スキンケアなど、男性が垢抜ける方法をまとめて確認できます。
               </p>
 
-              <Link
-                href="/media/mens-akanuke-guide"
-                className="mt-4 flex min-h-[48px] items-center justify-between rounded-[12px] bg-[#EEF6FF] px-4 text-[12px] font-black text-[#1677FF] transition hover:bg-[#E3F0FF]"
-              >
-                <span>メンズ垢抜け完全ガイドを読む</span>
-                <span aria-hidden="true">→</span>
-              </Link>
+              <div className="mt-4">
+                <JournalRelatedArticleLink
+                  href="/media/mens-akanuke-guide"
+                  title="メンズ垢抜け完全ガイド"
+                  description="髪型・眉毛・スキンケアなど、男性が垢抜ける方法をまとめて確認できます。"
+                />
+              </div>
             </div>
           </section>
 
           <section className="mt-16 overflow-hidden rounded-[26px] border border-[#1677FF]/15 bg-gradient-to-br from-[#F7FBFF] via-white to-[#EEF6FF] px-6 py-9 shadow-[0_16px_40px_rgba(22,119,255,0.08)] sm:px-9">
-  <div className="inline-flex items-center rounded-full bg-[#EEF6FF] px-3 py-1.5">
-    <span className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
-      AI BEAUTY DIAGNOSIS
-    </span>
-  </div>
+            <div className="inline-flex items-center rounded-full bg-[#EEF6FF] px-3 py-1.5">
+              <span className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
+                AI BEAUTY DIAGNOSIS
+              </span>
+            </div>
 
-  <h2 className="mt-4 text-[26px] font-semibold leading-[1.45] tracking-[-0.04em] text-[#111111]">
-  自分はどこから変えるべき？
-</h2>
+            <h2 className="mt-4 text-[26px] font-semibold leading-[1.45] tracking-[-0.04em] text-[#111111]">
+              自分はどこから変えるべき？
+            </h2>
 
-  <p className="mt-4 text-[13px] font-medium leading-6 text-black/70">
-    AKANUKE.AIでは、顔写真をもとに髪型・眉毛・肌・全体の印象をAIが分析。あなたが優先して改善したいポイントを整理します。
-  </p>
+            <p className="mt-4 text-[13px] font-medium leading-6 text-black/70">
+              AKANUKE.AIでは、顔写真をもとに髪型・眉毛・肌・全体の印象をAIが分析。あなたが優先して改善したいポイントを整理します。
+            </p>
 
-  <JournalDiagnosisCta />
-</section>
+            <JournalDiagnosisCta />
+          </section>
 
           <section
             id="faq"
@@ -481,33 +496,16 @@ export default function AkanukenaiManFeaturesArticle({
               </p>
             </div>
 
-            <div className="mt-8 flex flex-col gap-3 border-t border-black/10 pt-8 sm:flex-row">
-              <Link
-                href="/media"
-                className="flex min-h-[48px] flex-1 items-center justify-center rounded-[12px] border border-black/10 bg-white px-5 text-[12px] font-black"
-              >
-                記事一覧へ戻る
-              </Link>
-
-              <Link
-  href="/upload"
-  className="group flex min-h-[48px] flex-1 items-center justify-center rounded-[12px] bg-[#FFD400] px-5 text-[12px] font-black text-[#111111] shadow-[0_8px_20px_rgba(255,212,0,0.18)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_12px_26px_rgba(255,212,0,0.26)] active:scale-[0.98]"
->
-  <span>
-    無料で診断をはじめる
-  </span>
-
-  <span
-    aria-hidden="true"
-    className="ml-2 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-black/10 text-[15px] font-black leading-none text-[#111111] transition-transform duration-200 group-hover:translate-x-1"
-  >
-    ›
-  </span>
-</Link>
-            </div>
+            <JournalArticleFooterNav
+              secondaryHref="/upload"
+              secondaryLabel="無料で診断をはじめる"
+              secondaryVariant="diagnosis"
+            />
           </section>
 
-          <p className="sr-only">{article.title}</p>
+          <p className="sr-only">
+            {article.title}
+          </p>
         </div>
       </div>
     </>

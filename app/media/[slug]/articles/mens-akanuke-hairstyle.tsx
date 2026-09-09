@@ -1,7 +1,10 @@
 import Link from "next/link";
+
 import type { Article } from "../../../../data/articles";
 import AdSenseAd from "../../../components/AdSenseAd";
 import JournalDiagnosisCta from "../../components/JournalDiagnosisCta";
+import JournalRelatedArticleLink from "../../components/JournalRelatedArticleLink";
+import JournalArticleFooterNav from "../../components/JournalArticleFooterNav";
 
 type MensAkanukeHairstyleArticleProps = {
   article: Article;
@@ -192,7 +195,9 @@ export default function MensAkanukeHairstyleArticle({
             CONTENTS
           </p>
 
-          <p className="mt-1 text-[15px] font-black">目次</p>
+          <p className="mt-1 text-[15px] font-black">
+            目次
+          </p>
 
           <ol className="mt-4 space-y-3">
             {tableOfContents.map((item, index) => (
@@ -204,6 +209,7 @@ export default function MensAkanukeHairstyleArticle({
                   <span className="shrink-0 font-black text-[#1677FF]">
                     {String(index + 1).padStart(2, "0")}
                   </span>
+
                   <span>{item.label}</span>
                 </a>
               </li>
@@ -233,7 +239,10 @@ export default function MensAkanukeHairstyleArticle({
 
         <AdSenseAd className="mt-10" />
 
-        <section id="importance" className="scroll-mt-24 pt-14">
+        <section
+          id="importance"
+          className="scroll-mt-24 pt-14"
+        >
           <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
             FIRST STEP
           </p>
@@ -263,7 +272,10 @@ export default function MensAkanukeHairstyleArticle({
           </div>
         </section>
 
-        <section id="points" className="scroll-mt-24 pt-16">
+        <section
+          id="points"
+          className="scroll-mt-24 pt-16"
+        >
           <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
             5 POINTS
           </p>
@@ -307,9 +319,15 @@ export default function MensAkanukeHairstyleArticle({
           </div>
         </section>
 
-        <AdSenseAd className="mt-10" format="rectangle" />
+        <AdSenseAd
+          className="mt-10"
+          format="rectangle"
+        />
 
-        <section id="face-shape" className="scroll-mt-24 pt-16">
+        <section
+          id="face-shape"
+          className="scroll-mt-24 pt-16"
+        >
           <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
             FACE SHAPE
           </p>
@@ -328,7 +346,9 @@ export default function MensAkanukeHairstyleArticle({
                 key={face.name}
                 className="rounded-[20px] border border-black/10 bg-[#F8FAFC] p-5"
               >
-                <h3 className="text-[18px] font-black">{face.name}</h3>
+                <h3 className="text-[18px] font-black">
+                  {face.name}
+                </h3>
 
                 <p className="mt-3 text-[12px] font-medium leading-6 text-black/70">
                   {face.description}
@@ -342,7 +362,10 @@ export default function MensAkanukeHairstyleArticle({
           </div>
         </section>
 
-        <section id="hairstyles" className="scroll-mt-24 pt-16">
+        <section
+          id="hairstyles"
+          className="scroll-mt-24 pt-16"
+        >
           <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
             HAIRSTYLE
           </p>
@@ -385,7 +408,10 @@ export default function MensAkanukeHairstyleArticle({
           </div>
         </section>
 
-        <section id="salon-order" className="scroll-mt-24 pt-16">
+        <section
+          id="salon-order"
+          className="scroll-mt-24 pt-16"
+        >
           <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
             SALON ORDER
           </p>
@@ -440,9 +466,7 @@ export default function MensAkanukeHairstyleArticle({
           </div>
 
           <h2 className="mt-4 text-[26px] font-semibold leading-[1.45] tracking-[-0.04em] text-[#111111]">
-            自分に似合う方向性を
-            <br />
-            AIで確認してみませんか？
+            自分に似合う方向性をAIで確認してみませんか？
           </h2>
 
           <p className="mt-4 text-[13px] font-medium leading-6 text-black/70">
@@ -452,7 +476,10 @@ export default function MensAkanukeHairstyleArticle({
           <JournalDiagnosisCta />
         </section>
 
-        <section id="faq" className="scroll-mt-24 pt-16">
+        <section
+          id="faq"
+          className="scroll-mt-24 pt-16"
+        >
           <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
             FAQ
           </p>
@@ -485,7 +512,10 @@ export default function MensAkanukeHairstyleArticle({
 
         <AdSenseAd className="mt-10" />
 
-        <section id="summary" className="scroll-mt-24 pt-16">
+        <section
+          id="summary"
+          className="scroll-mt-24 pt-16"
+        >
           <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
             SUMMARY
           </p>
@@ -506,52 +536,36 @@ export default function MensAkanukeHairstyleArticle({
             <p className="mt-5">
               髪型以外にも眉毛・肌・服装などを含めて改善したい場合は、メンズ垢抜け完全ガイドも参考にしてください。
             </p>
+
             <p className="mt-5">
-  「髪型以外にも垢抜けない原因があるかもしれない」と感じる方は、
-  <Link
-    href="/media/akanukenai-man-features"
-    className="font-bold text-[#1677FF] underline decoration-[#1677FF]/30 underline-offset-4 transition hover:decoration-[#1677FF]"
-  >
-    垢抜けない男の特徴10選
-  </Link>
-  もチェックしてみてください。
-</p>
+              「髪型以外にも垢抜けない原因があるかもしれない」と感じる方は、
+              <Link
+                href="/media/akanukenai-man-features"
+                className="font-bold text-[#1677FF] underline decoration-[#1677FF]/30 underline-offset-4 transition hover:decoration-[#1677FF]"
+              >
+                垢抜けない男の特徴10選
+              </Link>
+              もチェックしてみてください。
+            </p>
           </div>
 
-          <Link
-            href="/media/mens-akanuke-guide"
-            className="mt-7 flex min-h-[50px] items-center justify-between rounded-[13px] bg-[#EEF6FF] px-5 text-[12px] font-black text-[#1677FF]"
-          >
-            <span>メンズ垢抜け完全ガイドを読む</span>
-            <span aria-hidden="true">→</span>
-          </Link>
-
-          <div className="mt-8 flex flex-col gap-3 border-t border-black/10 pt-8 sm:flex-row">
-            <Link
-              href="/media"
-              className="flex min-h-[48px] flex-1 items-center justify-center rounded-[12px] border border-black/10 bg-white px-5 text-[12px] font-black"
-            >
-              記事一覧へ戻る
-            </Link>
-
-            <Link
-  href="/upload"
-  className="group flex min-h-[48px] flex-1 items-center justify-center rounded-[12px] bg-[#FFD400] px-5 text-[12px] font-black text-[#111111] shadow-[0_8px_20px_rgba(255,212,0,0.18)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_12px_26px_rgba(255,212,0,0.26)] active:scale-[0.98]"
->
-  <span>
-    無料で診断をはじめる
-  </span>
-
-  <span
-    aria-hidden="true"
-    className="ml-2 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-black/10 text-[15px] font-black leading-none text-[#111111] transition-transform duration-200 group-hover:translate-x-1"
-  >
-    ›
-  </span>
-</Link>
+          <div className="mt-7">
+            <JournalRelatedArticleLink
+              href="/media/mens-akanuke-guide"
+              title="メンズ垢抜け完全ガイド"
+              description="髪型以外の眉毛・肌・服装なども含めて、垢抜け全体の方法を確認できます。"
+            />
           </div>
 
-          <p className="sr-only">{article.title}</p>
+          <JournalArticleFooterNav
+            secondaryHref="/upload"
+            secondaryLabel="無料で診断をはじめる"
+            secondaryVariant="diagnosis"
+          />
+
+          <p className="sr-only">
+            {article.title}
+          </p>
         </section>
       </div>
     </div>

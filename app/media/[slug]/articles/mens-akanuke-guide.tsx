@@ -1,8 +1,11 @@
 import Link from "next/link";
 import { Fragment } from "react";
+
 import type { Article } from "../../../../data/articles";
+
 import AdSenseAd from "../../../components/AdSenseAd";
 import JournalDiagnosisCta from "../../components/JournalDiagnosisCta";
+import JournalArticleFooterNav from "../../components/JournalArticleFooterNav";
 
 type Props = {
   article: Article;
@@ -180,7 +183,7 @@ function CheckIcon() {
 }
 
 export default function MensAkanukeGuideArticle({
-  article: _article,
+  article,
 }: Props) {
   return (
     <div className="mx-auto grid max-w-[980px] gap-10 px-5 py-12 lg:grid-cols-[220px_minmax(0,1fr)] lg:py-16">
@@ -306,7 +309,7 @@ export default function MensAkanukeGuideArticle({
                       {method.number}
                     </span>
 
-                    <div className="min-w-0">
+                    <div className="min-w-0 flex-1">
                       <h3 className="text-[19px] font-semibold tracking-[-0.035em]">
                         {method.title}
                       </h3>
@@ -329,14 +332,19 @@ export default function MensAkanukeGuideArticle({
                         method.relatedArticle && (
                           <Link
                             href={method.relatedArticle.href}
-                            className="mt-4 flex min-h-[44px] items-center justify-between rounded-[12px] border border-[#1677FF]/15 bg-[#EEF6FF] px-4 text-[11px] font-black text-[#1677FF] transition hover:bg-[#E3F0FF]"
+                            className="group mt-4 flex min-h-[46px] items-center justify-between rounded-[12px] border border-[#1677FF]/25 bg-white px-4 text-[11px] font-black text-[#1677FF] shadow-[0_4px_14px_rgba(22,119,255,0.06)] transition-all duration-200 hover:-translate-y-0.5 hover:border-[#1677FF]/40 hover:bg-[#F7FBFF] hover:shadow-[0_8px_20px_rgba(22,119,255,0.10)] active:translate-y-0 active:scale-[0.99]"
                           >
                             <span>
                               {method.relatedArticle.label}
                             </span>
 
-                            <span aria-hidden="true">
-                              →
+                            <span
+                              aria-hidden="true"
+                              className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#1677FF] text-white transition-transform duration-200 group-hover:translate-x-1"
+                            >
+                              <span className="-translate-y-px">
+                                →
+                              </span>
                             </span>
                           </Link>
                         )}
@@ -417,9 +425,7 @@ export default function MensAkanukeGuideArticle({
           </div>
 
           <h2 className="mt-4 text-[26px] font-semibold leading-[1.45] tracking-[-0.04em] text-[#111111]">
-            自分に必要な改善を、
-            <br />
-            AIで確認してみませんか？
+            自分に必要な改善をAIで確認してみませんか？
           </h2>
 
           <p className="mt-4 text-[13px] font-medium leading-6 text-black/70">
@@ -487,30 +493,15 @@ export default function MensAkanukeGuideArticle({
             </p>
           </div>
 
-          <div className="mt-8 flex flex-col gap-3 border-t border-black/10 pt-8 sm:flex-row">
-            <Link
-              href="/media"
-              className="flex min-h-[48px] flex-1 items-center justify-center rounded-[12px] border border-black/10 bg-white px-5 text-[12px] font-black"
-            >
-              記事一覧へ戻る
-            </Link>
+          <JournalArticleFooterNav
+            secondaryHref="/upload"
+            secondaryLabel="無料で診断をはじめる"
+            secondaryVariant="diagnosis"
+          />
 
-            <Link
-              href="/upload"
-              className="group flex min-h-[48px] flex-1 items-center justify-center rounded-[12px] bg-[#FFD400] px-5 text-[12px] font-black text-[#111111] shadow-[0_8px_20px_rgba(255,212,0,0.18)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_12px_26px_rgba(255,212,0,0.26)] active:scale-[0.98]"
-            >
-              <span>
-                無料で診断をはじめる
-              </span>
-
-              <span
-                aria-hidden="true"
-                className="ml-2 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-black/10 text-[15px] font-black leading-none text-[#111111] transition-transform duration-200 group-hover:translate-x-1"
-              >
-                ›
-              </span>
-            </Link>
-          </div>
+          <p className="sr-only">
+            {article.title}
+          </p>
         </section>
       </div>
     </div>

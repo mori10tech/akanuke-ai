@@ -1,8 +1,7 @@
-import Link from "next/link";
-
 import type { Article } from "../../../../data/articles";
 import AdSenseAd from "../../../components/AdSenseAd";
 import JournalDiagnosisCta from "../../components/JournalDiagnosisCta";
+import JournalRelatedArticleLink from "../../components/JournalRelatedArticleLink";
 
 type Props = {
   article: Article;
@@ -533,40 +532,18 @@ export default function MensAkanukeEyebrowsArticle({
           </div>
 
           <div className="mt-8 grid gap-3 sm:grid-cols-2">
-            <Link
-              href="/media/mens-akanuke-order"
-              className="rounded-[16px] border border-black/10 bg-[#F8FAFC] p-5 transition hover:border-[#1677FF]/25"
-            >
-              <span className="text-[10px] font-black text-[#1677FF]">
-                RELATED ARTICLE
-              </span>
+  <JournalRelatedArticleLink
+    href="/media/mens-akanuke-order"
+    title="メンズが垢抜ける順番を見る"
+    description="髪型・眉毛・肌など、初心者が取り組みたい順番を7ステップで解説。"
+  />
 
-              <p className="mt-2 text-[13px] font-black leading-6">
-                メンズが垢抜ける順番を見る
-              </p>
-
-              <p className="mt-2 text-[11px] font-medium leading-5 text-black/65">
-                髪型・眉毛・肌など、初心者が取り組みたい順番を7ステップで解説。
-              </p>
-            </Link>
-
-            <Link
-              href="/media/mens-akanuke-hairstyle"
-              className="rounded-[16px] border border-black/10 bg-[#F8FAFC] p-5 transition hover:border-[#1677FF]/25"
-            >
-              <span className="text-[10px] font-black text-[#1677FF]">
-                RELATED ARTICLE
-              </span>
-
-              <p className="mt-2 text-[13px] font-black leading-6">
-                垢抜ける髪型の選び方を見る
-              </p>
-
-              <p className="mt-2 text-[11px] font-medium leading-5 text-black/65">
-                自分に似合う髪型の考え方や、美容室での頼み方を初心者向けに解説。
-              </p>
-            </Link>
-          </div>
+  <JournalRelatedArticleLink
+    href="/media/mens-akanuke-hairstyle"
+    title="垢抜ける髪型の選び方を見る"
+    description="自分に似合う髪型の考え方や、美容室での頼み方を初心者向けに解説。"
+  />
+</div>
         </section>
       </div>
     </div>

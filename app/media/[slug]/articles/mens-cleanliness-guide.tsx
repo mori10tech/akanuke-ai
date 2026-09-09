@@ -4,6 +4,7 @@ import type { Article } from "../../../../data/articles";
 
 import AdSenseAd from "../../../components/AdSenseAd";
 import JournalDiagnosisCta from "../../components/JournalDiagnosisCta";
+import JournalRelatedArticleLink from "../../components/JournalRelatedArticleLink";
 
 type Props = {
   article: Article;
@@ -313,14 +314,19 @@ export default function MensCleanlinessGuideArticle({
                       item.relatedArticle && (
                         <Link
                           href={item.relatedArticle.href}
-                          className="mt-4 flex min-h-[44px] items-center justify-between rounded-[12px] border border-[#1677FF]/15 bg-[#EEF6FF] px-4 text-[11px] font-black text-[#1677FF] transition hover:bg-[#E3F0FF]"
+                          className="group mt-4 flex min-h-[46px] items-center justify-between rounded-[12px] border border-[#1677FF]/25 bg-white px-4 text-[11px] font-black text-[#1677FF] shadow-[0_4px_14px_rgba(22,119,255,0.06)] transition-all duration-200 hover:-translate-y-0.5 hover:border-[#1677FF]/40 hover:bg-[#F7FBFF] hover:shadow-[0_8px_20px_rgba(22,119,255,0.10)] active:translate-y-0 active:scale-[0.99]"
                         >
                           <span>
                             {item.relatedArticle.label}
                           </span>
 
-                          <span aria-hidden="true">
-                            →
+                          <span
+                            aria-hidden="true"
+                            className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#1677FF] text-white transition-transform duration-200 group-hover:translate-x-1"
+                          >
+                            <span className="-translate-y-px">
+                              →
+                            </span>
                           </span>
                         </Link>
                       )}
@@ -405,39 +411,17 @@ export default function MensCleanlinessGuideArticle({
           </div>
 
           <div className="mt-7 grid gap-3 sm:grid-cols-2">
-            <Link
+            <JournalRelatedArticleLink
               href="/media/mens-akanuke-order"
-              className="rounded-[18px] border border-black/10 bg-[#F8FAFC] p-5 transition hover:border-[#1677FF]/20 hover:bg-[#EEF6FF]"
-            >
-              <p className="text-[11px] font-black text-[#1677FF]">
-                RELATED ARTICLE
-              </p>
+              title="メンズが垢抜ける順番"
+              description="髪型・眉毛・肌など、何から始めるべきか7ステップで確認できます。"
+            />
 
-              <p className="mt-2 text-[15px] font-black leading-6">
-                メンズが垢抜ける順番
-              </p>
-
-              <p className="mt-3 text-[11px] font-medium leading-5 text-black/65">
-                髪型・眉毛・肌など、何から始めるべきか7ステップで確認できます。
-              </p>
-            </Link>
-
-            <Link
+            <JournalRelatedArticleLink
               href="/media/akanukenai-man-features"
-              className="rounded-[18px] border border-black/10 bg-[#F8FAFC] p-5 transition hover:border-[#1677FF]/20 hover:bg-[#EEF6FF]"
-            >
-              <p className="text-[11px] font-black text-[#1677FF]">
-                RELATED ARTICLE
-              </p>
-
-              <p className="mt-2 text-[15px] font-black leading-6">
-                垢抜けない男の特徴10選
-              </p>
-
-              <p className="mt-3 text-[11px] font-medium leading-5 text-black/65">
-                自分がどこで印象を損しているのか確認したい方はこちら。
-              </p>
-            </Link>
+              title="垢抜けない男の特徴10選"
+              description="自分がどこで印象を損しているのか確認したい方はこちら。"
+            />
           </div>
         </section>
 
@@ -522,39 +506,17 @@ export default function MensCleanlinessGuideArticle({
           </div>
 
           <div className="mt-8 grid gap-3 sm:grid-cols-2">
-            <Link
+            <JournalRelatedArticleLink
               href="/media/mens-akanuke-guide"
-              className="rounded-[16px] border border-black/10 bg-[#F8FAFC] p-5 transition hover:border-[#1677FF]/25"
-            >
-              <span className="text-[10px] font-black text-[#1677FF]">
-                RELATED ARTICLE
-              </span>
+              title="メンズ垢抜け完全ガイド"
+              description="清潔感だけでなく、男性が垢抜けるための方法をまとめて確認できます。"
+            />
 
-              <p className="mt-2 text-[13px] font-black leading-6">
-                メンズ垢抜け完全ガイド
-              </p>
-
-              <p className="mt-2 text-[11px] font-medium leading-5 text-black/65">
-                清潔感だけでなく、男性が垢抜けるための方法をまとめて確認できます。
-              </p>
-            </Link>
-
-            <Link
+            <JournalRelatedArticleLink
               href="/media/mens-beauty-beginner"
-              className="rounded-[16px] border border-black/10 bg-[#F8FAFC] p-5 transition hover:border-[#1677FF]/25"
-            >
-              <span className="text-[10px] font-black text-[#1677FF]">
-                RELATED ARTICLE
-              </span>
-
-              <p className="mt-2 text-[13px] font-black leading-6">
-                メンズ美容の始め方
-              </p>
-
-              <p className="mt-2 text-[11px] font-medium leading-5 text-black/65">
-                美容初心者が最初に取り組みたい内容を順番に解説しています。
-              </p>
-            </Link>
+              title="メンズ美容の始め方"
+              description="美容初心者が最初に取り組みたい内容を順番に解説しています。"
+            />
           </div>
 
           <p className="sr-only">

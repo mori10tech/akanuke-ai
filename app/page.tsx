@@ -420,16 +420,16 @@ export default function Home() {
 
         <div className="site-container grid min-h-0 items-center gap-1 py-5 md:min-h-[660px] md:gap-8 md:py-14 lg:grid-cols-[0.78fr_1.22fr] lg:gap-4 lg:py-16">
   <div className="relative z-10 max-w-[520px] lg:pb-4">
-    <h1 className="whitespace-nowrap text-[30px] font-semibold leading-[1.1] tracking-[-0.055em] text-[#111111] sm:whitespace-normal sm:text-[64px] lg:text-[76px]">
+    <h1 className="whitespace-nowrap text-[clamp(28px,7.6vw,32px)] font-black leading-none tracking-[-0.06em] text-[#111111] sm:whitespace-normal sm:text-[64px] sm:leading-[1.1] lg:text-[76px]">
   第一印象は、
   <br className="hidden sm:block" />
   変えられる。
 </h1>
 
-    <p className="mt-5 text-[18px] font-semibold leading-[1.6] tracking-[-0.025em] text-[#111111] md:mt-8 md:text-[30px] lg:text-[33px]">
+    <p className="mt-3 text-[18px] font-semibold leading-[1.6] tracking-[-0.025em] text-[#111111] md:mt-8 md:text-[30px] lg:text-[33px]">
   AIが、あなただけの
   <br className="hidden md:block" />
-  垢抜けプランを作成。
+  垢抜けプランを作成
 </p>
 
     {/* PC・タブレットのみ表示 */}

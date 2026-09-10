@@ -1012,9 +1012,9 @@ router.push("/analyzing");
   className="hidden"
 />
 
-<div className="mt-3 overflow-hidden rounded-[16px] border border-black/[0.06] bg-[#FAFAFA]">
+<div className="mt-3">
   {preview ? (
-    <div className="relative bg-[#EEF6FF]">
+    <div className="overflow-hidden rounded-[16px] border border-black/[0.06] bg-[#EEF6FF]">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={preview}
@@ -1034,59 +1034,59 @@ router.push("/analyzing");
       />
     </div>
   ) : (
-    <div className="flex min-h-[170px] items-center justify-center px-6 text-center">
-      <div>
-        <p className="text-[16px] font-black text-[#111111]">
-          顔写真を用意してください
+    <div className="space-y-3">
+      <div className="rounded-[14px] bg-[#FFF9D9] p-4">
+        <p className="text-[12px] font-black text-[#1677FF]">
+          きれいに診断するためのポイント
         </p>
 
-        <div className="mt-4 rounded-[14px] bg-[#FFF9D9] px-4 py-3">
-  <p className="text-[10px] font-black leading-5 text-[#1677FF]">
-    写真はAI診断・Afterイメージ生成のために使用します
-  </p>
+        <ul className="mt-3 space-y-2.5">
+          {[
+            "明るい場所で正面を向く",
+            "帽子・マスク・サングラスを外す",
+            "加工やフィルターを使用しない",
+          ].map((item) => (
+            <li
+              key={item}
+              className="flex items-center gap-2 text-[11px] text-black/90"
+            >
+              <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-white text-[#1677FF]">
+                <CheckIcon />
+              </span>
 
-  <p className="mt-1 text-[9px] leading-4 text-black/80">
-    画像は一般公開されず、AI処理のため外部AIサービスを利用します。
-  </p>
-</div>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="rounded-[14px] border border-black/[0.06] bg-[#FAFAFA] px-4 py-4">
+        <p className="text-[11px] font-black text-[#1677FF]">
+          写真の取り扱いについて
+        </p>
+
+        <p className="mt-2 text-[10px] font-bold leading-5 text-black/75">
+          写真はAI診断・Afterイメージ生成のために使用します。
+        </p>
+
+        <p className="mt-1 text-[10px] font-bold leading-5 text-black/75">
+          画像は一般公開されず、AI処理のため外部AIサービスを利用します。
+        </p>
       </div>
     </div>
   )}
 </div>
 
-              {preview && (
-                <button
-                  type="button"
-                  onClick={handleResetImage}
-                  className="mt-3 w-full rounded-[10px] border border-black/10 py-3 text-[12px] font-black transition hover:bg-[#EEF6FF]"
-                >
-                  写真を削除して選び直す
-                </button>
-              )}
+{preview && (
+  <button
+    type="button"
+    onClick={handleResetImage}
+    className="mt-3 w-full rounded-[10px] border border-black/10 py-3 text-[12px] font-black transition hover:bg-[#EEF6FF]"
+  >
+    写真を削除して選び直す
+  </button>
+)}
 
-              <div className="mt-4 rounded-[14px] bg-[#FFF9D9] p-4">
-                <p className="text-[12px] font-black text-[#1677FF]">
-                  きれいに診断するためのポイント
-                </p>
-
-                <ul className="mt-3 space-y-2.5">
-                  {[
-                    "明るい場所で正面を向く",
-                    "帽子・マスク・サングラスを外す",
-                    "加工やフィルターを使用しない",
-                  ].map((item) => (
-                    <li
-                      key={item}
-                      className="flex items-center gap-2 text-[11px] text-black/90"
-                    >
-                      <span className="flex h-5 w-5 items-center justify-center rounded-full bg-white text-[#1677FF]">
-                        <CheckIcon />
-                      </span>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
             </div>
           </section>
 
@@ -1241,7 +1241,7 @@ router.push("/analyzing");
 ) : null}
             </button>
 
-            <p className="mt-2 text-center text-[9px] font-bold text-black/35">
+            <p className="mt-2 text-center text-[10px] font-bold text-black/65">
               {isDiagnosisLimitReached
                 ? "翌月1日に利用回数がリセットされます"
                 : "月3回まで利用できます"}

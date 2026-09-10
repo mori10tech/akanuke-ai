@@ -105,7 +105,7 @@ export const metadata: Metadata = {
     images: [
       {
         url:
-          "/ogp/akanuke-ai-og-v3.png",
+          "/ogp/akanuke-ai-og-v4.png",
 
         width:
           1200,
@@ -130,7 +130,7 @@ export const metadata: Metadata = {
       "AIが、あなただけの垢抜けプランを提案。男性向け美容AIサービス AKANUKE.AI。",
 
     images: [
-      "/ogp/akanuke-ai-og-v3.png",
+      "/ogp/akanuke-ai-og-v4.png",
     ],
   },
 

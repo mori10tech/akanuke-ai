@@ -33,7 +33,9 @@ export default function OgpPreviewPage() {
       <div className="relative h-[630px] w-[1200px] overflow-hidden bg-white">
        
 {/* Background */}
-<div className="absolute inset-0 bg-gradient-to-r from-white via-[#F7FBFF] to-[#EAF4FF]" />
+<div className="absolute inset-0 bg-[#F3F8FF]" />
+
+<div className="absolute inset-0 bg-[radial-gradient(ellipse_at_52%_42%,rgba(255,255,255,0.98)_0%,rgba(255,255,255,0.88)_32%,rgba(239,247,255,0.72)_68%,rgba(226,239,255,0.82)_100%)]" />
 
         {/* Logo */}
         <div className="absolute left-[52px] top-[48px] z-30">
@@ -66,9 +68,6 @@ export default function OgpPreviewPage() {
           </p>
 
         </div>
-
-        {/* Person glow */}
-        <div className="absolute bottom-[-80px] left-[390px] z-0 h-[620px] w-[460px] rounded-full bg-white/70 blur-[52px]" />
 
 {/* Person */}
 <div className="absolute bottom-[-6px] right-[160px] z-10 h-[790px] w-[720px] pointer-events-none">

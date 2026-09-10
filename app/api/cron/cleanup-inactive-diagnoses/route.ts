@@ -75,6 +75,8 @@ export async function GET(
     let page = 1;
     let scannedUserCount = 0;
     let inactiveUserCount = 0;
+    let plannedDiagnosisCount = 0;
+    let plannedImageCount = 0;
     let deletedDiagnosisCount = 0;
     let deletedImageCount = 0;
 
@@ -111,12 +113,6 @@ export async function GET(
         users.length;
 
       for (const user of users) {
-        /*
-         * 通常は last_sign_in_at を使用します。
-         *
-         * 万一 last_sign_in_at が存在しない場合は、
-         * アカウント作成日時を基準にします。
-         */
         const referenceDateValue =
           user.last_sign_in_at ??
           user.created_at;
@@ -206,10 +202,12 @@ export async function GET(
               ),
             );
 
-          /*
-           * dryRun=true の場合は、
-           * 実データを一切削除しません。
-           */
+          plannedDiagnosisCount +=
+            diagnoses.length;
+
+          plannedImageCount +=
+            imagePaths.length;
+
           if (dryRun) {
             console.log(
               "[AKANUKE.AI] 長期未ログイン削除 dry-run",
@@ -228,9 +226,6 @@ export async function GET(
             continue;
           }
 
-          /*
-           * Before / After画像を先に削除します。
-           */
           for (
             let index = 0;
             index <
@@ -265,14 +260,6 @@ export async function GET(
               batch.length;
           }
 
-          /*
-           * diagnoses を削除します。
-           *
-           * diagnosis_plan_progress は、
-           * diagnosis_id -> diagnoses.id の
-           * ON DELETE CASCADE により
-           * 自動削除されます。
-           */
           const diagnosisIds =
             diagnoses.map(
               (
@@ -351,14 +338,19 @@ export async function GET(
       page += 1;
     }
 
+    const hasFailures =
+      failedUsers.length > 0;
+
     return NextResponse.json(
       {
-        success: true,
+        success: !hasFailures,
         dryRun,
         cutoff:
           cutoff.toISOString(),
         scannedUserCount,
         inactiveUserCount,
+        plannedDiagnosisCount,
+        plannedImageCount,
         deletedDiagnosisCount,
         deletedImageCount,
         failedUserCount:
@@ -366,7 +358,8 @@ export async function GET(
         failedUsers,
       },
       {
-        status: 200,
+        status:
+          hasFailures ? 500 : 200,
       },
     );
   } catch (error) {

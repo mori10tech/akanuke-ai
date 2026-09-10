@@ -122,10 +122,6 @@ export default async function LatestReport() {
               Afterイメージを100%とした現在の目安
             </p>
           </div>
-
-          <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white text-[#1677FF] shadow-[0_10px_34px_rgba(15,23,42,0.05)]">
-            <SparkleIcon />
-          </span>
         </div>
 
         <div className="mt-4 flex items-center gap-3">

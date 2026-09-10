@@ -1018,7 +1018,6 @@ function HeroAnalysisCard() {
             BEAUTY DIAGNOSIS
           </p>
         </div>
-
       </div>
 
       <div className="analysis-panel-list">

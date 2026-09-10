@@ -1388,12 +1388,14 @@ function RecommendationCard({
 
       <div className="mt-5 overflow-hidden rounded-3xl border border-black/10 bg-white shadow-sm">
         <Image
-          src={image}
-          alt={alt}
-          width={285}
-          height={120}
-          className="h-44 w-full object-cover"
-        />
+  src={image}
+  alt={alt}
+  width={1460}
+  height={684}
+  sizes="(max-width: 1023px) 100vw, 33vw"
+  quality={100}
+  className="h-44 w-full object-cover"
+/>
 
         <p className="p-5 text-sm leading-7 text-black/70">
           {children}

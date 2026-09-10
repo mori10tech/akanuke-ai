@@ -70,6 +70,7 @@ function createInternalRedirect(
   pathname: string,
   options?: {
     loginComplete?: boolean;
+    retryMode?: boolean;
   },
 ) {
   const redirectUrl =
@@ -80,6 +81,15 @@ function createInternalRedirect(
 
   redirectUrl.search =
     "";
+
+  if (
+    options?.retryMode
+  ) {
+    redirectUrl.searchParams.set(
+      "mode",
+      "retry",
+    );
+  }
 
   if (
     options?.loginComplete
@@ -207,6 +217,20 @@ export async function GET(
         "next",
       ),
     );
+
+  const source =
+    requestUrl.searchParams.get(
+      "source",
+    );
+
+  /*
+   * LINEリッチメニューから
+   * AI診断を明示的に選択した場合は、
+   * 診断済みでも再診断画面へ進める。
+   */
+  const isLiffDiagnosisRequest =
+    source === "liff" &&
+    safeNext === "/upload";
 
   if (!code) {
     return createLoginRedirect(
@@ -338,6 +362,10 @@ export async function GET(
      * LINEトークへの
      * 強制遷移は行わない。
      *
+     * LINEリッチメニューから
+     * AI診断を選択した場合のみ、
+     * mode=retryを付与する。
+     *
      * login_complete=1 は、
      * 遷移先の共通Analytics Trackerで
      * LINEログイン成功を1回だけ
@@ -349,6 +377,8 @@ export async function GET(
       {
         loginComplete:
           true,
+        retryMode:
+          isLiffDiagnosisRequest,
       },
     );
   } catch (error) {

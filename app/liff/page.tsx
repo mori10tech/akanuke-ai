@@ -322,16 +322,28 @@ export default function LiffPage() {
           }
 
           /*
-           * AI診断・マイページ・
-           * メディア・トップなどは
-           * 診断履歴に関係なく
-           * そのままアクセスする。
-           */
-          window.location.replace(
-            safeNext,
-          );
+ * LINEリッチメニューから
+ * AI診断を明示的に開いた場合は、
+ * 診断済みユーザーでも再診断画面を表示する。
+ */
+if (safeNext === "/upload") {
+  window.location.replace(
+    "/upload?mode=retry",
+  );
 
-          return;
+  return;
+}
+
+/*
+ * マイページ・メディア・トップなどは
+ * 診断履歴に関係なく
+ * そのままアクセスする。
+ */
+window.location.replace(
+  safeNext,
+);
+
+return;
         }
 
         setMessage(

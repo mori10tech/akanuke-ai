@@ -1111,7 +1111,7 @@ console.log(
             </p>
 
             <Link
-              href="/upload"
+              href="/upload?mode=retry"
               className="mt-5 flex min-h-[48px] items-center justify-center rounded-[12px] bg-[#111111] text-[12px] font-black text-white"
             >
               AI診断をやり直す
@@ -1803,7 +1803,7 @@ console.log(
           </Link>
 
           <Link
-            href="/upload"
+            href="/upload?mode=retry"
             className="mx-4 mt-5 flex min-h-12 items-center justify-center gap-2 rounded-[12px] border border-black/10 bg-white px-4 text-[12px] font-black transition hover:bg-[#F7F9FC]"
           >
             <Icon

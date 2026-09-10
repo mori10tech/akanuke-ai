@@ -241,7 +241,7 @@ const diagnoses =
           </div>
         </section>
 
-        <Link href="/upload" className="mt-6 flex min-h-[52px] w-full items-center justify-center rounded-[13px] bg-[#FFD400] px-5 text-[13px] font-black text-[#111111] shadow-[0_12px_28px_rgba(255,212,0,0.22)] transition hover:-translate-y-0.5">
+        <Link href="/upload?mode=retry" className="mt-6 flex min-h-[52px] w-full items-center justify-center rounded-[13px] bg-[#FFD400] px-5 text-[13px] font-black text-[#111111] shadow-[0_12px_28px_rgba(255,212,0,0.22)] transition hover:-translate-y-0.5">
           <CameraIcon />
           <span className="ml-2">新しくAI診断する</span>
         </Link>

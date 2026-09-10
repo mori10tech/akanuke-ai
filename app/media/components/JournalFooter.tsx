@@ -37,14 +37,12 @@ export default function JournalFooter() {
             利用規約
           </Link>
 
-          <a
-            href="https://www.leafworks.jp/doc/privacy.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="transition hover:text-[#1677FF]"
-          >
-            個人情報保護方針
-          </a>
+          <Link
+  href="/privacy"
+  className="transition hover:text-[#1677FF]"
+>
+  個人情報の取扱い
+</Link>
 
           <Link
   href="/contact"

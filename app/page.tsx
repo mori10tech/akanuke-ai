@@ -971,13 +971,9 @@ export default function Home() {
     利用規約
   </Link>
 
-  <a
-    href="https://www.leafworks.jp/doc/privacy.pdf"
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    個人情報保護方針
-  </a>
+  <Link href="/privacy">
+  個人情報の取扱い
+</Link>
 
   <Link href="/contact">
   お問い合わせ

@@ -1241,10 +1241,10 @@ router.push("/analyzing");
 ) : null}
             </button>
 
-            <p className="mt-2 text-center text-[10px] font-bold text-black/65">
+            <p className="mt-2 text-center text-[10.5px] font-bold text-black/75">
               {isDiagnosisLimitReached
                 ? "翌月1日に利用回数がリセットされます"
-                : "月3回まで利用できます"}
+                : "※月3回まで利用できます"}
             </p>
           </div>         
         </div>

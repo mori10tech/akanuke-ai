@@ -1040,18 +1040,12 @@ router.push("/analyzing");
           顔写真を用意してください
         </p>
 
-        <p className="mt-2 text-[12px] leading-6 text-black/60">
-          顔全体がはっきり見える
-          <br />
-          正面の写真がおすすめです
-        </p>
-
         <div className="mt-4 rounded-[14px] bg-[#FFF9D9] px-4 py-3">
   <p className="text-[10px] font-black leading-5 text-[#1677FF]">
     写真はAI診断・Afterイメージ生成のために使用します
   </p>
 
-  <p className="mt-1 text-[9px] leading-4 text-black/55">
+  <p className="mt-1 text-[9px] leading-4 text-black/80">
     画像は一般公開されず、AI処理のため外部AIサービスを利用します。
   </p>
 </div>
@@ -1083,7 +1077,7 @@ router.push("/analyzing");
                   ].map((item) => (
                     <li
                       key={item}
-                      className="flex items-center gap-2 text-[11px] text-black/70"
+                      className="flex items-center gap-2 text-[11px] text-black/90"
                     >
                       <span className="flex h-5 w-5 items-center justify-center rounded-full bg-white text-[#1677FF]">
                         <CheckIcon />

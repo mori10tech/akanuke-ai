@@ -1286,19 +1286,19 @@ if (!loaded) {
         )}
 
         <div className="pb-32">
-          <section className="px-5 pb-6 pt-7 text-center">
-            <p className="text-[10px] font-black tracking-[0.18em] text-[#1677FF]">
-              PERSONAL AKANUKE PLAN
-            </p>
+          <section className="px-5 pb-4 pt-3 text-center sm:pb-6 sm:pt-7">
+  <p className="text-[9px] font-black tracking-[0.18em] text-[#1677FF] sm:text-[10px]">
+    PERSONAL AKANUKE PLAN
+  </p>
 
-            <h1 className="mt-2 text-[29px] font-black tracking-[-0.045em]">
-              あなた専用の垢抜けプラン
-            </h1>
+  <h1 className="mt-1.5 text-[23px] font-black leading-[1.2] tracking-[-0.045em] sm:mt-2 sm:text-[29px]">
+    あなた専用の垢抜けプラン
+  </h1>
 
-            <p className="mx-auto mt-2 max-w-[340px] text-[12px] leading-5 text-black/55">
-              期限や週区切りはありません。優先順位の高い項目から、自分のペースで進めてください。
-            </p>
-          </section>
+  <p className="mx-auto mt-1.5 max-w-[340px] text-[11px] leading-[1.7] text-black/55 sm:mt-2 sm:text-[12px] sm:leading-5">
+    期限や週区切りはありません。優先順位の高い項目から、自分のペースで進めてください。
+  </p>
+</section>
 
           <section
             ref={statusCardRef}

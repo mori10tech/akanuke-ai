@@ -411,33 +411,33 @@ export default function LoginPage() {
           backMode="history"
         />
 
-        <div className="px-5 pb-12 pt-10">
-          <div className="text-center">
-            <div className="mx-auto flex h-20 w-20 items-center justify-center overflow-hidden rounded-[20px] bg-white shadow-[0_8px_28px_rgba(15,23,42,0.08)]">
-              <Image
-                src="/icon-512.png"
-                alt="AKANUKE.AI"
-                width={80}
-                height={80}
-                priority
-                className="h-full w-full object-cover"
-              />
-            </div>
+        <div className="px-5 pb-12 pt-6 sm:pt-10">
+  <div className="text-center">
+    <div className="mx-auto flex h-16 w-16 items-center justify-center overflow-hidden rounded-[16px] bg-white shadow-[0_8px_28px_rgba(15,23,42,0.08)] sm:h-20 sm:w-20 sm:rounded-[20px]">
+      <Image
+        src="/icon-512.png"
+        alt="AKANUKE.AI"
+        width={80}
+        height={80}
+        priority
+        className="h-full w-full object-cover"
+      />
+    </div>
 
-            <p className="mt-6 text-[11px] font-black tracking-[0.16em] text-[#1677FF]">
-              WELCOME TO AKANUKE.AI
-            </p>
+    <p className="mt-4 text-[9px] font-black tracking-[0.16em] text-[#1677FF] sm:mt-6 sm:text-[11px]">
+      WELCOME TO AKANUKE.AI
+    </p>
 
-            <h1 className="mt-3 text-[28px] font-black tracking-[-0.04em]">
-              LINEで登録・ログイン
-            </h1>
+    <h1 className="mt-1.5 text-[23px] font-black leading-[1.2] tracking-[-0.04em] sm:mt-3 sm:text-[28px]">
+      LINEで登録・ログイン
+    </h1>
 
-            <p className="mt-3 text-[13px] leading-6 text-black/55">
-              AKANUKE.AIのご利用には、
-              <br />
-              LINE公式アカウントの友だち追加が必要です。
-            </p>
-          </div>
+    <p className="mt-1.5 text-[11px] leading-[1.7] text-black/55 sm:mt-3 sm:text-[13px] sm:leading-6">
+      AKANUKE.AIのご利用には、
+      <br />
+      LINE公式アカウントの友だち追加が必要です。
+    </p>
+  </div>
 
           {showExternalBrowserWarning && (
             <div className="mt-7 rounded-[18px] border border-[#FFD400]/50 bg-[#FFF9D9] p-4">
@@ -474,7 +474,7 @@ export default function LoginPage() {
             </div>
           )}
 
-          <div className="mt-8 rounded-[22px] border border-black/10 bg-white p-5 shadow-[0_10px_34px_rgba(15,23,42,0.05)]">
+          <div className="mt-5 rounded-[22px] border border-black/10 bg-white p-5 shadow-[0_10px_34px_rgba(15,23,42,0.05)] sm:mt-8">
             <div className="rounded-[16px] bg-[#F7F9FC] px-4 py-4">
               <p className="text-[12px] font-black text-[#111111]">
                 LINE登録でできること
@@ -555,9 +555,12 @@ export default function LoginPage() {
 
               <ol className="mt-3 space-y-2 text-[11px] font-bold leading-5 text-black/80">
                 <li>
-                  ・
-                  画面下部の「LINEアプリでログインする」をタップしてください。
-                </li>
+  ・ 画面下部の「
+  <span className="font-black text-[#111111]">
+    LINEアプリでログインする
+  </span>
+  」をタップしてください。
+</li>
 
                 <li>
                   ・

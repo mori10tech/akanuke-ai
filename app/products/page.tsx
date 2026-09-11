@@ -1190,22 +1190,22 @@ export default function ProductsPage() {
         />
 
         <main className="pb-32">
-          <section className="px-5 pb-6 pt-7 text-center">
-            <p className="text-[10px] font-black tracking-[0.18em] text-[#1677FF]">
-              PERSONAL PRODUCT GUIDE
-            </p>
+          <section className="px-5 pb-4 pt-3 text-center sm:pb-6 sm:pt-7">
+  <p className="text-[9px] font-black tracking-[0.18em] text-[#1677FF] sm:text-[10px]">
+    PERSONAL PRODUCT GUIDE
+  </p>
 
-            <h1 className="mt-2 text-[29px] font-black tracking-[-0.045em]">
-              あなた専用のおすすめ商品
-            </h1>
+  <h1 className="mt-1.5 text-[23px] font-black leading-[1.2] tracking-[-0.045em] sm:mt-2 sm:text-[29px]">
+    あなた専用のおすすめ商品
+  </h1>
 
-            <p className="mx-auto mt-2 max-w-[340px] text-[12px] leading-5 text-black/70">
-              AI診断結果をもとに、あなたに合ったケア用品をカテゴリ別に紹介します。
-            </p>
-          </section>
+  <p className="mx-auto mt-1.5 max-w-[340px] text-[11px] leading-[1.7] text-black/70 sm:mt-2 sm:text-[12px] sm:leading-5">
+    AI診断結果をもとに、あなたに合ったケア用品をカテゴリ別に紹介します。
+  </p>
+</section>
 
           {/* CATEGORY SCROLL */}
-          <div className="mt-6">
+<div className="mt-1 sm:mt-1">
             <div
               ref={
                 categoryScrollRef
@@ -1279,7 +1279,7 @@ export default function ProductsPage() {
 
           <div className="mt-4 border-t border-black/5" />
 
-          <div className="px-4 pt-7">
+          <div className="px-4 pt-4 sm:pt-4">
             <section>
               <div className="flex items-end justify-between gap-4">
                 <div>

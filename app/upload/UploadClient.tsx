@@ -884,19 +884,19 @@ router.push("/analyzing");
   backMode="history"
 />
 
-        <div className="px-4 pb-36 pt-5">
-          <section className="pb-6 pt-2 text-center">
-  <p className="text-[10px] font-black tracking-[0.18em] text-[#1677FF]">
+        <div className="px-4 pb-36 pt-3 sm:pt-5">
+          <section className="pb-4 pt-1 text-center sm:pb-6 sm:pt-2">
+  <p className="text-[9px] font-black tracking-[0.18em] text-[#1677FF] sm:text-[10px]">
     AI BEAUTY DIAGNOSIS
   </p>
 
-  <h1 className="mt-2 text-[29px] font-black leading-[1.25] tracking-[-0.045em]">
+  <h1 className="mt-1.5 text-[23px] font-black leading-[1.2] tracking-[-0.045em] sm:mt-2 sm:text-[29px] sm:leading-[1.25]">
     写真をもとに、
     <br />
     あなたの魅力を分析。
   </h1>
 
-  <p className="mx-auto mt-2 max-w-[340px] text-[12px] leading-5 text-black/70">
+  <p className="mx-auto mt-1.5 max-w-[340px] text-[11px] leading-[1.7] text-black/70 sm:mt-2 sm:text-[12px] sm:leading-5">
     顔写真となりたい印象をもとに、
     <br />
     髪型・眉毛・肌・全体の印象をAIが分析します。

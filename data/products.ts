@@ -2048,7 +2048,7 @@ export const categories: CategorySection[] = [
     label: "スキンケア",
     englishLabel: "SKIN CARE",
     description:
-      "洗顔・化粧水・乳液・クレンジングなど、肌のコンディションを整えるアイテムです。",
+      "肌のコンディションを整えるアイテムです。",
     advice:
       "最初からすべて揃える必要はありません。自分の肌悩みに合わせて必要なケアから始めるのがおすすめです。",
   },
@@ -2068,7 +2068,7 @@ export const categories: CategorySection[] = [
     label: "スタイリング",
     englishLabel: "STYLING",
     description:
-      "ワックスやジェルなど、髪型を整えるためのスタイリングアイテムです。",
+      "髪型を整えるためのスタイリングアイテムです。",
     advice:
       "作りたい髪型や髪質に合わせて、セット力・ツヤ・質感の違いから選ぶのがおすすめです。",
   },
@@ -2078,7 +2078,7 @@ export const categories: CategorySection[] = [
     label: "ヘアケア",
     englishLabel: "HAIR CARE",
     description:
-      "毎日のシャンプーなど、髪のコンディションを整えるためのアイテムです。",
+      "髪のコンディションを整えるためのアイテムです。",
     advice:
       "スタイリングだけでなく日々のヘアケアも整えることで、髪型を作りやすい状態を目指せます。",
   },
@@ -2088,7 +2088,7 @@ export const categories: CategorySection[] = [
     label: "メンズメイク",
     englishLabel: "MEN'S MAKEUP",
     description:
-      "BBクリームや化粧下地など、肌を自然に補正して見せるためのアイテムです。",
+      "肌を自然に補正して見せるためのアイテムです。",
     advice:
       "初めてならBBクリームなど、変化が自然で簡単に使いやすいアイテムから試すのがおすすめです。",
   },
@@ -2098,7 +2098,7 @@ export const categories: CategorySection[] = [
     label: "その他",
     englishLabel: "OTHER",
     description:
-      "香り・口元・手元など、細かな身だしなみを整えるためのアイテムです。",
+      "細かな身だしなみを整えるためのアイテムです。",
     advice:
       "肌や髪を整えたあとに、必要なものだけ取り入れると全体の清潔感をさらに高めやすくなります。",
   },

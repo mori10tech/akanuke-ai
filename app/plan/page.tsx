@@ -332,7 +332,7 @@ function ProgressRing({
       circumference;
 
   return (
-    <div className="relative h-[126px] w-[126px]">
+    <div className="relative h-[104px] w-[104px]">
       <svg
         viewBox="0 0 112 112"
         className="h-full w-full -rotate-90"
@@ -364,7 +364,7 @@ function ProgressRing({
       </svg>
 
       <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <span className="text-[34px] font-black leading-none tracking-[-0.05em] text-[#1677FF]">
+        <span className="text-[29px] font-black leading-none tracking-[-0.05em] text-[#1677FF]">
           {progress}%
         </span>
 
@@ -431,8 +431,8 @@ function SalonOrderGuide({
             SALON ORDER GUIDE
           </span>
 
-          <span className="mt-1 block text-[18px] font-black tracking-[-0.035em] text-[#111111]">
-            サロンでこの画面を見せるだけ
+          <span className="mt-1 block text-[17px] font-black tracking-[-0.035em] text-[#111111]">
+            サロンで画面を見せるだけ
           </span>
 
           <span className="mt-1 block text-[10px] leading-5 text-black/55">
@@ -1296,13 +1296,13 @@ if (!loaded) {
   </h1>
 
   <p className="mx-auto mt-1.5 max-w-[340px] text-[11px] leading-[1.7] text-black/55 sm:mt-2 sm:text-[12px] sm:leading-5">
-    期限や週区切りはありません。優先順位の高い項目から、自分のペースで進めてください。
+    優先順位の高い項目から、自分のペースで進めてください。
   </p>
 </section>
 
           <section
             ref={statusCardRef}
-            className="mx-4 rounded-[24px] border border-[#1677FF]/10 bg-[#EEF6FF] p-5 shadow-[0_10px_34px_rgba(15,23,42,0.05)]"
+            className="mx-4 rounded-[24px] border border-[#1677FF]/10 bg-[#EEF6FF] px-5 py-3.5 shadow-[0_10px_34px_rgba(15,23,42,0.05)]"
           >
             <div className="flex items-center gap-5">
               <ProgressRing
@@ -1328,11 +1328,6 @@ if (!loaded) {
                   </span>{" "}
                   完了
                 </h2>
-
-                <p className="mt-2 text-[10px] leading-5 text-black/45">
-                  すべて一度に行う必要はありません。
-                  できる項目から進めましょう。
-                </p>
               </div>
             </div>
           </section>
@@ -1366,10 +1361,6 @@ if (!loaded) {
                   やることリスト
                 </h2>
               </div>
-
-              <p className="text-[9px] font-bold text-black/35">
-                優先度順
-              </p>
             </div>
 
             <div className="mt-4 space-y-3">
@@ -1547,7 +1538,7 @@ if (!loaded) {
               </h2>
 
               <p className="mt-3 max-w-[340px] text-left text-[11px] leading-5 text-black/55">
-                診断結果から、今のあなたに必要なケア・スタイリング商品を厳選しています。
+                あなたに必要なケア・スタイリング商品を厳選しています。
               </p>
 
               <Link

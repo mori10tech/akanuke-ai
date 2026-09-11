@@ -1159,8 +1159,7 @@ console.log(
   </h1>
 
   <p className="mx-auto mt-1.5 max-w-[330px] text-[11px] leading-[1.7] text-black/70 sm:mt-2 sm:text-[12px] sm:leading-5">
-    今の印象と改善ポイントを確認して、
-    あなた専用の垢抜けプランを見つけましょう。
+    今の印象と改善ポイントを確認しましょう。
   </p>
 </section>
 

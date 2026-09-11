@@ -124,30 +124,6 @@ function ExternalLinkIcon() {
   );
 }
 
-function SparkleIcon({
-  className = "h-6 w-6",
-}: {
-  className?: string;
-}) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      aria-hidden="true"
-      className={
-        className
-      }
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.7"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M12 3c.8 4.1 2.9 6.2 7 7-4.1.8-6.2 2.9-7 7-.8-4.1-2.9-6.2-7-7 4.1-.8 6.2-2.9 7-7Z" />
-      <path d="M19 16c.3 1.7 1.3 2.7 3 3-1.7.3-2.7 1.3-3 3-.3-1.7-1.3-2.7-3-3 1.7-.3 2.7-1.3 3-3Z" />
-    </svg>
-  );
-}
-
 function CheckIcon() {
   return (
     <svg
@@ -1200,7 +1176,7 @@ export default function ProductsPage() {
   </h1>
 
   <p className="mx-auto mt-1.5 max-w-[340px] text-[11px] leading-[1.7] text-black/70 sm:mt-2 sm:text-[12px] sm:leading-5">
-    AI診断結果をもとに、あなたに合ったケア用品をカテゴリ別に紹介します。
+    AI診断をもとに、あなたに合った商品をカテゴリ別に紹介します。
   </p>
 </section>
 
@@ -1281,58 +1257,32 @@ export default function ProductsPage() {
 
           <div className="px-4 pt-4 sm:pt-4">
             <section>
-              <div className="flex items-end justify-between gap-4">
-                <div>
-                  <p className="text-[10px] font-black tracking-[0.14em] text-[#1677FF]">
-                    {
-                      selectedCategoryData
-                        .englishLabel
-                    }
-                  </p>
+              <div className="flex items-center justify-between gap-3">
+  <div>
+    <h2 className="text-[22px] font-black tracking-[-0.04em]">
+  {
+    selectedCategoryData
+      .label
+  }
+</h2>
+  </div>
 
-                  <h2 className="mt-1 text-[24px] font-black tracking-[-0.04em]">
-                    {
-                      selectedCategoryData
-                        .label
-                    }
-                  </h2>
-                </div>
+  <span className="shrink-0 rounded-full bg-[#EEF6FF] px-2.5 py-1 text-[9px] font-black text-[#1677FF]">
+    {
+      selectedProducts.length
+    }
+    商品
+  </span>
+</div>
 
-                <span className="shrink-0 rounded-full bg-[#EEF6FF] px-3 py-1.5 text-[10px] font-black text-[#1677FF]">
-                  {
-                    selectedProducts.length
-                  }
-                  商品
-                </span>
-              </div>
+<p className="mt-2 text-[11px] leading-5 text-black/70">
+  {
+    selectedCategoryData
+      .description
+  }
+</p>
 
-              <p className="mt-3 text-[12px] leading-6 text-black/70">
-                {
-                  selectedCategoryData
-                    .description
-                }
-              </p>
-
-              <div className="mt-4 flex gap-3 rounded-[16px] bg-[#EEF6FF] p-4">
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white text-[#1677FF]">
-                  <SparkleIcon className="h-5 w-5" />
-                </span>
-
-                <div>
-                  <p className="text-[11px] font-black text-[#1677FF]">
-                    AIからのアドバイス
-                  </p>
-
-                  <p className="mt-1 text-[12px] leading-6 text-black/70">
-                    {
-                      selectedCategoryData
-                        .advice
-                    }
-                  </p>
-                </div>
-              </div>
-
-              <div className="mt-5 grid gap-4">
+<div className="mt-4 grid gap-4">
                 {displayedProducts.map(
                   (
                     product,

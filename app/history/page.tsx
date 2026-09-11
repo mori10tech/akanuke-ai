@@ -241,10 +241,15 @@ const diagnoses =
           </div>
         </section>
 
-        <Link href="/upload?mode=retry" className="mt-6 flex min-h-[52px] w-full items-center justify-center rounded-[13px] bg-[#FFD400] px-5 text-[13px] font-black text-[#111111] shadow-[0_12px_28px_rgba(255,212,0,0.22)] transition hover:-translate-y-0.5">
-          <CameraIcon />
-          <span className="ml-2">新しくAI診断する</span>
-        </Link>
+        <Link
+  href="/upload?mode=retry"
+  className="mt-6 flex min-h-[52px] w-full items-center justify-center rounded-[13px] bg-[#FFD400] px-5 text-[13px] font-black text-[#111111] shadow-[0_5px_0_#D9B500,0_10px_24px_rgba(15,23,42,0.08)] transition-all duration-100 hover:-translate-y-0.5 active:translate-y-[3px] active:scale-[0.985] active:bg-[#F5CA00] active:shadow-[0_1px_0_#D9B500,0_3px_8px_rgba(15,23,42,0.06)]"
+>
+  <CameraIcon />
+  <span className="ml-2">
+    新しくAI診断する
+  </span>
+</Link>
 
         {error ? (
           <div className="mt-6 rounded-[18px] border border-red-200 bg-red-50 p-5">

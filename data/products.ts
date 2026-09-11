@@ -686,7 +686,7 @@ imageAlt:
   {
     id: "straine-shampoo",
     rank: 3,
-    name: "シャンプー",
+    name: "ストレイン シャンプー ホワイトブロッサムの香り",
     shortName: "シャンプー",
     brand: "Straine",
     description:

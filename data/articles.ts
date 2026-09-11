@@ -12,6 +12,34 @@ export type Article = {
 
 export const articles: Article[] = [
 
+  
+  {
+    slug: "mens-beard-grooming",
+
+    title:
+      "メンズのヒゲの整え方｜清潔感を出す剃り方・残し方を初心者向けに解説",
+
+    description:
+      "ヒゲを整えて清潔感を出したい男性向けに、基本の剃り方や自然な残し方、青ヒゲが目立つときの考え方を初心者にも分かりやすく解説。ヒゲ脱毛という選択肢についても紹介します。",
+
+    category: "ヒゲ",
+
+    publishedAt: "2026-09-11",
+
+    readingTime: "約8分",
+
+    image: "/media/mens-beard-grooming.png",
+
+    keywords: [
+      "メンズ ヒゲ 整え方",
+      "男 ヒゲ 整え方",
+      "ヒゲ 清潔感",
+      "青ヒゲ 清潔感",
+      "メンズ ヒゲ 剃り方",
+    ],
+  },
+
+
 {
   slug: "mens-cleanliness-guide",
 

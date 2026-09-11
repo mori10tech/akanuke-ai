@@ -160,7 +160,7 @@ export default async function DashboardPage() {
 
             <Link
               href="/upload?mode=retry"
-              className="mt-5 flex min-h-[48px] w-full items-center justify-center rounded-[12px] bg-[#FFD400] px-5 text-[13px] font-black text-[#111111] shadow-[0_10px_34px_rgba(15,23,42,0.05)] transition hover:-translate-y-0.5 active:scale-[0.99]"
+              className="mt-5 flex min-h-[48px] w-full items-center justify-center rounded-[12px] bg-[#FFD400] px-5 text-[13px] font-black text-[#111111] shadow-[0_5px_0_#D9B500,0_10px_24px_rgba(15,23,42,0.08)] transition-all duration-100 hover:-translate-y-0.5 active:translate-y-[3px] active:scale-[0.985] active:bg-[#F5CA00] active:shadow-[0_1px_0_#D9B500,0_3px_8px_rgba(15,23,42,0.06)]"
             >
               新しくAI診断する
 

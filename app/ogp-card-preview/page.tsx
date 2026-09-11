@@ -37,23 +37,23 @@ export default function OgpCardPreviewPage() {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_52%_42%,rgba(255,255,255,0.98)_0%,rgba(255,255,255,0.88)_32%,rgba(239,247,255,0.72)_68%,rgba(226,239,255,0.82)_100%)]" />
 
         {/* Logo */}
-        <div className="absolute left-[10px] top-[17px] z-30">
+        <div className="absolute left-[11px] top-[15px] z-30">
           <Image
             src="/akanuke-ai-horizontal-logo-v2.png"
             alt="AKANUKE.AI"
-            width={140}
+            width={150}
             height={26}
             priority
-            className="h-auto w-[140px]"
+            className="h-auto w-[150px]"
           />
 
-          <p className="ml-[1px] mt-[2px] text-[5px] font-black tracking-[0.18em] text-[#1677FF]">
+          <p className="ml-[1px] mt-[2px] text-[8px] font-black tracking-[0.18em] text-[#1677FF]">
             MEN&apos;S AI BEAUTY
           </p>
         </div>
 
         {/* Main Copy */}
-        <div className="absolute left-[10px] top-[65px] z-30 w-[300px]">
+        <div className="absolute left-[11px] top-[68px] z-30 w-[300px]">
           <h1 className="whitespace-nowrap text-[28px] font-semibold leading-[1.28] tracking-[-0.06em] text-[#111111]">
             第一印象は、
             <br />
@@ -68,7 +68,7 @@ export default function OgpCardPreviewPage() {
         </div>
 
         {/* Person */}
-<div className="pointer-events-none absolute bottom-[8px] right-[55px] z-10 h-[230px] w-[200px]">
+<div className="pointer-events-none absolute bottom-[8px] right-[60px] z-10 h-[230px] w-[200px]">
   <Image
     src="/lp/hero-person-v6.png"
     alt=""
@@ -83,7 +83,7 @@ export default function OgpCardPreviewPage() {
 </div>
 
         {/* Analysis Card */}
-        <div className="absolute right-[5px] top-[50px] z-30 w-[240px] scale-[0.45] origin-top-right rounded-[20px] border border-[#1677FF]/[0.16] bg-white/[0.98] px-[20px] py-[30px] shadow-[0_26px_68px_rgba(22,119,255,0.14),0_6px_20px_rgba(17,17,17,0.05)] backdrop-blur-[18px]">
+        <div className="absolute right-[8px] top-[50px] z-30 w-[240px] scale-[0.45] origin-top-right rounded-[20px] border border-[#1677FF]/[0.16] bg-white/[0.98] px-[20px] py-[30px] shadow-[0_26px_68px_rgba(22,119,255,0.14),0_6px_20px_rgba(17,17,17,0.05)] backdrop-blur-[18px]">
           <div>
             <p className="text-[14px] font-extrabold leading-none text-[#1677FF]">
               AI ANALYSIS

@@ -855,11 +855,11 @@ export default async function ArticleDetailPage({
             </Link>
 
             <a
-              href="https://www.leafworks.jp/doc/privacy.pdf"
+              href="https://akanukeai.com/privacy"
               target="_blank"
               rel="noopener noreferrer"
             >
-              個人情報保護方針
+              個人情報の取り扱い
             </a>
           </div>
 

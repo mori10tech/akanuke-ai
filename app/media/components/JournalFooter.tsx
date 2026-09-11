@@ -52,7 +52,7 @@ export default function JournalFooter() {
 </Link>
 
           <a
-            href="https://www.raygence.co.jp/company/outline.html"
+            href="https://www.raygence.co.jp/"
             target="_blank"
             rel="noopener noreferrer"
             className="transition hover:text-[#1677FF]"

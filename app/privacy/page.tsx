@@ -10,26 +10,34 @@ const sections = [
   {
     title: "1. 本ページについて",
     content: (
-      <>
-        <p>
-          本ページは、株式会社レイジェンスが提供する「AKANUKE.AI」における、顔画像、診断データ、AI生成画像その他の個人情報の取扱いについて、サービス固有の内容を補足するものです。
-        </p>
+  <>
+    <p>
+      本ページは、株式会社レイジェンスが提供する「AKANUKE.AI」における、顔画像、診断データ、AI生成画像その他の個人情報の取扱いについて、サービス固有の内容を補足するものです。
+    </p>
 
-        <p>
-          当社の個人情報保護に関する基本方針については、株式会社レイジェンスのプライバシーポリシーをご確認ください。
-        </p>
+    <p>
+      当社の個人情報保護に関する基本方針については、株式会社レイジェンスのプライバシーポリシーをご確認ください。
+    </p>
 
-        <div className="rounded-[14px] border border-black/10 bg-[#F8FAFC] px-4 py-3">
-          <p className="text-[12px] font-bold text-black/55">
-            株式会社レイジェンスのプライバシーポリシー
-          </p>
+    <a
+      href="https://www.raygence.co.jp/doc/privacy.pdf"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="flex items-center justify-between gap-4 rounded-[14px] border border-black/10 bg-[#F8FAFC] px-4 py-3 transition-colors hover:bg-[#F1F5F9]"
+    >
+      <span className="text-[12px] font-bold text-black/55">
+        株式会社レイジェンスのプライバシーポリシー
+      </span>
 
-          <p className="mt-1 text-[11px] leading-5 text-black/45">
-            ※ 現在、掲載ページを準備中です。公開後、本ページからリンクします。
-          </p>
-        </div>
-      </>
-    ),
+      <span
+        aria-hidden="true"
+        className="shrink-0 text-[14px] font-bold text-[#1677FF]"
+      >
+        →
+      </span>
+    </a>
+  </>
+),
   },
   {
     title: "2. 顔画像の利用目的",

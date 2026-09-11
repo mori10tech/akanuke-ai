@@ -603,7 +603,7 @@ export default function LoginPage() {
               </Link>
               と
               <a
-                href="https://www.leafworks.jp/doc/privacy.pdf"
+                href="/privacy"
                 target="_blank"
                 rel="noreferrer"
                 className="font-bold text-[#1677FF]"

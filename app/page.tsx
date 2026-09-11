@@ -980,7 +980,7 @@ export default function Home() {
 </Link>
 
 <a
-  href="https://www.raygence.co.jp/company/outline.html"
+  href="https://www.raygence.co.jp/"
   target="_blank"
   rel="noopener noreferrer"
 >

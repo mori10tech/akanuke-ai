@@ -235,7 +235,7 @@ const diagnoses =
           <div className="mt-2 flex items-end justify-between gap-4">
             <div>
               <h1 className="text-[28px] font-black tracking-[-0.04em]">診断履歴</h1>
-              <p className="mt-2 text-[12px] leading-5 text-black/50">過去の診断結果と、<br />印象の変化を確認できます。</p>
+              <p className="mt-2 text-[12px] leading-5 text-black/50">過去の診断結果と印象の変化を確認できます。</p>
             </div>
             <span className="rounded-full bg-white px-3 py-1.5 text-[10px] font-black text-[#1677FF] shadow-sm">全{diagnoses.length}件</span>
           </div>

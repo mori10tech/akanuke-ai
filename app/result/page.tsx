@@ -1188,9 +1188,9 @@ console.log(
                     AKANUKE SCORE
                   </p>
 
-                  <span className="rounded-full border border-[#1677FF]/10 bg-white px-2 py-1 text-[9px] font-bold text-[#1677FF]">
-                    解析完了
-                  </span>
+                  <span className="shrink-0 whitespace-nowrap rounded-full border border-[#1677FF]/10 bg-white px-2 py-1 text-[9px] font-bold text-[#1677FF]">
+  解析完了
+</span>
                 </div>
 
                 <p className="mt-5 text-[15px] font-bold text-black/70">

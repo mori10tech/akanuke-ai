@@ -710,6 +710,61 @@ a {
   }
 }
 
+/* PC：人物画像の右端を背景になじませる */
+@media (min-width: 1024px) {
+  .hero-person-wrap {
+    -webkit-mask-image:
+      linear-gradient(
+        to right,
+        transparent 0%,
+        rgba(0, 0, 0, 0.35) 3%,
+        #000000 8%,
+        #000000 78%,
+        rgba(0, 0, 0, 0.65) 84%,
+        rgba(0, 0, 0, 0.12) 90%,
+        rgba(0, 0, 0, 0.02) 96%,
+        transparent 100%
+      ),
+      linear-gradient(
+        to bottom,
+        #000000 0%,
+        #000000 88%,
+        rgba(0, 0, 0, 0.75) 94%,
+        transparent 100%
+      );
+
+    mask-image:
+      linear-gradient(
+        to right,
+        transparent 0%,
+        rgba(0, 0, 0, 0.35) 3%,
+        #000000 8%,
+        #000000 78%,
+        rgba(0, 0, 0, 0.65) 84%,
+        rgba(0, 0, 0, 0.12) 90%,
+        rgba(0, 0, 0, 0.02) 96%,
+        transparent 100%
+      ),
+      linear-gradient(
+        to bottom,
+        #000000 0%,
+        #000000 88%,
+        rgba(0, 0, 0, 0.75) 94%,
+        transparent 100%
+      );
+  }
+}
+
+.analysis-panel {
+  box-shadow:
+    0 18px 40px rgba(22, 119, 255, 0.10),
+    0 4px 12px rgba(17, 17, 17, 0.04);
+}
+
+.hero-visual-wrap {
+  overflow: visible;
+}
+
 /* =========================
    SMALL MOBILE
 ========================= */

@@ -640,7 +640,7 @@ export default function AnalyzingPage() {
             </p>
           </div>
 
-          <section className="mt-6 overflow-hidden rounded-[20px] border border-black/10 bg-white shadow-[0_10px_34px_rgba(15,23,42,0.05)]">
+          <section className="mx-auto mt-6 w-[82%] overflow-hidden rounded-[20px] border border-black/10 bg-white shadow-[0_10px_34px_rgba(15,23,42,0.05)]">
             <div className="relative aspect-[4/5] overflow-hidden bg-[#F7F9FC]">
               {image ? (
                 // eslint-disable-next-line @next/next/no-img-element

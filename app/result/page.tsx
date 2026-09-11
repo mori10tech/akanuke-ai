@@ -1265,34 +1265,25 @@ console.log(
           {!isHistoryView && (
             <section className="mx-4 mt-5 overflow-hidden rounded-[22px] border border-[#1677FF]/15 bg-gradient-to-br from-[#EEF6FF] via-white to-white shadow-[0_10px_30px_rgba(22,119,255,0.07)]">
               <div className="p-5">
-                <div className="flex items-start gap-3">
-                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white text-[#1677FF] shadow-[0_6px_20px_rgba(15,23,42,0.05)]">
-                    <Icon
-                      name="sparkle"
-                      className="h-5 w-5"
-                    />
-                  </span>
+                <div>
+  <p className="text-[10px] font-black tracking-[0.14em] text-[#1677FF]">
+    BEFORE / AFTER
+  </p>
 
-                  <div className="min-w-0 flex-1">
-                    <p className="text-[10px] font-black tracking-[0.14em] text-[#1677FF]">
-                      BEFORE / AFTER
-                    </p>
+  <h2 className="mt-1 text-[17px] font-black leading-6 tracking-[-0.03em] text-[#111111]">
+    {isGeneratingAfter &&
+    !afterImage
+      ? "Afterイメージをこの下で生成中です"
+      : "Before / Afterはこの下で確認できます"}
+  </h2>
 
-                    <h2 className="mt-1 text-[17px] font-black leading-6 tracking-[-0.03em] text-[#111111]">
-                      {isGeneratingAfter &&
-                      !afterImage
-                        ? "Afterイメージをこの下で生成中です"
-                        : "Before / Afterはこの下で確認できます"}
-                    </h2>
-
-                    <p className="mt-2 text-[12px] leading-6 text-black/75">
-                      {isGeneratingAfter &&
-                      !afterImage
-                        ? "完成まで少し時間がかかる場合があります。待っている間に診断結果をチェックしたり、Xへシェアしてみましょう。"
-                        : "このまま下へスクロールすると、BeforeとAfterを比較できます。診断結果はXへシェアすることもできます。"}
-                    </p>
-                  </div>
-                </div>
+  <p className="mt-2 text-[12px] leading-6 text-black/75">
+    {isGeneratingAfter &&
+    !afterImage
+      ? "完成まで少し時間がかかる場合があります。待っている間に診断結果をチェックしたり、Xへシェアしてみましょう。"
+      : "このまま下へスクロールすると、BeforeとAfterを比較できます。診断結果はXへシェアすることもできます。"}
+  </p>
+</div>
 
                 {isGeneratingAfter &&
                 !afterImage ? (

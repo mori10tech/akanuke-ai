@@ -1194,7 +1194,7 @@ console.log(
                   </span>
                 </div>
 
-                <p className="mt-5 text-[11px] font-bold text-black/70">
+                <p className="mt-5 text-[15px] font-bold text-black/70">
                   現在の垢抜けスコア
                 </p>
 
@@ -1219,15 +1219,15 @@ console.log(
                 TARGET
               </p>
 
-              <p className="mt-1.5 text-[14px] font-black leading-6 text-[#111111]">
+              <p className="mt-1 text-[14px] font-black leading-6 text-[#111111]">
                 {analysis.targetImpression}
               </p>
 
-              <p className="mt-2 text-[11px] leading-5 text-black/80">
+              <p className="mt-1 text-[11px] leading-5 text-black/80">
                 この印象を目指して、髪・眉・肌・身だしなみを整えていきます。
               </p>
 
-              <p className="mt-3 border-t border-black/5 pt-3 text-[10px] leading-5 text-black/60">
+              <p className="mt-1.5 border-t border-black/5 pt-3 text-[10px] leading-5 text-black/80">
                 ※容姿を採点するものではありません。
                 今回のAfterイメージに近づくための目安です。
               </p>

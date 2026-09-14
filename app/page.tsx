@@ -840,7 +840,7 @@ export default function Home() {
           垢抜けのヒント
         </h2>
 
-        <p className="mt-3 max-w-[560px] text-[13px] leading-6 text-black/70">
+        <p className="mt-3 max-w-[560px] text-[15px] leading-6 text-black/70">
           髪型・眉毛・スキンケアなど、
           今日から実践できるメンズ美容情報を紹介します。
         </p>

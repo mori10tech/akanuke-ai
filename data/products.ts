@@ -10,6 +10,102 @@ export type ProductCategory =
   | "mensMakeup"
   | "other";
 
+export type ProductType =
+  // スキンケア
+  | "faceWash"
+  | "toner"
+  | "emulsionCream"
+  | "serum"
+  | "cleansing"
+  | "allInOne"
+  | "poreCare"
+
+  // UVケア
+  | "uvEssence"
+  | "uvGel"
+  | "uvMilk"
+  | "uvCream"
+  | "uvSpray"
+
+  // スタイリング
+  | "wax"
+  | "gel"
+  | "grease"
+  | "balm"
+  | "gelBalm"
+  | "hairCream"
+  | "hairMist"
+  | "styling"
+
+  // ヘアケア
+  | "shampoo"
+  | "hairMilk"
+  | "hairOil"
+  | "hairMask"
+  | "hairTreatment"
+  | "hairSerum"
+
+  // メンズメイク
+  | "bbCream"
+  | "concealer"
+  | "foundation"
+  | "makeupBase"
+  | "bbSpray"
+
+  // その他
+  | "fragrance"
+  | "oralCare"
+  | "lipCare"
+  | "handCare"
+  | "bodyCare";
+
+export const productTypeLabels: Record<
+  ProductType,
+  string
+> = {
+  faceWash: "洗顔",
+  toner: "化粧水",
+  emulsionCream: "乳液・クリーム",
+  serum: "美容液",
+  cleansing: "クレンジング",
+  allInOne: "オールインワン",
+  poreCare: "毛穴ケア",
+
+  uvEssence: "UVエッセンス",
+  uvGel: "UVジェル",
+  uvMilk: "UVミルク",
+  uvCream: "UVクリーム",
+  uvSpray: "UVスプレー・ミスト",
+
+  wax: "ヘアワックス",
+  gel: "ヘアジェル",
+  grease: "ヘアグリース",
+  balm: "ヘアバーム",
+  gelBalm: "ジェルバーム",
+  hairCream: "ヘアクリーム",
+  hairMist: "ヘアミスト",
+  styling: "スタイリング剤",
+
+  shampoo: "シャンプー",
+  hairMilk: "ヘアミルク",
+  hairOil: "ヘアオイル",
+  hairMask: "ヘアマスク",
+  hairTreatment: "トリートメント",
+  hairSerum: "ヘアセラム",
+
+  bbCream: "BBクリーム",
+  concealer: "コンシーラー",
+  foundation: "ファンデーション",
+  makeupBase: "化粧下地",
+  bbSpray: "BBスプレー",
+
+  fragrance: "フレグランス",
+  oralCare: "オーラルケア",
+  lipCare: "リップケア",
+  handCare: "ハンドケア",
+  bodyCare: "ボディケア",
+};
+
 export type ProductVisualType =
   | "sunscreen"
   | "lotion"
@@ -26,6 +122,7 @@ export type Product = {
   rank: number;
   name: string;
   shortName: string;
+  productType: ProductType;
   brand: string;
   description: string;
   category: ProductCategory;
@@ -70,6 +167,7 @@ export const products: Product[] = [
     rank: 6,
     name: "ディープクリア 洗顔パウダー",
     shortName: "洗顔",
+    productType: "faceWash",
     brand: "FANCL",
     description:
       "毛穴汚れや皮脂が気になるときの洗顔に取り入れやすいパウダータイプの洗顔料です。",
@@ -103,6 +201,7 @@ imageAlt:
     rank: 5,
     name: "白潤プレミアム 薬用浸透美白化粧水",
     shortName: "化粧水",
+    productType: "toner",
     brand: "肌ラボ",
     description:
       "毎日のスキンケアに取り入れやすい薬用化粧水です。洗顔後の肌を整える基本ケアとして使えます。",
@@ -134,6 +233,7 @@ imageAlt:
     rank: 7,
     name: "薬用エマルジョン",
     shortName: "乳液",
+    productType: "emulsionCream",
     brand: "IHADA",
     description:
       "化粧水のあとに使いやすい乳液です。乾燥を防ぎながら肌のうるおいを保つケアに向いています。",
@@ -165,6 +265,7 @@ imageAlt:
     rank: 12,
     name: "スキンクリア クレンズ オイル",
     shortName: "クレンジング",
+    productType: "cleansing",
     brand: "Attenir",
     description:
       "BBクリームやメイクアイテムを使用した日のクレンジングに使いやすいオイルタイプです。",
@@ -196,6 +297,7 @@ imageAlt:
     rank: 3,
     name: "ディープクリア酵素洗顔",
     shortName: "洗顔",
+    productType: "faceWash",
     brand: "メラノCC",
     description:
       "毛穴汚れや皮脂が気になるときの毎日の洗顔に取り入れやすい、ペーストタイプの酵素洗顔料です。",
@@ -227,6 +329,7 @@ imageAlt:
     rank: 2,
     name: "フォーミングウォッシュ",
     shortName: "洗顔",
+    productType: "faceWash",
     brand: "ORBIS Mr.",
     description:
       "皮脂や毛穴汚れをすっきり洗い流しながら、毎日のケアに取り入れやすい男性向け洗顔料です。",
@@ -258,6 +361,7 @@ imageAlt:
     rank: 9,
     name: "皮脂トラブルケア 泡洗顔料",
     shortName: "泡洗顔",
+    productType: "faceWash",
     brand: "Curél",
     description:
       "皮脂が気になるときに、泡立てる手間なく毎日の洗顔へ取り入れやすい泡タイプの洗顔料です。",
@@ -289,6 +393,7 @@ imageAlt:
     rank: 21,
     name: "スクラビング マッド ウォッシュ",
     shortName: "洗顔",
+    productType: "faceWash",
     brand: "KANEBO",
     description:
       "皮脂や古い角質による汚れが気になるときのケアに取り入れやすい、ペーストタイプの洗顔料です。",
@@ -320,6 +425,7 @@ imageAlt:
     rank: 4,
     name: "敏感肌用化粧水 高保湿",
     shortName: "化粧水",
+    productType: "toner",
     brand: "無印良品",
     description:
       "洗顔後の乾燥が気になるときに、毎日の保湿ケアへ取り入れやすい高保湿タイプの化粧水です。",
@@ -351,6 +457,7 @@ imageAlt:
     rank: 11,
     name: "マイルドクレンジング オイル",
     shortName: "クレンジング",
+    productType: "cleansing",
     brand: "FANCL",
     description:
       "BBクリームやメイクアイテムを使用した日のメイクオフに取り入れやすいオイルタイプのクレンジングです。",
@@ -382,6 +489,7 @@ imageAlt:
     rank: 13,
     name: "ザクレンズ オイルメイク落とし",
     shortName: "クレンジング",
+    productType: "cleansing",
     brand: "Bioré",
     description:
       "BBクリームなどを使用した日のメイクオフに使いやすい、オイルタイプのクレンジングです。",
@@ -413,6 +521,7 @@ imageAlt:
     rank: 10,
     name: "THE FACE WASH",
     shortName: "洗顔",
+    productType: "faceWash",
     brand: "BULK HOMME",
     description:
       "毎日の洗顔で皮脂や毛穴汚れをすっきり洗い流し、清潔感のある肌を目指したい人に取り入れやすい男性向け洗顔料です。",
@@ -453,6 +562,7 @@ imageAlt:
     rank: 17,
     name: "THE TONER",
     shortName: "化粧水",
+    productType: "toner",
     brand: "BULK HOMME",
     description:
       "洗顔後の肌へうるおいを補い、毎日の保湿ケアを習慣にしたい男性に取り入れやすい化粧水です。",
@@ -490,6 +600,7 @@ imageAlt:
     rank: 18,
     name: "THE LOTION",
     shortName: "乳液",
+    productType: "emulsionCream",
     brand: "BULK HOMME",
     description:
       "化粧水のあとに使い、肌のうるおいを保ちながら乾燥を防ぐ毎日の保湿ケアに取り入れやすい乳液です。",
@@ -527,6 +638,7 @@ imageAlt:
     rank: 19,
     name: "アクティブエイジローション",
     shortName: "化粧水",
+    productType: "toner",
     brand: "NIVEA MEN",
     description:
       "洗顔後の乾燥が気になる男性の毎日のスキンケアに取り入れやすく、肌へうるおいを与える化粧水です。",
@@ -564,6 +676,7 @@ imageAlt:
     rank: 1,
     name: "バイタルクリームパーフェクション",
     shortName: "オールインワン",
+    productType: "allInOne",
     brand: "uno",
     description:
       "複数のスキンケアを手軽にまとめたい男性が、洗顔後の保湿ケアとして取り入れやすいオールインワンタイプのクリームです。",
@@ -604,6 +717,7 @@ imageAlt:
     rank: 16,
     name: "EX ディープクリアバーム",
     shortName: "毛穴ケア",
+    productType: "poreCare",
     brand: "GATSBY",
     description:
       "皮脂や毛穴汚れが気になるときに、いつものスキンケアへ毛穴ケアを取り入れたい男性に使いやすいアイテムです。",
@@ -644,6 +758,7 @@ imageAlt:
     rank: 15,
     name: "クリーンコンフォート泡洗顔",
     shortName: "泡洗顔",
+    productType: "faceWash",
     brand: "Dove MEN+CARE",
     description:
       "泡立てる手間なく使いやすく、毎日の洗顔で皮脂や汚れをすっきり落としたい男性向けの泡タイプ洗顔料です。",
@@ -684,6 +799,7 @@ imageAlt:
     rank: 14,
     name: "薬用アクネブロックフェイスウォッシュ",
     shortName: "洗顔",
+    productType: "faceWash",
     brand: "NULL",
     description:
       "皮脂や肌荒れが気になる男性が、毎日の洗顔で肌を清潔に保つために取り入れやすい男性向け洗顔料です。",
@@ -724,6 +840,7 @@ imageAlt:
     rank: 8,
     name: "オールインワンフェイスジェル",
     shortName: "オールインワン",
+    productType: "allInOne",
     brand: "ZIGEN",
     description:
       "洗顔後の保湿をひとつで済ませたい男性が、毎日のスキンケアへ取り入れやすいオールインワンタイプのフェイスジェルです。",
@@ -764,6 +881,7 @@ imageAlt:
     rank: 20,
     name: "フェイシャル フュール モイスチャライザー フォー メン",
     shortName: "保湿クリーム",
+    productType: "emulsionCream",
     brand: "Kiehl's",
     description:
       "洗顔後の乾燥を防ぎながら肌をうるおいのある状態へ整えたい男性の毎日の保湿ケアに取り入れやすいアイテムです。",
@@ -801,6 +919,7 @@ imageAlt:
     rank: 23,
     name: "メラノフォーカスIV",
     shortName: "美容液",
+    productType: "serum",
     brand: "HAKU",
     description:
       "毎日のスキンケアに美容液を取り入れ、肌のコンディションをより丁寧に整えたい人向けのアイテムです。",
@@ -838,6 +957,7 @@ imageAlt:
     rank: 22,
     name: "薬用リンクル美容液 ホワイト",
     shortName: "美容液",
+    productType: "serum",
     brand: "なめらか本舗",
     description:
       "普段のスキンケアに美容液を加え、乾燥を防ぎながら肌をうるおいのある状態へ整えたいときに取り入れやすいアイテムです。",
@@ -879,6 +999,7 @@ imageAlt:
     rank: 5,
     name: "UV スキンケアミルク",
     shortName: "日焼け止め",
+    productType: "uvMilk",
     brand: "ANESSA",
     description:
       "屋外で過ごす時間が長い日など、しっかり紫外線対策をしたいときに取り入れやすいUVケアアイテムです。",
@@ -910,6 +1031,7 @@ imageAlt:
     rank: 9,
     name: "UVマイルドミルク",
     shortName: "日焼け止め",
+    productType: "uvMilk",
     brand: "MINON",
     description:
       "毎日のUVケアに取り入れやすいミルクタイプの日焼け止めです。",
@@ -941,6 +1063,7 @@ imageAlt:
     rank: 1,
     name: "アクアリッチ ウォータリーエッセンス",
     shortName: "日焼け止め",
+    productType: "uvEssence",
     brand: "Bioré UV",
     description:
       "毎日の紫外線対策を習慣化したい人に取り入れやすいUVケアアイテムです。",
@@ -971,6 +1094,7 @@ imageAlt:
     rank: 3,
     name: "アクアリッチ ウォータリージェル",
     shortName: "日焼け止め",
+    productType: "uvGel",
     brand: "Bioré UV",
     description:
       "みずみずしい使用感で、毎日の顔や体の紫外線対策に取り入れやすいジェルタイプの日焼け止めです。",
@@ -1008,6 +1132,7 @@ imageAlt:
     rank: 18,
     name: "パーフェクトUV スキンケアスプレー NA",
     shortName: "UVスプレー",
+    productType: "uvSpray",
     brand: "ANESSA",
     description:
       "顔・体・髪の紫外線対策や外出先での塗り直しに取り入れやすいスプレータイプの日焼け止めです。",
@@ -1045,6 +1170,7 @@ imageAlt:
     rank: 19,
     name: "プロテクトUV スプレー",
     shortName: "UVスプレー",
+    productType: "uvSpray",
     brand: "SUNCUT",
     description:
       "顔や体、髪までまとめて紫外線対策したいときに使いやすいスプレータイプの日焼け止めです。",
@@ -1082,6 +1208,7 @@ imageAlt:
     rank: 8,
     name: "リンクルブライト UVプロテクター",
     shortName: "日焼け止め",
+    productType: "uvCream",
     brand: "ORBIS",
     description:
       "毎日の紫外線対策に取り入れながら、スキンケア感覚で使いやすいクリームタイプの日焼け止めです。",
@@ -1119,6 +1246,7 @@ imageAlt:
     rank: 16,
     name: "アスリズム プロテクトエッセンス",
     shortName: "日焼け止め",
+    productType: "uvEssence",
     brand: "Bioré UV",
     description:
       "屋外で過ごす時間が長い日や汗をかきやすい場面で、しっかり紫外線対策したいときに取り入れやすい日焼け止めです。",
@@ -1156,6 +1284,7 @@ imageAlt:
     rank: 11,
     name: "アクアリッチ ウォータリーホールドクリーム",
     shortName: "日焼け止め",
+    productType: "uvCream",
     brand: "Bioré UV",
     description:
       "毎日の紫外線対策で、肌になじみやすい使用感を重視したい人に取り入れやすいクリームタイプの日焼け止めです。",
@@ -1193,6 +1322,7 @@ imageAlt:
     rank: 7,
     name: "パーフェクトUV スキンケアジェル NB",
     shortName: "日焼け止め",
+    productType: "uvGel",
     brand: "ANESSA",
     description:
       "みずみずしい使用感で、顔や体の紫外線対策をしっかり行いたい日に使いやすいジェルタイプの日焼け止めです。",
@@ -1230,6 +1360,7 @@ imageAlt:
     rank: 6,
     name: "クロノビューティ ジェルUV EX",
     shortName: "日焼け止め",
+    productType: "uvGel",
     brand: "ALLIE",
     description:
       "日常から屋外まで幅広い場面で、顔や体の紫外線対策に取り入れやすいジェルタイプの日焼け止めです。",
@@ -1267,6 +1398,7 @@ imageAlt:
     rank: 10,
     name: "ディープ プロテクト＆ケア ジェル",
     shortName: "日焼け止め",
+    productType: "uvGel",
     brand: "NIVEA UV",
     description:
       "毎日の顔や体の紫外線対策に取り入れやすく、みずみずしい使用感を重視したい人向けのジェルタイプの日焼け止めです。",
@@ -1304,6 +1436,7 @@ imageAlt:
     rank: 4,
     name: "ウォータージェル EX",
     shortName: "日焼け止め",
+    productType: "uvGel",
     brand: "NIVEA UV",
     description:
       "軽い使用感で、毎日の紫外線対策を続けやすくしたい人に取り入れやすいジェルタイプの日焼け止めです。",
@@ -1341,6 +1474,7 @@ imageAlt:
     rank: 12,
     name: "トーンアップUVエッセンス",
     shortName: "日焼け止め",
+    productType: "uvEssence",
     brand: "SKIN AQUA",
     description:
       "紫外線対策をしながら、肌を明るく整えて見せたいときに取り入れやすいトーンアップタイプの日焼け止めです。",
@@ -1385,6 +1519,7 @@ imageAlt:
     rank: 17,
     name: "ハードゼリー",
     shortName: "スタイリングジェル",
+    productType: "gel",
     brand: "Loretta",
     description:
       "髪型をしっかりキープしたいときに使いやすいジェルタイプのスタイリング剤です。",
@@ -1414,7 +1549,8 @@ imageAlt:
     id: "kantan-series-urutsuya",
     rank: 12,
     name: "カンタンシリーズ うるつや",
-    shortName: "スタイリング剤",
+    shortName: "ヘアワックス",
+    productType: "wax",
     brand: "カンタンシリーズ",
     description:
       "髪に自然なツヤ感を出しながら、日常のスタイリングに取り入れやすいアイテムです。",
@@ -1427,7 +1563,7 @@ imageAlt:
 
     visualType: "wax",
 
-    badges: ["ツヤ感", "スタイリング"],
+    badges: ["ワックス", "ツヤ感"],
     recommendedFor: ["ツヤ", "毛流れ", "髪型"],
     needTags: [
       "hairShine",
@@ -1450,6 +1586,7 @@ imageAlt:
     rank: 6,
     name: "グロスムーブ ワックス",
     shortName: "ヘアワックス",
+    productType: "wax",
     brand: "LIPPS",
     description:
       "毛流れを作りながら、ツヤのあるスタイルを目指したいときに使いやすいワックスです。",
@@ -1489,6 +1626,7 @@ imageAlt:
     rank: 10,
     name: "カームナイトリペア シャンプー",
     shortName: "シャンプー",
+    productType: "shampoo",
     brand: "YOLU",
     description:
       "髪のダメージや乾燥が気になるときの毎日のヘアケアに取り入れやすいシャンプーです。",
@@ -1523,6 +1661,7 @@ imageAlt:
     rank: 16,
     name: "シャンプー メロウ",
     shortName: "シャンプー",
+    productType: "shampoo",
     brand: "plus eau",
     description:
       "髪を扱いやすい状態へ整えたい人の毎日のヘアケアに取り入れやすいシャンプーです。",
@@ -1557,6 +1696,7 @@ imageAlt:
     rank: 19,
     name: "ストレイン シャンプー ホワイトブロッサムの香り",
     shortName: "シャンプー",
+    productType: "shampoo",
     brand: "Straine",
     description:
       "髪のコンディションを整え、日々のスタイリングをしやすくするためのヘアケアアイテムです。",
@@ -1595,6 +1735,7 @@ imageAlt:
     rank: 6,
     name: "カラーチェンジBBクリーム",
     shortName: "BBクリーム",
+    productType: "bbCream",
     brand: "THE FUTURE",
     description:
       "肌の色ムラや気になる部分を自然に補正し、清潔感のある肌印象を目指したい男性向けのBBクリームです。",
@@ -1629,6 +1770,7 @@ imageAlt:
     rank: 10,
     name: "UVイデア",
     shortName: "化粧下地",
+    productType: "makeupBase",
     brand: "La Roche-Posay",
     description:
       "UVケアをしながら、肌を自然に整えて見せたいときに取り入れやすいアイテムです。",
@@ -1663,6 +1805,7 @@ imageAlt:
     rank: 4,
     name: "BBクリーム",
     shortName: "BBクリーム",
+    productType: "bbCream",
     brand: "NULL",
     description:
       "男性の肌になじみやすい自然な仕上がりを目指したいときに使いやすいBBクリームです。",
@@ -1697,6 +1840,7 @@ imageAlt:
     rank: 2,
     name: "フェイスカラークリエイター（ナチュラル）",
     shortName: "BBクリーム",
+    productType: "bbCream",
     brand: "uno",
     description:
       "青ヒゲや肌の色ムラなどを自然に補正し、清潔感のある肌印象を目指したいときに使いやすい男性向けBBクリームです。",
@@ -1732,6 +1876,7 @@ imageAlt:
     rank: 17,
     name: "アクアリッチ アクアプロテクトミスト",
     shortName: "UVミスト",
+    productType: "uvSpray",
     brand: "Bioré UV",
     description:
       "外出先での塗り直しや、顔・体・髪の紫外線対策に取り入れやすいミストタイプの日焼け止めです。",
@@ -1763,6 +1908,7 @@ imageAlt:
     rank: 13,
     name: "さらさらパーフェクトミルク",
     shortName: "日焼け止め",
+    productType: "uvMilk",
     brand: "Bioré UV",
     description:
       "さらっとした使用感を重視しながら、顔や体の紫外線対策をしたい日に使いやすいミルクタイプです。",
@@ -1794,6 +1940,7 @@ imageAlt:
     rank: 15,
     name: "パーフェクトUV ミルク",
     shortName: "日焼け止め",
+    productType: "uvMilk",
     brand: "SUNCUT",
     description:
       "屋外で過ごす日やレジャーなど、しっかり紫外線対策をしたいときに取り入れやすいUVミルクです。",
@@ -1825,6 +1972,7 @@ imageAlt:
     rank: 14,
     name: "UVシールドEX",
     shortName: "日焼け止め",
+    productType: "uvCream",
     brand: "NOV",
     description:
       "肌への使用感に配慮しながら、日常の紫外線対策へ取り入れやすいクリームタイプの日焼け止めです。",
@@ -1856,6 +2004,7 @@ imageAlt:
     rank: 20,
     name: "透明UVスプレー",
     shortName: "UVスプレー",
+    productType: "uvSpray",
     brand: "紫外線予報",
     description:
       "顔・体・髪をまとめて紫外線対策したいときに使いやすい、透明なスプレータイプの日焼け止めです。",
@@ -1887,6 +2036,7 @@ imageAlt:
     rank: 2,
     name: "スーパーモイスチャージェル",
     shortName: "日焼け止め",
+    productType: "uvGel",
     brand: "SKIN AQUA",
     description:
       "みずみずしい使用感で、毎日の顔や体の紫外線対策へ取り入れやすいジェルタイプの日焼け止めです。",
@@ -1918,6 +2068,7 @@ imageAlt:
     rank: 21,
     name: "ディーププロテクト＆ケア ミルクミスト",
     shortName: "UVミスト",
+    productType: "uvSpray",
     brand: "NIVEA UV",
     description:
       "屋外での紫外線対策や日中の塗り直しに取り入れやすい、ミルクミストタイプの日焼け止めです。",
@@ -1949,6 +2100,7 @@ imageAlt:
     rank: 8,
     name: "カンタンシリーズ ふわもち",
     shortName: "ヘアワックス",
+    productType: "wax",
     brand: "カンタンシリーズ",
     description:
       "髪にふんわりした動きと自然な毛流れを作り、やわらかなマット仕上げを目指したいときに使いやすいワックスです。",
@@ -1980,6 +2132,7 @@ imageAlt:
     rank: 18,
     name: "オーバードライブ",
     shortName: "ヘアワックス",
+    productType: "wax",
     brand: "OCEAN TRICO",
     description:
       "短髪の立ち上げや束感を作り、髪型をしっかりキープしたいときに使いやすいハードワックスです。",
@@ -2011,6 +2164,7 @@ imageAlt:
     rank: 22,
     name: "マットハードワックス",
     shortName: "ヘアワックス",
+    productType: "wax",
     brand: "LIPPS",
     description:
       "髪のツヤを抑えながら、無造作な動きや立体感のあるスタイルを作りたいときに使いやすいワックスです。",
@@ -2042,6 +2196,7 @@ imageAlt:
     rank: 14,
     name: "フリーズキープ グリース",
     shortName: "ヘアグリース",
+    productType: "grease",
     brand: "ARIMINO men",
     description:
       "ツヤのある質感を出しながら、作った毛流れやシルエットをしっかりキープしたいときに使いやすいグリースです。",
@@ -2073,6 +2228,7 @@ imageAlt:
     rank: 16,
     name: "グリース",
     shortName: "ヘアグリース",
+    productType: "grease",
     brand: "MODENICA ART",
     description:
       "自然なツヤとまとまりを加えながら、パーマや毛流れを活かしたスタイルを作りたいときに使いやすいグリースです。",
@@ -2104,6 +2260,7 @@ imageAlt:
     rank: 3,
     name: "カンタンニュアンス",
     shortName: "ヘアバーム",
+    productType: "balm",
     brand: "カンタンシリーズ",
     description:
       "センターパートなどの自然な毛流れとツヤを作り、固めすぎないスタイルを目指したいときに使いやすいバームです。",
@@ -2135,6 +2292,7 @@ imageAlt:
     rank: 10,
     name: "ハード バーム",
     shortName: "ヘアバーム",
+    productType: "balm",
     brand: "ARIMINO men",
     description:
       "バームらしい自然な質感を残しながら、毛流れやシルエットをキープしたいときに使いやすいスタイリング剤です。",
@@ -2166,6 +2324,7 @@ imageAlt:
     rank: 2,
     name: "フリーズキープ ジェル",
     shortName: "ヘアジェル",
+    productType: "gel",
     brand: "ARIMINO men",
     description:
       "髪型をしっかりキープしながら、ツヤのある毛流れや束感を作りたいときに使いやすいジェルタイプのスタイリング剤です。",
@@ -2207,6 +2366,7 @@ imageAlt:
     rank: 13,
     name: "ハイドロミストN",
     shortName: "ヘアミスト",
+    productType: "hairMist",
     brand: "plus eau",
     description:
       "スタイリング前の髪を扱いやすい状態へ整え、毛流れやまとまりを作りやすくしたいときに取り入れやすいヘアミストです。",
@@ -2247,6 +2407,7 @@ imageAlt:
     rank: 1,
     name: "オム ジェルバーム",
     shortName: "ジェルバーム",
+    productType: "gelBalm",
     brand: "N.",
     description:
       "自然なツヤと毛流れを作りながら、固めすぎずにスタイルを整えたいときに使いやすいジェルバームです。",
@@ -2287,6 +2448,7 @@ imageAlt:
     rank: 7,
     name: "オム シアクリーム",
     shortName: "ヘアクリーム",
+    productType: "hairCream",
     brand: "N.",
     description:
       "やわらかな質感を残しながら毛流れやまとまりを整え、自然なスタイルを作りたいときに使いやすいヘアクリームです。",
@@ -2327,6 +2489,7 @@ imageAlt:
     rank: 9,
     name: "カンタンシリーズ ゆるたば",
     shortName: "ヘアワックス",
+    productType: "wax",
     brand: "KANTANSERIES",
     description:
       "自然な束感や毛流れを作りながら、作り込みすぎないスタイルを目指したいときに使いやすいスタイリング剤です。",
@@ -2367,6 +2530,7 @@ imageAlt:
     rank: 21,
     name: "ドライペーストワックス 6",
     shortName: "ヘアワックス",
+    productType: "wax",
     brand: "DEUXER",
     description:
       "ツヤを抑えた質感で、立体感や束感を出しながら髪型をしっかりキープしたいときに使いやすいワックスです。",
@@ -2407,6 +2571,7 @@ imageAlt:
     rank: 20,
     name: "メタラバー ワックス ハード",
     shortName: "ヘアワックス",
+    productType: "wax",
     brand: "GATSBY",
     description:
       "髪に動きや束感をつけながら、作ったスタイルをしっかりキープしたいときに使いやすいハードタイプのワックスです。",
@@ -2447,6 +2612,7 @@ imageAlt:
     rank: 15,
     name: "クールグリース G",
     shortName: "ヘアグリース",
+    productType: "grease",
     brand: "阪本高生堂",
     description:
       "濡れたようなツヤ感を出しながら、毛流れやスタイルを整えたいときに使いやすいグリースタイプのスタイリング剤です。",
@@ -2488,6 +2654,7 @@ imageAlt:
     rank: 4,
     name: "ヘアスタイリングワックス エアー",
     shortName: "ヘアワックス",
+    productType: "wax",
     brand: "OCEAN TRICO",
     description:
       "ふんわりした動きや軽い束感を作りながら、自然なシルエットへ整えたいときに使いやすいヘアワックスです。",
@@ -2528,6 +2695,7 @@ imageAlt:
     rank: 19,
     name: "ハードアクティブワックス",
     shortName: "ヘアワックス",
+    productType: "wax",
     brand: "LIPPS",
     description:
       "髪に動きや立体感を出しながら、作った毛流れや束感をしっかりキープしたいときに使いやすいハードワックスです。",
@@ -2567,7 +2735,8 @@ imageAlt:
     id: "modenica-natural-j",
     rank: 11,
     name: "ナチュラル J",
-    shortName: "スタイリング剤",
+    shortName: "ヘアジェル",
+    productType: "gel",
     brand: "MODENICA",
     description:
       "自然なツヤと毛流れを活かしながら、固めすぎないナチュラルなスタイルへ整えたいときに使いやすいスタイリング剤です。",
@@ -2585,7 +2754,7 @@ imageAlt:
     imageAlt:
       "MODENICA ナチュラル J",
 
-    badges: ["ナチュラル", "ツヤ感"],
+    badges: ["ジェル", "ツヤ感"],
     recommendedFor: [
       "毛流れ",
       "自然なツヤ",
@@ -2609,6 +2778,7 @@ imageAlt:
     rank: 13,
     name: "シーズナルケア SS スーパーラメラシャンプー",
     shortName: "シャンプー",
+    productType: "shampoo",
     brand: "THE ANSWER",
     description:
       "湿気による髪のうねりや広がりが気になるときに、まとまりやすい髪を目指して取り入れやすいシャンプーです。",
@@ -2643,6 +2813,7 @@ imageAlt:
     rank: 11,
     name: "リポアシャンプー",
     shortName: "シャンプー",
+    productType: "shampoo",
     brand: "plus eau",
     description:
       "ダメージによるパサつきをケアしながら、指通りのよい扱いやすい髪を目指したい人向けのシャンプーです。",
@@ -2677,6 +2848,7 @@ imageAlt:
     rank: 23,
     name: "超濃密泡ジェルシャンプー",
     shortName: "シャンプー",
+    productType: "shampoo",
     brand: "NILE",
     description:
       "濃密な泡で髪と頭皮を洗いながら、毎日のヘアケアで髪を扱いやすい状態へ整えたい人向けのシャンプーです。",
@@ -2708,6 +2880,7 @@ imageAlt:
     rank: 18,
     name: "クレイクリームシャンプー",
     shortName: "クリームシャンプー",
+    productType: "shampoo",
     brand: "cocone",
     description:
       "髪の乾燥やパサつきが気になるときに、まとまりのある髪を目指して取り入れやすいクリームタイプのシャンプーです。",
@@ -2742,6 +2915,7 @@ imageAlt:
     rank: 14,
     name: "バランスリペア シャンプー モイスト",
     shortName: "シャンプー",
+    productType: "shampoo",
     brand: "hiritu",
     description:
       "髪のパサつきや広がりを抑え、しっとりまとまりやすい状態を目指したい人向けのシャンプーです。",
@@ -2776,6 +2950,7 @@ imageAlt:
     rank: 15,
     name: "ディープモイスト シャンプー",
     shortName: "シャンプー",
+    productType: "shampoo",
     brand: "モロッカンビューティ",
     description:
       "乾燥によるパサつきや髪の広がりをケアし、しっとりまとまる髪を目指したい人向けのシャンプーです。",
@@ -2810,6 +2985,7 @@ imageAlt:
     rank: 12,
     name: "ボタニカルシャンプー ダメージケア",
     shortName: "シャンプー",
+    productType: "shampoo",
     brand: "BOTANIST",
     description:
       "髪のダメージやパサつきが気になるときに、なめらかで扱いやすい髪を目指して使いやすいシャンプーです。",
@@ -2844,6 +3020,7 @@ imageAlt:
     rank: 21,
     name: "ハイブリッドシャンプー",
     shortName: "シャンプー",
+    productType: "shampoo",
     brand: "REDEN",
     description:
       "毎日の洗髪で髪をすっきり洗いながら、扱いやすい状態へ整えたい人に取り入れやすいシャンプーです。",
@@ -2881,8 +3058,9 @@ imageAlt:
   {
     id: "maro17-perfect-wash-shampoo-black",
     rank: 22,
-    name: "シャンプー パーフェクトウォッシュシャンプー ブラック",
+    name: "パーフェクトウォッシュシャンプー ブラック",
     shortName: "シャンプー",
+    productType: "shampoo",
     brand: "MARO17",
     description:
       "髪をすっきり洗い上げながら、毎日のヘアケアを習慣化したい人に取り入れやすいシャンプーです。",
@@ -2922,6 +3100,7 @@ imageAlt:
     rank: 20,
     name: "THE SHAMPOO",
     shortName: "シャンプー",
+    productType: "shampoo",
     brand: "BULK HOMME",
     description:
       "毎日の洗髪で髪を清潔に保ちながら、まとまりや扱いやすさも意識したい人に取り入れやすいシャンプーです。",
@@ -2961,6 +3140,7 @@ imageAlt:
     rank: 17,
     name: "スーパーシャイニー 精油シャンプー",
     shortName: "シャンプー",
+    productType: "shampoo",
     brand: "THE PUBLIC ORGANIC",
     description:
       "髪のパサつきやまとまりにくさが気になるときに、ツヤのある扱いやすい髪を目指して取り入れやすいシャンプーです。",
@@ -3001,6 +3181,7 @@ imageAlt:
     rank: 2,
     name: "エルジューダ エマルジョン+",
     shortName: "ヘアミルク",
+    productType: "hairMilk",
     brand: "ミルボン",
     description:
       "乾燥やパサつきが気になる髪をケアしながら、やわらかくまとまりやすい状態へ整えたいときに使いやすいヘアミルクです。",
@@ -3041,6 +3222,7 @@ imageAlt:
     rank: 1,
     name: "エッセンスインヘアミルク",
     shortName: "ヘアミルク",
+    productType: "hairMilk",
     brand: "ORBIS",
     description:
       "乾燥やダメージによるパサつきをケアしながら、指通りのよいまとまりやすい髪へ整えたいときに使いやすいヘアミルクです。",
@@ -3081,6 +3263,7 @@ imageAlt:
     rank: 7,
     name: "NU ソワン オレオ リラックス",
     shortName: "ヘアトリートメント",
+    productType: "hairTreatment",
     brand: "KERASTASE",
     description:
       "広がりやまとまりにくさが気になる髪を、扱いやすくなめらかな状態へ整えたいときに取り入れやすいヘアトリートメントです。",
@@ -3121,6 +3304,7 @@ imageAlt:
     rank: 4,
     name: "ディーセス エルジューダ MO",
     shortName: "ヘアオイル",
+    productType: "hairOil",
     brand: "ミルボン",
     description:
       "髪の硬さやまとまりにくさが気になるときに、やわらかく扱いやすい状態へ整えたい人に使いやすいヘアオイルです。",
@@ -3161,6 +3345,7 @@ imageAlt:
     rank: 5,
     name: "ディープモイスト ヘアオイル 3.0",
     shortName: "ヘアオイル",
+    productType: "hairOil",
     brand: "&honey",
     description:
       "乾燥やパサつきが気になる髪にツヤとまとまりを与え、扱いやすい状態へ整えたいときに使いやすいヘアオイルです。",
@@ -3201,6 +3386,7 @@ imageAlt:
     rank: 6,
     name: "プレミアムタッチ 濃厚美容液ヘアマスク",
     shortName: "ヘアマスク",
+    productType: "hairMask",
     brand: "fino",
     description:
       "髪のダメージやパサつきが気になるときの集中ケアとして、なめらかでまとまりやすい髪を目指して使いやすいヘアマスクです。",
@@ -3241,6 +3427,7 @@ imageAlt:
     rank: 8,
     name: "キューティクルコートオイル",
     shortName: "ヘアオイル",
+    productType: "hairOil",
     brand: "Essential",
     description:
       "毛先のパサつきやまとまりにくさが気になるときに、ツヤのある扱いやすい髪へ整えたい人に取り入れやすいヘアオイルです。",
@@ -3281,6 +3468,7 @@ imageAlt:
     rank: 9,
     name: "ミラクルズ うるおいブースト ミルクウォーターセラム",
     shortName: "ヘアセラム",
+    productType: "hairSerum",
     brand: "PANTENE",
     description:
       "乾燥やパサつきが気になる髪をケアしながら、まとまりやすく扱いやすい状態へ整えたいときに使いやすいヘアセラムです。",
@@ -3321,6 +3509,7 @@ imageAlt:
     rank: 3,
     name: "オイルトリートメント #EXヘアオイル",
     shortName: "ヘアオイル",
+    productType: "hairOil",
     brand: "LUCIDO-L",
     description:
       "乾燥やパサつきのある髪にツヤとまとまりを与え、スタイリングしやすい状態へ整えたいときに使いやすいヘアオイルです。",
@@ -3362,6 +3551,7 @@ imageAlt:
     rank: 15,
     name: "ナチュラルカバーファンデーション",
     shortName: "ファンデーション",
+    productType: "foundation",
     brand: "オブジェ",
     description:
       "毛穴や肌の色ムラを自然にカバーし、清潔感のある肌印象へ整えたい人向けのファンデーションです。",
@@ -3393,6 +3583,7 @@ imageAlt:
     rank: 14,
     name: "BBクリーム",
     shortName: "BBクリーム",
+    productType: "bbCream",
     brand: "バーキュリー",
     description:
       "青ひげやニキビ跡、肌の色ムラをまとめて自然に補正したいときに使いやすい男性向けBBクリームです。",
@@ -3427,6 +3618,7 @@ imageAlt:
     rank: 9,
     name: "ヴァイブラント BBモイスチャライザー",
     shortName: "BBクリーム",
+    productType: "bbCream",
     brand: "SHISEIDO MEN",
     description:
       "肌の色ムラやくすみを自然に補正し、明るく健康的な肌印象を目指したい人向けのBBクリームです。",
@@ -3461,6 +3653,7 @@ imageAlt:
     rank: 16,
     name: "カバーパーフェクション チップコンシーラー",
     shortName: "コンシーラー",
+    productType: "concealer",
     brand: "the SAEM",
     description:
       "ニキビ跡やクマなど、気になる部分をピンポイントで自然にカバーしたいときに使いやすいコンシーラーです。",
@@ -3492,6 +3685,7 @@ imageAlt:
     rank: 12,
     name: "マスクフィット オールカバー デュアルコンシーラー",
     shortName: "コンシーラー",
+    productType: "concealer",
     brand: "TIRTIR",
     description:
       "スティックとリキッドを使い分け、青ひげやニキビ跡などを範囲に合わせてカバーできるコンシーラーです。",
@@ -3526,6 +3720,7 @@ imageAlt:
     rank: 13,
     name: "スティックコンシーラーA",
     shortName: "コンシーラー",
+    productType: "concealer",
     brand: "KATE",
     description:
       "青ひげやニキビ跡などの気になる部分へ直接塗りやすく、手軽にカバーしたい人向けのスティックコンシーラーです。",
@@ -3560,6 +3755,7 @@ imageAlt:
     rank: 1,
     name: "BB&UVクリーム",
     shortName: "BBクリーム",
+    productType: "bbCream",
     brand: "メンズビオレONE",
     description:
       "肌の色ムラや青ヒゲを自然に補正しながら、紫外線対策もまとめて行いたい男性に使いやすいBBクリームです。",
@@ -3601,6 +3797,7 @@ imageAlt:
     rank: 17,
     name: "BBエッセンスクリーム",
     shortName: "BBクリーム",
+    productType: "bbCream",
     brand: "モイストラボ",
     description:
       "肌の色ムラや気になる部分を自然にカバーしながら、うるおい感のある仕上がりを目指したいときに使いやすいBBクリームです。",
@@ -3641,6 +3838,7 @@ imageAlt:
     rank: 18,
     name: "冷感タッチ BBスプレー UV 50",
     shortName: "BBスプレー",
+    productType: "bbSpray",
     brand: "ESPRIQUE",
     description:
       "肌の色ムラを補正しながら紫外線対策も行い、暑い時期にも使いやすいスプレータイプのBBアイテムです。",
@@ -3681,6 +3879,7 @@ imageAlt:
     rank: 8,
     name: "ベースカラー コントローラー",
     shortName: "化粧下地",
+    productType: "makeupBase",
     brand: "ORBIS Mr.",
     description:
       "肌の色ムラやくすみを自然に整え、メイク感を強く出さずに清潔感のある肌印象を目指したい男性向けの化粧下地です。",
@@ -3720,6 +3919,7 @@ imageAlt:
     rank: 7,
     name: "BBクリーム",
     shortName: "BBクリーム",
+    productType: "bbCream",
     brand: "Menz Basic",
     description:
       "青ヒゲやニキビ跡、肌の色ムラなどを自然にカバーし、清潔感のある肌印象へ整えたい男性に使いやすいBBクリームです。",
@@ -3760,6 +3960,7 @@ imageAlt:
     rank: 3,
     name: "サンブロック保湿BB",
     shortName: "BBクリーム",
+    productType: "bbCream",
     brand: "HOLO BELL",
     description:
       "肌を自然に補正しながら、紫外線対策と保湿もまとめて行いたい男性に取り入れやすいBBクリームです。",
@@ -3801,6 +4002,7 @@ imageAlt:
     rank: 11,
     name: "スキンカバーコンシーラー",
     shortName: "コンシーラー",
+    productType: "concealer",
     brand: "THE FUTURE",
     description:
       "青ヒゲやニキビ跡など、気になる部分をピンポイントで自然に補正したい男性に使いやすいコンシーラーです。",
@@ -3841,6 +4043,7 @@ imageAlt:
     rank: 5,
     name: "ナチュラルBBクリーム",
     shortName: "BBクリーム",
+    productType: "bbCream",
     brand: "MULC",
     description:
       "肌の色ムラや青ヒゲを自然にカバーし、メイク感を抑えながら清潔感のある肌印象へ整えたい男性向けのBBクリームです。",
@@ -3885,6 +4088,7 @@ imageAlt:
     rank: 14,
     name: "フレグランス",
     shortName: "香水",
+    productType: "fragrance",
     brand: "Maison Margiela",
     description:
       "香りから清潔感や印象を整えたいときに取り入れるフレグランスアイテムです。",
@@ -3916,6 +4120,7 @@ imageAlt:
     rank: 9,
     name: "ホワイト・ミント歯磨き粉",
     shortName: "歯磨き粉",
+    productType: "oralCare",
     brand: "MARVIS",
     description:
       "口元の清潔感を意識した毎日のオーラルケアに取り入れやすい歯磨き粉です。",
@@ -3947,6 +4152,7 @@ imageAlt:
     rank: 17,
     name: "カリテコンフォート シア ハンドクリーム",
     shortName: "ハンドクリーム",
+    productType: "handCare",
     brand: "L'OCCITANE",
     description:
       "手元の乾燥をケアし、細かな部分まで清潔感を整えたいときに使いやすいハンドクリームです。",
@@ -3978,6 +4184,7 @@ imageAlt:
     rank: 2,
     name: "サボン オードパルファン",
     shortName: "香水",
+    productType: "fragrance",
     brand: "SHIRO",
     description:
       "清潔感のある石けんを思わせる香りで、香水を使い慣れていない人の日常使いにも取り入れやすいフレグランスです。",
@@ -4009,6 +4216,7 @@ imageAlt:
     rank: 8,
     name: "プールオム オードトワレ",
     shortName: "香水",
+    productType: "fragrance",
     brand: "BVLGARI",
     description:
       "爽やかさと落ち着きを感じる香りで、仕事から休日まで幅広い場面で使いやすいフレグランスです。",
@@ -4040,6 +4248,7 @@ imageAlt:
     rank: 5,
     name: "コンクールF",
     shortName: "マウスウォッシュ",
+    productType: "oralCare",
     brand: "Con Cool",
     description:
       "口臭や口内の清潔感が気になるときに、毎日の歯磨きと組み合わせて使いやすい希釈タイプのマウスウォッシュです。",
@@ -4071,6 +4280,7 @@ imageAlt:
     rank: 3,
     name: "マウスウォッシュ スプラッシュシトラスミント",
     shortName: "マウスウォッシュ",
+    productType: "oralCare",
     brand: "NONIO",
     description:
       "口臭を予防しながら口内をすっきり整えたいときに取り入れやすい、シトラスミント風味のマウスウォッシュです。",
@@ -4102,6 +4312,7 @@ imageAlt:
     rank: 15,
     name: "オールインワンリップクリエイター",
     shortName: "色付きリップ",
+    productType: "lipCare",
     brand: "uno",
     description:
       "唇の乾燥をケアしながら血色感を自然に補正し、健康的な口元へ整えたい人向けの色付きリップです。",
@@ -4133,6 +4344,7 @@ imageAlt:
     rank: 7,
     name: "ビューティーチャージ 無香料",
     shortName: "ハンドクリーム",
+    productType: "handCare",
     brand: "アトリックス",
     description:
       "手元の乾燥を保湿しながら、香りを気にせず仕事や外出先でも使いやすい無香料のハンドクリームです。",
@@ -4164,6 +4376,7 @@ imageAlt:
     rank: 1,
     name: "ミスター リップケア スティック",
     shortName: "リップクリーム",
+    productType: "lipCare",
     brand: "ORBIS Mr.",
     description:
       "唇の乾燥を自然にケアし、ツヤや色を目立たせず清潔感のある口元へ整えたい男性向けリップクリームです。",
@@ -4195,6 +4408,7 @@ imageAlt:
     rank: 4,
     name: "ナイルの庭 オードトワレ",
     shortName: "香水",
+    productType: "fragrance",
     brand: "HERMÈS",
     description:
       "爽やかでみずみずしい香りを取り入れ、清潔感のある印象を演出したいときに使いやすいフレグランスです。",
@@ -4228,6 +4442,7 @@ imageAlt:
     rank: 12,
     name: "フレグランス マリンムスク",
     shortName: "香水",
+    productType: "fragrance",
     brand: "REDEN",
     description:
       "爽やかなマリンムスク系の香りで、日常の身だしなみに自然な香りを取り入れたい人向けのフレグランスです。",
@@ -4261,6 +4476,7 @@ imageAlt:
     rank: 6,
     name: "ブルー ドゥ シャネル オードゥ トワレット",
     shortName: "香水",
+    productType: "fragrance",
     brand: "CHANEL",
     description:
       "爽やかさと落ち着きを感じる香りで、大人っぽく洗練された印象を演出したいときに取り入れやすいフレグランスです。",
@@ -4294,6 +4510,7 @@ imageAlt:
     rank: 10,
     name: "ソヴァージュ オードパルファム",
     shortName: "香水",
+    productType: "fragrance",
     brand: "Dior",
     description:
       "存在感のある香りで、大人っぽさや洗練された印象を演出したいときに取り入れやすいフレグランスです。",
@@ -4327,6 +4544,7 @@ imageAlt:
     rank: 22,
     name: "ナイトクリア マウスウォッシュ",
     shortName: "マウスウォッシュ",
+    productType: "oralCare",
     brand: "モンダミン",
     description:
       "就寝前のオーラルケアに取り入れ、口内を清潔に保ちたいときに使いやすいマウスウォッシュです。",
@@ -4360,6 +4578,7 @@ imageAlt:
     rank: 21,
     name: "クイックウォッシュ",
     shortName: "マウスウォッシュ",
+    productType: "oralCare",
     brand: "クリニカ",
     description:
       "歯磨きが難しい場面でも口内をすっきり整えたいときに取り入れやすいマウスウォッシュです。",
@@ -4393,6 +4612,7 @@ imageAlt:
     rank: 16,
     name: "オーラルリンス マイルドミント",
     shortName: "マウスウォッシュ",
+    productType: "oralCare",
     brand: "The Breath Co.",
     description:
       "口臭が気になるときの毎日のオーラルケアに取り入れやすい、マイルドミントタイプのマウスウォッシュです。",
@@ -4426,6 +4646,7 @@ imageAlt:
     rank: 18,
     name: "プレミアムケア ゴールドミント マウスウォッシュ",
     shortName: "マウスウォッシュ",
+    productType: "oralCare",
     brand: "モンダミン",
     description:
       "毎日の口内ケアをまとめて行い、口元の清潔感を意識したい人に取り入れやすいマウスウォッシュです。",
@@ -4459,6 +4680,7 @@ imageAlt:
     rank: 11,
     name: "薬用ハンドクリーム",
     shortName: "ハンドクリーム",
+    productType: "handCare",
     brand: "Avene",
     description:
       "乾燥しやすい手肌を保湿し、手元まで清潔感のある印象へ整えたいときに取り入れやすいハンドクリームです。",
@@ -4492,6 +4714,7 @@ imageAlt:
     rank: 19,
     name: "hana ハンドクリーム",
     shortName: "ハンドクリーム",
+    productType: "handCare",
     brand: "ユースキン",
     description:
       "乾燥しやすい手肌を保湿しながら、日常の身だしなみとして手元を整えたいときに使いやすいハンドクリームです。",
@@ -4525,6 +4748,7 @@ imageAlt:
     rank: 20,
     name: "CBD&リフレッシング カーム 美容液ボディソープ",
     shortName: "ボディソープ",
+    productType: "bodyCare",
     brand: "8 THE THALASSO u",
     description:
       "毎日のバスタイムで全身を洗いながら、肌の清潔感を整えたい人に取り入れやすいボディソープです。",
@@ -4558,6 +4782,7 @@ imageAlt:
     rank: 13,
     name: "全身用ボディソープ",
     shortName: "ボディソープ",
+    productType: "bodyCare",
     brand: "MARO",
     description:
       "毎日の入浴で全身をすっきり洗い、男性の身だしなみとして清潔感を整えたいときに使いやすいボディソープです。",

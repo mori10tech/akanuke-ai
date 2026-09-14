@@ -18,6 +18,7 @@ import { trackEvent } from "../../lib/analytics";
 import {
   activeProducts,
   categories,
+  productTypeLabels,
   type Product,
   type ProductCategory,
 } from "../../data/products";
@@ -299,7 +300,7 @@ function ProductCard({
       ) : null}
 
       <div className="p-4">
-        {product.imageUrl ? (
+                {product.imageUrl ? (
           <button
             type="button"
             onClick={() =>
@@ -319,9 +320,10 @@ function ProductCard({
                 },
               )
             }
-            className="mb-4 flex w-full items-center justify-center overflow-hidden rounded-[16px] bg-white p-3"
+            className="relative mb-4 flex w-full items-center justify-center overflow-hidden rounded-[16px] bg-white p-3"
             aria-label={`${product.name}をAmazonで見る`}
           >
+
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={
@@ -393,27 +395,37 @@ function ProductCard({
           </div>
         ) : null}
 
-        <div className="mt-4 flex flex-wrap gap-1.5">
-          {product.badges.map(
-            (badge) => (
-              <span
-                key={
-                  badge
-                }
-                className="rounded-full bg-[#FFF9D9] px-2.5 py-1.5 text-[10px] font-black text-[#111111]"
-              >
-                {badge}
-              </span>
-            ),
-          )}
+                <div className="mt-4 flex flex-wrap items-center gap-1.5">
+          <span className="inline-flex items-center rounded-[6px] border border-[#1677FF]/25 bg-[#F5F9FF] px-2.5 py-1 text-[10px] font-black leading-none text-[#1677FF]">
+  {
+    productTypeLabels[
+      product.productType
+    ]
+  }
+</span>
+
+          {product.badges
+            .slice(1)
+            .map(
+              (badge) => (
+                <span
+                  key={
+                    badge
+                  }
+                  className="rounded-full bg-[#FFF9D9] px-2.5 py-1.5 text-[10px] font-black text-[#111111]"
+                >
+                  {badge}
+                </span>
+              ),
+            )}
         </div>
 
-        <div className="mt-4 rounded-[14px] bg-[#EEF6FF] p-3.5">
-          <p className="text-[11px] font-black text-[#1677FF]">
-            あなたにおすすめの理由
+                <div className="mt-4 flex items-center gap-2.5 rounded-[14px] bg-[#EEF6FF] px-3.5 py-3">
+          <p className="shrink-0 text-[10px] font-black text-[#1677FF]">
+            おすすめの理由
           </p>
 
-          <div className="mt-2.5 flex flex-wrap gap-1.5">
+          <div className="flex min-w-0 flex-wrap gap-1.5">
             {displayedReasons.map(
               (item) => (
                 <span

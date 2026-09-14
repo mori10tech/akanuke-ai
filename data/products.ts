@@ -67,7 +67,7 @@ export const products: Product[] = [
 
   {
     id: "fancl-deep-clear-washing-powder",
-    rank: 1,
+    rank: 6,
     name: "ディープクリア 洗顔パウダー",
     shortName: "洗顔",
     brand: "FANCL",
@@ -100,7 +100,7 @@ imageAlt:
 
   {
     id: "hada-labo-shirojyun-premium",
-    rank: 2,
+    rank: 5,
     name: "白潤プレミアム 薬用浸透美白化粧水",
     shortName: "化粧水",
     brand: "肌ラボ",
@@ -131,7 +131,7 @@ imageAlt:
 
   {
     id: "ihada-medicated-emulsion",
-    rank: 3,
+    rank: 7,
     name: "薬用エマルジョン",
     shortName: "乳液",
     brand: "IHADA",
@@ -162,7 +162,7 @@ imageAlt:
 
   {
     id: "attenir-skin-clear-cleanse-oil",
-    rank: 4,
+    rank: 12,
     name: "スキンクリア クレンズ オイル",
     shortName: "クレンジング",
     brand: "Attenir",
@@ -193,7 +193,7 @@ imageAlt:
 
   {
     id: "melano-cc-deep-clear-enzyme-face-wash",
-    rank: 5,
+    rank: 3,
     name: "ディープクリア酵素洗顔",
     shortName: "洗顔",
     brand: "メラノCC",
@@ -224,7 +224,7 @@ imageAlt:
 
   {
     id: "orbis-mr-foaming-wash",
-    rank: 6,
+    rank: 2,
     name: "フォーミングウォッシュ",
     shortName: "洗顔",
     brand: "ORBIS Mr.",
@@ -255,7 +255,7 @@ imageAlt:
 
   {
     id: "curel-sebum-trouble-care-foaming-wash",
-    rank: 7,
+    rank: 9,
     name: "皮脂トラブルケア 泡洗顔料",
     shortName: "泡洗顔",
     brand: "Curél",
@@ -286,7 +286,7 @@ imageAlt:
 
   {
     id: "kanebo-scrubbing-mud-wash",
-    rank: 8,
+    rank: 21,
     name: "スクラビング マッド ウォッシュ",
     shortName: "洗顔",
     brand: "KANEBO",
@@ -317,7 +317,7 @@ imageAlt:
 
   {
     id: "muji-sensitive-skin-toning-water-high-moisture",
-    rank: 9,
+    rank: 4,
     name: "敏感肌用化粧水 高保湿",
     shortName: "化粧水",
     brand: "無印良品",
@@ -348,7 +348,7 @@ imageAlt:
 
   {
     id: "fancl-mild-cleansing-oil",
-    rank: 10,
+    rank: 11,
     name: "マイルドクレンジング オイル",
     shortName: "クレンジング",
     brand: "FANCL",
@@ -379,7 +379,7 @@ imageAlt:
 
   {
     id: "biore-the-cleanse-oil-makeup-remover",
-    rank: 11,
+    rank: 13,
     name: "ザクレンズ オイルメイク落とし",
     shortName: "クレンジング",
     brand: "Bioré",
@@ -410,7 +410,7 @@ imageAlt:
 
     {
     id: "bulk-homme-the-face-wash",
-    rank: 12,
+    rank: 10,
     name: "THE FACE WASH",
     shortName: "洗顔",
     brand: "BULK HOMME",
@@ -450,7 +450,7 @@ imageAlt:
 
   {
     id: "bulk-homme-the-toner",
-    rank: 13,
+    rank: 17,
     name: "THE TONER",
     shortName: "化粧水",
     brand: "BULK HOMME",
@@ -487,7 +487,7 @@ imageAlt:
 
   {
     id: "bulk-homme-the-lotion",
-    rank: 14,
+    rank: 18,
     name: "THE LOTION",
     shortName: "乳液",
     brand: "BULK HOMME",
@@ -524,7 +524,7 @@ imageAlt:
 
   {
     id: "nivea-men-active-age-lotion",
-    rank: 15,
+    rank: 19,
     name: "アクティブエイジローション",
     shortName: "化粧水",
     brand: "NIVEA MEN",
@@ -561,7 +561,7 @@ imageAlt:
 
   {
     id: "uno-vital-cream-perfection",
-    rank: 16,
+    rank: 1,
     name: "バイタルクリームパーフェクション",
     shortName: "オールインワン",
     brand: "uno",
@@ -601,7 +601,7 @@ imageAlt:
 
   {
     id: "gatsby-ex-deep-clear-balm",
-    rank: 17,
+    rank: 16,
     name: "EX ディープクリアバーム",
     shortName: "毛穴ケア",
     brand: "GATSBY",
@@ -641,7 +641,7 @@ imageAlt:
 
   {
     id: "dove-men-care-clean-comfort-foaming-face-wash",
-    rank: 18,
+    rank: 15,
     name: "クリーンコンフォート泡洗顔",
     shortName: "泡洗顔",
     brand: "Dove MEN+CARE",
@@ -681,7 +681,7 @@ imageAlt:
 
   {
     id: "null-acne-block-face-wash",
-    rank: 19,
+    rank: 14,
     name: "薬用アクネブロックフェイスウォッシュ",
     shortName: "洗顔",
     brand: "NULL",
@@ -721,7 +721,7 @@ imageAlt:
 
   {
     id: "zigen-all-in-one-face-gel",
-    rank: 20,
+    rank: 8,
     name: "オールインワンフェイスジェル",
     shortName: "オールインワン",
     brand: "ZIGEN",
@@ -761,7 +761,7 @@ imageAlt:
 
   {
     id: "kiehls-facial-fuel-moisturizer-for-men",
-    rank: 21,
+    rank: 20,
     name: "フェイシャル フュール モイスチャライザー フォー メン",
     shortName: "保湿クリーム",
     brand: "Kiehl's",
@@ -798,7 +798,7 @@ imageAlt:
 
   {
     id: "haku-melanofocus-iv",
-    rank: 22,
+    rank: 23,
     name: "メラノフォーカスIV",
     shortName: "美容液",
     brand: "HAKU",
@@ -835,7 +835,7 @@ imageAlt:
 
   {
     id: "namerakahonpo-medicated-wrinkle-serum-white",
-    rank: 23,
+    rank: 22,
     name: "薬用リンクル美容液 ホワイト",
     shortName: "美容液",
     brand: "なめらか本舗",
@@ -876,7 +876,7 @@ imageAlt:
 
   {
     id: "anessa-uv-skincare-milk",
-    rank: 1,
+    rank: 5,
     name: "UV スキンケアミルク",
     shortName: "日焼け止め",
     brand: "ANESSA",
@@ -907,7 +907,7 @@ imageAlt:
 
   {
     id: "minon-uv-mild-milk",
-    rank: 2,
+    rank: 9,
     name: "UVマイルドミルク",
     shortName: "日焼け止め",
     brand: "MINON",
@@ -938,7 +938,7 @@ imageAlt:
 
   {
     id: "biore-uv-aqua-rich-watery-essence",
-    rank: 3,
+    rank: 1,
     name: "アクアリッチ ウォータリーエッセンス",
     shortName: "日焼け止め",
     brand: "Bioré UV",
@@ -968,7 +968,7 @@ imageAlt:
 
   {
     id: "biore-uv-aqua-rich-watery-gel",
-    rank: 11,
+    rank: 3,
     name: "アクアリッチ ウォータリージェル",
     shortName: "日焼け止め",
     brand: "Bioré UV",
@@ -1005,7 +1005,7 @@ imageAlt:
 
   {
     id: "anessa-perfect-uv-skincare-spray-na",
-    rank: 12,
+    rank: 18,
     name: "パーフェクトUV スキンケアスプレー NA",
     shortName: "UVスプレー",
     brand: "ANESSA",
@@ -1042,7 +1042,7 @@ imageAlt:
 
   {
     id: "suncut-protect-uv-spray",
-    rank: 13,
+    rank: 19,
     name: "プロテクトUV スプレー",
     shortName: "UVスプレー",
     brand: "SUNCUT",
@@ -1079,7 +1079,7 @@ imageAlt:
 
   {
     id: "orbis-wrinkle-bright-uv-protector",
-    rank: 14,
+    rank: 8,
     name: "リンクルブライト UVプロテクター",
     shortName: "日焼け止め",
     brand: "ORBIS",
@@ -1116,7 +1116,7 @@ imageAlt:
 
   {
     id: "biore-uv-athlizm-protect-essence",
-    rank: 15,
+    rank: 16,
     name: "アスリズム プロテクトエッセンス",
     shortName: "日焼け止め",
     brand: "Bioré UV",
@@ -1153,7 +1153,7 @@ imageAlt:
 
   {
     id: "biore-uv-aqua-rich-watery-hold-cream",
-    rank: 16,
+    rank: 11,
     name: "アクアリッチ ウォータリーホールドクリーム",
     shortName: "日焼け止め",
     brand: "Bioré UV",
@@ -1190,7 +1190,7 @@ imageAlt:
 
   {
     id: "anessa-perfect-uv-skincare-gel-nb",
-    rank: 17,
+    rank: 7,
     name: "パーフェクトUV スキンケアジェル NB",
     shortName: "日焼け止め",
     brand: "ANESSA",
@@ -1227,7 +1227,7 @@ imageAlt:
 
   {
     id: "allie-chrono-beauty-gel-uv-ex",
-    rank: 18,
+    rank: 6,
     name: "クロノビューティ ジェルUV EX",
     shortName: "日焼け止め",
     brand: "ALLIE",
@@ -1264,7 +1264,7 @@ imageAlt:
 
   {
     id: "nivea-uv-deep-protect-care-gel",
-    rank: 19,
+    rank: 10,
     name: "ディープ プロテクト＆ケア ジェル",
     shortName: "日焼け止め",
     brand: "NIVEA UV",
@@ -1301,7 +1301,7 @@ imageAlt:
 
   {
     id: "nivea-uv-water-gel-ex",
-    rank: 20,
+    rank: 4,
     name: "ウォータージェル EX",
     shortName: "日焼け止め",
     brand: "NIVEA UV",
@@ -1338,7 +1338,7 @@ imageAlt:
 
   {
     id: "skin-aqua-tone-up-uv-essence",
-    rank: 21,
+    rank: 12,
     name: "トーンアップUVエッセンス",
     shortName: "日焼け止め",
     brand: "SKIN AQUA",
@@ -1382,7 +1382,7 @@ imageAlt:
 
   {
     id: "loretta-hard-jelly",
-    rank: 1,
+    rank: 17,
     name: "ハードゼリー",
     shortName: "スタイリングジェル",
     brand: "Loretta",
@@ -1412,7 +1412,7 @@ imageAlt:
 
   {
     id: "kantan-series-urutsuya",
-    rank: 2,
+    rank: 12,
     name: "カンタンシリーズ うるつや",
     shortName: "スタイリング剤",
     brand: "カンタンシリーズ",
@@ -1447,7 +1447,7 @@ imageAlt:
 
   {
     id: "lipps-gloss-move-wax",
-    rank: 3,
+    rank: 6,
     name: "グロスムーブ ワックス",
     shortName: "ヘアワックス",
     brand: "LIPPS",
@@ -1486,7 +1486,7 @@ imageAlt:
 
   {
     id: "yolu-calm-night-repair-shampoo",
-    rank: 1,
+    rank: 10,
     name: "カームナイトリペア シャンプー",
     shortName: "シャンプー",
     brand: "YOLU",
@@ -1520,7 +1520,7 @@ imageAlt:
 
   {
     id: "plus-eau-mellow-shampoo",
-    rank: 2,
+    rank: 16,
     name: "シャンプー メロウ",
     shortName: "シャンプー",
     brand: "plus eau",
@@ -1554,7 +1554,7 @@ imageAlt:
 
   {
     id: "straine-shampoo",
-    rank: 3,
+    rank: 19,
     name: "ストレイン シャンプー ホワイトブロッサムの香り",
     shortName: "シャンプー",
     brand: "Straine",
@@ -1592,7 +1592,7 @@ imageAlt:
 
   {
     id: "the-future-color-change-bb-cream",
-    rank: 1,
+    rank: 6,
     name: "カラーチェンジBBクリーム",
     shortName: "BBクリーム",
     brand: "THE FUTURE",
@@ -1626,7 +1626,7 @@ imageAlt:
 
   {
     id: "la-roche-posay-uvidea",
-    rank: 2,
+    rank: 10,
     name: "UVイデア",
     shortName: "化粧下地",
     brand: "La Roche-Posay",
@@ -1660,7 +1660,7 @@ imageAlt:
 
   {
     id: "null-bb-cream",
-    rank: 3,
+    rank: 4,
     name: "BBクリーム",
     shortName: "BBクリーム",
     brand: "NULL",
@@ -1694,7 +1694,7 @@ imageAlt:
 
   {
     id: "uno-face-color-creator-natural",
-    rank: 4,
+    rank: 2,
     name: "フェイスカラークリエイター（ナチュラル）",
     shortName: "BBクリーム",
     brand: "uno",
@@ -1729,7 +1729,7 @@ imageAlt:
 
   {
     id: "biore-uv-aqua-rich-aqua-protect-mist",
-    rank: 4,
+    rank: 17,
     name: "アクアリッチ アクアプロテクトミスト",
     shortName: "UVミスト",
     brand: "Bioré UV",
@@ -1760,7 +1760,7 @@ imageAlt:
 
   {
     id: "biore-uv-sarasara-perfect-milk",
-    rank: 5,
+    rank: 13,
     name: "さらさらパーフェクトミルク",
     shortName: "日焼け止め",
     brand: "Bioré UV",
@@ -1791,7 +1791,7 @@ imageAlt:
 
   {
     id: "suncut-perfect-uv-milk",
-    rank: 6,
+    rank: 15,
     name: "パーフェクトUV ミルク",
     shortName: "日焼け止め",
     brand: "SUNCUT",
@@ -1822,7 +1822,7 @@ imageAlt:
 
   {
     id: "nov-uv-shield-ex",
-    rank: 7,
+    rank: 14,
     name: "UVシールドEX",
     shortName: "日焼け止め",
     brand: "NOV",
@@ -1853,7 +1853,7 @@ imageAlt:
 
   {
     id: "shigaisen-yohou-transparent-uv-spray",
-    rank: 8,
+    rank: 20,
     name: "透明UVスプレー",
     shortName: "UVスプレー",
     brand: "紫外線予報",
@@ -1884,7 +1884,7 @@ imageAlt:
 
   {
     id: "skin-aqua-super-moisture-gel",
-    rank: 9,
+    rank: 2,
     name: "スーパーモイスチャージェル",
     shortName: "日焼け止め",
     brand: "SKIN AQUA",
@@ -1915,7 +1915,7 @@ imageAlt:
 
   {
     id: "nivea-uv-deep-protect-care-milk-mist",
-    rank: 10,
+    rank: 21,
     name: "ディーププロテクト＆ケア ミルクミスト",
     shortName: "UVミスト",
     brand: "NIVEA UV",
@@ -1946,7 +1946,7 @@ imageAlt:
 
   {
     id: "kantan-series-fuwamochi",
-    rank: 4,
+    rank: 8,
     name: "カンタンシリーズ ふわもち",
     shortName: "ヘアワックス",
     brand: "カンタンシリーズ",
@@ -1977,7 +1977,7 @@ imageAlt:
 
   {
     id: "ocean-trico-over-drive",
-    rank: 5,
+    rank: 18,
     name: "オーバードライブ",
     shortName: "ヘアワックス",
     brand: "OCEAN TRICO",
@@ -2008,7 +2008,7 @@ imageAlt:
 
   {
     id: "lipps-matte-hard-wax",
-    rank: 6,
+    rank: 22,
     name: "マットハードワックス",
     shortName: "ヘアワックス",
     brand: "LIPPS",
@@ -2039,7 +2039,7 @@ imageAlt:
 
   {
     id: "arimino-men-freeze-keep-grease",
-    rank: 7,
+    rank: 14,
     name: "フリーズキープ グリース",
     shortName: "ヘアグリース",
     brand: "ARIMINO men",
@@ -2070,7 +2070,7 @@ imageAlt:
 
   {
     id: "modenica-art-grease",
-    rank: 8,
+    rank: 16,
     name: "グリース",
     shortName: "ヘアグリース",
     brand: "MODENICA ART",
@@ -2101,7 +2101,7 @@ imageAlt:
 
   {
     id: "kantan-series-nuance",
-    rank: 9,
+    rank: 3,
     name: "カンタンニュアンス",
     shortName: "ヘアバーム",
     brand: "カンタンシリーズ",
@@ -2163,7 +2163,7 @@ imageAlt:
 
     {
     id: "arimino-men-freeze-keep-gel",
-    rank: 11,
+    rank: 2,
     name: "フリーズキープ ジェル",
     shortName: "ヘアジェル",
     brand: "ARIMINO men",
@@ -2204,7 +2204,7 @@ imageAlt:
 
   {
     id: "plus-eau-hydro-mist-n",
-    rank: 12,
+    rank: 13,
     name: "ハイドロミストN",
     shortName: "ヘアミスト",
     brand: "plus eau",
@@ -2244,7 +2244,7 @@ imageAlt:
 
   {
     id: "n-homme-gel-balm",
-    rank: 13,
+    rank: 1,
     name: "オム ジェルバーム",
     shortName: "ジェルバーム",
     brand: "N.",
@@ -2284,7 +2284,7 @@ imageAlt:
 
   {
     id: "n-homme-shea-cream",
-    rank: 14,
+    rank: 7,
     name: "オム シアクリーム",
     shortName: "ヘアクリーム",
     brand: "N.",
@@ -2324,7 +2324,7 @@ imageAlt:
 
   {
     id: "kantan-series-yurutaba",
-    rank: 15,
+    rank: 9,
     name: "カンタンシリーズ ゆるたば",
     shortName: "ヘアワックス",
     brand: "KANTANSERIES",
@@ -2364,7 +2364,7 @@ imageAlt:
 
   {
     id: "deuxer-dry-paste-wax-6",
-    rank: 16,
+    rank: 21,
     name: "ドライペーストワックス 6",
     shortName: "ヘアワックス",
     brand: "DEUXER",
@@ -2404,7 +2404,7 @@ imageAlt:
 
   {
     id: "gatsby-metalubber-wax-hard",
-    rank: 17,
+    rank: 20,
     name: "メタラバー ワックス ハード",
     shortName: "ヘアワックス",
     brand: "GATSBY",
@@ -2444,7 +2444,7 @@ imageAlt:
 
   {
     id: "product-hair-wax",
-    rank: 18,
+    rank: 5,
     name: "ヘアワックス",
     shortName: "ヘアワックス",
     brand: "product",
@@ -2485,7 +2485,7 @@ imageAlt:
 
   {
     id: "cool-grease-g",
-    rank: 19,
+    rank: 15,
     name: "クールグリース G",
     shortName: "ヘアグリース",
     brand: "阪本高生堂",
@@ -2526,7 +2526,7 @@ imageAlt:
 
   {
     id: "ocean-trico-hair-styling-wax-air",
-    rank: 20,
+    rank: 4,
     name: "ヘアスタイリングワックス エアー",
     shortName: "ヘアワックス",
     brand: "OCEAN TRICO",
@@ -2566,7 +2566,7 @@ imageAlt:
 
   {
     id: "lipps-hard-active-wax",
-    rank: 21,
+    rank: 19,
     name: "ハードアクティブワックス",
     shortName: "ヘアワックス",
     brand: "LIPPS",
@@ -2606,7 +2606,7 @@ imageAlt:
 
   {
     id: "modenica-natural-j",
-    rank: 22,
+    rank: 11,
     name: "ナチュラル J",
     shortName: "スタイリング剤",
     brand: "MODENICA",
@@ -2647,7 +2647,7 @@ imageAlt:
   // ヘアケア（追加商品）
   {
     id: "the-answer-seasonal-care-ss-shampoo",
-    rank: 4,
+    rank: 13,
     name: "シーズナルケア SS スーパーラメラシャンプー",
     shortName: "シャンプー",
     brand: "THE ANSWER",
@@ -2681,7 +2681,7 @@ imageAlt:
 
   {
     id: "plus-eau-repoir-shampoo",
-    rank: 5,
+    rank: 11,
     name: "リポアシャンプー",
     shortName: "シャンプー",
     brand: "plus eau",
@@ -2715,7 +2715,7 @@ imageAlt:
 
   {
     id: "nile-dense-foam-gel-shampoo",
-    rank: 6,
+    rank: 23,
     name: "超濃密泡ジェルシャンプー",
     shortName: "シャンプー",
     brand: "NILE",
@@ -2746,7 +2746,7 @@ imageAlt:
 
   {
     id: "cocone-clay-cream-shampoo",
-    rank: 7,
+    rank: 18,
     name: "クレイクリームシャンプー",
     shortName: "クリームシャンプー",
     brand: "cocone",
@@ -2780,7 +2780,7 @@ imageAlt:
 
   {
     id: "hiritu-balance-repair-shampoo-moist",
-    rank: 8,
+    rank: 14,
     name: "バランスリペア シャンプー モイスト",
     shortName: "シャンプー",
     brand: "hiritu",
@@ -2814,7 +2814,7 @@ imageAlt:
 
   {
     id: "moroccan-beauty-deep-moist-shampoo",
-    rank: 9,
+    rank: 15,
     name: "ディープモイスト シャンプー",
     shortName: "シャンプー",
     brand: "モロッカンビューティ",
@@ -2848,7 +2848,7 @@ imageAlt:
 
   {
     id: "botanist-botanical-shampoo-damage-care",
-    rank: 10,
+    rank: 12,
     name: "ボタニカルシャンプー ダメージケア",
     shortName: "シャンプー",
     brand: "BOTANIST",
@@ -2882,7 +2882,7 @@ imageAlt:
 
   {
     id: "reden-hybrid-shampoo",
-    rank: 11,
+    rank: 21,
     name: "ハイブリッドシャンプー",
     shortName: "シャンプー",
     brand: "REDEN",
@@ -2921,7 +2921,7 @@ imageAlt:
 
   {
     id: "maro17-perfect-wash-shampoo-black",
-    rank: 12,
+    rank: 22,
     name: "シャンプー パーフェクトウォッシュシャンプー ブラック",
     shortName: "シャンプー",
     brand: "MARO17",
@@ -2960,7 +2960,7 @@ imageAlt:
 
   {
     id: "bulk-homme-the-shampoo",
-    rank: 13,
+    rank: 20,
     name: "THE SHAMPOO",
     shortName: "シャンプー",
     brand: "BULK HOMME",
@@ -2999,7 +2999,7 @@ imageAlt:
 
   {
     id: "the-public-organic-super-shiny-shampoo",
-    rank: 14,
+    rank: 17,
     name: "スーパーシャイニー 精油シャンプー",
     shortName: "シャンプー",
     brand: "THE PUBLIC ORGANIC",
@@ -3039,7 +3039,7 @@ imageAlt:
 
   {
     id: "milbon-elujuda-emulsion-plus",
-    rank: 15,
+    rank: 2,
     name: "エルジューダ エマルジョン+",
     shortName: "ヘアミルク",
     brand: "ミルボン",
@@ -3079,7 +3079,7 @@ imageAlt:
 
   {
     id: "orbis-essence-in-hair-milk",
-    rank: 16,
+    rank: 1,
     name: "エッセンスインヘアミルク",
     shortName: "ヘアミルク",
     brand: "ORBIS",
@@ -3119,7 +3119,7 @@ imageAlt:
 
   {
     id: "kerastase-nu-soin-oleo-relax",
-    rank: 17,
+    rank: 7,
     name: "NU ソワン オレオ リラックス",
     shortName: "ヘアトリートメント",
     brand: "KERASTASE",
@@ -3159,7 +3159,7 @@ imageAlt:
 
   {
     id: "milbon-deesse-elujuda-mo",
-    rank: 18,
+    rank: 4,
     name: "ディーセス エルジューダ MO",
     shortName: "ヘアオイル",
     brand: "ミルボン",
@@ -3199,7 +3199,7 @@ imageAlt:
 
   {
     id: "and-honey-deep-moist-hair-oil-3",
-    rank: 19,
+    rank: 5,
     name: "ディープモイスト ヘアオイル 3.0",
     shortName: "ヘアオイル",
     brand: "&honey",
@@ -3239,7 +3239,7 @@ imageAlt:
 
   {
     id: "fino-premium-touch-hair-mask",
-    rank: 20,
+    rank: 6,
     name: "プレミアムタッチ 濃厚美容液ヘアマスク",
     shortName: "ヘアマスク",
     brand: "fino",
@@ -3279,7 +3279,7 @@ imageAlt:
 
   {
     id: "essential-cuticle-coat-oil",
-    rank: 21,
+    rank: 8,
     name: "キューティクルコートオイル",
     shortName: "ヘアオイル",
     brand: "Essential",
@@ -3319,7 +3319,7 @@ imageAlt:
 
   {
     id: "pantene-miracles-moisture-boost-milk-water-serum",
-    rank: 22,
+    rank: 9,
     name: "ミラクルズ うるおいブースト ミルクウォーターセラム",
     shortName: "ヘアセラム",
     brand: "PANTENE",
@@ -3359,7 +3359,7 @@ imageAlt:
 
   {
     id: "lucido-l-oil-treatment-ex-hair-oil",
-    rank: 23,
+    rank: 3,
     name: "オイルトリートメント #EXヘアオイル",
     shortName: "ヘアオイル",
     brand: "LUCIDO-L",
@@ -3400,7 +3400,7 @@ imageAlt:
   // メンズメイク（追加商品）
   {
     id: "objet-natural-cover-foundation",
-    rank: 5,
+    rank: 15,
     name: "ナチュラルカバーファンデーション",
     shortName: "ファンデーション",
     brand: "オブジェ",
@@ -3431,7 +3431,7 @@ imageAlt:
 
   {
     id: "bercury-bb-cream",
-    rank: 6,
+    rank: 14,
     name: "BBクリーム",
     shortName: "BBクリーム",
     brand: "バーキュリー",
@@ -3465,7 +3465,7 @@ imageAlt:
 
   {
     id: "shiseido-men-vibrant-bb-moisturizer",
-    rank: 7,
+    rank: 9,
     name: "ヴァイブラント BBモイスチャライザー",
     shortName: "BBクリーム",
     brand: "SHISEIDO MEN",
@@ -3499,7 +3499,7 @@ imageAlt:
 
   {
     id: "the-saem-cover-perfection-tip-concealer",
-    rank: 8,
+    rank: 16,
     name: "カバーパーフェクション チップコンシーラー",
     shortName: "コンシーラー",
     brand: "the SAEM",
@@ -3530,7 +3530,7 @@ imageAlt:
 
   {
     id: "tirtir-mask-fit-all-cover-dual-concealer",
-    rank: 9,
+    rank: 12,
     name: "マスクフィット オールカバー デュアルコンシーラー",
     shortName: "コンシーラー",
     brand: "TIRTIR",
@@ -3564,7 +3564,7 @@ imageAlt:
 
   {
     id: "kate-stick-concealer-a",
-    rank: 10,
+    rank: 13,
     name: "スティックコンシーラーA",
     shortName: "コンシーラー",
     brand: "KATE",
@@ -3598,7 +3598,7 @@ imageAlt:
 
   {
     id: "mens-biore-one-bb-uv-cream",
-    rank: 11,
+    rank: 1,
     name: "BB&UVクリーム",
     shortName: "BBクリーム",
     brand: "メンズビオレONE",
@@ -3639,7 +3639,7 @@ imageAlt:
 
   {
     id: "moist-labo-bb-essence-cream",
-    rank: 12,
+    rank: 17,
     name: "BBエッセンスクリーム",
     shortName: "BBクリーム",
     brand: "モイストラボ",
@@ -3679,7 +3679,7 @@ imageAlt:
 
   {
     id: "esprique-cool-touch-bb-spray-uv-50",
-    rank: 13,
+    rank: 18,
     name: "冷感タッチ BBスプレー UV 50",
     shortName: "BBスプレー",
     brand: "ESPRIQUE",
@@ -3719,7 +3719,7 @@ imageAlt:
 
   {
     id: "orbis-mr-base-color-controller",
-    rank: 14,
+    rank: 8,
     name: "ベースカラー コントローラー",
     shortName: "化粧下地",
     brand: "ORBIS Mr.",
@@ -3758,7 +3758,7 @@ imageAlt:
 
   {
     id: "menz-basic-bb-cream",
-    rank: 15,
+    rank: 7,
     name: "BBクリーム",
     shortName: "BBクリーム",
     brand: "Menz Basic",
@@ -3798,7 +3798,7 @@ imageAlt:
 
   {
     id: "holo-bell-sunblock-moist-bb",
-    rank: 16,
+    rank: 3,
     name: "サンブロック保湿BB",
     shortName: "BBクリーム",
     brand: "HOLO BELL",
@@ -3839,7 +3839,7 @@ imageAlt:
 
   {
     id: "the-future-skin-cover-concealer",
-    rank: 17,
+    rank: 11,
     name: "スキンカバーコンシーラー",
     shortName: "コンシーラー",
     brand: "THE FUTURE",
@@ -3879,7 +3879,7 @@ imageAlt:
 
   {
     id: "mulc-natural-bb-cream",
-    rank: 18,
+    rank: 5,
     name: "ナチュラルBBクリーム",
     shortName: "BBクリーム",
     brand: "MULC",
@@ -3923,7 +3923,7 @@ imageAlt:
 
   {
     id: "maison-margiela-fragrance",
-    rank: 1,
+    rank: 20,
     name: "フレグランス",
     shortName: "香水",
     brand: "Maison Margiela",
@@ -3954,7 +3954,7 @@ imageAlt:
 
   {
     id: "marvis-whitening-mint",
-    rank: 2,
+    rank: 4,
     name: "ホワイト・ミント歯磨き粉",
     shortName: "歯磨き粉",
     brand: "MARVIS",
@@ -3985,7 +3985,7 @@ imageAlt:
 
   {
     id: "loccitane-shea-hand-cream",
-    rank: 3,
+    rank: 7,
     name: "カリテコンフォート シア ハンドクリーム",
     shortName: "ハンドクリーム",
     brand: "L'OCCITANE",
@@ -4016,7 +4016,7 @@ imageAlt:
 
   {
     id: "shiro-savon-eau-de-parfum",
-    rank: 4,
+    rank: 12,
     name: "サボン オードパルファン",
     shortName: "香水",
     brand: "SHIRO",
@@ -4047,7 +4047,7 @@ imageAlt:
 
   {
     id: "bvlgari-pour-homme-eau-de-toilette",
-    rank: 5,
+    rank: 13,
     name: "プールオム オードトワレ",
     shortName: "香水",
     brand: "BVLGARI",
@@ -4078,7 +4078,7 @@ imageAlt:
 
   {
     id: "con-cool-f-mouthwash",
-    rank: 6,
+    rank: 3,
     name: "コンクールF",
     shortName: "マウスウォッシュ",
     brand: "Con Cool",
@@ -4109,7 +4109,7 @@ imageAlt:
 
   {
     id: "nonio-mouthwash-splash-citrus-mint",
-    rank: 7,
+    rank: 2,
     name: "マウスウォッシュ スプラッシュシトラスミント",
     shortName: "マウスウォッシュ",
     brand: "NONIO",
@@ -4140,7 +4140,7 @@ imageAlt:
 
   {
     id: "uno-all-in-one-lip-creator",
-    rank: 8,
+    rank: 11,
     name: "オールインワンリップクリエイター",
     shortName: "色付きリップ",
     brand: "uno",
@@ -4171,7 +4171,7 @@ imageAlt:
 
   {
     id: "atrix-beauty-charge-unscented",
-    rank: 9,
+    rank: 5,
     name: "ビューティーチャージ 無香料",
     shortName: "ハンドクリーム",
     brand: "アトリックス",
@@ -4202,7 +4202,7 @@ imageAlt:
 
   {
     id: "orbis-mr-lip-care-stick",
-    rank: 10,
+    rank: 1,
     name: "ミスター リップケア スティック",
     shortName: "リップクリーム",
     brand: "ORBIS Mr.",
@@ -4233,7 +4233,7 @@ imageAlt:
 
   {
     id: "hermes-un-jardin-sur-le-nil-eau-de-toilette",
-    rank: 11,
+    rank: 14,
     name: "ナイルの庭 オードトワレ",
     shortName: "香水",
     brand: "HERMÈS",
@@ -4266,7 +4266,7 @@ imageAlt:
 
   {
     id: "reden-fragrance-marine-musk",
-    rank: 12,
+    rank: 15,
     name: "フレグランス マリンムスク",
     shortName: "香水",
     brand: "REDEN",
@@ -4299,7 +4299,7 @@ imageAlt:
 
   {
     id: "chanel-bleu-de-chanel-eau-de-toilette",
-    rank: 13,
+    rank: 21,
     name: "ブルー ドゥ シャネル オードゥ トワレット",
     shortName: "香水",
     brand: "CHANEL",
@@ -4332,7 +4332,7 @@ imageAlt:
 
   {
     id: "dior-sauvage-eau-de-parfum",
-    rank: 14,
+    rank: 22,
     name: "ソヴァージュ オードパルファム",
     shortName: "香水",
     brand: "Dior",
@@ -4365,7 +4365,7 @@ imageAlt:
 
   {
     id: "mondahmin-night-clear-mouthwash",
-    rank: 15,
+    rank: 19,
     name: "ナイトクリア マウスウォッシュ",
     shortName: "マウスウォッシュ",
     brand: "モンダミン",
@@ -4497,7 +4497,7 @@ imageAlt:
 
   {
     id: "avene-medicated-hand-cream",
-    rank: 19,
+    rank: 6,
     name: "薬用ハンドクリーム",
     shortName: "ハンドクリーム",
     brand: "Avene",
@@ -4530,7 +4530,7 @@ imageAlt:
 
   {
     id: "yuskin-hana-hand-cream",
-    rank: 20,
+    rank: 8,
     name: "hana ハンドクリーム",
     shortName: "ハンドクリーム",
     brand: "ユースキン",
@@ -4563,7 +4563,7 @@ imageAlt:
 
   {
     id: "8-the-thalasso-u-cbd-refreshing-calm-body-soap",
-    rank: 21,
+    rank: 10,
     name: "CBD&リフレッシング カーム 美容液ボディソープ",
     shortName: "ボディソープ",
     brand: "8 THE THALASSO u",
@@ -4596,7 +4596,7 @@ imageAlt:
 
   {
     id: "maro-body-soap",
-    rank: 22,
+    rank: 9,
     name: "全身用ボディソープ",
     shortName: "ボディソープ",
     brand: "MARO",

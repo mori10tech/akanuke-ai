@@ -80,6 +80,76 @@ function getProductScore(
   );
 }
 
+function distributeProductsByType(
+  products: Product[],
+) {
+  const groups = new Map<
+    Product["productType"],
+    Product[]
+  >();
+
+  for (const product of products) {
+    const currentGroup =
+      groups.get(
+        product.productType,
+      ) ?? [];
+
+    currentGroup.push(product);
+
+    groups.set(
+      product.productType,
+      currentGroup,
+    );
+  }
+
+  for (const group of groups.values()) {
+    group.sort(
+      (a, b) =>
+        a.rank - b.rank,
+    );
+  }
+
+  const groupEntries = [
+    ...groups.entries(),
+  ].sort(
+    (
+      [, productsA],
+      [, productsB],
+    ) =>
+      productsA[0].rank -
+      productsB[0].rank,
+  );
+
+  const distributedProducts: Product[] =
+    [];
+
+  let remaining = true;
+
+  while (remaining) {
+    remaining = false;
+
+    for (const [
+      ,
+      groupProducts,
+    ] of groupEntries) {
+      const nextProduct =
+        groupProducts.shift();
+
+      if (!nextProduct) {
+        continue;
+      }
+
+      distributedProducts.push(
+        nextProduct,
+      );
+
+      remaining = true;
+    }
+  }
+
+  return distributedProducts;
+}
+
 function getCategoryScore(
   category: ProductCategory,
   diagnosisNeeds: ProductNeed[],
@@ -1018,7 +1088,7 @@ export default function ProductsPage() {
         )
       : undefined;
 
-  const selectedProducts =
+    const selectedProducts =
     useMemo(() => {
       if (
         !selectedCategory
@@ -1026,41 +1096,60 @@ export default function ProductsPage() {
         return [];
       }
 
-      return activeProducts
-        .filter(
+      const categoryProducts =
+        activeProducts.filter(
           (
             product,
           ) =>
             product.category ===
             selectedCategory,
-        )
+        );
+
+      const scoreGroups =
+        new Map<
+          number,
+          Product[]
+        >();
+
+      for (
+        const product of
+          categoryProducts
+      ) {
+        const score =
+          getProductScore(
+            product,
+            diagnosisNeeds,
+          );
+
+        const currentGroup =
+          scoreGroups.get(
+            score,
+          ) ?? [];
+
+        currentGroup.push(
+          product,
+        );
+
+        scoreGroups.set(
+          score,
+          currentGroup,
+        );
+      }
+
+      return [
+        ...scoreGroups.entries(),
+      ]
         .sort(
+          ([scoreA], [scoreB]) =>
+            scoreB - scoreA,
+        )
+        .flatMap(
           (
-            a,
-            b,
-          ) => {
-            const scoreDifference =
-              getProductScore(
-                b,
-                diagnosisNeeds,
-              ) -
-              getProductScore(
-                a,
-                diagnosisNeeds,
-              );
-
-            if (
-              scoreDifference !==
-              0
-            ) {
-              return scoreDifference;
-            }
-
-            return (
-              a.rank -
-              b.rank
-            );
-          },
+            [, products],
+          ) =>
+            distributeProductsByType(
+              products,
+            ),
         );
     }, [
       selectedCategory,

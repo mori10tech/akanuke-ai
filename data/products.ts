@@ -37,7 +37,6 @@ export type Product = {
 
   visualType: ProductVisualType;
 
-  imagePath?: string;
   imageUrl?: string;
   imageAlt?: string;
 
@@ -83,10 +82,8 @@ export const products: Product[] = [
 
     visualType: "cleanser",
 
-    imagePath:
-  "/products/fancl-deep-clear-washing-powder.webp",
     imageUrl:
-      "https://m.media-amazon.com/images/I/51QOhnDEycL._AC_SL1000_.jpg",
+  "https://m.media-amazon.com/images/I/51QOhnDEycL._AC_SL1000_.jpg",
 imageAlt:
   "FANCL ディープクリア 洗顔パウダー",
 

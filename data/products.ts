@@ -2443,47 +2443,6 @@ imageAlt:
   },
 
   {
-    id: "product-hair-wax",
-    rank: 5,
-    name: "ヘアワックス",
-    shortName: "ヘアワックス",
-    brand: "product",
-    description:
-      "自然なツヤとまとまりを加えながら、毛流れを活かしたナチュラルなスタイルを作りたいときに使いやすいヘアワックスです。",
-    category: "hairStyling",
-
-    price: null,
-
-    rating: null,
-    reviewCount: null,
-
-    visualType: "wax",
-
-    imageUrl:
-      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/71PmxKn3U7L._AC_SL1500_.jpg",
-    imageAlt:
-      "product ザ・プロダクト ヘアワックス",
-
-    badges: ["ヘアワックス", "自然なツヤ"],
-    recommendedFor: [
-      "毛流れ",
-      "ツヤ",
-      "まとまり",
-    ],
-    needTags: [
-      "hairFlow",
-      "hairShine",
-      "hairManageability",
-    ],
-
-    amazon: {
-      url: "https://amzn.to/4h5gZgX",
-    },
-
-    isActive: true,
-  },
-
-  {
     id: "cool-grease-g",
     rank: 15,
     name: "クールグリース G",

@@ -408,6 +408,468 @@ imageAlt:
     isActive: true,
   },
 
+    {
+    id: "bulk-homme-the-face-wash",
+    rank: 12,
+    name: "THE FACE WASH",
+    shortName: "洗顔",
+    brand: "BULK HOMME",
+    description:
+      "毎日の洗顔で皮脂や毛穴汚れをすっきり洗い流し、清潔感のある肌を目指したい人に取り入れやすい男性向け洗顔料です。",
+    category: "skincare",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "cleanser",
+
+    imageUrl:
+      "https://m.media-amazon.com/images/I/81CDN5V5ETL._AC_SL1500_.jpg",
+    imageAlt:
+      "BULK HOMME THE FACE WASH",
+
+    badges: ["メンズ洗顔", "毛穴ケア"],
+    recommendedFor: [
+      "皮脂",
+      "毛穴",
+      "男性向け",
+    ],
+    needTags: [
+      "poreCare",
+      "oilControl",
+    ],
+
+    amazon: {
+      url: "https://amzn.to/4xopeLi",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "bulk-homme-the-toner",
+    rank: 13,
+    name: "THE TONER",
+    shortName: "化粧水",
+    brand: "BULK HOMME",
+    description:
+      "洗顔後の肌へうるおいを補い、毎日の保湿ケアを習慣にしたい男性に取り入れやすい化粧水です。",
+    category: "skincare",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "lotion",
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/71fAb6JVMIL._AC_SL1500_.jpg",
+    imageAlt:
+      "BULK HOMME THE TONER",
+
+    badges: ["化粧水", "保湿"],
+    recommendedFor: [
+      "乾燥",
+      "保湿",
+      "男性向け",
+    ],
+    needTags: ["moisturizing"],
+
+    amazon: {
+      url: "https://amzn.to/4AcOerc",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "bulk-homme-the-lotion",
+    rank: 14,
+    name: "THE LOTION",
+    shortName: "乳液",
+    brand: "BULK HOMME",
+    description:
+      "化粧水のあとに使い、肌のうるおいを保ちながら乾燥を防ぐ毎日の保湿ケアに取り入れやすい乳液です。",
+    category: "skincare",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "lotion",
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/716TFFFdJTL._AC_SL1500_.jpg",
+    imageAlt:
+      "BULK HOMME THE LOTION",
+
+    badges: ["乳液", "保湿"],
+    recommendedFor: [
+      "乾燥",
+      "保湿",
+      "男性向け",
+    ],
+    needTags: ["moisturizing"],
+
+    amazon: {
+      url: "https://amzn.to/3T8fwP1",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "nivea-men-active-age-lotion",
+    rank: 15,
+    name: "アクティブエイジローション",
+    shortName: "化粧水",
+    brand: "NIVEA MEN",
+    description:
+      "洗顔後の乾燥が気になる男性の毎日のスキンケアに取り入れやすく、肌へうるおいを与える化粧水です。",
+    category: "skincare",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "lotion",
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/71x6nNoyejL._AC_SL1500_.jpg",
+    imageAlt:
+      "NIVEA MEN アクティブエイジローション",
+
+    badges: ["メンズ化粧水", "保湿"],
+    recommendedFor: [
+      "乾燥",
+      "保湿",
+      "男性向け",
+    ],
+    needTags: ["moisturizing"],
+
+    amazon: {
+      url: "https://amzn.to/4gSeCzk",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "uno-vital-cream-perfection",
+    rank: 16,
+    name: "バイタルクリームパーフェクション",
+    shortName: "オールインワン",
+    brand: "uno",
+    description:
+      "複数のスキンケアを手軽にまとめたい男性が、洗顔後の保湿ケアとして取り入れやすいオールインワンタイプのクリームです。",
+    category: "skincare",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "lotion",
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/71uOAQVYSLL._AC_SL1500_.jpg",
+    imageAlt:
+      "uno バイタルクリームパーフェクション",
+
+    badges: [
+      "オールインワン",
+      "男性向け",
+    ],
+    recommendedFor: [
+      "保湿",
+      "時短ケア",
+      "スキンケア初心者",
+    ],
+    needTags: ["moisturizing"],
+
+    amazon: {
+      url: "https://amzn.to/4gRZYYT",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "gatsby-ex-deep-clear-balm",
+    rank: 17,
+    name: "EX ディープクリアバーム",
+    shortName: "毛穴ケア",
+    brand: "GATSBY",
+    description:
+      "皮脂や毛穴汚れが気になるときに、いつものスキンケアへ毛穴ケアを取り入れたい男性に使いやすいアイテムです。",
+    category: "skincare",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "cleanser",
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/71SkEaKgiZL._AC_SL1500_.jpg",
+    imageAlt:
+      "GATSBY EX ディープクリアバーム",
+
+    badges: ["毛穴ケア", "男性向け"],
+    recommendedFor: [
+      "毛穴",
+      "皮脂",
+      "男性向け",
+    ],
+    needTags: [
+      "poreCare",
+      "oilControl",
+    ],
+
+    amazon: {
+      url: "https://amzn.to/4isGQSu",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "dove-men-care-clean-comfort-foaming-face-wash",
+    rank: 18,
+    name: "クリーンコンフォート泡洗顔",
+    shortName: "泡洗顔",
+    brand: "Dove MEN+CARE",
+    description:
+      "泡立てる手間なく使いやすく、毎日の洗顔で皮脂や汚れをすっきり落としたい男性向けの泡タイプ洗顔料です。",
+    category: "skincare",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "cleanser",
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/71Ty0Et8xBL._AC_SL1500_.jpg",
+    imageAlt:
+      "Dove MEN+CARE クリーンコンフォート泡洗顔",
+
+    badges: ["泡洗顔", "男性向け"],
+    recommendedFor: [
+      "皮脂",
+      "毎日洗顔",
+      "男性向け",
+    ],
+    needTags: [
+      "oilControl",
+      "poreCare",
+    ],
+
+    amazon: {
+      url: "https://amzn.to/4xXqu9c",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "null-acne-block-face-wash",
+    rank: 19,
+    name: "薬用アクネブロックフェイスウォッシュ",
+    shortName: "洗顔",
+    brand: "NULL",
+    description:
+      "皮脂や肌荒れが気になる男性が、毎日の洗顔で肌を清潔に保つために取り入れやすい男性向け洗顔料です。",
+    category: "skincare",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "cleanser",
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/511rnWxE5dL._AC_SL1500_.jpg",
+    imageAlt:
+      "NULL 薬用アクネブロックフェイスウォッシュ",
+
+    badges: ["メンズ洗顔", "皮脂ケア"],
+    recommendedFor: [
+      "皮脂",
+      "肌荒れ",
+      "男性向け",
+    ],
+    needTags: [
+      "oilControl",
+      "poreCare",
+    ],
+
+    amazon: {
+      url: "https://amzn.to/4iZmy2X",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "zigen-all-in-one-face-gel",
+    rank: 20,
+    name: "オールインワンフェイスジェル",
+    shortName: "オールインワン",
+    brand: "ZIGEN",
+    description:
+      "洗顔後の保湿をひとつで済ませたい男性が、毎日のスキンケアへ取り入れやすいオールインワンタイプのフェイスジェルです。",
+    category: "skincare",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "lotion",
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/51eJ0nF1pVL._AC_SL1500_.jpg",
+    imageAlt:
+      "ZIGEN オールインワンフェイスジェル",
+
+    badges: [
+      "オールインワン",
+      "保湿",
+    ],
+    recommendedFor: [
+      "乾燥",
+      "時短ケア",
+      "男性向け",
+    ],
+    needTags: ["moisturizing"],
+
+    amazon: {
+      url: "https://amzn.to/46TZwTV",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "kiehls-facial-fuel-moisturizer-for-men",
+    rank: 21,
+    name: "フェイシャル フュール モイスチャライザー フォー メン",
+    shortName: "保湿クリーム",
+    brand: "Kiehl's",
+    description:
+      "洗顔後の乾燥を防ぎながら肌をうるおいのある状態へ整えたい男性の毎日の保湿ケアに取り入れやすいアイテムです。",
+    category: "skincare",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "lotion",
+
+    imageUrl:
+      "https://m.media-amazon.com/images/I/71TTDB4QuyL._AC_SL1500_.jpg",
+    imageAlt:
+      "Kiehl's フェイシャル フュール モイスチャライザー フォー メン",
+
+    badges: ["保湿", "男性向け"],
+    recommendedFor: [
+      "乾燥",
+      "保湿",
+      "男性向け",
+    ],
+    needTags: ["moisturizing"],
+
+    amazon: {
+      url: "https://amzn.to/4gSAMkP",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "haku-melanofocus-iv",
+    rank: 22,
+    name: "メラノフォーカスIV",
+    shortName: "美容液",
+    brand: "HAKU",
+    description:
+      "毎日のスキンケアに美容液を取り入れ、肌のコンディションをより丁寧に整えたい人向けのアイテムです。",
+    category: "skincare",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "lotion",
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/41poDZSA+5L._AC_SL1500_.jpg",
+    imageAlt:
+      "HAKU メラノフォーカスIV",
+
+    badges: ["美容液", "集中ケア"],
+    recommendedFor: [
+      "美容液",
+      "肌ケア",
+      "毎日ケア",
+    ],
+    needTags: [],
+
+    amazon: {
+      url: "https://amzn.to/46oSuX5",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "namerakahonpo-medicated-wrinkle-serum-white",
+    rank: 23,
+    name: "薬用リンクル美容液 ホワイト",
+    shortName: "美容液",
+    brand: "なめらか本舗",
+    description:
+      "普段のスキンケアに美容液を加え、乾燥を防ぎながら肌をうるおいのある状態へ整えたいときに取り入れやすいアイテムです。",
+    category: "skincare",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "lotion",
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/71TDFNurq3L._AC_SL1500_.jpg",
+    imageAlt:
+      "なめらか本舗 薬用リンクル美容液 ホワイト",
+
+    badges: ["美容液", "保湿"],
+    recommendedFor: [
+      "乾燥",
+      "保湿",
+      "肌ケア",
+    ],
+    needTags: ["moisturizing"],
+
+    amazon: {
+      url: "https://amzn.to/4gTxqOI",
+    },
+
+    isActive: true,
+  },
+
   // =========================================================
   // UVケア
   // =========================================================
@@ -499,6 +961,416 @@ imageAlt:
 
     amazon: {
       url: "https://amzn.to/4whE6u5",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "biore-uv-aqua-rich-watery-gel",
+    rank: 11,
+    name: "アクアリッチ ウォータリージェル",
+    shortName: "日焼け止め",
+    brand: "Bioré UV",
+    description:
+      "みずみずしい使用感で、毎日の顔や体の紫外線対策に取り入れやすいジェルタイプの日焼け止めです。",
+    category: "sunscreen",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "sunscreen",
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/71DfdlaEF9L._AC_SL1500_.jpg",
+    imageAlt:
+      "ビオレUV アクアリッチ ウォータリージェル",
+
+    badges: ["UVジェル", "日常使い"],
+    recommendedFor: [
+      "紫外線対策",
+      "毎日ケア",
+      "顔・体",
+    ],
+    needTags: ["uvProtection"],
+
+    amazon: {
+      url: "https://amzn.to/3VsYcot",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "anessa-perfect-uv-skincare-spray-na",
+    rank: 12,
+    name: "パーフェクトUV スキンケアスプレー NA",
+    shortName: "UVスプレー",
+    brand: "ANESSA",
+    description:
+      "顔・体・髪の紫外線対策や外出先での塗り直しに取り入れやすいスプレータイプの日焼け止めです。",
+    category: "sunscreen",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "sunscreen",
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/61H+NCza3ZL._AC_SL1500_.jpg",
+    imageAlt:
+      "ANESSA パーフェクトUV スキンケアスプレー NA",
+
+    badges: ["UVスプレー", "塗り直し"],
+    recommendedFor: [
+      "紫外線対策",
+      "外出先",
+      "髪・全身",
+    ],
+    needTags: ["uvProtection"],
+
+    amazon: {
+      url: "https://amzn.to/4j1JJd0",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "suncut-protect-uv-spray",
+    rank: 13,
+    name: "プロテクトUV スプレー",
+    shortName: "UVスプレー",
+    brand: "SUNCUT",
+    description:
+      "顔や体、髪までまとめて紫外線対策したいときに使いやすいスプレータイプの日焼け止めです。",
+    category: "sunscreen",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "sunscreen",
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/41Y9nNXRwGL._AC_SL1500_.jpg",
+    imageAlt:
+      "SUNCUT プロテクトUV スプレー",
+
+    badges: ["UVスプレー", "全身ケア"],
+    recommendedFor: [
+      "紫外線対策",
+      "髪・全身",
+      "塗り直し",
+    ],
+    needTags: ["uvProtection"],
+
+    amazon: {
+      url: "https://amzn.to/4h31N41",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "orbis-wrinkle-bright-uv-protector",
+    rank: 14,
+    name: "リンクルブライト UVプロテクター",
+    shortName: "日焼け止め",
+    brand: "ORBIS",
+    description:
+      "毎日の紫外線対策に取り入れながら、スキンケア感覚で使いやすいクリームタイプの日焼け止めです。",
+    category: "sunscreen",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "sunscreen",
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/51eT5IZkVSL._AC_SL1500_.jpg",
+    imageAlt:
+      "ORBIS リンクルブライト UVプロテクター",
+
+    badges: ["UVケア", "毎日ケア"],
+    recommendedFor: [
+      "紫外線対策",
+      "日常使い",
+      "肌ケア",
+    ],
+    needTags: ["uvProtection"],
+
+    amazon: {
+      url: "https://amzn.to/4hr4z4g",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "biore-uv-athlizm-protect-essence",
+    rank: 15,
+    name: "アスリズム プロテクトエッセンス",
+    shortName: "日焼け止め",
+    brand: "Bioré UV",
+    description:
+      "屋外で過ごす時間が長い日や汗をかきやすい場面で、しっかり紫外線対策したいときに取り入れやすい日焼け止めです。",
+    category: "sunscreen",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "sunscreen",
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/7145QXU7AWL._AC_SL1500_.jpg",
+    imageAlt:
+      "ビオレUV アスリズム プロテクトエッセンス",
+
+    badges: ["UVケア", "屋外"],
+    recommendedFor: [
+      "紫外線対策",
+      "スポーツ",
+      "屋外",
+    ],
+    needTags: ["uvProtection"],
+
+    amazon: {
+      url: "https://amzn.to/4cETXMz",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "biore-uv-aqua-rich-watery-hold-cream",
+    rank: 16,
+    name: "アクアリッチ ウォータリーホールドクリーム",
+    shortName: "日焼け止め",
+    brand: "Bioré UV",
+    description:
+      "毎日の紫外線対策で、肌になじみやすい使用感を重視したい人に取り入れやすいクリームタイプの日焼け止めです。",
+    category: "sunscreen",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "sunscreen",
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/71Gbt4VHtPL._AC_SL1500_.jpg",
+    imageAlt:
+      "ビオレUV アクアリッチ ウォータリーホールドクリーム",
+
+    badges: ["UVケア", "クリーム"],
+    recommendedFor: [
+      "紫外線対策",
+      "毎日ケア",
+      "日常使い",
+    ],
+    needTags: ["uvProtection"],
+
+    amazon: {
+      url: "https://amzn.to/4j7KIbw",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "anessa-perfect-uv-skincare-gel-nb",
+    rank: 17,
+    name: "パーフェクトUV スキンケアジェル NB",
+    shortName: "日焼け止め",
+    brand: "ANESSA",
+    description:
+      "みずみずしい使用感で、顔や体の紫外線対策をしっかり行いたい日に使いやすいジェルタイプの日焼け止めです。",
+    category: "sunscreen",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "sunscreen",
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/617KoiJRL9L._AC_SL1500_.jpg",
+    imageAlt:
+      "ANESSA パーフェクトUV スキンケアジェル NB",
+
+    badges: ["UVジェル", "屋外"],
+    recommendedFor: [
+      "紫外線対策",
+      "顔・体",
+      "屋外",
+    ],
+    needTags: ["uvProtection"],
+
+    amazon: {
+      url: "https://amzn.to/4A69e2V",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "allie-chrono-beauty-gel-uv-ex",
+    rank: 18,
+    name: "クロノビューティ ジェルUV EX",
+    shortName: "日焼け止め",
+    brand: "ALLIE",
+    description:
+      "日常から屋外まで幅広い場面で、顔や体の紫外線対策に取り入れやすいジェルタイプの日焼け止めです。",
+    category: "sunscreen",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "sunscreen",
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/71PdBau39fL._AC_SL1500_.jpg",
+    imageAlt:
+      "ALLIE クロノビューティ ジェルUV EX",
+
+    badges: ["UVジェル", "顔・体"],
+    recommendedFor: [
+      "紫外線対策",
+      "毎日ケア",
+      "屋外",
+    ],
+    needTags: ["uvProtection"],
+
+    amazon: {
+      url: "https://amzn.to/4rjTqWn",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "nivea-uv-deep-protect-care-gel",
+    rank: 19,
+    name: "ディープ プロテクト＆ケア ジェル",
+    shortName: "日焼け止め",
+    brand: "NIVEA UV",
+    description:
+      "毎日の顔や体の紫外線対策に取り入れやすく、みずみずしい使用感を重視したい人向けのジェルタイプの日焼け止めです。",
+    category: "sunscreen",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "sunscreen",
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/81a8M70Lf7L._AC_SL1500_.jpg",
+    imageAlt:
+      "ニベアUV ディープ プロテクト＆ケア ジェル",
+
+    badges: ["UVジェル", "日常使い"],
+    recommendedFor: [
+      "紫外線対策",
+      "毎日ケア",
+      "顔・体",
+    ],
+    needTags: ["uvProtection"],
+
+    amazon: {
+      url: "https://amzn.to/46ov9ox",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "nivea-uv-water-gel-ex",
+    rank: 20,
+    name: "ウォータージェル EX",
+    shortName: "日焼け止め",
+    brand: "NIVEA UV",
+    description:
+      "軽い使用感で、毎日の紫外線対策を続けやすくしたい人に取り入れやすいジェルタイプの日焼け止めです。",
+    category: "sunscreen",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "sunscreen",
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/71kj2fBi6cL._AC_SL1500_.jpg",
+    imageAlt:
+      "ニベアUV ウォータージェル EX",
+
+    badges: ["UVジェル", "毎日ケア"],
+    recommendedFor: [
+      "紫外線対策",
+      "日常使い",
+      "顔・体",
+    ],
+    needTags: ["uvProtection"],
+
+    amazon: {
+      url: "https://amzn.to/4AcHg5I",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "skin-aqua-tone-up-uv-essence",
+    rank: 21,
+    name: "トーンアップUVエッセンス",
+    shortName: "日焼け止め",
+    brand: "SKIN AQUA",
+    description:
+      "紫外線対策をしながら、肌を明るく整えて見せたいときに取り入れやすいトーンアップタイプの日焼け止めです。",
+    category: "sunscreen",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "sunscreen",
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/7163V+2jFQL._AC_SL1500_.jpg",
+    imageAlt:
+      "スキンアクア トーンアップUVエッセンス",
+
+    badges: ["UVケア", "トーンアップ"],
+    recommendedFor: [
+      "紫外線対策",
+      "肌補正",
+      "日常使い",
+    ],
+    needTags: [
+      "uvProtection",
+      "skinToneCorrection",
+    ],
+
+    amazon: {
+      url: "https://amzn.to/3UQTKzL",
     },
 
     isActive: true,
@@ -1289,6 +2161,489 @@ imageAlt:
     isActive: true,
   },
 
+    {
+    id: "arimino-men-freeze-keep-gel",
+    rank: 11,
+    name: "フリーズキープ ジェル",
+    shortName: "ヘアジェル",
+    brand: "ARIMINO men",
+    description:
+      "髪型をしっかりキープしながら、ツヤのある毛流れや束感を作りたいときに使いやすいジェルタイプのスタイリング剤です。",
+    category: "hairStyling",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "wax",
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/31MbCi20gOL._AC_.jpg",
+    imageAlt:
+      "ARIMINO men フリーズキープ ジェル",
+
+    badges: ["ジェル", "キープ"],
+    recommendedFor: [
+      "キープ力",
+      "毛流れ",
+      "ツヤ",
+    ],
+    needTags: [
+      "hairHold",
+      "hairFlow",
+      "hairShine",
+    ],
+
+    amazon: {
+      url: "https://amzn.to/4r7hBao",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "plus-eau-hydro-mist-n",
+    rank: 12,
+    name: "ハイドロミストN",
+    shortName: "ヘアミスト",
+    brand: "plus eau",
+    description:
+      "スタイリング前の髪を扱いやすい状態へ整え、毛流れやまとまりを作りやすくしたいときに取り入れやすいヘアミストです。",
+    category: "hairStyling",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "hairOil",
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/51wPOZLnhUL._AC_SL1500_.jpg",
+    imageAlt:
+      "plus eau ハイドロミストN",
+
+    badges: ["ヘアミスト", "まとまり"],
+    recommendedFor: [
+      "毛流れ",
+      "まとまり",
+      "スタイリング前",
+    ],
+    needTags: [
+      "hairFlow",
+      "hairManageability",
+    ],
+
+    amazon: {
+      url: "https://amzn.to/46nPjip",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "n-homme-gel-balm",
+    rank: 13,
+    name: "オム ジェルバーム",
+    shortName: "ジェルバーム",
+    brand: "N.",
+    description:
+      "自然なツヤと毛流れを作りながら、固めすぎずにスタイルを整えたいときに使いやすいジェルバームです。",
+    category: "hairStyling",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "wax",
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/31Z93UGfjJL._AC_.jpg",
+    imageAlt:
+      "N. オム ジェルバーム",
+
+    badges: ["ジェルバーム", "ツヤ感"],
+    recommendedFor: [
+      "毛流れ",
+      "自然なツヤ",
+      "ナチュラル",
+    ],
+    needTags: [
+      "hairFlow",
+      "hairShine",
+    ],
+
+    amazon: {
+      url: "https://amzn.to/3Ty5AhT",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "n-homme-shea-cream",
+    rank: 14,
+    name: "オム シアクリーム",
+    shortName: "ヘアクリーム",
+    brand: "N.",
+    description:
+      "やわらかな質感を残しながら毛流れやまとまりを整え、自然なスタイルを作りたいときに使いやすいヘアクリームです。",
+    category: "hairStyling",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "wax",
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/21jMft9GYXL._AC_.jpg",
+    imageAlt:
+      "N. オム シアクリーム",
+
+    badges: ["ヘアクリーム", "ナチュラル"],
+    recommendedFor: [
+      "毛流れ",
+      "まとまり",
+      "自然な質感",
+    ],
+    needTags: [
+      "hairFlow",
+      "hairManageability",
+    ],
+
+    amazon: {
+      url: "https://amzn.to/4xXrtpU",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "kantan-series-yurutaba",
+    rank: 15,
+    name: "カンタンシリーズ ゆるたば",
+    shortName: "ヘアワックス",
+    brand: "KANTANSERIES",
+    description:
+      "自然な束感や毛流れを作りながら、作り込みすぎないスタイルを目指したいときに使いやすいスタイリング剤です。",
+    category: "hairStyling",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "wax",
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/61882R-evKL._AC_SL1500_.jpg",
+    imageAlt:
+      "KANTANSERIES カンタンシリーズ ゆるたば",
+
+    badges: ["ワックス", "束感"],
+    recommendedFor: [
+      "毛流れ",
+      "束感",
+      "ナチュラル",
+    ],
+    needTags: [
+      "hairFlow",
+      "hairHold",
+    ],
+
+    amazon: {
+      url: "https://amzn.to/4y3SurJ",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "deuxer-dry-paste-wax-6",
+    rank: 16,
+    name: "ドライペーストワックス 6",
+    shortName: "ヘアワックス",
+    brand: "DEUXER",
+    description:
+      "ツヤを抑えた質感で、立体感や束感を出しながら髪型をしっかりキープしたいときに使いやすいワックスです。",
+    category: "hairStyling",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "wax",
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/41i8eS9xVAL._AC_SL1000_.jpg",
+    imageAlt:
+      "DEUXER ドライペーストワックス 6",
+
+    badges: ["ドライワックス", "キープ"],
+    recommendedFor: [
+      "束感",
+      "立ち上げ",
+      "キープ力",
+    ],
+    needTags: [
+      "hairHold",
+      "hairFlow",
+    ],
+
+    amazon: {
+      url: "https://amzn.to/3SKa7O5",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "gatsby-metalubber-wax-hard",
+    rank: 17,
+    name: "メタラバー ワックス ハード",
+    shortName: "ヘアワックス",
+    brand: "GATSBY",
+    description:
+      "髪に動きや束感をつけながら、作ったスタイルをしっかりキープしたいときに使いやすいハードタイプのワックスです。",
+    category: "hairStyling",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "wax",
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/51JDPMBUvTL._AC_SL1302_.jpg",
+    imageAlt:
+      "GATSBY メタラバー ワックス ハード",
+
+    badges: ["ハードワックス", "キープ"],
+    recommendedFor: [
+      "束感",
+      "動き",
+      "キープ力",
+    ],
+    needTags: [
+      "hairHold",
+      "hairFlow",
+    ],
+
+    amazon: {
+      url: "https://amzn.to/4hq4UUT",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "product-hair-wax",
+    rank: 18,
+    name: "ヘアワックス",
+    shortName: "ヘアワックス",
+    brand: "product",
+    description:
+      "自然なツヤとまとまりを加えながら、毛流れを活かしたナチュラルなスタイルを作りたいときに使いやすいヘアワックスです。",
+    category: "hairStyling",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "wax",
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/71PmxKn3U7L._AC_SL1500_.jpg",
+    imageAlt:
+      "product ザ・プロダクト ヘアワックス",
+
+    badges: ["ヘアワックス", "自然なツヤ"],
+    recommendedFor: [
+      "毛流れ",
+      "ツヤ",
+      "まとまり",
+    ],
+    needTags: [
+      "hairFlow",
+      "hairShine",
+      "hairManageability",
+    ],
+
+    amazon: {
+      url: "https://amzn.to/4h5gZgX",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "cool-grease-g",
+    rank: 19,
+    name: "クールグリース G",
+    shortName: "ヘアグリース",
+    brand: "阪本高生堂",
+    description:
+      "濡れたようなツヤ感を出しながら、毛流れやスタイルを整えたいときに使いやすいグリースタイプのスタイリング剤です。",
+    category: "hairStyling",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "wax",
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/61lZ22DDIrL._AC_SL1000_.jpg",
+    imageAlt:
+      "阪本高生堂 クールグリース G",
+
+    badges: ["グリース", "ツヤ感"],
+    recommendedFor: [
+      "濡れ髪",
+      "ツヤ",
+      "毛流れ",
+    ],
+    needTags: [
+      "hairShine",
+      "hairFlow",
+      "hairHold",
+    ],
+
+    amazon: {
+      url: "https://amzn.to/4rb7ilB",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "ocean-trico-hair-styling-wax-air",
+    rank: 20,
+    name: "ヘアスタイリングワックス エアー",
+    shortName: "ヘアワックス",
+    brand: "OCEAN TRICO",
+    description:
+      "ふんわりした動きや軽い束感を作りながら、自然なシルエットへ整えたいときに使いやすいヘアワックスです。",
+    category: "hairStyling",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "wax",
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/41JD0Oo7tNL._AC_SL1000_.jpg",
+    imageAlt:
+      "OCEAN TRICO ヘアスタイリングワックス エアー",
+
+    badges: ["ワックス", "ふんわり"],
+    recommendedFor: [
+      "毛流れ",
+      "束感",
+      "軽い仕上がり",
+    ],
+    needTags: [
+      "hairFlow",
+      "hairHold",
+    ],
+
+    amazon: {
+      url: "https://amzn.to/3UMg3qo",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "lipps-hard-active-wax",
+    rank: 21,
+    name: "ハードアクティブワックス",
+    shortName: "ヘアワックス",
+    brand: "LIPPS",
+    description:
+      "髪に動きや立体感を出しながら、作った毛流れや束感をしっかりキープしたいときに使いやすいハードワックスです。",
+    category: "hairStyling",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "wax",
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/61qLf-qz3kL._AC_SL1500_.jpg",
+    imageAlt:
+      "LIPPS ハードアクティブワックス",
+
+    badges: ["ハードワックス", "束感"],
+    recommendedFor: [
+      "キープ力",
+      "束感",
+      "毛流れ",
+    ],
+    needTags: [
+      "hairHold",
+      "hairFlow",
+    ],
+
+    amazon: {
+      url: "https://amzn.to/3VschCC",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "modenica-natural-j",
+    rank: 22,
+    name: "ナチュラル J",
+    shortName: "スタイリング剤",
+    brand: "MODENICA",
+    description:
+      "自然なツヤと毛流れを活かしながら、固めすぎないナチュラルなスタイルへ整えたいときに使いやすいスタイリング剤です。",
+    category: "hairStyling",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "wax",
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/71vv6fV9IDL._AC_SL1500_.jpg",
+    imageAlt:
+      "MODENICA ナチュラル J",
+
+    badges: ["ナチュラル", "ツヤ感"],
+    recommendedFor: [
+      "毛流れ",
+      "自然なツヤ",
+      "ナチュラル",
+    ],
+    needTags: [
+      "hairFlow",
+      "hairShine",
+    ],
+
+    amazon: {
+      url: "https://amzn.to/46oTomr",
+    },
+
+    isActive: true,
+  },
+
   // ヘアケア（追加商品）
   {
     id: "the-answer-seasonal-care-ss-shampoo",
@@ -1525,6 +2880,523 @@ imageAlt:
     isActive: true,
   },
 
+  {
+    id: "reden-hybrid-shampoo",
+    rank: 11,
+    name: "ハイブリッドシャンプー",
+    shortName: "シャンプー",
+    brand: "REDEN",
+    description:
+      "毎日の洗髪で髪をすっきり洗いながら、扱いやすい状態へ整えたい人に取り入れやすいシャンプーです。",
+    category: "hairCare",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "lotion",
+
+    badges: ["シャンプー", "毎日ケア"],
+    recommendedFor: [
+      "毎日のヘアケア",
+      "まとまり",
+      "扱いやすさ",
+    ],
+    needTags: [
+      "hairManageability",
+    ],
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/61majl8a5XL._AC_SL1500_.jpg",
+    imageAlt:
+      "REDEN ハイブリッドシャンプー",
+
+    amazon: {
+      url: "https://amzn.to/3UTFBBR",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "maro17-perfect-wash-shampoo-black",
+    rank: 12,
+    name: "シャンプー パーフェクトウォッシュシャンプー ブラック",
+    shortName: "シャンプー",
+    brand: "MARO17",
+    description:
+      "髪をすっきり洗い上げながら、毎日のヘアケアを習慣化したい人に取り入れやすいシャンプーです。",
+    category: "hairCare",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "lotion",
+
+    badges: ["シャンプー", "メンズ"],
+    recommendedFor: [
+      "毎日のヘアケア",
+      "洗髪",
+      "扱いやすさ",
+    ],
+    needTags: [
+      "hairManageability",
+    ],
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/71rO5uLO73L._AC_SL1500_.jpg",
+    imageAlt:
+      "MARO17 シャンプー パーフェクトウォッシュシャンプー ブラック",
+
+    amazon: {
+      url: "https://amzn.to/3UPUrcE",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "bulk-homme-the-shampoo",
+    rank: 13,
+    name: "THE SHAMPOO",
+    shortName: "シャンプー",
+    brand: "BULK HOMME",
+    description:
+      "毎日の洗髪で髪を清潔に保ちながら、まとまりや扱いやすさも意識したい人に取り入れやすいシャンプーです。",
+    category: "hairCare",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "lotion",
+
+    badges: ["シャンプー", "メンズ"],
+    recommendedFor: [
+      "毎日のヘアケア",
+      "まとまり",
+      "扱いやすさ",
+    ],
+    needTags: [
+      "hairManageability",
+    ],
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/61TB0lzvSPL._AC_SL1500_.jpg",
+    imageAlt:
+      "BULK HOMME THE SHAMPOO",
+
+    amazon: {
+      url: "https://amzn.to/4hp7pqq",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "the-public-organic-super-shiny-shampoo",
+    rank: 14,
+    name: "スーパーシャイニー 精油シャンプー",
+    shortName: "シャンプー",
+    brand: "THE PUBLIC ORGANIC",
+    description:
+      "髪のパサつきやまとまりにくさが気になるときに、ツヤのある扱いやすい髪を目指して取り入れやすいシャンプーです。",
+    category: "hairCare",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "lotion",
+
+    badges: ["シャンプー", "ツヤケア"],
+    recommendedFor: [
+      "パサつき",
+      "まとまり",
+      "ツヤ",
+    ],
+    needTags: [
+      "hairRepair",
+      "hairManageability",
+    ],
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/41qSqdKsC2L._AC_SL1080_.jpg",
+    imageAlt:
+      "THE PUBLIC ORGANIC スーパーシャイニー 精油シャンプー",
+
+    amazon: {
+      url: "https://amzn.to/4gONmBI",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "milbon-elujuda-emulsion-plus",
+    rank: 15,
+    name: "エルジューダ エマルジョン+",
+    shortName: "ヘアミルク",
+    brand: "ミルボン",
+    description:
+      "乾燥やパサつきが気になる髪をケアしながら、やわらかくまとまりやすい状態へ整えたいときに使いやすいヘアミルクです。",
+    category: "hairCare",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "hairOil",
+
+    badges: ["ヘアミルク", "ダメージケア"],
+    recommendedFor: [
+      "乾燥",
+      "パサつき",
+      "まとまり",
+    ],
+    needTags: [
+      "hairRepair",
+      "hairManageability",
+    ],
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/61eJneWI01L._AC_SL1316_.jpg",
+    imageAlt:
+      "ミルボン エルジューダ エマルジョン+",
+
+    amazon: {
+      url: "https://amzn.to/4iLkoEj",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "orbis-essence-in-hair-milk",
+    rank: 16,
+    name: "エッセンスインヘアミルク",
+    shortName: "ヘアミルク",
+    brand: "ORBIS",
+    description:
+      "乾燥やダメージによるパサつきをケアしながら、指通りのよいまとまりやすい髪へ整えたいときに使いやすいヘアミルクです。",
+    category: "hairCare",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "hairOil",
+
+    badges: ["ヘアミルク", "まとまり"],
+    recommendedFor: [
+      "ダメージ",
+      "パサつき",
+      "指通り",
+    ],
+    needTags: [
+      "hairRepair",
+      "hairManageability",
+    ],
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/41+UMFS-W3L._AC_SL1500_.jpg",
+    imageAlt:
+      "ORBIS エッセンスインヘアミルク",
+
+    amazon: {
+      url: "https://amzn.to/4rdkk2j",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "kerastase-nu-soin-oleo-relax",
+    rank: 17,
+    name: "NU ソワン オレオ リラックス",
+    shortName: "ヘアトリートメント",
+    brand: "KERASTASE",
+    description:
+      "広がりやまとまりにくさが気になる髪を、扱いやすくなめらかな状態へ整えたいときに取り入れやすいヘアトリートメントです。",
+    category: "hairCare",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "hairOil",
+
+    badges: ["トリートメント", "まとまり"],
+    recommendedFor: [
+      "広がり",
+      "まとまり",
+      "扱いやすさ",
+    ],
+    needTags: [
+      "hairManageability",
+      "hairRepair",
+    ],
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/71733umr-AL._AC_SL1500_.jpg",
+    imageAlt:
+      "ケラスターゼ NU ソワン オレオ リラックス",
+
+    amazon: {
+      url: "https://amzn.to/4imw2oO",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "milbon-deesse-elujuda-mo",
+    rank: 18,
+    name: "ディーセス エルジューダ MO",
+    shortName: "ヘアオイル",
+    brand: "ミルボン",
+    description:
+      "髪の硬さやまとまりにくさが気になるときに、やわらかく扱いやすい状態へ整えたい人に使いやすいヘアオイルです。",
+    category: "hairCare",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "hairOil",
+
+    badges: ["ヘアオイル", "まとまり"],
+    recommendedFor: [
+      "まとまり",
+      "扱いやすさ",
+      "パサつき",
+    ],
+    needTags: [
+      "hairManageability",
+      "hairRepair",
+    ],
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/61dCSa+-UvL._AC_SL1000_.jpg",
+    imageAlt:
+      "ミルボン ディーセス エルジューダ MO",
+
+    amazon: {
+      url: "https://amzn.to/4rb7QIb",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "and-honey-deep-moist-hair-oil-3",
+    rank: 19,
+    name: "ディープモイスト ヘアオイル 3.0",
+    shortName: "ヘアオイル",
+    brand: "&honey",
+    description:
+      "乾燥やパサつきが気になる髪にツヤとまとまりを与え、扱いやすい状態へ整えたいときに使いやすいヘアオイルです。",
+    category: "hairCare",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "hairOil",
+
+    badges: ["ヘアオイル", "保湿ケア"],
+    recommendedFor: [
+      "乾燥",
+      "パサつき",
+      "まとまり",
+    ],
+    needTags: [
+      "hairRepair",
+      "hairManageability",
+    ],
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/71YYYGhvMLL._AC_SL1500_.jpg",
+    imageAlt:
+      "&honey ディープモイスト ヘアオイル 3.0",
+
+    amazon: {
+      url: "https://amzn.to/4iLktb5",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "fino-premium-touch-hair-mask",
+    rank: 20,
+    name: "プレミアムタッチ 濃厚美容液ヘアマスク",
+    shortName: "ヘアマスク",
+    brand: "fino",
+    description:
+      "髪のダメージやパサつきが気になるときの集中ケアとして、なめらかでまとまりやすい髪を目指して使いやすいヘアマスクです。",
+    category: "hairCare",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "lotion",
+
+    badges: ["ヘアマスク", "集中ケア"],
+    recommendedFor: [
+      "ダメージ",
+      "パサつき",
+      "まとまり",
+    ],
+    needTags: [
+      "hairRepair",
+      "hairManageability",
+    ],
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/41FtC8LF79L._AC_.jpg",
+    imageAlt:
+      "フィーノ プレミアムタッチ 濃厚美容液ヘアマスク",
+
+    amazon: {
+      url: "https://amzn.to/4xsjCPT",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "essential-cuticle-coat-oil",
+    rank: 21,
+    name: "キューティクルコートオイル",
+    shortName: "ヘアオイル",
+    brand: "Essential",
+    description:
+      "毛先のパサつきやまとまりにくさが気になるときに、ツヤのある扱いやすい髪へ整えたい人に取り入れやすいヘアオイルです。",
+    category: "hairCare",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "hairOil",
+
+    badges: ["ヘアオイル", "ツヤケア"],
+    recommendedFor: [
+      "毛先",
+      "パサつき",
+      "まとまり",
+    ],
+    needTags: [
+      "hairRepair",
+      "hairManageability",
+    ],
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/716YRJQNaCL._AC_SL1500_.jpg",
+    imageAlt:
+      "エッセンシャル キューティクルコートオイル",
+
+    amazon: {
+      url: "https://amzn.to/4isIALw",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "pantene-miracles-moisture-boost-milk-water-serum",
+    rank: 22,
+    name: "ミラクルズ うるおいブースト ミルクウォーターセラム",
+    shortName: "ヘアセラム",
+    brand: "PANTENE",
+    description:
+      "乾燥やパサつきが気になる髪をケアしながら、まとまりやすく扱いやすい状態へ整えたいときに使いやすいヘアセラムです。",
+    category: "hairCare",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "hairOil",
+
+    badges: ["ヘアセラム", "うるおい"],
+    recommendedFor: [
+      "乾燥",
+      "パサつき",
+      "まとまり",
+    ],
+    needTags: [
+      "hairRepair",
+      "hairManageability",
+    ],
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/510LC3McbML._AC_SL1500_.jpg",
+    imageAlt:
+      "パンテーン ミラクルズ うるおいブースト ミルクウォーターセラム",
+
+    amazon: {
+      url: "https://amzn.to/3Ty6efj",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "lucido-l-oil-treatment-ex-hair-oil",
+    rank: 23,
+    name: "オイルトリートメント #EXヘアオイル",
+    shortName: "ヘアオイル",
+    brand: "LUCIDO-L",
+    description:
+      "乾燥やパサつきのある髪にツヤとまとまりを与え、スタイリングしやすい状態へ整えたいときに使いやすいヘアオイルです。",
+    category: "hairCare",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "hairOil",
+
+    badges: ["ヘアオイル", "まとまり"],
+    recommendedFor: [
+      "パサつき",
+      "ツヤ",
+      "まとまり",
+    ],
+    needTags: [
+      "hairRepair",
+      "hairManageability",
+    ],
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/51XuuKpGa+L._AC_SL1500_.jpg",
+    imageAlt:
+      "LUCIDO-L オイルトリートメント #EXヘアオイル",
+
+    amazon: {
+      url: "https://amzn.to/3T8hhf5",
+    },
+
+    isActive: true,
+  },
+
   // メンズメイク（追加商品）
   {
     id: "objet-natural-cover-foundation",
@@ -1719,6 +3591,327 @@ imageAlt:
 
     amazon: {
       url: "https://amzn.to/4zr0Omy",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "mens-biore-one-bb-uv-cream",
+    rank: 11,
+    name: "BB&UVクリーム",
+    shortName: "BBクリーム",
+    brand: "メンズビオレONE",
+    description:
+      "肌の色ムラや青ヒゲを自然に補正しながら、紫外線対策もまとめて行いたい男性に使いやすいBBクリームです。",
+    category: "mensMakeup",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "sunscreen",
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/81HzUxm9p4L._AC_SL1500_.jpg",
+    imageAlt:
+      "メンズビオレONE BB&UVクリーム",
+
+    badges: ["BBクリーム", "UVケア"],
+    recommendedFor: [
+      "肌補正",
+      "青ヒゲ",
+      "紫外線対策",
+    ],
+    needTags: [
+      "skinToneCorrection",
+      "beardShadowCover",
+      "uvProtection",
+    ],
+
+    amazon: {
+      url: "https://amzn.to/46mvacG",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "moist-labo-bb-essence-cream",
+    rank: 12,
+    name: "BBエッセンスクリーム",
+    shortName: "BBクリーム",
+    brand: "モイストラボ",
+    description:
+      "肌の色ムラや気になる部分を自然にカバーしながら、うるおい感のある仕上がりを目指したいときに使いやすいBBクリームです。",
+    category: "mensMakeup",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "sunscreen",
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/41zmCHfMI8L._AC_.jpg",
+    imageAlt:
+      "モイストラボ BBエッセンスクリーム",
+
+    badges: ["BBクリーム", "肌補正"],
+    recommendedFor: [
+      "色ムラ",
+      "肌補正",
+      "自然な仕上がり",
+    ],
+    needTags: [
+      "skinToneCorrection",
+      "beardShadowCover",
+    ],
+
+    amazon: {
+      url: "https://amzn.to/3UNZzhr",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "esprique-cool-touch-bb-spray-uv-50",
+    rank: 13,
+    name: "冷感タッチ BBスプレー UV 50",
+    shortName: "BBスプレー",
+    brand: "ESPRIQUE",
+    description:
+      "肌の色ムラを補正しながら紫外線対策も行い、暑い時期にも使いやすいスプレータイプのBBアイテムです。",
+    category: "mensMakeup",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "sunscreen",
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/61PpZfqPBeL._AC_SL1500_.jpg",
+    imageAlt:
+      "ESPRIQUE 冷感タッチ BBスプレー UV 50",
+
+    badges: ["BBスプレー", "UVケア"],
+    recommendedFor: [
+      "肌補正",
+      "紫外線対策",
+      "暑い季節",
+    ],
+    needTags: [
+      "skinToneCorrection",
+      "uvProtection",
+    ],
+
+    amazon: {
+      url: "https://amzn.to/4j2FhL3",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "orbis-mr-base-color-controller",
+    rank: 14,
+    name: "ベースカラー コントローラー",
+    shortName: "化粧下地",
+    brand: "ORBIS Mr.",
+    description:
+      "肌の色ムラやくすみを自然に整え、メイク感を強く出さずに清潔感のある肌印象を目指したい男性向けの化粧下地です。",
+    category: "mensMakeup",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "sunscreen",
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/41ZOgEnG8ZL._AC_SL1000_.jpg",
+    imageAlt:
+      "ORBIS Mr. ベースカラー コントローラー",
+
+    badges: ["化粧下地", "男性向け"],
+    recommendedFor: [
+      "色ムラ",
+      "くすみ",
+      "自然な肌補正",
+    ],
+    needTags: [
+      "skinToneCorrection",
+    ],
+
+    amazon: {
+      url: "https://amzn.to/4xZebJE",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "menz-basic-bb-cream",
+    rank: 15,
+    name: "BBクリーム",
+    shortName: "BBクリーム",
+    brand: "Menz Basic",
+    description:
+      "青ヒゲやニキビ跡、肌の色ムラなどを自然にカバーし、清潔感のある肌印象へ整えたい男性に使いやすいBBクリームです。",
+    category: "mensMakeup",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "sunscreen",
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/715gt9FIBrL._AC_SL1500_.jpg",
+    imageAlt:
+      "Menz Basic BBクリーム",
+
+    badges: ["BBクリーム", "男性向け"],
+    recommendedFor: [
+      "青ヒゲ",
+      "ニキビ跡",
+      "肌補正",
+    ],
+    needTags: [
+      "beardShadowCover",
+      "skinToneCorrection",
+    ],
+
+    amazon: {
+      url: "https://amzn.to/4hp7D0K",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "holo-bell-sunblock-moist-bb",
+    rank: 16,
+    name: "サンブロック保湿BB",
+    shortName: "BBクリーム",
+    brand: "HOLO BELL",
+    description:
+      "肌を自然に補正しながら、紫外線対策と保湿もまとめて行いたい男性に取り入れやすいBBクリームです。",
+    category: "mensMakeup",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "sunscreen",
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/517DxJc+I7L._AC_SL1000_.jpg",
+    imageAlt:
+      "HOLO BELL サンブロック保湿BB",
+
+    badges: ["BBクリーム", "UVケア"],
+    recommendedFor: [
+      "肌補正",
+      "紫外線対策",
+      "乾燥",
+    ],
+    needTags: [
+      "skinToneCorrection",
+      "beardShadowCover",
+      "uvProtection",
+    ],
+
+    amazon: {
+      url: "https://amzn.to/4h6QK9Y",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "the-future-skin-cover-concealer",
+    rank: 17,
+    name: "スキンカバーコンシーラー",
+    shortName: "コンシーラー",
+    brand: "THE FUTURE",
+    description:
+      "青ヒゲやニキビ跡など、気になる部分をピンポイントで自然に補正したい男性に使いやすいコンシーラーです。",
+    category: "mensMakeup",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "sunscreen",
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/71fHrW7M5aL._AC_SL1500_.jpg",
+    imageAlt:
+      "THE FUTURE スキンカバーコンシーラー",
+
+    badges: ["コンシーラー", "男性向け"],
+    recommendedFor: [
+      "青ヒゲ",
+      "ニキビ跡",
+      "部分補正",
+    ],
+    needTags: [
+      "beardShadowCover",
+      "skinToneCorrection",
+    ],
+
+    amazon: {
+      url: "https://amzn.to/3UQ3XMW",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "mulc-natural-bb-cream",
+    rank: 18,
+    name: "ナチュラルBBクリーム",
+    shortName: "BBクリーム",
+    brand: "MULC",
+    description:
+      "肌の色ムラや青ヒゲを自然にカバーし、メイク感を抑えながら清潔感のある肌印象へ整えたい男性向けのBBクリームです。",
+    category: "mensMakeup",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "sunscreen",
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/61eyxIvIzlL._AC_SL1500_.jpg",
+    imageAlt:
+      "MULC ムルク ナチュラルBBクリーム",
+
+    badges: ["BBクリーム", "男性向け"],
+    recommendedFor: [
+      "青ヒゲ",
+      "色ムラ",
+      "自然な肌補正",
+    ],
+    needTags: [
+      "beardShadowCover",
+      "skinToneCorrection",
+    ],
+
+    amazon: {
+      url: "https://amzn.to/4rdkuXt",
     },
 
     isActive: true,
@@ -2037,6 +4230,403 @@ imageAlt:
 
     isActive: true,
   },
+
+  {
+    id: "hermes-un-jardin-sur-le-nil-eau-de-toilette",
+    rank: 11,
+    name: "ナイルの庭 オードトワレ",
+    shortName: "香水",
+    brand: "HERMÈS",
+    description:
+      "爽やかでみずみずしい香りを取り入れ、清潔感のある印象を演出したいときに使いやすいフレグランスです。",
+    category: "other",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "fragrance",
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/41+JDYk38tL._AC_SL1024_.jpg",
+    imageAlt:
+      "HERMÈS ナイルの庭 オードトワレ",
+
+    badges: ["フレグランス", "爽やか"],
+    recommendedFor: ["爽やかな香り", "清潔感", "日常使い"],
+    needTags: [],
+
+    amazon: {
+      url: "https://amzn.to/4j2yKQw",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "reden-fragrance-marine-musk",
+    rank: 12,
+    name: "フレグランス マリンムスク",
+    shortName: "香水",
+    brand: "REDEN",
+    description:
+      "爽やかなマリンムスク系の香りで、日常の身だしなみに自然な香りを取り入れたい人向けのフレグランスです。",
+    category: "other",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "fragrance",
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/51jvscUol+L._AC_SL1200_.jpg",
+    imageAlt:
+      "REDEN フレグランス マリンムスク",
+
+    badges: ["フレグランス", "マリンムスク"],
+    recommendedFor: ["爽やかな香り", "日常使い", "清潔感"],
+    needTags: [],
+
+    amazon: {
+      url: "https://amzn.to/4yvFgnq",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "chanel-bleu-de-chanel-eau-de-toilette",
+    rank: 13,
+    name: "ブルー ドゥ シャネル オードゥ トワレット",
+    shortName: "香水",
+    brand: "CHANEL",
+    description:
+      "爽やかさと落ち着きを感じる香りで、大人っぽく洗練された印象を演出したいときに取り入れやすいフレグランスです。",
+    category: "other",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "fragrance",
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/41-EeivEWmL._AC_.jpg",
+    imageAlt:
+      "CHANEL ブルー ドゥ シャネル オードゥ トワレット",
+
+    badges: ["フレグランス", "大人向け"],
+    recommendedFor: ["大人っぽい香り", "清潔感", "特別な日"],
+    needTags: [],
+
+    amazon: {
+      url: "https://amzn.to/4hp02zo",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "dior-sauvage-eau-de-parfum",
+    rank: 14,
+    name: "ソヴァージュ オードパルファム",
+    shortName: "香水",
+    brand: "Dior",
+    description:
+      "存在感のある香りで、大人っぽさや洗練された印象を演出したいときに取り入れやすいフレグランスです。",
+    category: "other",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "fragrance",
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/41ZCRLySRUL._AC_.jpg",
+    imageAlt:
+      "Dior ソヴァージュ オードパルファム",
+
+    badges: ["フレグランス", "大人向け"],
+    recommendedFor: ["大人っぽい香り", "存在感", "特別な日"],
+    needTags: [],
+
+    amazon: {
+      url: "https://amzn.to/4de6tTo",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "mondahmin-night-clear-mouthwash",
+    rank: 15,
+    name: "ナイトクリア マウスウォッシュ",
+    shortName: "マウスウォッシュ",
+    brand: "モンダミン",
+    description:
+      "就寝前のオーラルケアに取り入れ、口内を清潔に保ちたいときに使いやすいマウスウォッシュです。",
+    category: "other",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "toothbrush",
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/61+Frwk1dGL._AC_SL1500_.jpg",
+    imageAlt:
+      "モンダミン ナイトクリア マウスウォッシュ",
+
+    badges: ["オーラルケア", "就寝前"],
+    recommendedFor: ["口臭", "口内ケア", "就寝前"],
+    needTags: [],
+
+    amazon: {
+      url: "https://amzn.to/4h3mqwJ",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "clinica-quick-wash",
+    rank: 16,
+    name: "クイックウォッシュ",
+    shortName: "マウスウォッシュ",
+    brand: "クリニカ",
+    description:
+      "歯磨きが難しい場面でも口内をすっきり整えたいときに取り入れやすいマウスウォッシュです。",
+    category: "other",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "toothbrush",
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/719OgesBkkL._AC_SL1500_.jpg",
+    imageAlt:
+      "クリニカ クイックウォッシュ",
+
+    badges: ["オーラルケア", "手軽"],
+    recommendedFor: ["口内ケア", "外出先", "手軽なケア"],
+    needTags: [],
+
+    amazon: {
+      url: "https://amzn.to/4rbcZAd",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "the-breath-co-oral-rinse-mild-mint",
+    rank: 17,
+    name: "オーラルリンス マイルドミント",
+    shortName: "マウスウォッシュ",
+    brand: "The Breath Co.",
+    description:
+      "口臭が気になるときの毎日のオーラルケアに取り入れやすい、マイルドミントタイプのマウスウォッシュです。",
+    category: "other",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "toothbrush",
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/71Ini-puwtL._AC_SL1500_.jpg",
+    imageAlt:
+      "The Breath Co. オーラルリンス マイルドミント",
+
+    badges: ["口臭ケア", "マウスウォッシュ"],
+    recommendedFor: ["口臭", "口内ケア", "毎日ケア"],
+    needTags: [],
+
+    amazon: {
+      url: "https://amzn.to/4gMRa6s",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "mondahmin-premium-care-gold-mint",
+    rank: 18,
+    name: "プレミアムケア ゴールドミント マウスウォッシュ",
+    shortName: "マウスウォッシュ",
+    brand: "モンダミン",
+    description:
+      "毎日の口内ケアをまとめて行い、口元の清潔感を意識したい人に取り入れやすいマウスウォッシュです。",
+    category: "other",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "toothbrush",
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/61R3P2XLY1L._AC_SL1500_.jpg",
+    imageAlt:
+      "モンダミン プレミアムケア ゴールドミント マウスウォッシュ",
+
+    badges: ["オーラルケア", "毎日ケア"],
+    recommendedFor: ["口臭", "口内ケア", "清潔感"],
+    needTags: [],
+
+    amazon: {
+      url: "https://amzn.to/4isGpYa",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "avene-medicated-hand-cream",
+    rank: 19,
+    name: "薬用ハンドクリーム",
+    shortName: "ハンドクリーム",
+    brand: "Avene",
+    description:
+      "乾燥しやすい手肌を保湿し、手元まで清潔感のある印象へ整えたいときに取り入れやすいハンドクリームです。",
+    category: "other",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "lotion",
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/51qAmn4sRiL._AC_SL1500_.jpg",
+    imageAlt:
+      "Avene 薬用ハンドクリーム",
+
+    badges: ["ハンドケア", "保湿"],
+    recommendedFor: ["手元の乾燥", "保湿", "清潔感"],
+    needTags: [],
+
+    amazon: {
+      url: "https://amzn.to/4h5LAuG",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "yuskin-hana-hand-cream",
+    rank: 20,
+    name: "hana ハンドクリーム",
+    shortName: "ハンドクリーム",
+    brand: "ユースキン",
+    description:
+      "乾燥しやすい手肌を保湿しながら、日常の身だしなみとして手元を整えたいときに使いやすいハンドクリームです。",
+    category: "other",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "lotion",
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/51KVsPj+7YL._AC_SL1500_.jpg",
+    imageAlt:
+      "ユースキン hana ハンドクリーム",
+
+    badges: ["ハンドケア", "保湿"],
+    recommendedFor: ["手元の乾燥", "保湿", "日常ケア"],
+    needTags: [],
+
+    amazon: {
+      url: "https://amzn.to/46Vz8Jn",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "8-the-thalasso-u-cbd-refreshing-calm-body-soap",
+    rank: 21,
+    name: "CBD&リフレッシング カーム 美容液ボディソープ",
+    shortName: "ボディソープ",
+    brand: "8 THE THALASSO u",
+    description:
+      "毎日のバスタイムで全身を洗いながら、肌の清潔感を整えたい人に取り入れやすいボディソープです。",
+    category: "other",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "cleanser",
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/81Y2mYo7rEL._AC_SL1500_.jpg",
+    imageAlt:
+      "8 THE THALASSO u CBD&リフレッシング カーム 美容液ボディソープ",
+
+    badges: ["ボディケア", "全身ケア"],
+    recommendedFor: ["全身の清潔感", "ボディケア", "毎日ケア"],
+    needTags: [],
+
+    amazon: {
+      url: "https://amzn.to/4xoC1x4",
+    },
+
+    isActive: true,
+  },
+
+  {
+    id: "maro-body-soap",
+    rank: 22,
+    name: "全身用ボディソープ",
+    shortName: "ボディソープ",
+    brand: "MARO",
+    description:
+      "毎日の入浴で全身をすっきり洗い、男性の身だしなみとして清潔感を整えたいときに使いやすいボディソープです。",
+    category: "other",
+
+    price: null,
+
+    rating: null,
+    reviewCount: null,
+
+    visualType: "cleanser",
+
+    imageUrl:
+      "https://m.media-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T2/images/I/71SJiCWiyXL._AC_SL1500_.jpg",
+    imageAlt:
+      "MARO 全身用ボディソープ",
+
+    badges: ["ボディケア", "男性向け"],
+    recommendedFor: ["全身の清潔感", "ボディケア", "男性向け"],
+    needTags: [],
+
+    amazon: {
+      url: "https://amzn.to/4inZuuF",
+    },
+
+    isActive: true,
+  },
+
 ];
 
 export const categories: CategorySection[] = [

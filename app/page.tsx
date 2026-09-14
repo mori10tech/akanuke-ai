@@ -832,9 +832,9 @@ export default function Home() {
   <div className="site-container">
     <div className="flex items-end justify-between gap-4">
       <div>
-        <p className="text-[10px] font-black tracking-[0.18em] text-[#1677FF]">
-          AKANUKE JOURNAL
-        </p>
+        <p className="whitespace-nowrap text-[clamp(18px,5.5vw,30px)] font-black tracking-[0.12em] text-[#1677FF]">
+  AKANUKE JOURNAL
+</p>
 
         <h2 className="mt-2 text-2xl font-semibold tracking-[-0.04em] sm:text-3xl">
           垢抜けのヒント

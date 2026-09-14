@@ -3882,7 +3882,7 @@ imageAlt:
 
   {
     id: "maison-margiela-fragrance",
-    rank: 20,
+    rank: 14,
     name: "フレグランス",
     shortName: "香水",
     brand: "Maison Margiela",
@@ -3913,7 +3913,7 @@ imageAlt:
 
   {
     id: "marvis-whitening-mint",
-    rank: 4,
+    rank: 9,
     name: "ホワイト・ミント歯磨き粉",
     shortName: "歯磨き粉",
     brand: "MARVIS",
@@ -3944,7 +3944,7 @@ imageAlt:
 
   {
     id: "loccitane-shea-hand-cream",
-    rank: 7,
+    rank: 17,
     name: "カリテコンフォート シア ハンドクリーム",
     shortName: "ハンドクリーム",
     brand: "L'OCCITANE",
@@ -3975,7 +3975,7 @@ imageAlt:
 
   {
     id: "shiro-savon-eau-de-parfum",
-    rank: 12,
+    rank: 2,
     name: "サボン オードパルファン",
     shortName: "香水",
     brand: "SHIRO",
@@ -4006,7 +4006,7 @@ imageAlt:
 
   {
     id: "bvlgari-pour-homme-eau-de-toilette",
-    rank: 13,
+    rank: 8,
     name: "プールオム オードトワレ",
     shortName: "香水",
     brand: "BVLGARI",
@@ -4037,7 +4037,7 @@ imageAlt:
 
   {
     id: "con-cool-f-mouthwash",
-    rank: 3,
+    rank: 5,
     name: "コンクールF",
     shortName: "マウスウォッシュ",
     brand: "Con Cool",
@@ -4068,7 +4068,7 @@ imageAlt:
 
   {
     id: "nonio-mouthwash-splash-citrus-mint",
-    rank: 2,
+    rank: 3,
     name: "マウスウォッシュ スプラッシュシトラスミント",
     shortName: "マウスウォッシュ",
     brand: "NONIO",
@@ -4099,7 +4099,7 @@ imageAlt:
 
   {
     id: "uno-all-in-one-lip-creator",
-    rank: 11,
+    rank: 15,
     name: "オールインワンリップクリエイター",
     shortName: "色付きリップ",
     brand: "uno",
@@ -4130,7 +4130,7 @@ imageAlt:
 
   {
     id: "atrix-beauty-charge-unscented",
-    rank: 5,
+    rank: 7,
     name: "ビューティーチャージ 無香料",
     shortName: "ハンドクリーム",
     brand: "アトリックス",
@@ -4192,7 +4192,7 @@ imageAlt:
 
   {
     id: "hermes-un-jardin-sur-le-nil-eau-de-toilette",
-    rank: 14,
+    rank: 4,
     name: "ナイルの庭 オードトワレ",
     shortName: "香水",
     brand: "HERMÈS",
@@ -4225,7 +4225,7 @@ imageAlt:
 
   {
     id: "reden-fragrance-marine-musk",
-    rank: 15,
+    rank: 12,
     name: "フレグランス マリンムスク",
     shortName: "香水",
     brand: "REDEN",
@@ -4258,7 +4258,7 @@ imageAlt:
 
   {
     id: "chanel-bleu-de-chanel-eau-de-toilette",
-    rank: 21,
+    rank: 6,
     name: "ブルー ドゥ シャネル オードゥ トワレット",
     shortName: "香水",
     brand: "CHANEL",
@@ -4291,7 +4291,7 @@ imageAlt:
 
   {
     id: "dior-sauvage-eau-de-parfum",
-    rank: 22,
+    rank: 10,
     name: "ソヴァージュ オードパルファム",
     shortName: "香水",
     brand: "Dior",
@@ -4324,7 +4324,7 @@ imageAlt:
 
   {
     id: "mondahmin-night-clear-mouthwash",
-    rank: 19,
+    rank: 22,
     name: "ナイトクリア マウスウォッシュ",
     shortName: "マウスウォッシュ",
     brand: "モンダミン",
@@ -4357,7 +4357,7 @@ imageAlt:
 
   {
     id: "clinica-quick-wash",
-    rank: 16,
+    rank: 21,
     name: "クイックウォッシュ",
     shortName: "マウスウォッシュ",
     brand: "クリニカ",
@@ -4390,7 +4390,7 @@ imageAlt:
 
   {
     id: "the-breath-co-oral-rinse-mild-mint",
-    rank: 17,
+    rank: 16,
     name: "オーラルリンス マイルドミント",
     shortName: "マウスウォッシュ",
     brand: "The Breath Co.",
@@ -4456,7 +4456,7 @@ imageAlt:
 
   {
     id: "avene-medicated-hand-cream",
-    rank: 6,
+    rank: 11,
     name: "薬用ハンドクリーム",
     shortName: "ハンドクリーム",
     brand: "Avene",
@@ -4489,7 +4489,7 @@ imageAlt:
 
   {
     id: "yuskin-hana-hand-cream",
-    rank: 8,
+    rank: 19,
     name: "hana ハンドクリーム",
     shortName: "ハンドクリーム",
     brand: "ユースキン",
@@ -4522,7 +4522,7 @@ imageAlt:
 
   {
     id: "8-the-thalasso-u-cbd-refreshing-calm-body-soap",
-    rank: 10,
+    rank: 20,
     name: "CBD&リフレッシング カーム 美容液ボディソープ",
     shortName: "ボディソープ",
     brand: "8 THE THALASSO u",
@@ -4555,7 +4555,7 @@ imageAlt:
 
   {
     id: "maro-body-soap",
-    rank: 9,
+    rank: 13,
     name: "全身用ボディソープ",
     shortName: "ボディソープ",
     brand: "MARO",

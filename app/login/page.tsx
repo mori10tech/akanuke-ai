@@ -617,20 +617,24 @@ export default function LoginPage() {
 
             <div className="mt-3 rounded-[16px] border border-[#1677FF]/10 bg-[#EEF6FF] p-4">
               <p className="text-[12px] font-black text-[#111111]">
-                LINEのログイン画面が表示された場合
+                ※LINEのログイン画面が表示された場合
               </p>
 
               <ol className="mt-3 space-y-2 text-[11px] font-bold leading-5 text-black/80">
                 <li>
-                  ・ 画面下部の「
-                  <span className="font-black text-[#111111]">
-                    LINEアプリでログインする
-                  </span>
-                  」をタップしてください。
-                </li>
+  ・ 画面下部の
+  <br />
+  <span className="pl-3">
+        <span className="font-black text-[#111111]">
+      [LINEアプリでログイン]
+    </span>
+    をタップしてください。
+  </span>
+</li>
 
                 <li>
-                  ・ Instagram・Xなどのアプリ内ブラウザの場合、SafariまたはChromeでこのページを開き直してください。
+                  ・アプリ内ブラウザの場合
+                  <br />　SafariやChromeで開き直してください。
                 </li>
               </ol>
 

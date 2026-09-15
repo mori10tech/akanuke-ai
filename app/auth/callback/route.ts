@@ -47,11 +47,23 @@ function createLoginRedirect(
   const loginUrl =
     request.nextUrl.clone();
 
+  const safeNext =
+    getSafeNext(
+      request.nextUrl.searchParams.get(
+        "next",
+      ),
+    );
+
   loginUrl.pathname =
     "/login";
 
   loginUrl.search =
     "";
+
+  loginUrl.searchParams.set(
+    "next",
+    safeNext,
+  );
 
   if (reason) {
     loginUrl.searchParams.set(
@@ -252,16 +264,22 @@ export async function GET(
       );
 
   if (error) {
-    console.error(
-      "Auth callback error:",
-      error,
-    );
+  console.error(
+    "Auth callback error:",
+    error,
+  );
 
-    return createLoginRedirect(
-      request,
-      "auth_failed",
-    );
-  }
+  const isPkceVerifierMissing =
+    error.name ===
+    "AuthPKCECodeVerifierMissingError";
+
+  return createLoginRedirect(
+    request,
+    isPkceVerifierMissing
+      ? "pkce_missing"
+      : "auth_failed",
+  );
+}
 
   const providerToken =
     data.session

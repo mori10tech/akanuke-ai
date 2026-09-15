@@ -129,6 +129,19 @@ function getBrowserType(
   return "desktop_browser";
 }
 
+function getSafeNext(
+  value: string | null,
+) {
+  if (
+    value?.startsWith("/") &&
+    !value.startsWith("//")
+  ) {
+    return value;
+  }
+
+  return "/dashboard";
+}
+
 export default function LoginPage() {
   const [
     lineLoginUrl,
@@ -149,6 +162,14 @@ export default function LoginPage() {
     setErrorMessage,
   ] =
     useState("");
+
+  const [
+    liffRecoveryUrl,
+    setLiffRecoveryUrl,
+  ] =
+    useState<string | null>(
+      null,
+    );
 
   const [
     copyMessage,
@@ -173,9 +194,7 @@ export default function LoginPage() {
         const environment =
           detectBrowserEnvironment();
 
-        if (
-          !cancelled
-        ) {
+        if (!cancelled) {
           setBrowserEnvironment(
             environment,
           );
@@ -189,6 +208,13 @@ export default function LoginPage() {
         const reason =
           searchParams.get(
             "reason",
+          );
+
+        const safeNext =
+          getSafeNext(
+            searchParams.get(
+              "next",
+            ),
           );
 
         if (
@@ -207,27 +233,31 @@ export default function LoginPage() {
           );
         } else if (
           reason ===
+          "pkce_missing"
+        ) {
+          setErrorMessage(
+            "ブラウザの切り替えによりLINEログインを完了できませんでした。LINEアプリからログインすると続けられます。",
+          );
+
+          const liffId =
+            process.env
+              .NEXT_PUBLIC_LINE_LIFF_ID;
+
+          if (liffId) {
+            setLiffRecoveryUrl(
+              `https://liff.line.me/${liffId}?next=${encodeURIComponent(
+                safeNext,
+              )}`,
+            );
+          }
+        } else if (
+          reason ===
           "auth_failed"
         ) {
           setErrorMessage(
             "LINEログインに失敗しました。もう一度お試しください。",
           );
         }
-
-        const requestedNext =
-          searchParams.get(
-            "next",
-          );
-
-        const safeNext =
-          requestedNext?.startsWith(
-            "/",
-          ) &&
-          !requestedNext.startsWith(
-            "//",
-          )
-            ? requestedNext
-            : "/dashboard";
 
         const supabase =
           createClient();
@@ -283,9 +313,7 @@ export default function LoginPage() {
           );
         }
 
-        if (
-          !cancelled
-        ) {
+        if (!cancelled) {
           setLineLoginUrl(
             data.url,
           );
@@ -300,9 +328,7 @@ export default function LoginPage() {
           error,
         );
 
-        if (
-          !cancelled
-        ) {
+        if (!cancelled) {
           setErrorMessage(
             "LINEログインを開始できませんでした。時間をおいてもう一度お試しください。",
           );
@@ -357,20 +383,12 @@ export default function LoginPage() {
         window.location.search,
       );
 
-    const requestedNext =
-      searchParams.get(
-        "next",
-      );
-
     const safeNext =
-      requestedNext?.startsWith(
-        "/",
-      ) &&
-      !requestedNext.startsWith(
-        "//",
-      )
-        ? requestedNext
-        : "/dashboard";
+      getSafeNext(
+        searchParams.get(
+          "next",
+        ),
+      );
 
     trackEvent(
       "line_login_start",
@@ -385,6 +403,36 @@ export default function LoginPage() {
             "reason",
           ) ??
           "normal",
+
+        next_path:
+          safeNext,
+      },
+    );
+  }
+
+  function handleLiffRecoveryStart() {
+    const searchParams =
+      new URLSearchParams(
+        window.location.search,
+      );
+
+    const safeNext =
+      getSafeNext(
+        searchParams.get(
+          "next",
+        ),
+      );
+
+    trackEvent(
+      "line_login_recovery_start",
+      {
+        recovery_type:
+          "liff",
+
+        browser_type:
+          getBrowserType(
+            browserEnvironment,
+          ),
 
         next_path:
           safeNext,
@@ -412,32 +460,32 @@ export default function LoginPage() {
         />
 
         <div className="px-5 pb-12 pt-6 sm:pt-10">
-  <div className="text-center">
-    <div className="mx-auto flex h-16 w-16 items-center justify-center overflow-hidden rounded-[16px] bg-white shadow-[0_8px_28px_rgba(15,23,42,0.08)] sm:h-20 sm:w-20 sm:rounded-[20px]">
-      <Image
-        src="/icon-512.png"
-        alt="AKANUKE.AI"
-        width={80}
-        height={80}
-        priority
-        className="h-full w-full object-cover"
-      />
-    </div>
+          <div className="text-center">
+            <div className="mx-auto flex h-16 w-16 items-center justify-center overflow-hidden rounded-[16px] bg-white shadow-[0_8px_28px_rgba(15,23,42,0.08)] sm:h-20 sm:w-20 sm:rounded-[20px]">
+              <Image
+                src="/icon-512.png"
+                alt="AKANUKE.AI"
+                width={80}
+                height={80}
+                priority
+                className="h-full w-full object-cover"
+              />
+            </div>
 
-    <p className="mt-4 text-[9px] font-black tracking-[0.16em] text-[#1677FF] sm:mt-6 sm:text-[11px]">
-      WELCOME TO AKANUKE.AI
-    </p>
+            <p className="mt-4 text-[9px] font-black tracking-[0.16em] text-[#1677FF] sm:mt-6 sm:text-[11px]">
+              WELCOME TO AKANUKE.AI
+            </p>
 
-    <h1 className="mt-1.5 text-[23px] font-black leading-[1.2] tracking-[-0.04em] sm:mt-3 sm:text-[28px]">
-      LINEで登録・ログイン
-    </h1>
+            <h1 className="mt-1.5 text-[23px] font-black leading-[1.2] tracking-[-0.04em] sm:mt-3 sm:text-[28px]">
+              LINEで登録・ログイン
+            </h1>
 
-    <p className="mt-1.5 text-[11px] leading-[1.7] text-black/55 sm:mt-3 sm:text-[13px] sm:leading-6">
-      AKANUKE.AIのご利用には、
-      <br />
-      LINE公式アカウントの友だち追加が必要です。
-    </p>
-  </div>
+            <p className="mt-1.5 text-[11px] leading-[1.7] text-black/55 sm:mt-3 sm:text-[13px] sm:leading-6">
+              AKANUKE.AIのご利用には、
+              <br />
+              LINE公式アカウントの友だち追加が必要です。
+            </p>
+          </div>
 
           {showExternalBrowserWarning && (
             <div className="mt-7 rounded-[18px] border border-[#FFD400]/50 bg-[#FFF9D9] p-4">
@@ -508,6 +556,27 @@ export default function LoginPage() {
               </div>
             )}
 
+            {liffRecoveryUrl && (
+              <a
+                href={
+                  liffRecoveryUrl
+                }
+                onClick={
+                  handleLiffRecoveryStart
+                }
+                className="mt-4 flex min-h-[52px] w-full items-center justify-center gap-3 rounded-[12px] border border-[#06C755]/20 bg-[#F1FFF6] px-5 text-[13px] font-black text-[#06A847] transition active:scale-[0.99]"
+              >
+                <span
+                  aria-hidden="true"
+                  className="flex h-7 min-w-7 items-center justify-center rounded-full bg-[#06C755] px-1 text-[8px] font-black text-white"
+                >
+                  LINE
+                </span>
+
+                LINEアプリからログインする
+              </a>
+            )}
+
             {lineLoginUrl ? (
               <a
                 href={
@@ -555,16 +624,15 @@ export default function LoginPage() {
 
               <ol className="mt-3 space-y-2 text-[11px] font-bold leading-5 text-black/80">
                 <li>
-  ・ 画面下部の「
-  <span className="font-black text-[#111111]">
-    LINEアプリでログインする
-  </span>
-  」をタップしてください。
-</li>
+                  ・ 画面下部の「
+                  <span className="font-black text-[#111111]">
+                    LINEアプリでログインする
+                  </span>
+                  」をタップしてください。
+                </li>
 
                 <li>
-                  ・
-                  Instagram・Xなどのアプリ内ブラウザの場合、SafariまたはChromeでこのページを開き直してください。
+                  ・ Instagram・Xなどのアプリ内ブラウザの場合、SafariまたはChromeでこのページを開き直してください。
                 </li>
               </ol>
 

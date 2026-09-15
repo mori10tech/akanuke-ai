@@ -914,11 +914,15 @@ export default function Home() {
         <div className="site-container overflow-hidden rounded-[28px] bg-gradient-to-r from-[#EEF6FF] via-white to-[#EEF6FF] px-6 py-8 sm:px-10">
                     <div className="grid items-center gap-6 lg:mx-auto lg:max-w-[1050px] lg:grid-cols-[minmax(0,1fr)_355px] lg:gap-10">
             <div>
-              <p className="text-2xl font-bold leading-snug sm:text-3xl">
-                変わりたい。最初の一歩を、
-                <br />
-                AKANUKE.AIと始めよう。
-              </p>
+              <p className="font-bold leading-snug">
+  <span className="block whitespace-nowrap text-[clamp(18px,5.2vw,24px)] sm:text-3xl">
+    変わりたい。最初の一歩を、
+  </span>
+
+  <span className="block whitespace-nowrap text-[clamp(18px,5.2vw,24px)] sm:text-3xl">
+    AKANUKE.AIと始めよう。
+  </span>
+</p>
 
               <div className="mt-4 flex flex-wrap gap-4 text-xs font-bold text-black/70">
                 <MiniBenefit icon="clock" label="約1分で完了" />

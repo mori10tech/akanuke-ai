@@ -245,10 +245,10 @@ export default function LoginPage() {
 
           if (liffId) {
             setLiffRecoveryUrl(
-              `https://liff.line.me/${liffId}?next=${encodeURIComponent(
-                safeNext,
-              )}`,
-            );
+  `https://liff.line.me/${liffId}?next=${encodeURIComponent(
+    safeNext,
+  )}&flow=recovery`,
+);
           }
         } else if (
           reason ===

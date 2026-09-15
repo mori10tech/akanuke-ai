@@ -33,7 +33,9 @@ function getSafeNext() {
     );
 
   const requestedNext =
-    searchParams.get("next");
+    searchParams.get(
+      "next",
+    );
 
   if (
     requestedNext &&
@@ -47,6 +49,17 @@ function getSafeNext() {
   return DEFAULT_NEXT;
 }
 
+function getFlow() {
+  const searchParams =
+    new URLSearchParams(
+      window.location.search,
+    );
+
+  return searchParams.get(
+    "flow",
+  );
+}
+
 function getPageTitle(
   path: string,
 ) {
@@ -58,7 +71,7 @@ function getPageTitle(
       return "診断結果";
 
     case "/plan":
-  　　return "垢抜けプラン";
+      return "垢抜けプラン";
 
     case "/products":
       return "おすすめ商品";
@@ -81,7 +94,7 @@ function getPageTitle(
  * リッチメニューから要求されたページと
  * 診断履歴の有無から実際の遷移先を決定する。
  *
- * 診断結果・おすすめ商品は
+ * 診断結果・垢抜けプラン・おすすめ商品は
  * 診断データを前提とするため、
  * 未診断ユーザーは診断画面へ誘導する。
  *
@@ -101,14 +114,14 @@ function resolveNextPath(
       : "/upload";
   }
 
-if (
-  requestedPath ===
-  "/plan"
-) {
-  return hasDiagnosis
-    ? "/plan"
-    : "/upload";
-}
+  if (
+    requestedPath ===
+    "/plan"
+  ) {
+    return hasDiagnosis
+      ? "/plan"
+      : "/upload";
+  }
 
   if (
     requestedPath ===
@@ -152,16 +165,18 @@ export default function LiffPage() {
   const [
     message,
     setMessage,
-  ] = useState(
-    "AKANUKE.AIを準備しています...",
-  );
+  ] =
+    useState(
+      "AKANUKE.AIを準備しています...",
+    );
 
   const [
     pageTitle,
     setPageTitle,
-  ] = useState(
-    "AKANUKE.AI",
-  );
+  ] =
+    useState(
+      "AKANUKE.AI",
+    );
 
   useEffect(() => {
     async function initializeLiff() {
@@ -178,6 +193,13 @@ export default function LiffPage() {
 
         const safeNext =
           getSafeNext();
+
+        const flow =
+          getFlow();
+
+        const isRecoveryFlow =
+          flow ===
+          "recovery";
 
         setPageTitle(
           getPageTitle(
@@ -204,8 +226,7 @@ export default function LiffPage() {
         ) {
           liff.login({
             redirectUri:
-              window.location
-                .href,
+              window.location.href,
           });
 
           return;
@@ -287,20 +308,21 @@ export default function LiffPage() {
         /*
          * LIFFブラウザ内ですでに
          * Supabaseログイン済みの場合。
-         *
-         * 診断結果・おすすめ商品への
-         * アクセスでは診断履歴を確認してから
-         * 遷移先を決定する。
          */
         if (user) {
+          /*
+           * 診断結果・垢抜けプラン・おすすめ商品は
+           * 診断履歴を確認してから
+           * 遷移先を決定する。
+           */
           if (
-  safeNext ===
-    "/line/result" ||
-  safeNext ===
-    "/plan" ||
-  safeNext ===
-    "/products"
-) {
+            safeNext ===
+              "/line/result" ||
+            safeNext ===
+              "/plan" ||
+            safeNext ===
+              "/products"
+          ) {
             setMessage(
               "診断履歴を確認しています...",
             );
@@ -322,28 +344,41 @@ export default function LiffPage() {
           }
 
           /*
- * LINEリッチメニューから
- * AI診断を明示的に開いた場合は、
- * 診断済みユーザーでも再診断画面を表示する。
- */
-if (safeNext === "/upload") {
-  window.location.replace(
-    "/upload?mode=retry",
-  );
+           * 通常のLINEリッチメニューから
+           * 「AI診断」を明示的に開いた場合は、
+           * 診断済みユーザーでも
+           * 再診断画面を表示する。
+           *
+           * PKCEエラーからの復旧の場合は
+           * 再診断扱いにはせず、
+           * 通常の /upload を開く。
+           *
+           * /upload側で診断済みなら
+           * /dashboardへリダイレクトされる。
+           */
+          if (
+            safeNext ===
+            "/upload"
+          ) {
+            window.location.replace(
+              isRecoveryFlow
+                ? "/upload"
+                : "/upload?mode=retry",
+            );
 
-  return;
-}
+            return;
+          }
 
-/*
- * マイページ・メディア・トップなどは
- * 診断履歴に関係なく
- * そのままアクセスする。
- */
-window.location.replace(
-  safeNext,
-);
+          /*
+           * マイページ・メディア・トップなどは
+           * 診断履歴に関係なく
+           * そのままアクセスする。
+           */
+          window.location.replace(
+            safeNext,
+          );
 
-return;
+          return;
         }
 
         setMessage(
@@ -354,13 +389,23 @@ return;
          * Supabase未ログインの場合のみ
          * custom:line OAuthを実行する。
          *
-         * callback側でも
-         * safeNextと診断履歴を確認して
-         * 最終的な遷移先を決定する。
+         * 通常のLIFF経由で /upload を要求した場合は
+         * callback側で再診断として扱う。
+         *
+         * PKCE復旧の場合は
+         * source=liff_recovery として区別し、
+         * 再診断扱いにしない。
          */
+        const callbackSource =
+          isRecoveryFlow
+            ? "liff_recovery"
+            : "liff";
+
         const callbackUrl =
           `${window.location.origin}/auth/callback` +
-          `?source=liff` +
+          `?source=${encodeURIComponent(
+            callbackSource,
+          )}` +
           `&next=${encodeURIComponent(
             safeNext,
           )}`;

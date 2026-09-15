@@ -236,8 +236,8 @@ export default function LoginPage() {
           "pkce_missing"
         ) {
           setErrorMessage(
-            "ブラウザの切り替えによりLINEログインを完了できませんでした。LINEアプリからログインすると続けられます。",
-          );
+  "LINEログインが完了できませんでした。\n下のボタンから もう一度お試しください。",
+);
 
           const liffId =
             process.env
@@ -548,7 +548,7 @@ export default function LoginPage() {
                 role="alert"
                 className="mt-5 rounded-[12px] border border-red-200 bg-red-50 px-4 py-3"
               >
-                <p className="text-[11px] font-bold leading-5 text-red-600">
+                <p className="whitespace-pre-line text-[11px] font-bold leading-5 text-red-600">
                   {
                     errorMessage
                   }
@@ -556,64 +556,62 @@ export default function LoginPage() {
               </div>
             )}
 
-            {liffRecoveryUrl && (
-              <a
-                href={
-                  liffRecoveryUrl
-                }
-                onClick={
-                  handleLiffRecoveryStart
-                }
-                className="mt-4 flex min-h-[52px] w-full items-center justify-center gap-3 rounded-[12px] border border-[#06C755]/20 bg-[#F1FFF6] px-5 text-[13px] font-black text-[#06A847] transition active:scale-[0.99]"
-              >
-                <span
-                  aria-hidden="true"
-                  className="flex h-7 min-w-7 items-center justify-center rounded-full bg-[#06C755] px-1 text-[8px] font-black text-white"
-                >
-                  LINE
-                </span>
+            {liffRecoveryUrl ? (
+  <a
+    href={
+      liffRecoveryUrl
+    }
+    onClick={
+      handleLiffRecoveryStart
+    }
+    className="mt-5 flex min-h-[56px] w-full items-center justify-center gap-3 rounded-[12px] bg-[#06C755] px-5 text-[14px] font-black text-white shadow-[0_10px_34px_rgba(15,23,42,0.08)] transition hover:-translate-y-0.5 active:scale-[0.99]"
+  >
+    <span
+      aria-hidden="true"
+      className="flex h-7 min-w-7 items-center justify-center rounded-full bg-white px-1 text-[8px] font-black text-[#06C755]"
+    >
+      LINE
+    </span>
 
-                LINEアプリからログインする
-              </a>
-            )}
+    LINEアプリからログインする
+  </a>
+) : lineLoginUrl ? (
+  <a
+    href={
+      lineLoginUrl
+    }
+    onClick={
+      handleLineLoginStart
+    }
+    className="mt-5 flex min-h-[56px] w-full items-center justify-center gap-3 rounded-[12px] bg-[#06C755] px-5 text-[14px] font-black text-white shadow-[0_10px_34px_rgba(15,23,42,0.08)] transition hover:-translate-y-0.5 active:scale-[0.99]"
+  >
+    <span
+      aria-hidden="true"
+      className="flex h-7 min-w-7 items-center justify-center rounded-full bg-white px-1 text-[8px] font-black text-[#06C755]"
+    >
+      LINE
+    </span>
 
-            {lineLoginUrl ? (
-              <a
-                href={
-                  lineLoginUrl
-                }
-                onClick={
-                  handleLineLoginStart
-                }
-                className="mt-5 flex min-h-[56px] w-full items-center justify-center gap-3 rounded-[12px] bg-[#06C755] px-5 text-[14px] font-black text-white shadow-[0_10px_34px_rgba(15,23,42,0.08)] transition hover:-translate-y-0.5 active:scale-[0.99]"
-              >
-                <span
-                  aria-hidden="true"
-                  className="flex h-7 min-w-7 items-center justify-center rounded-full bg-white px-1 text-[8px] font-black text-[#06C755]"
-                >
-                  LINE
-                </span>
+    LINEで登録・ログイン
+  </a>
+) : (
+  <button
+    type="button"
+    disabled
+    className="mt-5 flex min-h-[56px] w-full items-center justify-center gap-3 rounded-[12px] bg-[#06C755] px-5 text-[14px] font-black text-white opacity-50 shadow-[0_10px_34px_rgba(15,23,42,0.08)]"
+  >
+    <span
+      aria-hidden="true"
+      className="flex h-7 min-w-7 items-center justify-center rounded-full bg-white px-1 text-[8px] font-black text-[#06C755]"
+    >
+      LINE
+    </span>
 
-                LINEで登録・ログイン
-              </a>
-            ) : (
-              <button
-                type="button"
-                disabled
-                className="mt-5 flex min-h-[56px] w-full items-center justify-center gap-3 rounded-[12px] bg-[#06C755] px-5 text-[14px] font-black text-white opacity-50 shadow-[0_10px_34px_rgba(15,23,42,0.08)]"
-              >
-                <span
-                  aria-hidden="true"
-                  className="flex h-7 min-w-7 items-center justify-center rounded-full bg-white px-1 text-[8px] font-black text-[#06C755]"
-                >
-                  LINE
-                </span>
-
-                {isLineLoading
-                  ? "LINEログインを準備中..."
-                  : "LINEで登録・ログイン"}
-              </button>
-            )}
+    {isLineLoading
+      ? "LINEログインを準備中..."
+      : "LINEで登録・ログイン"}
+  </button>
+)}
 
             <div className="mt-4" />
 

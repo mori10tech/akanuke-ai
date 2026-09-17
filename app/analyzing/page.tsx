@@ -8,7 +8,6 @@ import {
   useState,
 } from "react";
 import AppHeader from "../components/AppHeader";
-import AdSenseAd from "../components/AdSenseAd";
 import { trackEvent } from "../../lib/analytics";
 
 const IMAGE_STORAGE_KEY = "akanukeImage";
@@ -756,13 +755,7 @@ export default function AnalyzingPage() {
               </button>
             </section>
           )}
-
-          <AdSenseAd
-  slot={process.env.NEXT_PUBLIC_ADSENSE_SLOT_RECTANGLE}
-  format="rectangle"
-  className="mt-5"
-/>
-
+          
           <section className="mt-5 overflow-hidden rounded-[18px] border border-black/10 bg-white shadow-[0_10px_34px_rgba(15,23,42,0.05)]">
             <div className="border-b border-black/10 px-4 py-4">
               <h2 className="text-[15px] font-black">

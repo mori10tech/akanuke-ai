@@ -109,7 +109,6 @@ const protectedPagePaths = [
   "/products",
   "/history",
   "/preferences",
-  "/salon",
 ];
 
 const protectedApiPaths = [

@@ -10,34 +10,34 @@ const sections = [
   {
     title: "1. 本ページについて",
     content: (
-  <>
-    <p>
-      本ページは、株式会社レイジェンスが提供する「AKANUKE.AI」における、顔画像、診断データ、AI生成画像その他の個人情報の取扱いについて、サービス固有の内容を補足するものです。
-    </p>
+      <>
+        <p>
+          本ページは、株式会社レイジェンスが提供する「AKANUKE.AI」における、顔画像、診断データ、AI生成画像その他の個人情報の取扱いについて、サービス固有の内容を補足するものです。
+        </p>
 
-    <p>
-      当社の個人情報保護に関する基本方針については、株式会社レイジェンスのプライバシーポリシーをご確認ください。
-    </p>
+        <p>
+          当社の個人情報保護に関する基本方針については、株式会社レイジェンスのプライバシーポリシーをご確認ください。
+        </p>
 
-    <a
-      href="https://www.raygence.co.jp/doc/privacy.pdf"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="flex items-center justify-between gap-4 rounded-[14px] border border-black/10 bg-[#F8FAFC] px-4 py-3 transition-colors hover:bg-[#F1F5F9]"
-    >
-      <span className="text-[12px] font-bold text-black/55">
-        株式会社レイジェンスのプライバシーポリシー
-      </span>
+        <a
+          href="https://www.raygence.co.jp/doc/privacy.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center justify-between gap-4 rounded-[14px] border border-black/10 bg-[#F8FAFC] px-4 py-3 transition-colors hover:bg-[#F1F5F9]"
+        >
+          <span className="text-[12px] font-bold text-black/55">
+            株式会社レイジェンスのプライバシーポリシー
+          </span>
 
-      <span
-        aria-hidden="true"
-        className="shrink-0 text-[14px] font-bold text-[#1677FF]"
-      >
-        →
-      </span>
-    </a>
-  </>
-),
+          <span
+            aria-hidden="true"
+            className="shrink-0 text-[14px] font-bold text-[#1677FF]"
+          >
+            →
+          </span>
+        </a>
+      </>
+    ),
   },
   {
     title: "2. 顔画像の利用目的",
@@ -142,19 +142,19 @@ const sections = [
     ),
   },
   {
-  title: "8. 外部AIサービスへの送信",
-  content: (
-    <>
-      <p>
-        AKANUKE.AIでは、AI診断およびAfter画像生成等の処理を行うため、必要な範囲でユーザーが提供した顔画像その他の情報を外部AIサービスであるOpenAIのサービスへ送信します。
-      </p>
+    title: "8. 外部AIサービスへの送信",
+    content: (
+      <>
+        <p>
+          AKANUKE.AIでは、AI診断およびAfter画像生成等の処理を行うため、必要な範囲でユーザーが提供した顔画像その他の情報を外部AIサービスであるOpenAIのサービスへ送信します。
+        </p>
 
-      <p>
-        この処理は、本サービス提供に必要な業務の委託として行うものです。
-      </p>
-    </>
-  ),
-},
+        <p>
+          この処理は、本サービス提供に必要な業務の委託として行うものです。
+        </p>
+      </>
+    ),
+  },
   {
     title: "9. AI学習への利用",
     content: (
@@ -184,7 +184,53 @@ const sections = [
     ),
   },
   {
-    title: "11. お問い合わせ",
+    title: "11. 広告配信およびCookie等の利用",
+    content: (
+      <>
+        <p>
+          当サービスでは、第三者配信の広告サービス「Google AdSense」を利用しています。
+        </p>
+
+        <p>
+          Googleなどの第三者配信事業者は、Cookieを使用し、ユーザーが当サービスや他のウェブサイトに過去にアクセスした際の情報に基づいて広告を配信する場合があります。
+        </p>
+
+        <p>
+          Googleが広告Cookieを使用することにより、Googleおよびそのパートナーは、当サービスや他のウェブサイトへのアクセス情報に基づいて、ユーザーに適した広告を表示することができます。
+        </p>
+
+        <p>
+          ユーザーは、Googleの広告設定からパーソナライズド広告を無効にすることができます。
+        </p>
+
+        <a
+          href="https://adssettings.google.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 font-bold text-[#1677FF] transition-opacity hover:opacity-70"
+        >
+          Googleの広告設定
+          <span aria-hidden="true">→</span>
+        </a>
+
+        <p>
+          GoogleによるCookie等の利用や、Googleが収集した情報の利用方法については、Googleのポリシーと規約をご確認ください。
+        </p>
+
+        <a
+          href="https://policies.google.com/technologies/partner-sites?hl=ja"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 font-bold text-[#1677FF] transition-opacity hover:opacity-70"
+        >
+          Googleのポリシーと規約
+          <span aria-hidden="true">→</span>
+        </a>
+      </>
+    ),
+  },
+  {
+    title: "12. お問い合わせ",
     content: (
       <>
         <p>

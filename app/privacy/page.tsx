@@ -188,7 +188,7 @@ const sections = [
     content: (
       <>
         <p>
-          当サービスでは、第三者配信の広告サービス「Google AdSense」を利用しています。
+          当サービスでは、広告サービス「Google AdSense」を利用しています。
         </p>
 
         <p>

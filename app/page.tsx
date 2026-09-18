@@ -36,11 +36,11 @@ const websiteStructuredData = {
   "@type": "WebSite",
   name: "AKANUKE.AI",
   alternateName: "メンズ垢抜けAI診断",
-  url: "https://akanukeai.com/",
+  url: "https://akanuke.ai/",
   description:
     "AIがあなたの魅力を分析し、髪型・眉毛・肌・印象から、あなただけの垢抜けプランを提案する男性向け美容AIサービス。",
   image:
-    "https://akanukeai.com/seo/akanuke-ai-search.png",
+    "https://akanuke.ai/seo/akanuke-ai-search.png",
 };
 
 const analysisItems: AnalysisItem[] = [

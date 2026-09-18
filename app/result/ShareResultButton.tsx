@@ -12,7 +12,7 @@ type ShareResultButtonProps = {
 };
 
 const SHARE_URL =
-  "https://akanukeai.com/";
+  "https://akanuke.ai/";
 
 const X_WEB_SHARE_URL =
   "https://x.com/intent/post";

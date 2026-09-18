@@ -4,7 +4,7 @@ type ArticleStructuredDataProps = {
   article: Article;
 };
 
-const BASE_URL = "https://akanukeai.com";
+const BASE_URL = "https://akanuke.ai";
 
 export default function ArticleStructuredData({
   article,

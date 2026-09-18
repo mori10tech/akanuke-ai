@@ -855,7 +855,7 @@ export default async function ArticleDetailPage({
             </Link>
 
             <a
-              href="https://akanukeai.com/privacy"
+              href="https://akanuke.ai/privacy"
               target="_blank"
               rel="noopener noreferrer"
             >

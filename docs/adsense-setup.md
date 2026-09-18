@@ -31,12 +31,12 @@ NEXT_PUBLIC_ADSENSE_SLOT_RECTANGLE=xxxxxxxxxx
 パブリッシャーIDを設定すると、次のURLへGoogle指定形式のads.txtを自動表示します。
 
 ```text
-https://akanukeai.com/ads.txt
+https://akanuke.ai/ads.txt
 ```
 
 ## 4. AdSense側の確認
 
-1. AdSenseの「サイト」で`akanukeai.com`を登録する
+1. AdSenseの「サイト」で`akanuke.ai`を登録する
 2. サイトの所有権確認を行う
 3. 広告ユニットを2つ作成する
 4. 「プライバシーとメッセージ」でGoogleのCMPを設定する

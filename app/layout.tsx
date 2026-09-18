@@ -49,7 +49,7 @@ const ADSENSE_CLIENT =
 export const metadata: Metadata = {
   metadataBase:
     new URL(
-      "https://akanukeai.com",
+      "https://akanuke.ai",
     ),
 
   title:
@@ -91,7 +91,7 @@ export const metadata: Metadata = {
       "AIが、あなただけの垢抜けプランを提案。男性向け美容AIサービス AKANUKE.AI。",
 
     url:
-      "https://akanukeai.com",
+      "https://akanuke.ai",
 
     siteName:
       "AKANUKE.AI",

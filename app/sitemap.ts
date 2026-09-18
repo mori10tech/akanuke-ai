@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 
 import { getAllArticles } from "../data/articles";
 
-const BASE_URL = "https://akanukeai.com";
+const BASE_URL = "https://akanuke.ai";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const articles = getAllArticles();

@@ -7,6 +7,7 @@ import {
   useRef,
   useState,
 } from "react";
+import type { MouseEvent } from "react";
 import Link from "next/link";
 import liff from "@line/liff";
 
@@ -219,62 +220,50 @@ function CheckIcon() {
  * LIFF内では外部ブラウザ、
  * 通常ブラウザでは新規タブで開きます。
  */
-function openExternalProductUrl({
+function handleExternalProductClick({
+  event,
   url,
   product,
   clickPosition,
   featured,
 }: {
+  event: MouseEvent<HTMLAnchorElement>;
   url: string;
   product: Product;
-  clickPosition:
-    | "image"
-    | "button";
+  clickPosition: "image" | "button";
   featured: boolean;
 }) {
-  trackEvent(
-    "product_click",
-    {
-      product_id:
-        product.id,
-
-      product_category:
-        product.category,
-
-      affiliate_provider:
-        "amazon",
-
-      click_position:
-        clickPosition,
-
-      is_ai_pick:
-        featured,
-    },
-  );
+  trackEvent("product_click", {
+    product_id: product.id,
+    product_category: product.category,
+    affiliate_provider: "amazon",
+    click_position: clickPosition,
+    is_ai_pick: featured,
+  });
 
   try {
-    if (
-      liff.isInClient()
-    ) {
+    if (liff.isInClient()) {
+      event.preventDefault();
+
       liff.openWindow({
         url,
         external: true,
       });
-
-      return;
     }
   } catch (error) {
     console.warn(
       "[AKANUKE.AI] LIFF外部ブラウザ起動に失敗しました:",
       error,
     );
-  }
 
-  window.open(
-    url,
-    "_blank",
-    "noopener,noreferrer",
-  );
+    if (event.defaultPrevented) {
+      window.open(
+        url,
+        "_blank",
+        "noopener,noreferrer",
+      );
+    }
+  }
 }
 
 function AffiliateButtons({
@@ -289,31 +278,25 @@ function AffiliateButtons({
 
   return (
     <div className="mt-4">
-      <button
-        type="button"
-        onClick={() =>
-          openExternalProductUrl(
-            {
-              url:
-                product
-                  .amazon
-                  .url,
-
-              product,
-
-              clickPosition:
-                "button",
-
-              featured,
-            },
-          )
+      <a
+        href={product.amazon.url}
+        target="_blank"
+        rel="noopener noreferrer sponsored"
+        onClick={(event) =>
+          handleExternalProductClick({
+            event,
+            url: product.amazon.url,
+            product,
+            clickPosition: "button",
+            featured,
+          })
         }
         className={`${baseClass} w-full bg-[#111111]`}
       >
         Amazonで見る
 
         <ExternalLinkIcon />
-      </button>
+      </a>
     </div>
   );
 }
@@ -370,108 +353,78 @@ function ProductCard({
       ) : null}
 
       <div className="p-4">
-                {product.imageUrl ? (
-          <button
-            type="button"
-            onClick={() =>
-              openExternalProductUrl(
-                {
-                  url:
-                    product
-                      .amazon
-                      .url,
+  {product.imageUrl ? (
+    <a
+      href={product.amazon.url}
+      target="_blank"
+      rel="noopener noreferrer sponsored"
+      onClick={(event) =>
+        handleExternalProductClick({
+          event,
+          url: product.amazon.url,
+          product,
+          clickPosition: "image",
+          featured,
+        })
+      }
+      className="relative mb-4 flex w-full items-center justify-center overflow-hidden rounded-[16px] bg-white p-3"
+      aria-label={`${product.name}をAmazonで見る`}
+    >
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={product.imageUrl}
+        alt={product.imageAlt ?? product.name}
+        className="h-[160px] w-full object-contain"
+      />
+    </a>
+  ) : null}
 
-                  product,
+  <p className="text-[12px] font-black tracking-[0.06em] text-black/65">
+    {product.brand}
+  </p>
 
-                  clickPosition:
-                    "image",
+  <h3
+    className={`mt-1 font-black leading-7 ${
+      featured
+        ? "text-[19px]"
+        : "text-[16px]"
+    }`}
+  >
+    {product.name}
+  </h3>
 
-                  featured,
-                },
-              )
-            }
-            className="relative mb-4 flex w-full items-center justify-center overflow-hidden rounded-[16px] bg-white p-3"
-            aria-label={`${product.name}をAmazonで見る`}
-          >
+  <p className="mt-3 text-[13px] leading-6 text-black/70">
+    {product.description}
+  </p>
 
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={
-                product.imageUrl
-              }
-              alt={
-                product.imageAlt ??
-                product.name
-              }
-              className="h-[160px] w-full object-contain"
-            />
-          </button>
+  {(product.rating && product.reviewCount) ||
+  product.price !== null ? (
+    <div className="mt-4 flex items-end justify-between gap-3 border-t border-black/10 pt-4">
+      <div>
+        {product.rating &&
+        product.reviewCount ? (
+          <>
+            <p className="text-[11px] font-black text-[#111111]">
+              ★ {product.rating}
+            </p>
+
+            <p className="mt-0.5 text-[10px] text-black/55">
+              {product.reviewCount}
+            </p>
+          </>
         ) : null}
+      </div>
 
-        <p className="text-[12px] font-black tracking-[0.06em] text-black/65">
-          {product.brand}
+      {product.price !== null ? (
+        <p className="shrink-0 text-[17px] font-black">
+          ¥{formatPrice(product.price)}
         </p>
-
-        <h3
-          className={`mt-1 font-black leading-7 ${
-            featured
-              ? "text-[19px]"
-              : "text-[16px]"
-          }`}
-        >
-          {product.name}
-        </h3>
-
-        <p className="mt-3 text-[13px] leading-6 text-black/70">
-          {
-            product.description
-          }
-        </p>
-
-        {(product.rating &&
-          product.reviewCount) ||
-        product.price !==
-          null ? (
-          <div className="mt-4 flex items-end justify-between gap-3 border-t border-black/10 pt-4">
-            <div>
-              {product.rating &&
-              product.reviewCount ? (
-                <>
-                  <p className="text-[11px] font-black text-[#111111]">
-                    ★{" "}
-                    {
-                      product.rating
-                    }
-                  </p>
-
-                  <p className="mt-0.5 text-[10px] text-black/55">
-                    {
-                      product.reviewCount
-                    }
-                  </p>
-                </>
-              ) : null}
-            </div>
-
-            {product.price !==
-            null ? (
-              <p className="shrink-0 text-[17px] font-black">
-                ¥
-                {formatPrice(
-                  product.price,
-                )}
-              </p>
-            ) : null}
-          </div>
-        ) : null}
-
-                <div className="mt-4 flex flex-wrap items-center gap-1.5">
-          <span className="inline-flex items-center rounded-[6px] border border-[#1677FF]/25 bg-[#F5F9FF] px-2.5 py-1 text-[10px] font-black leading-none text-[#1677FF]">
-  {
-    productTypeLabels[
-      product.productType
-    ]
-  }
+      ) : null}
+    </div>
+  ) : null}
+          <div className="mt-4 flex flex-wrap items-center gap-1.5">
+  <span className="inline-flex items-center rounded-[6px] border border-[#1677FF]/25 bg-[#F5F9FF] px-2.5 py-1 text-[10px] font-black leading-none text-[#1677FF]">
+  {productTypeLabels[product.productType]}
 </span>
 
           {product.badges

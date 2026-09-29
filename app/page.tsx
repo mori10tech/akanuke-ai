@@ -685,7 +685,7 @@ export default function Home() {
 
 
       {/* 機能紹介後のCTA */}
-<div className="flex justify-center px-6 pb-8 pt-5 sm:px-4 sm:pb-12 sm:pt-12">
+<div className="flex justify-center px-4 pb-8 pt-8 sm:py-10">
   <Link
     href="/upload"
     prefetch={false}

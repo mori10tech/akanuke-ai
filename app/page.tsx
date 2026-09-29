@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import {
+  useEffect,
   useState,
   type ReactNode,
 } from "react";
@@ -442,8 +443,22 @@ export default function Home() {
   const [openFaqIndex, setOpenFaqIndex] =
     useState<number | null>(null);
 
-    const featuredArticles =
-  getAllArticles().slice(0, 3);
+  useEffect(() => {
+    if (window.location.hash) return;
+
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "auto",
+    });
+  }, []);
+
+  const featuredArticles =
+    getAllArticles().slice(0, 3);
 
   const toggleFaq = (index: number) => {
     setOpenFaqIndex((current) =>

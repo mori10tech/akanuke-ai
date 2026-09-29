@@ -893,14 +893,7 @@ export default function Home() {
 
       <footer className="border-t border-black/10 py-8">
         <div className="site-container flex flex-col items-center justify-between gap-5 text-center md:flex-row md:text-left">
-          <div>
-            <p className="font-black tracking-[0.14em]">
-              AKANUKE.AI
-            </p>
-            <p className="text-[8px] font-bold tracking-[0.25em] text-[#1677FF]">
-              MEN&apos;S AI BEAUTY
-            </p>
-          </div>
+          <Logo href="/" />
 
           <div className="flex flex-wrap justify-center gap-x-7 gap-y-3 text-xs font-medium text-black/70">
   

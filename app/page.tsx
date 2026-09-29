@@ -1099,7 +1099,7 @@ function AppFeatureCard({
   feature: AppFeature;
 }) {
   return (
-    <article className="flex min-w-0 flex-col overflow-hidden rounded-[18px] border border-black/[0.07] bg-white shadow-[0_8px_24px_rgba(15,23,42,0.05)] sm:rounded-[22px]">
+    <article className="flex min-w-0 flex-col overflow-hidden rounded-[18px] border border-black/[0.12] bg-white shadow-[0_8px_24px_rgba(15,23,42,0.05)] sm:rounded-[22px]">
       <div className="flex flex-1 flex-col px-3 pb-3 pt-4 sm:px-5 sm:pb-5 sm:pt-5">
         <p className="text-[20px] font-black leading-none tracking-[-0.04em] text-[#1677FF] sm:text-[24px]">
   {feature.number}
@@ -1125,7 +1125,7 @@ function AppFeatureCard({
 
       <div className="flex justify-center bg-gradient-to-b from-[#F8FBFF] to-[#EEF6FF] px-3 pt-4 sm:px-5 sm:pt-5">
   <div
-  className="w-full overflow-hidden rounded-t-[14px] border border-black/[0.08] bg-white shadow-[0_10px_24px_rgba(15,23,42,0.09)] sm:rounded-t-[18px]"
+  className="w-full overflow-hidden rounded-t-[14px] border border-black/[0.14] bg-white shadow-[0_10px_24px_rgba(15,23,42,0.09)] sm:rounded-t-[18px]"
   style={{ aspectRatio: "628 / 1200" }}
 >
     <Image

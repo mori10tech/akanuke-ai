@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 
 type LogoProps = {
@@ -7,8 +9,26 @@ type LogoProps = {
 export default function Logo({
   href = "/",
 }: LogoProps) {
+  const handleClick = (
+    event: React.MouseEvent<HTMLAnchorElement>,
+  ) => {
+    if (href === "/" && window.location.pathname === "/") {
+      event.preventDefault();
+
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "smooth",
+      });
+    }
+  };
+
   return (
-    <Link href={href} className="leading-none">
+    <Link
+      href={href}
+      onClick={handleClick}
+      className="leading-none"
+    >
       <span className="block text-[18px] font-black tracking-[0.14em]">
         AKANUKE.AI
       </span>

@@ -1088,7 +1088,7 @@ function CheckItem({ children }: { children: ReactNode }) {
       <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full border border-[#1677FF] text-[#1677FF]">
         <Icon name="check" className="h-3 w-3" />
       </span>
-      <span>{children}</span>
+      <span className="font-[440]">{children}</span>
     </span>
   );
 }

@@ -661,8 +661,8 @@ export default function Home() {
         <div className="site-container">
           <div className="mx-auto max-w-3xl text-center">
 
-            <h2 className="mt-3 whitespace-nowrap text-2xl font-bold tracking-[0em] text-[#111111] sm:text-3xl">
-  AKANUKE.AIでできること
+            <h2 className="mt-3 whitespace-nowrap text-2xl font-bold tracking-[0.05em] text-[#111111] sm:text-3xl">
+  AKANUKE.AIについて
 </h2>
 
             <p className="mx-auto mt-4 max-w-2xl text-[13px] font-medium leading-7 text-black/65 sm:text-[15px]">

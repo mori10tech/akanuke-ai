@@ -665,7 +665,7 @@ export default function Home() {
   AKANUKE.AIについて
 </h2>
 
-            <p className="mx-auto mt-4 max-w-2xl text-[13px] font-medium leading-7 text-black/65 sm:text-[15px]">
+            <p className="mx-auto mt-4 max-w-2xl text-[13px] font-medium leading-7 text-black/8S5 sm:text-[15px]">
   AI診断から改善プラン・おすすめ商品まで。
   <br />
   あなたの垢抜けを、診断して終わらせずサポートします。

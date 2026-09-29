@@ -1125,9 +1125,9 @@ function AppFeatureCard({
 
       <div className="flex justify-center bg-gradient-to-b from-[#F8FBFF] to-[#EEF6FF] px-3 pt-4 sm:px-5 sm:pt-5">
   <div
-    className="w-full max-w-[130px] overflow-hidden rounded-t-[14px] border border-black/[0.08] bg-white shadow-[0_10px_24px_rgba(15,23,42,0.09)] sm:max-w-[175px] sm:rounded-t-[18px] lg:max-w-[185px]"
-    style={{ aspectRatio: "628 / 1200" }}
-  >
+  className="w-full overflow-hidden rounded-t-[14px] border border-black/[0.08] bg-white shadow-[0_10px_24px_rgba(15,23,42,0.09)] sm:rounded-t-[18px]"
+  style={{ aspectRatio: "628 / 1200" }}
+>
     <Image
       src={feature.image}
       alt={feature.alt}

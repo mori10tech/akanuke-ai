@@ -12,6 +12,32 @@ export type Article = {
 
 export const articles: Article[] = [
 
+{
+  slug: "mens-bb-cream",
+
+  title:
+    "メンズBBクリームの使い方｜初心者でも自然に仕上げる塗り方を解説",
+
+  description:
+    "メンズBBクリームの使い方を初心者向けに解説。青髭・毛穴・肌の色ムラを自然にカバーする塗り方や選び方、塗る順番、自然に仕上げるコツを紹介します。",
+
+  category: "メンズ美容",
+
+  publishedAt: "2026-09-30",
+
+  readingTime: "約9分",
+
+  image: "/media/mens-bb-cream.png",
+
+  keywords: [
+    "メンズ BBクリーム 使い方",
+    "BBクリーム メンズ 塗り方",
+    "メンズ BBクリーム 初心者",
+    "メンズ BBクリーム 自然",
+    "メンズ BBクリーム 青髭",
+  ],
+},
+
   
   {
     slug: "mens-beard-grooming",

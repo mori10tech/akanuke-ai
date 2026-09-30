@@ -774,7 +774,7 @@ export default function Home() {
 >
   <div className="site-container">
     <div className="text-center">
-  <p className="mt-3 whitespace-nowrap text-2xl font-bold tracking-[0.05em] text-[#1677FF] sm:text-3xl">
+  <p className="mt-3 whitespace-nowrap text-2xl font-bold tracking-[0.05em] text-black sm:text-3xl">
     AKANUKE JOURNAL
   </p>
 

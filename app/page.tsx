@@ -9,6 +9,7 @@ import {
 } from "react";
 import Logo from "./components/Logo";
 import { getAllArticles } from "../data/articles";
+import AdSenseAd from "./components/AdSenseAd";
 
 type IconName =
   | "clock"
@@ -847,6 +848,13 @@ export default function Home() {
     →
   </span>
 </Link>
+  </div>
+</section>
+
+{/* トップページ AdSense */}
+<section className="border-t border-black/10 bg-white px-4 py-8 sm:py-10">
+  <div className="site-container">
+    <AdSenseAd />
   </div>
 </section>
 

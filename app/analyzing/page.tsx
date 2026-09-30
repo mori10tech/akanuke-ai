@@ -655,18 +655,8 @@ export default function AnalyzingPage() {
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/5 via-transparent to-black/45" />
 
               <div className="pointer-events-none absolute bottom-[24%] left-[7%] right-[7%] top-[7%] z-10 overflow-hidden rounded-[24px]">
-                <div className="akanuke-ai-grid absolute inset-0" />
-
-                <div className="akanuke-grid-scan absolute inset-x-0 top-0 h-[30%]" />
-
-                <span className="absolute left-0 top-0 h-8 w-8 rounded-tl-[24px] border-l-2 border-t-2 border-[#1677FF]/70" />
-
-                <span className="absolute right-0 top-0 h-8 w-8 rounded-tr-[24px] border-r-2 border-t-2 border-[#1677FF]/70" />
-
-                <span className="absolute bottom-0 left-0 h-8 w-8 rounded-bl-[24px] border-b-2 border-l-2 border-[#1677FF]/70" />
-
-                <span className="absolute bottom-0 right-0 h-8 w-8 rounded-br-[24px] border-b-2 border-r-2 border-[#1677FF]/70" />
-              </div>
+  <div className="akanuke-grid-scan absolute inset-x-0 top-0 h-[30%]" />
+</div>
 
               <div className="absolute inset-x-4 bottom-4 rounded-[14px] border border-white/25 bg-black/60 px-4 py-3 text-white backdrop-blur-md">
                 <div className="flex items-center justify-between gap-3">

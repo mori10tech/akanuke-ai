@@ -639,7 +639,7 @@ export default function Home() {
               こんなお悩み、ありませんか？
             </SectionTitle>
 
-            <div className="mt-6 grid gap-3 sm:mt-8 sm:grid-cols-2 sm:gap-x-10 sm:gap-y-4 lg:grid-cols-3">
+            <div className="mx-auto mt-6 grid w-fit gap-3 sm:mt-8 sm:w-full sm:grid-cols-2 sm:gap-x-10 sm:gap-y-4 lg:grid-cols-3">
               {[
                 "自分に似合う髪型が分からない",
                 "眉毛の整え方が分からない",
@@ -711,7 +711,9 @@ export default function Home() {
 >
   <div className="site-container">
     <div className="mx-auto w-full max-w-6xl">
-      <SectionTitle>よくある質問</SectionTitle>
+      <div className="text-center">
+  <SectionTitle>よくある質問</SectionTitle>
+</div>
 
       {/* スマホ */}
       <div className="mt-5 space-y-3 md:hidden">
@@ -771,22 +773,17 @@ export default function Home() {
   className="scroll-mt-24 border-t border-black/10 bg-[#F7F9FC] px-4 py-10 sm:py-18"
 >
   <div className="site-container">
-    <div className="flex items-end justify-between gap-4">
-      <div>
-        <p className="whitespace-nowrap text-[clamp(18px,5.5vw,30px)] font-black tracking-[0.12em] text-[#1677FF]">
-  AKANUKE JOURNAL
+    <div className="text-center">
+  <p className="whitespace-nowrap text-[clamp(18px,5.5vw,30px)] font-black tracking-[0.12em] text-[#1677FF]">
+    AKANUKE JOURNAL
+  </p>
+
+  <p className="mx-auto mt-3 max-w-[560px] text-[15px] leading-6 text-black/85">
+  髪型・眉毛・スキンケアなど、
+  <br className="sm:hidden" />
+  今日から実践できる美容情報を紹介します。
 </p>
-
-        <h2 className="mt-2 text-2xl font-semibold tracking-[-0.04em] sm:text-3xl">
-          垢抜けのヒント
-        </h2>
-
-        <p className="mt-3 max-w-[560px] text-[15px] leading-6 text-black/85">
-          髪型・眉毛・スキンケアなど、
-          今日から実践できるメンズ美容情報を紹介します。
-        </p>
-      </div>
-    </div>
+</div>
 
     <div
       className={`mt-6 grid gap-4 sm:mt-8 sm:gap-5 ${

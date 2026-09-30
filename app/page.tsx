@@ -770,19 +770,19 @@ export default function Home() {
 
 <section
   id="journal"
-  className="scroll-mt-24 border-t border-black/10 bg-[#F7F9FC] px-4 py-10 sm:py-18"
+  className="scroll-mt-24 border-t border-black/10 bg-[#F7F9FC] px-4 pb-10 pt-6 sm:pb-18 sm:pt-10"
 >
   <div className="site-container">
     <div className="text-center">
-  <p className="whitespace-nowrap text-[clamp(18px,5.5vw,30px)] font-black tracking-[0.12em] text-[#1677FF]">
+  <p className="mt-3 whitespace-nowrap text-2xl font-bold tracking-[0.05em] text-[#1677FF] sm:text-3xl">
     AKANUKE JOURNAL
   </p>
 
-  <p className="mx-auto mt-3 max-w-[560px] text-[15px] leading-6 text-black/85">
-  髪型・眉毛・スキンケアなど、
-  <br className="sm:hidden" />
-  今日から実践できる美容情報を紹介します。
-</p>
+  <p className="mx-auto mt-4 max-w-2xl text-[13px] font-medium leading-7 text-black/85 sm:text-[15px]">
+    髪型・眉毛・スキンケアなど、
+    <br className="sm:hidden" />
+    今日から実践できる美容情報を紹介します。
+  </p>
 </div>
 
     <div

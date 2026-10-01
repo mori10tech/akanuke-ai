@@ -615,7 +615,7 @@ export default function LoginPage() {
   LINEログインでお困りの方へ
 </p>
 
-<div className="mt-4 space-y-4 text-[12px] leading-5 text-black">
+<div className="mt-4 space-y-4 text-[12px] font-medium leading-5 text-black">
   <div>
     <p className="font-black text-[#111111]">
       ・メールアドレス／パスワードの入力を求められた場合
@@ -631,7 +631,7 @@ export default function LoginPage() {
 
   <div>
     <p className="font-black text-[#111111]">
-      ・「もう一度お試しください」と表示された場合
+      ・「ログインが完了しませんでした」と表示された場合
     </p>
     <p className="mt-1">
   <span className="text-[12px] font-black text-[#111111]">

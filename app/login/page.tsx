@@ -480,11 +480,6 @@ export default function LoginPage() {
               LINEで登録・ログイン
             </h1>
 
-            <p className="mt-1.5 text-[11px] leading-[1.7] text-black/0 sm:mt-3 sm:text-[13px] sm:leading-6">
-              AKANUKE.AIのご利用には、
-              <br />
-              LINE公式アカウントの友だち追加が必要です。
-            </p>
           </div>
 
           {showExternalBrowserWarning && (

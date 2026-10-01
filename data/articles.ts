@@ -13,6 +13,33 @@ export type Article = {
 export const articles: Article[] = [
 
 {
+  slug: "mens-blue-beard",
+
+  title:
+    "メンズの青髭対策｜目立つ原因と自然に隠す方法を初心者向けに解説",
+
+  description:
+  "メンズの青髭対策を初心者向けに解説。髭を剃っても青く見える原因や、BBクリーム・コンシーラーで自然に隠す方法、長期的な対策まで紹介します。",
+
+  category: "ヒゲ",
+
+  publishedAt: "2026-10-01",
+
+  readingTime: "約8分",
+
+  image: "/media/mens-blue-beard.png",
+
+  keywords: [
+    "青髭 対策",
+    "青髭 隠す",
+    "青髭 メンズ",
+    "青髭 BBクリーム",
+    "青髭 コンシーラー",
+  ],
+},
+
+
+{
   slug: "mens-bb-cream",
 
   title:

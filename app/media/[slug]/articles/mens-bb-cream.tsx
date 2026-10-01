@@ -272,7 +272,15 @@ export default function MensBbCreamArticle({
               </div>
             ))}
           </div>
-        </section>
+
+<div className="mt-7">
+  <JournalRelatedArticleLink
+    href="/media/mens-blue-beard"
+    title="青髭の原因と対策を詳しく見る"
+    description="髭を剃っても青く見える原因や、BBクリーム・コンシーラーで自然に隠す方法を解説。"
+  />
+</div>
+</section>
 
         <section
           id="choose"

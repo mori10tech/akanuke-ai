@@ -97,9 +97,9 @@ function ArticleHero({
           {article.title}
         </h1>
 
-        <p className="mt-4 max-w-[720px] text-[13px] font-medium leading-7 text-black/70 sm:mt-5 sm:text-[15px]">
-          {article.description}
-        </p>
+        <p className="mt-4 max-w-[900px] text-[13px] font-medium leading-7 text-black/70 sm:mt-5 sm:text-[15px]">
+  {article.description}
+</p>
 
         <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-[10px] font-bold text-black/65 sm:mt-6">
           <time dateTime={article.publishedAt}>

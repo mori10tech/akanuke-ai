@@ -371,6 +371,14 @@ export default function MensBeardGroomingArticle({
               </article>
             ))}
           </div>
+
+<div className="mt-7">
+  <JournalRelatedArticleLink
+    href="/media/mens-blue-beard"
+    title="青髭対策を詳しく見る"
+    description="青髭が目立つ原因から、BBクリーム・コンシーラーで自然に隠す方法まで詳しく解説。"
+  />
+</div>
         </section>
 
         <section

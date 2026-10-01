@@ -611,7 +611,7 @@ export default function LoginPage() {
             <div className="mt-4" />
 
             <div className="mt-3 rounded-[16px] border border-[#1677FF]/10 bg-[#EEF6FF] p-4">
-              <p className="text-[13px] font-black text-[#111111]">
+              <p className="text-[14px] font-black text-[#111111]">
   LINEログインでお困りの方へ
 </p>
 
@@ -620,12 +620,12 @@ export default function LoginPage() {
     <p className="font-black text-[#111111]">
       ・メールアドレス／パスワードの入力を求められた場合
     </p>
-    <p className="mt-1">
+    <p className="mt-1 text-[11px]">
   画面下部の
   <span className="text-[12px] font-black text-[#111111]">
     ［LINEアプリでログイン］
   </span>
-  をタップしてください。
+  をタップしてください
 </p>
   </div>
 
@@ -633,11 +633,11 @@ export default function LoginPage() {
     <p className="font-black text-[#111111]">
       ・「ログインが完了しませんでした」と表示された場合
     </p>
-    <p className="mt-1">
+    <p className="mt-1 text-[11px]">
   <span className="text-[12px] font-black text-[#111111]">
     ［LINEで登録・ログイン］
   </span>
-  をもう一度タップしてください。
+  をもう一度タップしてください
 </p>
   </div>
 
@@ -645,8 +645,8 @@ export default function LoginPage() {
     <p className="font-black text-[#111111]">
       ・アプリ内ブラウザでログインできない場合
     </p>
-    <p className="mt-1">
-      SafariまたはChromeで開き直してください。
+    <p className="mt-1 text-[11px]">
+      SafariまたはChromeで開き直してください
     </p>
   </div>
 </div>

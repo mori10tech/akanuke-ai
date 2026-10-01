@@ -236,7 +236,7 @@ export default function LoginPage() {
           "pkce_missing"
         ) {
           setErrorMessage(
-  "LINEログインが完了できませんでした。\n下のボタンから もう一度お試しください。",
+  "ご利用環境により、ログインが完了しませんでした。\n下のログインボタンから、もう一度お試しください。",
 );
 
           const liffId =
@@ -255,8 +255,8 @@ export default function LoginPage() {
           "auth_failed"
         ) {
           setErrorMessage(
-            "LINEログインに失敗しました。もう一度お試しください。",
-          );
+  "ご利用環境により、ログインが完了しませんでした。\n下のログインボタンから、もう一度お試しください。",
+);
         }
 
         const supabase =
@@ -519,7 +519,7 @@ export default function LoginPage() {
 
           <div className="mt-5 rounded-[22px] border border-black/10 bg-white p-5 shadow-[0_10px_34px_rgba(15,23,42,0.05)] sm:mt-8">
             <div className="rounded-[16px] bg-[#F7F9FC] px-4 py-4">
-              <p className="text-[12px] font-black text-[#111111]">
+              <p className="text-[13px] font-black text-[#111111]">
                 LINE登録でできること
               </p>
 
@@ -611,27 +611,45 @@ export default function LoginPage() {
             <div className="mt-4" />
 
             <div className="mt-3 rounded-[16px] border border-[#1677FF]/10 bg-[#EEF6FF] p-4">
-              <p className="text-[12px] font-black text-[#111111]">
-                ※LINEのログイン画面が表示された場合
-              </p>
+              <p className="text-[13px] font-black text-[#111111]">
+  LINEログインでお困りの方へ
+</p>
 
-              <ol className="mt-3 space-y-2 text-[11px] font-bold leading-5 text-black/80">
-                <li>
-  ・ 画面下部の
-  <br />
-  <span className="pl-3">
-        <span className="font-black text-[#111111]">
-      [LINEアプリでログイン]
-    </span>
-    をタップしてください。
+<div className="mt-4 space-y-4 text-[11px] leading-5 text-black">
+  <div>
+    <p className="font-black text-[#111111]">
+      ・メールアドレス／パスワードの入力を求められた場合
+    </p>
+    <p className="mt-1">
+  画面下部の
+  <span className="text-[12px] font-black text-[#111111]">
+    ［LINEアプリでログイン］
   </span>
-</li>
+  をタップしてください。
+</p>
+  </div>
 
-                <li>
-                  ・アプリ内ブラウザの場合
-                  <br />　SafariやChromeで開き直してください。
-                </li>
-              </ol>
+  <div>
+    <p className="font-black text-[#111111]">
+      ・「もう一度お試しください」と表示された場合
+    </p>
+    <p className="mt-1">
+  <span className="text-[12px] font-black text-[#111111]">
+    ［LINEで登録・ログイン］
+  </span>
+  をもう一度タップしてください。
+</p>
+  </div>
+
+  <div>
+    <p className="font-black text-[#111111]">
+      ・アプリ内ブラウザでログインできない場合
+    </p>
+    <p className="mt-1">
+      SafariまたはChromeで開き直してください。
+    </p>
+  </div>
+</div>
 
               <button
                 type="button"

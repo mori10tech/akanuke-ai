@@ -618,7 +618,7 @@ export default function LoginPage() {
 <div className="mt-4 space-y-5 text-[12px] font-semibold leading-5 text-black">
   <div>
   <p className="font-black text-[#111111]">
-    ・メールアドレス／パスワードの入力を求められた場合
+    ↓メールアドレス/パスワードの入力を求められた
   </p>
 
   <p className="mt-2 font-semibold text-black/75">
@@ -632,7 +632,7 @@ export default function LoginPage() {
 
   <div>
     <p className="font-black text-[#111111]">
-      ・「ログインが完了しませんでした」と表示された場合
+    ↓ログインが完了しませんでした と表示された
     </p>
     <p className="mt-2 font-semibold text-black/75">
   <span className="text-[12px] font-black text-[#111111]">
@@ -644,7 +644,7 @@ export default function LoginPage() {
 
   <div>
     <p className="font-black text-[#111111]">
-      ・アプリ内ブラウザでログインできない場合
+      ↓アプリ内ブラウザでログインできない
     </p>
     <p className="mt-2 font-semibold text-black/75">
       SafariまたはChromeで開き直してください

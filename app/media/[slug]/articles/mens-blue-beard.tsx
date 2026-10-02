@@ -415,6 +415,15 @@ export default function MensBlueBeardArticle({
               BBクリームと同じく、コンシーラーも「完全に消す」より、顔全体として自然に見えるところで止めるのがポイントです。
             </p>
           </div>
+
+<div className="mt-7">
+  <JournalRelatedArticleLink
+    href="/media/mens-concealer"
+    title="メンズコンシーラーの使い方を見る"
+    description="青髭・ニキビ跡・クマを自然に隠す使い方や色選びを初心者向けに詳しく解説。"
+  />
+</div>
+
         </section>
 
         <section

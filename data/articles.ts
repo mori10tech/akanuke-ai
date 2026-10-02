@@ -12,6 +12,34 @@ export type Article = {
 
 export const articles: Article[] = [
 
+
+{
+  slug: "mens-concealer",
+
+  title:
+    "メンズコンシーラーの使い方｜青髭・ニキビ跡を自然に隠す方法",
+
+  description:
+    "メンズコンシーラーの使い方を初心者向けに解説。青髭・ニキビ跡・クマを自然に隠す塗り方や色の選び方、BBクリームとの違い、厚塗りを防ぐコツを紹介します。",
+
+  category: "メンズ美容",
+
+  publishedAt: "2026-10-02",
+
+  readingTime: "約9分",
+
+  image: "/media/mens-concealer.png",
+
+  keywords: [
+    "メンズ コンシーラー 使い方",
+    "コンシーラー メンズ",
+    "青髭 コンシーラー",
+    "ニキビ跡 コンシーラー メンズ",
+    "メンズ コンシーラー 初心者",
+  ],
+},
+
+
 {
   slug: "mens-blue-beard",
 

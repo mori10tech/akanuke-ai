@@ -235,7 +235,7 @@ export default function MensCleanlinessGuideArticle({
             CLEAN IMPRESSION
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             清潔感のある男性とは？
           </h2>
 
@@ -272,7 +272,7 @@ export default function MensCleanlinessGuideArticle({
             7 POINTS
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             メンズが清潔感を出す7つのポイント
           </h2>
 
@@ -350,7 +350,7 @@ export default function MensCleanlinessGuideArticle({
             CHECK LIST
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             清潔感がないと思われやすいNG例
           </h2>
 
@@ -392,7 +392,7 @@ export default function MensCleanlinessGuideArticle({
             PRIORITY
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             清潔感を出すなら何から始めればいい？
           </h2>
 
@@ -432,7 +432,7 @@ export default function MensCleanlinessGuideArticle({
             </span>
           </div>
 
-          <h2 className="mt-4 text-[26px] font-semibold leading-[1.45] tracking-[-0.04em] text-[#111111]">
+          <h2 className="mt-4 text-[22px] font-semibold sm:text-[26px] leading-[1.45] tracking-[-0.04em] text-[#111111]">
             自分に必要な改善ポイントをAIで確認
           </h2>
 
@@ -451,7 +451,7 @@ export default function MensCleanlinessGuideArticle({
             FAQ
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             メンズの清潔感についてよくある質問
           </h2>
 
@@ -487,7 +487,7 @@ export default function MensCleanlinessGuideArticle({
             SUMMARY
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             メンズの清潔感は、小さな手入れの積み重ね
           </h2>
 

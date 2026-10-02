@@ -184,7 +184,7 @@ export default function MensSkincareBeginnerArticle({
             BASICS
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             メンズスキンケアは何から始める？
           </h2>
 
@@ -221,7 +221,7 @@ export default function MensSkincareBeginnerArticle({
             3 STEPS
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             初心者向け｜メンズスキンケアの基本3ステップ
           </h2>
 
@@ -277,7 +277,7 @@ export default function MensSkincareBeginnerArticle({
             SKIN TYPE
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             肌質別｜スキンケアアイテム選びの考え方
           </h2>
 
@@ -319,7 +319,7 @@ export default function MensSkincareBeginnerArticle({
             MISTAKES
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             初心者がやりがちな4つのスキンケア失敗
           </h2>
 
@@ -357,7 +357,7 @@ export default function MensSkincareBeginnerArticle({
             ROUTINE
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             スキンケアはいつ・どのくらい続ければいい？
           </h2>
 
@@ -383,7 +383,7 @@ export default function MensSkincareBeginnerArticle({
             </span>
           </div>
 
-          <h2 className="mt-4 text-[26px] font-semibold leading-[1.45] tracking-[-0.04em] text-[#111111]">
+          <h2 className="mt-4 text-[22px] font-semibold sm:text-[26px] leading-[1.45] tracking-[-0.04em] text-[#111111]">
             肌だけでなく、顔全体の改善ポイントを確認
           </h2>
 
@@ -402,7 +402,7 @@ export default function MensSkincareBeginnerArticle({
             FAQ
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             メンズスキンケアについてよくある質問
           </h2>
 
@@ -438,7 +438,7 @@ export default function MensSkincareBeginnerArticle({
             SUMMARY
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             メンズスキンケアは基本3ステップから始めよう
           </h2>
 

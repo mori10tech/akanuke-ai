@@ -207,7 +207,7 @@ export default function MensBlueBeardArticle({
             CAUSE
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             青髭はなぜ目立つ？
           </h2>
 
@@ -248,7 +248,7 @@ export default function MensBlueBeardArticle({
             3 MEASURES
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             青髭対策は大きく3つ
           </h2>
 
@@ -290,7 +290,7 @@ export default function MensBlueBeardArticle({
             SHAVING
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             まずは髭をきれいに剃る
           </h2>
 
@@ -355,7 +355,7 @@ export default function MensBlueBeardArticle({
             BB CREAM
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             薄い青髭ならBBクリームで自然にカバー
           </h2>
 
@@ -394,7 +394,7 @@ export default function MensBlueBeardArticle({
             CONCEALER
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             濃い青髭にはコンシーラーという方法も
           </h2>
 
@@ -434,7 +434,7 @@ export default function MensBlueBeardArticle({
             NG POINTS
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             青髭を隠すときに避けたい3つの失敗
           </h2>
 
@@ -472,7 +472,7 @@ export default function MensBlueBeardArticle({
             LONG-TERM OPTION
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             青髭を長期的に目立ちにくくしたい場合
           </h2>
 
@@ -503,7 +503,7 @@ export default function MensBlueBeardArticle({
             CLEAN IMPRESSION
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             青髭だけでなく、顔全体の清潔感も確認
           </h2>
 
@@ -537,7 +537,7 @@ export default function MensBlueBeardArticle({
             </span>
           </div>
 
-          <h2 className="mt-4 text-[26px] font-semibold leading-[1.45] tracking-[-0.04em] text-[#111111]">
+          <h2 className="mt-4 text-[22px] font-semibold sm:text-[26px] leading-[1.45] tracking-[-0.04em] text-[#111111]">
             青髭だけでなく、
             <br />
             顔全体の改善ポイントを確認
@@ -558,7 +558,7 @@ export default function MensBlueBeardArticle({
             FAQ
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             メンズの青髭についてよくある質問
           </h2>
 
@@ -594,7 +594,7 @@ export default function MensBlueBeardArticle({
             SUMMARY
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             青髭は「剃る・隠す・減らす」を分けて考えよう
           </h2>
 

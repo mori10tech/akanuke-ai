@@ -237,7 +237,7 @@ export default function MensAkanukeOrderArticle({
             PRIORITY
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             メンズの垢抜けは順番が大切
           </h2>
 
@@ -274,7 +274,7 @@ export default function MensAkanukeOrderArticle({
             7 STEPS
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             メンズが垢抜けるおすすめの順番
           </h2>
 
@@ -341,7 +341,7 @@ export default function MensAkanukeOrderArticle({
             LOW COST
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             お金をかけずに垢抜けるなら何から始める？
           </h2>
 
@@ -375,7 +375,7 @@ export default function MensAkanukeOrderArticle({
             COMMON MISTAKES
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             順番を間違えると垢抜けにくい理由
           </h2>
 
@@ -417,7 +417,7 @@ export default function MensAkanukeOrderArticle({
             YOUR PRIORITY
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             自分が何から変えるべきか分からない場合は？
           </h2>
 
@@ -454,7 +454,7 @@ export default function MensAkanukeOrderArticle({
             </span>
           </div>
 
-          <h2 className="mt-4 text-[26px] font-semibold leading-[1.45] tracking-[-0.04em] text-[#111111]">
+          <h2 className="mt-4 text-[22px] font-semibold sm:text-[26px] leading-[1.45] tracking-[-0.04em] text-[#111111]">
   自分は何から変えるべき？
 </h2>
 
@@ -474,7 +474,7 @@ export default function MensAkanukeOrderArticle({
             FAQ
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             メンズの垢抜ける順番についてよくある質問
           </h2>
 
@@ -510,7 +510,7 @@ export default function MensAkanukeOrderArticle({
             SUMMARY
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             メンズの垢抜けは、変化が大きい部分から順番に
           </h2>
 

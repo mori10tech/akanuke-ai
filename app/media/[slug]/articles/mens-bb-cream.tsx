@@ -207,7 +207,7 @@ export default function MensBbCreamArticle({
             BASICS
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             メンズBBクリームとは？
           </h2>
 
@@ -244,7 +244,7 @@ export default function MensBbCreamArticle({
             COVER
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             BBクリームでカバーしやすい肌悩み
           </h2>
 
@@ -290,7 +290,7 @@ export default function MensBbCreamArticle({
             HOW TO CHOOSE
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             初心者が失敗しにくいBBクリームの選び方
           </h2>
 
@@ -335,7 +335,7 @@ export default function MensBbCreamArticle({
             5 STEPS
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             メンズBBクリームの基本的な使い方5ステップ
           </h2>
 
@@ -391,7 +391,7 @@ export default function MensBbCreamArticle({
             NATURAL FINISH
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             BBクリームを自然に見せる5つのコツ
           </h2>
 
@@ -429,7 +429,7 @@ export default function MensBbCreamArticle({
             SUNSCREEN
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             日焼け止めとBBクリームはどっちが先？
           </h2>
 
@@ -456,7 +456,7 @@ export default function MensBbCreamArticle({
             REMOVE
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             BBクリームはどうやって落とす？
           </h2>
 
@@ -482,7 +482,7 @@ export default function MensBbCreamArticle({
             </span>
           </div>
 
-          <h2 className="mt-4 text-[26px] font-semibold leading-[1.45] tracking-[-0.04em] text-[#111111]">
+          <h2 className="mt-4 text-[22px] font-semibold sm:text-[26px] leading-[1.45] tracking-[-0.04em] text-[#111111]">
             肌だけでなく、顔全体の改善ポイントを確認
           </h2>
 
@@ -501,7 +501,7 @@ export default function MensBbCreamArticle({
             FAQ
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             メンズBBクリームについてよくある質問
           </h2>
 
@@ -537,7 +537,7 @@ export default function MensBbCreamArticle({
             SUMMARY
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             メンズBBクリームは少量から自然に仕上げよう
           </h2>
 

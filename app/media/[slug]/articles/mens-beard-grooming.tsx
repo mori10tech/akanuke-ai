@@ -235,7 +235,7 @@ export default function MensBeardGroomingArticle({
             CLEAN IMPRESSION
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             ヒゲは男性の清潔感にどう影響する？
           </h2>
 
@@ -272,7 +272,7 @@ export default function MensBeardGroomingArticle({
             5 STEPS
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             清潔感を出す基本のヒゲの剃り方
           </h2>
 
@@ -329,7 +329,7 @@ export default function MensBeardGroomingArticle({
             BLUE BEARD
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             青ヒゲが目立つ場合はどうする？
           </h2>
 
@@ -389,7 +389,7 @@ export default function MensBeardGroomingArticle({
             BEARD STYLE
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             ヒゲを残す場合の整え方
           </h2>
 
@@ -431,7 +431,7 @@ export default function MensBeardGroomingArticle({
             AFTER SHAVING
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             ヒゲ剃り後の肌荒れを防ぐには？
           </h2>
 
@@ -476,7 +476,7 @@ export default function MensBeardGroomingArticle({
             HAIR REMOVAL
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             ヒゲ脱毛という選択肢もある
           </h2>
 
@@ -512,7 +512,7 @@ export default function MensBeardGroomingArticle({
             </span>
           </div>
 
-          <h2 className="mt-4 text-[26px] font-semibold leading-[1.45] tracking-[-0.04em] text-[#111111]">
+          <h2 className="mt-4 text-[22px] font-semibold sm:text-[26px] leading-[1.45] tracking-[-0.04em] text-[#111111]">
             ヒゲだけでなく、
             <br />
             顔全体の改善ポイントを確認
@@ -533,7 +533,7 @@ export default function MensBeardGroomingArticle({
             FAQ
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             メンズのヒゲについてよくある質問
           </h2>
 
@@ -569,7 +569,7 @@ export default function MensBeardGroomingArticle({
             SUMMARY
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             メンズのヒゲは「なくす」より「整える」が基本
           </h2>
 

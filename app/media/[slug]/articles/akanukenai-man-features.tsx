@@ -238,7 +238,7 @@ export default function AkanukenaiManFeaturesArticle({
               WHY
             </p>
 
-            <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+            <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
               垢抜けない男には共通する特徴がある
             </h2>
 
@@ -275,7 +275,7 @@ export default function AkanukenaiManFeaturesArticle({
               10 FEATURES
             </p>
 
-            <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+            <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
               垢抜けない男の特徴10選
             </h2>
 
@@ -333,7 +333,7 @@ export default function AkanukenaiManFeaturesArticle({
               HOW TO IMPROVE
             </p>
 
-            <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+            <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
               垢抜けるために何から変える？
             </h2>
 
@@ -423,7 +423,7 @@ export default function AkanukenaiManFeaturesArticle({
               </span>
             </div>
 
-            <h2 className="mt-4 text-[26px] font-semibold leading-[1.45] tracking-[-0.04em] text-[#111111]">
+            <h2 className="mt-4 text-[22px] font-semibold sm:text-[26px] leading-[1.45] tracking-[-0.04em] text-[#111111]">
               自分はどこから変えるべき？
             </h2>
 
@@ -442,7 +442,7 @@ export default function AkanukenaiManFeaturesArticle({
               FAQ
             </p>
 
-            <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+            <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
               垢抜けない男性についてよくある質問
             </h2>
 
@@ -478,7 +478,7 @@ export default function AkanukenaiManFeaturesArticle({
               SUMMARY
             </p>
 
-            <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+            <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
               垢抜けない原因を知ることが、最初の一歩
             </h2>
 

@@ -93,9 +93,9 @@ function ArticleHero({
           </span>
         </div>
 
-        <h1 className="mt-5 text-[28px] font-semibold leading-[1.4] tracking-[-0.045em] sm:text-[48px] sm:leading-[1.35] sm:tracking-[-0.05em]">
-          {article.title}
-        </h1>
+        <h1 className="mt-5 text-[24px] font-semibold leading-[1.4] tracking-[-0.045em] sm:text-[48px] sm:leading-[1.35] sm:tracking-[-0.05em]">
+  {article.title}
+</h1>
 
         <p className="mt-4 max-w-[900px] text-[13px] font-medium leading-7 text-black/70 sm:mt-5 sm:text-[15px]">
   {article.description}

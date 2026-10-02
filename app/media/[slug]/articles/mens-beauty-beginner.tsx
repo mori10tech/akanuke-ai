@@ -216,7 +216,7 @@ export default function MensBeautyBeginnerArticle({
             BEGINNER GUIDE
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             メンズ美容は何から始める？
           </h2>
 
@@ -251,7 +251,7 @@ export default function MensBeautyBeginnerArticle({
             5 STEPS
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             メンズ美容初心者がまずやるべき5つ
           </h2>
 
@@ -324,7 +324,7 @@ export default function MensBeautyBeginnerArticle({
             STARTER ITEMS
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             メンズ美容初心者が最低限そろえたいもの
           </h2>
 
@@ -372,7 +372,7 @@ export default function MensBeautyBeginnerArticle({
             COMMON MISTAKES
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             メンズ美容初心者がやりがちな失敗
           </h2>
 
@@ -406,7 +406,7 @@ export default function MensBeautyBeginnerArticle({
             COST
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             メンズ美容にかかる費用の目安
           </h2>
 
@@ -450,7 +450,7 @@ export default function MensBeautyBeginnerArticle({
             PRIORITY
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             何から変えるか迷ったら？
           </h2>
 
@@ -486,7 +486,7 @@ export default function MensBeautyBeginnerArticle({
             </span>
           </div>
 
-          <h2 className="mt-4 text-[26px] font-semibold leading-[1.45] tracking-[-0.04em] text-[#111111]">
+          <h2 className="mt-4 text-[22px] font-semibold sm:text-[26px] leading-[1.45] tracking-[-0.04em] text-[#111111]">
             自分に必要な美容ケアを、
             <br />
             AIで確認。
@@ -507,7 +507,7 @@ export default function MensBeautyBeginnerArticle({
             FAQ
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             メンズ美容初心者によくある質問
           </h2>
 
@@ -543,7 +543,7 @@ export default function MensBeautyBeginnerArticle({
             SUMMARY
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             メンズ美容は、できることから始めればいい
           </h2>
 

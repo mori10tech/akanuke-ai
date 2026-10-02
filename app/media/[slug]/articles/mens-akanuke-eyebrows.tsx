@@ -224,7 +224,7 @@ export default function MensAkanukeEyebrowsArticle({
             IMPORTANCE
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             メンズの垢抜けに眉毛が重要な理由
           </h2>
 
@@ -258,7 +258,7 @@ export default function MensAkanukeEyebrowsArticle({
             4 POINTS
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             垢抜けて見える男性の眉毛の特徴
           </h2>
 
@@ -297,7 +297,7 @@ export default function MensAkanukeEyebrowsArticle({
             HOW TO
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             初心者向け｜メンズ眉毛の整え方5ステップ
           </h2>
 
@@ -347,7 +347,7 @@ export default function MensAkanukeEyebrowsArticle({
             MISTAKES
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             メンズ眉毛でよくある4つの失敗
           </h2>
 
@@ -382,7 +382,7 @@ export default function MensAkanukeEyebrowsArticle({
             SELF CARE OR SALON
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             自分で整える？眉毛サロンへ行く？
           </h2>
 
@@ -436,7 +436,7 @@ export default function MensAkanukeEyebrowsArticle({
             FREQUENCY
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             メンズ眉毛を整える頻度は？
           </h2>
 
@@ -462,7 +462,7 @@ export default function MensAkanukeEyebrowsArticle({
             </span>
           </div>
 
-          <h2 className="mt-4 text-[26px] font-semibold leading-[1.45] tracking-[-0.04em] text-[#111111]">
+          <h2 className="mt-4 text-[22px] font-semibold sm:text-[26px] leading-[1.45] tracking-[-0.04em] text-[#111111]">
             眉毛だけでなく、
             <br />
             顔全体の改善ポイントを確認
@@ -480,7 +480,7 @@ export default function MensAkanukeEyebrowsArticle({
             FAQ
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             メンズ眉毛についてよくある質問
           </h2>
 
@@ -513,7 +513,7 @@ export default function MensAkanukeEyebrowsArticle({
             SUMMARY
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             メンズ眉毛は「整えすぎない」ことが大切
           </h2>
 

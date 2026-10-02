@@ -244,7 +244,7 @@ export default function MensAkanukeGuideArticle({
             DEFINITION
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             メンズが垢抜けるとは？
           </h2>
 
@@ -292,7 +292,7 @@ export default function MensAkanukeGuideArticle({
             12 METHODS
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             メンズが垢抜ける12の方法
           </h2>
 
@@ -371,7 +371,7 @@ export default function MensAkanukeGuideArticle({
             PRIORITY
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             何から始めればいい？
           </h2>
 
@@ -424,7 +424,7 @@ export default function MensAkanukeGuideArticle({
             </span>
           </div>
 
-          <h2 className="mt-4 text-[26px] font-semibold leading-[1.45] tracking-[-0.04em] text-[#111111]">
+          <h2 className="mt-4 text-[22px] font-semibold sm:text-[26px] leading-[1.45] tracking-[-0.04em] text-[#111111]">
             自分に必要な改善をAIで確認してみませんか？
           </h2>
 
@@ -443,7 +443,7 @@ export default function MensAkanukeGuideArticle({
             FAQ
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             メンズの垢抜けでよくある質問
           </h2>
 
@@ -479,7 +479,7 @@ export default function MensAkanukeGuideArticle({
             SUMMARY
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             メンズの垢抜けは、小さな改善の積み重ね
           </h2>
 

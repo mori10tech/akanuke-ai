@@ -247,7 +247,7 @@ export default function MensAkanukeHairstyleArticle({
             FIRST STEP
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             垢抜けたい男性は、まず髪型を変えるべき？
           </h2>
 
@@ -280,7 +280,7 @@ export default function MensAkanukeHairstyleArticle({
             5 POINTS
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             メンズが垢抜ける髪型のポイント5つ
           </h2>
 
@@ -332,7 +332,7 @@ export default function MensAkanukeHairstyleArticle({
             FACE SHAPE
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             顔型別｜似合いやすい髪型の考え方
           </h2>
 
@@ -370,7 +370,7 @@ export default function MensAkanukeHairstyleArticle({
             HAIRSTYLE
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             垢抜けたい男性におすすめの髪型
           </h2>
 
@@ -416,7 +416,7 @@ export default function MensAkanukeHairstyleArticle({
             SALON ORDER
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             美容室で失敗しにくい頼み方
           </h2>
 
@@ -465,7 +465,7 @@ export default function MensAkanukeHairstyleArticle({
             </span>
           </div>
 
-          <h2 className="mt-4 text-[26px] font-semibold leading-[1.45] tracking-[-0.04em] text-[#111111]">
+          <h2 className="mt-4 text-[22px] font-semibold sm:text-[26px] leading-[1.45] tracking-[-0.04em] text-[#111111]">
             自分に似合う方向性をAIで確認してみませんか？
           </h2>
 
@@ -484,7 +484,7 @@ export default function MensAkanukeHairstyleArticle({
             FAQ
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             メンズの垢抜け髪型についてよくある質問
           </h2>
 
@@ -520,7 +520,7 @@ export default function MensAkanukeHairstyleArticle({
             SUMMARY
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
             垢抜ける髪型は「自分に似合うこと」が重要
           </h2>
 

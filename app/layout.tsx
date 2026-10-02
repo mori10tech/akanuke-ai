@@ -180,10 +180,22 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="ja"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="flex min-h-full flex-col">
+  lang="ja"
+  className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+>
+  <head>
+    {process.env.NODE_ENV ===
+      "production" &&
+      ADSENSE_CLIENT && (
+        <script
+          async
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}`}
+          crossOrigin="anonymous"
+        />
+      )}
+  </head>
+
+  <body className="flex min-h-full flex-col">
         <Suspense fallback={null}>
           <LoginAnalyticsTracker />
         </Suspense>
@@ -213,17 +225,6 @@ export default function RootLayout({
             </>
           )}
 
-        {process.env.NODE_ENV ===
-          "production" &&
-          ADSENSE_CLIENT && (
-            <Script
-              id="google-adsense"
-              async
-              strategy="afterInteractive"
-              src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}`}
-              crossOrigin="anonymous"
-            />
-          )}
       </body>
     </html>
   );

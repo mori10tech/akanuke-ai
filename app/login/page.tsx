@@ -330,7 +330,7 @@ export default function LoginPage() {
 
         if (!cancelled) {
           setErrorMessage(
-            "LINEログインを開始できませんでした。時間をおいてもう一度お試しください。",
+            "LINE ログインを開始できませんでした。時間をおいてもう一度お試しください。",
           );
 
           setIsLineLoading(
@@ -477,7 +477,7 @@ export default function LoginPage() {
             </p>
 
             <h1 className="mt-1.5 text-[23px] font-black leading-[1.2] tracking-[-0.04em] sm:mt-3 sm:text-[28px]">
-              LINEで登録・ログイン
+              LINE ログイン
             </h1>
 
           </div>
@@ -520,7 +520,7 @@ export default function LoginPage() {
           <div className="mt-5 rounded-[22px] border border-black/10 bg-white p-5 shadow-[0_10px_34px_rgba(15,23,42,0.05)] sm:mt-8">
             <div className="rounded-[16px] bg-[#F7F9FC] px-4 py-4">
               <p className="text-[13px] font-black text-[#111111]">
-                LINE登録でできること
+                LINE ログインでできること
               </p>
 
               <ul className="mt-3 space-y-2 text-[11px] font-bold leading-5 text-black/70">
@@ -568,7 +568,7 @@ export default function LoginPage() {
       LINE
     </span>
 
-    LINEで登録・ログイン
+    LINE ログイン
   </a>
 ) : lineLoginUrl ? (
   <a
@@ -587,7 +587,7 @@ export default function LoginPage() {
       LINE
     </span>
 
-    LINEで登録・ログイン
+    LINE ログイン
   </a>
 ) : (
   <button
@@ -604,7 +604,7 @@ export default function LoginPage() {
 
     {isLineLoading
       ? "LINEログインを準備中..."
-      : "LINEで登録・ログイン"}
+      : "LINE ログイン"}
   </button>
 )}
 
@@ -612,7 +612,7 @@ export default function LoginPage() {
 
             <div className="mt-3 rounded-[16px] border border-[#1677FF]/10 bg-[#EEF6FF] p-4">
               <p className="text-[14px] font-black text-[#111111]">
-  LINEログインでお困りの方へ
+  LINE ログインでお困りの方へ
 </p>
 
 <div className="mt-4 space-y-5 text-[12px] font-semibold leading-5 text-black">
@@ -636,7 +636,7 @@ export default function LoginPage() {
     </p>
     <p className="mt-2 font-semibold text-black/75">
   <span className="text-[12px] font-black text-[#111111]">
-    ［LINEで登録・ログイン］
+    ［LINE ログイン］
   </span>
   をもう一度タップしてください
 </p>

@@ -13,7 +13,6 @@ import {
 } from "react";
 import AppHeader from "../components/AppHeader";
 import AppShell from "../components/AppShell";
-import AdSenseAd from "../components/AdSenseAd";
 import { trackEvent } from "../../lib/analytics";
 
 const DIAGNOSIS_ID_STORAGE_KEY =
@@ -1556,11 +1555,6 @@ if (!loaded) {
               </Link>
             </div>
           </section>
-
-          <AdSenseAd
-            className="mx-4 mt-7"
-            format="rectangle"
-          />
 
           {progress === 100 && (
             <section className="mx-4 mt-6 rounded-[20px] border border-[#FFD400]/40 bg-[#FFF9D9] p-5 text-center">

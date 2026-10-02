@@ -12,7 +12,6 @@ import {
   type ReactNode,
 } from "react";
 import AppShell from "../components/AppShell";
-import AdSenseAd from "../components/AdSenseAd";
 import type { AkanukeAnalysis } from "../../lib/openai/schemas";
 import { trackEvent } from "../../lib/analytics";
 
@@ -1631,11 +1630,6 @@ console.log(
             </div>
           </section>
 
-          <AdSenseAd
-            className="mx-4 mt-7"
-            format="rectangle"
-          />
-
           <section className="mx-4 mt-7">
             <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
               YOUR IMPROVEMENTS
@@ -1772,11 +1766,6 @@ console.log(
               </Link>
             </div>
           </section>
-
-          <AdSenseAd
-            className="mx-4 mt-7"
-            format="rectangle"
-          />
 
           <Link
             href="/dashboard"

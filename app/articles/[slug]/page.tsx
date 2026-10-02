@@ -8,8 +8,6 @@ import {
   getAllArticles,
   getArticleBySlug,
 } from "../../../data/articles";
-
-import AdSenseAd from "../../components/AdSenseAd";
 import Logo from "../../components/Logo";
 
 type ArticlePageProps = {
@@ -495,8 +493,6 @@ export default async function ArticleDetailPage({
               </p>
             </section>
 
-            <AdSenseAd className="mt-10" />
-
             <section
               id="meaning"
               className="scroll-mt-24 pt-14"
@@ -611,14 +607,6 @@ export default async function ArticleDetailPage({
                           </div>
                         </div>
                       </section>
-
-                      {index ===
-                        5 && (
-                        <AdSenseAd
-                          className="my-8"
-                          format="rectangle"
-                        />
-                      )}
                     </Fragment>
                   ),
                 )}
@@ -787,8 +775,6 @@ export default async function ArticleDetailPage({
                 )}
               </div>
             </section>
-
-            <AdSenseAd className="mt-10" />
 
             <section
               id="summary"

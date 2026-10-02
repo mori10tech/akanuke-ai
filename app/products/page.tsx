@@ -13,7 +13,6 @@ import liff from "@line/liff";
 
 import AppHeader from "../components/AppHeader";
 import AppShell from "../components/AppShell";
-import AdSenseAd from "../components/AdSenseAd";
 import { trackEvent } from "../../lib/analytics";
 
 import {
@@ -1361,15 +1360,6 @@ export default function ProductsPage() {
                         }
                       />
 
-                      {index ===
-                        0 &&
-                      displayedProducts.length >
-                        1 ? (
-                        <AdSenseAd
-                          className="my-2"
-                          format="rectangle"
-                        />
-                      ) : null}
                     </div>
                   ),
                 )}

@@ -226,7 +226,7 @@ export default function MensConcealerArticle({
             CONCEALER
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold tracking-[-0.04em] sm:text-[26px]">
             メンズコンシーラーとは？
           </h2>
 
@@ -263,7 +263,7 @@ export default function MensConcealerArticle({
             BB CREAM VS CONCEALER
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold tracking-[-0.04em] sm:text-[26px]">
             BBクリームとコンシーラーの違い
           </h2>
 
@@ -302,7 +302,7 @@ export default function MensConcealerArticle({
             COVER POINTS
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold tracking-[-0.04em] sm:text-[26px]">
             メンズコンシーラーで隠せる主な悩み
           </h2>
 
@@ -345,7 +345,7 @@ export default function MensConcealerArticle({
             HOW TO
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold tracking-[-0.04em] sm:text-[26px]">
             メンズコンシーラーの基本的な使い方
           </h2>
 
@@ -387,7 +387,7 @@ export default function MensConcealerArticle({
             BLUE BEARD
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold tracking-[-0.04em] sm:text-[26px]">
             青髭を自然に隠す方法
           </h2>
 
@@ -426,7 +426,7 @@ export default function MensConcealerArticle({
             ACNE MARKS
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold tracking-[-0.04em] sm:text-[26px]">
             ニキビ・ニキビ跡を自然に隠す方法
           </h2>
 
@@ -457,7 +457,7 @@ export default function MensConcealerArticle({
             DARK CIRCLES
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold tracking-[-0.04em] sm:text-[26px]">
             目の下のクマを自然に隠す方法
           </h2>
 
@@ -484,7 +484,7 @@ export default function MensConcealerArticle({
             COLOR
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold tracking-[-0.04em] sm:text-[26px]">
             メンズコンシーラーの色の選び方
           </h2>
 
@@ -525,7 +525,7 @@ export default function MensConcealerArticle({
             NG POINTS
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold tracking-[-0.04em] sm:text-[26px]">
             メンズコンシーラーでよくある4つの失敗
           </h2>
 
@@ -563,7 +563,7 @@ export default function MensConcealerArticle({
             ORDER
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold tracking-[-0.04em] sm:text-[26px]">
             BBクリームとコンシーラーを使う順番
           </h2>
 
@@ -621,7 +621,7 @@ export default function MensConcealerArticle({
             </span>
           </div>
 
-          <h2 className="mt-4 text-[26px] font-semibold leading-[1.45] tracking-[-0.04em] text-[#111111]">
+          <h2 className="mt-4 text-[22px] font-semibold leading-[1.45] tracking-[-0.04em] text-[#111111] sm:text-[26px]">
             肌だけでなく、
             <br />
             顔全体の改善ポイントを確認
@@ -642,7 +642,7 @@ export default function MensConcealerArticle({
             FAQ
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold tracking-[-0.04em] sm:text-[26px]">
             メンズコンシーラーについてよくある質問
           </h2>
 
@@ -678,7 +678,7 @@ export default function MensConcealerArticle({
             SUMMARY
           </p>
 
-          <h2 className="mt-2 text-[26px] font-semibold tracking-[-0.04em]">
+          <h2 className="mt-2 text-[22px] font-semibold tracking-[-0.04em] sm:text-[26px]">
             コンシーラーは「必要な部分だけ少量」が基本
           </h2>
 

@@ -520,14 +520,6 @@ export default function MensBlueBeardArticle({
               青髭を整えた後は、髪型が自分に合っているか、眉毛が伸びすぎていないか、肌が乾燥していないかなども一緒に確認してみましょう。
             </p>
           </div>
-
-          <div className="mt-7">
-            <JournalRelatedArticleLink
-              href="/media/mens-cleanliness-guide"
-              title="メンズの清潔感を出す方法を見る"
-              description="髪型・眉毛・肌・ヒゲ・服装など、清潔感を整えるポイントをまとめて解説。"
-            />
-          </div>
         </section>
 
         <section className="mt-16 overflow-hidden rounded-[26px] border border-[#1677FF]/15 bg-gradient-to-br from-[#F7FBFF] via-white to-[#EEF6FF] px-6 py-9 shadow-[0_16px_40px_rgba(22,119,255,0.08)] sm:px-9">

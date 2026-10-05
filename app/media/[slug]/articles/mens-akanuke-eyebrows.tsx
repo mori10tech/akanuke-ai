@@ -531,13 +531,7 @@ export default function MensAkanukeEyebrowsArticle({
             </p>
           </div>
 
-          <div className="mt-8 grid gap-3 sm:grid-cols-2">
-  <JournalRelatedArticleLink
-    href="/media/mens-akanuke-order"
-    title="メンズが垢抜ける順番を見る"
-    description="髪型・眉毛・肌など、初心者が取り組みたい順番を7ステップで解説。"
-  />
-
+          <div className="mt-8">
   <JournalRelatedArticleLink
     href="/media/mens-akanuke-hairstyle"
     title="垢抜ける髪型の選び方を見る"

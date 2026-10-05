@@ -456,20 +456,6 @@ export default function MensSkincareBeginnerArticle({
             </p>
           </div>
 
-          <div className="mt-8 grid gap-3 sm:grid-cols-2">
-            <JournalRelatedArticleLink
-              href="/media/mens-akanuke-order"
-              title="メンズが垢抜ける順番を見る"
-              description="髪型・眉毛・肌など、初心者が取り組みたい順番を7ステップで解説。"
-            />
-
-            <JournalRelatedArticleLink
-              href="/media/mens-beauty-beginner"
-              title="メンズ美容の始め方を見る"
-              description="美容初心者向けに、髪型・眉毛・肌・ヒゲなど何から始めるかを解説。"
-            />
-          </div>
-
           <p className="sr-only">
             {article.title}
           </p>

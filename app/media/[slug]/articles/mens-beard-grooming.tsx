@@ -587,20 +587,6 @@ export default function MensBeardGroomingArticle({
             </p>
           </div>
 
-          <div className="mt-8 grid gap-3 sm:grid-cols-2">
-            <JournalRelatedArticleLink
-              href="/media/mens-cleanliness-guide"
-              title="メンズの清潔感を出す方法"
-              description="髪型・眉毛・肌・ヒゲ・服装など、清潔感を整えるポイントをまとめて解説。"
-            />
-
-            <JournalRelatedArticleLink
-              href="/media/mens-akanuke-order"
-              title="メンズが垢抜ける順番"
-              description="髪型・眉毛・肌など、何から整えるべきか7ステップで確認できます。"
-            />
-          </div>
-
           <p className="sr-only">
             {article.title}
           </p>

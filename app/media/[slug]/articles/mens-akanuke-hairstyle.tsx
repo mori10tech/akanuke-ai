@@ -1,4 +1,4 @@
-import Link from "next/link";
+
 
 import type { Article } from "../../../../data/articles";
 import AdSenseAd from "../../../components/AdSenseAd";
@@ -532,29 +532,6 @@ export default function MensAkanukeHairstyleArticle({
             <p className="mt-5">
               自分だけで正解を決める必要はありません。希望する雰囲気の写真を用意して、美容師に「自分に似合うように調整してほしい」と相談してみましょう。
             </p>
-
-            <p className="mt-5">
-              髪型以外にも眉毛・肌・服装などを含めて改善したい場合は、メンズ垢抜け完全ガイドも参考にしてください。
-            </p>
-
-            <p className="mt-5">
-              「髪型以外にも垢抜けない原因があるかもしれない」と感じる方は、
-              <Link
-                href="/media/akanukenai-man-features"
-                className="font-bold text-[#1677FF] underline decoration-[#1677FF]/30 underline-offset-4 transition hover:decoration-[#1677FF]"
-              >
-                垢抜けない男の特徴10選
-              </Link>
-              もチェックしてみてください。
-            </p>
-          </div>
-
-          <div className="mt-7">
-            <JournalRelatedArticleLink
-              href="/media/mens-akanuke-guide"
-              title="メンズ垢抜け完全ガイド"
-              description="髪型以外の眉毛・肌・服装なども含めて、垢抜け全体の方法を確認できます。"
-            />
           </div>
 
           <JournalArticleFooterNav

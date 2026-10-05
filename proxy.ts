@@ -106,6 +106,7 @@ const protectedPagePaths = [
   "/analyzing",
   "/result",
   "/plan",
+  "/products",
   "/history",
   "/preferences",
 ];

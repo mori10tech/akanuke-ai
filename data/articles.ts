@@ -331,18 +331,34 @@ export const articles: Article[] = [
   },
 ];
 
+const HIDDEN_ARTICLE_SLUGS = new Set([
+  "mens-cleanliness-guide",
+  "mens-akanuke-order",
+  "mens-beauty-beginner",
+  "akanukenai-man-features",
+  "mens-akanuke-guide",
+]);
+
+function isPublishedArticle(article: Article): boolean {
+  return !HIDDEN_ARTICLE_SLUGS.has(article.slug);
+}
+
 export function getAllArticles(): Article[] {
-  return [...articles].sort(
-    (a, b) =>
-      new Date(b.publishedAt).getTime() -
-      new Date(a.publishedAt).getTime(),
-  );
+  return articles
+    .filter(isPublishedArticle)
+    .sort(
+      (a, b) =>
+        new Date(b.publishedAt).getTime() -
+        new Date(a.publishedAt).getTime(),
+    );
 }
 
 export function getArticleBySlug(
   slug: string,
 ): Article | undefined {
   return articles.find(
-    (article) => article.slug === slug,
+    (article) =>
+      article.slug === slug &&
+      isPublishedArticle(article),
   );
 }

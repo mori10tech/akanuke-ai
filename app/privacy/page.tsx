@@ -4,6 +4,9 @@ export const metadata = {
   title: "個人情報の取扱い | AKANUKE.AI",
   description:
     "AKANUKE.AIにおける顔画像、診断データ、After画像等の取扱いについてご案内します。",
+  alternates: {
+    canonical: "/privacy",
+  },
 };
 
 const sections = [

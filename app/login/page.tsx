@@ -163,14 +163,6 @@ export default function LoginPage() {
     useState("");
 
   const [
-    liffRecoveryUrl,
-    setLiffRecoveryUrl,
-  ] =
-    useState<string | null>(
-      null,
-    );
-
-  const [
     copyMessage,
     setCopyMessage,
   ] =
@@ -230,25 +222,7 @@ export default function LoginPage() {
           setErrorMessage(
             "LINEの友だち追加状況を確認できませんでした。時間をおいて、もう一度LINEでログインしてください。",
           );
-        } else if (
-          reason ===
-          "pkce_missing"
-        ) {
-          setErrorMessage(
-  "ご利用環境により、ログインが完了しませんでした。\n下のログインボタンから、もう一度お試しください。",
-);
-
-          const liffId =
-            process.env
-              .NEXT_PUBLIC_LINE_LIFF_ID;
-
-          if (liffId) {
-            setLiffRecoveryUrl(
-  `https://liff.line.me/${liffId}?next=${encodeURIComponent(
-    safeNext,
-  )}&flow=recovery`,
-);
-          }
+        
         } else if (
           reason ===
           "auth_failed"
@@ -370,36 +344,6 @@ if (!cancelled) {
     );
   }
 
-  function handleLiffRecoveryStart() {
-    const searchParams =
-      new URLSearchParams(
-        window.location.search,
-      );
-
-    const safeNext =
-      getSafeNext(
-        searchParams.get(
-          "next",
-        ),
-      );
-
-    trackEvent(
-      "line_login_recovery_start",
-      {
-        recovery_type:
-          "liff",
-
-        browser_type:
-          getBrowserType(
-            browserEnvironment,
-          ),
-
-        next_path:
-          safeNext,
-      },
-    );
-  }
-
   const showExternalBrowserWarning =
     browserEnvironment
       ?.isLikelyInAppBrowser ===
@@ -511,26 +455,7 @@ if (!cancelled) {
               </div>
             )}
 
-            {liffRecoveryUrl ? (
-  <a
-    href={
-      liffRecoveryUrl
-    }
-    onClick={
-      handleLiffRecoveryStart
-    }
-    className="mt-5 flex min-h-[56px] w-full items-center justify-center gap-3 rounded-[12px] bg-[#06C755] px-5 text-[14px] font-black text-white shadow-[0_10px_34px_rgba(15,23,42,0.08)] transition hover:-translate-y-0.5 active:scale-[0.99]"
-  >
-    <span
-      aria-hidden="true"
-      className="flex h-7 min-w-7 items-center justify-center rounded-full bg-white px-1 text-[8px] font-black text-[#06C755]"
-    >
-      LINE
-    </span>
-
-    LINE ログイン
-  </a>
-) : lineLoginUrl ? (
+{lineLoginUrl ? (
   <a
     href={
       lineLoginUrl

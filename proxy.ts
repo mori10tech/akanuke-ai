@@ -161,10 +161,6 @@ export async function proxy(
   const pathname =
     request.nextUrl.pathname;
 
-    const isLineUserinfoApi =
-  pathname ===
-  "/api/auth/line/userinfo";
-
   /*
    * 1. Basic認証
    */
@@ -172,10 +168,7 @@ export async function proxy(
     process.env
       .BASIC_AUTH_ENABLED === "true";
 
-  if (
-  isBasicAuthEnabled &&
-  !isLineUserinfoApi
-) {
+  if (isBasicAuthEnabled) {
     const clientIp =
       getClientIp(request);
 

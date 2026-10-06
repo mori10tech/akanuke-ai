@@ -5,6 +5,7 @@ import Link from "next/link";
 import {
   useEffect,
   useState,
+  type MouseEvent,
   type ReactNode,
 } from "react";
 import Logo from "./components/Logo";
@@ -467,16 +468,16 @@ export default function Home() {
   const featuredArticles =
     getAllArticles().slice(0, 3);
 
-    const handleDiagnosisStart = () => {
+    const handleDiagnosisStart = (
+  event: MouseEvent<HTMLAnchorElement>,
+) => {
   const isDesktop =
     window.matchMedia("(min-width: 768px)").matches;
 
   if (isDesktop) {
+    event.preventDefault();
     setIsDiagnosisQrOpen(true);
-    return;
   }
-
-  window.location.href = DIAGNOSIS_LIFF_URL;
 };
 
   const toggleFaq = (index: number) => {
@@ -528,9 +529,10 @@ export default function Home() {
 </nav>
 
           <div className="flex items-center">
-  <button
-  type="button"
+  <Link
+  href={DIAGNOSIS_LIFF_URL}
   onClick={handleDiagnosisStart}
+  prefetch={false}
   className="primary-button header-diagnosis-button"
 >
     <span>無料で診断をはじめる</span>
@@ -543,7 +545,7 @@ export default function Home() {
     ›
   </span>
 </span>
-  </button>
+  </Link>
 </div>
         </div>
       </header>
@@ -576,10 +578,11 @@ export default function Home() {
         あなただけの垢抜けプランを作成します。
       </p>
 
-      <button
-  type="button"
+      <Link
+  href={DIAGNOSIS_LIFF_URL}
   onClick={handleDiagnosisStart}
-  className="primary-button header-diagnosis-button"
+  prefetch={false}
+  className="primary-button mt-8 w-full max-w-[355px]"
 >
   <span>無料で診断をはじめる</span>
 
@@ -591,7 +594,7 @@ export default function Home() {
     ›
   </span>
 </span>
-</button>
+</Link>
 
       <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm font-bold text-black/70">
         <MiniBenefit
@@ -705,10 +708,11 @@ export default function Home() {
 
       {/* 機能紹介後のCTA */}
 <div className="flex justify-center px-4 pb-8 pt-8 sm:py-10">
-  <button
-  type="button"
+  <Link
+  href={DIAGNOSIS_LIFF_URL}
   onClick={handleDiagnosisStart}
-  className="primary-button header-diagnosis-button"
+  prefetch={false}
+  className="primary-button w-full max-w-[355px]"
 >
     <span>無料で診断をはじめる</span>
 
@@ -720,7 +724,7 @@ export default function Home() {
     ›
   </span>
 </span>
-  </button>
+  </Link>
 </div>
 
 <section
@@ -894,10 +898,11 @@ export default function Home() {
               </div>
             </div>
 
-            <button
-  type="button"
+            <Link
+  href={DIAGNOSIS_LIFF_URL}
   onClick={handleDiagnosisStart}
-  className="primary-button header-diagnosis-button"
+  prefetch={false}
+  className="primary-button w-full max-w-[355px] lg:min-w-[355px]"
 >
               <span>無料で診断をはじめる</span>
 
@@ -909,7 +914,7 @@ export default function Home() {
     ›
   </span>
 </span>
-            </button>
+            </Link>
           </div>
         </div>
       </section>

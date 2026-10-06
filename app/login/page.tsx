@@ -9,7 +9,6 @@ import {
 } from "react";
 
 import AppHeader from "../components/AppHeader";
-import { createClient } from "../../lib/supabase/client";
 import { trackEvent } from "../../lib/analytics";
 
 type BrowserEnvironment = {
@@ -259,69 +258,30 @@ export default function LoginPage() {
 );
         }
 
-        const supabase =
-          createClient();
+const liffId =
+  process.env.NEXT_PUBLIC_LINE_LIFF_ID;
 
-        /*
-         * 認可URLだけを先に生成し、実際の遷移は
-         * ユーザー自身が下の <a> をタップした瞬間に行う。
-         *
-         * iOSのUniversal LinkではJavaScriptによる自動遷移より
-         * ユーザー操作による直接遷移の方がLINEアプリを
-         * 起動しやすいため、この方式を維持する。
-         *
-         * prompt=none は自動ログインできない環境で
-         * LOGIN_REQUIRED / INTERACTION_REQUIRED になるため
-         * 全ユーザーには付与しない。
-         */
-        const {
-          data,
-          error,
-        } =
-          await supabase.auth.signInWithOAuth(
-            {
-              provider:
-                "custom:line",
+if (!liffId) {
+  throw new Error(
+    "NEXT_PUBLIC_LINE_LIFF_ID が設定されていません。",
+  );
+}
 
-              options: {
-                redirectTo:
-                  `${window.location.origin}/auth/callback?next=${encodeURIComponent(
-                    safeNext,
-                  )}`,
+const nextLiffUrl =
+  `https://liff.line.me/${liffId}?next=${encodeURIComponent(
+    safeNext,
+  )}`;
 
-                skipBrowserRedirect:
-                  true,
+if (!cancelled) {
+  setLineLoginUrl(
+    nextLiffUrl,
+  );
 
-                queryParams: {
-                  bot_prompt:
-                    "aggressive",
+  setIsLineLoading(
+    false,
+  );
+}
 
-                  ui_locales:
-                    "ja-JP",
-                },
-              },
-            },
-          );
-
-        if (error) {
-          throw error;
-        }
-
-        if (!data.url) {
-          throw new Error(
-            "LINE Login URLを取得できませんでした。",
-          );
-        }
-
-        if (!cancelled) {
-          setLineLoginUrl(
-            data.url,
-          );
-
-          setIsLineLoading(
-            false,
-          );
-        }
       } catch (error) {
         console.error(
           "LINE login preparation error:",

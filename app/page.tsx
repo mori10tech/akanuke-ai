@@ -33,6 +33,9 @@ type AnalysisItem = {
   note: string;
 };
 
+const DIAGNOSIS_LIFF_URL =
+  "https://liff.line.me/2011169942-wf6MoEy4?next=%2Fupload";
+
 const websiteStructuredData = {
   "@context": "https://schema.org",
   "@type": "WebSite",
@@ -444,6 +447,9 @@ export default function Home() {
   const [openFaqIndex, setOpenFaqIndex] =
     useState<number | null>(null);
 
+  const [isDiagnosisQrOpen, setIsDiagnosisQrOpen] =
+    useState(false);
+
     useEffect(() => {
     if (window.location.hash) return;
 
@@ -460,6 +466,18 @@ export default function Home() {
 
   const featuredArticles =
     getAllArticles().slice(0, 3);
+
+    const handleDiagnosisStart = () => {
+  const isDesktop =
+    window.matchMedia("(min-width: 768px)").matches;
+
+  if (isDesktop) {
+    setIsDiagnosisQrOpen(true);
+    return;
+  }
+
+  window.location.href = DIAGNOSIS_LIFF_URL;
+};
 
   const toggleFaq = (index: number) => {
     setOpenFaqIndex((current) =>
@@ -510,11 +528,11 @@ export default function Home() {
 </nav>
 
           <div className="flex items-center">
-  <Link
-    href="https://liff.line.me/2011169942-wf6MoEy4?next=%2Fupload"
-    prefetch={false}
-    className="primary-button header-diagnosis-button"
-  >
+  <button
+  type="button"
+  onClick={handleDiagnosisStart}
+  className="primary-button header-diagnosis-button"
+>
     <span>無料で診断をはじめる</span>
 
     <span
@@ -525,7 +543,7 @@ export default function Home() {
     ›
   </span>
 </span>
-  </Link>
+  </button>
 </div>
         </div>
       </header>
@@ -558,10 +576,10 @@ export default function Home() {
         あなただけの垢抜けプランを作成します。
       </p>
 
-      <Link
-  href="https://liff.line.me/2011169942-wf6MoEy4?next=%2Fupload"
-  prefetch={false}
-  className="primary-button mt-8 w-full max-w-[355px]"
+      <button
+  type="button"
+  onClick={handleDiagnosisStart}
+  className="primary-button header-diagnosis-button"
 >
   <span>無料で診断をはじめる</span>
 
@@ -573,7 +591,7 @@ export default function Home() {
     ›
   </span>
 </span>
-</Link>
+</button>
 
       <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm font-bold text-black/70">
         <MiniBenefit
@@ -687,11 +705,11 @@ export default function Home() {
 
       {/* 機能紹介後のCTA */}
 <div className="flex justify-center px-4 pb-8 pt-8 sm:py-10">
-  <Link
-    href="https://liff.line.me/2011169942-wf6MoEy4?next=%2Fupload"
-    prefetch={false}
-    className="primary-button w-full max-w-[355px]"
-  >
+  <button
+  type="button"
+  onClick={handleDiagnosisStart}
+  className="primary-button header-diagnosis-button"
+>
     <span>無料で診断をはじめる</span>
 
     <span
@@ -702,7 +720,7 @@ export default function Home() {
     ›
   </span>
 </span>
-  </Link>
+  </button>
 </div>
 
 <section
@@ -876,11 +894,11 @@ export default function Home() {
               </div>
             </div>
 
-            <Link
-              href="https://liff.line.me/2011169942-wf6MoEy4?next=%2Fupload"
-              prefetch={false}
-              className="primary-button w-full max-w-[355px] lg:min-w-[355px]"
-            >
+            <button
+  type="button"
+  onClick={handleDiagnosisStart}
+  className="primary-button header-diagnosis-button"
+>
               <span>無料で診断をはじめる</span>
 
               <span
@@ -891,7 +909,7 @@ export default function Home() {
     ›
   </span>
 </span>
-            </Link>
+            </button>
           </div>
         </div>
       </section>
@@ -941,8 +959,73 @@ export default function Home() {
             </footer>
     </main>
 
-  </>
-  );
+{isDiagnosisQrOpen && (
+  <div
+    className="fixed inset-0 z-[100] flex items-center justify-center bg-black/45 px-6 backdrop-blur-sm"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="diagnosis-qr-title"
+    onClick={() => setIsDiagnosisQrOpen(false)}
+  >
+    <div
+      className="relative w-full max-w-[460px] rounded-[28px] bg-white px-8 py-9 text-center shadow-[0_24px_80px_rgba(0,0,0,0.2)]"
+      onClick={(event) => event.stopPropagation()}
+    >
+      <button
+        type="button"
+        aria-label="閉じる"
+        onClick={() => setIsDiagnosisQrOpen(false)}
+        className="absolute right-5 top-5 grid h-9 w-9 place-items-center rounded-full bg-black/[0.05] text-[22px] font-medium text-black/60 transition hover:bg-black/10"
+      >
+        ×
+      </button>
+
+      <div className="mx-auto flex h-14 w-14 items-center justify-center overflow-hidden rounded-[14px] shadow-[0_6px_20px_rgba(15,23,42,0.08)]">
+        <Image
+          src="/icon-512.png"
+          alt=""
+          width={56}
+          height={56}
+          className="h-full w-full object-cover"
+        />
+      </div>
+
+      <h2
+        id="diagnosis-qr-title"
+        className="mt-5 text-[24px] font-black leading-[1.4] tracking-[-0.04em] text-[#111111]"
+      >
+        診断はスマートフォンから
+        <br />
+        ご利用ください
+      </h2>
+
+      <p className="mt-4 text-[14px] font-medium leading-7 text-black/60">
+        QRコードをスマートフォンで読み取ると、
+        <br />
+        LINEからすぐに診断を開始できます。
+      </p>
+
+      <div className="mx-auto mt-7 w-fit rounded-[22px] border border-black/10 bg-white p-4 shadow-[0_10px_30px_rgba(15,23,42,0.06)]">
+        <Image
+          src="/akanuke-liff-diagnosis-qr.png"
+          alt="AKANUKE.AIの診断をスマートフォンで開くQRコード"
+          width={220}
+          height={220}
+          className="h-[220px] w-[220px]"
+        />
+      </div>
+
+      <p className="mt-5 text-[12px] font-medium leading-6 text-black/45">
+        LINEアプリがインストールされた
+        <br />
+        スマートフォンで読み取ってください。
+      </p>
+    </div>
+  </div>
+)}
+
+</>
+);
 }
 
 function HeroAnalysisCard() {

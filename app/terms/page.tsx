@@ -3,6 +3,9 @@ import Link from "next/link";
 export const metadata = {
   title: "利用規約 | AKANUKE.AI",
   description: "AKANUKE.AIの利用規約です。",
+  alternates: {
+    canonical: "/terms",
+  },
 };
 
 const sections = [

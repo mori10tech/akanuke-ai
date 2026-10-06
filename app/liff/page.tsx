@@ -49,17 +49,6 @@ function getSafeNext() {
   return DEFAULT_NEXT;
 }
 
-function getFlow() {
-  const searchParams =
-    new URLSearchParams(
-      window.location.search,
-    );
-
-  return searchParams.get(
-    "flow",
-  );
-}
-
 function getPageTitle(
   path: string,
 ) {
@@ -193,13 +182,6 @@ export default function LiffPage() {
 
         const safeNext =
           getSafeNext();
-
-        const flow =
-          getFlow();
-
-        const isRecoveryFlow =
-          flow ===
-          "recovery";
 
         setPageTitle(
           getPageTitle(
@@ -431,27 +413,20 @@ export default function LiffPage() {
 
           return;
         }
-
         /*
-         * 通常のLINEリッチメニューから
-         * 「AI診断」を明示的に開いた場合は、
-         * 診断済みユーザーでも再診断画面を表示する。
-         *
-         * 旧PKCE復旧フローから来た場合だけは
-         * 従来どおり通常の /upload を開く。
-         */
-        if (
-          safeNext ===
-          "/upload"
-        ) {
-          window.location.replace(
-            isRecoveryFlow
-              ? "/upload"
-              : "/upload?mode=retry",
-          );
+ * LINEから「AI診断」を明示的に開いた場合は、
+ * 診断済みユーザーでも再診断画面を表示する。
+ */
+if (
+  safeNext ===
+  "/upload"
+) {
+  window.location.replace(
+    "/upload?mode=retry",
+  );
 
-          return;
-        }
+  return;
+}
 
         /*
          * マイページ・メディア・トップなどは

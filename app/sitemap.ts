@@ -23,10 +23,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const articlePages: MetadataRoute.Sitemap = articles.map(
     (article) => ({
       url: `${BASE_URL}/media/${article.slug}`,
+      lastModified: new Date(
+        article.updatedAt ??
+          article.publishedAt,
+      ),
       changeFrequency: "monthly" as const,
       priority: 0.8,
     }),
   );
 
-  return [...staticPages, ...articlePages];
+  return [
+    ...staticPages,
+    ...articlePages,
+  ];
 }

@@ -416,6 +416,16 @@ export default function LiffOidcTestPage() {
             : "OIDC接続をテスト"}
         </button>
 
+{status === "success" && (
+  <a
+    href="/dashboard"
+    className="mt-4 flex min-h-12 w-full items-center justify-center rounded-full border border-[#1677FF] px-5 py-3 text-[15px] font-bold text-[#1677FF]"
+  >
+    ダッシュボードを開く
+  </a>
+)}
+
+
         <p className="mt-5 text-[12px] leading-6 text-black/45">
           このページは認証方式の検証専用です。
           既存の /liff や

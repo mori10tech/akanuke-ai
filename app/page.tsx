@@ -511,7 +511,7 @@ export default function Home() {
 
           <div className="flex items-center">
   <Link
-    href="/upload"
+    href="https://liff.line.me/2011169942-wf6MoEy4?next=%2Fupload"
     prefetch={false}
     className="primary-button header-diagnosis-button"
   >
@@ -559,7 +559,7 @@ export default function Home() {
       </p>
 
       <Link
-  href="/upload"
+  href="https://liff.line.me/2011169942-wf6MoEy4?next=%2Fupload"
   prefetch={false}
   className="primary-button mt-8 w-full max-w-[355px]"
 >
@@ -688,7 +688,7 @@ export default function Home() {
       {/* 機能紹介後のCTA */}
 <div className="flex justify-center px-4 pb-8 pt-8 sm:py-10">
   <Link
-    href="/upload"
+    href="https://liff.line.me/2011169942-wf6MoEy4?next=%2Fupload"
     prefetch={false}
     className="primary-button w-full max-w-[355px]"
   >
@@ -877,7 +877,7 @@ export default function Home() {
             </div>
 
             <Link
-              href="/upload"
+              href="https://liff.line.me/2011169942-wf6MoEy4?next=%2Fupload"
               prefetch={false}
               className="primary-button w-full max-w-[355px] lg:min-w-[355px]"
             >

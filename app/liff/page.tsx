@@ -212,13 +212,11 @@ export default function LiffPage() {
         });
 
         /*
-         * LINEアプリ外から
-         * LIFFを開いた場合のみ
-         * LINEログインを実行する。
+         * LINEアプリ外からLIFFを開いた場合のみ、
+         * LINE側のログイン状態を確立する。
          *
-         * LINEアプリ内では
-         * liff.init() による
-         * ログイン状態を利用する。
+         * LINEアプリ内では liff.init() 後の
+         * ログイン状態をそのまま利用する。
          */
         if (
           !liff.isInClient() &&
@@ -230,6 +228,12 @@ export default function LiffPage() {
           });
 
           return;
+        }
+
+        if (!liff.isLoggedIn()) {
+          throw new Error(
+            "LINEのログイン状態を確認できませんでした。",
+          );
         }
 
         setMessage(
@@ -244,9 +248,8 @@ export default function LiffPage() {
           await liff.getFriendship();
 
         /*
-         * 未追加または
-         * ブロック中の場合は
-         * 友だち追加を促す。
+         * 未追加またはブロック中の場合は
+         * LIFF内で友だち追加を促す。
          */
         if (
           !friendship.friendFlag
@@ -283,156 +286,180 @@ export default function LiffPage() {
         }
 
         setMessage(
-          "ログイン状態を確認しています...",
+          "AKANUKE.AIにログインしています...",
         );
 
         const supabase =
           createClient();
 
-        const {
-          data: {
-            user,
-          },
-          error:
-            userError,
-        } =
-          await supabase.auth.getUser();
+        /*
+         * LIFFがすでに持っているLINE ID Tokenを使って、
+         * SupabaseのCustom OIDC Providerへログインする。
+         *
+         * これによりLINEアプリ内で
+         * custom:line OAuthをもう一度実行しない。
+         */
+        const idToken =
+          liff.getIDToken();
 
-        if (userError) {
-          console.warn(
-            "Supabase user check error:",
-            userError,
+        const accessToken =
+          liff.getAccessToken();
+
+        if (!idToken) {
+          throw new Error(
+            "LINE ID Tokenを取得できませんでした。",
           );
         }
 
         /*
-         * LIFFブラウザ内ですでに
-         * Supabaseログイン済みの場合。
+         * すでにOIDCセッションが存在する場合は、
+         * 不要な再ログインを行わない。
          */
-        if (user) {
-          /*
-           * 診断結果・垢抜けプラン・おすすめ商品は
-           * 診断履歴を確認してから
-           * 遷移先を決定する。
-           */
-          if (
-            safeNext ===
-              "/line/result" ||
-            safeNext ===
-              "/plan" ||
-            safeNext ===
-              "/products"
-          ) {
-            setMessage(
-              "診断履歴を確認しています...",
+        const {
+          data: {
+            user: currentUser,
+          },
+          error:
+            currentUserError,
+        } =
+          await supabase.auth.getUser();
+
+        if (
+          currentUserError
+        ) {
+          console.warn(
+            "Supabase user check error:",
+            currentUserError,
+          );
+        }
+
+        const currentProvider =
+          typeof currentUser
+            ?.app_metadata
+            ?.provider ===
+          "string"
+            ? currentUser
+                .app_metadata
+                .provider
+            : null;
+
+        let authenticatedUser =
+          currentUser;
+
+        /*
+         * 既存の旧custom:lineセッションが残っている場合も含め、
+         * custom:line-oidc以外なら
+         * LINE ID Tokenを使ってOIDCログインへ切り替える。
+         *
+         * 既存ユーザーはテストユーザーのため、
+         * user_idの引き継ぎは行わない。
+         */
+        if (
+          !authenticatedUser ||
+          currentProvider !==
+            "custom:line-oidc"
+        ) {
+          const {
+            data,
+            error,
+          } =
+            await supabase.auth.signInWithIdToken(
+              {
+                provider:
+                  "custom:line-oidc",
+
+                token:
+                  idToken,
+
+                ...(accessToken
+                  ? {
+                      access_token:
+                        accessToken,
+                    }
+                  : {}),
+              },
             );
 
-            const hasDiagnosis =
-              await getHasDiagnosis();
-
-            const resolvedNext =
-              resolveNextPath(
-                safeNext,
-                hasDiagnosis,
-              );
-
-            window.location.replace(
-              resolvedNext,
-            );
-
-            return;
+          if (error) {
+            throw error;
           }
 
-          /*
-           * 通常のLINEリッチメニューから
-           * 「AI診断」を明示的に開いた場合は、
-           * 診断済みユーザーでも
-           * 再診断画面を表示する。
-           *
-           * PKCEエラーからの復旧の場合は
-           * 再診断扱いにはせず、
-           * 通常の /upload を開く。
-           *
-           * /upload側で診断済みなら
-           * /dashboardへリダイレクトされる。
-           */
-          if (
-            safeNext ===
-            "/upload"
-          ) {
-            window.location.replace(
-              isRecoveryFlow
-                ? "/upload"
-                : "/upload?mode=retry",
+          if (!data.user) {
+            throw new Error(
+              "Supabaseユーザーを取得できませんでした。",
             );
-
-            return;
           }
 
-          /*
-           * マイページ・メディア・トップなどは
-           * 診断履歴に関係なく
-           * そのままアクセスする。
-           */
+          authenticatedUser =
+            data.user;
+        }
+
+        if (!authenticatedUser) {
+          throw new Error(
+            "ログイン状態を確認できませんでした。",
+          );
+        }
+
+        /*
+         * 診断結果・垢抜けプラン・おすすめ商品は
+         * 診断履歴を確認してから遷移先を決定する。
+         */
+        if (
+          safeNext ===
+            "/line/result" ||
+          safeNext ===
+            "/plan" ||
+          safeNext ===
+            "/products"
+        ) {
+          setMessage(
+            "診断履歴を確認しています...",
+          );
+
+          const hasDiagnosis =
+            await getHasDiagnosis();
+
+          const resolvedNext =
+            resolveNextPath(
+              safeNext,
+              hasDiagnosis,
+            );
+
           window.location.replace(
-            safeNext,
+            resolvedNext,
           );
 
           return;
         }
 
-        setMessage(
-          "AKANUKE.AIにログインしています...",
-        );
-
         /*
-         * Supabase未ログインの場合のみ
-         * custom:line OAuthを実行する。
+         * 通常のLINEリッチメニューから
+         * 「AI診断」を明示的に開いた場合は、
+         * 診断済みユーザーでも再診断画面を表示する。
          *
-         * 通常のLIFF経由で /upload を要求した場合は
-         * callback側で再診断として扱う。
-         *
-         * PKCE復旧の場合は
-         * source=liff_recovery として区別し、
-         * 再診断扱いにしない。
+         * 旧PKCE復旧フローから来た場合だけは
+         * 従来どおり通常の /upload を開く。
          */
-        const callbackSource =
-          isRecoveryFlow
-            ? "liff_recovery"
-            : "liff";
-
-        const callbackUrl =
-          `${window.location.origin}/auth/callback` +
-          `?source=${encodeURIComponent(
-            callbackSource,
-          )}` +
-          `&next=${encodeURIComponent(
-            safeNext,
-          )}`;
-
-        const {
-          error,
-        } =
-          await supabase.auth.signInWithOAuth(
-            {
-              provider:
-                "custom:line",
-
-              options: {
-                redirectTo:
-                  callbackUrl,
-
-                queryParams: {
-                  bot_prompt:
-                    "aggressive",
-                },
-              },
-            },
+        if (
+          safeNext ===
+          "/upload"
+        ) {
+          window.location.replace(
+            isRecoveryFlow
+              ? "/upload"
+              : "/upload?mode=retry",
           );
 
-        if (error) {
-          throw error;
+          return;
         }
+
+        /*
+         * マイページ・メディア・トップなどは
+         * 診断履歴に関係なくそのままアクセスする。
+         */
+        window.location.replace(
+          safeNext,
+        );
       } catch (error) {
         console.error(
           "LIFF initialization error:",

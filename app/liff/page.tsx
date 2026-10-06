@@ -49,6 +49,28 @@ function getSafeNext() {
   return DEFAULT_NEXT;
 }
 
+function getRedirectPath(
+  path: string,
+  loginCompleted: boolean,
+) {
+  if (!loginCompleted) {
+    return path;
+  }
+
+  const url =
+    new URL(
+      path,
+      window.location.origin,
+    );
+
+  url.searchParams.set(
+    "login_complete",
+    "1",
+  );
+
+  return `${url.pathname}${url.search}${url.hash}`;
+}
+
 function getPageTitle(
   path: string,
 ) {
@@ -328,6 +350,9 @@ export default function LiffPage() {
         let authenticatedUser =
           currentUser;
 
+        let didSignIn =
+  false;
+
         /*
          * 既存の旧custom:lineセッションが残っている場合も含め、
          * custom:line-oidc以外なら
@@ -374,6 +399,9 @@ export default function LiffPage() {
 
           authenticatedUser =
             data.user;
+
+          didSignIn =
+            true;
         }
 
         if (!authenticatedUser) {
@@ -408,8 +436,11 @@ export default function LiffPage() {
             );
 
           window.location.replace(
-            resolvedNext,
-          );
+  getRedirectPath(
+    resolvedNext,
+    didSignIn,
+  ),
+);
 
           return;
         }
@@ -422,8 +453,11 @@ if (
   "/upload"
 ) {
   window.location.replace(
+  getRedirectPath(
     "/upload?mode=retry",
-  );
+    didSignIn,
+  ),
+);
 
   return;
 }
@@ -433,8 +467,11 @@ if (
          * 診断履歴に関係なくそのままアクセスする。
          */
         window.location.replace(
-          safeNext,
-        );
+  getRedirectPath(
+    safeNext,
+    didSignIn,
+  ),
+);
       } catch (error) {
         console.error(
           "LIFF initialization error:",

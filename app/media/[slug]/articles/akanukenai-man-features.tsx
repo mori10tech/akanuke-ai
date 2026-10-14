@@ -407,9 +407,9 @@ export default function AkanukenaiManFeaturesArticle({
 
               <div className="mt-4">
                 <JournalRelatedArticleLink
-                  href="/media/mens-akanuke-guide"
-                  title="メンズ垢抜け完全ガイド"
-                  description="髪型・眉毛・スキンケアなど、男性が垢抜ける方法をまとめて確認できます。"
+                  href="/media/mens-akanuke-order"
+                  title="メンズが垢抜ける順番｜初心者向け7ステップ"
+                  description="髪型・眉毛・スキンケアなど、何から始めるべきかを7ステップで確認できます。"
                 />
               </div>
             </div>

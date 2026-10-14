@@ -228,7 +228,6 @@ export default function AkanukenaiManFeaturesArticle({
             </p>
           </section>
 
-          <AdSenseAd className="mt-10" />
 
           <section
             id="reason"

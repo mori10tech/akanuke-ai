@@ -217,7 +217,6 @@ export default function MensAkanukeEyebrowsArticle({
           </p>
         </section>
 
-        <AdSenseAd className="mt-10" />
 
         <section id="importance" className="scroll-mt-24 pt-16">
           <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">

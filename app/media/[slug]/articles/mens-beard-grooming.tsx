@@ -225,7 +225,6 @@ export default function MensBeardGroomingArticle({
           </p>
         </section>
 
-        <AdSenseAd className="mt-10" />
 
         <section
           id="cleanliness"

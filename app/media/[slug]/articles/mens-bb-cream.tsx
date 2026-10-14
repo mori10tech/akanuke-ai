@@ -197,7 +197,6 @@ export default function MensBbCreamArticle({
           </p>
         </section>
 
-        <AdSenseAd className="mt-10" />
 
         <section
           id="basics"

@@ -227,7 +227,6 @@ export default function MensAkanukeOrderArticle({
           </p>
         </section>
 
-        <AdSenseAd className="mt-10" />
 
         <section
           id="importance"

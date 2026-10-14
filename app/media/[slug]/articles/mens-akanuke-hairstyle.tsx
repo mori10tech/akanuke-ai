@@ -237,7 +237,6 @@ export default function MensAkanukeHairstyleArticle({
           </p>
         </section>
 
-        <AdSenseAd className="mt-10" />
 
         <section
           id="importance"

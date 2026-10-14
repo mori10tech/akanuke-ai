@@ -402,7 +402,6 @@ export default function MensConcealerArticle({
 
         </section>
 
-        <AdSenseAd className="mt-10" />
 
         <section
 

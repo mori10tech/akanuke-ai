@@ -174,7 +174,6 @@ export default function MensSkincareBeginnerArticle({
           </p>
         </section>
 
-        <AdSenseAd className="mt-10" />
 
         <section
           id="basics"

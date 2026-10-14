@@ -197,7 +197,6 @@ export default function MensBlueBeardArticle({
           </p>
         </section>
 
-        <AdSenseAd className="mt-10" />
 
         <section
           id="cause"

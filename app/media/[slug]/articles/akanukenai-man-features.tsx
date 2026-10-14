@@ -22,6 +22,10 @@ const tableOfContents = [
     label: "垢抜けない男の特徴10選",
   },
   {
+    id: "self-check",
+    label: "3分セルフチェックと改善の選び方",
+  },
+  {
     id: "improvement",
     label: "垢抜けるために何から変える？",
   },
@@ -42,7 +46,7 @@ const features = [
     description:
       "学生時代から同じ髪型を続けていたり、伸びたら短くするだけになっていたりすると、現在の顔立ちや雰囲気に合わなくなっていることがあります。髪型は顔全体の印象を大きく左右するため、垢抜けたい男性が最初に見直したいポイントです。",
     improvement:
-      "美容室で「清潔感を出したい」「自分に似合う髪型を知りたい」と相談し、前髪・サイド・襟足のバランスを見直してみましょう。",
+      "美容室では「朝のセットは5分以内」「前髪が目にかからない長さ」「耳周りと襟足はすっきり」など、生活に合う条件を具体的に伝えましょう。参考写真を見せて、髪質で再現できるか相談するのもおすすめです。",
   },
   {
     number: "02",
@@ -74,7 +78,7 @@ const features = [
     description:
       "高価な服や流行の服を着ていても、肩幅・袖丈・着丈・パンツ丈が合っていないと、全体のバランスが崩れて見えることがあります。ブランドよりもサイズ感の方が印象を左右することもあります。",
     improvement:
-      "まずはジャストサイズを基準に選びましょう。迷った場合は白・黒・ネイビー・グレーなど、組み合わせやすい色から始めるのがおすすめです。",
+      "まず手持ちの服を着て、肩の縫い目が大きく落ちていないか、袖が手の甲を覆いすぎないか、パンツの裾が靴の上で大きくたまらないかを確認しましょう。ゆったりしたデザインの場合は、意図したシルエットかも見て判断します。",
   },
   {
     number: "06",
@@ -82,7 +86,7 @@ const features = [
     description:
       "垢抜けようとして、アクセサリー・香水・流行のファッションなどを一気に取り入れても、髪・肌・眉毛・服のシワなど基本的な部分が整っていなければ、思ったほど印象が変わらないことがあります。",
     improvement:
-      "最初はおしゃれさより清潔感を優先しましょう。髪・眉毛・肌・ヒゲ・服・靴を整えたあとに、自分らしいファッションを追加する方が自然です。",
+      "出かける前に「寝ぐせ・ヒゲの剃り残し・服のシワや汚れ・靴の汚れ」の4点を確認しましょう。香水やアクセサリーを買い足す前に、手持ちのもので整えられる部分から始められます。",
   },
   {
     number: "07",
@@ -106,7 +110,7 @@ const features = [
     description:
       "髪型・眉毛・スキンケア・筋トレ・ファッションなどを一度に始めると、お金も時間もかかり、途中で続かなくなることがあります。垢抜けは短期間で完成させる必要はありません。",
     improvement:
-      "まず1〜2個に絞って改善しましょう。髪型を変えたら次は眉毛、その次は肌というように段階的に進める方が継続しやすくなります。",
+      "最初の1週間は「外出前の身だしなみ確認」と「夜の保湿」など、毎日5分程度でできることを一つ選びましょう。美容室の予約など時間が必要な改善は、別の日に予定を入れると続けやすくなります。",
   },
   {
     number: "10",
@@ -114,7 +118,7 @@ const features = [
     description:
       "人によって垢抜けない原因は異なります。髪型を変えるべき人もいれば、眉毛や肌を整えるだけで印象が大きく変わる人もいます。自分の課題が分からないまま他人の方法を真似すると、遠回りになることがあります。",
     improvement:
-      "まず現在の自分を客観的に見て、髪型・眉毛・肌・清潔感などの中から優先順位を決めましょう。",
+      "まず鏡と普段着の全身写真で、髪・眉毛・ヒゲ・服の状態を一つずつ確認します。気になる項目が複数あれば「今日直せる」「人に相談する」「継続が必要」の3種類に分けると着手しやすくなります。",
   },
 ];
 
@@ -324,6 +328,50 @@ export default function AkanukenaiManFeaturesArticle({
             </div>
           </section>
 
+          <section id="self-check" className="scroll-mt-24 pt-16">
+            <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
+              SELF CHECK
+            </p>
+            <h2 className="mt-2 text-[22px] font-semibold tracking-[-0.04em] sm:text-[26px]">
+              3分セルフチェックと改善の選び方
+            </h2>
+            <p className="mt-5 text-[14px] leading-8 text-black/80">
+              10個の特徴を読んでも、どこから手を付ければよいか迷うかもしれません。まずは鏡と普段着を使って、次の項目を確認してみてください。全部に当てはまる必要はありません。
+            </p>
+            <div className="mt-6 rounded-[20px] border border-black/10 bg-[#F8FAFC] p-5 sm:p-6">
+              <h3 className="text-[16px] font-bold">外出前に確認する6項目</h3>
+              <ul className="mt-4 space-y-3 text-[13px] leading-7 text-black/75">
+                <li>□ 髪：寝ぐせが残っていないか、前髪が目を覆っていないか</li>
+                <li>□ 眉：眉間や眉下に、気になる余分な毛がないか</li>
+                <li>□ ヒゲ：剃り残しや、整えていない輪郭がないか</li>
+                <li>□ 肌：洗顔後のつっぱりや、日中の乾燥が気にならないか</li>
+                <li>□ 服：目立つシワ・汚れがなく、袖や裾の長さが不自然でないか</li>
+                <li>□ 靴：汚れや傷みが目立っていないか</li>
+              </ul>
+              <p className="mt-4 text-[11px] leading-6 text-black/60">
+                ※これは医学的な診断や外見の点数付けではなく、身だしなみを見直すための任意のチェックです。
+              </p>
+            </div>
+            <h3 className="mt-9 text-[17px] font-bold">気になる項目を見つけたら、こう選ぶ</h3>
+            <div className="mt-4 space-y-3">
+              <div className="rounded-[16px] border border-black/10 p-5">
+                <p className="text-[13px] font-bold">今日できること</p>
+                <p className="mt-2 text-[12px] leading-7 text-black/70">寝ぐせを直す、服のシワを伸ばす、靴を拭くなど。お金をかけずにできる項目から一つ試しましょう。</p>
+              </div>
+              <div className="rounded-[16px] border border-black/10 p-5">
+                <p className="text-[13px] font-bold">相談した方がよいこと</p>
+                <p className="mt-2 text-[12px] leading-7 text-black/70">髪型や眉の形を大きく変えたい場合は、美容師や眉毛サロンで希望と普段の手入れ時間を伝えて相談します。</p>
+              </div>
+              <div className="rounded-[16px] border border-black/10 p-5">
+                <p className="text-[13px] font-bold">続けて様子を見ること</p>
+                <p className="mt-2 text-[12px] leading-7 text-black/70">保湿や日焼け止めなどは、一度で見た目が大きく変わるものではありません。刺激が出る場合は使用を中止し、症状が続くときは皮膚科に相談してください。</p>
+              </div>
+            </div>
+            <p className="mt-6 text-[13px] leading-7 text-black/75">
+              迷ったら「気になる度合いが高い」「今日できる」「無理なく続けられる」の3条件で、一つだけ選ぶのがおすすめです。ほかの人と比較する必要はありません。
+            </p>
+          </section>
+
           <section
             id="improvement"
             className="scroll-mt-24 pt-16"
@@ -402,14 +450,14 @@ export default function AkanukenaiManFeaturesArticle({
               </p>
 
               <p className="mt-2 text-[12px] font-medium leading-6 text-black/70">
-                髪型・眉毛・スキンケアなど、男性が垢抜ける方法をまとめて確認できます。
+                改善ポイントが分かったら、何から始めるかを7ステップで確認できます。
               </p>
 
               <div className="mt-4">
                 <JournalRelatedArticleLink
                   href="/media/mens-akanuke-order"
-                  title="メンズが垢抜ける順番｜初心者向け7ステップ"
-                  description="髪型・眉毛・スキンケアなど、何から始めるべきかを7ステップで確認できます。"
+                  title="メンズが垢抜ける順番｜初心者が最初にやるべき7ステップ"
+                  description="改善ポイントが分かったら、何から始めるかを7ステップで確認できます。"
                 />
               </div>
             </div>

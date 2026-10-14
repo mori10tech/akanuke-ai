@@ -597,19 +597,14 @@ export default function Home() {
 </Link>
 
       <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm font-bold text-black/70">
-        <MiniBenefit
-          icon="clock"
-          label="約1分で完了"
-        />
-        <MiniBenefit
-          icon="yen"
-          label="完全無料"
-        />
-        <MiniBenefit
-          icon="user"
-          label="メンズ専用"
-        />
-      </div>
+  <MiniBenefit icon="clock" label="約1分で完了" />
+  <MiniBenefit icon="yen" label="完全無料" />
+  <MiniBenefit icon="user" label="専用プラン" />
+</div>
+
+<p className="mt-3 max-w-[355px] text-[11px] font-medium leading-5 text-black/50">
+  ※利用にはLINEログインと公式アカウントの友だち追加が必要です。
+</p>
     </div>
   </div>
 
@@ -630,22 +625,17 @@ export default function Home() {
     <HeroAnalysisCard />
   </div>
 
-  {/* スマホのみ表示 */}
-<div className="flex items-center justify-center py-4 md:hidden">
+ {/* スマホのみ表示 */}
+<div className="flex flex-col items-center justify-center gap-2 py-4 md:hidden">
   <div className="flex flex-wrap justify-center gap-x-5 gap-y-3 text-[12px] font-bold text-black/70">
-    <MiniBenefit
-      icon="clock"
-      label="約1分で完了"
-    />
-    <MiniBenefit
-      icon="yen"
-      label="完全無料"
-    />
-    <MiniBenefit
-      icon="user"
-      label="メンズ専用"
-    />
+    <MiniBenefit icon="clock" label="約1分で完了" />
+    <MiniBenefit icon="yen" label="完全無料" />
+    <MiniBenefit icon="user" label="専用プラン" />
   </div>
+
+  <p className="max-w-[340px] px-2 text-center text-[10px] font-medium leading-5 text-black/50">
+    ※利用にはLINEログインと公式アカウントの友だち追加が必要です。
+  </p>
 </div>
 </div>
       </section>
@@ -687,10 +677,12 @@ export default function Home() {
   AKANUKE.AIについて
 </h2>
 
-            <p className="mx-auto mt-4 max-w-2xl text-[13px] font-medium leading-7 text-black/8S sm:text-[15px]">
-  AI診断から改善プラン・おすすめ商品まで。
+            <p className="mx-auto mt-4 max-w-2xl text-[13px] font-medium leading-7 text-black/85 sm:text-[15px]">
+  顔写真をもとに、AIが髪型や顔全体の印象を分析。
   <br />
-  あなたの垢抜けを、診断して終わらせずサポートします。
+  診断結果から改善の優先順位を確認し、
+  <br className="sm:hidden" />
+  自分に合った垢抜けプランを実践できます。
 </p>
           </div>
 
@@ -894,7 +886,7 @@ export default function Home() {
               <div className="mt-4 flex flex-wrap gap-4 text-xs font-bold text-black/70">
                 <MiniBenefit icon="clock" label="約1分で完了" />
                 <MiniBenefit icon="yen" label="完全無料" />
-                <MiniBenefit icon="user" label="メンズ専用" />
+                <MiniBenefit icon="user" label="専用プラン" />
               </div>
             </div>
 

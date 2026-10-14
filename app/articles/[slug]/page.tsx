@@ -308,7 +308,7 @@ export async function generateMetadata({
     },
 
     robots: {
-      index: true,
+      index: false,
       follow: true,
     },
   };

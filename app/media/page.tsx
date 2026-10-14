@@ -53,8 +53,18 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ArticlesPage() {
-  const articles = getAllArticles();
+type ArticlesPageProps = {
+  searchParams: Promise<{ category?: string }>;
+};
+
+export default async function ArticlesPage({ searchParams }: ArticlesPageProps) {
+  const allArticles = getAllArticles();
+  const categories = [...new Set(allArticles.map((article) => article.category))];
+  const { category } = await searchParams;
+  const selectedCategory = category && categories.includes(category) ? category : null;
+  const articles = selectedCategory
+    ? allArticles.filter((article) => article.category === selectedCategory)
+    : allArticles;
 
   return (
     <>
@@ -82,7 +92,26 @@ export default function ArticlesPage() {
           </div>
         </section>
 
-        <section className="mx-auto w-full max-w-[1180px] px-5 pb-12 pt-6 sm:pb-16 sm:pt-6">
+        <nav aria-label="記事カテゴリー" className="border-b border-black/10 bg-white">
+          <div className="mx-auto flex w-full max-w-[1180px] gap-2 overflow-x-auto px-5 py-4">
+            <Link href="/media" scroll={true} aria-current={!selectedCategory ? "page" : undefined} className={`shrink-0 rounded-full px-4 py-2.5 text-[12px] font-bold ${!selectedCategory ? "bg-[#1677FF] text-white" : "border border-black/10 bg-[#F8FAFC] text-black/75"}`}>
+              すべての記事
+            </Link>
+            {categories.map((category) => (
+              <Link
+                key={category}
+                href={`/media?category=${encodeURIComponent(category)}`}
+                scroll={true}
+                aria-current={selectedCategory === category ? "page" : undefined}
+                className={`shrink-0 rounded-full px-4 py-2.5 text-[12px] font-bold transition ${selectedCategory === category ? "bg-[#1677FF] text-white" : "border border-black/10 bg-[#F8FAFC] text-black/75 hover:border-[#1677FF]/30 hover:text-[#1677FF]"}`}
+              >
+                {category}
+              </Link>
+            ))}
+          </div>
+        </nav>
+
+        <section id="latest-articles" className="mx-auto w-full max-w-[1180px] scroll-mt-24 px-5 pb-12 pt-6 sm:pb-16 sm:pt-6">
           <div className="flex items-end justify-between gap-4">
             <div>
               <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
@@ -90,7 +119,7 @@ export default function ArticlesPage() {
               </p>
 
               <h2 className="mt-2 text-[24px] font-semibold tracking-[-0.04em] sm:text-[32px]">
-                最新の記事
+                {selectedCategory ? `${selectedCategory}の記事` : "最新の記事"}
               </h2>
             </div>
 

@@ -10,6 +10,7 @@ type Props = {
 const tableOfContents = [
   { id: "basics", label: "メンズスキンケアは何から始める？" },
   { id: "steps", label: "初心者向け基本3ステップ" },
+  { id: "routine", label: "朝と夜のスキンケア手順" },
   { id: "skin-type", label: "肌質別のアイテム選び" },
   { id: "mistakes", label: "初心者によくある失敗" },
   { id: "timing", label: "いつ・どのくらい続ける？" },
@@ -267,6 +268,34 @@ export default function MensSkincareBeginnerArticle({
           className="mt-10"
           format="rectangle"
         />
+
+        <section id="routine" className="scroll-mt-24 pt-16">
+          <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">DAILY ROUTINE</p>
+          <h2 className="mt-2 text-[22px] font-semibold tracking-[-0.04em] sm:text-[26px]">朝と夜は何をする？初心者向けの手順</h2>
+          <p className="mt-4 text-[13px] leading-7 text-black/75">最初から多くの美容液を揃える必要はありません。まずは使う順番を決め、肌の状態に合わせて調整しましょう。</p>
+          <div className="mt-6 grid gap-4 sm:grid-cols-2">
+            <div className="rounded-[18px] border border-black/10 bg-[#F8FAFC] p-5">
+              <h3 className="text-[16px] font-bold">朝｜外出前</h3>
+              <ol className="mt-4 list-decimal space-y-2 pl-5 text-[13px] leading-7 text-black/75">
+                <li>肌の状態に合わせてやさしく洗う。乾燥する場合は洗いすぎない</li>
+                <li>乳液やクリームなどで保湿する</li>
+                <li>日焼け止めを表示どおりの量で塗る。長時間の外出時は塗り直しも確認</li>
+              </ol>
+            </div>
+            <div className="rounded-[18px] border border-black/10 bg-[#F8FAFC] p-5">
+              <h3 className="text-[16px] font-bold">夜｜就寝前</h3>
+              <ol className="mt-4 list-decimal space-y-2 pl-5 text-[13px] leading-7 text-black/75">
+                <li>使用した日焼け止めやメイク用品の表示を確認し、必要ならクレンジングで落とす</li>
+                <li>洗顔料で汚れを落とし、すすぎ残しがないようにする</li>
+                <li>洗顔後は保湿して終える</li>
+              </ol>
+            </div>
+          </div>
+          <div className="mt-4 rounded-[18px] border border-[#1677FF]/15 bg-[#EEF6FF] p-5 text-[12px] leading-7 text-black/75">
+            <p className="font-bold text-[#1677FF]">迷ったときの判断ポイント</p>
+            <p className="mt-2">洗顔後につっぱるなら洗い方や保湿剤を見直す、日焼け止めが落ちにくいなら製品の落とし方の表示を確認する、刺激や赤みが続くなら使用を中止して皮膚科に相談する、という順番で考えましょう。</p>
+          </div>
+        </section>
 
         <section
           id="skin-type"

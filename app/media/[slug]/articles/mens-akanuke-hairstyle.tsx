@@ -28,6 +28,10 @@ const tableOfContents = [
     label: "垢抜けたい男性におすすめの髪型",
   },
   {
+    id: "hair-conditions",
+    label: "髪質・セット時間別の選び方",
+  },
+  {
     id: "salon-order",
     label: "美容室で失敗しにくい頼み方",
   },
@@ -405,6 +409,27 @@ export default function MensAkanukeHairstyleArticle({
               </div>
             ))}
           </div>
+        </section>
+
+        <section id="hair-conditions" className="scroll-mt-24 pt-16">
+          <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">HAIR CONDITIONS</p>
+          <h2 className="mt-2 text-[22px] font-semibold tracking-[-0.04em] sm:text-[26px]">髪質・セット時間別｜失敗しにくい髪型の選び方</h2>
+          <p className="mt-4 text-[13px] leading-7 text-black/75">顔型だけで決めず、「毎朝再現できるか」まで美容師に相談すると選びやすくなります。</p>
+          <div className="mt-6 grid gap-3 sm:grid-cols-2">
+            {[
+              { title: "セットに5分以上かけたくない", tip: "乾かすだけでも形がまとまりやすい長さ・量を相談", ask: "朝は5分以内で済ませたいです。ワックスなしでも整う形にできますか？" },
+              { title: "直毛でトップがつぶれやすい", tip: "トップの長さと乾かし方を確認。パーマが必要かは美容師と判断", ask: "直毛でも立体感を出せますか？乾かし方も教えてください。" },
+              { title: "くせ毛で横に広がりやすい", tip: "くせを生かすか抑えるかを決め、横のボリュームを調整", ask: "湿気で広がります。自分で再現しやすい長さはどのくらいですか？" },
+              { title: "毛量が多く重く見える", tip: "すきすぎによる広がりも考慮し、サイド・襟足の収まりを優先", ask: "横が膨らみやすいです。量の調整だけで収まりますか？" },
+            ].map((item) => (
+              <div key={item.title} className="rounded-[18px] border border-black/10 bg-[#F8FAFC] p-5">
+                <h3 className="text-[14px] font-bold">{item.title}</h3>
+                <p className="mt-3 text-[12px] leading-6 text-black/75">{item.tip}</p>
+                <p className="mt-3 rounded-xl bg-white p-3 text-[12px] leading-6 text-[#1677FF]">美容師への相談例：「{item.ask}」</p>
+              </div>
+            ))}
+          </div>
+          <p className="mt-4 text-[12px] leading-6 text-black/60">※髪質や生えぐせによって再現性は変わります。写真の髪型をそのまま再現できるとは限りません。</p>
         </section>
 
         <section

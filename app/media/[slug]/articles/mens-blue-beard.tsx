@@ -18,6 +18,10 @@ const tableOfContents = [
     label: "青髭対策は大きく3つ",
   },
   {
+    id: "choose-measure",
+    label: "状態別｜自分に合う青髭対策の選び方",
+  },
+  {
     id: "shaving",
     label: "まずは髭をきれいに剃る",
   },
@@ -279,6 +283,27 @@ export default function MensBlueBeardArticle({
               </section>
             ))}
           </div>
+        </section>
+
+        <section id="choose-measure" className="scroll-mt-24 pt-16">
+          <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">HOW TO CHOOSE</p>
+          <h2 className="mt-2 text-[22px] font-semibold tracking-[-0.04em] sm:text-[26px]">状態別｜自分に合う青髭対策の選び方</h2>
+          <p className="mt-4 text-[13px] leading-7 text-black/75">青く見える原因と、いつまでにどうしたいかで対策は変わります。まずは次の目安で整理してみましょう。</p>
+          <div className="mt-6 space-y-3">
+            {[
+              { title: "触るとザラつき、剃り残しがある", action: "まず剃り方とシェーバーの状態を確認", detail: "髭の流れに沿って無理なく剃り、刃の劣化や剃り残しを見直します。ヒリつく場合は深剃りを重ねないでください。" },
+              { title: "剃った直後も青いが、肌表面はなめらか", action: "メイクで色を整える方法を検討", detail: "青みが薄ければBBクリーム、部分的に強ければコンシーラーを少量から試します。自然光で色の境目を確認しましょう。" },
+              { title: "毎日のカバーに手間を感じる", action: "髭を減らす長期的な選択肢を比較", detail: "医療脱毛などの施術には費用・通院・痛み・肌トラブルのリスクがあります。将来髭を残したいかも含めて医療機関で相談しましょう。" },
+              { title: "赤み・ヒリつき・ブツブツが続く", action: "見た目のカバーより肌への負担を減らす", detail: "無理な深剃りや刺激の強い製品の重ね使いを避け、症状が続く場合は皮膚科へ相談してください。" },
+            ].map((item) => (
+              <div key={item.title} className="rounded-[18px] border border-black/10 bg-[#F8FAFC] p-5">
+                <h3 className="text-[14px] font-bold">{item.title}</h3>
+                <p className="mt-2 text-[13px] font-bold text-[#1677FF]">→ {item.action}</p>
+                <p className="mt-2 text-[12px] leading-6 text-black/70">{item.detail}</p>
+              </div>
+            ))}
+          </div>
+          <p className="mt-4 text-[12px] leading-6 text-black/60">※見た目だけで原因を断定するものではありません。色素沈着など、髭以外の原因が疑われる場合は皮膚科で確認してください。</p>
         </section>
 
         <section

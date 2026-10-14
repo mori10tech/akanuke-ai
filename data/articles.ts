@@ -335,7 +335,6 @@ const HIDDEN_ARTICLE_SLUGS = new Set([
   "mens-cleanliness-guide",
   "mens-akanuke-order",
   "mens-beauty-beginner",
-  "akanukenai-man-features",
   "mens-akanuke-guide",
 ]);
 

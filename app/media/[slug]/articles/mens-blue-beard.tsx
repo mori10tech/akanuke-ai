@@ -232,6 +232,18 @@ export default function MensBlueBeardArticle({
             </p>
           </div>
 
+          <figure className="mt-7 overflow-hidden rounded-[18px]">
+            <img
+              src="/media/articles/mens-blue-beard/mens-blue-beard-causes.webp"
+              alt="青髭が目立つ原因を肌表面の剃り残しと皮膚の下の髭で比較した図解"
+              width={1672}
+              height={941}
+              loading="lazy"
+              decoding="async"
+              className="block h-auto w-full"
+            />
+          </figure>
+
           <div className="mt-7 rounded-[20px] border border-[#1677FF]/15 bg-[#EEF6FF] p-5">
             <p className="text-[12px] font-black text-[#1677FF]">
               青髭対策の基本
@@ -357,6 +369,18 @@ export default function MensBlueBeardArticle({
             ))}
           </div>
 
+          <figure className="mt-7 overflow-hidden rounded-[18px]">
+            <img
+              src="/media/articles/mens-blue-beard/mens-blue-beard-shaving.webp"
+              alt="洗顔からシェービング剤の使用、髭剃り、保湿までの4ステップ"
+              width={1672}
+              height={941}
+              loading="lazy"
+              decoding="async"
+              className="block h-auto w-full"
+            />
+          </figure>
+
           <div className="mt-7">
             <JournalRelatedArticleLink
               href="/media/mens-beard-grooming"
@@ -439,6 +463,18 @@ export default function MensBlueBeardArticle({
               BBクリームと同じく、コンシーラーも「完全に消す」より、顔全体として自然に見えるところで止めるのがポイントです。
             </p>
           </div>
+
+          <figure className="mt-7 overflow-hidden rounded-[18px]">
+            <img
+              src="/media/articles/mens-blue-beard/mens-blue-beard-concealer.webp"
+              alt="青髭をコンシーラーで自然にカバーする4つの手順"
+              width={1672}
+              height={941}
+              loading="lazy"
+              decoding="async"
+              className="block h-auto w-full"
+            />
+          </figure>
 
 <div className="mt-7">
   <JournalRelatedArticleLink

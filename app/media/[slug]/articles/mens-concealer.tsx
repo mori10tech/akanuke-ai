@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import type { Article } from "../../../../data/articles";
 
 import AdSenseAd from "../../../components/AdSenseAd";
@@ -511,6 +513,20 @@ export default function MensConcealerArticle({
 
           </div>
 
+          <figure className="mt-7 overflow-hidden rounded-[20px] border border-black/10 bg-[#F8FAFC]">
+            <Image
+              src="/media/articles/mens-concealer/mens-concealer-bb-comparison.webp"
+              alt="BBクリームとコンシーラーの用途の違いを比較した解説画像"
+              width={1672}
+              height={941}
+              sizes="(max-width: 640px) calc(100vw - 40px), (max-width: 1024px) 100vw, 680px"
+              className="h-auto w-full"
+            />
+            <figcaption className="px-4 py-3 text-[11px] font-medium leading-5 text-black/65">
+              BBクリームは顔全体、コンシーラーは気になる部分をカバーするためのアイテムです。
+            </figcaption>
+          </figure>
+
           <div className="mt-7">
 
             <JournalRelatedArticleLink
@@ -671,6 +687,20 @@ export default function MensConcealerArticle({
 
           </div>
 
+          <figure className="mt-7 overflow-hidden rounded-[20px] border border-black/10 bg-[#F8FAFC]">
+            <Image
+              src="/media/articles/mens-concealer/mens-concealer-how-to.webp"
+              alt="男性が指でコンシーラーを頬になじませる様子"
+              width={1672}
+              height={941}
+              sizes="(max-width: 640px) calc(100vw - 40px), (max-width: 1024px) 100vw, 680px"
+              className="h-auto w-full"
+            />
+            <figcaption className="px-4 py-3 text-[11px] font-medium leading-5 text-black/65">
+              少量を気になる部分に置き、境目をやさしくなじませます。
+            </figcaption>
+          </figure>
+
         </section>
 
         <section
@@ -720,6 +750,20 @@ export default function MensConcealerArticle({
             </p>
 
           </div>
+
+          <figure className="mt-7 overflow-hidden rounded-[20px] border border-black/10 bg-[#F8FAFC]">
+            <Image
+              src="/media/articles/mens-concealer/mens-concealer-beard-shadow.webp"
+              alt="青髭をコンシーラーでカバーする前後と使用手順のイメージ"
+              width={1672}
+              height={941}
+              sizes="(max-width: 640px) calc(100vw - 40px), (max-width: 1024px) 100vw, 680px"
+              className="h-auto w-full"
+            />
+            <figcaption className="px-4 py-3 text-[11px] font-medium leading-5 text-black/65">
+              青髭のカバー方法を示したAI生成イメージです。仕上がりには個人差があります。
+            </figcaption>
+          </figure>
 
           <div className="mt-7">
 

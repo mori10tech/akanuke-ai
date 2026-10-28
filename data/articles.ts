@@ -26,7 +26,9 @@ export const articles: Article[] = [
 
   publishedAt: "2026-10-02",
 
-  readingTime: "約9分",
+  updatedAt: "2026-10-28",
+
+  readingTime: "約10分",
 
   image: "/media/mens-concealer.png",
 
@@ -76,11 +78,13 @@ export const articles: Article[] = [
     "メンズBBクリームの使い方｜初心者でも自然に仕上げる塗り方を解説",
 
   description:
-    "メンズBBクリームの使い方を初心者向けに解説。青髭・毛穴・肌の色ムラを自然にカバーする塗り方や選び方、塗る順番、自然に仕上げるコツを紹介します。",
+    "メンズBBクリームの使い方を初心者向けに解説。できること・できないこと、浮かない色の選び方、基本の塗り方、塗った後に確認する3つのポイント、日中の直し方を紹介します。",
 
   category: "メンズ美容",
 
   publishedAt: "2026-09-30",
+
+  updatedAt: "2026-10-28",
 
   readingTime: "約9分",
 

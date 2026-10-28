@@ -8,136 +8,155 @@ type Props = {
 };
 
 const tableOfContents = [
-  { id: "basics", label: "BBクリームとは？" },
-  { id: "benefits", label: "どんな悩みをカバーできる？" },
-  { id: "choose", label: "初心者向けの選び方" },
-  { id: "steps", label: "基本の使い方5ステップ" },
-  { id: "natural", label: "自然に仕上げる5つのコツ" },
-  { id: "sunscreen", label: "日焼け止めとの順番" },
-  { id: "remove", label: "BBクリームの落とし方" },
+  { id: "basics", label: "BBクリームでできること・できないこと" },
+  { id: "choose", label: "買う前に決めること" },
+  { id: "color", label: "失敗しにくい色の選び方" },
+  { id: "steps", label: "基本の塗り方5ステップ" },
+  { id: "check", label: "塗った後に確認する3つのポイント" },
+  { id: "daytime", label: "日中の崩れと直し方" },
+  { id: "sunscreen", label: "日焼け止めとの順番と落とし方" },
   { id: "faq", label: "よくある質問" },
   { id: "summary", label: "まとめ" },
 ];
 
-const benefits = [
+const canDo = [
+  "赤みやくすみなど、肌の色ムラを目立ちにくくする",
+  "毛穴の影や、薄いニキビ跡を目立ちにくくする",
+  "薄い青髭の青みを和らげる",
+  "顔全体の色をそろえて、明るく見せる",
+];
+
+const cannotDo = [
+  "濃い青髭やはっきりしたニキビ跡を、完全に隠す",
+  "ニキビの盛り上がりや、肌の凹凸を平らにする",
+  "スキンケアの代わりになる",
+];
+
+const purposeOptions = [
   {
-    title: "肌の色ムラ",
+    purpose: "顔全体の色ムラを、さりげなく整えたい",
+    answer: "BBクリーム",
     description:
-      "赤みやくすみなど、部分的な色の違いをカバーして肌全体を均一に見せやすくします。",
+      "顔全体に薄く伸ばして、肌の色をそろえるのに向いています。初めての人が取り入れやすいアイテムです。",
   },
   {
-    title: "毛穴・ニキビ跡",
+    purpose: "青髭やニキビ跡など、一部分だけを隠したい",
+    answer: "コンシーラー",
     description:
-      "気になる部分を自然にカバーすることで、肌表面をなめらかな印象に見せやすくなります。",
+      "狭い範囲をしっかりカバーするのに向いています。BBクリームで全体を整えた後に、残った部分だけに使う方法もあります。",
   },
   {
-    title: "青髭",
+    purpose: "メイク感はできるだけ出したくない",
+    answer: "色付きの日焼け止め",
     description:
-      "髭剃り後の青みを目立ちにくくするために使える商品もあります。隠しきれない場合はコンシーラーなどを組み合わせる方法もあります。",
+      "カバー力は控えめですが、日焼け止めのついでに肌の色を少し整えられます。BBクリームの前に試してみるのも一つの方法です。",
+  },
+];
+
+const colorSteps = [
+  {
+    title: "フェイスラインで試す",
+    description:
+      "手の甲は顔より色が濃いことが多いため、テスターはあごのラインなど、顔と首の境目に塗って確認します。",
   },
   {
-    title: "クマ・疲れた印象",
+    title: "自然光で見る",
     description:
-      "目元の色ムラを自然に整えることで、顔全体の印象をすっきり見せやすくなります。",
+      "店内の照明では色が違って見えることがあります。可能であれば、窓際や屋外で首の色となじんでいるかを確認しましょう。",
+  },
+  {
+    title: "明るすぎる色を避ける",
+    description:
+      "肌を明るく見せたいからと明るい色を選ぶと、顔だけ白く浮いて見えます。2色で迷ったら、首の色に近いほうを選びます。",
   },
 ];
 
 const bbSteps = [
   {
     number: "01",
-    title: "洗顔して肌を清潔にする",
+    title: "スキンケアで肌を整える",
     description:
-      "まずは洗顔して、肌表面の汗や余分な皮脂、汚れを落とします。BBクリームを塗る前に肌を清潔な状態に整えましょう。",
+      "洗顔・保湿をしてから使います。乾燥した肌に塗ると、粉をふいたように見えたり、ムラになったりしやすくなります。",
     point:
-      "強くこする必要はありません。普段の洗顔と同じように、肌に負担をかけすぎないように洗いましょう。",
+      "保湿剤のベタつきが残っている場合は、少し時間を置いてから塗りましょう。",
   },
   {
     number: "02",
-    title: "化粧水などで肌を整える",
+    title: "少量を5か所に置く",
     description:
-      "洗顔後は、普段使っている化粧水や乳液などで肌を整えます。乾燥した状態よりも、スキンケア後の肌になじませる方が仕上がりを整えやすくなります。",
+      "手の甲に少量を出し、額・両頬・鼻・あごの5か所に少しずつ置きます。量は製品によって違うため、表示の量より少なめから始めると、厚塗りを防ぎやすくなります。",
     point:
-      "スキンケア直後にベタつきが残っている場合は、少し時間を置いてからBBクリームを使いましょう。",
+      "足りない場合は後から追加できますが、多すぎた分を減らすのは難しくなります。",
   },
   {
     number: "03",
-    title: "BBクリームを少量取る",
+    title: "顔の中心から外側へ伸ばす",
     description:
-      "BBクリームを手の甲などに少量出します。適量は商品によって異なるため、まずは使用する商品の説明を確認しましょう。",
+      "指の腹で、顔の中心から外側に向かって薄く伸ばします。こするのではなく、肌の上をすべらせるように動かします。",
     point:
-      "最初から多く出すより、少量から始めて足りない部分だけ追加する方が厚塗りを防ぎやすくなります。",
+      "小鼻のわきや口の周りは、指先で軽くたたくようになじませます。",
   },
   {
     number: "04",
-    title: "顔の中心から外側へ薄く伸ばす",
+    title: "フェイスラインはさらに薄くする",
     description:
-      "頬や額、鼻、あごなどに少量ずつ置き、顔の中心から外側へ向かって薄くなじませます。指で強くこすらず、やさしく伸ばしましょう。",
+      "あご・耳の前・生え際に近づくほど薄くして、何も塗っていない首や髪との境目をぼかします。",
     point:
-      "フェイスラインに近づくほど薄くすると、顔と首の境目が目立ちにくくなります。",
+      "指に残った量だけでなじませる程度で十分です。",
   },
   {
     number: "05",
-    title: "全体を確認して必要な部分だけ重ねる",
+    title: "気になる部分だけ重ねる",
     description:
-      "最後に鏡から少し離れて、顔全体の仕上がりを確認します。青髭やニキビ跡などが気になる場合は、必要な部分にだけ少量を追加します。",
+      "鏡から少し離れて全体を確認し、青髭や赤みが残っている部分にだけ、ごく少量を重ねます。",
     point:
-      "完全に隠そうとして重ね続けるのではなく、顔全体として自然に見えるところで止めるのがポイントです。",
+      "それでも隠れない場合は、BBクリームを重ね続けるより、コンシーラーを使うほうが自然に仕上がります。",
   },
 ];
 
-const naturalTips = [
+const checkPoints = [
   {
-    title: "最初からたくさん塗らない",
+    title: "首との色の差",
     description:
-      "カバーしたい部分が多くても、一度に量を増やすと厚塗りに見えやすくなります。まずは薄く塗り、必要な部分だけ後から調整しましょう。",
+      "鏡から少し離れて、首まで映した状態で見ます。顔だけ明るく見える場合は、色が合っていないか、量が多すぎます。",
   },
   {
-    title: "フェイスラインは薄くする",
+    title: "横顔と耳の前",
     description:
-      "あごや耳の横まで同じ濃さで塗ると、首との境目が目立つことがあります。顔の外側ほど薄くなじませましょう。",
+      "正面だけでなく、横を向いてフェイスラインに境目がないかを確認します。正面からは見えにくい部分です。",
   },
   {
-    title: "青髭を隠そうとして重ねすぎない",
+    title: "表情を動かしたとき",
     description:
-      "口まわりだけ何度も重ねると、そこだけ質感が変わって見えることがあります。BBクリームだけで難しい場合は、部分用のコンシーラーなどを検討します。",
-  },
-  {
-    title: "顔と首の色を一緒に確認する",
-    description:
-      "顔だけを近くで見るのではなく、首まで鏡に映して色の差を確認します。顔だけ明るく浮いて見えないかチェックしましょう。",
-  },
-  {
-    title: "最後は少し離れて確認する",
-    description:
-      "鏡に近づきすぎると毛穴や細かな跡が気になり、必要以上に重ねやすくなります。最後は少し離れて顔全体の印象を確認しましょう。",
+      "口を動かしたり笑ったりして、口の周りや目元にBBクリームがたまっていないかを確認します。たまっている場合は、指で軽く押さえてなじませます。",
   },
 ];
 
 const faqs = [
   {
-    question: "男性がBBクリームを使っても不自然になりませんか？",
+    question: "男性がBBクリームを使うと、メイクしているとバレませんか？",
     answer:
-      "自分の肌になじむ色を選び、少量を薄く伸ばせば自然に仕上げやすくなります。厚塗りを避け、顔と首の境目まで確認することがポイントです。",
+      "首の色に近い色を選び、少量を薄く伸ばして、フェイスラインをぼかせば、気づかれにくい仕上がりになります。塗った後に、首との色の差・横顔・表情を動かしたときの3点を確認しましょう。",
   },
   {
     question: "BBクリームで青髭は隠せますか？",
     answer:
-      "青髭を目立ちにくくできる商品もあります。ただし青みの強さによってはBBクリームだけでは十分にカバーできないこともあります。その場合は、コンシーラーなどを部分的に使う方法もあります。",
+      "薄い青髭なら目立ちにくくできることがあります。青みが強い場合は、BBクリームを重ねるより、オレンジ系のコンシーラーを部分的に使うほうが自然に仕上がります。",
   },
   {
     question: "BBクリームは毎日使ってもいいですか？",
     answer:
-      "使用頻度は商品や肌状態によって異なります。使用後に刺激や赤みなどの異常を感じた場合は使用を中止し、症状が続く場合は医療機関へ相談してください。",
+      "製品の使用方法に従って使えば問題ありません。使った日は、製品に合った方法できちんと落としましょう。赤みやかゆみなどが出た場合は使用を中止し、続く場合は皮膚科に相談してください。",
   },
   {
-    question: "BBクリームと日焼け止めはどちらを先に塗りますか？",
+    question: "BBクリームとファンデーションの違いは何ですか？",
     answer:
-      "商品によって推奨される使用方法が異なります。UVカット機能付きのBBクリームもあるため、使用する日焼け止めやBBクリームの説明を確認して使いましょう。",
+      "一般的に、BBクリームはファンデーションより薄づきで、保湿や紫外線カットなどの機能を兼ねた製品が多いアイテムです。ただし、製品によって特徴は異なるため、カバー力や機能は製品の説明で確認しましょう。",
   },
   {
-    question: "BBクリームは洗顔だけで落とせますか？",
+    question: "肌荒れしているときに使ってもいいですか？",
     answer:
-      "商品によって異なります。洗顔料だけで落とせるものもあれば、クレンジングが必要なものもあるため、パッケージやメーカー公式の使用方法を確認してください。",
+      "赤く腫れたニキビや傷がある部分には、塗るのを避けましょう。肌荒れを隠すために厚く塗ると、刺激になったり、かえって目立ったりすることがあります。",
   },
 ];
 
@@ -181,22 +200,17 @@ export default function MensBbCreamArticle({
       <div className="min-w-0">
         <section className="text-[14px] leading-8 text-black/80">
           <p>
-            「BBクリームを使ってみたいけれど、メイクしている感じにはしたくない」「青髭や肌の色ムラを自然に目立たなくしたい」と感じている男性もいるのではないでしょうか。
+            「BBクリームを使ってみたいけれど、メイクしているとバレたくない」「買ってみたものの、塗ると顔だけ白く浮いてしまう」と悩んでいませんか？
           </p>
 
           <p className="mt-5">
-            BBクリームは、肌の色ムラや毛穴、青髭などをカバーし、肌全体を整えて見せるために使えるアイテムです。
+            BBクリームが不自然に見える原因の多くは、色選びと量です。自分の肌に合う色を選び、少量を薄く伸ばして、塗った後に何を確認すればよいかが分かれば、初めてでも自然に仕上げられます。
           </p>
 
           <p className="mt-5">
-            ただし、たくさん塗れば自然に仕上がるわけではありません。初心者が特に意識したいのは、少量を薄くなじませることです。
-          </p>
-
-          <p className="mt-5">
-            この記事では、初めてBBクリームを使う男性に向けて、選び方から基本的な塗り方、自然に仕上げるためのポイントまで分かりやすく解説します。
+            この記事では、BBクリームでできることとできないこと、買う前に決めること、色の選び方、塗り方、塗った後の確認ポイント、日中の直し方を解説します。
           </p>
         </section>
-
 
         <section
           id="basics"
@@ -207,123 +221,135 @@ export default function MensBbCreamArticle({
           </p>
 
           <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
-            メンズBBクリームとは？
+            BBクリームでできること・できないこと
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
-            <p>
-              BBクリームは、肌の色ムラや毛穴などをカバーし、肌を均一に見せるために使われるベースメイクアイテムです。
-            </p>
+          <p className="mt-5 text-[14px] leading-8 text-black/80">
+            BBクリームは、顔全体に薄く伸ばして、肌の色をそろえて見せるためのアイテムです。できることとできないことを知っておくと、塗りすぎを防げます。
+          </p>
 
-            <p className="mt-5">
-              商品によって特徴は異なり、UVカット機能などを備えているものもあります。
-            </p>
+          <div className="mt-7 grid gap-4 sm:grid-cols-2">
+            <div className="rounded-[20px] border border-[#1677FF]/15 bg-[#EEF6FF] p-5">
+              <p className="text-[12px] font-black text-[#1677FF]">
+                できること
+              </p>
 
-            <p className="mt-5">
-              男性が使う場合も、顔を別人のように変える必要はありません。気になる部分を自然に整え、肌全体をすっきり見せるための選択肢として取り入れられます。
-            </p>
+              <ul className="mt-3 space-y-2 text-[12px] font-medium leading-6 text-black/75">
+                {canDo.map((item) => (
+                  <li key={item}>・{item}</li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="rounded-[20px] border border-black/10 bg-[#F8FAFC] p-5">
+              <p className="text-[12px] font-black text-black/70">
+                できないこと
+              </p>
+
+              <ul className="mt-3 space-y-2 text-[12px] font-medium leading-6 text-black/75">
+                {cannotDo.map((item) => (
+                  <li key={item}>・{item}</li>
+                ))}
+              </ul>
+            </div>
           </div>
 
-          <div className="mt-7 rounded-[20px] border border-[#1677FF]/15 bg-[#EEF6FF] p-5">
-            <p className="text-[12px] font-black text-[#1677FF]">
-              初心者が覚えておきたいこと
-            </p>
-
-            <p className="mt-3 text-[12px] font-medium leading-6 text-black/70">
-              BBクリームは「全部隠す」ためではなく、気になる部分を自然に整える感覚で使うと仕上がりが不自然になりにくくなります。
-            </p>
-          </div>
+          <p className="mt-5 text-[13px] leading-7 text-black/70">
+            「できないこと」を無理にBBクリームで解決しようとして重ね塗りすると、厚塗りに見える原因になります。
+          </p>
         </section>
-
-        <section
-          id="benefits"
-          className="scroll-mt-24 pt-16"
-        >
-          <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
-            COVER
-          </p>
-
-          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
-            BBクリームでカバーしやすい肌悩み
-          </h2>
-
-          <p className="mt-4 text-[13px] font-medium leading-7 text-black/70">
-            BBクリームは、男性が気になりやすいさまざまな肌悩みを目立ちにくくするために使えます。
-          </p>
-
-          <div className="mt-8 grid gap-4 sm:grid-cols-2">
-            {benefits.map((item, index) => (
-              <div
-                key={item.title}
-                className="rounded-[20px] border border-black/10 bg-white p-5 shadow-[0_8px_28px_rgba(15,23,42,0.04)]"
-              >
-                <span className="flex h-9 w-9 items-center justify-center rounded-[11px] bg-[#111111] text-[10px] font-black text-white">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-
-                <h3 className="mt-4 text-[17px] font-semibold tracking-[-0.03em]">
-                  {item.title}
-                </h3>
-
-                <p className="mt-3 text-[12px] font-medium leading-6 text-black/70">
-                  {item.description}
-                </p>
-              </div>
-            ))}
-          </div>
-
-<div className="mt-7">
-  <JournalRelatedArticleLink
-    href="/media/mens-blue-beard"
-    title="青髭の原因と対策を詳しく見る"
-    description="髭を剃っても青く見える原因や、BBクリーム・コンシーラーで自然に隠す方法を解説。"
-  />
-</div>
-</section>
 
         <section
           id="choose"
           className="scroll-mt-24 pt-16"
         >
           <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
-            HOW TO CHOOSE
+            BEFORE BUYING
           </p>
 
           <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
-            初心者が失敗しにくいBBクリームの選び方
+            買う前に決めること｜BBクリームが本当に合っているか
           </h2>
 
-          <div className="mt-7 space-y-4">
-            <div className="rounded-[20px] border border-black/10 bg-[#F8FAFC] p-5">
-              <h3 className="text-[15px] font-black">
-                自分の肌から浮きにくい色を選ぶ
-              </h3>
+          <p className="mt-5 text-[14px] leading-8 text-black/80">
+            隠したいものによっては、BBクリーム以外のアイテムのほうが向いていることがあります。まず「何を、どこまで隠したいか」を決めましょう。
+          </p>
 
-              <p className="mt-3 text-[13px] leading-7 text-black/75">
-                顔だけ白く見えたり、首との境目が目立ったりしないよう、自分の肌になじみやすい色を選びます。肌を明るく見せたいからと、必要以上に明るい色を選ばないようにしましょう。
-              </p>
-            </div>
+          <div className="mt-7 space-y-3">
+            {purposeOptions.map((option) => (
+              <div
+                key={option.purpose}
+                className="rounded-[18px] border border-black/10 bg-white p-5"
+              >
+                <p className="text-[13px] font-bold">
+                  {option.purpose}
+                </p>
 
-            <div className="rounded-[20px] border border-black/10 bg-[#F8FAFC] p-5">
-              <h3 className="text-[15px] font-black">
-                カバー力だけで決めない
-              </h3>
+                <p className="mt-2 text-[13px] font-black text-[#1677FF]">
+                  → {option.answer}
+                </p>
 
-              <p className="mt-3 text-[13px] leading-7 text-black/75">
-                カバー力が高いほど自分に合うとは限りません。自然な仕上がりを優先するなら、どこまでカバーしたいのかを考えて選びましょう。
-              </p>
-            </div>
-
-            <div className="rounded-[20px] border border-black/10 bg-[#F8FAFC] p-5">
-              <h3 className="text-[15px] font-black">
-                UVカット機能も確認する
-              </h3>
-
-              <p className="mt-3 text-[13px] leading-7 text-black/75">
-                BBクリームにはSPF・PAが表示されている商品もあります。紫外線対策も兼ねたい場合は、商品の機能や使用方法を確認して選びましょう。
-              </p>
-            </div>
+                <p className="mt-2 text-[12px] font-medium leading-6 text-black/70">
+                  {option.description}
+                </p>
+              </div>
+            ))}
           </div>
+
+          <div className="mt-7 grid gap-3 sm:grid-cols-2">
+            <JournalRelatedArticleLink
+              href="/media/mens-concealer"
+              title="メンズコンシーラーの使い方を見る"
+              description="青髭・ニキビ跡・クマなど、部分的に隠す方法と色選びを解説。"
+            />
+
+            <JournalRelatedArticleLink
+              href="/media/mens-blue-beard"
+              title="青髭の原因と対策を見る"
+              description="髭を剃っても青く見える原因と、状態に合った対策の選び方を解説。"
+            />
+          </div>
+        </section>
+
+        <section
+          id="color"
+          className="scroll-mt-24 pt-16"
+        >
+          <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
+            COLOR
+          </p>
+
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
+            失敗しにくい色の選び方
+          </h2>
+
+          <p className="mt-5 text-[14px] leading-8 text-black/80">
+            BBクリームが不自然に見える一番の原因は、色が肌に合っていないことです。店頭のテスターを使って、次の3点を確認しましょう。
+          </p>
+
+          <div className="mt-7 space-y-3">
+            {colorSteps.map((step, index) => (
+              <div
+                key={step.title}
+                className="flex items-start gap-3 rounded-[14px] border border-black/10 bg-white px-4 py-3"
+              >
+                <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#EEF6FF] text-[10px] font-black text-[#1677FF]">
+                  {index + 1}
+                </span>
+
+                <p className="text-[12px] font-bold leading-6 text-black/65">
+                  {step.title}
+                  <span className="block font-medium text-black/60">
+                    {step.description}
+                  </span>
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <p className="mt-4 text-[12px] leading-6 text-black/60">
+            ※テスターがない場合は、少量サイズの製品から試すと、色が合わなかったときの失敗を小さくできます。
+          </p>
         </section>
 
         <section
@@ -335,11 +361,11 @@ export default function MensBbCreamArticle({
           </p>
 
           <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
-            メンズBBクリームの基本的な使い方5ステップ
+            メンズBBクリームの基本の塗り方5ステップ
           </h2>
 
           <p className="mt-4 text-[13px] font-medium leading-7 text-black/70">
-            初めて使うときは、一気に完成させようとせず少量ずつ調整しましょう。
+            初めて使うときは、一度で完成させようとせず、少量ずつ調整しましょう。
           </p>
 
           <div className="mt-8 space-y-5">
@@ -349,11 +375,11 @@ export default function MensBbCreamArticle({
                 className="rounded-[22px] border border-black/10 bg-white p-5 shadow-[0_8px_28px_rgba(15,23,42,0.04)] sm:p-6"
               >
                 <div className="flex items-start gap-4">
-                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[13px] bg-[#1677FF] text-[12px] font-black text-white">
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[13px] bg-[#111111] text-[12px] font-black text-white">
                     {step.number}
                   </span>
 
-                  <div className="min-w-0">
+                  <div className="min-w-0 flex-1">
                     <h3 className="text-[19px] font-semibold tracking-[-0.035em]">
                       {step.title}
                     </h3>
@@ -363,10 +389,11 @@ export default function MensBbCreamArticle({
                     </p>
 
                     <div className="mt-4 rounded-[14px] bg-[#FFF9D9] px-4 py-3">
-                      <p className="text-[11px] font-bold leading-5 text-black/65">
+                      <p className="text-[11px] font-bold leading-6 text-black/65">
                         <span className="mr-2 font-black text-[#9A7800]">
                           POINT
                         </span>
+
                         {step.point}
                       </p>
                     </div>
@@ -383,21 +410,25 @@ export default function MensBbCreamArticle({
         />
 
         <section
-          id="natural"
+          id="check"
           className="scroll-mt-24 pt-16"
         >
           <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
-            NATURAL FINISH
+            CHECK
           </p>
 
           <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
-            BBクリームを自然に見せる5つのコツ
+            塗った後に確認する3つのポイント
           </h2>
 
-          <div className="mt-7 grid gap-4">
-            {naturalTips.map((tip, index) => (
+          <p className="mt-5 text-[14px] leading-8 text-black/80">
+            鏡に近づいて正面だけを見ていると、不自然な部分に気づきにくくなります。家を出る前に、次の3点を確認しましょう。
+          </p>
+
+          <div className="mt-7 space-y-4">
+            {checkPoints.map((point, index) => (
               <div
-                key={tip.title}
+                key={point.title}
                 className="rounded-[18px] border border-black/10 bg-[#F8FAFC] p-5"
               >
                 <div className="flex items-start gap-3">
@@ -407,11 +438,11 @@ export default function MensBbCreamArticle({
 
                   <div>
                     <h3 className="text-[15px] font-black">
-                      {tip.title}
+                      {point.title}
                     </h3>
 
                     <p className="mt-2 text-[12px] font-medium leading-6 text-black/70">
-                      {tip.description}
+                      {point.description}
                     </p>
                   </div>
                 </div>
@@ -421,56 +452,60 @@ export default function MensBbCreamArticle({
         </section>
 
         <section
-          id="sunscreen"
+          id="daytime"
           className="scroll-mt-24 pt-16"
         >
           <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
-            SUNSCREEN
+            TOUCH UP
           </p>
 
           <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
-            日焼け止めとBBクリームはどっちが先？
+            日中の崩れと直し方
           </h2>
 
           <div className="mt-5 text-[14px] leading-8 text-black/80">
             <p>
-              BBクリームにはUVカット機能が付いている商品もあります。一方で、別の日焼け止めを併用する場合もあります。
+              時間がたつと、皮脂や汗でBBクリームがよれたり、テカって見えたりすることがあります。その上から重ね塗りすると、厚塗りに見える原因になります。
             </p>
 
             <p className="mt-5">
-              使用する商品によって推奨される使い方が異なるため、「必ずこの順番」と決めるのではなく、それぞれの商品説明を確認することが基本です。
-            </p>
-
-            <p className="mt-5">
-              UVカット機能付きの商品でも、使用量などによっては表示されている紫外線防御効果を十分に得られない場合があります。紫外線対策を重視する場合は、商品の使用方法を確認して適切に使いましょう。
+              直すときは、まずティッシュを顔に軽く当てて、皮脂を押さえます。そのうえで、色が薄くなった部分にだけ、指に取ったごく少量をたたくようになじませます。夕方に青髭が目立ってくる場合も、同じように少量を重ねる程度にとどめましょう。
             </p>
           </div>
         </section>
 
         <section
-          id="remove"
+          id="sunscreen"
           className="scroll-mt-24 pt-16"
         >
           <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
-            REMOVE
+            SUNSCREEN & REMOVE
           </p>
 
           <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
-            BBクリームはどうやって落とす？
+            日焼け止めとの順番と落とし方
           </h2>
 
           <div className="mt-5 text-[14px] leading-8 text-black/80">
             <p>
-              BBクリームを使った日は、その商品に合った方法で落としましょう。
+              日焼け止めとBBクリームを両方使う場合は、一般的に「スキンケア → 日焼け止め → BBクリーム」の順番です。ただし、製品によって推奨される使い方が違うため、それぞれの説明を確認しましょう。
             </p>
 
             <p className="mt-5">
-              洗顔料だけで落とせる商品もあれば、クレンジングが必要な商品もあります。そのため、「BBクリームなら洗顔だけで大丈夫」と一律に判断するのは避けましょう。
+              UVカット機能付きのBBクリームもありますが、薄く塗った場合は、表示どおりの効果を得られないことがあります。屋外で長く過ごす日は、日焼け止めを別に使うと安心です。
             </p>
 
             <p className="mt-5">
-              パッケージやメーカー公式サイトに記載されている落とし方を確認し、使用している商品に合わせてケアしてください。
+              BBクリームを使った日は、夜に必ず落とします。洗顔料だけで落とせる製品もあれば、クレンジングが必要な製品もあるため、パッケージの表示に従いましょう。
             </p>
+          </div>
+
+          <div className="mt-7">
+            <JournalRelatedArticleLink
+              href="/media/mens-skincare-beginner"
+              title="メンズスキンケアの基本を見る"
+              description="BBクリームの前に整えたい、洗顔・保湿・日焼け止めの基本を解説。"
+            />
           </div>
         </section>
 
@@ -482,7 +517,9 @@ export default function MensBbCreamArticle({
           </div>
 
           <h2 className="mt-4 text-[22px] font-semibold sm:text-[26px] leading-[1.45] tracking-[-0.04em] text-[#111111]">
-            肌だけでなく、顔全体の改善ポイントを確認
+            肌だけでなく、
+            <br />
+            顔全体の改善ポイントを確認
           </h2>
 
           <p className="mt-4 text-[13px] font-medium leading-6 text-black/70">
@@ -537,35 +574,17 @@ export default function MensBbCreamArticle({
           </p>
 
           <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
-            メンズBBクリームは少量から自然に仕上げよう
+            色選びと量で、BBクリームの仕上がりは決まる
           </h2>
 
           <div className="mt-5 text-[14px] leading-8 text-black/80">
             <p>
-              BBクリームは、青髭や毛穴、肌の色ムラなどを自然にカバーし、肌全体を整えて見せるために使えるアイテムです。
+              BBクリームは、顔全体の色ムラをさりげなく整えるためのアイテムです。濃い青髭やはっきりした跡を完全に隠すものではないため、隠したいものによってはコンシーラーなどと使い分けましょう。
             </p>
 
             <p className="mt-5">
-              初心者は、最初から完璧に隠そうとせず、自分の肌になじむ色を選んで少量ずつ薄く伸ばすことから始めましょう。
+              色はフェイスラインと自然光で確認し、首の色に近いものを選びます。少量を5か所に置いて薄く伸ばし、首との色の差・横顔・表情を動かしたときの3点を確認すれば、初めてでも自然に仕上げられます。
             </p>
-
-            <p className="mt-5">
-              また、垢抜けた印象は肌だけで決まるものではありません。髪型・眉毛・ヒゲなども含めて、自分が取り組みやすいところから少しずつ整えていくことが大切です。
-            </p>
-          </div>
-
-          <div className="mt-8 grid gap-3 sm:grid-cols-2">
-            <JournalRelatedArticleLink
-              href="/media/mens-skincare-beginner"
-              title="メンズスキンケアの基本を見る"
-              description="洗顔・保湿・日焼け止めなど、初心者が最初に覚えたい基本3ステップを解説。"
-            />
-
-            <JournalRelatedArticleLink
-              href="/media/mens-beard-grooming"
-              title="ヒゲの整え方を見る"
-              description="基本の剃り方や青ヒゲが気になるときの考え方を初心者向けに解説。"
-            />
           </div>
 
           <p className="sr-only">

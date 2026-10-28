@@ -82,6 +82,14 @@ const tableOfContents = [
 
   {
 
+    id: "types",
+
+    label: "種類と選び方",
+
+  },
+
+  {
+
     id: "mistakes",
 
     label: "よくある失敗",
@@ -254,6 +262,46 @@ const mistakes = [
 
 ];
 
+const concealerTypes = [
+
+  {
+
+    name: "スティック（固形）タイプ",
+
+    suited: "青髭、ニキビ跡",
+
+    description:
+
+      "硬めでカバー力が出やすく、鼻下やあごなど、隠したい範囲がはっきりしている部分に向いています。目元のように動く部分に使うと、厚くなりやすい点に注意しましょう。",
+
+  },
+
+  {
+
+    name: "リキッドタイプ",
+
+    suited: "目の下のクマ、広めの色ムラ",
+
+    description:
+
+      "やわらかく伸びがよいため、目元など動きのある部分や、少し広い範囲になじませやすいタイプです。カバー力は控えめな製品が多く、青みが強い部分では物足りないことがあります。",
+
+  },
+
+  {
+
+    name: "パレット（複数色）タイプ",
+
+    suited: "青髭の補正と肌色の調整を1つで済ませたい場合",
+
+    description:
+
+      "複数の色が1つに入っており、混ぜて肌色に合わせたり、オレンジ系の補正色と肌色を使い分けたりできます。色を調整する手間がかかるため、慣れてから選ぶのも一つの方法です。",
+
+  },
+
+];
+
 const faqs = [
 
   {
@@ -303,6 +351,26 @@ const faqs = [
     answer:
 
       "肌状態によっては刺激になることがあります。痛み・腫れ・傷などがある場合は無理にカバーせず、肌の状態を優先してください。",
+
+  },
+
+  {
+
+    question: "時間がたつとコンシーラーが崩れてきます",
+
+    answer:
+
+      "皮脂や汗、口や目元の動きによって、時間がたつとヨレることがあります。直すときは、ティッシュで皮脂を軽く押さえてから、気になる部分にだけ少量を重ねます。上から厚く塗り直すと、かえって目立ちやすくなります。",
+
+  },
+
+  {
+
+    question: "コンシーラーはどうやって落とせばいいですか？",
+
+    answer:
+
+      "製品の表示に従って落とします。洗顔料だけで落とせる製品もあれば、クレンジングが必要な製品もあります。目元は特に肌が薄いため、強くこすらないようにしましょう。",
 
   },
 
@@ -938,6 +1006,76 @@ export default function MensConcealerArticle({
             </p>
 
           </div>
+
+        </section>
+
+        <section
+
+          id="types"
+
+          className="scroll-mt-24 pt-16"
+
+        >
+
+          <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
+
+            TYPES
+
+          </p>
+
+          <h2 className="mt-2 text-[22px] font-semibold tracking-[-0.04em] sm:text-[26px]">
+
+            メンズコンシーラーの種類と選び方
+
+          </h2>
+
+          <p className="mt-5 text-[14px] leading-8 text-black/80">
+
+            コンシーラーには、主に次の3つのタイプがあります。最初の1本は、一番隠したい悩みに合わせて選びましょう。
+
+          </p>
+
+          <div className="mt-7 space-y-3">
+
+            {concealerTypes.map((type) => (
+
+              <div
+
+                key={type.name}
+
+                className="rounded-[18px] border border-black/10 bg-[#F8FAFC] p-5"
+
+              >
+
+                <h3 className="text-[15px] font-black">
+
+                  {type.name}
+
+                </h3>
+
+                <p className="mt-2 text-[12px] font-bold leading-6 text-[#1677FF]">
+
+                  向いている悩み：{type.suited}
+
+                </p>
+
+                <p className="mt-2 text-[12px] font-medium leading-6 text-black/70">
+
+                  {type.description}
+
+                </p>
+
+              </div>
+
+            ))}
+
+          </div>
+
+          <p className="mt-4 text-[12px] leading-6 text-black/60">
+
+            ※硬さやカバー力は製品によって異なります。購入前に、テスターや製品の説明で確認しましょう。
+
+          </p>
 
         </section>
 

@@ -14,6 +14,58 @@ export const articles: Article[] = [
 
 
 {
+  slug: "mens-hair-wax",
+
+  title:
+    "メンズのワックスの付け方｜ベタつかない量と順番を初心者向けに解説",
+
+  description:
+    "メンズのワックスの付け方を初心者向けに解説。スタイリング剤の種類と選び方、量の考え方、失敗しにくい付け方7ステップ、付けすぎたときの直し方、落とし方を紹介します。",
+
+  category: "髪型",
+
+  publishedAt: "2026-10-28",
+
+  readingTime: "約8分",
+
+  image: "/media/mens-hair-wax.png",
+
+  keywords: [
+    "メンズ ワックス 付け方",
+    "ワックス 付け方 初心者",
+    "ワックス 量 メンズ",
+    "ワックス ベタつく",
+    "メンズ ヘアセット",
+  ],
+},
+
+{
+  slug: "mens-hair-drying",
+
+  title:
+    "メンズの髪の乾かし方｜ドライヤーで髪型が決まる6ステップ",
+
+  description:
+    "メンズの髪の正しい乾かし方を解説。髪型が乾かし方で決まる理由、基本の6ステップ、センターパートやマッシュなど髪型別のポイント、つむじの割れやトップのつぶれなど悩み別の対処法を紹介します。",
+
+  category: "髪型",
+
+  publishedAt: "2026-10-28",
+
+  readingTime: "約8分",
+
+  image: "/media/mens-hair-drying.png",
+
+  keywords: [
+    "メンズ 髪 乾かし方",
+    "ドライヤー 乾かし方 メンズ",
+    "髪 乾かし方 ボリューム",
+    "つむじ 割れる 乾かし方",
+    "メンズ 寝ぐせ 直し方",
+  ],
+},
+
+{
   slug: "mens-concealer",
 
   title:

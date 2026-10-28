@@ -14,6 +14,8 @@ import MensBeardGroomingArticle from "./articles/mens-beard-grooming";
 import MensBbCreamArticle from "./articles/mens-bb-cream";
 import MensBlueBeardArticle from "./articles/mens-blue-beard";
 import MensConcealerArticle from "./articles/mens-concealer";
+import MensHairDryingArticle from "./articles/mens-hair-drying";
+import MensHairWaxArticle from "./articles/mens-hair-wax";
 
 type ArticleContentComponent = ComponentType<{
   article: Article;
@@ -35,4 +37,6 @@ export const articleRegistry: Record<
   "mens-bb-cream": MensBbCreamArticle,
   "mens-blue-beard": MensBlueBeardArticle,
   "mens-concealer": MensConcealerArticle,
+  "mens-hair-drying": MensHairDryingArticle,
+  "mens-hair-wax": MensHairWaxArticle,
 };

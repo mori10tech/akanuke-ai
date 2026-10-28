@@ -12,22 +12,36 @@ type AkanukenaiManFeaturesArticleProps = {
   article: Article;
 };
 
+type FeatureType = "手入れ不足" | "選び方のずれ" | "進め方";
+
+type Feature = {
+  number: string;
+  type: FeatureType;
+  title: string;
+  reason: string;
+  check: string;
+  improvement: string;
+  caution: string;
+  href?: string;
+  linkLabel?: string;
+};
+
 const tableOfContents = [
   {
-    id: "reason",
-    label: "垢抜けない男には共通する特徴がある",
+    id: "types",
+    label: "垢抜けない原因は3つのタイプに分かれる",
   },
   {
     id: "features",
     label: "垢抜けない男の特徴10選",
   },
   {
-    id: "self-check",
-    label: "3分セルフチェックと改善の選び方",
+    id: "why-no-change",
+    label: "努力しても変わらない3つのパターン",
   },
   {
-    id: "improvement",
-    label: "垢抜けるために何から変える？",
+    id: "self-check",
+    label: "写真3枚でできるセルフチェック",
   },
   {
     id: "faq",
@@ -39,143 +53,245 @@ const tableOfContents = [
   },
 ];
 
-const features = [
+const featureTypes = [
   {
-    number: "01",
-    title: "髪型を何年も変えていない",
+    type: "手入れ不足",
+    title: "手入れ不足タイプ",
     description:
-      "学生時代から同じ髪型を続けていたり、伸びたら短くするだけになっていたりすると、現在の顔立ちや雰囲気に合わなくなっていることがあります。髪型は顔全体の印象を大きく左右するため、垢抜けたい男性が最初に見直したいポイントです。",
-    improvement:
-      "美容室では「朝のセットは5分以内」「前髪が目にかからない長さ」「耳周りと襟足はすっきり」など、生活に合う条件を具体的に伝えましょう。参考写真を見せて、髪質で再現できるか相談するのもおすすめです。",
+      "眉毛・ヒゲ・肌・服の状態など、整える作業が足りていない状態です。費用をあまりかけずに、短期間で変えやすいのが特徴です。",
   },
   {
-    number: "02",
-    title: "眉毛をほとんど整えていない",
+    type: "選び方のずれ",
+    title: "選び方のずれタイプ",
     description:
-      "眉毛が伸びっぱなしだったり、眉間や眉下に余分な毛が残っていたりすると、目元がぼんやりして見えることがあります。一方で、細くしすぎるなど自己流で大きく形を変えるのもおすすめできません。",
-    improvement:
-      "まずは眉間・眉下・眉尻周辺の余分な毛を整える程度から始めましょう。初めてならメンズ眉毛サロンを利用する方法もあります。",
+      "髪型や服のサイズなど、選んだもの自体が今の自分に合っていない状態です。手入れを頑張っても変わりにくく、選び直しが必要です。",
   },
   {
-    number: "03",
-    title: "スキンケアをしていない",
+    type: "進め方",
+    title: "進め方タイプ",
     description:
-      "肌の乾燥・テカリ・毛穴・肌荒れなどは、顔全体の清潔感に影響しやすいポイントです。男性の場合、スキンケアを何から始めればいいか分からず、洗顔後に何もしていないケースも少なくありません。",
-    improvement:
-      "最初は洗顔・保湿・日焼け止めの3つで十分です。多くの商品を一度に使うより、毎日続けることを優先しましょう。",
-  },
-  {
-    number: "04",
-    title: "ヒゲ・鼻毛など細かい部分を放置している",
-    description:
-      "髪型や服装を整えていても、ヒゲの剃り残しや鼻毛などが目立つと、細かい部分まで手入れが行き届いていない印象につながることがあります。",
-    improvement:
-      "出かける前に顔全体を鏡で確認する習慣を作りましょう。ヒゲを残す場合も、長さや輪郭を揃えることが重要です。",
-  },
-  {
-    number: "05",
-    title: "服のサイズ感が合っていない",
-    description:
-      "高価な服や流行の服を着ていても、肩幅・袖丈・着丈・パンツ丈が合っていないと、全体のバランスが崩れて見えることがあります。ブランドよりもサイズ感の方が印象を左右することもあります。",
-    improvement:
-      "まず手持ちの服を着て、肩の縫い目が大きく落ちていないか、袖が手の甲を覆いすぎないか、パンツの裾が靴の上で大きくたまらないかを確認しましょう。ゆったりしたデザインの場合は、意図したシルエットかも見て判断します。",
-  },
-  {
-    number: "06",
-    title: "清潔感より「おしゃれ」を優先している",
-    description:
-      "垢抜けようとして、アクセサリー・香水・流行のファッションなどを一気に取り入れても、髪・肌・眉毛・服のシワなど基本的な部分が整っていなければ、思ったほど印象が変わらないことがあります。",
-    improvement:
-      "出かける前に「寝ぐせ・ヒゲの剃り残し・服のシワや汚れ・靴の汚れ」の4点を確認しましょう。香水やアクセサリーを買い足す前に、手持ちのもので整えられる部分から始められます。",
-  },
-  {
-    number: "07",
-    title: "髪型・肌・服をすべて自己流で選んでいる",
-    description:
-      "自分では似合っていると思っていても、客観的に見ると顔立ちや体型とのバランスが合っていない場合があります。特に髪型や眉毛は、自分だけで判断するのが難しい部分です。",
-    improvement:
-      "美容師や眉毛サロンなど、専門知識のある人へ一度相談してみましょう。第三者の意見を取り入れるだけでも選択肢が広がります。",
-  },
-  {
-    number: "08",
-    title: "姿勢や表情を意識していない",
-    description:
-      "垢抜けは髪型や服装だけで決まるものではありません。猫背・うつむいた姿勢・無表情などは、実際の見た目以上に暗い印象や自信のない印象につながることがあります。",
-    improvement:
-      "肩の力を抜いて背筋を伸ばし、相手を見るときは自然に顔を上げることから始めましょう。無理に笑顔を作る必要はありません。",
-  },
-  {
-    number: "09",
-    title: "一度に全部変えようとして続かない",
-    description:
-      "髪型・眉毛・スキンケア・筋トレ・ファッションなどを一度に始めると、お金も時間もかかり、途中で続かなくなることがあります。垢抜けは短期間で完成させる必要はありません。",
-    improvement:
-      "最初の1週間は「外出前の身だしなみ確認」と「夜の保湿」など、毎日5分程度でできることを一つ選びましょう。美容室の予約など時間が必要な改善は、別の日に予定を入れると続けやすくなります。",
-  },
-  {
-    number: "10",
-    title: "自分の改善ポイントを把握していない",
-    description:
-      "人によって垢抜けない原因は異なります。髪型を変えるべき人もいれば、眉毛や肌を整えるだけで印象が大きく変わる人もいます。自分の課題が分からないまま他人の方法を真似すると、遠回りになることがあります。",
-    improvement:
-      "まず鏡と普段着の全身写真で、髪・眉毛・ヒゲ・服の状態を一つずつ確認します。気になる項目が複数あれば「今日直せる」「人に相談する」「継続が必要」の3種類に分けると着手しやすくなります。",
+      "改善の順番や続け方に原因がある状態です。見た目そのものより、取り組み方を見直すことで結果が変わります。",
   },
 ];
 
-const improvementSteps = [
+const features: Feature[] = [
   {
     number: "01",
-    title: "髪型",
-    description: "顔全体の印象を整える",
+    type: "選び方のずれ",
+    title: "髪型を何年も変えていない",
+    reason:
+      "髪は伸びると重さが下にたまり、サイドが膨らんだり襟足がはねたりして、輪郭がぼやけて見えやすくなります。また、学生時代と同じ髪型のままだと、年齢や服装の変化と合わなくなっていることがあります。",
+    check:
+      "寝ぐせを直しただけの状態で正面と横から写真を撮り、「前髪が目にかかっている」「耳周りの髪が外にはねている」「襟足がシャツの襟に触れている」のどれかに当てはまるかを確認します。当てはまる場合は、形が崩れているサインです。",
+    improvement:
+      "美容室では髪型の名前だけで頼まず、「朝のセットは5分以内」「ワックスは少量だけ使う」など、普段の手入れ時間と条件を伝えます。参考写真がある場合は、自分の髪質で再現できるかも確認しましょう。",
+    caution:
+      "SNSで人気の髪型でも、髪のくせや量によって仕上がりは大きく変わります。写真と同じにならなくても失敗とは限りません。",
     href: "/media/mens-akanuke-hairstyle",
+    linkLabel: "似合う髪型の選び方と頼み方を見る",
   },
   {
     number: "02",
-    title: "眉毛",
-    description: "目元をすっきり見せる",
+    type: "手入れ不足",
+    title: "眉毛をほとんど整えていない",
+    reason:
+      "眉毛は目元の「枠」のような役割があります。眉間や眉の下に毛が散らばっていると輪郭がはっきりせず、目元が重く見えやすくなります。",
+    check:
+      "明るい場所で鏡を見て、眉頭の間（眉間）に毛があるか、眉の下からまぶたにかけて細かい毛が多いか、極端に長い毛が飛び出していないかを確認します。",
+    improvement:
+      "最初は形を変えず、長すぎる毛を眉用ハサミで切り、眉間と眉下の明らかにはみ出した毛だけを処理します。1か所整えるたびに、鏡から少し離れて全体を確認しましょう。",
+    caution:
+      "眉の上側を剃る、細く整えすぎるなど、形を大きく変えると不自然になりやすく、元に戻るまで時間がかかります。迷ったら眉毛サロンで相談するのも一つの方法です。",
+    href: "/media/mens-akanuke-eyebrows",
+    linkLabel: "失敗しない眉毛の整え方を見る",
   },
   {
     number: "03",
-    title: "肌",
-    description: "清潔感を高める",
+    type: "手入れ不足",
+    title: "スキンケアをしていない",
+    reason:
+      "肌の乾燥による粉ふき、皮脂によるテカリ、赤みなどの色ムラは、顔全体の清潔感に影響しやすいポイントです。特に写真では、テカリが光を反射して実際より目立つことがあります。",
+    check:
+      "洗顔後に何もつけずに過ごしたとき、頬や口周りがつっぱるか、昼過ぎに額や鼻がテカるかを確認します。自分の肌が乾燥しやすいのか、皮脂が出やすいのかを知るだけでも、選ぶ商品が変わります。",
+    improvement:
+      "最初は洗顔・保湿・日焼け止めの3つに絞ります。テカリが気になる人も保湿は省かず、さっぱりした使用感のものを選ぶと続けやすくなります。",
+    caution:
+      "使用後に赤み・かゆみ・ひりつきが出た場合は使用を中止してください。ニキビや肌荒れが続く場合は、自己判断で商品を増やさず皮膚科に相談しましょう。",
+    href: "/media/mens-skincare-beginner",
+    linkLabel: "スキンケアの基本3ステップを見る",
   },
   {
     number: "04",
-    title: "服装",
-    description: "サイズ感を整える",
+    type: "手入れ不足",
+    title: "ヒゲ・鼻毛など細かい部分を放置している",
+    reason:
+      "口元や鼻は顔の中心にあり、会話中に相手の視線が向きやすい位置です。面積は小さくても、剃り残しや見えている鼻毛は「手入れをしていない」という印象につながりやすくなります。",
+    check:
+      "明るい場所で、鏡から30cmほど離れて正面と少し下からの角度で見ます。鼻の穴から毛先が見えていないか、あご下や首に剃り残しがないかを確認しましょう。",
+    improvement:
+      "鼻毛は専用のハサミやトリマーで、外から見える部分だけを短くします。ヒゲは剃るか残すかを決め、残す場合は長さと輪郭をそろえます。",
+    caution:
+      "鼻毛を抜くと炎症の原因になることがあります。ヒゲを深剃りしすぎて肌が荒れる場合は、シェービング剤や電気シェーバーの使用を検討しましょう。",
+    href: "/media/mens-beard-grooming",
+    linkLabel: "清潔感を出すヒゲの整え方を見る",
   },
   {
     number: "05",
-    title: "客観視",
-    description: "自分の優先順位を知る",
+    type: "選び方のずれ",
+    title: "服のサイズ感が合っていない",
+    reason:
+      "大きすぎる服は肩が落ち、袖や裾が余ってシワやたるみが出るため、だらしなく見えやすくなります。小さすぎる服は窮屈に見えます。服の値段やブランドよりも、サイズの影響が大きいこともあります。",
+    check:
+      "手持ちの服を着て、「肩の縫い目が肩の先から大きくずれていないか」「袖が手の甲を半分以上覆っていないか」「パンツの裾が靴の上で何重にもたまっていないか」を確認します。",
+    improvement:
+      "手持ちの服のうち一番しっくりくるものを選び、着丈・身幅・袖丈を測って控えておきます。ネットで服を買うときは、表記サイズではなくこの実寸と比べると失敗しにくくなります。",
+    caution:
+      "ゆったりしたシルエットが前提のデザインもあります。大きめの服がすべて悪いわけではなく、意図したシルエットに見えているかで判断しましょう。",
+  },
+  {
+    number: "06",
+    type: "手入れ不足",
+    title: "服や靴の状態より「新しいもの」を優先している",
+    reason:
+      "新しい服やアクセサリーを足しても、首元が伸びたTシャツ、毛玉のあるニット、汚れた靴などが残っていると、全体の印象は整いにくくなります。おしゃれさより先に、状態の悪さが目に入るためです。",
+    check:
+      "よく着る服を並べて、襟元の伸び、黄ばみ、毛玉、色あせを確認します。靴は、かかとのすり減りとつま先の汚れを見ましょう。",
+    improvement:
+      "「襟元が伸びたら部屋着にする」など、自分なりの買い替え基準を決めます。買い足す前に、よく着る服の状態を整えるほうが印象は変わりやすくなります。",
+    caution:
+      "香水は距離が近い相手には強く感じられることがあります。付ける場合は少量にとどめましょう。",
+  },
+  {
+    number: "07",
+    type: "選び方のずれ",
+    title: "髪型も服も自己流だけで選んでいる",
+    reason:
+      "鏡に映る自分の顔は左右が反転しており、他人が見ている顔とは少し違います。また、毎日見ている自分の顔は変化に気づきにくく、似合っていないことを自分で判断するのは難しいものです。",
+    check:
+      "髪型や眉について、最後に人へ相談したのがいつかを思い出してみましょう。スマホのインカメラで撮った反転したままの写真ではなく、左右が反転していない写真で見ると、印象の違いに気づくことがあります。",
+    improvement:
+      "美容師には「似合う髪型」と漠然と聞くより、「今の髪型で気になっている点」と「普段の手入れ時間」を伝えるほうが、具体的な提案をもらいやすくなります。",
+    caution:
+      "SNSで見かける意見の多くは、ほかの人に向けた一般論です。自分の顔立ちや髪質を直接見た人の意見を優先しましょう。",
+  },
+  {
+    number: "08",
+    type: "進め方",
+    title: "姿勢や表情を意識していない",
+    reason:
+      "猫背で首が前に出ると顔が下を向き、目元に影ができやすくなります。表情がこわばっていると、髪型や服装を整えていても暗い印象や近寄りにくい印象を与えることがあります。",
+    check:
+      "横向きの全身写真を撮り、耳が肩より大きく前に出ていないかを確認します。会話中の写真や動画があれば、口元がこわばっていないかも見てみましょう。",
+    improvement:
+      "スマホを見るときは画面を目の高さに近づけ、うつむく時間を減らします。人と話すときは、相手の顔を見るために少し顔を上げることを意識するだけでも印象は変わります。",
+    caution:
+      "無理に笑顔を作る必要はありません。首や肩、腰に痛みがある場合は、自己流で矯正しようとせず医療機関に相談してください。",
+  },
+  {
+    number: "09",
+    type: "進め方",
+    title: "一度に全部変えようとして続かない",
+    reason:
+      "髪型・眉毛・スキンケア・服・筋トレを同時に始めると、費用と時間がかかり途中で止まりやすくなります。また、何を変えたことで印象が良くなったのかも分からなくなります。",
+    check:
+      "この1か月で始めたことが3つ以上あり、そのうち2週間以上続いているものが1つもなければ、このタイプに当てはまります。",
+    improvement:
+      "取り組むことを1つに絞り、2週間続けてから次へ進みます。美容室の予約のように1回で済むことと、保湿のように毎日続けることは、分けて考えると計画が立てやすくなります。",
+    caution:
+      "肌や体型のように変化に時間がかかるものは、数日で効果を判断しないようにしましょう。",
+  },
+  {
+    number: "10",
+    type: "進め方",
+    title: "自分の改善ポイントを把握していない",
+    reason:
+      "垢抜けない原因は人によって違います。髪型を変えるべき人もいれば、眉毛を整えるだけで印象が変わる人もいます。他人の成功例は前提となる顔立ちや髪質が違うため、そのまま真似しても同じ結果になるとは限りません。",
+    check:
+      "この記事の10項目のうち、当てはまったものを書き出します。そのうえで、後半の「写真3枚でできるセルフチェック」で、実際に人から見える状態を確認しましょう。",
+    improvement:
+      "当てはまった項目を、上で紹介した3つのタイプに分けます。手入れ不足タイプは今日から、選び方のずれタイプは美容師などへの相談から、進め方タイプは取り組む数を減らすことから始めます。",
+    caution:
+      "当てはまる項目が多くても、顔立ちや人としての価値が低いという意味ではありません。整える順番が分かっていないだけの場合がほとんどです。",
+    href: "/media/mens-akanuke-order",
+    linkLabel: "垢抜ける順番を7ステップで見る",
+  },
+];
+
+const noChangePatterns = [
+  {
+    number: "01",
+    title: "原因のタイプと対策が合っていない",
+    description:
+      "サイズが合っていないことが原因なのに、同じサイズのまま新しい服を買い足しても印象は変わりません。髪型が合っていないのに、ワックスの量やセット方法だけを工夫しても限界があります。まず、自分の原因が手入れ不足なのか、選び方のずれなのかを見分けることが大切です。",
+  },
+  {
+    number: "02",
+    title: "自分が見ている距離と、人に見られる距離が違う",
+    description:
+      "自分の顔は、鏡で近くから正面を見ることがほとんどです。一方で、周りの人は1〜2mほど離れた距離から、斜めや横の角度も含めて全身を見ています。眉の細かな形にこだわっても、服のサイズや姿勢が崩れていれば、人から見た印象は変わりにくくなります。",
+  },
+  {
+    number: "03",
+    title: "変化を判断するタイミングがずれている",
+    description:
+      "髪型は切った直後が最も整っていて、数週間から数か月たつと少しずつ形が崩れていきます。反対に、スキンケアは数日では変化を感じにくいものです。すぐに効果が出ないからとやめてしまったり、カット直後の状態を基準にしたりすると、正しく判断できません。",
+  },
+];
+
+const photoChecks = [
+  {
+    title: "1枚目：正面の顔（約1m）",
+    items: [
+      "前髪が目にかかっていないか",
+      "眉間や眉下に余分な毛がないか",
+      "鼻毛や剃り残しが見えていないか",
+      "テカリや乾燥が目立っていないか",
+    ],
+  },
+  {
+    title: "2枚目：横顔（約1m）",
+    items: [
+      "耳周りや襟足の髪がはねていないか",
+      "あご下や首に剃り残しがないか",
+      "首が前に出すぎていないか",
+    ],
+  },
+  {
+    title: "3枚目：普段着の全身（約2m）",
+    items: [
+      "肩・袖・裾のサイズが合っているか",
+      "服のシワ・毛玉・汚れが目立っていないか",
+      "靴の汚れや傷みが目立っていないか",
+      "背中が丸まっていないか",
+    ],
   },
 ];
 
 const faqs = [
   {
-    question: "イケメンじゃないと垢抜けることはできませんか？",
+    question: "垢抜けない原因は顔立ちですか？",
     answer:
-      "顔立ちだけで垢抜けが決まるわけではありません。髪型・眉毛・肌・服装・姿勢などを自分に合う状態へ整えることで、現在の印象を改善することは可能です。",
+      "顔立ちだけで決まるわけではありません。この記事で紹介した10項目は、いずれも髪型・手入れ・服の選び方・習慣など、自分で変えられる部分です。顔立ちは変えなくても、整える部分を変えることで印象は改善できます。",
   },
   {
-    question: "男性が最初に変えるなら何が一番おすすめですか？",
+    question: "髪型や服を変えたのに垢抜けないのはなぜですか？",
     answer:
-      "迷った場合は髪型から見直すのがおすすめです。顔の大部分を占めるため印象への影響が大きく、美容師へ相談すれば自分だけで判断する必要もありません。その次に眉毛と肌を整えていくと進めやすいです。",
+      "原因のタイプと対策が合っていない可能性があります。たとえば眉毛やヒゲなどの手入れ不足が残っていると、髪型や服を変えても全体の印象は整いにくくなります。セルフチェックで、人から見える状態を確認してみましょう。",
   },
   {
     question: "お金をかけないと垢抜けるのは難しいですか？",
     answer:
-      "必ずしも高額な費用は必要ありません。姿勢を整える、服や靴をきれいにする、眉間の余分な毛を整えるなど、ほとんど費用をかけずに改善できることもあります。",
+      "必ずしも高額な費用は必要ありません。眉間の毛を整える、鼻毛を処理する、服や靴の状態を整える、姿勢を意識するなど、手入れ不足タイプの多くはほとんど費用をかけずに改善できます。",
   },
   {
     question: "何歳からでも垢抜けることはできますか？",
     answer:
-      "年齢に関係なく、現在の髪型・肌・服装・清潔感を見直すことはできます。年齢に合った自然な改善を行うことが重要です。",
+      "年齢に関係なく、髪型・肌・服装・身だしなみを見直すことはできます。若い世代の流行をそのまま取り入れるより、年齢や生活に合った自然な整え方を選ぶことが大切です。",
   },
   {
-    question: "自分のどこを改善すればいいか分かりません",
+    question: "自分では改善点が分からないときはどうすればいいですか？",
     answer:
-      "自分では毎日見ているため、改善点に気付きにくいことがあります。美容師など第三者へ相談したり、写真を使って客観的に確認したりすると優先順位を決めやすくなります。",
+      "左右が反転していない写真で、自分を人から見える状態で確認するのがおすすめです。そのうえで、髪型は美容師、眉毛は眉毛サロンなど、直接見てもらえる人に相談すると優先順位を決めやすくなります。",
   },
 ];
 
@@ -220,52 +336,60 @@ export default function AkanukenaiManFeaturesArticle({
         <div className="min-w-0">
           <section className="text-[14px] leading-8 text-black/80">
             <p>
-              「垢抜けたいと思って髪型や服装を変えてみたけれど、なぜかあまり変わらない」と感じていませんか？
+              「髪を切った」「新しい服を買った」。それなのに、なぜか印象が変わらないと感じていませんか？
             </p>
 
             <p className="mt-5">
-              男性が垢抜けない原因は、顔立ちだけにあるわけではありません。髪型・眉毛・肌・服装・清潔感など、少しずつ積み重なった要素によって全体の印象が決まります。
+              垢抜けない原因の多くは、顔立ちではなく、手入れの不足や、髪型・服の選び方のずれ、改善の進め方にあります。努力しているのに変わらない場合は、原因に合っていない対策をしている可能性があります。
             </p>
 
             <p className="mt-5">
-              この記事では、垢抜けない男性に共通しやすい10の特徴と、それぞれの改善方法を初心者向けに解説します。
+              この記事では、垢抜けない男性に共通しやすい10の特徴を、原因の種類ごとに整理して解説します。それぞれの特徴について、なぜそう見えるのか、自分が当てはまるかの確認方法、改善方法、やりすぎに注意したい点を紹介します。
             </p>
           </section>
 
-
           <section
-            id="reason"
+            id="types"
             className="scroll-mt-24 pt-14"
           >
             <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
-              WHY
+              3 TYPES
             </p>
 
             <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
-              垢抜けない男には共通する特徴がある
+              垢抜けない原因は3つのタイプに分かれる
             </h2>
 
             <div className="mt-6 text-[14px] leading-8 text-black/80">
               <p>
-                「垢抜けている人」と「垢抜けていない人」の違いは、一つの大きなポイントだけで決まるものではありません。
+                垢抜けない特徴は、大きく3つのタイプに分けられます。タイプによって、効果のある対策が異なります。
               </p>
+            </div>
 
-              <p className="mt-5">
-                髪型は整っているけれど眉毛が伸びっぱなし、服はおしゃれだけれどサイズが合っていないなど、小さな違和感が積み重なることで全体の印象が整って見えないことがあります。
-              </p>
+            <div className="mt-7 space-y-3">
+              {featureTypes.map((featureType) => (
+                <div
+                  key={featureType.type}
+                  className="rounded-[16px] border border-black/10 bg-[#F8FAFC] p-5"
+                >
+                  <p className="text-[13px] font-bold">
+                    {featureType.title}
+                  </p>
 
-              <p className="mt-5">
-                逆に言えば、自分に必要なポイントを一つずつ改善していけば、すべてを大きく変えなくても印象は整えていけます。
-              </p>
+                  <p className="mt-2 text-[12px] leading-7 text-black/70">
+                    {featureType.description}
+                  </p>
+                </div>
+              ))}
             </div>
 
             <div className="mt-7 rounded-[20px] border border-[#1677FF]/15 bg-[#EEF6FF] p-5">
               <p className="text-[12px] font-black text-[#1677FF]">
-                大切なのは「自分に必要な改善」を知ること
+                タイプを見分けると、無駄な努力を減らせる
               </p>
 
               <p className="mt-3 text-[12px] font-medium leading-6 text-black/70">
-                SNSで見つけた髪型やファッションをそのまま真似するのではなく、自分の顔立ち・髪質・肌・体型に合う改善から始めることが重要です。
+                手入れ不足が原因なのに新しい服を買ったり、選び方が原因なのに手入れの時間を増やしたりしても、印象は変わりにくくなります。各特徴に付いているタイプを参考に、自分の原因を見分けてみましょう。
               </p>
             </div>
           </section>
@@ -283,7 +407,7 @@ export default function AkanukenaiManFeaturesArticle({
             </h2>
 
             <p className="mt-4 text-[13px] font-medium leading-7 text-black/70">
-              当てはまる項目があっても、すべてを一度に直す必要はありません。改善しやすいところから順番に見直してみましょう。
+              当てはまる項目があっても、すべてを一度に直す必要はありません。「確認方法」で当てはまるかを判断してから、改善に取り組みましょう。
             </p>
 
             <div className="mt-8 space-y-5">
@@ -296,15 +420,29 @@ export default function AkanukenaiManFeaturesArticle({
                       </span>
 
                       <div className="min-w-0">
-                        <h3 className="text-[19px] font-semibold tracking-[-0.035em]">
+                        <p className="text-[10px] font-black tracking-[0.08em] text-[#1677FF]">
+                          {feature.type}タイプ
+                        </p>
+
+                        <h3 className="mt-1 text-[19px] font-semibold tracking-[-0.035em]">
                           {feature.title}
                         </h3>
 
                         <p className="mt-3 text-[13px] leading-7 text-black/75">
-                          {feature.description}
+                          {feature.reason}
                         </p>
 
-                        <div className="mt-4 rounded-[14px] bg-[#FFF9D9] px-4 py-3">
+                        <div className="mt-4 rounded-[14px] border border-black/10 bg-[#F8FAFC] px-4 py-3">
+                          <p className="text-[11px] font-bold leading-6 text-black/65">
+                            <span className="mr-2 font-black text-[#1677FF]">
+                              確認方法
+                            </span>
+
+                            {feature.check}
+                          </p>
+                        </div>
+
+                        <div className="mt-3 rounded-[14px] bg-[#FFF9D9] px-4 py-3">
                           <p className="text-[11px] font-bold leading-6 text-black/65">
                             <span className="mr-2 font-black text-[#9A7800]">
                               改善ポイント
@@ -313,6 +451,24 @@ export default function AkanukenaiManFeaturesArticle({
                             {feature.improvement}
                           </p>
                         </div>
+
+                        <p className="mt-3 text-[11px] leading-6 text-black/60">
+                          <span className="mr-2 font-black text-black/70">
+                            注意
+                          </span>
+
+                          {feature.caution}
+                        </p>
+
+                        {feature.href && feature.linkLabel && (
+                          <Link
+                            href={feature.href}
+                            className="mt-4 inline-flex items-center gap-2 text-[11px] font-black text-[#1677FF] transition hover:opacity-70"
+                          >
+                            {feature.linkLabel}
+                            <span aria-hidden="true">→</span>
+                          </Link>
+                        )}
                       </div>
                     </div>
                   </section>
@@ -328,136 +484,104 @@ export default function AkanukenaiManFeaturesArticle({
             </div>
           </section>
 
+          <section
+            id="why-no-change"
+            className="scroll-mt-24 pt-16"
+          >
+            <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
+              WHY NO CHANGE
+            </p>
+
+            <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
+              努力しても変わらない3つのパターン
+            </h2>
+
+            <p className="mt-5 text-[14px] leading-8 text-black/80">
+              髪型や服を変えたのに印象が変わらない場合、次の3つのどれかに当てはまっていることがあります。
+            </p>
+
+            <div className="mt-7 space-y-3">
+              {noChangePatterns.map((pattern) => (
+                <div
+                  key={pattern.number}
+                  className="rounded-[16px] border border-black/10 p-5"
+                >
+                  <p className="text-[10px] font-black tracking-[0.12em] text-[#1677FF]">
+                    PATTERN {pattern.number}
+                  </p>
+
+                  <p className="mt-2 text-[13px] font-bold">
+                    {pattern.title}
+                  </p>
+
+                  <p className="mt-2 text-[12px] leading-7 text-black/70">
+                    {pattern.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </section>
+
           <section id="self-check" className="scroll-mt-24 pt-16">
             <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
               SELF CHECK
             </p>
+
             <h2 className="mt-2 text-[22px] font-semibold tracking-[-0.04em] sm:text-[26px]">
-              3分セルフチェックと改善の選び方
-            </h2>
-            <p className="mt-5 text-[14px] leading-8 text-black/80">
-              10個の特徴を読んでも、どこから手を付ければよいか迷うかもしれません。まずは鏡と普段着を使って、次の項目を確認してみてください。全部に当てはまる必要はありません。
-            </p>
-            <div className="mt-6 rounded-[20px] border border-black/10 bg-[#F8FAFC] p-5 sm:p-6">
-              <h3 className="text-[16px] font-bold">外出前に確認する6項目</h3>
-              <ul className="mt-4 space-y-3 text-[13px] leading-7 text-black/75">
-                <li>□ 髪：寝ぐせが残っていないか、前髪が目を覆っていないか</li>
-                <li>□ 眉：眉間や眉下に、気になる余分な毛がないか</li>
-                <li>□ ヒゲ：剃り残しや、整えていない輪郭がないか</li>
-                <li>□ 肌：洗顔後のつっぱりや、日中の乾燥が気にならないか</li>
-                <li>□ 服：目立つシワ・汚れがなく、袖や裾の長さが不自然でないか</li>
-                <li>□ 靴：汚れや傷みが目立っていないか</li>
-              </ul>
-              <p className="mt-4 text-[11px] leading-6 text-black/60">
-                ※これは医学的な診断や外見の点数付けではなく、身だしなみを見直すための任意のチェックです。
-              </p>
-            </div>
-            <h3 className="mt-9 text-[17px] font-bold">気になる項目を見つけたら、こう選ぶ</h3>
-            <div className="mt-4 space-y-3">
-              <div className="rounded-[16px] border border-black/10 p-5">
-                <p className="text-[13px] font-bold">今日できること</p>
-                <p className="mt-2 text-[12px] leading-7 text-black/70">寝ぐせを直す、服のシワを伸ばす、靴を拭くなど。お金をかけずにできる項目から一つ試しましょう。</p>
-              </div>
-              <div className="rounded-[16px] border border-black/10 p-5">
-                <p className="text-[13px] font-bold">相談した方がよいこと</p>
-                <p className="mt-2 text-[12px] leading-7 text-black/70">髪型や眉の形を大きく変えたい場合は、美容師や眉毛サロンで希望と普段の手入れ時間を伝えて相談します。</p>
-              </div>
-              <div className="rounded-[16px] border border-black/10 p-5">
-                <p className="text-[13px] font-bold">続けて様子を見ること</p>
-                <p className="mt-2 text-[12px] leading-7 text-black/70">保湿や日焼け止めなどは、一度で見た目が大きく変わるものではありません。刺激が出る場合は使用を中止し、症状が続くときは皮膚科に相談してください。</p>
-              </div>
-            </div>
-            <p className="mt-6 text-[13px] leading-7 text-black/75">
-              迷ったら「気になる度合いが高い」「今日できる」「無理なく続けられる」の3条件で、一つだけ選ぶのがおすすめです。ほかの人と比較する必要はありません。
-            </p>
-          </section>
-
-          <section
-            id="improvement"
-            className="scroll-mt-24 pt-16"
-          >
-            <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
-              HOW TO IMPROVE
-            </p>
-
-            <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
-              垢抜けるために何から変える？
+              写真3枚でできるセルフチェック
             </h2>
 
             <p className="mt-5 text-[14px] leading-8 text-black/80">
-              何から始めればいいか迷った場合は、第一印象への影響が大きい顔周りから整えるのがおすすめです。
+              鏡で見る自分は、近い距離から正面を見た姿で、しかも左右が反転しています。人から見える状態を確認するには、写真を使うのが手軽です。
             </p>
 
-            <div className="mt-7 grid gap-3 sm:grid-cols-2">
-              {improvementSteps.map((step) => {
-                const content = (
-                  <>
-                    <span className="text-[10px] font-black tracking-[0.12em] text-[#1677FF]">
-                      STEP {step.number}
-                    </span>
+            <p className="mt-5 text-[14px] leading-8 text-black/80">
+              スマホのタイマー機能などを使い、窓の近くなど明るい場所で、普段の髪型と服装のまま次の3枚を撮影します。インカメラを使う場合は、左右が反転しない設定にしておきましょう。
+            </p>
 
-                    <p className="mt-2 text-[18px] font-black">
-                      {step.title}
-                    </p>
+            <div className="mt-6 space-y-3">
+              {photoChecks.map((photoCheck) => (
+                <div
+                  key={photoCheck.title}
+                  className="rounded-[20px] border border-black/10 bg-[#F8FAFC] p-5 sm:p-6"
+                >
+                  <h3 className="text-[16px] font-bold">
+                    {photoCheck.title}
+                  </h3>
 
-                    <p className="mt-2 text-[11px] font-medium leading-5 text-black/65">
-                      {step.description}
-                    </p>
-                  </>
-                );
-
-                if ("href" in step && step.href) {
-                  return (
-                    <Link
-                      key={step.number}
-                      href={step.href}
-                      className="group flex min-h-[150px] flex-col rounded-[18px] border border-[#1677FF]/25 bg-white p-5 shadow-[0_4px_14px_rgba(22,119,255,0.06)] transition-all duration-200 hover:-translate-y-0.5 hover:border-[#1677FF]/40 hover:bg-[#F7FBFF] hover:shadow-[0_8px_20px_rgba(22,119,255,0.10)] active:translate-y-0 active:scale-[0.99]"
-                    >
-                      {content}
-
-                      <div className="mt-auto flex items-center justify-between pt-4">
-                        <span className="text-[11px] font-black text-[#1677FF]">
-                          詳しく見る
-                        </span>
-
-                        <span
-                          aria-hidden="true"
-                          className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#1677FF] text-white transition-transform duration-200 group-hover:translate-x-1"
-                        >
-                          <span className="-translate-y-px">
-                            →
-                          </span>
-                        </span>
-                      </div>
-                    </Link>
-                  );
-                }
-
-                return (
-                  <div
-                    key={step.number}
-                    className="min-h-[150px] rounded-[18px] border border-black/10 bg-[#F8FAFC] p-5"
-                  >
-                    {content}
-                  </div>
-                );
-              })}
+                  <ul className="mt-4 space-y-3 text-[13px] leading-7 text-black/75">
+                    {photoCheck.items.map((item) => (
+                      <li key={item}>□ {item}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
             </div>
+
+            <p className="mt-4 text-[11px] leading-6 text-black/60">
+              ※これは医学的な診断や外見の点数付けではなく、身だしなみを見直すための任意のチェックです。
+            </p>
+
+            <h3 className="mt-9 text-[17px] font-bold">チェックが付いた項目の進め方</h3>
+
+            <p className="mt-4 text-[13px] leading-7 text-black/75">
+              チェックが付いた項目を、特徴10選のタイプに当てはめます。手入れ不足タイプの項目は今日から、選び方のずれタイプの項目は次の美容室や買い物のタイミングで見直します。複数ある場合は、1つを2週間続けてから次へ進みましょう。
+            </p>
 
             <div className="mt-8">
               <p className="text-[13px] font-black">
-                さらに詳しく知りたい方はこちら
+                どこから始めるか迷ったら
               </p>
 
               <p className="mt-2 text-[12px] font-medium leading-6 text-black/70">
-                改善ポイントが分かったら、何から始めるかを7ステップで確認できます。
+                改善に取り組む順番は、次の記事で詳しく解説しています。
               </p>
 
               <div className="mt-4">
                 <JournalRelatedArticleLink
                   href="/media/mens-akanuke-order"
                   title="メンズが垢抜ける順番｜初心者が最初にやるべき7ステップ"
-                  description="改善ポイントが分かったら、何から始めるかを7ステップで確認できます。"
+                  description="髪型・眉毛・肌・服装など、何から取り組むと効率的かを7ステップで確認できます。"
                 />
               </div>
             </div>
@@ -526,20 +650,20 @@ export default function AkanukenaiManFeaturesArticle({
             </p>
 
             <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
-              垢抜けない原因を知ることが、最初の一歩
+              原因のタイプを見分けることが、最初の一歩
             </h2>
 
             <div className="mt-5 text-[14px] leading-8 text-black/80">
               <p>
-                垢抜けない男性には、髪型・眉毛・肌・服装・清潔感など、いくつかの共通しやすい特徴があります。
+                垢抜けない原因は、手入れ不足、選び方のずれ、進め方の3つのタイプに分けられます。努力しても変わらないときは、原因と対策のタイプが合っていない可能性があります。
               </p>
 
               <p className="mt-5">
-                大切なのは、10個すべてを一度に変えることではありません。自分に当てはまる部分を確認し、改善効果の高いところから一つずつ取り組んでいきましょう。
+                まずは写真3枚で人から見える状態を確認し、当てはまった項目の中から1つを選んで取り組みましょう。手入れ不足タイプの項目なら、今日からでも始められます。
               </p>
 
               <p className="mt-5">
-                自分では改善ポイントが分からない場合は、第三者から意見をもらったり、写真を使って客観的に確認したりすることも有効です。
+                自分では判断しにくい髪型や眉の形は、美容師や眉毛サロンなど、直接見てもらえる人に相談するのが確実です。
               </p>
             </div>
 

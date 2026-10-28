@@ -25,7 +25,7 @@ function getPageHref(page: number, category: string | null) {
 
   const query = params.toString();
 
-  return query ? `/media?${query}` : "/media";
+  return query ? `/media/all?${query}` : "/media/all";
 }
 
 export default function JournalPagination({

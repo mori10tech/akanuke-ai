@@ -19,7 +19,7 @@ export default function JournalFooter() {
           </Link>
 
           <Link
-            href="/media"
+            href="/media/all"
             scroll={true}
             className="transition hover:text-[#1677FF]"
           >

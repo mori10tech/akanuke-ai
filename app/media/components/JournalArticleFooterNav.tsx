@@ -52,7 +52,7 @@ export default function JournalArticleFooterNav({
     <>
       <div className="mt-8 flex flex-col gap-3 border-t border-black/10 pt-8 sm:flex-row">
         <Link
-          href="/media"
+          href="/media/all"
           className="group flex min-h-[52px] flex-1 items-center justify-center rounded-[13px] border border-black/10 bg-white px-5 text-[12px] font-black text-[#111111] shadow-[0_6px_18px_rgba(15,23,42,0.05)] transition-all duration-200 hover:-translate-y-0.5 hover:border-black/20 hover:shadow-[0_10px_24px_rgba(15,23,42,0.08)] active:translate-y-0 active:scale-[0.98]"
         >
           <span

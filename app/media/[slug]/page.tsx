@@ -52,7 +52,7 @@ function ArticleHeader() {
     <header className="sticky top-0 z-40 border-b border-black/10 bg-white/95 backdrop-blur-xl">
       <div className="mx-auto grid h-[64px] w-full max-w-[980px] grid-cols-[40px_minmax(0,1fr)_auto] items-center gap-2 px-3 sm:flex sm:h-[68px] sm:justify-between sm:gap-4 sm:px-5">
         <Link
-          href="/media"
+          href="/media/all"
           aria-label="記事一覧へ戻る"
           className="flex h-10 w-10 shrink-0 items-center justify-center text-black/50 transition hover:text-[#1677FF] sm:h-auto sm:w-auto sm:justify-start sm:gap-2 sm:text-[11px] sm:font-black"
         >

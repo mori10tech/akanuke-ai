@@ -18,6 +18,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 0.9,
     },
+    {
+      url: `${BASE_URL}/media/all`,
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
   ];
 
   const articlePages: MetadataRoute.Sitemap = articles.map(

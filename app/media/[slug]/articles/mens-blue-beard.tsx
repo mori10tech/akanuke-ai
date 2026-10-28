@@ -111,6 +111,11 @@ const mistakes = [
       "青髭部分だけを強くカバーすると、顔全体との境目が目立つことがあります。顔と首まで含めて色のバランスを確認します。",
   },
   {
+    title: "夜に落とさないまま寝る",
+    description:
+      "BBクリームやコンシーラーを使った日は、製品の表示に従って夜に落とします。落とし方は製品によって違い、洗顔料だけで落ちるものと、クレンジングが必要なものがあります。",
+  },
+  {
     title: "青みが残るたびに深剃りする",
     description:
       "皮膚の下にある髭が透けている場合、肌表面を何度も剃っても解決しないことがあります。深剃りだけに頼らないようにしましょう。",
@@ -132,6 +137,11 @@ const faqs = [
     question: "青髭を隠すとメイクしていることが分かりませんか？",
     answer:
       "色選びや使用量によって仕上がりは変わります。少量を薄くなじませ、顔と首の色差やフェイスラインの境目を確認すると自然に仕上げやすくなります。",
+  },
+  {
+    question: "夕方になると青髭が目立つのはなぜですか？",
+    answer:
+      "髭は日中も伸びるため、朝に剃っても時間がたつと肌表面に出てくる髭が増え、青みが濃く見えるようになります。昼に電気シェーバーで軽く剃る、BBクリームを少量重ね直すなどの方法があります。",
   },
   {
     question: "青髭が気になる場合、毎日深剃りした方がいいですか？",
@@ -301,10 +311,12 @@ export default function MensBlueBeardArticle({
           <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">HOW TO CHOOSE</p>
           <h2 className="mt-2 text-[22px] font-semibold tracking-[-0.04em] sm:text-[26px]">状態別｜自分に合う青髭対策の選び方</h2>
           <p className="mt-4 text-[13px] leading-7 text-black/75">青く見える原因と、いつまでにどうしたいかで対策は変わります。まずは次の目安で整理してみましょう。</p>
+          <p className="mt-4 text-[13px] leading-7 text-black/75">原因を見分けるには、剃った直後に明るい場所で鏡を見て、指で毛の流れと逆方向に軽くなでてみます。ザラつきがあれば肌表面に残った髭、なめらかなのに青く見えれば皮膚の下の髭が透けている可能性が高いと考えられます。</p>
           <div className="mt-6 space-y-3">
             {[
               { title: "触るとザラつき、剃り残しがある", action: "まず剃り方とシェーバーの状態を確認", detail: "髭の流れに沿って無理なく剃り、刃の劣化や剃り残しを見直します。ヒリつく場合は深剃りを重ねないでください。" },
               { title: "剃った直後も青いが、肌表面はなめらか", action: "メイクで色を整える方法を検討", detail: "青みが薄ければBBクリーム、部分的に強ければコンシーラーを少量から試します。自然光で色の境目を確認しましょう。" },
+              { title: "朝は目立たないが、夕方になると青くなる", action: "日中に伸びた髭への対策を検討", detail: "髭は日中も伸びるため、時間がたつほど青みが濃くなります。職場に電気シェーバーを置いて昼に軽く剃る、BBクリームを使う場合は夕方に少量を重ね直すなど、時間帯に合わせた対策が有効です。" },
               { title: "毎日のカバーに手間を感じる", action: "髭を減らす長期的な選択肢を比較", detail: "医療脱毛などの施術には費用・通院・痛み・肌トラブルのリスクがあります。将来髭を残したいかも含めて医療機関で相談しましょう。" },
               { title: "赤み・ヒリつき・ブツブツが続く", action: "見た目のカバーより肌への負担を減らす", detail: "無理な深剃りや刺激の強い製品の重ね使いを避け、症状が続く場合は皮膚科へ相談してください。" },
             ].map((item) => (
@@ -464,6 +476,16 @@ export default function MensBlueBeardArticle({
             </p>
           </div>
 
+          <div className="mt-7 rounded-[20px] border border-[#1677FF]/15 bg-[#EEF6FF] p-5">
+            <p className="text-[12px] font-black text-[#1677FF]">
+              なぜオレンジ系の色を使うのか
+            </p>
+
+            <p className="mt-3 text-[12px] font-medium leading-6 text-black/70">
+              色には、反対の色（補色）を重ねると互いに打ち消し合う性質があります。青の反対側にあるのがオレンジ系の色です。肌色のコンシーラーだけで青みを隠そうとすると、厚く塗ってもグレーっぽく見えることがありますが、先にオレンジ系で青みを打ち消してから肌色を重ねると、少ない量で自然に整えやすくなります。
+            </p>
+          </div>
+
           <figure className="mt-7 overflow-hidden rounded-[18px]">
             <img
               src="/media/articles/mens-blue-beard/mens-blue-beard-concealer.webp"
@@ -495,7 +517,7 @@ export default function MensBlueBeardArticle({
           </p>
 
           <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
-            青髭を隠すときに避けたい3つの失敗
+            青髭を隠すときに避けたい4つの失敗
           </h2>
 
           <div className="mt-7 space-y-4">

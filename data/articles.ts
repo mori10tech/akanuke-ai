@@ -53,7 +53,9 @@ export const articles: Article[] = [
 
   publishedAt: "2026-10-01",
 
-  readingTime: "約8分",
+  updatedAt: "2026-10-28",
+
+  readingTime: "約9分",
 
   image: "/media/mens-blue-beard.png",
 
@@ -101,11 +103,13 @@ export const articles: Article[] = [
       "メンズのヒゲの整え方｜清潔感を出す剃り方・残し方を初心者向けに解説",
 
     description:
-      "ヒゲを整えて清潔感を出したい男性向けに、基本の剃り方や自然な残し方、青ヒゲが目立つときの考え方を初心者にも分かりやすく解説。ヒゲ脱毛という選択肢についても紹介します。",
+      "ヒゲを整えて清潔感を出したい男性向けに、剃るか残すかの判断基準、カミソリと電気シェーバーの選び方、肌に負担をかけにくい剃り方、ヒゲを残す場合の輪郭の決め方、カミソリ負けの防ぎ方を解説します。",
 
     category: "ヒゲ",
 
     publishedAt: "2026-09-11",
+
+    updatedAt: "2026-10-28",
 
     readingTime: "約8分",
 

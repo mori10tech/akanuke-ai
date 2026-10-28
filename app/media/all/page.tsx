@@ -186,7 +186,7 @@ export default async function AllArticlesPage({
         </nav>
 
         <section id="latest-articles" className="mx-auto w-full max-w-[1180px] scroll-mt-24 px-5 pb-12 pt-6 sm:pb-16 sm:pt-6">
-          <div className="grid gap-5 md:grid-cols-2">
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
             {pageArticles.map((article, index) => (
               <Fragment key={article.slug}>
                 <Link

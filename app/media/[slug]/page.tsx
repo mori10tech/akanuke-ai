@@ -68,7 +68,7 @@ function ArticleHeader() {
         </div>
 
         <div className="shrink-0">
-          <JournalServiceCta />
+          <JournalServiceCta variant="compact" />
         </div>
       </div>
     </header>

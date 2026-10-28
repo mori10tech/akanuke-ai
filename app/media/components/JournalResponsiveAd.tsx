@@ -47,7 +47,7 @@ export default function JournalResponsiveAd({
 
   // グリッド内に空のセルを残さないよう、ラッパーごと出し分ける
   return (
-    <div className="md:col-span-2">
+    <div className="min-w-0 md:col-span-2">
       <AdSenseAd className={className} />
     </div>
   );

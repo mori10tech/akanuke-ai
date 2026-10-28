@@ -88,3 +88,4 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 - 実行していない検証（`npm run lint`、`npm run build`、画面確認など）を実行済みと書かない。
 - 「確認した事実」と「推測・未確認」を分けて書く。
 - ユーザーはプログラミングの専門家ではない。手作業が必要な場合は、画面操作やコマンドを1手順ずつ具体的に説明する。
+- コミットメッセージは日本語で書く。

@@ -14,6 +14,58 @@ export const articles: Article[] = [
 
 
 {
+  slug: "mens-toner-emulsion",
+
+  title:
+    "化粧水と乳液の違いとは？メンズの正しい使い方と順番を解説",
+
+  description:
+    "化粧水と乳液の役割の違いを、メンズスキンケア初心者向けに解説。化粧水だけではだめな理由、正しい使い方4ステップ、肌の傾向別の組み合わせ、オールインワンとの違い、よくある間違いを紹介します。",
+
+  category: "スキンケア",
+
+  publishedAt: "2026-10-28",
+
+  readingTime: "約7分",
+
+  image: "/media/mens-toner-emulsion.png",
+
+  keywords: [
+    "化粧水 乳液 違い",
+    "メンズ 化粧水 乳液",
+    "化粧水 乳液 順番",
+    "化粧水だけ 男",
+    "メンズ 保湿 やり方",
+  ],
+},
+
+{
+  slug: "mens-sunscreen",
+
+  title:
+    "メンズの日焼け止めの選び方と塗り方｜効果が出る量と塗り直しのコツ",
+
+  description:
+    "メンズの日焼け止めの選び方と正しい塗り方を解説。SPF・PAの見方、タイプ別の特徴、効果が出る量の考え方、顔に塗る5ステップ、塗り忘れやすい場所、塗り直しと落とし方を紹介します。",
+
+  category: "スキンケア",
+
+  publishedAt: "2026-10-28",
+
+  readingTime: "約8分",
+
+  image: "/media/mens-sunscreen.png",
+
+  keywords: [
+    "メンズ 日焼け止め",
+    "日焼け止め 塗り方 メンズ",
+    "日焼け止め 量",
+    "日焼け止め 塗り直し",
+    "日焼け止め 選び方 男",
+  ],
+},
+
+{
   slug: "mens-hair-wax",
 
   title:

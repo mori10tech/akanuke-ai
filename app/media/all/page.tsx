@@ -148,12 +148,13 @@ export default async function AllArticlesPage({
           <div className="mx-auto w-full max-w-[1180px] px-5 py-8 md:py-12">
             <Link
               href="/media"
-              className="text-[10px] font-bold tracking-[0.18em] text-[#1677FF] transition hover:opacity-70"
+              className="inline-flex h-10 items-center gap-2 rounded-full border border-[#1677FF]/20 bg-white px-4 text-[12px] font-black tracking-[0.12em] text-[#1677FF] transition hover:border-[#1677FF]/40"
             >
-              AKANUKE JOURNAL
+              <span aria-hidden="true">←</span>
+              <span>AKANUKE JOURNAL</span>
             </Link>
 
-            <div className="mt-3 flex items-end justify-between gap-4">
+            <div className="mt-4 flex items-end justify-between gap-4">
               <h1 className="text-[30px] font-extrabold leading-[1.2] tracking-[-0.02em] text-[#111111] md:text-[40px]">
                 {selectedCategory ? `${selectedCategory}の記事` : "すべての記事"}
               </h1>

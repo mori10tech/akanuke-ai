@@ -102,7 +102,7 @@ export default async function JournalTopPage({
 
         <section className="border-b border-black/10 bg-gradient-to-b from-white to-[#EEF6FF]">
           <div className="mx-auto w-full max-w-[1180px] px-5 py-9 md:py-14">
-            <h1 className="whitespace-nowrap text-[28px] font-black leading-[1.1] tracking-[0.04em] text-[#111111] md:text-[72px] md:tracking-[0.02em]">
+            <h1 className="whitespace-nowrap text-[28px] font-black leading-[1.1] tracking-[0.04em] text-[#111111] md:text-[56px] md:tracking-[0.02em]">
               AKANUKE JOURNAL
             </h1>
 
@@ -112,7 +112,7 @@ export default async function JournalTopPage({
               メンズの垢抜け・美容を、分かりやすく。
             </p>
 
-            <p className="mt-2 text-[11px] leading-[1.8] text-[#4B5058] md:mt-3 md:whitespace-nowrap md:text-[12px]">
+            <p className="mt-2 text-[12px] leading-[1.8] text-[#4B5058] md:mt-3 md:whitespace-nowrap md:text-[13px]">
               髪型・眉毛・スキンケアなど、
               <br className="md:hidden" />
               男性が第一印象を整えるために役立つ情報を発信します。
@@ -144,12 +144,6 @@ export default async function JournalTopPage({
                   </span>
 
                   <span className="text-[#1677FF]">{featuredArticle.category}</span>
-
-                  <time dateTime={featuredArticle.publishedAt}>
-                    {formatDate(featuredArticle.publishedAt)}
-                  </time>
-
-                  <span aria-hidden="true">•</span>
 
                   <span>{featuredArticle.readingTime}</span>
                 </div>

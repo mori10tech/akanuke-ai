@@ -71,19 +71,6 @@ function ArticleHeader() {
           <JournalServiceCta />
         </div>
       </div>
-      <nav aria-label="記事カテゴリー" className="border-t border-black/5">
-        <div className="mx-auto flex max-w-[980px] gap-2 overflow-x-auto px-4 py-2.5 sm:px-5">
-          {[...new Set(getAllArticles().map((article) => article.category))].map((category) => (
-            <Link
-              key={category}
-              href={`/media?category=${encodeURIComponent(category)}`}
-              className="shrink-0 rounded-full bg-[#F8FAFC] px-3 py-2 text-[11px] font-bold text-black/65 transition hover:text-[#1677FF]"
-            >
-              {category}
-            </Link>
-          ))}
-        </div>
-      </nav>
     </header>
   );
 }

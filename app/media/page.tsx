@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { Fragment } from "react";
 import Logo from "../components/Logo";
 import AdSenseAd from "../components/AdSenseAd";
 import { getAllArticles } from "../../data/articles";
 import JournalFooter from "./components/JournalFooter";
+import JournalPagination from "./components/JournalPagination";
 import JournalServiceCta from "./components/JournalServiceCta";
 
 function ArrowRightIcon() {
@@ -34,37 +36,89 @@ function formatDate(date: string) {
   }).format(new Date(date));
 }
 
-export const metadata: Metadata = {
-  title: "AKANUKE JOURNAL｜メンズ美容・垢抜け情報",
+const ARTICLES_PER_PAGE = 10;
 
-  description:
-    "男性が垢抜けるための髪型・眉毛・スキンケア・メンズ美容など、第一印象を整えるために役立つ情報を発信するAKANUKE.AIのメディアです。",
-
-  alternates: {
-    canonical: "/media",
-  },
-
-  openGraph: {
-    title: "AKANUKE JOURNAL｜メンズ美容・垢抜け情報",
-    description:
-      "髪型・眉毛・スキンケアなど、男性が第一印象を整えるためのメンズ美容・垢抜け情報を発信します。",
-    url: "/media",
-    type: "website",
-  },
-};
+const PAGE_TITLE = "AKANUKE JOURNAL｜メンズ美容・垢抜け情報";
 
 type ArticlesPageProps = {
-  searchParams: Promise<{ category?: string }>;
+  searchParams: Promise<{
+    category?: string | string[];
+    page?: string | string[];
+  }>;
 };
 
-export default async function ArticlesPage({ searchParams }: ArticlesPageProps) {
+// page 未指定は1ページ目。数字以外・0以下・範囲外は notFound() にする
+function resolveListing(
+  categoryParam: string | string[] | undefined,
+  pageParam: string | string[] | undefined,
+) {
   const allArticles = getAllArticles();
   const categories = [...new Set(allArticles.map((article) => article.category))];
-  const { category } = await searchParams;
-  const selectedCategory = category && categories.includes(category) ? category : null;
+  const selectedCategory =
+    typeof categoryParam === "string" && categories.includes(categoryParam)
+      ? categoryParam
+      : null;
   const articles = selectedCategory
     ? allArticles.filter((article) => article.category === selectedCategory)
     : allArticles;
+  const totalPages = Math.max(1, Math.ceil(articles.length / ARTICLES_PER_PAGE));
+
+  let currentPage = 1;
+
+  if (pageParam !== undefined) {
+    if (typeof pageParam !== "string" || !/^[1-9][0-9]*$/.test(pageParam)) {
+      notFound();
+    }
+
+    currentPage = Number(pageParam);
+  }
+
+  if (currentPage > totalPages) {
+    notFound();
+  }
+
+  return { categories, selectedCategory, articles, totalPages, currentPage };
+}
+
+export async function generateMetadata({
+  searchParams,
+}: ArticlesPageProps): Promise<Metadata> {
+  const { category, page } = await searchParams;
+  const { selectedCategory, currentPage } = resolveListing(category, page);
+  const isPagedTopListing = !selectedCategory && currentPage > 1;
+  const title = isPagedTopListing
+    ? `${PAGE_TITLE}（${currentPage}ページ目）`
+    : PAGE_TITLE;
+  const url = isPagedTopListing ? `/media?page=${currentPage}` : "/media";
+
+  return {
+    title,
+
+    description:
+      "男性が垢抜けるための髪型・眉毛・スキンケア・メンズ美容など、第一印象を整えるために役立つ情報を発信するAKANUKE.AIのメディアです。",
+
+    alternates: {
+      canonical: url,
+    },
+
+    openGraph: {
+      title,
+      description:
+        "髪型・眉毛・スキンケアなど、男性が第一印象を整えるためのメンズ美容・垢抜け情報を発信します。",
+      url,
+      type: "website",
+    },
+  };
+}
+
+export default async function ArticlesPage({ searchParams }: ArticlesPageProps) {
+  const { category, page } = await searchParams;
+  const { categories, selectedCategory, articles, totalPages, currentPage } =
+    resolveListing(category, page);
+  const pageArticles = articles.slice(
+    (currentPage - 1) * ARTICLES_PER_PAGE,
+    currentPage * ARTICLES_PER_PAGE,
+  );
 
   return (
     <>
@@ -129,7 +183,7 @@ export default async function ArticlesPage({ searchParams }: ArticlesPageProps) 
           </div>
 
           <div className="mt-6 grid gap-5 md:grid-cols-2">
-            {articles.map((article, index) => (
+            {pageArticles.map((article, index) => (
               <Fragment key={article.slug}>
                 <Link
                   href={`/media/${article.slug}`}
@@ -179,7 +233,15 @@ export default async function ArticlesPage({ searchParams }: ArticlesPageProps) 
               </Fragment>
             ))}
           </div>
-          
+
+          {totalPages > 1 && (
+            <JournalPagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              category={selectedCategory}
+            />
+          )}
+
         <AdSenseAd className="mt-10 sm:mt-12" />
         </section>
 

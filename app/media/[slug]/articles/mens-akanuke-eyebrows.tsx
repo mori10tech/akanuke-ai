@@ -9,28 +9,28 @@ type Props = {
 
 const tableOfContents = [
   {
-    id: "importance",
-    label: "メンズの垢抜けに眉毛が重要な理由",
+    id: "rule",
+    label: "眉毛は「残す範囲」を先に決める",
   },
   {
-    id: "features",
-    label: "垢抜けて見える眉毛の特徴",
+    id: "guide",
+    label: "眉頭・眉山・眉尻の目安の位置",
+  },
+  {
+    id: "tools",
+    label: "道具の選び方と使い分け",
   },
   {
     id: "howto",
-    label: "初心者向け眉毛の整え方",
+    label: "失敗しにくい整え方6ステップ",
   },
   {
-    id: "mistakes",
-    label: "メンズ眉毛でよくある失敗",
+    id: "trouble",
+    label: "失敗したときの対処法",
   },
   {
     id: "salon",
-    label: "セルフケアと眉毛サロンの違い",
-  },
-  {
-    id: "frequency",
-    label: "眉毛を整える頻度",
+    label: "眉毛サロンを利用する場合",
   },
   {
     id: "faq",
@@ -42,124 +42,160 @@ const tableOfContents = [
   },
 ];
 
-const eyebrowFeatures = [
+const guidePoints = [
   {
-    number: "01",
-    title: "眉間の余分な毛が整っている",
+    title: "眉頭",
+    position: "目頭の真上あたり",
     description:
-      "眉間に毛が多く残っていると、眉毛同士がつながって見えたり、顔全体が重たい印象になったりすることがあります。眉頭そのものを削るのではなく、眉間に生えている明らかな余分な毛を整えるのが基本です。",
+      "眉頭が目頭より大きく内側にあると、眉と眉の間が狭く見えます。眉間の毛を処理するときも、眉頭そのものは削らないようにしましょう。",
   },
   {
-    number: "02",
-    title: "眉下がすっきりしている",
+    title: "眉山",
+    position: "黒目の外側から目尻の真上の間",
     description:
-      "眉下のまぶた側に生えている余分な毛を整えると、眉毛の輪郭が見えやすくなり、目元もすっきりした印象になります。ただし、眉毛本体まで削りすぎないことが重要です。",
+      "眉の中で一番高くなる位置です。自然に高くなっている位置があれば、無理に動かす必要はありません。",
   },
   {
-    number: "03",
-    title: "長すぎる毛が飛び出していない",
+    title: "眉尻",
+    position: "小鼻と目尻を結んだ線の延長上",
     description:
-      "眉毛の形が悪いのではなく、一部の毛だけが長く伸びて輪郭から飛び出している場合もあります。コームで毛流れを確認し、必要な部分だけ長さを整えると自然に見えやすくなります。",
+      "細いペンやコームの柄を、小鼻と目尻に当てると確認できます。眉尻が眉頭の高さより大きく下がっていないかも見ておきましょう。",
+  },
+];
+
+const tools = [
+  {
+    name: "眉用コーム",
+    use: "毛流れを整え、長すぎる毛を見つける",
+    note: "カットの前に必ず使います。スクリューブラシでも代用できます。",
   },
   {
-    number: "04",
-    title: "細くしすぎず自然な太さが残っている",
-    description:
-      "垢抜けようとして眉毛を細くしすぎると、かえって不自然に見えることがあります。特に初心者は元の眉毛を大きく変えるより、本来の形を活かしながら余分な部分を整える方が失敗しにくいです。",
+    name: "眉用ハサミ",
+    use: "輪郭から飛び出す長い毛を短くする",
+    note: "先が細く小さいものが扱いやすく、切りすぎを防ぎやすくなります。",
+  },
+  {
+    name: "眉用シェーバー",
+    use: "眉間や眉下の、輪郭から離れた毛を処理する",
+    note: "刃が肌に直接当たりにくい電動タイプは、初心者でも扱いやすい道具です。",
+  },
+  {
+    name: "アイブロウペンシル",
+    use: "残す範囲の下書き、薄い部分の描き足し",
+    note: "髪色に近い色か、少し明るい色を選ぶと自然になじみます。",
+  },
+  {
+    name: "毛抜き",
+    use: "輪郭のすぐ近くの毛を1本ずつ処理する",
+    note: "抜いた部分はしばらく生えてこないため、やり直しがききません。初心者は使わなくても十分です。",
   },
 ];
 
 const howToSteps = [
   {
     number: "01",
-    title: "何もせず現在の眉毛を確認する",
+    title: "髪型を整え、明るい場所で始める",
     description:
-      "いきなり剃ったり抜いたりせず、まず鏡で左右の眉毛を確認します。眉頭・眉山・眉尻の位置や、輪郭から離れて生えている毛をチェックしましょう。",
+      "前髪の長さや分け目によって、眉の見え方は変わります。普段どおりに髪を整え、窓際など明るい場所で鏡を見ます。肌が乾いた状態のほうが、毛を判断しやすくなります。",
     point:
-      "最初から理想の形を作ろうとせず、「明らかに余分な毛はどこか」を探すことから始めます。",
+      "美容室で髪を切る予定が近い場合は、カットの後に眉を整えるのがおすすめです。",
   },
   {
     number: "02",
-    title: "眉毛をコームでとかす",
+    title: "コームで毛流れを整える",
     description:
-      "眉毛用コームを使って毛流れを整えます。毛が重なった状態では長さを判断しにくいため、カットする前にとかしておくことが大切です。",
+      "眉頭は上向きに、眉山から眉尻は斜め外向きに、毛の流れに沿ってとかします。重なっていた毛がそろうと、長すぎる毛や輪郭から外れた毛が見つけやすくなります。",
     point:
-      "強く押し付けず、普段の毛流れに沿って軽くとかせば十分です。",
+      "強く押し付けず、軽くとかせば十分です。",
   },
   {
     number: "03",
-    title: "眉間などの余分な毛を処理する",
+    title: "ペンシルで残す範囲を描く",
     description:
-      "眉毛の輪郭から明らかに離れている毛を、眉用シェーバーなどで少しずつ処理します。特に眉間や眉下は変化を感じやすい部分です。",
+      "前の章の目安の位置を参考に、アイブロウペンシルで眉の輪郭を薄く描きます。特に眉の下側のラインを描いておくと、どこまで処理してよいかが分かります。",
     point:
-      "迷う毛は残してください。一度剃ってしまうより、後から追加で整える方が安全です。",
+      "眉の上側は形が変わりやすいため、初めての場合は輪郭を描かず、処理もしないのが安全です。",
   },
   {
     number: "04",
-    title: "長すぎる毛だけをカットする",
+    title: "輪郭の外の毛だけを処理する",
     description:
-      "コームで毛流れを確認し、眉毛の輪郭から大きく飛び出す長い毛があれば眉用ハサミで少しずつカットします。",
+      "描いた輪郭の外側にある、眉間や眉下の毛を、シェーバーで少しずつ処理します。毛の流れに沿って動かし、同じ場所を何度もこすらないようにします。",
     point:
-      "眉毛全体を同じ長さまで短くする必要はありません。切りすぎると毛量が少なく見えることがあります。",
+      "輪郭に近くて迷う毛は残してください。後から処理するのは簡単ですが、処理した毛はすぐには戻りません。",
   },
   {
     number: "05",
-    title: "少し離れて左右を確認する",
+    title: "長すぎる毛をカットする",
     description:
-      "処理が終わったら鏡へ近づいた状態だけで判断せず、少し離れて顔全体を確認します。眉毛単体ではなく、目元や髪型を含めたバランスを見ることが大切です。",
+      "コームを眉に当てて毛を上にとかし、コームから飛び出した部分だけをハサミで切ります。眉全体を短くする必要はありません。",
     point:
-      "左右を完全に同じ形にする必要はありません。自然に見える範囲の違いなら問題ありません。",
+      "一度に多く切らず、少しずつ切っては確認を繰り返します。",
+  },
+  {
+    number: "06",
+    title: "離れて確認し、翌日もう一度見る",
+    description:
+      "ペンシルの線を落としてから、鏡から少し離れて顔全体で確認します。その日のうちに直し続けず、翌日にもう一度見て、気になる部分があれば少しだけ整えます。",
+    point:
+      "左右を完全に同じ形にする必要はありません。人の顔にはもともと左右差があります。",
   },
 ];
 
-const mistakes = [
+const troubles = [
   {
-    title: "眉毛を細くしすぎる",
+    title: "剃りすぎた・細くなりすぎた",
     description:
-      "余分な毛を整えているうちに眉毛本体まで削ると、本来の自然な太さがなくなってしまいます。初心者ほど「少し物足りない」と感じる程度で止める方が安全です。",
+      "生えてくるまでは、その部分を触らないようにします。薄くなった部分は、アイブロウペンシルで毛を1本ずつ描くように補うと自然に見えます。生えそろうまでの期間には個人差があります。",
   },
   {
-    title: "眉頭を剃りすぎる",
+    title: "左右の形がそろわない",
     description:
-      "眉間を広く見せようとして眉頭まで大きく削ると、不自然な形になりやすくなります。眉頭ではなく、左右の眉毛の間にある余分な毛を中心に処理しましょう。",
+      "細くなったほうに合わせて反対側を削ると、両方とも細くなってしまいます。削るのではなく、足りない側をペンシルで描き足して調整しましょう。",
   },
   {
-    title: "左右を完全に同じ形にしようとする",
+    title: "処理した後に赤みやかゆみが出た",
     description:
-      "人の顔にはもともと左右差があります。一方を削って反対側へ合わせ続けると、結果的に両方とも細くなってしまうことがあります。",
+      "処理した部分をこすらず、保湿して様子を見ます。ニキビや肌荒れがある場所は、治るまで処理を避けましょう。赤みやかゆみが続く場合は、皮膚科に相談してください。",
   },
   {
-    title: "一度に形を大きく変える",
+    title: "眉の上を剃ってしまった",
     description:
-      "初めて眉毛を整えるときに眉山や眉尻まで大きく作り直すと、失敗したときに戻しにくくなります。最初は元の形を活かすことを優先しましょう。",
+      "眉の上側は、少し削るだけで形の印象が大きく変わります。伸びてくるまでは上側に触らず、ペンシルで元の輪郭を補いましょう。",
   },
+];
+
+const salonOrders = [
+  "「眉を整えたと分かりにくいくらい、自然な仕上がりにしたいです」",
+  "「自分で維持しやすい形にしてください」",
+  "「自宅ではどこまで処理してよいか教えてください」",
 ];
 
 const faqs = [
   {
     question: "男性も眉毛を整えた方がいいですか？",
     answer:
-      "必ず整えなければならないわけではありませんが、眉間や眉下の余分な毛、長く飛び出した毛を整えるだけでも目元がすっきり見えやすくなります。大きく形を変える必要はありません。",
+      "必ず整えなければならないわけではありません。ただ、眉間や眉下の余分な毛、長く飛び出した毛を整えるだけでも、目元の輪郭がはっきりしてすっきり見えやすくなります。",
   },
   {
     question: "メンズ眉毛は細い方が垢抜けて見えますか？",
     answer:
-      "細ければ垢抜けて見えるとは限りません。顔立ちや元の眉毛によって似合う太さは異なります。初心者の場合は自然な太さを残し、輪郭を整えることから始めるのがおすすめです。",
+      "細いほど垢抜けて見えるとは限りません。元の眉の太さを残して輪郭を整えるほうが、自然に見えやすくなります。",
   },
   {
     question: "眉毛は剃るのと抜くのではどちらがいいですか？",
     answer:
-      "初心者は、まず眉用シェーバーなどで少しずつ整える方法が取り組みやすいです。毛を抜くと肌への刺激になる場合があり、処理した部分をすぐ元に戻すこともできないため、無理に抜く必要はありません。",
+      "初心者には、シェーバーで剃る方法がおすすめです。抜いた毛はしばらく生えてこないため、失敗したときにやり直しがききません。また、抜くことは肌への刺激にもなります。",
   },
   {
-    question: "眉毛を整えるために何を用意すればいいですか？",
+    question: "眉毛はどのくらいの頻度で整えればいいですか？",
     answer:
-      "基本的には眉用コーム、眉用ハサミ、眉用シェーバーがあると整えやすくなります。すべてを一度に揃えなくても、必要なものから用意すれば問題ありません。",
+      "毛の伸びる速さには個人差があるため、決まった頻度はありません。一度形を整えた後は、輪郭からはみ出した毛が気になったときに、その部分だけを処理します。髪を切るタイミングに合わせて確認するのも一つの方法です。",
   },
   {
-    question: "自分に似合う眉毛が分からない場合はどうすればいいですか？",
+    question: "自分に似合う眉の形が分からない場合はどうすればいいですか？",
     answer:
-      "自分で大きく形を変えず、まず余分な毛だけを整える方法があります。形そのものを変えたい場合や左右差が気になる場合は、メンズ眉毛サロンなどで相談するのも選択肢です。",
+      "まずは形を変えず、輪郭の外の毛だけを整える方法がおすすめです。形そのものを変えたい場合や左右差が大きい場合は、眉毛サロンで一度整えてもらい、その形を自宅で維持する方法もあります。",
   },
 ];
 
@@ -201,91 +237,121 @@ export default function MensAkanukeEyebrowsArticle({
       <div className="min-w-0">
         <section className="text-[14px] leading-8 text-black/80">
           <p>
-            「眉毛を整えた方がいいとは聞くけれど、どこを剃ればいいのか分からない」と悩んでいる男性も多いのではないでしょうか。
+            「眉毛を整えた方がいいとは聞くけれど、どこを剃ればいいのか分からない」「自分で整えたら細くなりすぎた」という経験はありませんか？
           </p>
 
           <p className="mt-5">
-            眉毛は目元の印象に関わるパーツです。しかし、垢抜けるために眉毛を細くしたり、大きく形を変えたりする必要はありません。
+            眉毛の手入れで失敗する原因の多くは、どこまで処理してよいかを決めないまま剃り始めることです。先に「残す範囲」を決めておけば、初めてでも削りすぎを防げます。
           </p>
 
           <p className="mt-5">
-            初心者の場合は、元の眉毛を活かしながら、眉間や眉下の余分な毛、長く飛び出した毛を少し整えるだけでも十分です。
-          </p>
-
-          <p className="mt-5">
-            この記事では、眉毛を初めて整える男性に向けて、自然に見せるための基本的な考え方から具体的な手順、失敗しやすいポイントまで分かりやすく解説します。
+            この記事では、眉の形の目安となる位置の見つけ方、道具の使い分け、残す範囲を決めてから整える6つのステップ、失敗したときの対処法を解説します。
           </p>
         </section>
 
-
-        <section id="importance" className="scroll-mt-24 pt-16">
+        <section id="rule" className="scroll-mt-24 pt-16">
           <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
-            IMPORTANCE
+            BASIC RULE
           </p>
 
           <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
-            メンズの垢抜けに眉毛が重要な理由
+            眉毛は「残す範囲」を先に決める
           </h2>
 
           <div className="mt-5 text-[14px] leading-8 text-black/80">
             <p>
-              眉毛は目のすぐ上にあるため、会話をするときにも視線に入りやすいパーツです。眉毛の周囲が整っていると、目元の輪郭が分かりやすくなり、顔全体もすっきりした印象に見えやすくなります。
+              眉毛は目元の「枠」のような役割をしています。眉間や眉下に毛が散らばっていると輪郭がぼやけ、目元が重く見えやすくなります。整えるときに目指すのは、眉の形を作り変えることではなく、この輪郭をはっきりさせることです。
             </p>
 
             <p className="mt-5">
-              一方で、眉間に余分な毛が多かったり、長い毛が不規則に飛び出していたりすると、髪型や服装を整えていても顔周りが整っていないように見えることがあります。
-            </p>
-
-            <p className="mt-5">
-              重要なのは「眉毛の形を別物にすること」ではありません。まずは自分が持っている眉毛を活かし、余分な部分だけを整えることが自然な垢抜けにつながります。
+              鏡を見ながら「この毛はいらない」と1本ずつ判断していくと、処理するほど基準があいまいになり、気づいたときには削りすぎていることがあります。先に残す範囲を決め、その外側だけを処理するのが失敗しないための基本です。
             </p>
           </div>
 
           <div className="mt-7 rounded-[20px] border border-[#1677FF]/15 bg-[#EEF6FF] p-5">
             <p className="text-[12px] font-black text-[#1677FF]">
-              初心者が意識したいこと
+              処理していいのは「輪郭の外」だけ
             </p>
 
             <p className="mt-3 text-[12px] font-medium leading-6 text-black/70">
-              「形を作る」より「余分な部分を整える」と考えるのがおすすめです。判断に迷う毛は残し、少しずつ調整すると失敗を防ぎやすくなります。
+              初めての場合は、眉間と眉下の毛、輪郭から飛び出した長い毛の3つだけを整えます。眉の上側と、眉本体の毛には手を付けません。
             </p>
           </div>
         </section>
 
-        <section id="features" className="scroll-mt-24 pt-16">
+        <section id="guide" className="scroll-mt-24 pt-16">
           <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
-            4 POINTS
+            GUIDE
           </p>
 
           <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
-            垢抜けて見える男性の眉毛の特徴
+            眉頭・眉山・眉尻の目安の位置
           </h2>
 
           <p className="mt-4 text-[13px] font-medium leading-7 text-black/70">
-            眉毛の正解は一つではありません。まずは次の4つを意識すると、自然な状態を保ちながら整えやすくなります。
+            残す範囲を決めるときは、次の3つの位置を目安にします。一般的に使われる目安で、顔立ちによって合う位置は少しずつ違います。元の眉が目安から少しずれていても、無理に合わせる必要はありません。
           </p>
 
           <div className="mt-8 space-y-4">
-            {eyebrowFeatures.map((feature) => (
+            {guidePoints.map((point, index) => (
               <div
-                key={feature.number}
+                key={point.title}
                 className="rounded-[20px] border border-black/10 bg-white p-5 shadow-[0_8px_28px_rgba(15,23,42,0.04)] sm:p-6"
               >
                 <div className="flex items-start gap-4">
                   <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[12px] bg-[#111111] text-[11px] font-black text-white">
-                    {feature.number}
+                    {String(index + 1).padStart(2, "0")}
                   </span>
 
                   <div className="min-w-0">
                     <h3 className="text-[17px] font-semibold tracking-[-0.03em]">
-                      {feature.title}
+                      {point.title}
                     </h3>
 
+                    <p className="mt-1 text-[12px] font-bold text-[#1677FF]">
+                      目安：{point.position}
+                    </p>
+
                     <p className="mt-3 text-[13px] leading-7 text-black/75">
-                      {feature.description}
+                      {point.description}
                     </p>
                   </div>
                 </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section id="tools" className="scroll-mt-24 pt-16">
+          <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
+            TOOLS
+          </p>
+
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
+            道具の選び方と使い分け
+          </h2>
+
+          <p className="mt-4 text-[13px] font-medium leading-7 text-black/70">
+            最初に必要なのは、コーム・ハサミ・シェーバーの3つです。ペンシルは残す範囲の下書きに使うため、あると失敗を防ぎやすくなります。
+          </p>
+
+          <div className="mt-7 grid gap-3 sm:grid-cols-2">
+            {tools.map((tool) => (
+              <div
+                key={tool.name}
+                className="rounded-[18px] border border-black/10 bg-[#F8FAFC] p-5"
+              >
+                <h3 className="text-[15px] font-black">
+                  {tool.name}
+                </h3>
+
+                <p className="mt-2 text-[12px] font-bold leading-6 text-[#1677FF]">
+                  {tool.use}
+                </p>
+
+                <p className="mt-2 text-[12px] font-medium leading-6 text-black/70">
+                  {tool.note}
+                </p>
               </div>
             ))}
           </div>
@@ -297,11 +363,11 @@ export default function MensAkanukeEyebrowsArticle({
           </p>
 
           <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
-            初心者向け｜メンズ眉毛の整え方5ステップ
+            初心者向け｜失敗しにくい眉毛の整え方6ステップ
           </h2>
 
           <p className="mt-4 text-[13px] font-medium leading-7 text-black/70">
-            初めての場合は、一度に完成させようとしないことが大切です。次の順番で少しずつ整えていきましょう。
+            一度で完成させようとしないことが大切です。次の順番で、少しずつ整えていきましょう。
           </p>
 
           <div className="mt-8 space-y-5">
@@ -341,19 +407,23 @@ export default function MensAkanukeEyebrowsArticle({
 
         <AdSenseAd className="mt-10" format="rectangle" />
 
-        <section id="mistakes" className="scroll-mt-24 pt-16">
+        <section id="trouble" className="scroll-mt-24 pt-16">
           <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
-            MISTAKES
+            TROUBLESHOOTING
           </p>
 
           <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
-            メンズ眉毛でよくある4つの失敗
+            失敗したときの対処法
           </h2>
 
+          <p className="mt-4 text-[13px] font-medium leading-7 text-black/70">
+            失敗したときに慌てて直そうとすると、さらに削りすぎてしまうことがあります。次のように対処しましょう。
+          </p>
+
           <div className="mt-7 grid gap-4">
-            {mistakes.map((mistake, index) => (
+            {troubles.map((trouble, index) => (
               <div
-                key={mistake.title}
+                key={trouble.title}
                 className="rounded-[18px] border border-black/10 bg-[#F8FAFC] p-5"
               >
                 <div className="flex items-start gap-3">
@@ -363,11 +433,11 @@ export default function MensAkanukeEyebrowsArticle({
 
                   <div>
                     <h3 className="text-[15px] font-black">
-                      {mistake.title}
+                      {trouble.title}
                     </h3>
 
                     <p className="mt-2 text-[12px] font-medium leading-6 text-black/70">
-                      {mistake.description}
+                      {trouble.description}
                     </p>
                   </div>
                 </div>
@@ -378,78 +448,36 @@ export default function MensAkanukeEyebrowsArticle({
 
         <section id="salon" className="scroll-mt-24 pt-16">
           <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
-            SELF CARE OR SALON
+            EYEBROW SALON
           </p>
 
           <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
-            自分で整える？眉毛サロンへ行く？
+            眉毛サロンを利用する場合
           </h2>
 
           <div className="mt-5 text-[14px] leading-8 text-black/80">
             <p>
-              眉間や眉下の余分な毛を処理したり、長い毛を少しカットしたりする程度であれば、自宅でも取り組めます。
+              輪郭の外の毛を整える程度であれば、自宅で十分にできます。一方で、眉の形そのものを変えたい場合、左右差が大きい場合、自分で整えるのが不安な場合は、眉毛サロンで一度整えてもらう方法があります。
             </p>
 
             <p className="mt-5">
-              一方で、「自分に似合う形が分からない」「左右差をどう整えればいいか分からない」「一度きれいな形を作ってほしい」という場合は、メンズ眉毛サロンを利用する方法もあります。
-            </p>
-
-            <p className="mt-5">
-              特に初めて眉毛を大きく整えたい場合は、プロに形を作ってもらい、その後伸びてきた部分を自宅で維持する方法も選択肢になります。
+              プロに整えてもらった形は、その後自宅で維持するときの基準になります。伸びてきた毛だけを自分で処理すれば、形を崩さずに保ちやすくなります。施術の方法や料金はサロンによって違うため、予約前に確認しましょう。
             </p>
           </div>
 
-          <div className="mt-7 grid gap-4 sm:grid-cols-2">
-            <div className="rounded-[20px] border border-black/10 bg-white p-5">
-              <p className="text-[11px] font-black text-[#1677FF]">
-                SELF CARE
-              </p>
-
-              <h3 className="mt-2 text-[17px] font-black">
-                セルフケアがおすすめ
-              </h3>
-
-              <p className="mt-3 text-[12px] font-medium leading-6 text-black/70">
-                元の眉毛を大きく変えず、眉間・眉下・長い毛などを少し整えたい人。費用を抑えながら定期的にケアできます。
-              </p>
-            </div>
-
-            <div className="rounded-[20px] border border-[#1677FF]/15 bg-[#EEF6FF] p-5">
-              <p className="text-[11px] font-black text-[#1677FF]">
-                EYEBROW SALON
-              </p>
-
-              <h3 className="mt-2 text-[17px] font-black">
-                眉毛サロンがおすすめ
-              </h3>
-
-              <p className="mt-3 text-[12px] font-medium leading-6 text-black/70">
-                自分に合う形が分からない人や、左右差・形そのものを整えたい人。一度プロへ相談して基準を作りたい場合にも向いています。
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <section id="frequency" className="scroll-mt-24 pt-16">
-          <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
-            FREQUENCY
-          </p>
-
-          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
-            メンズ眉毛を整える頻度は？
-          </h2>
-
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
-            <p>
-              眉毛が伸びる速さや毛量には個人差があるため、「必ず何日に一度」と決める必要はありません。
+          <div className="mt-7 rounded-[22px] border border-black/10 bg-[#F8FAFC] p-5 sm:p-6">
+            <p className="text-[12px] font-black text-[#1677FF]">
+              サロンで伝えると失敗しにくいこと
             </p>
 
-            <p className="mt-5">
-              毎日のように形を削るのではなく、鏡を見たときに眉間の毛や輪郭から飛び出した毛が気になってきたタイミングで整える方が、削りすぎを防ぎやすくなります。
-            </p>
+            <ul className="mt-4 space-y-2 text-[13px] font-bold leading-7 text-[#111111]">
+              {salonOrders.map((order) => (
+                <li key={order}>{order}</li>
+              ))}
+            </ul>
 
-            <p className="mt-5">
-              一度形を整えた後は、その形から明らかにはみ出してきた部分を中心にメンテナンスすると、状態を維持しやすくなります。
+            <p className="mt-4 text-[12px] leading-6 text-black/60">
+              職場の雰囲気や、普段の髪型も伝えておくと、生活に合った形を提案してもらいやすくなります。
             </p>
           </div>
         </section>
@@ -513,30 +541,36 @@ export default function MensAkanukeEyebrowsArticle({
           </p>
 
           <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
-            メンズ眉毛は「整えすぎない」ことが大切
+            残す範囲を決めてから、外側だけを整える
           </h2>
 
           <div className="mt-5 text-[14px] leading-8 text-black/80">
             <p>
-              垢抜けるために、眉毛を細くしたり大きく形を変えたりする必要はありません。まずは眉間や眉下の余分な毛、長く飛び出した毛を整えることから始めましょう。
+              眉毛の手入れで大切なのは、形を作り変えることではなく、輪郭をはっきりさせることです。眉頭・眉山・眉尻の目安を参考にペンシルで残す範囲を描き、その外側にある眉間と眉下の毛、飛び出した長い毛だけを整えましょう。
             </p>
 
             <p className="mt-5">
-              特に初心者は、元の眉毛を活かしながら少しずつ調整する方が自然に仕上がりやすく、失敗も防ぎやすくなります。
-            </p>
-
-            <p className="mt-5">
-              眉毛以外にも何から変えればいいか迷っている場合は、髪型・肌・ヒゲ・服装まで含めて優先順位を整理してみましょう。
+              迷う毛は残し、その日のうちに直し続けないことも、失敗を防ぐコツです。眉の見え方は前髪にも左右されるため、髪型を整えた状態で確認するようにしましょう。
             </p>
           </div>
 
-          <div className="mt-8">
-  <JournalRelatedArticleLink
-    href="/media/mens-akanuke-hairstyle"
-    title="垢抜ける髪型の選び方を見る"
-    description="自分に似合う髪型の考え方や、美容室での頼み方を初心者向けに解説。"
-  />
-</div>
+          <div className="mt-8 grid gap-3 sm:grid-cols-2">
+            <JournalRelatedArticleLink
+              href="/media/mens-akanuke-hairstyle"
+              title="垢抜ける髪型の選び方を見る"
+              description="眉の見え方に関わる前髪や分け目も含めて、似合う髪型の決め方を解説しています。"
+            />
+
+            <JournalRelatedArticleLink
+              href="/media/mens-akanuke-order"
+              title="垢抜ける順番を見る"
+              description="眉の次に何を整えればいいか、全体の進め方を確認できます。"
+            />
+          </div>
+
+          <p className="sr-only">
+            {article.title}
+          </p>
         </section>
       </div>
     </div>

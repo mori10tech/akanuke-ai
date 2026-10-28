@@ -8,114 +8,135 @@ type Props = {
 };
 
 const tableOfContents = [
-  { id: "basics", label: "メンズスキンケアは何から始める？" },
-  { id: "steps", label: "初心者向け基本3ステップ" },
-  { id: "routine", label: "朝と夜のスキンケア手順" },
-  { id: "skin-type", label: "肌質別のアイテム選び" },
-  { id: "mistakes", label: "初心者によくある失敗" },
-  { id: "timing", label: "いつ・どのくらい続ける？" },
+  { id: "skin-check", label: "まず自分の肌の傾向を確認する" },
+  { id: "basics", label: "基本は「洗う・潤す・守る」の3つ" },
+  { id: "routine", label: "朝と夜の手順（ひげ剃りの順番）" },
+  { id: "wash", label: "肌に負担をかけない洗顔のやり方" },
+  { id: "choose", label: "商品の選び方" },
+  { id: "start", label: "新しい商品を使い始めるときの注意" },
+  { id: "doctor", label: "皮膚科に相談したほうがいいサイン" },
   { id: "faq", label: "よくある質問" },
   { id: "summary", label: "まとめ" },
+];
+
+const skinChecks = [
+  {
+    title: "全体がつっぱる・粉をふく",
+    result: "乾燥しやすい傾向",
+    advice:
+      "保湿を重視し、洗浄力の強すぎる洗顔料は避けます。乳液やクリームなど、うるおいを保つものを組み合わせましょう。",
+  },
+  {
+    title: "全体がテカる・ベタつく",
+    result: "皮脂が出やすい傾向",
+    advice:
+      "洗いすぎに注意しながら、さっぱりした使用感の保湿剤を選びます。テカリが気になっても、保湿は省かないようにしましょう。",
+  },
+  {
+    title: "額や鼻はテカり、頬はつっぱる",
+    result: "部位によって違う傾向",
+    advice:
+      "顔全体を同じように扱わず、乾燥する頬には保湿を重ね、テカる部分は薄めにするなど、塗る量で調整します。",
+  },
+  {
+    title: "特に気になることがない",
+    result: "大きな偏りが少ない傾向",
+    advice:
+      "基本の3ステップをそのまま続けます。季節によって状態が変わるため、ときどき同じ方法で確認しましょう。",
+  },
 ];
 
 const skincareSteps = [
   {
     number: "01",
-    title: "洗顔で余分な皮脂や汚れを落とす",
+    title: "洗う｜洗顔",
     description:
-      "まずは肌表面の余分な皮脂や汚れを落とします。洗顔料をよく泡立て、手で強くこするのではなく、泡を転がすようにやさしく洗うことを意識しましょう。洗った後はぬるま湯で十分にすすぎます。",
+      "肌表面の余分な皮脂や汚れを落とします。強くこすらず、泡で包むようにやさしく洗い、ぬるま湯で十分にすすぎます。",
     point:
-      "皮脂が気になるからといって何度も洗ったり、熱いお湯でゴシゴシ洗ったりする必要はありません。",
+      "皮脂が気になるからといって、1日に何度も洗う必要はありません。",
   },
   {
     number: "02",
-    title: "化粧水・乳液などで保湿する",
+    title: "潤す｜保湿",
     description:
-      "洗顔後は肌が乾燥しやすいため、化粧水で水分を補い、乳液や保湿剤でうるおいを保ちます。ベタつきが苦手な場合は、さっぱりした使用感の商品など、自分が毎日使いやすいものから始めましょう。",
+      "洗顔後の肌は乾燥しやすいため、化粧水で水分を補い、乳液やクリームでうるおいを保ちます。1本で済むオールインワンタイプから始めても構いません。",
     point:
-      "高価な商品を何種類も揃えるより、まずは洗顔後の保湿を毎日続けることを優先しましょう。",
+      "高価な商品を何種類もそろえるより、毎日続けられることを優先しましょう。",
   },
   {
     number: "03",
-    title: "日焼け止めで紫外線から肌を守る",
+    title: "守る｜日焼け止め",
     description:
-      "朝のスキンケアでは、外出前に日焼け止めを使う習慣も取り入れたいポイントです。紫外線は季節や天候にかかわらず届くため、日常的な対策として無理なく続けられるものを選びましょう。",
+      "紫外線は季節や天候にかかわらず届くため、外出する日は日焼け止めを使います。使用感が軽いものを選ぶと、毎日続けやすくなります。",
     point:
-      "最初から数値だけで選ばず、普段の外出時間や使用感に合わせて、継続して使いやすい日焼け止めを選ぶのがおすすめです。",
+      "長時間外にいる日は、製品の表示に従って塗り直しましょう。",
   },
 ];
 
-const skinTypes = [
+const washSteps = [
+  "手を洗ってから、顔をぬるま湯で軽くぬらす",
+  "洗顔料を手やネットでよく泡立てる",
+  "皮脂の出やすい額と鼻から泡をのせ、頬や口周りは最後に",
+  "指が肌に直接触れないよう、泡を転がすように洗う",
+  "ぬるま湯で十分にすすぐ。髪の生え際やあご下は特にすすぎ残しやすい",
+  "タオルでこすらず、押し当てるように水分を取る",
+];
+
+const chooseTips = [
   {
-    title: "脂性肌が気になる人",
+    title: "使用感の表示を見る",
     description:
-      "テカリやベタつきが気になっても、洗いすぎには注意が必要です。さっぱりした使用感の保湿アイテムなどを選び、洗顔後の保湿までセットで考えましょう。",
+      "「さっぱり」「しっとり」などの表示は、選ぶときの大きな手がかりです。皮脂が出やすい人はさっぱり、乾燥しやすい人はしっとりから試すと選びやすくなります。",
   },
   {
-    title: "乾燥しやすい人",
+    title: "メンズ用にこだわらない",
     description:
-      "洗顔後につっぱりやカサつきを感じやすい場合は、保湿力を重視します。洗浄力が強すぎるものを避け、乳液やクリームなども使いながら乾燥を防ぎましょう。",
+      "メンズ用である必要はありません。性別の表示より、自分の肌の傾向と使用感、続けやすさを基準に選びましょう。",
   },
   {
-    title: "部分的にベタつく人",
+    title: "日焼け止めは生活に合わせて選ぶ",
     description:
-      "額や鼻はベタつく一方で頬は乾燥するなど、部位によって状態が違うこともあります。顔全体を同じように扱わず、乾燥する部分には保湿を補うなど調整しましょう。",
+      "SPFは肌が赤くなる日焼けの原因になる紫外線（UV-B）、PAは肌が黒くなる原因になる紫外線（UV-A）を防ぐ効果の目安です。数値が高いほどよいわけではなく、日本化粧品工業連合会は、通勤や買い物などの日常生活と、屋外でのレジャーなど、生活の場面に合わせて選ぶことをすすめています。",
   },
   {
-    title: "刺激を感じやすい人",
+    title: "まずは少ない数で始める",
     description:
-      "化粧品で赤みや刺激を感じやすい場合は、一度に多くの商品を増やさず、シンプルなケアから始めます。強い症状や肌トラブルが続く場合は、自己判断でケアを続けず皮膚科へ相談してください。",
+      "美容液やパックは、基本の3ステップが習慣になってからで十分です。最初から増やすと、肌に合わないものがあったときに原因を判断しにくくなります。",
   },
 ];
 
-const mistakes = [
-  {
-    title: "皮脂が気になって洗いすぎる",
-    description:
-      "テカリを落とそうとして一日に何度も洗顔したり、強くこすったりすると肌への負担になることがあります。回数を増やすより、やさしく洗うことを意識しましょう。",
-  },
-  {
-    title: "化粧水だけでケアを終える",
-    description:
-      "化粧水をつけるだけではなく、必要に応じて乳液や保湿剤も使い、洗顔後の肌が乾燥しないように整えることが大切です。",
-  },
-  {
-    title: "最初から商品を増やしすぎる",
-    description:
-      "美容液やパックなどを一度に追加すると、何が自分の肌に合っているのか判断しにくくなります。まずは洗顔・保湿・紫外線対策の基本から始めましょう。",
-  },
-  {
-    title: "肌に合わなくても使い続ける",
-    description:
-      "使用後に強い刺激や赤みなどの異常が出た場合は使用を中止しましょう。症状が続く場合は、化粧品だけで解決しようとせず医療機関へ相談することも大切です。",
-  },
+const doctorSigns = [
+  "ニキビが繰り返しできる、または痛みや腫れがある",
+  "赤み・かゆみ・ひりつきが続いている",
+  "肌荒れやニキビが、スキンケアを見直して2週間ほどたっても良くならない、または悪化している",
+  "ニキビ跡やシミなど、化粧品だけでは対処が難しい悩みがある",
 ];
 
 const faqs = [
   {
-    question: "メンズスキンケアは何を揃えればいいですか？",
+    question: "メンズスキンケアは何をそろえればいいですか？",
     answer:
-      "初心者なら、まず洗顔料と保湿用の化粧水・乳液など、そして日中に使う日焼け止めから始めれば十分です。慣れてから必要に応じてアイテムを追加しましょう。",
+      "洗顔料、保湿剤（化粧水と乳液、またはオールインワン）、日焼け止めの3つから始めれば十分です。慣れてから、必要に応じて追加しましょう。",
   },
   {
-    question: "男性も化粧水と乳液の両方を使った方がいいですか？",
+    question: "ひげ剃りとスキンケアはどちらが先ですか？",
     answer:
-      "性別にかかわらず、洗顔後の肌を乾燥から守ることが重要です。化粧水だけで乾燥を感じる場合は、乳液や保湿剤も組み合わせるとよいでしょう。",
+      "洗顔の後にひげを剃り、その後に保湿するのがおすすめです。洗顔でひげがやわらかくなり、剃った後の肌を保湿で整えられます。",
   },
   {
     question: "朝も洗顔料を使った方がいいですか？",
     answer:
-      "肌状態には個人差があります。朝の皮脂やベタつきが気になる場合は洗顔料を使う方法がありますが、乾燥しやすい人は洗いすぎにならないよう肌の状態を見ながら調整しましょう。",
+      "肌の状態によって違います。朝の皮脂やベタつきが気になる場合は洗顔料を使い、乾燥しやすい場合はぬるま湯だけで洗う方法もあります。肌の様子を見ながら調整しましょう。",
   },
   {
-    question: "メンズ用の化粧品を選ばないとダメですか？",
+    question: "どのくらい続ければ効果が分かりますか？",
     answer:
-      "必ずしもメンズ用である必要はありません。性別の表示だけでなく、自分の肌状態や使用感、続けやすさを基準に選ぶことが大切です。",
+      "肌の状態は、睡眠・食生活・季節などにも左右されるため、数日で判断するのは難しいものです。まずは同じ商品を2週間ほど続け、肌の調子を確認しましょう。",
   },
   {
     question: "ニキビがある場合も同じスキンケアでいいですか？",
     answer:
-      "軽いケアだけで改善しないニキビや、炎症・痛み・跡が気になる場合は皮膚科への相談をおすすめします。強くこすったり、自分でつぶしたりするのは避けましょう。",
+      "基本のケアは同じですが、繰り返すニキビや、痛み・腫れがあるニキビは皮膚科への相談をおすすめします。自分でつぶしたり、強くこすったりするのは避けましょう。",
   },
 ];
 
@@ -159,62 +180,68 @@ export default function MensSkincareBeginnerArticle({
       <div className="min-w-0">
         <section className="text-[14px] leading-8 text-black/80">
           <p>
-            「スキンケアを始めたいけれど、洗顔・化粧水・乳液のどれから始めればいいか分からない」という男性も多いのではないでしょうか。
+            「スキンケアを始めたいけれど、何を買えばいいか分からない」「とりあえず買った化粧水が合っているのか分からない」という男性は少なくありません。
           </p>
 
           <p className="mt-5">
-            メンズスキンケアは、最初からたくさんの化粧品を揃える必要はありません。初心者がまず意識したいのは、肌を「洗う・潤す・守る」というシンプルな3つです。
+            スキンケアで迷う原因の多くは、自分の肌の傾向を知らないまま商品を選んでいることです。最初に自分の肌を確認しておけば、選ぶべき商品や使い方が分かりやすくなります。
           </p>
 
           <p className="mt-5">
-            基本を毎日の習慣にしてから、自分の肌状態に合わせて必要なケアを追加する方が、無理なく続けやすくなります。
-          </p>
-
-          <p className="mt-5">
-            この記事では、スキンケア初心者の男性に向けて、最初に取り組みたい基本3ステップと、肌質別の選び方、よくある失敗まで分かりやすく解説します。
+            この記事では、自宅でできる肌の傾向の確認方法から、基本の3ステップ、ひげ剃りを含めた朝と夜の手順、洗顔のやり方、商品の選び方、皮膚科に相談したほうがいいサインまでを解説します。
           </p>
         </section>
 
-
         <section
-          id="basics"
+          id="skin-check"
           className="scroll-mt-24 pt-16"
         >
           <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
-            BASICS
+            SKIN CHECK
           </p>
 
           <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
-            メンズスキンケアは何から始める？
+            まず自分の肌の傾向を確認する
           </h2>
 
           <div className="mt-5 text-[14px] leading-8 text-black/80">
             <p>
-              スキンケア初心者が最初に覚えたいのは、特別な美容法ではなく毎日の基本です。肌表面の汚れや余分な皮脂を落とし、洗顔後に保湿し、日中は紫外線から肌を守る。この3つを土台に考えます。
+              洗顔をした後、化粧水などを何もつけずに15分ほど過ごし、鏡で顔を見てみましょう。どこがつっぱるか、どこがテカるかで、自分の肌の傾向が分かります。
             </p>
 
             <p className="mt-5">
-              美容液やパックなどの商品もありますが、基本のケアが定まっていない段階で一度に増やす必要はありません。使うものが多すぎると続けにくく、自分に合わない商品があったときにも原因を判断しにくくなります。
-            </p>
-
-            <p className="mt-5">
-              まずは少ないアイテムで習慣を作り、肌の状態を見ながら調整していきましょう。
+              肌の状態は季節や体調でも変わるため、これは診断ではなく、商品を選ぶための目安です。
             </p>
           </div>
 
-          <div className="mt-7 rounded-[20px] border border-[#1677FF]/15 bg-[#EEF6FF] p-5">
-            <p className="text-[12px] font-black text-[#1677FF]">
-              初心者が覚える3つ
-            </p>
+          <div className="mt-7 grid gap-3 sm:grid-cols-2">
+            {skinChecks.map((check) => (
+              <div
+                key={check.title}
+                className="rounded-[18px] border border-black/10 bg-[#F8FAFC] p-5"
+              >
+                <h3 className="text-[14px] font-bold">
+                  {check.title}
+                </h3>
 
-            <p className="mt-3 text-[12px] font-medium leading-6 text-black/70">
-              洗顔で「洗う」→ 化粧水・乳液などで「潤す」→ 日焼け止めで「守る」。まずはこの流れを毎日の基本にしましょう。
-            </p>
+                <p className="mt-2 text-[12px] font-bold text-[#1677FF]">
+                  {check.result}
+                </p>
+
+                <p className="mt-2 text-[12px] leading-6 text-black/75">
+                  {check.advice}
+                </p>
+              </div>
+            ))}
           </div>
+
+          <p className="mt-4 text-[12px] leading-6 text-black/60">
+            ※赤み・かゆみ・ニキビなどが目立つ場合は、この確認より先に、この記事の最後にある「皮膚科に相談したほうがいいサイン」を確認してください。
+          </p>
         </section>
 
         <section
-          id="steps"
+          id="basics"
           className="scroll-mt-24 pt-16"
         >
           <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
@@ -222,11 +249,11 @@ export default function MensSkincareBeginnerArticle({
           </p>
 
           <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
-            初心者向け｜メンズスキンケアの基本3ステップ
+            基本は「洗う・潤す・守る」の3つ
           </h2>
 
           <p className="mt-4 text-[13px] font-medium leading-7 text-black/70">
-            最初は複雑に考えず、次の3ステップから始めてみましょう。
+            肌の傾向にかかわらず、最初はこの3つで十分です。慣れてきたら、肌の状態に合わせて調整します。
           </p>
 
           <div className="mt-8 space-y-5">
@@ -271,52 +298,91 @@ export default function MensSkincareBeginnerArticle({
 
         <section id="routine" className="scroll-mt-24 pt-16">
           <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">DAILY ROUTINE</p>
-          <h2 className="mt-2 text-[22px] font-semibold tracking-[-0.04em] sm:text-[26px]">朝と夜は何をする？初心者向けの手順</h2>
-          <p className="mt-4 text-[13px] leading-7 text-black/75">最初から多くの美容液を揃える必要はありません。まずは使う順番を決め、肌の状態に合わせて調整しましょう。</p>
+          <h2 className="mt-2 text-[22px] font-semibold tracking-[-0.04em] sm:text-[26px]">朝と夜の手順（ひげ剃りの順番）</h2>
+          <p className="mt-4 text-[13px] leading-7 text-black/75">男性の場合は、ひげ剃りをどこに入れるかがポイントです。洗顔でひげをやわらかくしてから剃り、剃った後の肌は保湿で整えます。</p>
           <div className="mt-6 grid gap-4 sm:grid-cols-2">
             <div className="rounded-[18px] border border-black/10 bg-[#F8FAFC] p-5">
               <h3 className="text-[16px] font-bold">朝｜外出前</h3>
               <ol className="mt-4 list-decimal space-y-2 pl-5 text-[13px] leading-7 text-black/75">
-                <li>肌の状態に合わせてやさしく洗う。乾燥する場合は洗いすぎない</li>
-                <li>乳液やクリームなどで保湿する</li>
-                <li>日焼け止めを表示どおりの量で塗る。長時間の外出時は塗り直しも確認</li>
+                <li>洗顔する。乾燥しやすい人は、ぬるま湯だけでも構わない</li>
+                <li>ひげを剃る</li>
+                <li>化粧水・乳液などで保湿する</li>
+                <li>外出する日は日焼け止めを塗る</li>
               </ol>
             </div>
             <div className="rounded-[18px] border border-black/10 bg-[#F8FAFC] p-5">
-              <h3 className="text-[16px] font-bold">夜｜就寝前</h3>
+              <h3 className="text-[16px] font-bold">夜｜入浴時から就寝前</h3>
               <ol className="mt-4 list-decimal space-y-2 pl-5 text-[13px] leading-7 text-black/75">
-                <li>使用した日焼け止めやメイク用品の表示を確認し、必要ならクレンジングで落とす</li>
-                <li>洗顔料で汚れを落とし、すすぎ残しがないようにする</li>
-                <li>洗顔後は保湿して終える</li>
+                <li>日焼け止めの落とし方を製品の表示で確認し、必要ならクレンジングを使う</li>
+                <li>洗顔料で洗い、すすぎ残しがないようにする</li>
+                <li>入浴後は、肌が乾燥する前に保湿する</li>
               </ol>
             </div>
           </div>
           <div className="mt-4 rounded-[18px] border border-[#1677FF]/15 bg-[#EEF6FF] p-5 text-[12px] leading-7 text-black/75">
-            <p className="font-bold text-[#1677FF]">迷ったときの判断ポイント</p>
-            <p className="mt-2">洗顔後につっぱるなら洗い方や保湿剤を見直す、日焼け止めが落ちにくいなら製品の落とし方の表示を確認する、刺激や赤みが続くなら使用を中止して皮膚科に相談する、という順番で考えましょう。</p>
+            <p className="font-bold text-[#1677FF]">続けるための工夫</p>
+            <p className="mt-2">洗顔料と保湿剤を洗面所の目に入る場所に並べる、歯みがきの後に保湿する、と決めておくなど、すでにある習慣とセットにすると忘れにくくなります。</p>
           </div>
         </section>
 
         <section
-          id="skin-type"
+          id="wash"
           className="scroll-mt-24 pt-16"
         >
           <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
-            SKIN TYPE
+            HOW TO WASH
           </p>
 
           <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
-            肌質別｜スキンケアアイテム選びの考え方
+            肌に負担をかけない洗顔のやり方
           </h2>
 
           <p className="mt-4 text-[13px] font-medium leading-7 text-black/70">
-            同じ男性でも肌の状態は人によって異なります。「メンズ用」という表示だけで決めず、自分の肌の状態を見ながら選びましょう。
+            洗顔は毎日のことなので、洗い方の違いが肌の調子に影響しやすい部分です。次の手順で洗ってみましょう。
+          </p>
+
+          <ol className="mt-7 space-y-3">
+            {washSteps.map((step, index) => (
+              <li
+                key={step}
+                className="flex items-start gap-3 rounded-[14px] border border-black/10 bg-white px-4 py-3"
+              >
+                <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#EEF6FF] text-[10px] font-black text-[#1677FF]">
+                  {index + 1}
+                </span>
+
+                <p className="text-[12px] font-bold leading-6 text-black/65">
+                  {step}
+                </p>
+              </li>
+            ))}
+          </ol>
+
+          <p className="mt-4 text-[12px] leading-6 text-black/60">
+            ※熱いお湯は肌のうるおいまで落としやすいため、ぬるま湯を使いましょう。
+          </p>
+        </section>
+
+        <section
+          id="choose"
+          className="scroll-mt-24 pt-16"
+        >
+          <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
+            HOW TO CHOOSE
+          </p>
+
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
+            商品の選び方
+          </h2>
+
+          <p className="mt-4 text-[13px] font-medium leading-7 text-black/70">
+            最初に確認した肌の傾向をもとに、次の点を見ながら選びましょう。
           </p>
 
           <div className="mt-8 space-y-4">
-            {skinTypes.map((item, index) => (
+            {chooseTips.map((tip, index) => (
               <div
-                key={item.title}
+                key={tip.title}
                 className="rounded-[20px] border border-black/10 bg-white p-5 shadow-[0_8px_28px_rgba(15,23,42,0.04)] sm:p-6"
               >
                 <div className="flex items-start gap-4">
@@ -326,11 +392,11 @@ export default function MensSkincareBeginnerArticle({
 
                   <div className="min-w-0">
                     <h3 className="text-[17px] font-semibold tracking-[-0.03em]">
-                      {item.title}
+                      {tip.title}
                     </h3>
 
                     <p className="mt-3 text-[13px] leading-7 text-black/75">
-                      {item.description}
+                      {tip.description}
                     </p>
                   </div>
                 </div>
@@ -340,67 +406,68 @@ export default function MensSkincareBeginnerArticle({
         </section>
 
         <section
-          id="mistakes"
+          id="start"
           className="scroll-mt-24 pt-16"
         >
           <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
-            MISTAKES
+            FIRST USE
           </p>
 
           <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
-            初心者がやりがちな4つのスキンケア失敗
-          </h2>
-
-          <div className="mt-7 grid gap-4">
-            {mistakes.map((mistake, index) => (
-              <div
-                key={mistake.title}
-                className="rounded-[18px] border border-black/10 bg-[#F8FAFC] p-5"
-              >
-                <div className="flex items-start gap-3">
-                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white text-[10px] font-black text-[#1677FF]">
-                    {index + 1}
-                  </span>
-
-                  <div>
-                    <h3 className="text-[15px] font-black">
-                      {mistake.title}
-                    </h3>
-
-                    <p className="mt-2 text-[12px] font-medium leading-6 text-black/70">
-                      {mistake.description}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section
-          id="timing"
-          className="scroll-mt-24 pt-16"
-        >
-          <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
-            ROUTINE
-          </p>
-
-          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
-            スキンケアはいつ・どのくらい続ければいい？
+            新しい商品を使い始めるときの注意
           </h2>
 
           <div className="mt-5 text-[14px] leading-8 text-black/80">
             <p>
-              基本的には、朝と夜の生活の中にスキンケアを組み込むと習慣にしやすくなります。朝は肌を整えて保湿し、外出する日は日焼け止めまで。夜は一日の汚れを落とした後に保湿する、という流れです。
+              新しい商品は、一度に複数を使い始めず、1つずつ追加します。同時に始めると、肌に合わないものがあったときに、どれが原因か分からなくなるためです。
             </p>
 
             <p className="mt-5">
-              肌の見え方は、睡眠・食生活・季節・体調などにも左右されます。数日で大きな変化を求めるのではなく、まずは基本のケアを無理なく続けることを意識しましょう。
+              肌が敏感な人は、製品の注意表示に従い、腕の内側など目立たない場所に少量を塗って様子を見てから使う方法もあります。
             </p>
 
             <p className="mt-5">
-              また、ニキビや赤み、かゆみなどの肌トラブルが続く場合は、スキンケアだけで改善しようとせず皮膚科などの医療機関へ相談してください。
+              使い始めたら、問題がなければ同じ商品を2週間ほど続け、肌の調子を確認します。使用中に赤み・かゆみ・ひりつきが出た場合は、すぐに使用を中止してください。
             </p>
+          </div>
+        </section>
+
+        <section
+          id="doctor"
+          className="scroll-mt-24 pt-16"
+        >
+          <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
+            SEE A DOCTOR
+          </p>
+
+          <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
+            皮膚科に相談したほうがいいサイン
+          </h2>
+
+          <p className="mt-5 text-[14px] leading-8 text-black/80">
+            スキンケアは肌を健やかに保つためのもので、病気を治すものではありません。次のような場合は、化粧品で解決しようとせず、皮膚科に相談しましょう。
+          </p>
+
+          <div className="mt-7 rounded-[20px] border border-black/10 bg-[#F8FAFC] p-5 sm:p-6">
+            <ul className="space-y-3 text-[13px] leading-7 text-black/75">
+              {doctorSigns.map((sign) => (
+                <li key={sign}>□ {sign}</li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="mt-8 grid gap-3 sm:grid-cols-2">
+            <JournalRelatedArticleLink
+              href="/media/mens-beard-grooming"
+              title="メンズのヒゲの整え方"
+              description="ひげ剃りの方法や、肌に負担をかけにくい剃り方を確認できます。"
+            />
+
+            <JournalRelatedArticleLink
+              href="/media/mens-akanuke-order"
+              title="メンズが垢抜ける順番"
+              description="スキンケアと並行して進めたい、髪型や眉の整え方の順番を確認できます。"
+            />
           </div>
         </section>
 
@@ -467,20 +534,16 @@ export default function MensSkincareBeginnerArticle({
           </p>
 
           <h2 className="mt-2 text-[22px] font-semibold sm:text-[26px] tracking-[-0.04em]">
-            メンズスキンケアは基本3ステップから始めよう
+            肌の傾向を知ってから、基本の3ステップを続ける
           </h2>
 
           <div className="mt-5 text-[14px] leading-8 text-black/80">
             <p>
-              スキンケア初心者は、最初から多くの化粧品を揃える必要はありません。まずは「洗顔・保湿・紫外線対策」の3つを基本にして、毎日の習慣を作りましょう。
+              スキンケアは、最初に自分の肌の傾向を確認してから始めると、商品選びで迷いにくくなります。そのうえで「洗う・潤す・守る」の3ステップを、朝はひげ剃りを含めた順番で続けましょう。
             </p>
 
             <p className="mt-5">
-              肌の状態には個人差があるため、ベタつきや乾燥などを確認しながら、自分が無理なく使い続けられるアイテムを選ぶことも大切です。
-            </p>
-
-            <p className="mt-5">
-              肌だけでなく、髪型や眉毛なども含めて何から変えるべきか迷っている場合は、顔全体の印象から優先順位を整理してみましょう。
+              新しい商品は1つずつ追加し、2週間ほど様子を見ます。肌の悩みが続く場合や悪化する場合は、化粧品だけで解決しようとせず、皮膚科に相談してください。
             </p>
           </div>
 

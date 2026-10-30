@@ -523,9 +523,9 @@ export default function Home() {
     FAQ
   </a>
 
-  <a className="nav-link" href="#journal">
+  <Link className="nav-link" href="/media">
     AKANUKE JOURNAL
-  </a>
+  </Link>
 </nav>
 
           <div className="flex items-center">

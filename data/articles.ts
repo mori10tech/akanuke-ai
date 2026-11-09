@@ -14,6 +14,32 @@ export const articles: Article[] = [
 
 
 {
+  slug: "mens-eyebrow-drawing",
+
+  title:
+    "メンズの眉毛の描き方｜ペンシルとパウダーで自然に整える5ステップ",
+
+  description:
+    "メンズの眉毛の描き方を初心者向けに解説。眉毛を描いたほうがいい人、ペンシルとパウダーの違い、失敗しにくい色の選び方、自然に見える5ステップ、描いたと分かりにくくするコツを紹介します。",
+
+  category: "眉毛",
+
+  publishedAt: "2026-11-09",
+
+  readingTime: "約7分",
+
+  image: "/media/mens-eyebrow-drawing.png",
+
+  keywords: [
+    "メンズ 眉毛 描き方",
+    "眉毛 描き方 男",
+    "アイブロウペンシル メンズ",
+    "眉毛 すき間 埋める",
+    "眉尻 描き方 メンズ",
+  ],
+},
+
+{
   slug: "mens-oily-skin",
 
   title:

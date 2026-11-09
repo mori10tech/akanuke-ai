@@ -14,6 +14,32 @@ export const articles: Article[] = [
 
 
 {
+  slug: "mens-oily-skin",
+
+  title:
+    "メンズのテカリを抑える方法｜朝の対策と日中の直し方",
+
+  description:
+    "男性の顔がテカりやすい理由と、テカリを抑える朝の対策4ステップ、日中の直し方、悪化させやすいNG習慣、アイテムの選び方、皮膚科に相談したほうがいいサインを解説します。",
+
+  category: "スキンケア",
+
+  publishedAt: "2026-11-09",
+
+  readingTime: "約7分",
+
+  image: "/media/mens-oily-skin.png",
+
+  keywords: [
+    "メンズ テカリ",
+    "メンズ テカリ 対策",
+    "顔 テカリ 抑える 男",
+    "あぶらとり紙 使い方",
+    "皮脂 対策 メンズ",
+  ],
+},
+
+{
   slug: "mens-akanuke-diagnosis-data",
 
   title:

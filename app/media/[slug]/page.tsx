@@ -111,6 +111,13 @@ function ArticleHero({
               更新日：{formatDate(article.updatedAt)}
             </time>
           )}
+
+          <Link
+            href="/editorial-policy"
+            className="transition hover:text-[#1677FF]"
+          >
+            編集：AKANUKE JOURNAL編集部
+          </Link>
         </div>
 
         <div className="relative mt-7 aspect-[1200/630] overflow-hidden rounded-[20px] border border-black/5 bg-[#EEF6FF] shadow-[0_12px_36px_rgba(15,23,42,0.07)] sm:mt-9 sm:rounded-[28px] sm:shadow-[0_18px_55px_rgba(15,23,42,0.08)]">

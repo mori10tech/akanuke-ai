@@ -47,14 +47,19 @@ export default function JournalFooter() {
   お問い合わせ
 </Link>
 
-          <a
-            href="https://www.raygence.co.jp/"
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            href="/editorial-policy"
             className="transition hover:text-[#1677FF]"
           >
-            運営会社
-          </a>
+            編集方針
+          </Link>
+
+          <Link
+            href="/about"
+            className="transition hover:text-[#1677FF]"
+          >
+            運営者情報
+          </Link>
         </div>
 
         <p className="text-[10px] text-black/55">

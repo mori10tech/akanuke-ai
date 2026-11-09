@@ -23,6 +23,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 0.8,
     },
+    {
+      url: `${BASE_URL}/about`,
+      changeFrequency: "yearly",
+      priority: 0.5,
+    },
+    {
+      url: `${BASE_URL}/editorial-policy`,
+      changeFrequency: "yearly",
+      priority: 0.5,
+    },
   ];
 
   const articlePages: MetadataRoute.Sitemap = articles.map(

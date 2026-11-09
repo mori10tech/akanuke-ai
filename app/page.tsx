@@ -936,13 +936,13 @@ export default function Home() {
   お問い合わせ
 </Link>
 
-<a
-  href="https://www.raygence.co.jp/"
-  target="_blank"
-  rel="noopener noreferrer"
->
-  運営会社
-</a>
+<Link href="/editorial-policy">
+  編集方針
+</Link>
+
+<Link href="/about">
+  運営者情報
+</Link>
 
   <Link href="/login">
     ログイン

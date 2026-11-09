@@ -25,8 +25,8 @@ export default function ArticleStructuredData({
     },
     author: {
       "@type": "Organization",
-      name: "AKANUKE.AI",
-      url: BASE_URL,
+      name: "AKANUKE JOURNAL編集部",
+      url: `${BASE_URL}/editorial-policy`,
     },
     publisher: {
       "@type": "Organization",

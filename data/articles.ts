@@ -14,6 +14,32 @@ export const articles: Article[] = [
 
 
 {
+  slug: "mens-skin-redness",
+
+  title:
+    "メンズの肌の赤みの原因と対策｜自分でできるケアと皮膚科の目安",
+
+  description:
+    "男性の肌が赤くなる主な原因と、赤みのタイプの見分け方、洗顔・保湿・日焼け止め・ひげ剃りで見直すポイント、赤みが気になる日の整え方、皮膚科に相談したほうがいいサインを解説します。",
+
+  category: "スキンケア",
+
+  publishedAt: "2026-11-09",
+
+  readingTime: "約8分",
+
+  image: "/media/mens-skin-redness.png",
+
+  keywords: [
+    "メンズ 肌 赤み",
+    "赤ら顔 メンズ",
+    "顔 赤み 原因 男",
+    "ひげ剃り 赤み",
+    "肌 赤み 対策",
+  ],
+},
+
+{
   slug: "mens-eyebrow-drawing",
 
   title:

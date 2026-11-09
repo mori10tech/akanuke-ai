@@ -3,6 +3,15 @@ import {
   NextResponse,
 } from "next/server";
 import { updateSupabaseSession } from "./lib/supabase/proxy";
+import {
+  isAdminAccessConfigured,
+  isAdminBasicAuthValid,
+  isAdminIpAllowed,
+  isAdminPath,
+} from "./lib/admin/access";
+
+const ADMIN_NO_STORE =
+  "no-store, no-cache, must-revalidate";
 
 function getClientIp(
   request: NextRequest,
@@ -160,6 +169,60 @@ export async function proxy(
 ) {
   const pathname =
     request.nextUrl.pathname;
+
+  /*
+   * 0. 管理者ページ（/admin 以下）
+   *    LINEログインは使わず、
+   *    設定確認 → IP制限 → 管理者用Basic認証 の順に判定する
+   */
+  if (isAdminPath(pathname)) {
+    if (
+      !isAdminAccessConfigured() ||
+      !isAdminIpAllowed(
+        request.headers,
+      )
+    ) {
+      return new NextResponse(
+        "Not Found",
+        {
+          status: 404,
+          headers: {
+            "Cache-Control":
+              ADMIN_NO_STORE,
+          },
+        },
+      );
+    }
+
+    if (
+      !isAdminBasicAuthValid(
+        request.headers,
+      )
+    ) {
+      return new NextResponse(
+        "Authentication required.",
+        {
+          status: 401,
+          headers: {
+            "WWW-Authenticate":
+              'Basic realm="AKANUKE.AI Admin", charset="UTF-8"',
+            "Cache-Control":
+              ADMIN_NO_STORE,
+          },
+        },
+      );
+    }
+
+    const adminResponse =
+      NextResponse.next();
+
+    adminResponse.headers.set(
+      "Cache-Control",
+      ADMIN_NO_STORE,
+    );
+
+    return adminResponse;
+  }
 
   /*
    * 1. Basic認証

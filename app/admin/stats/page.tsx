@@ -190,7 +190,7 @@ export default async function AdminStatsPage() {
               （日本時間）
             </p>
             <p className="mt-1">
-              対象：本番ユーザー（custom:line-oidc）
+              対象：本番ユーザー（custom:line-oidc ＋ 旧方式 custom:line）
             </p>
           </div>
         </header>
@@ -358,13 +358,6 @@ export default async function AdminStatsPage() {
                 </thead>
                 <tbody>
                   {[
-                    {
-                      label:
-                        "custom:line（旧方式）",
-                      value:
-                        stats.reference
-                          .legacyLine,
-                    },
                     {
                       label: "email",
                       value:

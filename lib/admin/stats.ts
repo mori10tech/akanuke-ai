@@ -22,7 +22,6 @@ const EMAIL_PROVIDER = "email";
 
 type UserCategory =
   | "production"
-  | "legacyLine"
   | "email"
   | "other";
 
@@ -66,7 +65,6 @@ export type AdminStats = {
   neverDiagnosedUsers: NeverDiagnosedUser[];
   neverDiagnosedTotal: number;
   reference: {
-    legacyLine: ReferenceCount;
     email: ReferenceCount;
     other: ReferenceCount;
   };
@@ -148,20 +146,18 @@ function getUserCategory(
   const providers =
     getUserProviders(user);
 
+  /*
+   * 本番ユーザー：custom:line-oidc と旧方式の custom:line
+   */
   if (
     providers.includes(
       PRODUCTION_PROVIDER,
-    )
-  ) {
-    return "production";
-  }
-
-  if (
+    ) ||
     providers.includes(
       LEGACY_LINE_PROVIDER,
     )
   ) {
-    return "legacyLine";
+    return "production";
   }
 
   if (
@@ -347,10 +343,6 @@ export async function getAdminStats(): Promise<AdminStats> {
   >();
 
   const reference = {
-    legacyLine: {
-      users: 0,
-      diagnoses: 0,
-    },
     email: {
       users: 0,
       diagnoses: 0,

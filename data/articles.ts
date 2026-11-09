@@ -14,6 +14,32 @@ export const articles: Article[] = [
 
 
 {
+  slug: "mens-lip-care",
+
+  title:
+    "メンズのリップケア｜唇の乾燥・皮むけを防ぐリップクリームの選び方と塗り方",
+
+  description:
+    "唇が乾燥しやすい理由と、荒れを悪化させるNG習慣、メンズのリップクリームの選び方、塗り方とタイミング、皮がむけているときのケア、皮膚科に相談したほうがいいサインを解説します。",
+
+  category: "メンズ美容",
+
+  publishedAt: "2026-11-09",
+
+  readingTime: "約6分",
+
+  image: "/media/mens-lip-care.png",
+
+  keywords: [
+    "メンズ リップケア",
+    "唇 乾燥 男",
+    "唇 皮むけ 対策",
+    "リップクリーム メンズ 選び方",
+    "リップクリーム 塗り方",
+  ],
+},
+
+{
   slug: "mens-pore-blackheads",
 
   title:

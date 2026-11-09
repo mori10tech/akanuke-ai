@@ -18,6 +18,7 @@ import MensConcealerArticle from "./articles/mens-concealer";
 import MensHairDryingArticle from "./articles/mens-hair-drying";
 import MensEyebrowDrawingArticle from "./articles/mens-eyebrow-drawing";
 import MensHairWaxArticle from "./articles/mens-hair-wax";
+import MensLipCareArticle from "./articles/mens-lip-care";
 import MensOilySkinArticle from "./articles/mens-oily-skin";
 import MensPhotoTipsArticle from "./articles/mens-photo-tips";
 import MensPoreBlackheadsArticle from "./articles/mens-pore-blackheads";
@@ -33,6 +34,7 @@ export const articleRegistry: Record<
   string,
   ArticleContentComponent
 > = {
+  "mens-lip-care": MensLipCareArticle,
   "mens-pore-blackheads": MensPoreBlackheadsArticle,
   "mens-photo-tips": MensPhotoTipsArticle,
   "mens-skin-redness": MensSkinRednessArticle,

@@ -14,6 +14,32 @@ export const articles: Article[] = [
 
 
 {
+  slug: "mens-pore-blackheads",
+
+  title:
+    "メンズの毛穴の黒ずみ対策｜いちご鼻を悪化させない洗顔とケア",
+
+  description:
+    "鼻の毛穴が黒く見える3つの原因と、指で押し出すなど黒ずみを悪化させるNGケア、毎日の毛穴ケア4ステップ、週1回のスペシャルケア、すぐに目立たなくしたいときの方法を解説します。",
+
+  category: "スキンケア",
+
+  publishedAt: "2026-11-09",
+
+  readingTime: "約7分",
+
+  image: "/media/mens-pore-blackheads.png",
+
+  keywords: [
+    "メンズ 毛穴 黒ずみ",
+    "いちご鼻 メンズ",
+    "鼻 毛穴 黒ずみ 原因",
+    "角栓 取り方 男",
+    "毛穴ケア メンズ",
+  ],
+},
+
+{
   slug: "mens-photo-tips",
 
   title:

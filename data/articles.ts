@@ -14,6 +14,32 @@ export const articles: Article[] = [
 
 
 {
+  slug: "mens-photo-tips",
+
+  title:
+    "メンズの写真写りを良くする方法｜距離・光・角度と表情のコツ",
+
+  description:
+    "写真だと実物より悪く見える理由と、写真写りを良くする距離・光・角度の整え方、姿勢と表情のコツ、撮る前に整えておくこと、プロフィール写真や証明写真など場面別のポイントを解説します。",
+
+  category: "メンズ垢抜け",
+
+  publishedAt: "2026-11-09",
+
+  readingTime: "約7分",
+
+  image: "/media/mens-photo-tips.png",
+
+  keywords: [
+    "写真写り 男",
+    "写真写り 良くする方法",
+    "自撮り 鼻 大きく見える",
+    "プロフィール写真 メンズ 撮り方",
+    "写真写り 悪い 原因",
+  ],
+},
+
+{
   slug: "mens-skin-redness",
 
   title:

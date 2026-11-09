@@ -70,6 +70,10 @@ export type AdminStats = {
     email: ReferenceCount;
     other: ReferenceCount;
   };
+  otherProviders: Array<{
+    provider: string;
+    users: number;
+  }>;
 };
 
 /*
@@ -102,14 +106,47 @@ function shiftDateKey(
     .slice(0, 10);
 }
 
+/*
+ * identities に加えて、既存のログイン処理（app/liff）が見ている
+ * app_metadata.provider / providers も判定に使う
+ */
+function getUserProviders(user: User) {
+  const providers = new Set<string>();
+
+  for (const identity of user.identities ?? []) {
+    if (identity.provider) {
+      providers.add(identity.provider);
+    }
+  }
+
+  const appMetadata =
+    user.app_metadata ?? {};
+
+  if (
+    typeof appMetadata.provider ===
+    "string"
+  ) {
+    providers.add(appMetadata.provider);
+  }
+
+  if (
+    Array.isArray(appMetadata.providers)
+  ) {
+    for (const provider of appMetadata.providers) {
+      if (typeof provider === "string") {
+        providers.add(provider);
+      }
+    }
+  }
+
+  return [...providers];
+}
+
 function getUserCategory(
   user: User,
 ): UserCategory {
-  const providers = (
-    user.identities ?? []
-  ).map(
-    (identity) => identity.provider,
-  );
+  const providers =
+    getUserProviders(user);
 
   if (
     providers.includes(
@@ -352,6 +389,14 @@ export async function getAdminStats(): Promise<AdminStats> {
   const signups = emptyPeriodCount();
   const productionUsers: User[] = [];
 
+  /*
+   * 「その他・不明」の provider 名ごとの人数（原因確認用）
+   */
+  const otherProviderCounts = new Map<
+    string,
+    number
+  >();
+
   for (const user of users) {
     const category =
       getUserCategory(user);
@@ -363,6 +408,21 @@ export async function getAdminStats(): Promise<AdminStats> {
 
     if (category !== "production") {
       reference[category].users += 1;
+
+      if (category === "other") {
+        const providerLabel =
+          getUserProviders(user).join(
+            ", ",
+          ) || "（provider なし）";
+
+        otherProviderCounts.set(
+          providerLabel,
+          (otherProviderCounts.get(
+            providerLabel,
+          ) ?? 0) + 1,
+        );
+      }
+
       continue;
     }
 
@@ -532,5 +592,13 @@ export async function getAdminStats(): Promise<AdminStats> {
     neverDiagnosedTotal:
       neverDiagnosed.length,
     reference,
+    otherProviders: [
+      ...otherProviderCounts.entries(),
+    ]
+      .map(([provider, users]) => ({
+        provider,
+        users,
+      }))
+      .sort((a, b) => b.users - a.users),
   };
 }

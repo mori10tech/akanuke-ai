@@ -397,6 +397,27 @@ export default async function AdminStatsPage() {
                   ))}
                 </tbody>
               </table>
+              {stats.otherProviders.length >
+                0 && (
+                <div className="mt-4 text-[11px] leading-relaxed text-black/50">
+                  <p className="font-bold">
+                    その他・不明の内訳（provider）
+                  </p>
+                  <ul className="mt-1">
+                    {stats.otherProviders.map(
+                      (row) => (
+                        <li key={row.provider}>
+                          {row.provider}：
+                          {formatNumber(
+                            row.users,
+                          )}
+                          人
+                        </li>
+                      ),
+                    )}
+                  </ul>
+                </div>
+              )}
             </section>
           </div>
         </div>

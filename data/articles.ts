@@ -14,6 +14,32 @@ export const articles: Article[] = [
 
 
 {
+  slug: "mens-akanuke-diagnosis-data",
+
+  title:
+    "AI診断のデータで分かった、男性の垢抜けで見直すべきポイント",
+
+  description:
+    "AKANUKE.AIのAI診断の結果を集計し、男性に多く必要と判定されたケアをランキングで公開。上位の肌色・色ムラ、髪のまとまり、皮脂・テカリの意味と改善方法、データの読み方を解説します。",
+
+  category: "メンズ垢抜け",
+
+  publishedAt: "2026-11-09",
+
+  readingTime: "約7分",
+
+  image: "/media/mens-akanuke-diagnosis-data.png",
+
+  keywords: [
+    "メンズ 垢抜け",
+    "垢抜け 何から",
+    "メンズ 垢抜け ポイント",
+    "AI 顔診断 メンズ",
+    "メンズ 印象 改善",
+  ],
+},
+
+{
   slug: "mens-toner-emulsion",
 
   title:

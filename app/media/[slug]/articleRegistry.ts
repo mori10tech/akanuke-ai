@@ -3,6 +3,7 @@ import type { ComponentType } from "react";
 import type { Article } from "../../../data/articles";
 
 import AkanukenaiManFeaturesArticle from "./articles/akanukenai-man-features";
+import MensAkanukeDiagnosisDataArticle from "./articles/mens-akanuke-diagnosis-data";
 import MensAkanukeEyebrowsArticle from "./articles/mens-akanuke-eyebrows";
 import MensAkanukeGuideArticle from "./articles/mens-akanuke-guide";
 import MensAkanukeHairstyleArticle from "./articles/mens-akanuke-hairstyle";
@@ -27,6 +28,7 @@ export const articleRegistry: Record<
   string,
   ArticleContentComponent
 > = {
+  "mens-akanuke-diagnosis-data": MensAkanukeDiagnosisDataArticle,
   "mens-akanuke-guide": MensAkanukeGuideArticle,
   "akanukenai-man-features": AkanukenaiManFeaturesArticle,
   "mens-akanuke-hairstyle": MensAkanukeHairstyleArticle,

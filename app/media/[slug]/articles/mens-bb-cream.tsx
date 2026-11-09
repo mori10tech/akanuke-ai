@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { Article } from "../../../../data/articles";
 import AdSenseAd from "../../../components/AdSenseAd";
 import JournalDiagnosisCta from "../../components/JournalDiagnosisCta";
@@ -210,6 +211,22 @@ export default function MensBbCreamArticle({
           <p className="mt-5">
             この記事では、BBクリームでできることとできないこと、買う前に決めること、色の選び方、塗り方、塗った後の確認ポイント、日中の直し方を解説します。
           </p>
+          <div className="mt-7 rounded-[20px] border border-[#1677FF]/15 bg-[#EEF6FF] p-5">
+            <p className="text-[12px] font-black text-[#1677FF]">
+              AKANUKE.AIの診断データより
+            </p>
+
+            <p className="mt-3 text-[12px] font-medium leading-6 text-black/70">
+              AKANUKE.AIのAI診断の結果を集計したところ、肌の色ムラ・赤み・くすみを自然に整えるケアが、およそ7件に6件（86.8%）の診断で必要と判定されました。顔全体の色ムラを薄く整えたい場合、BBクリームは取り入れやすい方法の一つです。
+            </p>
+
+            <Link
+              href="/media/mens-akanuke-diagnosis-data"
+              className="mt-3 inline-block text-[12px] font-bold text-[#1677FF] transition hover:opacity-70"
+            >
+              診断データの記事を見る →
+            </Link>
+          </div>
         </section>
 
         <section

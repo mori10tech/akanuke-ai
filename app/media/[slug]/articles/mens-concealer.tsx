@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 import type { Article } from "../../../../data/articles";
 
@@ -470,6 +471,22 @@ export default function MensConcealerArticle({
 
           </p>
 
+          <div className="mt-7 rounded-[20px] border border-[#1677FF]/15 bg-[#EEF6FF] p-5">
+            <p className="text-[12px] font-black text-[#1677FF]">
+              AKANUKE.AIの診断データより
+            </p>
+
+            <p className="mt-3 text-[12px] font-medium leading-6 text-black/70">
+              AKANUKE.AIのAI診断の結果を集計したところ、肌の色ムラ・赤み・くすみを自然に整えるケアが、およそ7件に6件（86.8%）の診断で必要と判定されました。ニキビ跡やクマなど部分的な色ムラは、コンシーラーで整えられる代表的な課題です。
+            </p>
+
+            <Link
+              href="/media/mens-akanuke-diagnosis-data"
+              className="mt-3 inline-block text-[12px] font-bold text-[#1677FF] transition hover:opacity-70"
+            >
+              診断データの記事を見る →
+            </Link>
+          </div>
         </section>
 
 

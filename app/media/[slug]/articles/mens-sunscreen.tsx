@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 import type { Article } from "../../../../data/articles";
 import AdSenseAd from "../../../components/AdSenseAd";
@@ -207,6 +208,22 @@ export default function MensSunscreenArticle({
           <p className="mt-5">
             この記事では、男性が日焼け止めを使うべき理由と、製品の選び方、量の考え方、顔に塗る5つのステップ、塗り忘れやすい場所、塗り直しと落とし方を解説します。
           </p>
+          <div className="mt-7 rounded-[20px] border border-[#1677FF]/15 bg-[#EEF6FF] p-5">
+            <p className="text-[12px] font-black text-[#1677FF]">
+              AKANUKE.AIの診断データより
+            </p>
+
+            <p className="mt-3 text-[12px] font-medium leading-6 text-black/70">
+              AKANUKE.AIのAI診断の結果を集計したところ、紫外線対策が27.9%の診断で必要と判定されました。また、最も多かったのは肌の色ムラ・くすみを整えるケア（86.8%）で、今の肌の印象を保つうえでも日焼け対策は欠かせません。
+            </p>
+
+            <Link
+              href="/media/mens-akanuke-diagnosis-data"
+              className="mt-3 inline-block text-[12px] font-bold text-[#1677FF] transition hover:opacity-70"
+            >
+              診断データの記事を見る →
+            </Link>
+          </div>
         </section>
 
         <section

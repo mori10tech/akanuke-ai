@@ -78,6 +78,8 @@ export const articles: Article[] = [
 
   publishedAt: "2026-10-28",
 
+  updatedAt: "2026-11-09",
+
   readingTime: "約8分",
 
   image: "/media/mens-sunscreen.png",
@@ -103,6 +105,8 @@ export const articles: Article[] = [
   category: "髪型",
 
   publishedAt: "2026-10-28",
+
+  updatedAt: "2026-11-09",
 
   readingTime: "約8分",
 
@@ -130,6 +134,8 @@ export const articles: Article[] = [
 
   publishedAt: "2026-10-28",
 
+  updatedAt: "2026-11-09",
+
   readingTime: "約8分",
 
   image: "/media/mens-hair-drying.png",
@@ -156,7 +162,7 @@ export const articles: Article[] = [
 
   publishedAt: "2026-10-02",
 
-  updatedAt: "2026-10-28",
+  updatedAt: "2026-11-09",
 
   readingTime: "約10分",
 
@@ -185,7 +191,7 @@ export const articles: Article[] = [
 
   publishedAt: "2026-10-01",
 
-  updatedAt: "2026-10-28",
+  updatedAt: "2026-11-09",
 
   readingTime: "約9分",
 
@@ -214,7 +220,7 @@ export const articles: Article[] = [
 
   publishedAt: "2026-09-30",
 
-  updatedAt: "2026-10-28",
+  updatedAt: "2026-11-09",
 
   readingTime: "約9分",
 
@@ -299,7 +305,7 @@ export const articles: Article[] = [
 
     publishedAt: "2026-09-08",
 
-    updatedAt: "2026-10-28",
+    updatedAt: "2026-11-09",
 
     readingTime: "約8分",
 

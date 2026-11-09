@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { Article } from "../../../../data/articles";
 import AdSenseAd from "../../../components/AdSenseAd";
 import JournalDiagnosisCta from "../../components/JournalDiagnosisCta";
@@ -190,6 +191,22 @@ export default function MensSkincareBeginnerArticle({
           <p className="mt-5">
             この記事では、自宅でできる肌の傾向の確認方法から、基本の3ステップ、ひげ剃りを含めた朝と夜の手順、洗顔のやり方、商品の選び方、皮膚科に相談したほうがいいサインまでを解説します。
           </p>
+          <div className="mt-7 rounded-[20px] border border-[#1677FF]/15 bg-[#EEF6FF] p-5">
+            <p className="text-[12px] font-black text-[#1677FF]">
+              AKANUKE.AIの診断データより
+            </p>
+
+            <p className="mt-3 text-[12px] font-medium leading-6 text-black/70">
+              AKANUKE.AIのAI診断の結果を集計したところ、皮脂・テカリ対策が61.8%、毛穴・洗顔ケアが35.3%の診断で必要と判定されました。どちらも、毎日の洗顔と保湿の見直しから始められる課題です。
+            </p>
+
+            <Link
+              href="/media/mens-akanuke-diagnosis-data"
+              className="mt-3 inline-block text-[12px] font-bold text-[#1677FF] transition hover:opacity-70"
+            >
+              診断データの記事を見る →
+            </Link>
+          </div>
         </section>
 
         <section

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 import type { Article } from "../../../../data/articles";
 import AdSenseAd from "../../../components/AdSenseAd";
@@ -208,6 +209,22 @@ export default function MensHairWaxArticle({
           <p className="mt-5">
             この記事では、スタイリング剤の種類と選び方、量の考え方、失敗しにくい付け方7ステップ、よくある失敗の直し方、落とし方を解説します。
           </p>
+          <div className="mt-7 rounded-[20px] border border-[#1677FF]/15 bg-[#EEF6FF] p-5">
+            <p className="text-[12px] font-black text-[#1677FF]">
+              AKANUKE.AIの診断データより
+            </p>
+
+            <p className="mt-3 text-[12px] font-medium leading-6 text-black/70">
+              AKANUKE.AIのAI診断の結果を集計したところ、前髪や毛流れを整えるケアが半数を超える（52.9%）診断で、髪のまとまりを良くするケアが4件に3件（75.0%）の診断で必要と判定されました。
+            </p>
+
+            <Link
+              href="/media/mens-akanuke-diagnosis-data"
+              className="mt-3 inline-block text-[12px] font-bold text-[#1677FF] transition hover:opacity-70"
+            >
+              診断データの記事を見る →
+            </Link>
+          </div>
         </section>
 
         <section

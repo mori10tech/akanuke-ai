@@ -39,19 +39,6 @@ function formatDateTime(value: string) {
   }).format(new Date(value));
 }
 
-function formatDateKey(dateKey: string) {
-  const date = new Date(
-    `${dateKey}T00:00:00Z`,
-  );
-
-  return new Intl.DateTimeFormat("ja-JP", {
-    month: "numeric",
-    day: "numeric",
-    weekday: "short",
-    timeZone: "UTC",
-  }).format(date);
-}
-
 function formatDiff(
   current: number,
   previous: number,
@@ -161,31 +148,29 @@ function PeriodRow({
 
 type TrendRow = AdminStats["trend"][number];
 
-const TREND_CHART_HEIGHT = 88;
+const WEEKDAY_LABELS = [
+  "日",
+  "月",
+  "火",
+  "水",
+  "木",
+  "金",
+  "土",
+];
 
 /*
- * 直近30日の日別推移（登録数・診断数を同じ縦軸の目盛りで2段に並べる）
- * 色はブランドブルー1色のみ。数値はバーにカーソルを合わせると表示、表でも確認できる
+ * 直近30日の日別推移（日付を横に並べた表）
+ * 数字で確認しやすいよう、1列＝1日、左から古い順・右端が今日
  */
-function TrendChart({
+function TrendTable({
   trend,
   todayKey,
 }: {
   trend: TrendRow[];
   todayKey: string;
 }) {
-  // stats.trend は新しい日付が先頭なので、グラフ用に古い順へ並べ替える
+  // stats.trend は新しい日付が先頭なので、古い順へ並べ替える
   const rows = [...trend].reverse();
-
-  const scaleMax = Math.max(
-    1,
-    ...rows.map((row) =>
-      Math.max(
-        row.signups,
-        row.diagnoses,
-      ),
-    ),
-  );
 
   const series = [
     {
@@ -199,8 +184,69 @@ function TrendChart({
   ];
 
   return (
-    <div>
-      <div className="space-y-4">
+    <table className="w-full table-fixed text-[13px]">
+      <colgroup>
+        <col className="w-[92px]" />
+        {rows.map((row) => (
+          <col key={row.date} />
+        ))}
+        <col className="w-[56px]" />
+      </colgroup>
+      <thead>
+        <tr className="text-[11px] text-black/50">
+          <th />
+          {rows.map((row, index) => {
+            const date = new Date(
+              `${row.date}T00:00:00Z`,
+            );
+
+            const day = date.getUTCDate();
+            const weekday = date.getUTCDay();
+
+            const isToday =
+              row.date === todayKey;
+
+            // 最初の列と月初だけ「月/日」、それ以外は日のみ
+            const dateLabel =
+              index === 0 || day === 1
+                ? `${date.getUTCMonth() + 1}/${day}`
+                : `${day}`;
+
+            return (
+              <th
+                key={row.date}
+                className={`rounded-t-[8px] px-0 pb-1 pt-2 text-center font-bold ${
+                  isToday
+                    ? "bg-[#EEF6FF] text-[#1677FF]"
+                    : ""
+                }`}
+              >
+                <span className="block leading-tight">
+                  {dateLabel}
+                </span>
+                <span
+                  className={`block text-[10px] font-normal leading-tight ${
+                    isToday
+                      ? "text-[#1677FF]"
+                      : weekday === 0 ||
+                          weekday === 6
+                        ? "text-black/55"
+                        : "text-black/35"
+                  }`}
+                >
+                  {isToday
+                    ? "今日"
+                    : WEEKDAY_LABELS[weekday]}
+                </span>
+              </th>
+            );
+          })}
+          <th className="pb-1 pt-2 text-right font-bold">
+            合計
+          </th>
+        </tr>
+      </thead>
+      <tbody>
         {series.map((item) => {
           const total = rows.reduce(
             (sum, row) =>
@@ -209,174 +255,43 @@ function TrendChart({
           );
 
           return (
-            <div
+            <tr
               key={item.key}
-              className="grid grid-cols-[132px_1fr] gap-4"
+              className="border-t border-black/10"
             >
-              <div className="self-end pb-1">
-                <p className="text-[13px] font-bold text-black/55">
-                  {item.label}
-                </p>
-                <p className="mt-1 text-[11px] text-black/50">
-                  30日合計
-                </p>
-                <p className="text-[22px] font-bold leading-tight text-[#111111]">
-                  {formatNumber(total)}
-                </p>
-              </div>
+              <th className="py-2 text-left text-[12px] font-bold text-black/55">
+                {item.label}
+              </th>
+              {rows.map((row) => {
+                const value =
+                  row[item.key];
 
-              <div
-                className="relative border-b border-black/15"
-                style={{
-                  height:
-                    TREND_CHART_HEIGHT,
-                }}
-              >
-                {/* 目盛り：上端（最大値）と中間 */}
-                <div className="pointer-events-none absolute inset-x-0 top-0 border-t border-dashed border-black/10" />
-                <div className="pointer-events-none absolute inset-x-0 top-1/2 border-t border-dashed border-black/10" />
-                <span className="pointer-events-none absolute -top-[7px] right-full mr-2 text-[10px] leading-none text-black/35">
-                  {formatNumber(scaleMax)}
-                </span>
+                const isToday =
+                  row.date === todayKey;
 
-                <div className="absolute inset-0 grid grid-cols-[repeat(30,minmax(0,1fr))] gap-[3px]">
-                  {rows.map((row) => {
-                    const value =
-                      row[item.key];
-
-                    const heightPercent =
-                      (value / scaleMax) *
-                      100;
-
-                    return (
-                      <div
-                        key={row.date}
-                        className="group relative flex h-full items-end"
-                      >
-                        {value > 0 && (
-                          <div
-                            className={`w-full rounded-t-[4px] ${
-                              row.date ===
-                              todayKey
-                                ? "bg-[#1677FF]"
-                                : "bg-[#1677FF]/75"
-                            } group-hover:bg-[#1677FF]`}
-                            style={{
-                              height: `${heightPercent}%`,
-                            }}
-                          />
-                        )}
-                        <div className="pointer-events-none absolute bottom-full left-1/2 z-10 mb-1 hidden -translate-x-1/2 whitespace-nowrap rounded-[8px] bg-[#111111] px-2 py-1 text-[11px] text-white group-hover:block">
-                          {formatDateKey(
-                            row.date,
-                          )}
-                          ：{item.label}{" "}
-                          <span className="font-bold">
-                            {formatNumber(
-                              value,
-                            )}
-                          </span>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-
-      {/* 日付ラベル（5日おき＋今日） */}
-      <div className="mt-2 grid grid-cols-[132px_1fr] gap-4">
-        <div />
-        <div className="grid grid-cols-[repeat(30,minmax(0,1fr))] gap-[3px]">
-          {rows.map((row, index) => {
-            const isToday =
-              row.date === todayKey;
-
-            const showLabel =
-              isToday ||
-              (rows.length - 1 - index) %
-                5 ===
-                0;
-
-            return (
-              <div
-                key={row.date}
-                className="relative h-4"
-              >
-                {showLabel && (
-                  <span
-                    className={`absolute left-1/2 -translate-x-1/2 whitespace-nowrap text-[10px] ${
+                return (
+                  <td
+                    key={row.date}
+                    className={`py-2 text-center font-bold ${
                       isToday
-                        ? "font-bold text-[#1677FF]"
-                        : "text-black/40"
+                        ? "bg-[#EEF6FF] text-[#1677FF]"
+                        : value === 0
+                          ? "text-black/20"
+                          : "text-[#111111]"
                     }`}
                   >
-                    {isToday
-                      ? "今日"
-                      : formatDateKey(
-                          row.date,
-                        ).replace(
-                          /\(.+\)/,
-                          "",
-                        )}
-                  </span>
-                )}
-              </div>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* 正確な数字は表で確認できるようにする */}
-      <details className="mt-4 text-[13px]">
-        <summary className="cursor-pointer text-[12px] font-bold text-black/50">
-          表で見る
-        </summary>
-        <table className="mt-2 w-full">
-          <thead>
-            <tr className="border-b border-black/10 text-left text-[12px] text-black/50">
-              <th className="py-2 font-bold">
-                日付
-              </th>
-              <th className="py-2 text-right font-bold">
-                新規登録数
-              </th>
-              <th className="py-2 text-right font-bold">
-                診断数
-              </th>
+                    {formatNumber(value)}
+                  </td>
+                );
+              })}
+              <td className="py-2 text-right text-[15px] font-bold text-[#111111]">
+                {formatNumber(total)}
+              </td>
             </tr>
-          </thead>
-          <tbody>
-            {trend.map((row) => (
-              <tr
-                key={row.date}
-                className="border-b border-black/10 last:border-b-0"
-              >
-                <td className="py-2 text-black/55">
-                  {formatDateKey(row.date)}
-                  {row.date === todayKey && (
-                    <span className="ml-2 rounded-full bg-[#EEF6FF] px-2 py-0.5 text-[10px] font-bold text-[#1677FF]">
-                      今日
-                    </span>
-                  )}
-                </td>
-                <td className="py-2 text-right font-bold">
-                  {formatNumber(row.signups)}
-                </td>
-                <td className="py-2 text-right font-bold">
-                  {formatNumber(
-                    row.diagnoses,
-                  )}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </details>
-    </div>
+          );
+        })}
+      </tbody>
+    </table>
   );
 }
 
@@ -478,7 +393,7 @@ export default async function AdminStatsPage() {
             label="DAILY"
             title="直近30日の日別推移"
           />
-          <TrendChart
+          <TrendTable
             trend={stats.trend}
             todayKey={stats.todayKey}
           />

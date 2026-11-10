@@ -115,10 +115,12 @@ function PeriodRow({
   title,
   counts,
   showComparison = false,
+  totalNote,
 }: {
   title: string;
   counts: PeriodCount;
   showComparison?: boolean;
+  totalNote?: string;
 }) {
   return (
     <div>
@@ -146,6 +148,7 @@ function PeriodRow({
         <StatCell
           label="累計"
           value={counts.total}
+          note={totalNote}
         />
       </div>
     </div>
@@ -168,6 +171,8 @@ export default async function AdminStatsPage() {
   }
 
   const stats = await getAdminStats();
+  const deleted =
+    stats.deletionIncluded;
 
   return (
     <main className="min-h-screen bg-white text-[#111111]">
@@ -192,6 +197,11 @@ export default async function AdminStatsPage() {
             <p className="mt-1">
               対象：本番ユーザー（custom:line-oidc ＋ 旧方式 custom:line）
             </p>
+            <p className="mt-1">
+              {deleted.available
+                ? "累計：2026/11以降に退会・自動削除された分を含む"
+                : "累計：削除記録を取得できないため、退会・自動削除分を含まない"}
+            </p>
           </div>
         </header>
 
@@ -204,6 +214,7 @@ export default async function AdminStatsPage() {
             title="登録ユーザー数"
             counts={stats.signups}
             showComparison
+            totalNote={`うち退会 ${formatNumber(deleted.deletedUsers)}`}
           />
         </section>
 
@@ -216,10 +227,12 @@ export default async function AdminStatsPage() {
             <PeriodRow
               title="診断数"
               counts={stats.diagnoses}
+              totalNote={`うち削除済み ${formatNumber(deleted.deletedDiagnoses)}`}
             />
             <PeriodRow
               title="診断したユーザー数"
               counts={stats.diagnosedUsers}
+              totalNote={`うち削除済み ${formatNumber(deleted.deletedDiagnosedUsers)}`}
             />
             <div className="grid grid-cols-4 gap-3">
               <div className="col-span-1">
@@ -229,7 +242,7 @@ export default async function AdminStatsPage() {
                 />
               </div>
               <p className="col-span-3 self-center text-[12px] leading-relaxed text-black/50">
-                日本時間で別の日に2回以上診断したユーザーの数です（累計）。
+                日本時間で別の日に2回以上診断したユーザーの数です（累計・うち削除済み {formatNumber(deleted.deletedReturningUsers)}）。
               </p>
             </div>
           </div>

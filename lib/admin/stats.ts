@@ -1,6 +1,15 @@
 import type { User } from "@supabase/supabase-js";
 
 import { createAdminClient } from "../supabase/admin";
+import {
+  fetchDeletionTotals,
+  type DeletionTotals,
+} from "./deletion-log";
+import {
+  getUserCategory,
+  getUserProviders,
+  type UserCategory,
+} from "./user-category";
 
 /*
  * 管理者用の利用状況集計（サーバー側でのみ使う）
@@ -13,17 +22,6 @@ const JST_OFFSET_MS = 9 * 60 * 60 * 1000;
 const DAY_MS = 24 * 60 * 60 * 1000;
 const TREND_DAYS = 30;
 const NEVER_DIAGNOSED_LIMIT = 10;
-
-const PRODUCTION_PROVIDER =
-  "custom:line-oidc";
-const LEGACY_LINE_PROVIDER =
-  "custom:line";
-const EMAIL_PROVIDER = "email";
-
-type UserCategory =
-  | "production"
-  | "email"
-  | "other";
 
 type DiagnosisRow = {
   user_id: string;
@@ -61,6 +59,8 @@ export type AdminStats = {
   diagnoses: PeriodCount;
   diagnosedUsers: PeriodCount;
   returningUsers: number;
+  // 累計に足し戻した削除済みの分（退会・自動削除）
+  deletionIncluded: DeletionTotals;
   trend: DailyTrendRow[];
   neverDiagnosedUsers: NeverDiagnosedUser[];
   neverDiagnosedTotal: number;
@@ -102,71 +102,6 @@ function shiftDateKey(
   return new Date(time)
     .toISOString()
     .slice(0, 10);
-}
-
-/*
- * identities に加えて、既存のログイン処理（app/liff）が見ている
- * app_metadata.provider / providers も判定に使う
- */
-function getUserProviders(user: User) {
-  const providers = new Set<string>();
-
-  for (const identity of user.identities ?? []) {
-    if (identity.provider) {
-      providers.add(identity.provider);
-    }
-  }
-
-  const appMetadata =
-    user.app_metadata ?? {};
-
-  if (
-    typeof appMetadata.provider ===
-    "string"
-  ) {
-    providers.add(appMetadata.provider);
-  }
-
-  if (
-    Array.isArray(appMetadata.providers)
-  ) {
-    for (const provider of appMetadata.providers) {
-      if (typeof provider === "string") {
-        providers.add(provider);
-      }
-    }
-  }
-
-  return [...providers];
-}
-
-function getUserCategory(
-  user: User,
-): UserCategory {
-  const providers =
-    getUserProviders(user);
-
-  /*
-   * 本番ユーザー：custom:line-oidc と旧方式の custom:line
-   */
-  if (
-    providers.includes(
-      PRODUCTION_PROVIDER,
-    ) ||
-    providers.includes(
-      LEGACY_LINE_PROVIDER,
-    )
-  ) {
-    return "production";
-  }
-
-  if (
-    providers.includes(EMAIL_PROVIDER)
-  ) {
-    return "email";
-  }
-
-  return "other";
 }
 
 /*
@@ -326,10 +261,11 @@ function emptyPeriodCount(): PeriodCount {
 }
 
 export async function getAdminStats(): Promise<AdminStats> {
-  const [users, diagnoses] =
+  const [users, diagnoses, deletionTotals] =
     await Promise.all([
       fetchAllUsers(),
       fetchAllDiagnoses(),
+      fetchDeletionTotals(),
     ]);
 
   const now = new Date();
@@ -556,8 +492,22 @@ export async function getAdminStats(): Promise<AdminStats> {
   return {
     generatedAt: now.toISOString(),
     todayKey,
-    signups,
-    diagnoses: diagnosisCounts,
+    /*
+     * 累計には、記録開始以降に退会・自動削除された分を足し戻す
+     * （今日・昨日・直近7日は現在残っているデータのみで集計）
+     */
+    signups: {
+      ...signups,
+      total:
+        signups.total +
+        deletionTotals.deletedUsers,
+    },
+    diagnoses: {
+      ...diagnosisCounts,
+      total:
+        diagnosisCounts.total +
+        deletionTotals.deletedDiagnoses,
+    },
     diagnosedUsers: {
       today:
         diagnosedUserSets.today.size,
@@ -569,9 +519,13 @@ export async function getAdminStats(): Promise<AdminStats> {
         diagnosedUserSets.previous7Days
           .size,
       total:
-        diagnosedUserSets.total.size,
+        diagnosedUserSets.total.size +
+        deletionTotals.deletedDiagnosedUsers,
     },
-    returningUsers,
+    returningUsers:
+      returningUsers +
+      deletionTotals.deletedReturningUsers,
+    deletionIncluded: deletionTotals,
     trend: [
       ...trendByDate.values(),
     ].reverse(),

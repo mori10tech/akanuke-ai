@@ -1,12 +1,14 @@
 import { NextResponse } from "next/server";
 import { createAdminClient } from "../../../../lib/supabase/admin";
 import { createClient } from "../../../../lib/supabase/server";
+import { recordDeletion } from "../../../../lib/admin/deletion-log";
 
 type DeleteAccountRequest = {
   confirmation?: unknown;
 };
 
 type DiagnosisImagePaths = {
+  created_at: string;
   before_image_path: string | null;
   after_image_path: string | null;
 };
@@ -92,7 +94,7 @@ export async function DELETE(
     } = await adminClient
       .from("diagnoses")
       .select(
-        "before_image_path, after_image_path",
+        "created_at, before_image_path, after_image_path",
       )
       .eq("user_id", user.id)
       .returns<DiagnosisImagePaths[]>();
@@ -195,6 +197,21 @@ export async function DELETE(
         },
       );
     }
+
+    /*
+     * 管理画面の累計に含めるため、退会の件数を記録します。
+     * 個人を特定できる情報は保存せず、記録に失敗しても退会は完了扱いにします。
+     */
+    await recordDeletion(adminClient, {
+      reason: "account_deleted",
+      user,
+      diagnosisCreatedAts: (
+        diagnoses ?? []
+      ).map(
+        (diagnosis) =>
+          diagnosis.created_at,
+      ),
+    });
 
     await supabase.auth.signOut();
 

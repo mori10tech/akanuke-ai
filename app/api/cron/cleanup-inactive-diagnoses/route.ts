@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import { DIAGNOSIS_IMAGE_BUCKET } from "../../../../lib/diagnoses/images";
+import { recordDeletion } from "../../../../lib/admin/deletion-log";
 import { createAdminClient } from "../../../../lib/supabase/admin";
 
 export const runtime = "nodejs";
@@ -11,6 +12,7 @@ const STORAGE_DELETE_BATCH_SIZE = 100;
 
 type DiagnosisRow = {
   id: string;
+  created_at: string;
   before_image_path: string | null;
   after_image_path: string | null;
 };
@@ -158,7 +160,7 @@ export async function GET(
           } = await adminClient
             .from("diagnoses")
             .select(
-              "id, before_image_path, after_image_path",
+              "id, created_at, before_image_path, after_image_path",
             )
             .eq(
               "user_id",
@@ -291,6 +293,24 @@ export async function GET(
 
           deletedDiagnosisCount +=
             diagnosisIds.length;
+
+          /*
+           * 管理画面の累計に含めるため、削除した診断の件数を記録する
+           * （個人を特定できる情報は保存しない。記録に失敗しても削除は続行）
+           */
+          await recordDeletion(
+            adminClient,
+            {
+              reason:
+                "inactive_cleanup",
+              user,
+              diagnosisCreatedAts:
+                diagnoses.map(
+                  (diagnosis) =>
+                    diagnosis.created_at,
+                ),
+            },
+          );
 
           console.log(
             "[AKANUKE.AI] 長期未ログインユーザーの診断データを削除",

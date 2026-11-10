@@ -7,9 +7,12 @@ Supabase Dashboardの「SQL Editor」を開き、次のファイルの内容を�
 ```text
 supabase/migrations/202608180001_create_diagnoses.sql
 supabase/migrations/202608180002_add_diagnosis_images.sql
+supabase/migrations/202611100001_create_usage_deletion_logs.sql
 ```
 
-上から順番に1ファイルずつ実行してください。すでに1つ目を実行済みの場合は、2つ目だけ実行します。
+上から順番に1ファイルずつ実行してください。実行済みのファイルは飛ばし、未実行のものだけ実行します。
+
+3つ目の`usage_deletion_logs`は、退会・自動削除の件数を管理画面の累計に含めるための記録テーブルです（個人を特定できる情報は保存しません）。
 
 ## 確認項目
 

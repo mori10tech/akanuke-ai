@@ -461,7 +461,7 @@ export const articles: Article[] = [
 
     publishedAt: "2026-09-08",
 
-    updatedAt: "2026-11-09",
+    updatedAt: "2026-11-10",
 
     readingTime: "約8分",
 

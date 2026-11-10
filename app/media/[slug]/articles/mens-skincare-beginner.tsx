@@ -97,7 +97,7 @@ const chooseTips = [
   {
     title: "日焼け止めは生活に合わせて選ぶ",
     description:
-      "SPFは肌が赤くなる日焼けの原因になる紫外線（UV-B）、PAは肌が黒くなる原因になる紫外線（UV-A）を防ぐ効果の目安です。数値が高いほどよいわけではなく、日本化粧品工業連合会は、通勤や買い物などの日常生活と、屋外でのレジャーなど、生活の場面に合わせて選ぶことをすすめています。",
+      "SPFは主に肌が赤くなる日焼けの原因になる紫外線（UV-B）、PAは肌が黒くなる原因になる紫外線（UV-A）を防ぐ効果の目安です。数値が高いほどよいわけではありません。環境省の「紫外線環境保健マニュアル2020」では、買い物などの日常的な場面ではSPFがそれほど高くないもので足り、紫外線の強い季節に長時間屋外で過ごす場合は効果の高いものを選ぶよう説明しています。",
   },
   {
     title: "まずは少ない数で始める",
@@ -164,7 +164,7 @@ export default function MensSkincareBeginnerArticle({
               <li key={item.id}>
                 <a
                   href={`#${item.id}`}
-                  className="flex gap-3 text-[11px] font-medium leading-5 text-black/70 transition hover:text-[#1677FF]"
+                  className="flex gap-3 text-[13px] font-medium leading-6 text-black/70 transition hover:text-[#1677FF]"
                 >
                   <span className="shrink-0 font-black text-[#1677FF]">
                     {String(index + 1).padStart(2, "0")}
@@ -179,7 +179,7 @@ export default function MensSkincareBeginnerArticle({
       </aside>
 
       <div className="min-w-0">
-        <section className="text-[14px] leading-8 text-black/80">
+        <section className="text-[16px] leading-8 text-black/80">
           <p>
             「スキンケアを始めたいけれど、何を買えばいいか分からない」「とりあえず買った化粧水が合っているのか分からない」という男性は少なくありません。
           </p>
@@ -192,17 +192,17 @@ export default function MensSkincareBeginnerArticle({
             この記事では、自宅でできる肌の傾向の確認方法から、基本の3ステップ、ひげ剃りを含めた朝と夜の手順、洗顔のやり方、商品の選び方、皮膚科に相談したほうがいいサインまでを解説します。
           </p>
           <div className="mt-7 rounded-[20px] border border-[#1677FF]/15 bg-[#EEF6FF] p-5">
-            <p className="text-[12px] font-black text-[#1677FF]">
+            <p className="text-[14px] font-black text-[#1677FF]">
               AKANUKE.AIの診断データより
             </p>
 
-            <p className="mt-3 text-[12px] font-medium leading-6 text-black/70">
+            <p className="mt-3 text-[14px] font-medium leading-7 text-black/70">
               AKANUKE.AIのAI診断の結果を集計したところ、皮脂・テカリ対策が61.8%、毛穴・洗顔ケアが35.3%の診断で必要と判定されました。どちらも、毎日の洗顔と保湿の見直しから始められる課題です。
             </p>
 
             <Link
               href="/media/mens-akanuke-diagnosis-data"
-              className="mt-3 inline-block text-[12px] font-bold text-[#1677FF] transition hover:opacity-70"
+              className="mt-3 inline-block text-[14px] font-bold text-[#1677FF] transition hover:opacity-70"
             >
               診断データの記事を見る →
             </Link>
@@ -221,7 +221,7 @@ export default function MensSkincareBeginnerArticle({
             まず自分の肌の傾向を確認する
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
             <p>
               洗顔をした後、化粧水などを何もつけずに15分ほど過ごし、鏡で顔を見てみましょう。どこがつっぱるか、どこがテカるかで、自分の肌の傾向が分かります。
             </p>
@@ -237,22 +237,22 @@ export default function MensSkincareBeginnerArticle({
                 key={check.title}
                 className="rounded-[18px] border border-black/10 bg-[#F8FAFC] p-5"
               >
-                <h3 className="text-[14px] font-bold">
+                <h3 className="text-[16px] font-bold">
                   {check.title}
                 </h3>
 
-                <p className="mt-2 text-[12px] font-bold text-[#1677FF]">
+                <p className="mt-2 text-[14px] font-bold text-[#1677FF]">
                   {check.result}
                 </p>
 
-                <p className="mt-2 text-[12px] leading-6 text-black/75">
+                <p className="mt-2 text-[14px] leading-7 text-black/75">
                   {check.advice}
                 </p>
               </div>
             ))}
           </div>
 
-          <p className="mt-4 text-[12px] leading-6 text-black/60">
+          <p className="mt-4 text-[14px] leading-7 text-black/60">
             ※赤み・かゆみ・ニキビなどが目立つ場合は、この確認より先に、この記事の最後にある「皮膚科に相談したほうがいいサイン」を確認してください。
           </p>
         </section>
@@ -269,7 +269,7 @@ export default function MensSkincareBeginnerArticle({
             基本は「洗う・潤す・守る」の3つ
           </h2>
 
-          <p className="mt-4 text-[13px] font-medium leading-7 text-black/70">
+          <p className="mt-4 text-[15px] font-medium leading-7 text-black/70">
             肌の傾向にかかわらず、最初はこの3つで十分です。慣れてきたら、肌の状態に合わせて調整します。
           </p>
 
@@ -289,12 +289,12 @@ export default function MensSkincareBeginnerArticle({
                       {step.title}
                     </h3>
 
-                    <p className="mt-3 text-[13px] leading-7 text-black/75">
+                    <p className="mt-3 text-[15px] leading-7 text-black/75">
                       {step.description}
                     </p>
 
                     <div className="mt-4 rounded-[14px] bg-[#FFF9D9] px-4 py-3">
-                      <p className="text-[11px] font-bold leading-5 text-black/65">
+                      <p className="text-[13px] font-bold leading-6 text-black/65">
                         <span className="mr-2 font-black text-[#9A7800]">
                           POINT
                         </span>
@@ -316,11 +316,11 @@ export default function MensSkincareBeginnerArticle({
         <section id="routine" className="scroll-mt-24 pt-16">
           <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">DAILY ROUTINE</p>
           <h2 className="mt-2 text-[22px] font-semibold tracking-[-0.04em] sm:text-[26px]">朝と夜の手順（ひげ剃りの順番）</h2>
-          <p className="mt-4 text-[13px] leading-7 text-black/75">男性の場合は、ひげ剃りをどこに入れるかがポイントです。洗顔でひげをやわらかくしてから剃り、剃った後の肌は保湿で整えます。</p>
+          <p className="mt-4 text-[15px] leading-7 text-black/75">男性の場合は、ひげ剃りをどこに入れるかがポイントです。洗顔でひげをやわらかくしてから剃り、剃った後の肌は保湿で整えます。</p>
           <div className="mt-6 grid gap-4 sm:grid-cols-2">
             <div className="rounded-[18px] border border-black/10 bg-[#F8FAFC] p-5">
-              <h3 className="text-[16px] font-bold">朝｜外出前</h3>
-              <ol className="mt-4 list-decimal space-y-2 pl-5 text-[13px] leading-7 text-black/75">
+              <h3 className="text-[17px] font-bold">朝｜外出前</h3>
+              <ol className="mt-4 list-decimal space-y-2 pl-5 text-[15px] leading-7 text-black/75">
                 <li>洗顔する。乾燥しやすい人は、ぬるま湯だけでも構わない</li>
                 <li>ひげを剃る</li>
                 <li>化粧水・乳液などで保湿する</li>
@@ -328,15 +328,15 @@ export default function MensSkincareBeginnerArticle({
               </ol>
             </div>
             <div className="rounded-[18px] border border-black/10 bg-[#F8FAFC] p-5">
-              <h3 className="text-[16px] font-bold">夜｜入浴時から就寝前</h3>
-              <ol className="mt-4 list-decimal space-y-2 pl-5 text-[13px] leading-7 text-black/75">
+              <h3 className="text-[17px] font-bold">夜｜入浴時から就寝前</h3>
+              <ol className="mt-4 list-decimal space-y-2 pl-5 text-[15px] leading-7 text-black/75">
                 <li>日焼け止めの落とし方を製品の表示で確認し、必要ならクレンジングを使う</li>
                 <li>洗顔料で洗い、すすぎ残しがないようにする</li>
                 <li>入浴後は、肌が乾燥する前に保湿する</li>
               </ol>
             </div>
           </div>
-          <div className="mt-4 rounded-[18px] border border-[#1677FF]/15 bg-[#EEF6FF] p-5 text-[12px] leading-7 text-black/75">
+          <div className="mt-4 rounded-[18px] border border-[#1677FF]/15 bg-[#EEF6FF] p-5 text-[14px] leading-7 text-black/75">
             <p className="font-bold text-[#1677FF]">続けるための工夫</p>
             <p className="mt-2">洗顔料と保湿剤を洗面所の目に入る場所に並べる、歯みがきの後に保湿する、と決めておくなど、すでにある習慣とセットにすると忘れにくくなります。</p>
           </div>
@@ -354,7 +354,7 @@ export default function MensSkincareBeginnerArticle({
             肌に負担をかけない洗顔のやり方
           </h2>
 
-          <p className="mt-4 text-[13px] font-medium leading-7 text-black/70">
+          <p className="mt-4 text-[15px] font-medium leading-7 text-black/70">
             洗顔は毎日のことなので、洗い方の違いが肌の調子に影響しやすい部分です。次の手順で洗ってみましょう。
           </p>
 
@@ -364,19 +364,35 @@ export default function MensSkincareBeginnerArticle({
                 key={step}
                 className="flex items-start gap-3 rounded-[14px] border border-black/10 bg-white px-4 py-3"
               >
-                <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#EEF6FF] text-[10px] font-black text-[#1677FF]">
+                <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#EEF6FF] text-[11px] font-black text-[#1677FF]">
                   {index + 1}
                 </span>
 
-                <p className="text-[12px] font-bold leading-6 text-black/65">
+                <p className="text-[14px] font-bold leading-7 text-black/65">
                   {step}
                 </p>
               </li>
             ))}
           </ol>
 
-          <p className="mt-4 text-[12px] leading-6 text-black/60">
+          <p className="mt-4 text-[14px] leading-7 text-black/60">
             ※熱いお湯は肌のうるおいまで落としやすいため、ぬるま湯を使いましょう。
+          </p>
+
+          <p className="mt-4 text-[16px] leading-8 text-black/80">
+            洗顔料を使った洗顔は、朝と夜の1日2回が基本です。日本皮膚科学会のガイドラインでも、ニキビのある人には1日2回の洗顔がすすめられています。
+          </p>
+
+          <p className="mt-4 text-[13px] font-medium leading-6 text-black/50">
+            参考：
+            <a
+              href="https://www.dermatol.or.jp/dermatol/wp-content/uploads/xoops/files/guideline/zasou2023.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline transition hover:text-[#1677FF]"
+            >
+              日本皮膚科学会「尋常性痤瘡・酒皶治療ガイドライン2023」
+            </a>
           </p>
         </section>
 
@@ -392,7 +408,7 @@ export default function MensSkincareBeginnerArticle({
             商品の選び方
           </h2>
 
-          <p className="mt-4 text-[13px] font-medium leading-7 text-black/70">
+          <p className="mt-4 text-[15px] font-medium leading-7 text-black/70">
             最初に確認した肌の傾向をもとに、次の点を見ながら選びましょう。
           </p>
 
@@ -412,7 +428,7 @@ export default function MensSkincareBeginnerArticle({
                       {tip.title}
                     </h3>
 
-                    <p className="mt-3 text-[13px] leading-7 text-black/75">
+                    <p className="mt-3 text-[15px] leading-7 text-black/75">
                       {tip.description}
                     </p>
                   </div>
@@ -420,6 +436,18 @@ export default function MensSkincareBeginnerArticle({
               </div>
             ))}
           </div>
+
+          <p className="mt-5 text-[13px] font-medium leading-6 text-black/50">
+            参考：
+            <a
+              href="https://www.env.go.jp/content/900410651.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline transition hover:text-[#1677FF]"
+            >
+              環境省「紫外線環境保健マニュアル2020」
+            </a>
+          </p>
         </section>
 
         <section
@@ -434,7 +462,7 @@ export default function MensSkincareBeginnerArticle({
             新しい商品を使い始めるときの注意
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
             <p>
               新しい商品は、一度に複数を使い始めず、1つずつ追加します。同時に始めると、肌に合わないものがあったときに、どれが原因か分からなくなるためです。
             </p>
@@ -461,12 +489,12 @@ export default function MensSkincareBeginnerArticle({
             皮膚科に相談したほうがいいサイン
           </h2>
 
-          <p className="mt-5 text-[14px] leading-8 text-black/80">
+          <p className="mt-5 text-[16px] leading-8 text-black/80">
             スキンケアは肌を健やかに保つためのもので、病気を治すものではありません。次のような場合は、化粧品で解決しようとせず、皮膚科に相談しましょう。
           </p>
 
           <div className="mt-7 rounded-[20px] border border-black/10 bg-[#F8FAFC] p-5 sm:p-6">
-            <ul className="space-y-3 text-[13px] leading-7 text-black/75">
+            <ul className="space-y-3 text-[15px] leading-7 text-black/75">
               {doctorSigns.map((sign) => (
                 <li key={sign}>□ {sign}</li>
               ))}
@@ -499,7 +527,7 @@ export default function MensSkincareBeginnerArticle({
             肌だけでなく、顔全体の改善ポイントを確認
           </h2>
 
-          <p className="mt-4 text-[13px] font-medium leading-6 text-black/70">
+          <p className="mt-4 text-[15px] font-medium leading-6 text-black/70">
             AKANUKE.AIでは、顔写真をもとに髪型・眉毛・肌・全体の印象をAIが分析。自分はどこから整えるべきかを確認できます。
           </p>
 
@@ -524,7 +552,7 @@ export default function MensSkincareBeginnerArticle({
                 key={faq.question}
                 className="group overflow-hidden rounded-[16px] border border-black/10 bg-white"
               >
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-[13px] font-black">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-[15px] font-black">
                   {faq.question}
 
                   <span className="shrink-0 text-[#1677FF] transition group-open:rotate-180">
@@ -532,7 +560,7 @@ export default function MensSkincareBeginnerArticle({
                   </span>
                 </summary>
 
-                <p className="border-t border-black/5 px-5 py-4 text-[12px] font-medium leading-6 text-black/70">
+                <p className="border-t border-black/5 px-5 py-4 text-[14px] font-medium leading-7 text-black/70">
                   {faq.answer}
                 </p>
               </details>
@@ -554,7 +582,7 @@ export default function MensSkincareBeginnerArticle({
             肌の傾向を知ってから、基本の3ステップを続ける
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
             <p>
               スキンケアは、最初に自分の肌の傾向を確認してから始めると、商品選びで迷いにくくなります。そのうえで「洗う・潤す・守る」の3ステップを、朝はひげ剃りを含めた順番で続けましょう。
             </p>

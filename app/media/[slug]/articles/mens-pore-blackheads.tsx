@@ -148,7 +148,7 @@ export default function MensPoreBlackheadsArticle({
               <li key={item.id}>
                 <a
                   href={`#${item.id}`}
-                  className="flex gap-3 text-[11px] font-medium leading-5 text-black/70 transition hover:text-[#1677FF]"
+                  className="flex gap-3 text-[13px] font-medium leading-6 text-black/70 transition hover:text-[#1677FF]"
                 >
                   <span className="shrink-0 font-black text-[#1677FF]">
                     {String(index + 1).padStart(2, "0")}
@@ -163,7 +163,7 @@ export default function MensPoreBlackheadsArticle({
       </aside>
 
       <div className="min-w-0">
-        <section className="text-[14px] leading-8 text-black/80">
+        <section className="text-[16px] leading-8 text-black/80">
           <p>
             「鼻の毛穴が黒いブツブツで目立つ」「パックで取っても、すぐに元に戻る」と悩んでいませんか？
           </p>
@@ -177,17 +177,17 @@ export default function MensPoreBlackheadsArticle({
           </p>
 
           <div className="mt-7 rounded-[20px] border border-[#1677FF]/15 bg-[#EEF6FF] p-5">
-            <p className="text-[12px] font-black text-[#1677FF]">
+            <p className="text-[14px] font-black text-[#1677FF]">
               AKANUKE.AIの診断データより
             </p>
 
-            <p className="mt-3 text-[12px] font-medium leading-6 text-black/70">
+            <p className="mt-3 text-[14px] font-medium leading-7 text-black/70">
               AKANUKE.AIのAI診断の結果を集計したところ、毛穴・洗顔ケアが35.3%、皮脂・テカリ対策が61.8%の診断で必要と判定されました。どちらも、毎日の洗顔の見直しから始められる課題です。
             </p>
 
             <Link
               href="/media/mens-akanuke-diagnosis-data"
-              className="mt-3 inline-block text-[12px] font-bold text-[#1677FF] transition hover:opacity-70"
+              className="mt-3 inline-block text-[14px] font-bold text-[#1677FF] transition hover:opacity-70"
             >
               診断データの記事を見る →
             </Link>
@@ -216,22 +216,22 @@ export default function MensPoreBlackheadsArticle({
                   CAUSE {String(index + 1).padStart(2, "0")}
                 </p>
 
-                <p className="mt-2 text-[13px] font-bold">
+                <p className="mt-2 text-[15px] font-bold">
                   {cause.title}
                 </p>
 
-                <p className="mt-2 text-[12px] leading-7 text-black/70">
+                <p className="mt-2 text-[14px] leading-7 text-black/70">
                   {cause.description}
                 </p>
               </div>
             ))}
           </div>
 
-          <p className="mt-5 text-[13px] font-medium leading-7 text-black/70">
+          <p className="mt-5 text-[15px] font-medium leading-7 text-black/70">
             黒ずみが、触るとザラッとする場合は角栓、細い毛のように見える場合は産毛、平らで茶色っぽい場合は色素沈着の可能性があります。
           </p>
 
-          <div className="mt-5 space-y-1 text-[11px] font-medium leading-6 text-black/50">
+          <div className="mt-5 space-y-1 text-[13px] font-medium leading-6 text-black/50">
             <p>
               参考：
               <a
@@ -270,7 +270,7 @@ export default function MensPoreBlackheadsArticle({
             黒ずみを悪化させるNGケア
           </h2>
 
-          <p className="mt-5 text-[14px] leading-8 text-black/80">
+          <p className="mt-5 text-[16px] leading-8 text-black/80">
             黒ずみを早く取りたいと思うほど、次のようなケアをしてしまいがちです。どれも、一時的にきれいになったように見えても、肌を傷つけて黒ずみを長引かせる原因になります。
           </p>
 
@@ -280,11 +280,11 @@ export default function MensPoreBlackheadsArticle({
                 key={care.title}
                 className="rounded-[18px] border border-black/10 bg-white p-5"
               >
-                <h3 className="text-[15px] font-black">
+                <h3 className="text-[16px] font-black">
                   {care.title}
                 </h3>
 
-                <p className="mt-2 text-[12px] font-medium leading-6 text-black/70">
+                <p className="mt-2 text-[14px] font-medium leading-7 text-black/70">
                   {care.description}
                 </p>
               </div>
@@ -304,7 +304,7 @@ export default function MensPoreBlackheadsArticle({
             毎日の毛穴ケア4ステップ
           </h2>
 
-          <p className="mt-4 text-[13px] font-medium leading-7 text-black/70">
+          <p className="mt-4 text-[15px] font-medium leading-7 text-black/70">
             毛穴の黒ずみ対策の基本は、特別なアイテムではなく、毎日の洗顔と保湿です。朝と夜、次の順番で行いましょう。
           </p>
 
@@ -324,12 +324,12 @@ export default function MensPoreBlackheadsArticle({
                       {step.title}
                     </h3>
 
-                    <p className="mt-3 text-[13px] leading-7 text-black/75">
+                    <p className="mt-3 text-[15px] leading-7 text-black/75">
                       {step.description}
                     </p>
 
                     <div className="mt-4 rounded-[14px] bg-[#FFF9D9] px-4 py-3">
-                      <p className="text-[11px] font-bold leading-6 text-black/65">
+                      <p className="text-[13px] font-bold leading-6 text-black/65">
                         <span className="mr-2 font-black text-[#9A7800]">
                           POINT
                         </span>
@@ -369,7 +369,7 @@ export default function MensPoreBlackheadsArticle({
             週1回のスペシャルケア
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
             <p>
               毎日のケアに慣れてきたら、古い角質を落とすケアを、週1回程度取り入れる方法もあります。たとえば、酵素洗顔料や、ふき取り化粧水をコットンでやさしくなじませるケアです。
             </p>
@@ -380,11 +380,11 @@ export default function MensPoreBlackheadsArticle({
           </div>
 
           <div className="mt-7 rounded-[20px] border border-[#1677FF]/15 bg-[#EEF6FF] p-5">
-            <p className="text-[12px] font-black text-[#1677FF]">
+            <p className="text-[14px] font-black text-[#1677FF]">
               新しいアイテムは、まず1つだけ
             </p>
 
-            <p className="mt-3 text-[12px] font-medium leading-6 text-black/70">
+            <p className="mt-3 text-[14px] font-medium leading-7 text-black/70">
               いくつものアイテムを同時に使い始めると、肌に合わなかったときに原因が分からなくなります。まずは毎日の洗顔と保湿を整え、追加するアイテムは1つずつにしましょう。
             </p>
           </div>
@@ -402,7 +402,7 @@ export default function MensPoreBlackheadsArticle({
             すぐに目立たなくしたいとき
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
             <p>
               毛穴のケアは、すぐに結果が出るものではありません。大事な予定や写真を撮る日には、BBクリームを鼻の周りに薄く重ねると、毛穴の黒ずみや凹凸が目立ちにくくなります。
             </p>
@@ -433,11 +433,11 @@ export default function MensPoreBlackheadsArticle({
             皮膚科に相談したほうがいいサイン
           </h2>
 
-          <p className="mt-5 text-[14px] leading-8 text-black/80">
+          <p className="mt-5 text-[16px] leading-8 text-black/80">
             毛穴の黒ずみそのものは病気ではありませんが、次のような場合は、セルフケアを続けるより皮膚科に相談しましょう。
           </p>
 
-          <ul className="mt-5 list-disc space-y-2 pl-5 text-[13px] leading-7 text-black/75">
+          <ul className="mt-5 list-disc space-y-2 pl-5 text-[15px] leading-7 text-black/75">
             <li>毛穴が赤く腫れている、痛みがある、膿がたまっている</li>
             <li>ニキビが繰り返しできる、数が増えている</li>
             <li>ケアを変えた後に、赤みやかゆみ、皮むけが続いている</li>
@@ -457,7 +457,7 @@ export default function MensPoreBlackheadsArticle({
             顔全体の改善ポイントを確認
           </h2>
 
-          <p className="mt-4 text-[13px] font-medium leading-6 text-black/70">
+          <p className="mt-4 text-[15px] font-medium leading-6 text-black/70">
             AKANUKE.AIでは、顔写真をもとに髪型・眉毛・肌・全体の印象をAIが分析。自分はどこから整えるべきかを確認できます。
           </p>
 
@@ -482,7 +482,7 @@ export default function MensPoreBlackheadsArticle({
                 key={faq.question}
                 className="group overflow-hidden rounded-[16px] border border-black/10 bg-white"
               >
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-[13px] font-black">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-[15px] font-black">
                   {faq.question}
 
                   <span className="shrink-0 text-[#1677FF] transition group-open:rotate-180">
@@ -490,7 +490,7 @@ export default function MensPoreBlackheadsArticle({
                   </span>
                 </summary>
 
-                <p className="border-t border-black/5 px-5 py-4 text-[12px] font-medium leading-6 text-black/70">
+                <p className="border-t border-black/5 px-5 py-4 text-[14px] font-medium leading-7 text-black/70">
                   {faq.answer}
                 </p>
               </details>
@@ -512,7 +512,7 @@ export default function MensPoreBlackheadsArticle({
             毛穴の黒ずみは、取るより「ためない」
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
             <p>
               鼻の毛穴の黒ずみは、角栓、毛穴に詰まった産毛、刺激による色素沈着が主な原因です。指で押し出す、ゴシゴシこする、パックを頻繁に使う、産毛を剃るといったケアは、かえって黒ずみを長引かせます。
             </p>

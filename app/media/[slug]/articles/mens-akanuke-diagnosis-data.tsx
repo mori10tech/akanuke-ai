@@ -198,7 +198,7 @@ export default function MensAkanukeDiagnosisDataArticle({
               <li key={item.id}>
                 <a
                   href={`#${item.id}`}
-                  className="flex gap-3 text-[11px] font-medium leading-5 text-black/70 transition hover:text-[#1677FF]"
+                  className="flex gap-3 text-[13px] font-medium leading-6 text-black/70 transition hover:text-[#1677FF]"
                 >
                   <span className="shrink-0 font-black text-[#1677FF]">
                     {String(index + 1).padStart(2, "0")}
@@ -213,7 +213,7 @@ export default function MensAkanukeDiagnosisDataArticle({
       </aside>
 
       <div className="min-w-0">
-        <section className="text-[14px] leading-8 text-black/80">
+        <section className="text-[16px] leading-8 text-black/80">
           <p>
             「垢抜けたいけれど、髪・眉毛・肌のどこから手を付ければいいか分からない」という男性は少なくありません。
           </p>
@@ -245,11 +245,11 @@ export default function MensAkanukeDiagnosisDataArticle({
                 key={row.label}
                 className="grid grid-cols-[96px_1fr] gap-3 border-b border-black/10 bg-white px-4 py-4 last:border-b-0 sm:grid-cols-[130px_1fr] sm:px-5"
               >
-                <dt className="text-[11px] font-black leading-6 text-black/45">
+                <dt className="text-[13px] font-black leading-6 text-black/45">
                   {row.label}
                 </dt>
 
-                <dd className="text-[13px] font-medium leading-6 text-black/80">
+                <dd className="text-[15px] font-medium leading-6 text-black/80">
                   {row.value}
                 </dd>
               </div>
@@ -257,11 +257,11 @@ export default function MensAkanukeDiagnosisDataArticle({
           </dl>
 
           <div className="mt-7 rounded-[20px] border border-[#1677FF]/15 bg-[#EEF6FF] p-5">
-            <p className="text-[12px] font-black text-[#1677FF]">
+            <p className="text-[14px] font-black text-[#1677FF]">
               データを読むときの注意
             </p>
 
-            <p className="mt-3 text-[12px] font-medium leading-6 text-black/70">
+            <p className="mt-3 text-[14px] font-medium leading-7 text-black/70">
               AIは、アップロードされた顔写真1枚から、写真で確認できる特徴をもとに判定しています。照明や写真の写り方の影響を受けるため、肌や髪の状態を医学的に診断したものではありません。また、AKANUKE.AIの利用者の診断を集計したもので、男性全体の傾向を示すものではありません。
             </p>
           </div>
@@ -279,7 +279,7 @@ export default function MensAkanukeDiagnosisDataArticle({
             AIが判定した「必要なケア」ランキング
           </h2>
 
-          <p className="mt-5 text-[14px] leading-8 text-black/80">
+          <p className="mt-5 text-[16px] leading-8 text-black/80">
             集計した診断のうち、各ケアが選ばれた割合は次のとおりです。1回の診断で最大5つ選ばれるため、割合の合計は100%になりません。
           </p>
 
@@ -288,14 +288,14 @@ export default function MensAkanukeDiagnosisDataArticle({
               {results.map((item) => (
                 <li key={item.label}>
                   <div className="flex items-baseline justify-between gap-3">
-                    <p className="text-[12px] font-bold leading-5 text-black/80">
+                    <p className="text-[14px] font-bold leading-5 text-black/80">
                       <span className="mr-2 font-black text-[#1677FF]">
                         {item.rank}
                       </span>
                       {item.label}
                     </p>
 
-                    <p className="shrink-0 text-[13px] font-black tabular-nums text-[#111111]">
+                    <p className="shrink-0 text-[15px] font-black tabular-nums text-[#111111]">
                       {item.percent.toFixed(1)}%
                       <span className="ml-1 text-[10px] font-bold text-black/40">
                         （{item.count}件）
@@ -317,12 +317,12 @@ export default function MensAkanukeDiagnosisDataArticle({
               ))}
             </ol>
 
-            <figcaption className="mt-5 border-t border-black/5 pt-4 text-[11px] font-medium leading-5 text-black/55">
+            <figcaption className="mt-5 border-t border-black/5 pt-4 text-[13px] font-medium leading-6 text-black/55">
               AKANUKE.AIのAI診断68件（48人）を集計。集計期間：2026年9月14日〜2026年11月8日。
             </figcaption>
           </figure>
 
-          <p className="mt-7 text-[14px] leading-8 text-black/80">
+          <p className="mt-7 text-[16px] leading-8 text-black/80">
             上位3つの「肌色・色ムラ補正」「髪のまとまり」「皮脂・テカリ対策」は、いずれも半数以上の診断で選ばれました。以下では、それぞれの項目が何を意味するのか、どう改善すればよいのかを順に解説します。
           </p>
         </section>
@@ -339,7 +339,7 @@ export default function MensAkanukeDiagnosisDataArticle({
             1位：肌色・色ムラの補正（86.8%）
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
             <p>
               最も多く選ばれたのは、肌の色ムラ、赤み、くすみを自然に整えるケアです。およそ7件に6件の診断で選ばれました。
             </p>
@@ -361,11 +361,11 @@ export default function MensAkanukeDiagnosisDataArticle({
                   STEP {String(index + 1).padStart(2, "0")}
                 </p>
 
-                <p className="mt-2 text-[13px] font-bold">
+                <p className="mt-2 text-[15px] font-bold">
                   {action.title}
                 </p>
 
-                <p className="mt-2 text-[12px] leading-7 text-black/70">
+                <p className="mt-2 text-[14px] leading-7 text-black/70">
                   {action.description}
                 </p>
               </div>
@@ -399,7 +399,7 @@ export default function MensAkanukeDiagnosisDataArticle({
             2位：髪のまとまり（75.0%）
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
             <p>
               2番目に多かったのは、髪の広がりを抑え、まとまりを良くするケアです。4件に3件の診断で選ばれました。4位の「毛流れ・前髪セット」（52.9%）とあわせると、髪に関する改善点を指摘された診断が多いことが分かります。
             </p>
@@ -421,11 +421,11 @@ export default function MensAkanukeDiagnosisDataArticle({
                   STEP {String(index + 1).padStart(2, "0")}
                 </p>
 
-                <p className="mt-2 text-[13px] font-bold">
+                <p className="mt-2 text-[15px] font-bold">
                   {action.title}
                 </p>
 
-                <p className="mt-2 text-[12px] leading-7 text-black/70">
+                <p className="mt-2 text-[14px] leading-7 text-black/70">
                   {action.description}
                 </p>
               </div>
@@ -464,7 +464,7 @@ export default function MensAkanukeDiagnosisDataArticle({
             3位：皮脂・テカリ対策（61.8%）
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
             <p>
               3番目は、皮脂やテカリを抑えるケアです。6割を超える診断で選ばれました。額や鼻のテカリは、写真では光の反射として特に目立ちやすく、清潔感の印象を下げる原因になります。
             </p>
@@ -506,7 +506,7 @@ export default function MensAkanukeDiagnosisDataArticle({
                 className="flex flex-col rounded-[18px] border border-black/10 bg-white p-5"
               >
                 <div className="flex items-baseline justify-between gap-3">
-                  <h3 className="text-[15px] font-black">
+                  <h3 className="text-[16px] font-black">
                     {row.label}
                   </h3>
 
@@ -515,13 +515,13 @@ export default function MensAkanukeDiagnosisDataArticle({
                   </p>
                 </div>
 
-                <p className="mt-2 flex-1 text-[12px] font-medium leading-6 text-black/70">
+                <p className="mt-2 flex-1 text-[14px] font-medium leading-7 text-black/70">
                   {row.description}
                 </p>
 
                 <a
                   href={row.href}
-                  className="mt-3 text-[12px] font-bold text-[#1677FF] transition hover:opacity-70"
+                  className="mt-3 text-[14px] font-bold text-[#1677FF] transition hover:opacity-70"
                 >
                   {row.linkLabel} →
                 </a>
@@ -542,7 +542,7 @@ export default function MensAkanukeDiagnosisDataArticle({
             少なかった項目の読み方
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
             <p>
               「乾燥・保湿ケア」（2.9%）と「髪の乾燥・ダメージケア」（4.4%）は、ほとんど選ばれませんでした。ただし、これは「乾燥している人が少ない」という意味ではありません。
             </p>
@@ -577,7 +577,7 @@ export default function MensAkanukeDiagnosisDataArticle({
             結果から考える、最初の3ステップ
           </h2>
 
-          <p className="mt-4 text-[13px] font-medium leading-7 text-black/70">
+          <p className="mt-4 text-[15px] font-medium leading-7 text-black/70">
             集計結果をもとに、AKANUKE JOURNAL編集部が考える改善の順番です。
           </p>
 
@@ -597,7 +597,7 @@ export default function MensAkanukeDiagnosisDataArticle({
                       {step.title}
                     </h3>
 
-                    <p className="mt-3 text-[13px] leading-7 text-black/75">
+                    <p className="mt-3 text-[15px] leading-7 text-black/75">
                       {step.description}
                     </p>
                   </div>
@@ -628,7 +628,7 @@ export default function MensAkanukeDiagnosisDataArticle({
             顔写真で確認する
           </h2>
 
-          <p className="mt-4 text-[13px] font-medium leading-6 text-black/70">
+          <p className="mt-4 text-[15px] font-medium leading-6 text-black/70">
             AKANUKE.AIでは、顔写真をもとに髪型・眉毛・肌・全体の印象をAIが分析。この記事で紹介した項目のうち、自分にはどれが必要かを確認できます。
           </p>
 
@@ -653,7 +653,7 @@ export default function MensAkanukeDiagnosisDataArticle({
                 key={faq.question}
                 className="group overflow-hidden rounded-[16px] border border-black/10 bg-white"
               >
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-[13px] font-black">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-[15px] font-black">
                   {faq.question}
 
                   <span className="shrink-0 text-[#1677FF] transition group-open:rotate-180">
@@ -661,7 +661,7 @@ export default function MensAkanukeDiagnosisDataArticle({
                   </span>
                 </summary>
 
-                <p className="border-t border-black/5 px-5 py-4 text-[12px] font-medium leading-6 text-black/70">
+                <p className="border-t border-black/5 px-5 py-4 text-[14px] font-medium leading-7 text-black/70">
                   {faq.answer}
                 </p>
               </details>
@@ -683,7 +683,7 @@ export default function MensAkanukeDiagnosisDataArticle({
             上位の課題は、毎日のケアで変えられる
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
             <p>
               AKANUKE.AIのAI診断の結果を集計すると、「肌色・色ムラ補正」（86.8%）、「髪のまとまり」（75.0%）、「皮脂・テカリ対策」（61.8%）が、半数以上の診断で必要なケアに選ばれました。
             </p>

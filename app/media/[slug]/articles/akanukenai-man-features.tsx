@@ -319,7 +319,7 @@ export default function AkanukenaiManFeaturesArticle({
                 <li key={item.id}>
                   <a
                     href={`#${item.id}`}
-                    className="flex gap-3 text-[11px] font-medium leading-5 text-black/70 transition hover:text-[#1677FF]"
+                    className="flex gap-3 text-[13px] font-medium leading-6 text-black/70 transition hover:text-[#1677FF]"
                   >
                     <span className="shrink-0 font-black text-[#1677FF]">
                       {String(index + 1).padStart(2, "0")}
@@ -334,7 +334,7 @@ export default function AkanukenaiManFeaturesArticle({
         </aside>
 
         <div className="min-w-0">
-          <section className="text-[14px] leading-8 text-black/80">
+          <section className="text-[16px] leading-8 text-black/80">
             <p>
               「髪を切った」「新しい服を買った」。それなのに、なぜか印象が変わらないと感じていませんか？
             </p>
@@ -346,6 +346,22 @@ export default function AkanukenaiManFeaturesArticle({
             <p className="mt-5">
               この記事では、垢抜けない男性に共通しやすい10の特徴を、原因の種類ごとに整理して解説します。それぞれの特徴について、なぜそう見えるのか、自分が当てはまるかの確認方法、改善方法、やりすぎに注意したい点を紹介します。
             </p>
+            <div className="mt-7 rounded-[20px] border border-[#1677FF]/15 bg-[#EEF6FF] p-5">
+              <p className="text-[14px] font-black text-[#1677FF]">
+                AKANUKE.AIの診断データより
+              </p>
+
+              <p className="mt-3 text-[14px] font-medium leading-7 text-black/70">
+                AKANUKE.AIのAI診断の結果を集計したところ、必要と判定されることが多かったケアの上位は、肌色・色ムラの補正（86.8%）、髪のまとまり（75.0%）、皮脂・テカリ対策（61.8%）でした。いずれも、顔立ちではなく毎日のケアで変えられる部分です。
+              </p>
+
+              <Link
+                href="/media/mens-akanuke-diagnosis-data"
+                className="mt-3 inline-block text-[14px] font-bold text-[#1677FF] transition hover:opacity-70"
+              >
+                診断データの記事を見る →
+              </Link>
+            </div>
           </section>
 
           <section
@@ -360,7 +376,7 @@ export default function AkanukenaiManFeaturesArticle({
               垢抜けない原因は3つのタイプに分かれる
             </h2>
 
-            <div className="mt-6 text-[14px] leading-8 text-black/80">
+            <div className="mt-6 text-[16px] leading-8 text-black/80">
               <p>
                 垢抜けない特徴は、大きく3つのタイプに分けられます。タイプによって、効果のある対策が異なります。
               </p>
@@ -372,11 +388,11 @@ export default function AkanukenaiManFeaturesArticle({
                   key={featureType.type}
                   className="rounded-[16px] border border-black/10 bg-[#F8FAFC] p-5"
                 >
-                  <p className="text-[13px] font-bold">
+                  <p className="text-[15px] font-bold">
                     {featureType.title}
                   </p>
 
-                  <p className="mt-2 text-[12px] leading-7 text-black/70">
+                  <p className="mt-2 text-[14px] leading-7 text-black/70">
                     {featureType.description}
                   </p>
                 </div>
@@ -384,11 +400,11 @@ export default function AkanukenaiManFeaturesArticle({
             </div>
 
             <div className="mt-7 rounded-[20px] border border-[#1677FF]/15 bg-[#EEF6FF] p-5">
-              <p className="text-[12px] font-black text-[#1677FF]">
+              <p className="text-[14px] font-black text-[#1677FF]">
                 タイプを見分けると、無駄な努力を減らせる
               </p>
 
-              <p className="mt-3 text-[12px] font-medium leading-6 text-black/70">
+              <p className="mt-3 text-[14px] font-medium leading-7 text-black/70">
                 手入れ不足が原因なのに新しい服を買ったり、選び方が原因なのに手入れの時間を増やしたりしても、印象は変わりにくくなります。各特徴に付いているタイプを参考に、自分の原因を見分けてみましょう。
               </p>
             </div>
@@ -406,7 +422,7 @@ export default function AkanukenaiManFeaturesArticle({
               垢抜けない男の特徴10選
             </h2>
 
-            <p className="mt-4 text-[13px] font-medium leading-7 text-black/70">
+            <p className="mt-4 text-[15px] font-medium leading-7 text-black/70">
               当てはまる項目があっても、すべてを一度に直す必要はありません。「確認方法」で当てはまるかを判断してから、改善に取り組みましょう。
             </p>
 
@@ -428,12 +444,12 @@ export default function AkanukenaiManFeaturesArticle({
                           {feature.title}
                         </h3>
 
-                        <p className="mt-3 text-[13px] leading-7 text-black/75">
+                        <p className="mt-3 text-[15px] leading-7 text-black/75">
                           {feature.reason}
                         </p>
 
                         <div className="mt-4 rounded-[14px] border border-black/10 bg-[#F8FAFC] px-4 py-3">
-                          <p className="text-[11px] font-bold leading-6 text-black/65">
+                          <p className="text-[13px] font-bold leading-6 text-black/65">
                             <span className="mr-2 font-black text-[#1677FF]">
                               確認方法
                             </span>
@@ -443,7 +459,7 @@ export default function AkanukenaiManFeaturesArticle({
                         </div>
 
                         <div className="mt-3 rounded-[14px] bg-[#FFF9D9] px-4 py-3">
-                          <p className="text-[11px] font-bold leading-6 text-black/65">
+                          <p className="text-[13px] font-bold leading-6 text-black/65">
                             <span className="mr-2 font-black text-[#9A7800]">
                               改善ポイント
                             </span>
@@ -452,7 +468,7 @@ export default function AkanukenaiManFeaturesArticle({
                           </p>
                         </div>
 
-                        <p className="mt-3 text-[11px] leading-6 text-black/60">
+                        <p className="mt-3 text-[13px] leading-6 text-black/60">
                           <span className="mr-2 font-black text-black/70">
                             注意
                           </span>
@@ -463,7 +479,7 @@ export default function AkanukenaiManFeaturesArticle({
                         {feature.href && feature.linkLabel && (
                           <Link
                             href={feature.href}
-                            className="mt-4 inline-flex items-center gap-2 text-[11px] font-black text-[#1677FF] transition hover:opacity-70"
+                            className="mt-4 inline-flex items-center gap-2 text-[13px] font-black text-[#1677FF] transition hover:opacity-70"
                           >
                             {feature.linkLabel}
                             <span aria-hidden="true">→</span>
@@ -496,7 +512,7 @@ export default function AkanukenaiManFeaturesArticle({
               努力しても変わらない3つのパターン
             </h2>
 
-            <p className="mt-5 text-[14px] leading-8 text-black/80">
+            <p className="mt-5 text-[16px] leading-8 text-black/80">
               髪型や服を変えたのに印象が変わらない場合、次の3つのどれかに当てはまっていることがあります。
             </p>
 
@@ -510,11 +526,11 @@ export default function AkanukenaiManFeaturesArticle({
                     PATTERN {pattern.number}
                   </p>
 
-                  <p className="mt-2 text-[13px] font-bold">
+                  <p className="mt-2 text-[15px] font-bold">
                     {pattern.title}
                   </p>
 
-                  <p className="mt-2 text-[12px] leading-7 text-black/70">
+                  <p className="mt-2 text-[14px] leading-7 text-black/70">
                     {pattern.description}
                   </p>
                 </div>
@@ -531,11 +547,11 @@ export default function AkanukenaiManFeaturesArticle({
               写真3枚でできるセルフチェック
             </h2>
 
-            <p className="mt-5 text-[14px] leading-8 text-black/80">
+            <p className="mt-5 text-[16px] leading-8 text-black/80">
               鏡で見る自分は、近い距離から正面を見た姿で、しかも左右が反転しています。人から見える状態を確認するには、写真を使うのが手軽です。
             </p>
 
-            <p className="mt-5 text-[14px] leading-8 text-black/80">
+            <p className="mt-5 text-[16px] leading-8 text-black/80">
               スマホのタイマー機能などを使い、窓の近くなど明るい場所で、普段の髪型と服装のまま次の3枚を撮影します。インカメラを使う場合は、左右が反転しない設定にしておきましょう。
             </p>
 
@@ -545,11 +561,11 @@ export default function AkanukenaiManFeaturesArticle({
                   key={photoCheck.title}
                   className="rounded-[20px] border border-black/10 bg-[#F8FAFC] p-5 sm:p-6"
                 >
-                  <h3 className="text-[16px] font-bold">
+                  <h3 className="text-[17px] font-bold">
                     {photoCheck.title}
                   </h3>
 
-                  <ul className="mt-4 space-y-3 text-[13px] leading-7 text-black/75">
+                  <ul className="mt-4 space-y-3 text-[15px] leading-7 text-black/75">
                     {photoCheck.items.map((item) => (
                       <li key={item}>□ {item}</li>
                     ))}
@@ -558,22 +574,22 @@ export default function AkanukenaiManFeaturesArticle({
               ))}
             </div>
 
-            <p className="mt-4 text-[11px] leading-6 text-black/60">
+            <p className="mt-4 text-[13px] leading-6 text-black/60">
               ※これは医学的な診断や外見の点数付けではなく、身だしなみを見直すための任意のチェックです。
             </p>
 
             <h3 className="mt-9 text-[17px] font-bold">チェックが付いた項目の進め方</h3>
 
-            <p className="mt-4 text-[13px] leading-7 text-black/75">
+            <p className="mt-4 text-[15px] leading-7 text-black/75">
               チェックが付いた項目を、特徴10選のタイプに当てはめます。手入れ不足タイプの項目は今日から、選び方のずれタイプの項目は次の美容室や買い物のタイミングで見直します。複数ある場合は、1つを2週間続けてから次へ進みましょう。
             </p>
 
             <div className="mt-8">
-              <p className="text-[13px] font-black">
+              <p className="text-[15px] font-black">
                 どこから始めるか迷ったら
               </p>
 
-              <p className="mt-2 text-[12px] font-medium leading-6 text-black/70">
+              <p className="mt-2 text-[14px] font-medium leading-7 text-black/70">
                 改善に取り組む順番は、次の記事で詳しく解説しています。
               </p>
 
@@ -598,7 +614,7 @@ export default function AkanukenaiManFeaturesArticle({
               自分はどこから変えるべき？
             </h2>
 
-            <p className="mt-4 text-[13px] font-medium leading-6 text-black/70">
+            <p className="mt-4 text-[15px] font-medium leading-6 text-black/70">
               AKANUKE.AIでは、顔写真をもとに髪型・眉毛・肌・全体の印象をAIが分析。あなたが優先して改善したいポイントを整理します。
             </p>
 
@@ -623,7 +639,7 @@ export default function AkanukenaiManFeaturesArticle({
                   key={faq.question}
                   className="group overflow-hidden rounded-[16px] border border-black/10 bg-white"
                 >
-                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-[13px] font-black">
+                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-[15px] font-black">
                     {faq.question}
 
                     <span className="shrink-0 text-[#1677FF] transition group-open:rotate-180">
@@ -631,7 +647,7 @@ export default function AkanukenaiManFeaturesArticle({
                     </span>
                   </summary>
 
-                  <p className="border-t border-black/5 px-5 py-4 text-[12px] font-medium leading-6 text-black/70">
+                  <p className="border-t border-black/5 px-5 py-4 text-[14px] font-medium leading-7 text-black/70">
                     {faq.answer}
                   </p>
                 </details>
@@ -653,7 +669,7 @@ export default function AkanukenaiManFeaturesArticle({
               原因のタイプを見分けることが、最初の一歩
             </h2>
 
-            <div className="mt-5 text-[14px] leading-8 text-black/80">
+            <div className="mt-5 text-[16px] leading-8 text-black/80">
               <p>
                 垢抜けない原因は、手入れ不足、選び方のずれ、進め方の3つのタイプに分けられます。努力しても変わらないときは、原因と対策のタイプが合っていない可能性があります。
               </p>

@@ -419,7 +419,7 @@ export default function MensConcealerArticle({
 
                   href={`#${item.id}`}
 
-                  className="flex gap-3 text-[11px] font-medium leading-5 text-black/70 transition hover:text-[#1677FF]"
+                  className="flex gap-3 text-[13px] font-medium leading-6 text-black/70 transition hover:text-[#1677FF]"
 
                 >
 
@@ -445,7 +445,7 @@ export default function MensConcealerArticle({
 
       <div className="min-w-0">
 
-        <section className="text-[14px] leading-8 text-black/80">
+        <section className="text-[16px] leading-8 text-black/80">
 
           <p>
 
@@ -472,17 +472,17 @@ export default function MensConcealerArticle({
           </p>
 
           <div className="mt-7 rounded-[20px] border border-[#1677FF]/15 bg-[#EEF6FF] p-5">
-            <p className="text-[12px] font-black text-[#1677FF]">
+            <p className="text-[14px] font-black text-[#1677FF]">
               AKANUKE.AIの診断データより
             </p>
 
-            <p className="mt-3 text-[12px] font-medium leading-6 text-black/70">
+            <p className="mt-3 text-[14px] font-medium leading-7 text-black/70">
               AKANUKE.AIのAI診断の結果を集計したところ、肌の色ムラ・赤み・くすみを自然に整えるケアが、およそ7件に6件（86.8%）の診断で必要と判定されました。ニキビ跡やクマなど部分的な色ムラは、コンシーラーで整えられる代表的な課題です。
             </p>
 
             <Link
               href="/media/mens-akanuke-diagnosis-data"
-              className="mt-3 inline-block text-[12px] font-bold text-[#1677FF] transition hover:opacity-70"
+              className="mt-3 inline-block text-[14px] font-bold text-[#1677FF] transition hover:opacity-70"
             >
               診断データの記事を見る →
             </Link>
@@ -510,7 +510,7 @@ export default function MensConcealerArticle({
 
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
 
             <p>
 
@@ -534,13 +534,13 @@ export default function MensConcealerArticle({
 
           <div className="mt-7 rounded-[20px] border border-[#1677FF]/15 bg-[#EEF6FF] p-5">
 
-            <p className="text-[12px] font-black text-[#1677FF]">
+            <p className="text-[14px] font-black text-[#1677FF]">
 
               初心者が覚えておきたいポイント
 
             </p>
 
-            <p className="mt-3 text-[12px] font-medium leading-6 text-black/70">
+            <p className="mt-3 text-[14px] font-medium leading-7 text-black/70">
 
               コンシーラーは「隠したいから多く塗る」のではなく、「必要な部分だけ少量使う」方が自然に仕上げやすくなります。
 
@@ -570,7 +570,7 @@ export default function MensConcealerArticle({
 
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
 
             <p>
 
@@ -607,7 +607,7 @@ export default function MensConcealerArticle({
               sizes="(max-width: 640px) calc(100vw - 40px), (max-width: 1024px) 100vw, 680px"
               className="h-auto w-full"
             />
-            <figcaption className="px-4 py-3 text-[11px] font-medium leading-5 text-black/65">
+            <figcaption className="px-4 py-3 text-[13px] font-medium leading-6 text-black/65">
               BBクリームは顔全体、コンシーラーは気になる部分をカバーするためのアイテムです。
             </figcaption>
           </figure>
@@ -676,7 +676,7 @@ export default function MensConcealerArticle({
 
                     </h3>
 
-                    <p className="mt-2 text-[12px] font-medium leading-6 text-black/70">
+                    <p className="mt-2 text-[14px] font-medium leading-7 text-black/70">
 
                       {item.description}
 
@@ -722,7 +722,7 @@ export default function MensConcealerArticle({
 
           </h2>
 
-          <p className="mt-4 text-[13px] font-medium leading-7 text-black/70">
+          <p className="mt-4 text-[15px] font-medium leading-7 text-black/70">
 
             初心者は、一度で完璧に隠そうとせず、少量ずつ調整するのがポイントです。
 
@@ -742,7 +742,7 @@ export default function MensConcealerArticle({
 
                 <div className="flex items-start gap-3">
 
-                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white text-[10px] font-black text-[#1677FF]">
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white text-[11px] font-black text-[#1677FF]">
 
                     {String(index + 1).padStart(2, "0")}
 
@@ -750,13 +750,13 @@ export default function MensConcealerArticle({
 
                   <div>
 
-                    <h3 className="text-[15px] font-black">
+                    <h3 className="text-[16px] font-black">
 
                       {item.title}
 
                     </h3>
 
-                    <p className="mt-2 text-[12px] font-medium leading-6 text-black/70">
+                    <p className="mt-2 text-[14px] font-medium leading-7 text-black/70">
 
                       {item.description}
 
@@ -781,7 +781,7 @@ export default function MensConcealerArticle({
               sizes="(max-width: 640px) calc(100vw - 40px), (max-width: 1024px) 100vw, 680px"
               className="h-auto w-full"
             />
-            <figcaption className="px-4 py-3 text-[11px] font-medium leading-5 text-black/65">
+            <figcaption className="px-4 py-3 text-[13px] font-medium leading-6 text-black/65">
               少量を気になる部分に置き、境目をやさしくなじませます。
             </figcaption>
           </figure>
@@ -808,7 +808,7 @@ export default function MensConcealerArticle({
 
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
 
             <p>
 
@@ -845,7 +845,7 @@ export default function MensConcealerArticle({
               sizes="(max-width: 640px) calc(100vw - 40px), (max-width: 1024px) 100vw, 680px"
               className="h-auto w-full"
             />
-            <figcaption className="px-4 py-3 text-[11px] font-medium leading-5 text-black/65">
+            <figcaption className="px-4 py-3 text-[13px] font-medium leading-6 text-black/65">
               青髭のカバー方法を示したAI生成イメージです。仕上がりには個人差があります。
             </figcaption>
           </figure>
@@ -864,6 +864,19 @@ export default function MensConcealerArticle({
 
           </div>
 
+          <div className="mt-5 space-y-1 text-[13px] font-medium leading-6 text-black/50">
+            <p>
+              参考：
+              <a
+                href="https://maison.kose.co.jp/article/g/gmens-makeup-2510-01/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline transition hover:text-[#1677FF]"
+              >
+                コーセー「ワンポイントメンズメイクおすすめ」
+              </a>
+            </p>
+          </div>
         </section>
 
         <section
@@ -886,7 +899,7 @@ export default function MensConcealerArticle({
 
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
 
             <p>
 
@@ -936,7 +949,7 @@ export default function MensConcealerArticle({
 
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
 
             <p>
 
@@ -980,7 +993,7 @@ export default function MensConcealerArticle({
 
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
 
             <p>
 
@@ -1010,13 +1023,13 @@ export default function MensConcealerArticle({
 
           <div className="mt-7 rounded-[20px] border border-[#FFD400]/40 bg-[#FFF9D9] p-5">
 
-            <p className="text-[12px] font-black text-[#111111]">
+            <p className="text-[14px] font-black text-[#111111]">
 
               色選びで迷ったら
 
             </p>
 
-            <p className="mt-3 text-[12px] font-medium leading-6 text-black/70">
+            <p className="mt-3 text-[14px] font-medium leading-7 text-black/70">
 
               まずは肌色に近い色を1色試し、自然光に近い場所で白浮きしないか確認します。青髭だけが残る場合は補正色を検討し、色が目立つなら量を減らして調整しましょう。
 
@@ -1046,7 +1059,7 @@ export default function MensConcealerArticle({
 
           </h2>
 
-          <p className="mt-5 text-[14px] leading-8 text-black/80">
+          <p className="mt-5 text-[16px] leading-8 text-black/80">
 
             コンシーラーには、主に次の3つのタイプがあります。最初の1本は、一番隠したい悩みに合わせて選びましょう。
 
@@ -1064,19 +1077,19 @@ export default function MensConcealerArticle({
 
               >
 
-                <h3 className="text-[15px] font-black">
+                <h3 className="text-[16px] font-black">
 
                   {type.name}
 
                 </h3>
 
-                <p className="mt-2 text-[12px] font-bold leading-6 text-[#1677FF]">
+                <p className="mt-2 text-[14px] font-bold leading-7 text-[#1677FF]">
 
                   向いている悩み：{type.suited}
 
                 </p>
 
-                <p className="mt-2 text-[12px] font-medium leading-6 text-black/70">
+                <p className="mt-2 text-[14px] font-medium leading-7 text-black/70">
 
                   {type.description}
 
@@ -1088,7 +1101,7 @@ export default function MensConcealerArticle({
 
           </div>
 
-          <p className="mt-4 text-[12px] leading-6 text-black/60">
+          <p className="mt-4 text-[14px] leading-7 text-black/60">
 
             ※硬さやカバー力は製品によって異なります。購入前に、テスターや製品の説明で確認しましょう。
 
@@ -1130,7 +1143,7 @@ export default function MensConcealerArticle({
 
                 <div className="flex items-start gap-3">
 
-                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white text-[10px] font-black text-[#1677FF]">
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white text-[11px] font-black text-[#1677FF]">
 
                     {index + 1}
 
@@ -1138,13 +1151,13 @@ export default function MensConcealerArticle({
 
                   <div>
 
-                    <h3 className="text-[15px] font-black">
+                    <h3 className="text-[16px] font-black">
 
                       {item.title}
 
                     </h3>
 
-                    <p className="mt-2 text-[12px] font-medium leading-6 text-black/70">
+                    <p className="mt-2 text-[14px] font-medium leading-7 text-black/70">
 
                       {item.description}
 
@@ -1182,7 +1195,7 @@ export default function MensConcealerArticle({
 
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
 
             <p>
 
@@ -1206,7 +1219,7 @@ export default function MensConcealerArticle({
 
           <div className="mt-7 rounded-[20px] border border-black/10 bg-[#F8FAFC] p-5">
 
-            <div className="space-y-3 text-[13px] font-bold text-[#111111]">
+            <div className="space-y-3 text-[15px] font-bold text-[#111111]">
 
               <p>
 
@@ -1284,7 +1297,7 @@ export default function MensConcealerArticle({
 
           </h2>
 
-          <p className="mt-4 text-[13px] font-medium leading-6 text-black/70">
+          <p className="mt-4 text-[15px] font-medium leading-6 text-black/70">
 
             AKANUKE.AIでは、顔写真をもとに髪型・眉毛・肌・全体の印象をAIが分析。自分はどこから整えるべきかを確認できます。
 
@@ -1326,7 +1339,7 @@ export default function MensConcealerArticle({
 
               >
 
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-[13px] font-black">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-[15px] font-black">
 
                   {faq.question}
 
@@ -1338,7 +1351,7 @@ export default function MensConcealerArticle({
 
                 </summary>
 
-                <p className="border-t border-black/5 px-5 py-4 text-[12px] font-medium leading-6 text-black/70">
+                <p className="border-t border-black/5 px-5 py-4 text-[14px] font-medium leading-7 text-black/70">
 
                   {faq.answer}
 
@@ -1374,7 +1387,7 @@ export default function MensConcealerArticle({
 
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
 
             <p>
 

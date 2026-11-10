@@ -287,7 +287,7 @@ export default function MensAkanukeOrderArticle({
               <li key={item.id}>
                 <a
                   href={`#${item.id}`}
-                  className="flex gap-3 text-[11px] font-medium leading-5 text-black/70 transition hover:text-[#1677FF]"
+                  className="flex gap-3 text-[13px] font-medium leading-6 text-black/70 transition hover:text-[#1677FF]"
                 >
                   <span className="shrink-0 font-black text-[#1677FF]">
                     {String(index + 1).padStart(2, "0")}
@@ -302,7 +302,7 @@ export default function MensAkanukeOrderArticle({
       </aside>
 
       <div className="min-w-0">
-        <section className="text-[14px] leading-8 text-black/80">
+        <section className="text-[16px] leading-8 text-black/80">
           <p>
             「垢抜けたいけれど、髪型・眉毛・肌・服装のどこから変えればいいか分からない」と悩んでいませんか？
           </p>
@@ -314,6 +314,22 @@ export default function MensAkanukeOrderArticle({
           <p className="mt-5">
             この記事では、順番を決める3つの基準と、それに沿った7つのステップ、4週間で進めるスケジュール例を紹介します。
           </p>
+          <div className="mt-7 rounded-[20px] border border-[#1677FF]/15 bg-[#EEF6FF] p-5">
+            <p className="text-[14px] font-black text-[#1677FF]">
+              AKANUKE.AIの診断データより
+            </p>
+
+            <p className="mt-3 text-[14px] font-medium leading-7 text-black/70">
+              AKANUKE.AIのAI診断の結果を集計したところ、必要と判定されることが多かったケアは、肌色・色ムラの補正（86.8%）と髪のまとまり（75.0%）でした。この記事で最初に取り組む髪と肌は、多くの人に共通する課題です。
+            </p>
+
+            <Link
+              href="/media/mens-akanuke-diagnosis-data"
+              className="mt-3 inline-block text-[14px] font-bold text-[#1677FF] transition hover:opacity-70"
+            >
+              診断データの記事を見る →
+            </Link>
+          </div>
         </section>
 
         <section
@@ -328,7 +344,7 @@ export default function MensAkanukeOrderArticle({
             順番を決める3つの基準
           </h2>
 
-          <p className="mt-6 text-[14px] leading-8 text-black/80">
+          <p className="mt-6 text-[16px] leading-8 text-black/80">
             この記事で紹介する順番は、次の3つの基準で決めています。基準を知っておくと、自分の状況に合わせて順番を入れ替えるときにも判断しやすくなります。
           </p>
 
@@ -342,11 +358,11 @@ export default function MensAkanukeOrderArticle({
                   RULE {rule.number}
                 </p>
 
-                <p className="mt-2 text-[13px] font-bold">
+                <p className="mt-2 text-[15px] font-bold">
                   {rule.title}
                 </p>
 
-                <p className="mt-2 text-[12px] leading-7 text-black/70">
+                <p className="mt-2 text-[14px] leading-7 text-black/70">
                   {rule.description}
                 </p>
               </div>
@@ -354,15 +370,15 @@ export default function MensAkanukeOrderArticle({
           </div>
 
           <div className="mt-7 rounded-[20px] border border-[#1677FF]/15 bg-[#EEF6FF] p-5">
-            <p className="text-[12px] font-black text-[#1677FF]">
+            <p className="text-[14px] font-black text-[#1677FF]">
               おすすめの基本順序
             </p>
 
-            <p className="mt-3 text-[12px] font-bold leading-6 text-black/65">
+            <p className="mt-3 text-[14px] font-bold leading-7 text-black/65">
               髪型 → 眉毛 → 肌 → ヒゲ・ムダ毛 → 服装 → 姿勢 → 写真で比べる
             </p>
 
-            <p className="mt-2 text-[11px] font-medium leading-6 text-black/60">
+            <p className="mt-2 text-[13px] font-medium leading-6 text-black/60">
               ※肌の習慣は、順番に関係なく1日目から並行して始めます。
             </p>
           </div>
@@ -380,7 +396,7 @@ export default function MensAkanukeOrderArticle({
             メンズが垢抜けるおすすめの順番
           </h2>
 
-          <p className="mt-4 text-[13px] font-medium leading-7 text-black/70">
+          <p className="mt-4 text-[15px] font-medium leading-7 text-black/70">
             すでに整っている項目は飛ばして構いません。各ステップの「この順番の理由」を参考に、自分に必要なものから進めてください。
           </p>
 
@@ -400,7 +416,7 @@ export default function MensAkanukeOrderArticle({
                       {step.title}
                     </h3>
 
-                    <p className="mt-3 text-[13px] leading-7 text-black/75">
+                    <p className="mt-3 text-[15px] leading-7 text-black/75">
                       <span className="mr-2 font-black text-[#1677FF]">
                         この順番の理由
                       </span>
@@ -409,7 +425,7 @@ export default function MensAkanukeOrderArticle({
                     </p>
 
                     <div className="mt-4 rounded-[14px] bg-[#FFF9D9] px-4 py-3">
-                      <p className="text-[11px] font-bold leading-6 text-black/65">
+                      <p className="text-[13px] font-bold leading-6 text-black/65">
                         <span className="mr-2 font-black text-[#9A7800]">
                           やること
                         </span>
@@ -431,7 +447,7 @@ export default function MensAkanukeOrderArticle({
                     {step.href && step.linkLabel && (
                       <Link
                         href={step.href}
-                        className="mt-4 flex min-h-[44px] items-center justify-between rounded-[12px] border border-[#1677FF]/15 bg-[#EEF6FF] px-4 text-[11px] font-black text-[#1677FF] transition hover:bg-[#E3F0FF]"
+                        className="mt-4 flex min-h-[44px] items-center justify-between rounded-[12px] border border-[#1677FF]/15 bg-[#EEF6FF] px-4 text-[13px] font-black text-[#1677FF] transition hover:bg-[#E3F0FF]"
                       >
                         <span>{step.linkLabel}</span>
                         <span aria-hidden="true">→</span>
@@ -461,7 +477,7 @@ export default function MensAkanukeOrderArticle({
             4週間で進めるスケジュール例
           </h2>
 
-          <p className="mt-5 text-[14px] leading-8 text-black/80">
+          <p className="mt-5 text-[16px] leading-8 text-black/80">
             7つのステップを1か月で進める場合の例です。1回で終わる作業と、毎日続ける習慣を組み合わせています。予定に合わせて、週をずらしても問題ありません。
           </p>
 
@@ -475,11 +491,11 @@ export default function MensAkanukeOrderArticle({
                   {week.week}
                 </p>
 
-                <h3 className="mt-1 text-[16px] font-bold">
+                <h3 className="mt-1 text-[17px] font-bold">
                   {week.title}
                 </h3>
 
-                <ul className="mt-4 space-y-2 text-[13px] leading-7 text-black/75">
+                <ul className="mt-4 space-y-2 text-[15px] leading-7 text-black/75">
                   {week.items.map((item) => (
                     <li key={item}>□ {item}</li>
                   ))}
@@ -488,7 +504,7 @@ export default function MensAkanukeOrderArticle({
             ))}
           </div>
 
-          <p className="mt-4 text-[11px] leading-6 text-black/60">
+          <p className="mt-4 text-[13px] leading-6 text-black/60">
             ※1週目の写真は、4週目に同じ場所・同じ明るさで撮り直して比べるために使います。
           </p>
         </section>
@@ -505,7 +521,7 @@ export default function MensAkanukeOrderArticle({
             順番を変えたほうがいいケース
           </h2>
 
-          <p className="mt-5 text-[14px] leading-8 text-black/80">
+          <p className="mt-5 text-[16px] leading-8 text-black/80">
             紹介した順番は、多くの人に当てはまりやすい目安です。次のような場合は、順番を入れ替えて構いません。
           </p>
 
@@ -516,16 +532,16 @@ export default function MensAkanukeOrderArticle({
                 className="rounded-[18px] border border-black/10 bg-white p-5"
               >
                 <div className="flex items-start gap-4">
-                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#EEF6FF] text-[10px] font-black text-[#1677FF]">
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#EEF6FF] text-[11px] font-black text-[#1677FF]">
                     {String(index + 1).padStart(2, "0")}
                   </span>
 
                   <div>
-                    <h3 className="text-[15px] font-black">
+                    <h3 className="text-[16px] font-black">
                       {exception.title}
                     </h3>
 
-                    <p className="mt-2 text-[12px] font-medium leading-6 text-black/70">
+                    <p className="mt-2 text-[14px] font-medium leading-7 text-black/70">
                       {exception.description}
                     </p>
                   </div>
@@ -547,7 +563,7 @@ export default function MensAkanukeOrderArticle({
             費用で考える進め方
           </h2>
 
-          <p className="mt-5 text-[14px] leading-8 text-black/80">
+          <p className="mt-5 text-[16px] leading-8 text-black/80">
             垢抜けに必要なことは、費用の面から3つに分けられます。予算が限られている場合は、上から順に取り組みましょう。
           </p>
 
@@ -557,11 +573,11 @@ export default function MensAkanukeOrderArticle({
                 key={level.title}
                 className="rounded-[18px] border border-black/10 bg-[#F8FAFC] p-5"
               >
-                <h3 className="text-[15px] font-black">
+                <h3 className="text-[16px] font-black">
                   {level.title}
                 </h3>
 
-                <p className="mt-3 text-[12px] font-medium leading-6 text-black/70">
+                <p className="mt-3 text-[14px] font-medium leading-7 text-black/70">
                   {level.description}
                 </p>
               </article>
@@ -594,7 +610,7 @@ export default function MensAkanukeOrderArticle({
             自分は何から変えるべき？
           </h2>
 
-          <p className="mt-4 text-[13px] font-medium leading-6 text-black/70">
+          <p className="mt-4 text-[15px] font-medium leading-6 text-black/70">
             AKANUKE.AIでは、顔写真をもとに髪型・眉毛・肌・全体の印象をAIが分析し、あなたに合った垢抜けプランを提案します。
           </p>
 
@@ -619,7 +635,7 @@ export default function MensAkanukeOrderArticle({
                 key={faq.question}
                 className="group overflow-hidden rounded-[16px] border border-black/10 bg-white"
               >
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-[13px] font-black">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-[15px] font-black">
                   {faq.question}
 
                   <span className="shrink-0 text-[#1677FF] transition group-open:rotate-180">
@@ -627,7 +643,7 @@ export default function MensAkanukeOrderArticle({
                   </span>
                 </summary>
 
-                <p className="border-t border-black/5 px-5 py-4 text-[12px] font-medium leading-6 text-black/70">
+                <p className="border-t border-black/5 px-5 py-4 text-[14px] font-medium leading-7 text-black/70">
                   {faq.answer}
                 </p>
               </details>
@@ -649,7 +665,7 @@ export default function MensAkanukeOrderArticle({
             順番の理由が分かれば、自分に合わせて組み替えられる
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
             <p>
               垢抜ける順番は、「見える面積が大きいもの」「ほかの工程の前提になるもの」「時間がかかるもの」を先にするのが基本です。この基準に沿うと、髪型、眉毛、肌、ヒゲ、服装、姿勢の順になります。
             </p>

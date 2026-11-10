@@ -182,7 +182,7 @@ export default function MensHairWaxArticle({
               <li key={item.id}>
                 <a
                   href={`#${item.id}`}
-                  className="flex gap-3 text-[11px] font-medium leading-5 text-black/70 transition hover:text-[#1677FF]"
+                  className="flex gap-3 text-[13px] font-medium leading-6 text-black/70 transition hover:text-[#1677FF]"
                 >
                   <span className="shrink-0 font-black text-[#1677FF]">
                     {String(index + 1).padStart(2, "0")}
@@ -197,7 +197,7 @@ export default function MensHairWaxArticle({
       </aside>
 
       <div className="min-w-0">
-        <section className="text-[14px] leading-8 text-black/80">
+        <section className="text-[16px] leading-8 text-black/80">
           <p>
             「ワックスを付けるとベタベタになる」「付けても時間がたつとつぶれてしまう」と悩んでいませんか？
           </p>
@@ -210,17 +210,17 @@ export default function MensHairWaxArticle({
             この記事では、スタイリング剤の種類と選び方、量の考え方、失敗しにくい付け方7ステップ、よくある失敗の直し方、落とし方を解説します。
           </p>
           <div className="mt-7 rounded-[20px] border border-[#1677FF]/15 bg-[#EEF6FF] p-5">
-            <p className="text-[12px] font-black text-[#1677FF]">
+            <p className="text-[14px] font-black text-[#1677FF]">
               AKANUKE.AIの診断データより
             </p>
 
-            <p className="mt-3 text-[12px] font-medium leading-6 text-black/70">
+            <p className="mt-3 text-[14px] font-medium leading-7 text-black/70">
               AKANUKE.AIのAI診断の結果を集計したところ、前髪や毛流れを整えるケアが半数を超える（52.9%）診断で、髪のまとまりを良くするケアが4件に3件（75.0%）の診断で必要と判定されました。
             </p>
 
             <Link
               href="/media/mens-akanuke-diagnosis-data"
-              className="mt-3 inline-block text-[12px] font-bold text-[#1677FF] transition hover:opacity-70"
+              className="mt-3 inline-block text-[14px] font-bold text-[#1677FF] transition hover:opacity-70"
             >
               診断データの記事を見る →
             </Link>
@@ -239,7 +239,7 @@ export default function MensHairWaxArticle({
             ワックスを付ける前に｜形はドライヤーで作る
           </h2>
 
-          <div className="mt-6 text-[14px] leading-8 text-black/80">
+          <div className="mt-6 text-[16px] leading-8 text-black/80">
             <p>
               ワックスは、髪型を「作る」ものではなく、ドライヤーで作った形を「保つ」ためのものです。乾かし方で形ができていないと、ワックスをいくら足しても思った髪型にはならず、量が増えてベタつくだけになりがちです。
             </p>
@@ -270,7 +270,7 @@ export default function MensHairWaxArticle({
             スタイリング剤の種類と選び方
           </h2>
 
-          <p className="mt-5 text-[14px] leading-8 text-black/80">
+          <p className="mt-5 text-[16px] leading-8 text-black/80">
             スタイリング剤は、仕上がりの質感とセット力で選びます。作りたい髪型に合わせて選びましょう。
           </p>
 
@@ -290,18 +290,18 @@ export default function MensHairWaxArticle({
                   </span>
                 </div>
 
-                <p className="mt-3 text-[12px] font-bold leading-6 text-black/70">
+                <p className="mt-3 text-[14px] font-bold leading-7 text-black/70">
                   向いている人：{type.suited}
                 </p>
 
-                <p className="mt-2 text-[12px] font-medium leading-6 text-black/60">
+                <p className="mt-2 text-[14px] font-medium leading-7 text-black/60">
                   {type.note}
                 </p>
               </div>
             ))}
           </div>
 
-          <p className="mt-4 text-[12px] leading-6 text-black/60">
+          <p className="mt-4 text-[14px] leading-7 text-black/60">
             ※分類や名称は製品によって異なります。セット力やツヤの程度は、パッケージの表示で確認しましょう。
           </p>
         </section>
@@ -318,7 +318,7 @@ export default function MensHairWaxArticle({
             量の目安と考え方
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
             <p>
               適量は、髪の長さや量、製品のかたさによって違います。まずは製品の表示を確認し、それより少なめの量から始めましょう。
             </p>
@@ -329,11 +329,11 @@ export default function MensHairWaxArticle({
           </div>
 
           <div className="mt-7 rounded-[20px] border border-[#1677FF]/15 bg-[#EEF6FF] p-5">
-            <p className="text-[12px] font-black text-[#1677FF]">
+            <p className="text-[14px] font-black text-[#1677FF]">
               自分の適量を見つける方法
             </p>
 
-            <p className="mt-3 text-[12px] font-medium leading-6 text-black/70">
+            <p className="mt-3 text-[14px] font-medium leading-7 text-black/70">
               少なめの量で1日過ごし、夕方に形が崩れていないかを確認します。崩れていれば、次の日は少しだけ増やします。数日続けると、自分の髪に合った量が分かります。
             </p>
           </div>
@@ -351,7 +351,7 @@ export default function MensHairWaxArticle({
             メンズのワックスの付け方7ステップ
           </h2>
 
-          <p className="mt-4 text-[13px] font-medium leading-7 text-black/70">
+          <p className="mt-4 text-[15px] font-medium leading-7 text-black/70">
             付ける順番は「後頭部・トップの内側 → 中間から毛先 → 前髪」です。手に一番多く付いている状態で、目立たない部分から付けるのがポイントです。
           </p>
 
@@ -364,7 +364,7 @@ export default function MensHairWaxArticle({
               sizes="(max-width: 640px) calc(100vw - 40px), (max-width: 1024px) 100vw, 680px"
               className="h-auto w-full"
             />
-            <figcaption className="px-4 py-3 text-[11px] font-medium leading-5 text-black/65">
+            <figcaption className="px-4 py-3 text-[13px] font-medium leading-6 text-black/65">
               手に一番多く付いている状態で後頭部とトップの内側から付け、前髪は最後に整えます。
             </figcaption>
           </figure>
@@ -385,12 +385,12 @@ export default function MensHairWaxArticle({
                       {step.title}
                     </h3>
 
-                    <p className="mt-3 text-[13px] leading-7 text-black/75">
+                    <p className="mt-3 text-[15px] leading-7 text-black/75">
                       {step.description}
                     </p>
 
                     <div className="mt-4 rounded-[14px] bg-[#FFF9D9] px-4 py-3">
-                      <p className="text-[11px] font-bold leading-6 text-black/65">
+                      <p className="text-[13px] font-bold leading-6 text-black/65">
                         <span className="mr-2 font-black text-[#9A7800]">
                           POINT
                         </span>
@@ -431,7 +431,7 @@ export default function MensHairWaxArticle({
               sizes="(max-width: 640px) calc(100vw - 40px), (max-width: 1024px) 100vw, 680px"
               className="h-auto w-full"
             />
-            <figcaption className="px-4 py-3 text-[11px] font-medium leading-5 text-black/65">
+            <figcaption className="px-4 py-3 text-[13px] font-medium leading-6 text-black/65">
               付ける前に、手のひらから指の間まで、かたまりが見えなくなるまで伸ばします。
             </figcaption>
           </figure>
@@ -443,16 +443,16 @@ export default function MensHairWaxArticle({
                 className="rounded-[18px] border border-black/10 bg-[#F8FAFC] p-5"
               >
                 <div className="flex items-start gap-3">
-                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white text-[10px] font-black text-[#1677FF]">
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white text-[11px] font-black text-[#1677FF]">
                     {index + 1}
                   </span>
 
                   <div>
-                    <h3 className="text-[15px] font-black">
+                    <h3 className="text-[16px] font-black">
                       {mistake.title}
                     </h3>
 
-                    <p className="mt-2 text-[12px] font-medium leading-6 text-black/70">
+                    <p className="mt-2 text-[14px] font-medium leading-7 text-black/70">
                       {mistake.description}
                     </p>
                   </div>
@@ -474,7 +474,7 @@ export default function MensHairWaxArticle({
             ワックスの落とし方
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
             <p>
               ワックスを付けた日は、その日のうちにシャンプーで落とします。シャンプーの前に、ぬるま湯で髪と頭皮をしっかりすすいでおくと、泡立ちがよくなり落としやすくなります。
             </p>
@@ -506,7 +506,7 @@ export default function MensHairWaxArticle({
             顔全体の改善ポイントを確認
           </h2>
 
-          <p className="mt-4 text-[13px] font-medium leading-6 text-black/70">
+          <p className="mt-4 text-[15px] font-medium leading-6 text-black/70">
             AKANUKE.AIでは、顔写真をもとに髪型・眉毛・肌・全体の印象をAIが分析。自分はどこから整えるべきかを確認できます。
           </p>
 
@@ -531,7 +531,7 @@ export default function MensHairWaxArticle({
                 key={faq.question}
                 className="group overflow-hidden rounded-[16px] border border-black/10 bg-white"
               >
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-[13px] font-black">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-[15px] font-black">
                   {faq.question}
 
                   <span className="shrink-0 text-[#1677FF] transition group-open:rotate-180">
@@ -539,7 +539,7 @@ export default function MensHairWaxArticle({
                   </span>
                 </summary>
 
-                <p className="border-t border-black/5 px-5 py-4 text-[12px] font-medium leading-6 text-black/70">
+                <p className="border-t border-black/5 px-5 py-4 text-[14px] font-medium leading-7 text-black/70">
                   {faq.answer}
                 </p>
               </details>
@@ -561,7 +561,7 @@ export default function MensHairWaxArticle({
             ワックスは「少なめ」と「付ける順番」がすべて
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
             <p>
               ワックスは、ドライヤーで作った形を保つためのものです。まず乾かし方で形を作り、作りたい髪型に合ったスタイリング剤を、少なめの量から使いましょう。
             </p>

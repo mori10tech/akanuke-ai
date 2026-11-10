@@ -208,6 +208,9 @@ export const articles: Article[] = [
 
   publishedAt: "2026-10-28",
 
+
+  updatedAt: "2026-11-10",
+
   readingTime: "約7分",
 
   image: "/media/mens-toner-emulsion.png",
@@ -234,7 +237,7 @@ export const articles: Article[] = [
 
   publishedAt: "2026-10-28",
 
-  updatedAt: "2026-11-09",
+  updatedAt: "2026-11-10",
 
   readingTime: "約8分",
 
@@ -318,7 +321,7 @@ export const articles: Article[] = [
 
   publishedAt: "2026-10-02",
 
-  updatedAt: "2026-11-09",
+  updatedAt: "2026-11-10",
 
   readingTime: "約10分",
 
@@ -347,7 +350,7 @@ export const articles: Article[] = [
 
   publishedAt: "2026-10-01",
 
-  updatedAt: "2026-11-09",
+  updatedAt: "2026-11-10",
 
   readingTime: "約9分",
 
@@ -376,7 +379,7 @@ export const articles: Article[] = [
 
   publishedAt: "2026-09-30",
 
-  updatedAt: "2026-11-09",
+  updatedAt: "2026-11-10",
 
   readingTime: "約9分",
 
@@ -405,7 +408,7 @@ export const articles: Article[] = [
 
     publishedAt: "2026-09-11",
 
-    updatedAt: "2026-10-28",
+    updatedAt: "2026-11-10",
 
     readingTime: "約8分",
 
@@ -489,7 +492,7 @@ export const articles: Article[] = [
 
     publishedAt: "2026-09-08",
 
-    updatedAt: "2026-10-28",
+    updatedAt: "2026-11-10",
 
     readingTime: "約8分",
 
@@ -517,7 +520,7 @@ export const articles: Article[] = [
 
     publishedAt: "2026-09-01",
 
-    updatedAt: "2026-10-28",
+    updatedAt: "2026-11-10",
 
     readingTime: "約8分",
 
@@ -571,7 +574,7 @@ export const articles: Article[] = [
 
     publishedAt: "2026-08-21",
 
-    updatedAt: "2026-10-28",
+    updatedAt: "2026-11-10",
 
     readingTime: "約9分",
 
@@ -599,7 +602,7 @@ export const articles: Article[] = [
 
     publishedAt: "2026-08-21",
 
-    updatedAt: "2026-10-28",
+    updatedAt: "2026-11-10",
 
     readingTime: "約10分",
 

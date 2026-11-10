@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { Article } from "../../../../data/articles";
 import AdSenseAd from "../../../components/AdSenseAd";
 import JournalDiagnosisCta from "../../components/JournalDiagnosisCta";
@@ -229,7 +230,7 @@ export default function MensBeardGroomingArticle({
               <li key={item.id}>
                 <a
                   href={`#${item.id}`}
-                  className="flex gap-3 text-[11px] font-medium leading-5 text-black/70 transition hover:text-[#1677FF]"
+                  className="flex gap-3 text-[13px] font-medium leading-6 text-black/70 transition hover:text-[#1677FF]"
                 >
                   <span className="shrink-0 font-black text-[#1677FF]">
                     {String(index + 1).padStart(2, "0")}
@@ -244,7 +245,7 @@ export default function MensBeardGroomingArticle({
       </aside>
 
       <div className="min-w-0">
-        <section className="text-[14px] leading-8 text-black/80">
+        <section className="text-[16px] leading-8 text-black/80">
           <p>
             「毎朝ヒゲを剃っているのに、昼過ぎには口周りが整って見えない」「ヒゲを残したほうが似合うのか、全部剃ったほうがいいのか分からない」と悩んでいませんか？
           </p>
@@ -256,6 +257,22 @@ export default function MensBeardGroomingArticle({
           <p className="mt-5">
             この記事では、剃るか残すかの判断基準、道具の選び方、毛の流れの確認方法、肌に負担をかけにくい剃り方、ヒゲを残す場合の輪郭の決め方、カミソリ負けの防ぎ方を解説します。
           </p>
+          <div className="mt-7 rounded-[20px] border border-[#1677FF]/15 bg-[#EEF6FF] p-5">
+            <p className="text-[14px] font-black text-[#1677FF]">
+              AKANUKE.AIの診断データより
+            </p>
+
+            <p className="mt-3 text-[14px] font-medium leading-7 text-black/70">
+              AKANUKE.AIのAI診断の結果を集計したところ、青ヒゲやヒゲ影を自然に補正するケアが、約3件に1件（32.4%）の診断で必要と判定されました。ヒゲの剃り方や整え方は、口元の印象を左右するポイントです。
+            </p>
+
+            <Link
+              href="/media/mens-akanuke-diagnosis-data"
+              className="mt-3 inline-block text-[14px] font-bold text-[#1677FF] transition hover:opacity-70"
+            >
+              診断データの記事を見る →
+            </Link>
+          </div>
         </section>
 
         <section
@@ -270,7 +287,7 @@ export default function MensBeardGroomingArticle({
             剃るか残すかを決める基準
           </h2>
 
-          <p className="mt-6 text-[14px] leading-8 text-black/80">
+          <p className="mt-6 text-[16px] leading-8 text-black/80">
             ヒゲそのものが清潔感を下げるわけではありません。きれいに剃ったヒゲも、長さと輪郭を整えて残したヒゲも、手入れされていれば自然に見えます。どちらにするかは、次の3つで判断しましょう。
           </p>
 
@@ -284,11 +301,11 @@ export default function MensBeardGroomingArticle({
                   POINT {String(index + 1).padStart(2, "0")}
                 </p>
 
-                <p className="mt-2 text-[13px] font-bold">
+                <p className="mt-2 text-[15px] font-bold">
                   {point.title}
                 </p>
 
-                <p className="mt-2 text-[12px] leading-7 text-black/70">
+                <p className="mt-2 text-[14px] leading-7 text-black/70">
                   {point.description}
                 </p>
               </div>
@@ -296,11 +313,11 @@ export default function MensBeardGroomingArticle({
           </div>
 
           <div className="mt-7 rounded-[20px] border border-[#1677FF]/15 bg-[#EEF6FF] p-5">
-            <p className="text-[12px] font-black text-[#1677FF]">
+            <p className="text-[14px] font-black text-[#1677FF]">
               迷ったら、まずは剃る
             </p>
 
-            <p className="mt-3 text-[12px] font-medium leading-6 text-black/70">
+            <p className="mt-3 text-[14px] font-medium leading-7 text-black/70">
               判断に迷う場合は、まずきれいに剃った状態で過ごしてみましょう。ヒゲを残すスタイルは、伸ばし始めの時期に不ぞろいに見えやすく、試すなら長期休みなど人に会う機会が少ない時期が向いています。
             </p>
           </div>
@@ -318,7 +335,7 @@ export default function MensBeardGroomingArticle({
             カミソリと電気シェーバーの選び方
           </h2>
 
-          <p className="mt-4 text-[13px] font-medium leading-7 text-black/70">
+          <p className="mt-4 text-[15px] font-medium leading-7 text-black/70">
             剃り上がりの深さと肌への負担は、道具によって変わります。自分の肌の強さと、どこまで深く剃りたいかで選びましょう。
           </p>
 
@@ -332,11 +349,11 @@ export default function MensBeardGroomingArticle({
                   {tool.name}
                 </h3>
 
-                <p className="mt-2 text-[12px] font-bold leading-6 text-[#1677FF]">
+                <p className="mt-2 text-[14px] font-bold leading-7 text-[#1677FF]">
                   {tool.merit}
                 </p>
 
-                <p className="mt-2 text-[12px] font-medium leading-6 text-black/70">
+                <p className="mt-2 text-[14px] font-medium leading-7 text-black/70">
                   {tool.caution}
                 </p>
               </div>
@@ -356,7 +373,7 @@ export default function MensBeardGroomingArticle({
             剃る前に毛の流れを確認する
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
             <p>
               ヒゲが生えている向きは、頬・あご・口周り・首で違うことがあり、人によっても異なります。毛の流れに沿って剃ると、肌への負担を抑えやすくなります。
             </p>
@@ -379,7 +396,7 @@ export default function MensBeardGroomingArticle({
             肌に負担をかけにくい剃り方5ステップ
           </h2>
 
-          <p className="mt-4 text-[13px] font-medium leading-7 text-black/70">
+          <p className="mt-4 text-[15px] font-medium leading-7 text-black/70">
             カミソリを使う場合の手順です。深く剃ることより、肌への負担を抑えながら剃り残しを減らすことを優先しましょう。
           </p>
 
@@ -399,12 +416,12 @@ export default function MensBeardGroomingArticle({
                       {step.title}
                     </h3>
 
-                    <p className="mt-3 text-[13px] leading-7 text-black/75">
+                    <p className="mt-3 text-[15px] leading-7 text-black/75">
                       {step.description}
                     </p>
 
                     <div className="mt-4 rounded-[14px] bg-[#FFF9D9] px-4 py-3">
-                      <p className="text-[11px] font-bold leading-6 text-black/65">
+                      <p className="text-[13px] font-bold leading-6 text-black/65">
                         <span className="mr-2 font-black text-[#9A7800]">
                           POINT
                         </span>
@@ -416,6 +433,19 @@ export default function MensBeardGroomingArticle({
                 </div>
               </section>
             ))}
+          </div>
+          <div className="mt-5 space-y-1 text-[13px] font-medium leading-6 text-black/50">
+            <p>
+              参考：
+              <a
+                href="https://www.kai-group.com/products/kamisori/use/shaving/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline transition hover:text-[#1677FF]"
+              >
+                貝印「正しい髭剃りの方法」
+              </a>
+            </p>
           </div>
         </section>
 
@@ -436,7 +466,7 @@ export default function MensBeardGroomingArticle({
             ヒゲを残す場合の整え方
           </h2>
 
-          <p className="mt-4 text-[13px] font-medium leading-7 text-black/70">
+          <p className="mt-4 text-[15px] font-medium leading-7 text-black/70">
             ヒゲを残すときは、「剃らない」のではなく「残す部分と剃る部分を決める」ことが大切です。長さと輪郭がそろっていると、意図して残していることが伝わります。
           </p>
 
@@ -456,7 +486,7 @@ export default function MensBeardGroomingArticle({
                       {item.title}
                     </h3>
 
-                    <p className="mt-3 text-[13px] leading-7 text-black/75">
+                    <p className="mt-3 text-[15px] leading-7 text-black/75">
                       {item.description}
                     </p>
                   </div>
@@ -478,7 +508,7 @@ export default function MensBeardGroomingArticle({
             カミソリ負け・肌荒れを防ぐには
           </h2>
 
-          <p className="mt-5 text-[14px] leading-8 text-black/80">
+          <p className="mt-5 text-[16px] leading-8 text-black/80">
             剃った後に赤みやヒリつき、ブツブツが出る場合は、剃り方か道具に原因があることが多いものです。次の4つを見直しましょう。
           </p>
 
@@ -489,16 +519,16 @@ export default function MensBeardGroomingArticle({
                 className="rounded-[18px] border border-black/10 bg-[#F8FAFC] p-5"
               >
                 <div className="flex items-start gap-3">
-                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white text-[10px] font-black text-[#1677FF]">
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white text-[11px] font-black text-[#1677FF]">
                     {String(index + 1).padStart(2, "0")}
                   </span>
 
                   <div>
-                    <h3 className="text-[15px] font-black">
+                    <h3 className="text-[16px] font-black">
                       {item.title}
                     </h3>
 
-                    <p className="mt-2 text-[12px] font-medium leading-6 text-black/70">
+                    <p className="mt-2 text-[14px] font-medium leading-7 text-black/70">
                       {item.description}
                     </p>
                   </div>
@@ -516,11 +546,11 @@ export default function MensBeardGroomingArticle({
           </div>
 
           <div className="mt-7 rounded-[20px] border border-[#FFD400]/45 bg-[#FFFBE8] p-5">
-            <p className="text-[12px] font-black text-[#7A6200]">
+            <p className="text-[14px] font-black text-[#7A6200]">
               肌トラブルが続く場合
             </p>
 
-            <p className="mt-3 text-[12px] font-medium leading-6 text-black/70">
+            <p className="mt-3 text-[14px] font-medium leading-7 text-black/70">
               強い赤み・痛み・かゆみ・炎症などが続く場合は、ヒゲ剃りや化粧品だけで解決しようとせず、皮膚科などの医療機関へ相談してください。
             </p>
           </div>
@@ -538,7 +568,7 @@ export default function MensBeardGroomingArticle({
             青ヒゲが気になる場合
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
             <p>
               きれいに剃っても口周りが青く見える場合、皮膚の下に残っているヒゲが透けていることがあります。この青みは、何度も深剃りしても消えないことが多く、かえって肌を傷める原因になります。
             </p>
@@ -570,7 +600,7 @@ export default function MensBeardGroomingArticle({
             顔全体の改善ポイントを確認
           </h2>
 
-          <p className="mt-4 text-[13px] font-medium leading-6 text-black/70">
+          <p className="mt-4 text-[15px] font-medium leading-6 text-black/70">
             AKANUKE.AIでは、顔写真をもとに髪型・眉毛・肌・全体の印象をAIが分析。自分はどこから整えるべきかを確認できます。
           </p>
 
@@ -595,7 +625,7 @@ export default function MensBeardGroomingArticle({
                 key={faq.question}
                 className="group overflow-hidden rounded-[16px] border border-black/10 bg-white"
               >
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-[13px] font-black">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-[15px] font-black">
                   {faq.question}
 
                   <span className="shrink-0 text-[#1677FF] transition group-open:rotate-180">
@@ -603,7 +633,7 @@ export default function MensBeardGroomingArticle({
                   </span>
                 </summary>
 
-                <p className="border-t border-black/5 px-5 py-4 text-[12px] font-medium leading-6 text-black/70">
+                <p className="border-t border-black/5 px-5 py-4 text-[14px] font-medium leading-7 text-black/70">
                   {faq.answer}
                 </p>
               </details>
@@ -625,7 +655,7 @@ export default function MensBeardGroomingArticle({
             メンズのヒゲは「なくす」より「整える」が基本
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
             <p>
               ヒゲを剃るか残すかは、職場の決まり、ヒゲの生え方、手入れにかけられる時間の3つで判断します。剃る場合は、毛の流れを確認したうえで、肌に負担をかけないように剃り残しを減らしましょう。
             </p>

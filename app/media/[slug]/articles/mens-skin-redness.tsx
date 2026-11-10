@@ -187,7 +187,7 @@ export default function MensSkinRednessArticle({
               <li key={item.id}>
                 <a
                   href={`#${item.id}`}
-                  className="flex gap-3 text-[11px] font-medium leading-5 text-black/70 transition hover:text-[#1677FF]"
+                  className="flex gap-3 text-[13px] font-medium leading-6 text-black/70 transition hover:text-[#1677FF]"
                 >
                   <span className="shrink-0 font-black text-[#1677FF]">
                     {String(index + 1).padStart(2, "0")}
@@ -202,7 +202,7 @@ export default function MensSkinRednessArticle({
       </aside>
 
       <div className="min-w-0">
-        <section className="text-[14px] leading-8 text-black/80">
+        <section className="text-[16px] leading-8 text-black/80">
           <p>
             「頬や口元がいつも赤い」「ひげを剃った後に赤くなる」「写真を撮ると、顔の赤みが目立つ」と悩んでいませんか？
           </p>
@@ -216,17 +216,17 @@ export default function MensSkinRednessArticle({
           </p>
 
           <div className="mt-7 rounded-[20px] border border-[#1677FF]/15 bg-[#EEF6FF] p-5">
-            <p className="text-[12px] font-black text-[#1677FF]">
+            <p className="text-[14px] font-black text-[#1677FF]">
               AKANUKE.AIの診断データより
             </p>
 
-            <p className="mt-3 text-[12px] font-medium leading-6 text-black/70">
+            <p className="mt-3 text-[14px] font-medium leading-7 text-black/70">
               AKANUKE.AIのAI診断の結果を集計したところ、肌の色ムラ・赤み・くすみを整えるケアが、およそ7件に6件（86.8%）の診断で必要と判定され、必要なケアの1位でした。
             </p>
 
             <Link
               href="/media/mens-akanuke-diagnosis-data"
-              className="mt-3 inline-block text-[12px] font-bold text-[#1677FF] transition hover:opacity-70"
+              className="mt-3 inline-block text-[14px] font-bold text-[#1677FF] transition hover:opacity-70"
             >
               診断データの記事を見る →
             </Link>
@@ -255,11 +255,11 @@ export default function MensSkinRednessArticle({
                   CAUSE {String(index + 1).padStart(2, "0")}
                 </p>
 
-                <p className="mt-2 text-[13px] font-bold">
+                <p className="mt-2 text-[15px] font-bold">
                   {cause.title}
                 </p>
 
-                <p className="mt-2 text-[12px] leading-7 text-black/70">
+                <p className="mt-2 text-[14px] leading-7 text-black/70">
                   {cause.description}
                 </p>
               </div>
@@ -267,16 +267,16 @@ export default function MensSkinRednessArticle({
           </div>
 
           <div className="mt-7 rounded-[20px] border border-[#FFD400]/60 bg-[#FFF9D9] p-5">
-            <p className="text-[12px] font-black text-[#9A7800]">
+            <p className="text-[14px] font-black text-[#9A7800]">
               皮膚の病気が原因のこともある
             </p>
 
-            <p className="mt-3 text-[12px] font-medium leading-6 text-black/70">
+            <p className="mt-3 text-[14px] font-medium leading-7 text-black/70">
               日本皮膚科学会のガイドラインでは、顔に赤み、細い血管の拡張、ほてり感が続く「酒皶（しゅさ）」という病気が紹介されています。いわゆる「赤ら顔」とも呼ばれ、主に中高年に見られます。紫外線、急な気温の変化、刺激の強い食べ物、アルコールが悪化要因に挙げられています。また、小鼻の横や眉間に赤みと細かい皮むけが出る場合は、別の皮膚の病気のこともあります。こうした赤みは、セルフケアだけで治そうとせず、皮膚科に相談しましょう。
             </p>
           </div>
 
-          <p className="mt-5 text-[11px] font-medium leading-6 text-black/50">
+          <p className="mt-5 text-[13px] font-medium leading-6 text-black/50">
             参考：
             <a
               href="https://www.dermatol.or.jp/dermatol/wp-content/uploads/xoops/files/guideline/zasou2023.pdf"
@@ -301,7 +301,7 @@ export default function MensSkinRednessArticle({
             自分の赤みのタイプを確認する
           </h2>
 
-          <p className="mt-5 text-[14px] leading-8 text-black/80">
+          <p className="mt-5 text-[16px] leading-8 text-black/80">
             赤みが出る場所とタイミングから、おおよその原因を考えることができます。ただし、これは目安です。判断に迷う場合や、複数に当てはまる場合は、皮膚科で相談しましょう。
           </p>
 
@@ -311,15 +311,15 @@ export default function MensSkinRednessArticle({
                 key={row.pattern}
                 className="rounded-[18px] border border-black/10 bg-white p-5"
               >
-                <p className="text-[13px] font-bold leading-6">
+                <p className="text-[15px] font-bold leading-6">
                   {row.pattern}
                 </p>
 
-                <p className="mt-2 text-[12px] font-medium leading-6 text-black/70">
+                <p className="mt-2 text-[14px] font-medium leading-7 text-black/70">
                   考えられる原因：{row.type}
                 </p>
 
-                <p className="mt-1 text-[12px] font-bold leading-6 text-[#1677FF]">
+                <p className="mt-1 text-[14px] font-bold leading-7 text-[#1677FF]">
                   まずやること：{row.next}
                 </p>
               </div>
@@ -339,7 +339,7 @@ export default function MensSkinRednessArticle({
             自分でできる赤み対策
           </h2>
 
-          <p className="mt-4 text-[13px] font-medium leading-7 text-black/70">
+          <p className="mt-4 text-[15px] font-medium leading-7 text-black/70">
             一時的な赤みを落ち着かせるための基本は、肌への刺激を減らし、乾燥と紫外線から守ることです。
           </p>
 
@@ -359,7 +359,7 @@ export default function MensSkinRednessArticle({
                       {step.title}
                     </h3>
 
-                    <p className="mt-3 text-[13px] leading-7 text-black/75">
+                    <p className="mt-3 text-[15px] leading-7 text-black/75">
                       {step.description}
                     </p>
                   </div>
@@ -400,7 +400,7 @@ export default function MensSkinRednessArticle({
             ひげ剃りで赤くならないために
           </h2>
 
-          <p className="mt-5 text-[14px] leading-8 text-black/80">
+          <p className="mt-5 text-[16px] leading-8 text-black/80">
             口元やあごの赤みは、毎日のひげ剃りが原因になっていることがあります。次の4点を見直しましょう。
           </p>
 
@@ -410,11 +410,11 @@ export default function MensSkinRednessArticle({
                 key={tip.title}
                 className="rounded-[18px] border border-black/10 bg-white p-5"
               >
-                <h3 className="text-[15px] font-black">
+                <h3 className="text-[16px] font-black">
                   {tip.title}
                 </h3>
 
-                <p className="mt-2 text-[12px] font-medium leading-6 text-black/70">
+                <p className="mt-2 text-[14px] font-medium leading-7 text-black/70">
                   {tip.description}
                 </p>
               </div>
@@ -442,7 +442,7 @@ export default function MensSkinRednessArticle({
             赤みが気になる日の整え方
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
             <p>
               大事な予定や写真を撮る日に赤みが気になる場合は、BBクリームやコンシーラーで目立たなくする方法もあります。顔全体の色ムラにはBBクリームを薄く、部分的な赤みにはコンシーラーを点で使います。
             </p>
@@ -479,17 +479,17 @@ export default function MensSkinRednessArticle({
             皮膚科に相談したほうがいいサイン
           </h2>
 
-          <p className="mt-5 text-[14px] leading-8 text-black/80">
+          <p className="mt-5 text-[16px] leading-8 text-black/80">
             次のような場合は、セルフケアを続けるより、皮膚科に相談しましょう。赤みの原因によって、必要な治療は大きく異なります。
           </p>
 
-          <ul className="mt-5 list-disc space-y-2 pl-5 text-[13px] leading-7 text-black/75">
+          <ul className="mt-5 list-disc space-y-2 pl-5 text-[15px] leading-7 text-black/75">
             {doctorSigns.map((sign) => (
               <li key={sign}>{sign}</li>
             ))}
           </ul>
 
-          <p className="mt-5 text-[13px] font-medium leading-7 text-black/70">
+          <p className="mt-5 text-[15px] font-medium leading-7 text-black/70">
             受診するときは、いつから、顔のどの部分が、どんなときに赤くなるかをメモしておくと、医師に伝えやすくなります。
           </p>
         </section>
@@ -507,7 +507,7 @@ export default function MensSkinRednessArticle({
             顔全体の改善ポイントを確認
           </h2>
 
-          <p className="mt-4 text-[13px] font-medium leading-6 text-black/70">
+          <p className="mt-4 text-[15px] font-medium leading-6 text-black/70">
             AKANUKE.AIでは、顔写真をもとに髪型・眉毛・肌・全体の印象をAIが分析。自分はどこから整えるべきかを確認できます。
           </p>
 
@@ -532,7 +532,7 @@ export default function MensSkinRednessArticle({
                 key={faq.question}
                 className="group overflow-hidden rounded-[16px] border border-black/10 bg-white"
               >
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-[13px] font-black">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-[15px] font-black">
                   {faq.question}
 
                   <span className="shrink-0 text-[#1677FF] transition group-open:rotate-180">
@@ -540,7 +540,7 @@ export default function MensSkinRednessArticle({
                   </span>
                 </summary>
 
-                <p className="border-t border-black/5 px-5 py-4 text-[12px] font-medium leading-6 text-black/70">
+                <p className="border-t border-black/5 px-5 py-4 text-[14px] font-medium leading-7 text-black/70">
                   {faq.answer}
                 </p>
               </details>
@@ -562,7 +562,7 @@ export default function MensSkinRednessArticle({
             赤みは、原因を見分けてから対策する
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
             <p>
               男性の肌の赤みは、ひげ剃りや洗顔の刺激、乾燥、紫外線、ニキビなど、原因によって対策が変わります。まずは赤みが出る場所とタイミングを確認し、刺激を減らす、保湿する、日焼け止めを使うという基本から見直しましょう。
             </p>

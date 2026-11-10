@@ -220,7 +220,7 @@ export default function MensAkanukeEyebrowsArticle({
               <li key={item.id}>
                 <a
                   href={`#${item.id}`}
-                  className="flex gap-3 text-[11px] font-medium leading-5 text-black/70 transition hover:text-[#1677FF]"
+                  className="flex gap-3 text-[13px] font-medium leading-6 text-black/70 transition hover:text-[#1677FF]"
                 >
                   <span className="shrink-0 font-black text-[#1677FF]">
                     {String(index + 1).padStart(2, "0")}
@@ -235,7 +235,7 @@ export default function MensAkanukeEyebrowsArticle({
       </aside>
 
       <div className="min-w-0">
-        <section className="text-[14px] leading-8 text-black/80">
+        <section className="text-[16px] leading-8 text-black/80">
           <p>
             「眉毛を整えた方がいいとは聞くけれど、どこを剃ればいいのか分からない」「自分で整えたら細くなりすぎた」という経験はありませんか？
           </p>
@@ -258,7 +258,7 @@ export default function MensAkanukeEyebrowsArticle({
             眉毛は「残す範囲」を先に決める
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
             <p>
               眉毛は目元の「枠」のような役割をしています。眉間や眉下に毛が散らばっていると輪郭がぼやけ、目元が重く見えやすくなります。整えるときに目指すのは、眉の形を作り変えることではなく、この輪郭をはっきりさせることです。
             </p>
@@ -269,11 +269,11 @@ export default function MensAkanukeEyebrowsArticle({
           </div>
 
           <div className="mt-7 rounded-[20px] border border-[#1677FF]/15 bg-[#EEF6FF] p-5">
-            <p className="text-[12px] font-black text-[#1677FF]">
+            <p className="text-[14px] font-black text-[#1677FF]">
               処理していいのは「輪郭の外」だけ
             </p>
 
-            <p className="mt-3 text-[12px] font-medium leading-6 text-black/70">
+            <p className="mt-3 text-[14px] font-medium leading-7 text-black/70">
               初めての場合は、眉間と眉下の毛、輪郭から飛び出した長い毛の3つだけを整えます。眉の上側と、眉本体の毛には手を付けません。
             </p>
           </div>
@@ -288,7 +288,7 @@ export default function MensAkanukeEyebrowsArticle({
             眉頭・眉山・眉尻の目安の位置
           </h2>
 
-          <p className="mt-4 text-[13px] font-medium leading-7 text-black/70">
+          <p className="mt-4 text-[15px] font-medium leading-7 text-black/70">
             残す範囲を決めるときは、次の3つの位置を目安にします。一般的に使われる目安で、顔立ちによって合う位置は少しずつ違います。元の眉が目安から少しずれていても、無理に合わせる必要はありません。
           </p>
 
@@ -308,11 +308,11 @@ export default function MensAkanukeEyebrowsArticle({
                       {point.title}
                     </h3>
 
-                    <p className="mt-1 text-[12px] font-bold text-[#1677FF]">
+                    <p className="mt-1 text-[14px] font-bold text-[#1677FF]">
                       目安：{point.position}
                     </p>
 
-                    <p className="mt-3 text-[13px] leading-7 text-black/75">
+                    <p className="mt-3 text-[15px] leading-7 text-black/75">
                       {point.description}
                     </p>
                   </div>
@@ -331,7 +331,7 @@ export default function MensAkanukeEyebrowsArticle({
             道具の選び方と使い分け
           </h2>
 
-          <p className="mt-4 text-[13px] font-medium leading-7 text-black/70">
+          <p className="mt-4 text-[15px] font-medium leading-7 text-black/70">
             最初に必要なのは、コーム・ハサミ・シェーバーの3つです。ペンシルは残す範囲の下書きに使うため、あると失敗を防ぎやすくなります。
           </p>
 
@@ -341,15 +341,15 @@ export default function MensAkanukeEyebrowsArticle({
                 key={tool.name}
                 className="rounded-[18px] border border-black/10 bg-[#F8FAFC] p-5"
               >
-                <h3 className="text-[15px] font-black">
+                <h3 className="text-[16px] font-black">
                   {tool.name}
                 </h3>
 
-                <p className="mt-2 text-[12px] font-bold leading-6 text-[#1677FF]">
+                <p className="mt-2 text-[14px] font-bold leading-7 text-[#1677FF]">
                   {tool.use}
                 </p>
 
-                <p className="mt-2 text-[12px] font-medium leading-6 text-black/70">
+                <p className="mt-2 text-[14px] font-medium leading-7 text-black/70">
                   {tool.note}
                 </p>
               </div>
@@ -366,7 +366,7 @@ export default function MensAkanukeEyebrowsArticle({
             初心者向け｜失敗しにくい眉毛の整え方6ステップ
           </h2>
 
-          <p className="mt-4 text-[13px] font-medium leading-7 text-black/70">
+          <p className="mt-4 text-[15px] font-medium leading-7 text-black/70">
             一度で完成させようとしないことが大切です。次の順番で、少しずつ整えていきましょう。
           </p>
 
@@ -386,12 +386,12 @@ export default function MensAkanukeEyebrowsArticle({
                       {step.title}
                     </h3>
 
-                    <p className="mt-3 text-[13px] leading-7 text-black/75">
+                    <p className="mt-3 text-[15px] leading-7 text-black/75">
                       {step.description}
                     </p>
 
                     <div className="mt-4 rounded-[14px] bg-[#FFF9D9] px-4 py-3">
-                      <p className="text-[11px] font-bold leading-5 text-black/65">
+                      <p className="text-[13px] font-bold leading-6 text-black/65">
                         <span className="mr-2 font-black text-[#9A7800]">
                           POINT
                         </span>
@@ -416,7 +416,7 @@ export default function MensAkanukeEyebrowsArticle({
             失敗したときの対処法
           </h2>
 
-          <p className="mt-4 text-[13px] font-medium leading-7 text-black/70">
+          <p className="mt-4 text-[15px] font-medium leading-7 text-black/70">
             失敗したときに慌てて直そうとすると、さらに削りすぎてしまうことがあります。次のように対処しましょう。
           </p>
 
@@ -427,22 +427,30 @@ export default function MensAkanukeEyebrowsArticle({
                 className="rounded-[18px] border border-black/10 bg-[#F8FAFC] p-5"
               >
                 <div className="flex items-start gap-3">
-                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white text-[10px] font-black text-[#1677FF]">
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white text-[11px] font-black text-[#1677FF]">
                     {index + 1}
                   </span>
 
                   <div>
-                    <h3 className="text-[15px] font-black">
+                    <h3 className="text-[16px] font-black">
                       {trouble.title}
                     </h3>
 
-                    <p className="mt-2 text-[12px] font-medium leading-6 text-black/70">
+                    <p className="mt-2 text-[14px] font-medium leading-7 text-black/70">
                       {trouble.description}
                     </p>
                   </div>
                 </div>
               </div>
             ))}
+          </div>
+
+          <div className="mt-7">
+            <JournalRelatedArticleLink
+              href="/media/mens-eyebrow-drawing"
+              title="メンズの眉毛の描き方を見る"
+              description="剃りすぎた部分や、すき間を自然に描き足す方法を解説しています。"
+            />
           </div>
         </section>
 
@@ -455,7 +463,7 @@ export default function MensAkanukeEyebrowsArticle({
             眉毛サロンを利用する場合
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
             <p>
               輪郭の外の毛を整える程度であれば、自宅で十分にできます。一方で、眉の形そのものを変えたい場合、左右差が大きい場合、自分で整えるのが不安な場合は、眉毛サロンで一度整えてもらう方法があります。
             </p>
@@ -466,17 +474,17 @@ export default function MensAkanukeEyebrowsArticle({
           </div>
 
           <div className="mt-7 rounded-[22px] border border-black/10 bg-[#F8FAFC] p-5 sm:p-6">
-            <p className="text-[12px] font-black text-[#1677FF]">
+            <p className="text-[14px] font-black text-[#1677FF]">
               サロンで伝えると失敗しにくいこと
             </p>
 
-            <ul className="mt-4 space-y-2 text-[13px] font-bold leading-7 text-[#111111]">
+            <ul className="mt-4 space-y-2 text-[15px] font-bold leading-7 text-[#111111]">
               {salonOrders.map((order) => (
                 <li key={order}>{order}</li>
               ))}
             </ul>
 
-            <p className="mt-4 text-[12px] leading-6 text-black/60">
+            <p className="mt-4 text-[14px] leading-7 text-black/60">
               職場の雰囲気や、普段の髪型も伝えておくと、生活に合った形を提案してもらいやすくなります。
             </p>
           </div>
@@ -495,7 +503,7 @@ export default function MensAkanukeEyebrowsArticle({
             顔全体の改善ポイントを確認
           </h2>
 
-          <p className="mt-4 text-[13px] font-medium leading-6 text-black/70">
+          <p className="mt-4 text-[15px] font-medium leading-6 text-black/70">
             AKANUKE.AIでは、顔写真をもとに髪型・眉毛・肌・全体の印象をAIが分析。自分はどこから整えるべきかを確認できます。
           </p>
 
@@ -517,7 +525,7 @@ export default function MensAkanukeEyebrowsArticle({
                 key={faq.question}
                 className="group overflow-hidden rounded-[16px] border border-black/10 bg-white"
               >
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-[13px] font-black">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-[15px] font-black">
                   {faq.question}
 
                   <span className="shrink-0 text-[#1677FF] transition group-open:rotate-180">
@@ -525,7 +533,7 @@ export default function MensAkanukeEyebrowsArticle({
                   </span>
                 </summary>
 
-                <p className="border-t border-black/5 px-5 py-4 text-[12px] font-medium leading-6 text-black/70">
+                <p className="border-t border-black/5 px-5 py-4 text-[14px] font-medium leading-7 text-black/70">
                   {faq.answer}
                 </p>
               </details>
@@ -544,7 +552,7 @@ export default function MensAkanukeEyebrowsArticle({
             残す範囲を決めてから、外側だけを整える
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
             <p>
               眉毛の手入れで大切なのは、形を作り変えることではなく、輪郭をはっきりさせることです。眉頭・眉山・眉尻の目安を参考にペンシルで残す範囲を描き、その外側にある眉間と眉下の毛、飛び出した長い毛だけを整えましょう。
             </p>

@@ -179,7 +179,7 @@ export default function MensBlueBeardArticle({
               <li key={item.id}>
                 <a
                   href={`#${item.id}`}
-                  className="flex gap-3 text-[11px] font-medium leading-5 text-black/70 transition hover:text-[#1677FF]"
+                  className="flex gap-3 text-[13px] font-medium leading-6 text-black/70 transition hover:text-[#1677FF]"
                 >
                   <span className="shrink-0 font-black text-[#1677FF]">
                     {String(index + 1).padStart(2, "0")}
@@ -194,7 +194,7 @@ export default function MensBlueBeardArticle({
       </aside>
 
       <div className="min-w-0">
-        <section className="text-[14px] leading-8 text-black/80">
+        <section className="text-[16px] leading-8 text-black/80">
           <p>
             「毎朝きれいに髭を剃っているのに、口周りが青く見える」「夕方になると青髭が目立ってくる」と悩む男性もいるのではないでしょうか。
           </p>
@@ -211,17 +211,17 @@ export default function MensBlueBeardArticle({
             この記事では、青髭が目立つ原因から、毎日の髭剃り、BBクリームやコンシーラーを使った自然なカバー方法、長期的な選択肢まで初心者向けに解説します。
           </p>
           <div className="mt-7 rounded-[20px] border border-[#1677FF]/15 bg-[#EEF6FF] p-5">
-            <p className="text-[12px] font-black text-[#1677FF]">
+            <p className="text-[14px] font-black text-[#1677FF]">
               AKANUKE.AIの診断データより
             </p>
 
-            <p className="mt-3 text-[12px] font-medium leading-6 text-black/70">
+            <p className="mt-3 text-[14px] font-medium leading-7 text-black/70">
               AKANUKE.AIのAI診断の結果を集計したところ、青ヒゲやヒゲ影を自然に補正するケアが、約3件に1件（32.4%）の診断で必要と判定されました。写真でヒゲ影がはっきり確認できた場合に選ばれる項目です。
             </p>
 
             <Link
               href="/media/mens-akanuke-diagnosis-data"
-              className="mt-3 inline-block text-[12px] font-bold text-[#1677FF] transition hover:opacity-70"
+              className="mt-3 inline-block text-[14px] font-bold text-[#1677FF] transition hover:opacity-70"
             >
               診断データの記事を見る →
             </Link>
@@ -241,7 +241,7 @@ export default function MensBlueBeardArticle({
             青髭はなぜ目立つ？
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
             <p>
               髭を剃った直後でも青く見える場合、「剃り残しているのかな？」と思うかもしれません。
             </p>
@@ -272,11 +272,11 @@ export default function MensBlueBeardArticle({
           </figure>
 
           <div className="mt-7 rounded-[20px] border border-[#1677FF]/15 bg-[#EEF6FF] p-5">
-            <p className="text-[12px] font-black text-[#1677FF]">
+            <p className="text-[14px] font-black text-[#1677FF]">
               青髭対策の基本
             </p>
 
-            <p className="mt-3 text-[12px] font-medium leading-6 text-black/70">
+            <p className="mt-3 text-[14px] font-medium leading-7 text-black/70">
               「青い＝もっと深く剃ればいい」と考えず、まずは肌表面の剃り残しなのか、皮膚の下の髭が透けているのかを分けて考えましょう。
             </p>
           </div>
@@ -294,7 +294,7 @@ export default function MensBlueBeardArticle({
             青髭対策は大きく3つ
           </h2>
 
-          <p className="mt-4 text-[13px] font-medium leading-7 text-black/70">
+          <p className="mt-4 text-[15px] font-medium leading-7 text-black/70">
             青髭への対策は、「剃る」「隠す」「髭そのものを減らす」の3つに分けて考えると整理しやすくなります。
           </p>
 
@@ -314,7 +314,7 @@ export default function MensBlueBeardArticle({
                       {item.title}
                     </h3>
 
-                    <p className="mt-3 text-[13px] leading-7 text-black/75">
+                    <p className="mt-3 text-[15px] leading-7 text-black/75">
                       {item.description}
                     </p>
                   </div>
@@ -327,8 +327,8 @@ export default function MensBlueBeardArticle({
         <section id="choose-measure" className="scroll-mt-24 pt-16">
           <p className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">HOW TO CHOOSE</p>
           <h2 className="mt-2 text-[22px] font-semibold tracking-[-0.04em] sm:text-[26px]">状態別｜自分に合う青髭対策の選び方</h2>
-          <p className="mt-4 text-[13px] leading-7 text-black/75">青く見える原因と、いつまでにどうしたいかで対策は変わります。まずは次の目安で整理してみましょう。</p>
-          <p className="mt-4 text-[13px] leading-7 text-black/75">原因を見分けるには、剃った直後に明るい場所で鏡を見て、指で毛の流れと逆方向に軽くなでてみます。ザラつきがあれば肌表面に残った髭、なめらかなのに青く見えれば皮膚の下の髭が透けている可能性が高いと考えられます。</p>
+          <p className="mt-4 text-[15px] leading-7 text-black/75">青く見える原因と、いつまでにどうしたいかで対策は変わります。まずは次の目安で整理してみましょう。</p>
+          <p className="mt-4 text-[15px] leading-7 text-black/75">原因を見分けるには、剃った直後に明るい場所で鏡を見て、指で毛の流れと逆方向に軽くなでてみます。ザラつきがあれば肌表面に残った髭、なめらかなのに青く見えれば皮膚の下の髭が透けている可能性が高いと考えられます。</p>
           <div className="mt-6 space-y-3">
             {[
               { title: "触るとザラつき、剃り残しがある", action: "まず剃り方とシェーバーの状態を確認", detail: "髭の流れに沿って無理なく剃り、刃の劣化や剃り残しを見直します。ヒリつく場合は深剃りを重ねないでください。" },
@@ -338,13 +338,13 @@ export default function MensBlueBeardArticle({
               { title: "赤み・ヒリつき・ブツブツが続く", action: "見た目のカバーより肌への負担を減らす", detail: "無理な深剃りや刺激の強い製品の重ね使いを避け、症状が続く場合は皮膚科へ相談してください。" },
             ].map((item) => (
               <div key={item.title} className="rounded-[18px] border border-black/10 bg-[#F8FAFC] p-5">
-                <h3 className="text-[14px] font-bold">{item.title}</h3>
-                <p className="mt-2 text-[13px] font-bold text-[#1677FF]">→ {item.action}</p>
-                <p className="mt-2 text-[12px] leading-6 text-black/70">{item.detail}</p>
+                <h3 className="text-[16px] font-bold">{item.title}</h3>
+                <p className="mt-2 text-[15px] font-bold text-[#1677FF]">→ {item.action}</p>
+                <p className="mt-2 text-[14px] leading-7 text-black/70">{item.detail}</p>
               </div>
             ))}
           </div>
-          <p className="mt-4 text-[12px] leading-6 text-black/60">※見た目だけで原因を断定するものではありません。色素沈着など、髭以外の原因が疑われる場合は皮膚科で確認してください。</p>
+          <p className="mt-4 text-[14px] leading-7 text-black/60">※見た目だけで原因を断定するものではありません。色素沈着など、髭以外の原因が疑われる場合は皮膚科で確認してください。</p>
         </section>
 
         <section
@@ -359,7 +359,7 @@ export default function MensBlueBeardArticle({
             まずは髭をきれいに剃る
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
             <p>
               BBクリームやコンシーラーを使う場合でも、その前に肌表面の髭や剃り残しを整えておくことが基本です。
             </p>
@@ -380,16 +380,16 @@ export default function MensBlueBeardArticle({
                 className="rounded-[18px] border border-black/10 bg-[#F8FAFC] p-5"
               >
                 <div className="flex items-start gap-3">
-                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white text-[10px] font-black text-[#1677FF]">
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white text-[11px] font-black text-[#1677FF]">
                     {String(index + 1).padStart(2, "0")}
                   </span>
 
                   <div>
-                    <h3 className="text-[15px] font-black">
+                    <h3 className="text-[16px] font-black">
                       {item.title}
                     </h3>
 
-                    <p className="mt-2 text-[12px] font-medium leading-6 text-black/70">
+                    <p className="mt-2 text-[14px] font-medium leading-7 text-black/70">
                       {item.description}
                     </p>
                   </div>
@@ -436,7 +436,7 @@ export default function MensBlueBeardArticle({
             薄い青髭ならBBクリームで自然にカバー
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
             <p>
               「メイクしているようには見せたくない」という男性が取り入れやすい方法のひとつがBBクリームです。
             </p>
@@ -475,7 +475,7 @@ export default function MensBlueBeardArticle({
             濃い青髭にはコンシーラーという方法も
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
             <p>
               BBクリームを何度重ねても青みが目立つ場合、さらに厚く塗るより、コンシーラーを部分的に使う方法があります。
             </p>
@@ -494,11 +494,11 @@ export default function MensBlueBeardArticle({
           </div>
 
           <div className="mt-7 rounded-[20px] border border-[#1677FF]/15 bg-[#EEF6FF] p-5">
-            <p className="text-[12px] font-black text-[#1677FF]">
+            <p className="text-[14px] font-black text-[#1677FF]">
               なぜオレンジ系の色を使うのか
             </p>
 
-            <p className="mt-3 text-[12px] font-medium leading-6 text-black/70">
+            <p className="mt-3 text-[14px] font-medium leading-7 text-black/70">
               色には、反対の色（補色）を重ねると互いに打ち消し合う性質があります。青の反対側にあるのがオレンジ系の色です。肌色のコンシーラーだけで青みを隠そうとすると、厚く塗ってもグレーっぽく見えることがありますが、先にオレンジ系で青みを打ち消してから肌色を重ねると、少ない量で自然に整えやすくなります。
             </p>
           </div>
@@ -523,6 +523,19 @@ export default function MensBlueBeardArticle({
   />
 </div>
 
+          <div className="mt-5 space-y-1 text-[13px] font-medium leading-6 text-black/50">
+            <p>
+              参考：
+              <a
+                href="https://maison.kose.co.jp/article/g/gmens-makeup-2510-01/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline transition hover:text-[#1677FF]"
+              >
+                コーセー「ワンポイントメンズメイクおすすめ」
+              </a>
+            </p>
+          </div>
         </section>
 
         <section
@@ -544,16 +557,16 @@ export default function MensBlueBeardArticle({
                 className="rounded-[18px] border border-black/10 bg-[#F8FAFC] p-5"
               >
                 <div className="flex items-start gap-3">
-                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white text-[10px] font-black text-[#1677FF]">
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white text-[11px] font-black text-[#1677FF]">
                     {index + 1}
                   </span>
 
                   <div>
-                    <h3 className="text-[15px] font-black">
+                    <h3 className="text-[16px] font-black">
                       {item.title}
                     </h3>
 
-                    <p className="mt-2 text-[12px] font-medium leading-6 text-black/70">
+                    <p className="mt-2 text-[14px] font-medium leading-7 text-black/70">
                       {item.description}
                     </p>
                   </div>
@@ -575,7 +588,7 @@ export default function MensBlueBeardArticle({
             青髭を長期的に目立ちにくくしたい場合
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
             <p>
               髭剃りやBBクリーム・コンシーラーは、その日の見た目を整えるための方法です。
             </p>
@@ -592,6 +605,19 @@ export default function MensBlueBeardArticle({
               検討する場合は、医療機関などで施術内容やリスクについて説明を受け、自分に合う方法か確認してください。
             </p>
           </div>
+          <div className="mt-5 space-y-1 text-[13px] font-medium leading-6 text-black/50">
+            <p>
+              参考：
+              <a
+                href="https://www.kokusen.go.jp/news/data/n-20170511_1.html"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline transition hover:text-[#1677FF]"
+              >
+                国民生活センター「なくならない脱毛施術による危害」（2017年5月11日）
+              </a>
+            </p>
+          </div>
         </section>
 
         <section
@@ -606,7 +632,7 @@ export default function MensBlueBeardArticle({
             青髭だけでなく、顔全体の清潔感も確認
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
             <p>
               青髭が気になると、どうしても口周りだけに目が向きがちです。
             </p>
@@ -634,7 +660,7 @@ export default function MensBlueBeardArticle({
             顔全体の改善ポイントを確認
           </h2>
 
-          <p className="mt-4 text-[13px] font-medium leading-6 text-black/70">
+          <p className="mt-4 text-[15px] font-medium leading-6 text-black/70">
             AKANUKE.AIでは、顔写真をもとに髪型・眉毛・肌・全体の印象をAIが分析。自分はどこから整えるべきかを確認できます。
           </p>
 
@@ -659,7 +685,7 @@ export default function MensBlueBeardArticle({
                 key={faq.question}
                 className="group overflow-hidden rounded-[16px] border border-black/10 bg-white"
               >
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-[13px] font-black">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-[15px] font-black">
                   {faq.question}
 
                   <span className="shrink-0 text-[#1677FF] transition group-open:rotate-180">
@@ -667,7 +693,7 @@ export default function MensBlueBeardArticle({
                   </span>
                 </summary>
 
-                <p className="border-t border-black/5 px-5 py-4 text-[12px] font-medium leading-6 text-black/70">
+                <p className="border-t border-black/5 px-5 py-4 text-[14px] font-medium leading-7 text-black/70">
                   {faq.answer}
                 </p>
               </details>
@@ -689,7 +715,7 @@ export default function MensBlueBeardArticle({
             青髭は「剃る・隠す・減らす」を分けて考えよう
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
             <p>
               青髭は、髭を剃っていないから目立つとは限りません。皮膚の下に残っている髭が透けることで、きれいに剃った後でも青黒く見えることがあります。
             </p>

@@ -190,7 +190,7 @@ export default function MensOilySkinArticle({
               <li key={item.id}>
                 <a
                   href={`#${item.id}`}
-                  className="flex gap-3 text-[11px] font-medium leading-5 text-black/70 transition hover:text-[#1677FF]"
+                  className="flex gap-3 text-[13px] font-medium leading-6 text-black/70 transition hover:text-[#1677FF]"
                 >
                   <span className="shrink-0 font-black text-[#1677FF]">
                     {String(index + 1).padStart(2, "0")}
@@ -205,7 +205,7 @@ export default function MensOilySkinArticle({
       </aside>
 
       <div className="min-w-0">
-        <section className="text-[14px] leading-8 text-black/80">
+        <section className="text-[16px] leading-8 text-black/80">
           <p>
             「朝は普通なのに、昼過ぎには額と鼻がテカっている」「写真を撮ると、顔が光って見える」と悩んでいませんか？
           </p>
@@ -219,17 +219,17 @@ export default function MensOilySkinArticle({
           </p>
 
           <div className="mt-7 rounded-[20px] border border-[#1677FF]/15 bg-[#EEF6FF] p-5">
-            <p className="text-[12px] font-black text-[#1677FF]">
+            <p className="text-[14px] font-black text-[#1677FF]">
               AKANUKE.AIの診断データより
             </p>
 
-            <p className="mt-3 text-[12px] font-medium leading-6 text-black/70">
+            <p className="mt-3 text-[14px] font-medium leading-7 text-black/70">
               AKANUKE.AIのAI診断の結果を集計したところ、皮脂・テカリ対策が61.8%の診断で必要と判定され、必要なケアの3位でした。テカリは写真で特に目立ちやすく、多くの男性に共通する課題です。
             </p>
 
             <Link
               href="/media/mens-akanuke-diagnosis-data"
-              className="mt-3 inline-block text-[12px] font-bold text-[#1677FF] transition hover:opacity-70"
+              className="mt-3 inline-block text-[14px] font-bold text-[#1677FF] transition hover:opacity-70"
             >
               診断データの記事を見る →
             </Link>
@@ -258,18 +258,18 @@ export default function MensOilySkinArticle({
                   REASON {String(index + 1).padStart(2, "0")}
                 </p>
 
-                <p className="mt-2 text-[13px] font-bold">
+                <p className="mt-2 text-[15px] font-bold">
                   {reason.title}
                 </p>
 
-                <p className="mt-2 text-[12px] leading-7 text-black/70">
+                <p className="mt-2 text-[14px] leading-7 text-black/70">
                   {reason.description}
                 </p>
               </div>
             ))}
           </div>
 
-          <p className="mt-5 text-[11px] font-medium leading-6 text-black/50">
+          <p className="mt-5 text-[13px] font-medium leading-6 text-black/50">
             参考：
             <a
               href="https://corp.shiseido.com/jp/news/detail.html?n=00000000003030"
@@ -294,7 +294,7 @@ export default function MensOilySkinArticle({
             朝の対策4ステップ
           </h2>
 
-          <p className="mt-4 text-[13px] font-medium leading-7 text-black/70">
+          <p className="mt-4 text-[15px] font-medium leading-7 text-black/70">
             朝のスキンケアで、日中のテカリ方は変わります。ポイントは、洗いすぎず、保湿を軽く、Tゾーンを中心に対策することです。
           </p>
 
@@ -314,12 +314,12 @@ export default function MensOilySkinArticle({
                       {step.title}
                     </h3>
 
-                    <p className="mt-3 text-[13px] leading-7 text-black/75">
+                    <p className="mt-3 text-[15px] leading-7 text-black/75">
                       {step.description}
                     </p>
 
                     <div className="mt-4 rounded-[14px] bg-[#FFF9D9] px-4 py-3">
-                      <p className="text-[11px] font-bold leading-6 text-black/65">
+                      <p className="text-[13px] font-bold leading-6 text-black/65">
                         <span className="mr-2 font-black text-[#9A7800]">
                           POINT
                         </span>
@@ -359,7 +359,7 @@ export default function MensOilySkinArticle({
             日中のテカリの直し方
           </h2>
 
-          <p className="mt-5 text-[14px] leading-8 text-black/80">
+          <p className="mt-5 text-[16px] leading-8 text-black/80">
             日中に出てきた皮脂は、洗い流すのではなく「押さえて取る」のが基本です。トイレや休憩のタイミングで、次の順番で直しましょう。
           </p>
 
@@ -372,7 +372,7 @@ export default function MensOilySkinArticle({
               sizes="(max-width: 640px) calc(100vw - 40px), (max-width: 1024px) 100vw, 680px"
               className="h-auto w-full"
             />
-            <figcaption className="px-4 py-3 text-[11px] font-medium leading-5 text-black/65">
+            <figcaption className="px-4 py-3 text-[13px] font-medium leading-6 text-black/65">
               あぶらとり紙は、こすらずに肌へ軽く当てて押さえます。
             </figcaption>
           </figure>
@@ -387,11 +387,11 @@ export default function MensOilySkinArticle({
                   STEP {String(index + 1).padStart(2, "0")}
                 </p>
 
-                <p className="mt-2 text-[13px] font-bold">
+                <p className="mt-2 text-[15px] font-bold">
                   {step.title}
                 </p>
 
-                <p className="mt-2 text-[12px] leading-7 text-black/70">
+                <p className="mt-2 text-[14px] leading-7 text-black/70">
                   {step.description}
                 </p>
               </li>
@@ -399,11 +399,11 @@ export default function MensOilySkinArticle({
           </ol>
 
           <div className="mt-7 rounded-[20px] border border-[#1677FF]/15 bg-[#EEF6FF] p-5">
-            <p className="text-[12px] font-black text-[#1677FF]">
+            <p className="text-[14px] font-black text-[#1677FF]">
               BBクリームを使っている場合
             </p>
 
-            <p className="mt-3 text-[12px] font-medium leading-6 text-black/70">
+            <p className="mt-3 text-[14px] font-medium leading-7 text-black/70">
               BBクリームの上から皮脂を押さえるときは、ティッシュを軽く当てるだけにします。こするとBBクリームまで落ちて、色ムラの原因になります。
             </p>
           </div>
@@ -435,11 +435,11 @@ export default function MensOilySkinArticle({
                 key={habit.title}
                 className="rounded-[18px] border border-black/10 bg-white p-5"
               >
-                <h3 className="text-[15px] font-black">
+                <h3 className="text-[16px] font-black">
                   {habit.title}
                 </h3>
 
-                <p className="mt-2 text-[12px] font-medium leading-6 text-black/70">
+                <p className="mt-2 text-[14px] font-medium leading-7 text-black/70">
                   {habit.description}
                 </p>
               </div>
@@ -459,7 +459,7 @@ export default function MensOilySkinArticle({
             テカリ対策のアイテムの選び方
           </h2>
 
-          <p className="mt-5 text-[14px] leading-8 text-black/80">
+          <p className="mt-5 text-[16px] leading-8 text-black/80">
             新しいアイテムを増やす前に、今使っている洗顔料と保湿剤が、自分の肌に合っているかを見直しましょう。そのうえで、必要に応じてパウダーやあぶらとり紙を加えます。
           </p>
 
@@ -469,22 +469,22 @@ export default function MensOilySkinArticle({
                 key={item.name}
                 className="rounded-[18px] border border-black/10 bg-white p-5"
               >
-                <h3 className="text-[15px] font-black">
+                <h3 className="text-[16px] font-black">
                   {item.name}
                 </h3>
 
-                <p className="mt-2 text-[12px] font-medium leading-6 text-black/70">
+                <p className="mt-2 text-[14px] font-medium leading-7 text-black/70">
                   {item.point}
                 </p>
 
-                <p className="mt-2 text-[12px] font-bold leading-6 text-[#1677FF]">
+                <p className="mt-2 text-[14px] font-bold leading-7 text-[#1677FF]">
                   {item.note}
                 </p>
               </div>
             ))}
           </div>
 
-          <p className="mt-5 text-[13px] font-medium leading-7 text-black/70">
+          <p className="mt-5 text-[15px] font-medium leading-7 text-black/70">
             新しいアイテムを使い始めるときは、製品の注意表示を確認し、赤みやかゆみが出た場合はすぐに使用を中止してください。
           </p>
 
@@ -509,13 +509,13 @@ export default function MensOilySkinArticle({
             皮膚科に相談したほうがいいサイン
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
             <p>
               テカリそのものは病気ではありませんが、次のような症状がある場合は、セルフケアを続けるより、皮膚科に相談しましょう。
             </p>
           </div>
 
-          <ul className="mt-5 list-disc space-y-2 pl-5 text-[13px] leading-7 text-black/75">
+          <ul className="mt-5 list-disc space-y-2 pl-5 text-[15px] leading-7 text-black/75">
             <li>ニキビが繰り返しできる、数が増えている</li>
             <li>小鼻の横、眉間、髪の生え際などに、赤みと細かい皮むけがある</li>
             <li>かゆみやヒリつきが続いている</li>
@@ -536,7 +536,7 @@ export default function MensOilySkinArticle({
             顔全体の改善ポイントを確認
           </h2>
 
-          <p className="mt-4 text-[13px] font-medium leading-6 text-black/70">
+          <p className="mt-4 text-[15px] font-medium leading-6 text-black/70">
             AKANUKE.AIでは、顔写真をもとに髪型・眉毛・肌・全体の印象をAIが分析。自分はどこから整えるべきかを確認できます。
           </p>
 
@@ -561,7 +561,7 @@ export default function MensOilySkinArticle({
                 key={faq.question}
                 className="group overflow-hidden rounded-[16px] border border-black/10 bg-white"
               >
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-[13px] font-black">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-[15px] font-black">
                   {faq.question}
 
                   <span className="shrink-0 text-[#1677FF] transition group-open:rotate-180">
@@ -569,7 +569,7 @@ export default function MensOilySkinArticle({
                   </span>
                 </summary>
 
-                <p className="border-t border-black/5 px-5 py-4 text-[12px] font-medium leading-6 text-black/70">
+                <p className="border-t border-black/5 px-5 py-4 text-[14px] font-medium leading-7 text-black/70">
                   {faq.answer}
                 </p>
               </details>
@@ -591,7 +591,7 @@ export default function MensOilySkinArticle({
             テカリは「朝に整え、日中は押さえる」
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
             <p>
               男性は皮脂が多い傾向があり、特に額と鼻のTゾーンはテカりやすい場所です。朝は洗顔料を泡立てて洗い、さっぱりした保湿剤と日焼け止めで整え、必要ならTゾーンにだけパウダーをのせます。
             </p>

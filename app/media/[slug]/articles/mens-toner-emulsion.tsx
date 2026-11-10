@@ -166,7 +166,7 @@ export default function MensTonerEmulsionArticle({
               <li key={item.id}>
                 <a
                   href={`#${item.id}`}
-                  className="flex gap-3 text-[11px] font-medium leading-5 text-black/70 transition hover:text-[#1677FF]"
+                  className="flex gap-3 text-[13px] font-medium leading-6 text-black/70 transition hover:text-[#1677FF]"
                 >
                   <span className="shrink-0 font-black text-[#1677FF]">
                     {String(index + 1).padStart(2, "0")}
@@ -181,7 +181,7 @@ export default function MensTonerEmulsionArticle({
       </aside>
 
       <div className="min-w-0">
-        <section className="text-[14px] leading-8 text-black/80">
+        <section className="text-[16px] leading-8 text-black/80">
           <p>
             「化粧水と乳液、何が違うの？」「化粧水だけでいいのでは？」と疑問に思っていませんか？
           </p>
@@ -217,11 +217,11 @@ export default function MensTonerEmulsionArticle({
                   {item.name}
                 </h3>
 
-                <p className="mt-2 text-[13px] font-bold text-[#1677FF]">
+                <p className="mt-2 text-[15px] font-bold text-[#1677FF]">
                   {item.role}
                 </p>
 
-                <p className="mt-3 text-[12px] font-medium leading-6 text-black/70">
+                <p className="mt-3 text-[14px] font-medium leading-7 text-black/70">
                   {item.description}
                 </p>
               </div>
@@ -229,11 +229,11 @@ export default function MensTonerEmulsionArticle({
           </div>
 
           <div className="mt-7 rounded-[20px] border border-[#1677FF]/15 bg-[#EEF6FF] p-5">
-            <p className="text-[12px] font-black text-[#1677FF]">
+            <p className="text-[14px] font-black text-[#1677FF]">
               覚え方
             </p>
 
-            <p className="mt-3 text-[12px] font-medium leading-6 text-black/70">
+            <p className="mt-3 text-[14px] font-medium leading-7 text-black/70">
               化粧水は「水分を入れる」、乳液は「水分にふたをする」と考えると分かりやすくなります。そのため、使う順番は必ず「化粧水 → 乳液」です。
             </p>
           </div>
@@ -247,10 +247,23 @@ export default function MensTonerEmulsionArticle({
               sizes="(max-width: 640px) calc(100vw - 40px), (max-width: 1024px) 100vw, 680px"
               className="h-auto w-full"
             />
-            <figcaption className="px-4 py-3 text-[11px] font-medium leading-5 text-black/65">
+            <figcaption className="px-4 py-3 text-[13px] font-medium leading-6 text-black/65">
               化粧水は水が主な成分でさらっとしており、乳液は水分と油分を含むため、とろみがあります。
             </figcaption>
           </figure>
+          <div className="mt-5 space-y-1 text-[13px] font-medium leading-6 text-black/50">
+            <p>
+              参考：
+              <a
+                href="https://www.shiseido.co.jp/sw/beautyinfo/DB009195/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline transition hover:text-[#1677FF]"
+              >
+                資生堂「化粧水＆乳液の使い方とニーズ別アイテムを徹底解説！」
+              </a>
+            </p>
+          </div>
         </section>
 
         <section
@@ -265,7 +278,7 @@ export default function MensTonerEmulsionArticle({
             化粧水だけではだめな理由
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
             <p>
               化粧水をつけた直後は、肌がしっとりしたように感じます。しかし、化粧水の水分は、そのままにしておくと時間とともに蒸発していきます。化粧水だけでケアを終えると、しばらくして肌がつっぱったり、乾燥を感じたりすることがあります。
             </p>
@@ -288,7 +301,7 @@ export default function MensTonerEmulsionArticle({
             化粧水と乳液の正しい使い方4ステップ
           </h2>
 
-          <p className="mt-4 text-[13px] font-medium leading-7 text-black/70">
+          <p className="mt-4 text-[15px] font-medium leading-7 text-black/70">
             朝も夜も、洗顔の後に同じ手順で使います。量は、製品の表示を目安にしましょう。
           </p>
 
@@ -308,12 +321,12 @@ export default function MensTonerEmulsionArticle({
                       {step.title}
                     </h3>
 
-                    <p className="mt-3 text-[13px] leading-7 text-black/75">
+                    <p className="mt-3 text-[15px] leading-7 text-black/75">
                       {step.description}
                     </p>
 
                     <div className="mt-4 rounded-[14px] bg-[#FFF9D9] px-4 py-3">
-                      <p className="text-[11px] font-bold leading-6 text-black/65">
+                      <p className="text-[13px] font-bold leading-6 text-black/65">
                         <span className="mr-2 font-black text-[#9A7800]">
                           POINT
                         </span>
@@ -345,7 +358,7 @@ export default function MensTonerEmulsionArticle({
             肌の傾向別の組み合わせ
           </h2>
 
-          <p className="mt-5 text-[14px] leading-8 text-black/80">
+          <p className="mt-5 text-[16px] leading-8 text-black/80">
             自分の肌の傾向に合わせて、乳液の使用感や量を調整しましょう。肌の傾向の確認方法は、スキンケアの基本の記事で紹介しています。
           </p>
 
@@ -358,7 +371,7 @@ export default function MensTonerEmulsionArticle({
               sizes="(max-width: 640px) calc(100vw - 40px), (max-width: 1024px) 100vw, 680px"
               className="h-auto w-full"
             />
-            <figcaption className="px-4 py-3 text-[11px] font-medium leading-5 text-black/65">
+            <figcaption className="px-4 py-3 text-[13px] font-medium leading-6 text-black/65">
               肌の傾向によって、乳液の使用感や量を変えるのがポイントです。
             </figcaption>
           </figure>
@@ -369,19 +382,19 @@ export default function MensTonerEmulsionArticle({
                 key={item.type}
                 className="rounded-[18px] border border-black/10 bg-[#F8FAFC] p-5"
               >
-                <h3 className="text-[15px] font-black">
+                <h3 className="text-[16px] font-black">
                   {item.type}
                 </h3>
 
-                <p className="mt-1 text-[11px] font-medium leading-6 text-black/60">
+                <p className="mt-1 text-[13px] font-medium leading-6 text-black/60">
                   例：{item.sign}
                 </p>
 
-                <p className="mt-2 text-[13px] font-bold leading-6 text-[#1677FF]">
+                <p className="mt-2 text-[15px] font-bold leading-6 text-[#1677FF]">
                   {item.combination}
                 </p>
 
-                <p className="mt-2 text-[12px] font-medium leading-6 text-black/70">
+                <p className="mt-2 text-[14px] font-medium leading-7 text-black/70">
                   {item.note}
                 </p>
               </div>
@@ -409,7 +422,7 @@ export default function MensTonerEmulsionArticle({
             オールインワンとの違い
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
             <p>
               オールインワンは、化粧水と乳液などの役割を1本にまとめた製品です。1回塗るだけで済むため、手間をかけたくない人や、スキンケアを始めたばかりの人が続けやすいのが利点です。
             </p>
@@ -442,11 +455,11 @@ export default function MensTonerEmulsionArticle({
                 key={mistake.title}
                 className="rounded-[18px] border border-black/10 bg-[#F8FAFC] p-5"
               >
-                <h3 className="text-[15px] font-black">
+                <h3 className="text-[16px] font-black">
                   {mistake.title}
                 </h3>
 
-                <p className="mt-2 text-[12px] font-medium leading-6 text-black/70">
+                <p className="mt-2 text-[14px] font-medium leading-7 text-black/70">
                   {mistake.description}
                 </p>
               </div>
@@ -467,7 +480,7 @@ export default function MensTonerEmulsionArticle({
             顔全体の改善ポイントを確認
           </h2>
 
-          <p className="mt-4 text-[13px] font-medium leading-6 text-black/70">
+          <p className="mt-4 text-[15px] font-medium leading-6 text-black/70">
             AKANUKE.AIでは、顔写真をもとに髪型・眉毛・肌・全体の印象をAIが分析。自分はどこから整えるべきかを確認できます。
           </p>
 
@@ -492,7 +505,7 @@ export default function MensTonerEmulsionArticle({
                 key={faq.question}
                 className="group overflow-hidden rounded-[16px] border border-black/10 bg-white"
               >
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-[13px] font-black">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-[15px] font-black">
                   {faq.question}
 
                   <span className="shrink-0 text-[#1677FF] transition group-open:rotate-180">
@@ -500,7 +513,7 @@ export default function MensTonerEmulsionArticle({
                   </span>
                 </summary>
 
-                <p className="border-t border-black/5 px-5 py-4 text-[12px] font-medium leading-6 text-black/70">
+                <p className="border-t border-black/5 px-5 py-4 text-[14px] font-medium leading-7 text-black/70">
                   {faq.answer}
                 </p>
               </details>
@@ -522,7 +535,7 @@ export default function MensTonerEmulsionArticle({
             化粧水で与えて、乳液で保つ
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
             <p>
               化粧水は肌にうるおいを与え、乳液はそのうるおいを保ちます。どちらか一方では保湿が不十分になりやすいため、洗顔後は「化粧水 → 乳液」の順に使いましょう。
             </p>

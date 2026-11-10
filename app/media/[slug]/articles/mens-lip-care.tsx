@@ -157,7 +157,7 @@ export default function MensLipCareArticle({
               <li key={item.id}>
                 <a
                   href={`#${item.id}`}
-                  className="flex gap-3 text-[11px] font-medium leading-5 text-black/70 transition hover:text-[#1677FF]"
+                  className="flex gap-3 text-[13px] font-medium leading-6 text-black/70 transition hover:text-[#1677FF]"
                 >
                   <span className="shrink-0 font-black text-[#1677FF]">
                     {String(index + 1).padStart(2, "0")}
@@ -172,7 +172,7 @@ export default function MensLipCareArticle({
       </aside>
 
       <div className="min-w-0">
-        <section className="text-[14px] leading-8 text-black/80">
+        <section className="text-[16px] leading-8 text-black/80">
           <p>
             「唇がいつもカサカサしている」「皮がむけて、白く浮いて見える」と気になっていませんか？
           </p>
@@ -198,7 +198,7 @@ export default function MensLipCareArticle({
             唇が乾燥しやすい理由
           </h2>
 
-          <p className="mt-5 text-[14px] leading-8 text-black/80">
+          <p className="mt-5 text-[16px] leading-8 text-black/80">
             唇は、顔のほかの部分とは異なる特徴を持っています。資生堂によると、主に次の3つの理由から、唇は乾燥しやすく、刺激を受けやすい場所です。
           </p>
 
@@ -212,18 +212,18 @@ export default function MensLipCareArticle({
                   REASON {String(index + 1).padStart(2, "0")}
                 </p>
 
-                <p className="mt-2 text-[13px] font-bold">
+                <p className="mt-2 text-[15px] font-bold">
                   {reason.title}
                 </p>
 
-                <p className="mt-2 text-[12px] leading-7 text-black/70">
+                <p className="mt-2 text-[14px] leading-7 text-black/70">
                   {reason.description}
                 </p>
               </div>
             ))}
           </div>
 
-          <p className="mt-5 text-[11px] font-medium leading-6 text-black/50">
+          <p className="mt-5 text-[13px] font-medium leading-6 text-black/50">
             参考：
             <a
               href="https://www.shiseido.co.jp/sw/beautyinfo/DB009326/"
@@ -254,11 +254,11 @@ export default function MensLipCareArticle({
                 key={habit.title}
                 className="rounded-[18px] border border-black/10 bg-white p-5"
               >
-                <h3 className="text-[15px] font-black">
+                <h3 className="text-[16px] font-black">
                   {habit.title}
                 </h3>
 
-                <p className="mt-2 text-[12px] font-medium leading-6 text-black/70">
+                <p className="mt-2 text-[14px] font-medium leading-7 text-black/70">
                   {habit.description}
                 </p>
               </div>
@@ -278,7 +278,7 @@ export default function MensLipCareArticle({
             メンズのリップクリームの選び方
           </h2>
 
-          <p className="mt-5 text-[14px] leading-8 text-black/80">
+          <p className="mt-5 text-[16px] leading-8 text-black/80">
             男性が毎日使うなら、塗っていることが目立たず、ベタつきにくいものを選ぶと続けやすくなります。そのうえで、生活や唇の状態に合わせて機能を選びましょう。
           </p>
 
@@ -288,22 +288,22 @@ export default function MensLipCareArticle({
                 key={item.name}
                 className="rounded-[18px] border border-black/10 bg-white p-5"
               >
-                <h3 className="text-[15px] font-black">
+                <h3 className="text-[16px] font-black">
                   {item.name}
                 </h3>
 
-                <p className="mt-2 text-[12px] font-medium leading-6 text-black/70">
+                <p className="mt-2 text-[14px] font-medium leading-7 text-black/70">
                   {item.point}
                 </p>
 
-                <p className="mt-2 text-[12px] font-bold leading-6 text-[#1677FF]">
+                <p className="mt-2 text-[14px] font-bold leading-7 text-[#1677FF]">
                   {item.note}
                 </p>
               </div>
             ))}
           </div>
 
-          <p className="mt-5 text-[13px] font-medium leading-7 text-black/70">
+          <p className="mt-5 text-[15px] font-medium leading-7 text-black/70">
             新しいリップクリームを使い始めて、唇が赤くなる、かゆくなるといった場合は、すぐに使用をやめてください。
           </p>
         </section>
@@ -325,7 +325,7 @@ export default function MensLipCareArticle({
             リップクリームの塗り方とタイミング
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
             <p>
               リップクリームは、唇の表面をすべらせるように、力を入れずに塗ります。唇には縦方向の細かいしわがあるため、しわに沿って縦に動かすように塗ると、すき間までなじみやすくなります。唇の端まで、塗り残しがないようにしましょう。
             </p>
@@ -345,11 +345,11 @@ export default function MensLipCareArticle({
                   TIMING {String(index + 1).padStart(2, "0")}
                 </p>
 
-                <p className="mt-2 text-[13px] font-bold">
+                <p className="mt-2 text-[15px] font-bold">
                   {timing.title}
                 </p>
 
-                <p className="mt-2 text-[12px] leading-7 text-black/70">
+                <p className="mt-2 text-[14px] leading-7 text-black/70">
                   {timing.description}
                 </p>
               </div>
@@ -377,7 +377,7 @@ export default function MensLipCareArticle({
             皮がむけているときのケア
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
             <p>
               皮がむけているときは、むけた皮をはがさず、リップクリームで保湿を続けて、自然にはがれるのを待ちます。
             </p>
@@ -388,11 +388,11 @@ export default function MensLipCareArticle({
           </div>
 
           <div className="mt-7 rounded-[20px] border border-[#1677FF]/15 bg-[#EEF6FF] p-5">
-            <p className="text-[12px] font-black text-[#1677FF]">
+            <p className="text-[14px] font-black text-[#1677FF]">
               むけた皮が気になる日は
             </p>
 
-            <p className="mt-3 text-[12px] font-medium leading-6 text-black/70">
+            <p className="mt-3 text-[14px] font-medium leading-7 text-black/70">
               大事な予定がある日でも、皮を無理にはがさず、リップクリームを重ねて落ち着かせましょう。はがして出血すると、治るまでにかえって時間がかかります。
             </p>
           </div>
@@ -410,11 +410,11 @@ export default function MensLipCareArticle({
             皮膚科に相談したほうがいいサイン
           </h2>
 
-          <p className="mt-5 text-[14px] leading-8 text-black/80">
+          <p className="mt-5 text-[16px] leading-8 text-black/80">
             唇の荒れの多くは乾燥によるものですが、次のような場合は、セルフケアを続けるより皮膚科に相談しましょう。
           </p>
 
-          <ul className="mt-5 list-disc space-y-2 pl-5 text-[13px] leading-7 text-black/75">
+          <ul className="mt-5 list-disc space-y-2 pl-5 text-[15px] leading-7 text-black/75">
             <li>唇が腫れている、強い痛みやかゆみがある</li>
             <li>小さな水ぶくれができている</li>
             <li>口角の切れや、唇のひび割れが繰り返す・治らない</li>
@@ -436,7 +436,7 @@ export default function MensLipCareArticle({
             顔全体の改善ポイントを確認
           </h2>
 
-          <p className="mt-4 text-[13px] font-medium leading-6 text-black/70">
+          <p className="mt-4 text-[15px] font-medium leading-6 text-black/70">
             AKANUKE.AIでは、顔写真をもとに髪型・眉毛・肌・全体の印象をAIが分析。自分はどこから整えるべきかを確認できます。
           </p>
 
@@ -461,7 +461,7 @@ export default function MensLipCareArticle({
                 key={faq.question}
                 className="group overflow-hidden rounded-[16px] border border-black/10 bg-white"
               >
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-[13px] font-black">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-[15px] font-black">
                   {faq.question}
 
                   <span className="shrink-0 text-[#1677FF] transition group-open:rotate-180">
@@ -469,7 +469,7 @@ export default function MensLipCareArticle({
                   </span>
                 </summary>
 
-                <p className="border-t border-black/5 px-5 py-4 text-[12px] font-medium leading-6 text-black/70">
+                <p className="border-t border-black/5 px-5 py-4 text-[14px] font-medium leading-7 text-black/70">
                   {faq.answer}
                 </p>
               </details>
@@ -491,7 +491,7 @@ export default function MensLipCareArticle({
             唇は、なめずに、こまめに保湿する
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
             <p>
               唇は角層が薄く、皮脂腺もないため、顔の中でも特に乾燥しやすい場所です。なめる、こする、むけた皮をはがすといった習慣をやめ、無香料・無着色でベタつきにくいリップクリームをこまめに塗りましょう。
             </p>

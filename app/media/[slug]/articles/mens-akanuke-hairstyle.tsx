@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { Article } from "../../../../data/articles";
 import AdSenseAd from "../../../components/AdSenseAd";
 import JournalDiagnosisCta from "../../components/JournalDiagnosisCta";
@@ -273,7 +274,7 @@ export default function MensAkanukeHairstyleArticle({
               <li key={item.id}>
                 <a
                   href={`#${item.id}`}
-                  className="flex gap-3 text-[11px] font-medium leading-5 text-black/70 transition hover:text-[#1677FF]"
+                  className="flex gap-3 text-[13px] font-medium leading-6 text-black/70 transition hover:text-[#1677FF]"
                 >
                   <span className="shrink-0 font-black text-[#1677FF]">
                     {String(index + 1).padStart(2, "0")}
@@ -288,7 +289,7 @@ export default function MensAkanukeHairstyleArticle({
       </aside>
 
       <div className="min-w-0">
-        <section className="text-[14px] leading-8 text-black/80">
+        <section className="text-[16px] leading-8 text-black/80">
           <p>
             「写真を見せて切ってもらったのに、思っていた髪型にならない」「美容室では整っていたのに、翌朝は再現できない」という経験はありませんか？
           </p>
@@ -300,6 +301,22 @@ export default function MensAkanukeHairstyleArticle({
           <p className="mt-5">
             この記事では、似合う髪型を決める4つの条件と、美容室へ行く前に自分で確認する方法、代表的な髪型の向き不向き、美容室での伝え方、切った後に再現するまでの手順を解説します。
           </p>
+          <div className="mt-7 rounded-[20px] border border-[#1677FF]/15 bg-[#EEF6FF] p-5">
+            <p className="text-[14px] font-black text-[#1677FF]">
+              AKANUKE.AIの診断データより
+            </p>
+
+            <p className="mt-3 text-[14px] font-medium leading-7 text-black/70">
+              AKANUKE.AIのAI診断の結果を集計したところ、髪のまとまりを良くするケアが4件に3件（75.0%）、前髪や毛流れを整えるケアが半数を超える（52.9%）診断で必要と判定されました。髪型を選ぶときは、毎日まとまりやすいかどうかも大切なポイントです。
+            </p>
+
+            <Link
+              href="/media/mens-akanuke-diagnosis-data"
+              className="mt-3 inline-block text-[14px] font-bold text-[#1677FF] transition hover:opacity-70"
+            >
+              診断データの記事を見る →
+            </Link>
+          </div>
         </section>
 
         <section
@@ -314,7 +331,7 @@ export default function MensAkanukeHairstyleArticle({
             似合う髪型を決める4つの条件
           </h2>
 
-          <p className="mt-6 text-[14px] leading-8 text-black/80">
+          <p className="mt-6 text-[16px] leading-8 text-black/80">
             「似合う髪型」は、顔型だけで決まるものではありません。次の4つの条件がそろったときに、自分でも毎日再現できる髪型になります。
           </p>
 
@@ -334,7 +351,7 @@ export default function MensAkanukeHairstyleArticle({
                       {condition.title}
                     </h3>
 
-                    <p className="mt-3 text-[13px] leading-7 text-black/75">
+                    <p className="mt-3 text-[15px] leading-7 text-black/75">
                       {condition.description}
                     </p>
                   </div>
@@ -344,11 +361,11 @@ export default function MensAkanukeHairstyleArticle({
           </div>
 
           <div className="mt-7 rounded-[20px] border border-[#1677FF]/15 bg-[#EEF6FF] p-5">
-            <p className="text-[12px] font-black text-[#1677FF]">
+            <p className="text-[14px] font-black text-[#1677FF]">
               人気より「毎日再現できるか」を優先
             </p>
 
-            <p className="mt-3 text-[12px] font-medium leading-6 text-black/70">
+            <p className="mt-3 text-[14px] font-medium leading-7 text-black/70">
               SNSで人気の髪型でも、髪質や生えぐせが合わなければ、毎朝のセットに苦労します。4つの条件を知ったうえで、美容師に「自分に合う形に調整してほしい」と相談するのがおすすめです。
             </p>
           </div>
@@ -371,7 +388,7 @@ export default function MensAkanukeHairstyleArticle({
             美容室へ行く前に自分で確認すること
           </h2>
 
-          <p className="mt-5 text-[14px] leading-8 text-black/80">
+          <p className="mt-5 text-[16px] leading-8 text-black/80">
             自分の髪の特徴を知っておくと、美容師に伝えられる情報が増え、提案を受けやすくなります。次の5つは、自宅で確認できます。
           </p>
 
@@ -381,18 +398,18 @@ export default function MensAkanukeHairstyleArticle({
                 key={check.title}
                 className="rounded-[18px] border border-black/10 bg-[#F8FAFC] p-5"
               >
-                <h3 className="text-[14px] font-bold">
+                <h3 className="text-[16px] font-bold">
                   {check.title}
                 </h3>
 
-                <p className="mt-3 text-[12px] leading-6 text-black/75">
+                <p className="mt-3 text-[14px] leading-7 text-black/75">
                   {check.method}
                 </p>
               </div>
             ))}
           </div>
 
-          <p className="mt-4 text-[12px] leading-6 text-black/60">
+          <p className="mt-4 text-[14px] leading-7 text-black/60">
             ※自己判断が難しい項目は、美容室で「自分の髪質はどうですか？」と聞くだけでも十分です。
           </p>
         </section>
@@ -409,7 +426,7 @@ export default function MensAkanukeHairstyleArticle({
             顔型別｜似合いやすい髪型の考え方
           </h2>
 
-          <p className="mt-5 text-[13px] font-medium leading-7 text-black/70">
+          <p className="mt-5 text-[15px] font-medium leading-7 text-black/70">
             顔型は、前髪を上げて輪郭全体が見える状態で正面から写真を撮ると判断しやすくなります。ただし、同じ顔型でもパーツや髪質は異なるため、あくまで目安として考えましょう。
           </p>
 
@@ -423,11 +440,11 @@ export default function MensAkanukeHairstyleArticle({
                   {face.name}
                 </h3>
 
-                <p className="mt-3 text-[12px] font-medium leading-6 text-black/70">
+                <p className="mt-3 text-[14px] font-medium leading-7 text-black/70">
                   {face.description}
                 </p>
 
-                <p className="mt-4 border-t border-black/5 pt-4 text-[12px] font-bold leading-6 text-black/70">
+                <p className="mt-4 border-t border-black/5 pt-4 text-[14px] font-bold leading-7 text-black/70">
                   {face.recommendation}
                 </p>
               </div>
@@ -447,7 +464,7 @@ export default function MensAkanukeHairstyleArticle({
             代表的な髪型5つの特徴と向き不向き
           </h2>
 
-          <p className="mt-5 text-[13px] font-medium leading-7 text-black/70">
+          <p className="mt-5 text-[15px] font-medium leading-7 text-black/70">
             髪型ごとの印象だけでなく、毎朝のセットの手間や注意点も比べて選びましょう。特定の髪型が正解というわけではありません。
           </p>
 
@@ -458,7 +475,7 @@ export default function MensAkanukeHairstyleArticle({
                 className="rounded-[20px] border border-black/10 bg-white p-5"
               >
                 <div className="flex items-center gap-3">
-                  <span className="text-[11px] font-black text-[#1677FF]">
+                  <span className="text-[13px] font-black text-[#1677FF]">
                     {String(index + 1).padStart(2, "0")}
                   </span>
 
@@ -477,12 +494,12 @@ export default function MensAkanukeHairstyleArticle({
                   </span>
                 </div>
 
-                <p className="mt-3 text-[12px] font-medium leading-6 text-black/70">
+                <p className="mt-3 text-[14px] font-medium leading-7 text-black/70">
                   {hairstyle.description}
                 </p>
 
                 <div className="mt-4 rounded-[12px] bg-[#FFF9D9] px-4 py-3">
-                  <p className="text-[11px] font-bold leading-6 text-black/65">
+                  <p className="text-[13px] font-bold leading-6 text-black/65">
                     <span className="mr-2 font-black text-[#9A7800]">
                       注意点
                     </span>
@@ -507,7 +524,7 @@ export default function MensAkanukeHairstyleArticle({
             美容室で失敗しにくい頼み方
           </h2>
 
-          <p className="mt-5 text-[14px] leading-8 text-black/80">
+          <p className="mt-5 text-[16px] leading-8 text-black/80">
             美容室での失敗の多くは、伝える情報が足りないことで起こります。髪型の名前だけでなく、次の3つを伝えると、美容師も提案しやすくなります。
           </p>
 
@@ -517,11 +534,11 @@ export default function MensAkanukeHairstyleArticle({
                 key={point.title}
                 className="flex items-start gap-3 rounded-[14px] border border-black/10 bg-white px-4 py-3"
               >
-                <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#EEF6FF] text-[10px] font-black text-[#1677FF]">
+                <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#EEF6FF] text-[11px] font-black text-[#1677FF]">
                   {index + 1}
                 </span>
 
-                <p className="text-[12px] font-bold leading-6 text-black/65">
+                <p className="text-[14px] font-bold leading-7 text-black/65">
                   {point.title}
                   <span className="block font-medium text-black/60">
                     例：{point.example}
@@ -532,18 +549,18 @@ export default function MensAkanukeHairstyleArticle({
           </div>
 
           <div className="mt-7 rounded-[22px] border border-black/10 bg-[#F8FAFC] p-5 sm:p-6">
-            <p className="text-[12px] font-black text-[#1677FF]">
+            <p className="text-[14px] font-black text-[#1677FF]">
               そのまま使えるオーダー例
             </p>
 
-            <p className="mt-4 text-[14px] font-bold leading-8 text-[#111111]">
+            <p className="mt-4 text-[16px] font-bold leading-8 text-[#111111]">
               「清潔感があって落ち着いた印象にしたいです。朝のセットは5分くらいで、ワックスは少しなら使えます。耳が全部出るほど短くはしたくありません。この写真の雰囲気が好きなのですが、自分の髪質や生えぐせで再現しやすいように調整してもらえますか？」
             </p>
           </div>
 
           <h3 className="mt-9 text-[17px] font-bold">写真の選び方</h3>
 
-          <ul className="mt-4 space-y-2 text-[13px] leading-7 text-black/75">
+          <ul className="mt-4 space-y-2 text-[15px] leading-7 text-black/75">
             {photoTips.map((tip) => (
               <li key={tip}>・{tip}</li>
             ))}
@@ -551,7 +568,7 @@ export default function MensAkanukeHairstyleArticle({
 
           <h3 className="mt-9 text-[17px] font-bold">カットの最後に聞いておくこと</h3>
 
-          <p className="mt-4 text-[13px] leading-7 text-black/75">
+          <p className="mt-4 text-[15px] leading-7 text-black/75">
             「乾かす順番と方向」「スタイリング剤の種類と使う量」「次のカットの目安の時期」の3つを聞いておくと、自宅で再現しやすくなります。スマホでメモを取っても失礼にはあたりません。
           </p>
         </section>
@@ -568,7 +585,7 @@ export default function MensAkanukeHairstyleArticle({
             切った後の2週間でやること
           </h2>
 
-          <p className="mt-5 text-[14px] leading-8 text-black/80">
+          <p className="mt-5 text-[16px] leading-8 text-black/80">
             美容室を出た直後の髪型は、プロが乾かしてセットした状態です。自分で同じ状態を作れるようになるまでが、髪型選びの一部と考えましょう。
           </p>
 
@@ -578,11 +595,11 @@ export default function MensAkanukeHairstyleArticle({
                 key={step.title}
                 className="rounded-[16px] border border-black/10 p-5"
               >
-                <p className="text-[13px] font-bold">
+                <p className="text-[15px] font-bold">
                   {step.title}
                 </p>
 
-                <p className="mt-2 text-[12px] leading-7 text-black/70">
+                <p className="mt-2 text-[14px] leading-7 text-black/70">
                   {step.description}
                 </p>
               </div>
@@ -590,11 +607,11 @@ export default function MensAkanukeHairstyleArticle({
           </div>
 
           <div className="mt-8">
-            <p className="text-[13px] font-black">
+            <p className="text-[15px] font-black">
               髪型の次に整えたいこと
             </p>
 
-            <p className="mt-2 text-[12px] font-medium leading-6 text-black/70">
+            <p className="mt-2 text-[14px] font-medium leading-7 text-black/70">
               前髪の長さや分け目が決まったら、それに合わせて眉を整えると、顔周りのバランスがそろいます。
             </p>
 
@@ -625,7 +642,7 @@ export default function MensAkanukeHairstyleArticle({
             自分に似合う方向性をAIで確認してみませんか？
           </h2>
 
-          <p className="mt-4 text-[13px] font-medium leading-6 text-black/70">
+          <p className="mt-4 text-[15px] font-medium leading-6 text-black/70">
             AKANUKE.AIでは、顔写真をもとに髪型・眉毛・肌・全体の印象をAIが分析します。自分がどこから改善すればいいか分からない方にもおすすめです。
           </p>
 
@@ -650,7 +667,7 @@ export default function MensAkanukeHairstyleArticle({
                 key={faq.question}
                 className="group overflow-hidden rounded-[16px] border border-black/10 bg-white"
               >
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-[13px] font-black">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-[15px] font-black">
                   {faq.question}
 
                   <span className="shrink-0 text-[#1677FF] transition group-open:rotate-180">
@@ -658,7 +675,7 @@ export default function MensAkanukeHairstyleArticle({
                   </span>
                 </summary>
 
-                <p className="border-t border-black/5 px-5 py-4 text-[12px] font-medium leading-6 text-black/70">
+                <p className="border-t border-black/5 px-5 py-4 text-[14px] font-medium leading-7 text-black/70">
                   {faq.answer}
                 </p>
               </details>
@@ -680,7 +697,7 @@ export default function MensAkanukeHairstyleArticle({
             垢抜ける髪型は「自分で再現できること」が条件
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
             <p>
               似合う髪型は、顔型・髪質と毛量・生えぐせ・生活の条件の4つで決まります。美容室へ行く前に自分の髪の特徴を確認し、「なりたい印象」「毎日の条件」「避けたいこと」を伝えると、失敗しにくくなります。
             </p>

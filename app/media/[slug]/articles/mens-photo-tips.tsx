@@ -215,7 +215,7 @@ export default function MensPhotoTipsArticle({
               <li key={item.id}>
                 <a
                   href={`#${item.id}`}
-                  className="flex gap-3 text-[11px] font-medium leading-5 text-black/70 transition hover:text-[#1677FF]"
+                  className="flex gap-3 text-[13px] font-medium leading-6 text-black/70 transition hover:text-[#1677FF]"
                 >
                   <span className="shrink-0 font-black text-[#1677FF]">
                     {String(index + 1).padStart(2, "0")}
@@ -230,7 +230,7 @@ export default function MensPhotoTipsArticle({
       </aside>
 
       <div className="min-w-0">
-        <section className="text-[14px] leading-8 text-black/80">
+        <section className="text-[16px] leading-8 text-black/80">
           <p>
             「写真に写った自分の顔が、鏡で見るより老けて見える」「自撮りをすると、なぜか顔が大きく写る」と感じたことはありませんか？
           </p>
@@ -266,11 +266,11 @@ export default function MensPhotoTipsArticle({
                   REASON {String(index + 1).padStart(2, "0")}
                 </p>
 
-                <p className="mt-2 text-[13px] font-bold">
+                <p className="mt-2 text-[15px] font-bold">
                   {reason.title}
                 </p>
 
-                <p className="mt-2 text-[12px] leading-7 text-black/70">
+                <p className="mt-2 text-[14px] leading-7 text-black/70">
                   {reason.description}
                 </p>
               </div>
@@ -290,7 +290,7 @@ export default function MensPhotoTipsArticle({
             距離：近すぎる自撮りは顔がゆがむ
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
             <p>
               2018年に医学誌『JAMA Facial Plastic Surgery』に掲載された研究では、顔から約30cmの距離で撮った自撮りは、約1.5mの距離で撮った写真と比べて、鼻の付け根の幅が約30%広く写ると報告されています。
             </p>
@@ -310,18 +310,18 @@ export default function MensPhotoTipsArticle({
                   TIP {String(index + 1).padStart(2, "0")}
                 </p>
 
-                <p className="mt-2 text-[13px] font-bold">
+                <p className="mt-2 text-[15px] font-bold">
                   {step.title}
                 </p>
 
-                <p className="mt-2 text-[12px] leading-7 text-black/70">
+                <p className="mt-2 text-[14px] leading-7 text-black/70">
                   {step.description}
                 </p>
               </div>
             ))}
           </div>
 
-          <p className="mt-5 text-[11px] font-medium leading-6 text-black/50">
+          <p className="mt-5 text-[13px] font-medium leading-6 text-black/50">
             参考：
             <a
               href="https://www.sciencedaily.com/releases/2018/03/180301115349.htm"
@@ -346,7 +346,7 @@ export default function MensPhotoTipsArticle({
             光：顔の正面から自然光を当てる
           </h2>
 
-          <p className="mt-5 text-[14px] leading-8 text-black/80">
+          <p className="mt-5 text-[16px] leading-8 text-black/80">
             光の当たり方は、肌の質感や顔の立体感に大きく影響します。基本は、顔の正面から、やわらかい光を当てることです。
           </p>
 
@@ -359,7 +359,7 @@ export default function MensPhotoTipsArticle({
               sizes="(max-width: 640px) calc(100vw - 40px), (max-width: 1024px) 100vw, 680px"
               className="h-auto w-full"
             />
-            <figcaption className="px-4 py-3 text-[11px] font-medium leading-5 text-black/65">
+            <figcaption className="px-4 py-3 text-[13px] font-medium leading-6 text-black/65">
               窓に顔を向けると、自然光が顔の正面に当たり、目の下や鼻の下に濃い影ができにくくなります。
             </figcaption>
           </figure>
@@ -370,11 +370,11 @@ export default function MensPhotoTipsArticle({
                 key={point.title}
                 className="rounded-[18px] border border-black/10 bg-white p-5"
               >
-                <h3 className="text-[15px] font-black">
+                <h3 className="text-[16px] font-black">
                   {point.title}
                 </h3>
 
-                <p className="mt-2 text-[12px] font-medium leading-6 text-black/70">
+                <p className="mt-2 text-[14px] font-medium leading-7 text-black/70">
                   {point.description}
                 </p>
               </div>
@@ -409,11 +409,11 @@ export default function MensPhotoTipsArticle({
                   POINT {String(index + 1).padStart(2, "0")}
                 </p>
 
-                <p className="mt-2 text-[13px] font-bold">
+                <p className="mt-2 text-[15px] font-bold">
                   {point.title}
                 </p>
 
-                <p className="mt-2 text-[12px] leading-7 text-black/70">
+                <p className="mt-2 text-[14px] leading-7 text-black/70">
                   {point.description}
                 </p>
               </div>
@@ -439,11 +439,11 @@ export default function MensPhotoTipsArticle({
                 key={point.title}
                 className="rounded-[18px] border border-black/10 bg-white p-5"
               >
-                <h3 className="text-[15px] font-black">
+                <h3 className="text-[16px] font-black">
                   {point.title}
                 </h3>
 
-                <p className="mt-2 text-[12px] font-medium leading-6 text-black/70">
+                <p className="mt-2 text-[14px] font-medium leading-7 text-black/70">
                   {point.description}
                 </p>
               </div>
@@ -463,7 +463,7 @@ export default function MensPhotoTipsArticle({
             撮る前に整えておく3つのこと
           </h2>
 
-          <p className="mt-5 text-[14px] leading-8 text-black/80">
+          <p className="mt-5 text-[16px] leading-8 text-black/80">
             写真は、肉眼よりも細かい部分まではっきり写します。撮る前の1分で、次の3つを確認しましょう。
           </p>
 
@@ -473,17 +473,17 @@ export default function MensPhotoTipsArticle({
                 key={check.title}
                 className="rounded-[18px] border border-black/10 bg-white p-5"
               >
-                <h3 className="text-[15px] font-black">
+                <h3 className="text-[16px] font-black">
                   {check.title}
                 </h3>
 
-                <p className="mt-2 text-[12px] font-medium leading-6 text-black/70">
+                <p className="mt-2 text-[14px] font-medium leading-7 text-black/70">
                   {check.description}
                 </p>
 
                 <Link
                   href={check.href}
-                  className="mt-3 inline-block text-[12px] font-bold text-[#1677FF] transition hover:opacity-70"
+                  className="mt-3 inline-block text-[14px] font-bold text-[#1677FF] transition hover:opacity-70"
                 >
                   {check.linkLabel} →
                 </Link>
@@ -510,11 +510,11 @@ export default function MensPhotoTipsArticle({
                 key={situation.title}
                 className="rounded-[16px] border border-black/10 bg-[#F8FAFC] p-5"
               >
-                <p className="text-[13px] font-bold">
+                <p className="text-[15px] font-bold">
                   {situation.title}
                 </p>
 
-                <p className="mt-2 text-[12px] leading-7 text-black/70">
+                <p className="mt-2 text-[14px] leading-7 text-black/70">
                   {situation.description}
                 </p>
               </div>
@@ -535,7 +535,7 @@ export default function MensPhotoTipsArticle({
             顔全体の改善ポイントを確認
           </h2>
 
-          <p className="mt-4 text-[13px] font-medium leading-6 text-black/70">
+          <p className="mt-4 text-[15px] font-medium leading-6 text-black/70">
             AKANUKE.AIでは、顔写真をもとに髪型・眉毛・肌・全体の印象をAIが分析。自分はどこから整えるべきかを確認できます。
           </p>
 
@@ -560,7 +560,7 @@ export default function MensPhotoTipsArticle({
                 key={faq.question}
                 className="group overflow-hidden rounded-[16px] border border-black/10 bg-white"
               >
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-[13px] font-black">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-[15px] font-black">
                   {faq.question}
 
                   <span className="shrink-0 text-[#1677FF] transition group-open:rotate-180">
@@ -568,7 +568,7 @@ export default function MensPhotoTipsArticle({
                   </span>
                 </summary>
 
-                <p className="border-t border-black/5 px-5 py-4 text-[12px] font-medium leading-6 text-black/70">
+                <p className="border-t border-black/5 px-5 py-4 text-[14px] font-medium leading-7 text-black/70">
                   {faq.answer}
                 </p>
               </details>
@@ -590,7 +590,7 @@ export default function MensPhotoTipsArticle({
             写真写りは、距離・光・角度で変わる
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
             <p>
               写真写りが悪いと感じる原因の多くは、顔そのものではなく撮り方にあります。カメラは約1.5m離してズームで調整し、窓に顔を向けて正面から光を当て、カメラを目の高さか少し上に構えましょう。
             </p>

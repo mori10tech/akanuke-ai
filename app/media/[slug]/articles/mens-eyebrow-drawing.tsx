@@ -203,7 +203,7 @@ export default function MensEyebrowDrawingArticle({
               <li key={item.id}>
                 <a
                   href={`#${item.id}`}
-                  className="flex gap-3 text-[11px] font-medium leading-5 text-black/70 transition hover:text-[#1677FF]"
+                  className="flex gap-3 text-[13px] font-medium leading-6 text-black/70 transition hover:text-[#1677FF]"
                 >
                   <span className="shrink-0 font-black text-[#1677FF]">
                     {String(index + 1).padStart(2, "0")}
@@ -218,7 +218,7 @@ export default function MensEyebrowDrawingArticle({
       </aside>
 
       <div className="min-w-0">
-        <section className="text-[14px] leading-8 text-black/80">
+        <section className="text-[16px] leading-8 text-black/80">
           <p>
             「眉毛にすき間があって、形がはっきりしない」「整えたら剃りすぎて、眉尻が短くなった」と悩んでいませんか？
           </p>
@@ -244,7 +244,7 @@ export default function MensEyebrowDrawingArticle({
             眉毛を描いたほうがいい人
           </h2>
 
-          <p className="mt-5 text-[14px] leading-8 text-black/80">
+          <p className="mt-5 text-[16px] leading-8 text-black/80">
             眉毛が濃く、形もそろっている人は、無理に描く必要はありません。次のような場合は、描き足すことで目元が整って見えやすくなります。
           </p>
 
@@ -254,11 +254,11 @@ export default function MensEyebrowDrawingArticle({
                 key={item.title}
                 className="rounded-[18px] border border-black/10 bg-[#F8FAFC] p-5"
               >
-                <h3 className="text-[15px] font-black">
+                <h3 className="text-[16px] font-black">
                   {item.title}
                 </h3>
 
-                <p className="mt-2 text-[12px] font-medium leading-6 text-black/70">
+                <p className="mt-2 text-[14px] font-medium leading-7 text-black/70">
                   {item.description}
                 </p>
               </div>
@@ -286,7 +286,7 @@ export default function MensEyebrowDrawingArticle({
             ペンシルとパウダーの違い
           </h2>
 
-          <p className="mt-5 text-[14px] leading-8 text-black/80">
+          <p className="mt-5 text-[16px] leading-8 text-black/80">
             眉毛を描く道具は、主にペンシルとパウダーの2種類です。初めての人は、ペンシルとスクリューブラシが1本になったタイプを選ぶと、そろえる手間がかかりません。
           </p>
 
@@ -296,15 +296,15 @@ export default function MensEyebrowDrawingArticle({
                 key={tool.name}
                 className="rounded-[18px] border border-black/10 bg-white p-5"
               >
-                <h3 className="text-[15px] font-black">
+                <h3 className="text-[16px] font-black">
                   {tool.name}
                 </h3>
 
-                <p className="mt-2 text-[12px] font-medium leading-6 text-black/70">
+                <p className="mt-2 text-[14px] font-medium leading-7 text-black/70">
                   {tool.feature}
                 </p>
 
-                <p className="mt-2 text-[12px] font-bold leading-6 text-[#1677FF]">
+                <p className="mt-2 text-[14px] font-bold leading-7 text-[#1677FF]">
                   向いている人：{tool.suited}
                 </p>
               </div>
@@ -324,7 +324,7 @@ export default function MensEyebrowDrawingArticle({
             失敗しにくい色の選び方
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
             <p>
               色は、髪の色に近い色か、髪より少し明るい色を選ぶと、自然になじみます。黒髪の場合でも、真っ黒のペンシルは描いた部分だけが目立ちやすいため、ダークブラウンやグレー系の色が使いやすい選択肢です。
             </p>
@@ -335,11 +335,11 @@ export default function MensEyebrowDrawingArticle({
           </div>
 
           <div className="mt-7 rounded-[20px] border border-[#1677FF]/15 bg-[#EEF6FF] p-5">
-            <p className="text-[12px] font-black text-[#1677FF]">
+            <p className="text-[14px] font-black text-[#1677FF]">
               迷ったら、明るいほうを選ぶ
             </p>
 
-            <p className="mt-3 text-[12px] font-medium leading-6 text-black/70">
+            <p className="mt-3 text-[14px] font-medium leading-7 text-black/70">
               明るい色は、重ねて描けば濃くできます。一方で、濃すぎる色を薄く見せることは難しいため、2色で迷ったら明るいほうを選ぶと失敗しにくくなります。
             </p>
           </div>
@@ -357,7 +357,7 @@ export default function MensEyebrowDrawingArticle({
             自然に見える描き方5ステップ
           </h2>
 
-          <p className="mt-4 text-[13px] font-medium leading-7 text-black/70">
+          <p className="mt-4 text-[15px] font-medium leading-7 text-black/70">
             ポイントは、パウダーで薄い部分をふんわり埋め、ペンシルで足りない部分だけを描き足すことです。
           </p>
 
@@ -370,7 +370,7 @@ export default function MensEyebrowDrawingArticle({
               sizes="(max-width: 640px) calc(100vw - 40px), (max-width: 1024px) 100vw, 680px"
               className="h-auto w-full"
             />
-            <figcaption className="px-4 py-3 text-[11px] font-medium leading-5 text-black/65">
+            <figcaption className="px-4 py-3 text-[13px] font-medium leading-6 text-black/65">
               眉山から眉尻はパウダー、すき間と眉尻はペンシル、眉頭はぼかすだけにします。
             </figcaption>
           </figure>
@@ -391,12 +391,12 @@ export default function MensEyebrowDrawingArticle({
                       {step.title}
                     </h3>
 
-                    <p className="mt-3 text-[13px] leading-7 text-black/75">
+                    <p className="mt-3 text-[15px] leading-7 text-black/75">
                       {step.description}
                     </p>
 
                     <div className="mt-4 rounded-[14px] bg-[#FFF9D9] px-4 py-3">
-                      <p className="text-[11px] font-bold leading-6 text-black/65">
+                      <p className="text-[13px] font-bold leading-6 text-black/65">
                         <span className="mr-2 font-black text-[#9A7800]">
                           POINT
                         </span>
@@ -438,11 +438,11 @@ export default function MensEyebrowDrawingArticle({
                   TIP {String(index + 1).padStart(2, "0")}
                 </p>
 
-                <p className="mt-2 text-[13px] font-bold">
+                <p className="mt-2 text-[15px] font-bold">
                   {tip.title}
                 </p>
 
-                <p className="mt-2 text-[12px] leading-7 text-black/70">
+                <p className="mt-2 text-[14px] leading-7 text-black/70">
                   {tip.description}
                 </p>
               </div>
@@ -468,11 +468,11 @@ export default function MensEyebrowDrawingArticle({
                 key={trouble.title}
                 className="rounded-[18px] border border-black/10 bg-white p-5"
               >
-                <h3 className="text-[15px] font-black">
+                <h3 className="text-[16px] font-black">
                   {trouble.title}
                 </h3>
 
-                <p className="mt-2 text-[12px] font-medium leading-6 text-black/70">
+                <p className="mt-2 text-[14px] font-medium leading-7 text-black/70">
                   {trouble.description}
                 </p>
               </div>
@@ -492,7 +492,7 @@ export default function MensEyebrowDrawingArticle({
             描いた眉毛の落とし方
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
             <p>
               描いた眉毛は、夜の洗顔で落とします。洗顔料で落とせる製品もあれば、汗や水に強いタイプのように、クレンジングが必要な製品もあるため、パッケージの表示を確認しましょう。
             </p>
@@ -516,7 +516,7 @@ export default function MensEyebrowDrawingArticle({
             顔全体の改善ポイントを確認
           </h2>
 
-          <p className="mt-4 text-[13px] font-medium leading-6 text-black/70">
+          <p className="mt-4 text-[15px] font-medium leading-6 text-black/70">
             AKANUKE.AIでは、顔写真をもとに髪型・眉毛・肌・全体の印象をAIが分析。自分はどこから整えるべきかを確認できます。
           </p>
 
@@ -541,7 +541,7 @@ export default function MensEyebrowDrawingArticle({
                 key={faq.question}
                 className="group overflow-hidden rounded-[16px] border border-black/10 bg-white"
               >
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-[13px] font-black">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-[15px] font-black">
                   {faq.question}
 
                   <span className="shrink-0 text-[#1677FF] transition group-open:rotate-180">
@@ -549,7 +549,7 @@ export default function MensEyebrowDrawingArticle({
                   </span>
                 </summary>
 
-                <p className="border-t border-black/5 px-5 py-4 text-[12px] font-medium leading-6 text-black/70">
+                <p className="border-t border-black/5 px-5 py-4 text-[14px] font-medium leading-7 text-black/70">
                   {faq.answer}
                 </p>
               </details>
@@ -571,7 +571,7 @@ export default function MensEyebrowDrawingArticle({
             眉毛は、すき間を埋める程度に描く
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
             <p>
               眉毛を描くときに大切なのは、眉全体を描き直すのではなく、すき間や足りない部分だけを補うことです。色は髪色に近いか少し明るい色を選び、パウダーで薄い部分をふんわり埋めてから、ペンシルで毛を1本ずつ描くように足しましょう。
             </p>

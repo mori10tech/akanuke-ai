@@ -184,7 +184,7 @@ export default function MensBbCreamArticle({
               <li key={item.id}>
                 <a
                   href={`#${item.id}`}
-                  className="flex gap-3 text-[11px] font-medium leading-5 text-black/70 transition hover:text-[#1677FF]"
+                  className="flex gap-3 text-[13px] font-medium leading-6 text-black/70 transition hover:text-[#1677FF]"
                 >
                   <span className="shrink-0 font-black text-[#1677FF]">
                     {String(index + 1).padStart(2, "0")}
@@ -199,7 +199,7 @@ export default function MensBbCreamArticle({
       </aside>
 
       <div className="min-w-0">
-        <section className="text-[14px] leading-8 text-black/80">
+        <section className="text-[16px] leading-8 text-black/80">
           <p>
             「BBクリームを使ってみたいけれど、メイクしているとバレたくない」「買ってみたものの、塗ると顔だけ白く浮いてしまう」と悩んでいませんか？
           </p>
@@ -212,17 +212,17 @@ export default function MensBbCreamArticle({
             この記事では、BBクリームでできることとできないこと、買う前に決めること、色の選び方、塗り方、塗った後の確認ポイント、日中の直し方を解説します。
           </p>
           <div className="mt-7 rounded-[20px] border border-[#1677FF]/15 bg-[#EEF6FF] p-5">
-            <p className="text-[12px] font-black text-[#1677FF]">
+            <p className="text-[14px] font-black text-[#1677FF]">
               AKANUKE.AIの診断データより
             </p>
 
-            <p className="mt-3 text-[12px] font-medium leading-6 text-black/70">
+            <p className="mt-3 text-[14px] font-medium leading-7 text-black/70">
               AKANUKE.AIのAI診断の結果を集計したところ、肌の色ムラ・赤み・くすみを自然に整えるケアが、およそ7件に6件（86.8%）の診断で必要と判定されました。顔全体の色ムラを薄く整えたい場合、BBクリームは取り入れやすい方法の一つです。
             </p>
 
             <Link
               href="/media/mens-akanuke-diagnosis-data"
-              className="mt-3 inline-block text-[12px] font-bold text-[#1677FF] transition hover:opacity-70"
+              className="mt-3 inline-block text-[14px] font-bold text-[#1677FF] transition hover:opacity-70"
             >
               診断データの記事を見る →
             </Link>
@@ -241,17 +241,17 @@ export default function MensBbCreamArticle({
             BBクリームでできること・できないこと
           </h2>
 
-          <p className="mt-5 text-[14px] leading-8 text-black/80">
+          <p className="mt-5 text-[16px] leading-8 text-black/80">
             BBクリームは、顔全体に薄く伸ばして、肌の色をそろえて見せるためのアイテムです。できることとできないことを知っておくと、塗りすぎを防げます。
           </p>
 
           <div className="mt-7 grid gap-4 sm:grid-cols-2">
             <div className="rounded-[20px] border border-[#1677FF]/15 bg-[#EEF6FF] p-5">
-              <p className="text-[12px] font-black text-[#1677FF]">
+              <p className="text-[14px] font-black text-[#1677FF]">
                 できること
               </p>
 
-              <ul className="mt-3 space-y-2 text-[12px] font-medium leading-6 text-black/75">
+              <ul className="mt-3 space-y-2 text-[14px] font-medium leading-7 text-black/75">
                 {canDo.map((item) => (
                   <li key={item}>・{item}</li>
                 ))}
@@ -259,11 +259,11 @@ export default function MensBbCreamArticle({
             </div>
 
             <div className="rounded-[20px] border border-black/10 bg-[#F8FAFC] p-5">
-              <p className="text-[12px] font-black text-black/70">
+              <p className="text-[14px] font-black text-black/70">
                 できないこと
               </p>
 
-              <ul className="mt-3 space-y-2 text-[12px] font-medium leading-6 text-black/75">
+              <ul className="mt-3 space-y-2 text-[14px] font-medium leading-7 text-black/75">
                 {cannotDo.map((item) => (
                   <li key={item}>・{item}</li>
                 ))}
@@ -271,9 +271,22 @@ export default function MensBbCreamArticle({
             </div>
           </div>
 
-          <p className="mt-5 text-[13px] leading-7 text-black/70">
+          <p className="mt-5 text-[15px] leading-7 text-black/70">
             「できないこと」を無理にBBクリームで解決しようとして重ね塗りすると、厚塗りに見える原因になります。
           </p>
+          <div className="mt-5 space-y-1 text-[13px] font-medium leading-6 text-black/50">
+            <p>
+              参考：
+              <a
+                href="https://maison.kose.co.jp/article/g/gmens-makeup-2510-01/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline transition hover:text-[#1677FF]"
+              >
+                コーセー「ワンポイントメンズメイクおすすめ」
+              </a>
+            </p>
+          </div>
         </section>
 
         <section
@@ -288,7 +301,7 @@ export default function MensBbCreamArticle({
             買う前に決めること｜BBクリームが本当に合っているか
           </h2>
 
-          <p className="mt-5 text-[14px] leading-8 text-black/80">
+          <p className="mt-5 text-[16px] leading-8 text-black/80">
             隠したいものによっては、BBクリーム以外のアイテムのほうが向いていることがあります。まず「何を、どこまで隠したいか」を決めましょう。
           </p>
 
@@ -298,15 +311,15 @@ export default function MensBbCreamArticle({
                 key={option.purpose}
                 className="rounded-[18px] border border-black/10 bg-white p-5"
               >
-                <p className="text-[13px] font-bold">
+                <p className="text-[15px] font-bold">
                   {option.purpose}
                 </p>
 
-                <p className="mt-2 text-[13px] font-black text-[#1677FF]">
+                <p className="mt-2 text-[15px] font-black text-[#1677FF]">
                   → {option.answer}
                 </p>
 
-                <p className="mt-2 text-[12px] font-medium leading-6 text-black/70">
+                <p className="mt-2 text-[14px] font-medium leading-7 text-black/70">
                   {option.description}
                 </p>
               </div>
@@ -340,7 +353,7 @@ export default function MensBbCreamArticle({
             失敗しにくい色の選び方
           </h2>
 
-          <p className="mt-5 text-[14px] leading-8 text-black/80">
+          <p className="mt-5 text-[16px] leading-8 text-black/80">
             BBクリームが不自然に見える一番の原因は、色が肌に合っていないことです。店頭のテスターを使って、次の3点を確認しましょう。
           </p>
 
@@ -350,11 +363,11 @@ export default function MensBbCreamArticle({
                 key={step.title}
                 className="flex items-start gap-3 rounded-[14px] border border-black/10 bg-white px-4 py-3"
               >
-                <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#EEF6FF] text-[10px] font-black text-[#1677FF]">
+                <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#EEF6FF] text-[11px] font-black text-[#1677FF]">
                   {index + 1}
                 </span>
 
-                <p className="text-[12px] font-bold leading-6 text-black/65">
+                <p className="text-[14px] font-bold leading-7 text-black/65">
                   {step.title}
                   <span className="block font-medium text-black/60">
                     {step.description}
@@ -364,7 +377,7 @@ export default function MensBbCreamArticle({
             ))}
           </div>
 
-          <p className="mt-4 text-[12px] leading-6 text-black/60">
+          <p className="mt-4 text-[14px] leading-7 text-black/60">
             ※テスターがない場合は、少量サイズの製品から試すと、色が合わなかったときの失敗を小さくできます。
           </p>
         </section>
@@ -381,7 +394,7 @@ export default function MensBbCreamArticle({
             メンズBBクリームの基本の塗り方5ステップ
           </h2>
 
-          <p className="mt-4 text-[13px] font-medium leading-7 text-black/70">
+          <p className="mt-4 text-[15px] font-medium leading-7 text-black/70">
             初めて使うときは、一度で完成させようとせず、少量ずつ調整しましょう。
           </p>
 
@@ -401,12 +414,12 @@ export default function MensBbCreamArticle({
                       {step.title}
                     </h3>
 
-                    <p className="mt-3 text-[13px] leading-7 text-black/75">
+                    <p className="mt-3 text-[15px] leading-7 text-black/75">
                       {step.description}
                     </p>
 
                     <div className="mt-4 rounded-[14px] bg-[#FFF9D9] px-4 py-3">
-                      <p className="text-[11px] font-bold leading-6 text-black/65">
+                      <p className="text-[13px] font-bold leading-6 text-black/65">
                         <span className="mr-2 font-black text-[#9A7800]">
                           POINT
                         </span>
@@ -438,7 +451,7 @@ export default function MensBbCreamArticle({
             塗った後に確認する3つのポイント
           </h2>
 
-          <p className="mt-5 text-[14px] leading-8 text-black/80">
+          <p className="mt-5 text-[16px] leading-8 text-black/80">
             鏡に近づいて正面だけを見ていると、不自然な部分に気づきにくくなります。家を出る前に、次の3点を確認しましょう。
           </p>
 
@@ -449,16 +462,16 @@ export default function MensBbCreamArticle({
                 className="rounded-[18px] border border-black/10 bg-[#F8FAFC] p-5"
               >
                 <div className="flex items-start gap-3">
-                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white text-[10px] font-black text-[#1677FF]">
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white text-[11px] font-black text-[#1677FF]">
                     {index + 1}
                   </span>
 
                   <div>
-                    <h3 className="text-[15px] font-black">
+                    <h3 className="text-[16px] font-black">
                       {point.title}
                     </h3>
 
-                    <p className="mt-2 text-[12px] font-medium leading-6 text-black/70">
+                    <p className="mt-2 text-[14px] font-medium leading-7 text-black/70">
                       {point.description}
                     </p>
                   </div>
@@ -480,7 +493,7 @@ export default function MensBbCreamArticle({
             日中の崩れと直し方
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
             <p>
               時間がたつと、皮脂や汗でBBクリームがよれたり、テカって見えたりすることがあります。その上から重ね塗りすると、厚塗りに見える原因になります。
             </p>
@@ -503,7 +516,7 @@ export default function MensBbCreamArticle({
             日焼け止めとの順番と落とし方
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
             <p>
               日焼け止めとBBクリームを両方使う場合は、一般的に「スキンケア → 日焼け止め → BBクリーム」の順番です。ただし、製品によって推奨される使い方が違うため、それぞれの説明を確認しましょう。
             </p>
@@ -539,7 +552,7 @@ export default function MensBbCreamArticle({
             顔全体の改善ポイントを確認
           </h2>
 
-          <p className="mt-4 text-[13px] font-medium leading-6 text-black/70">
+          <p className="mt-4 text-[15px] font-medium leading-6 text-black/70">
             AKANUKE.AIでは、顔写真をもとに髪型・眉毛・肌・全体の印象をAIが分析。自分はどこから整えるべきかを確認できます。
           </p>
 
@@ -564,7 +577,7 @@ export default function MensBbCreamArticle({
                 key={faq.question}
                 className="group overflow-hidden rounded-[16px] border border-black/10 bg-white"
               >
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-[13px] font-black">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-[15px] font-black">
                   {faq.question}
 
                   <span className="shrink-0 text-[#1677FF] transition group-open:rotate-180">
@@ -572,7 +585,7 @@ export default function MensBbCreamArticle({
                   </span>
                 </summary>
 
-                <p className="border-t border-black/5 px-5 py-4 text-[12px] font-medium leading-6 text-black/70">
+                <p className="border-t border-black/5 px-5 py-4 text-[14px] font-medium leading-7 text-black/70">
                   {faq.answer}
                 </p>
               </details>
@@ -594,7 +607,7 @@ export default function MensBbCreamArticle({
             色選びと量で、BBクリームの仕上がりは決まる
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
             <p>
               BBクリームは、顔全体の色ムラをさりげなく整えるためのアイテムです。濃い青髭やはっきりした跡を完全に隠すものではないため、隠したいものによってはコンシーラーなどと使い分けましょう。
             </p>

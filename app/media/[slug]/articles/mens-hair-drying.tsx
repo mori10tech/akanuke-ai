@@ -189,7 +189,7 @@ export default function MensHairDryingArticle({
               <li key={item.id}>
                 <a
                   href={`#${item.id}`}
-                  className="flex gap-3 text-[11px] font-medium leading-5 text-black/70 transition hover:text-[#1677FF]"
+                  className="flex gap-3 text-[13px] font-medium leading-6 text-black/70 transition hover:text-[#1677FF]"
                 >
                   <span className="shrink-0 font-black text-[#1677FF]">
                     {String(index + 1).padStart(2, "0")}
@@ -204,7 +204,7 @@ export default function MensHairDryingArticle({
       </aside>
 
       <div className="min-w-0">
-        <section className="text-[14px] leading-8 text-black/80">
+        <section className="text-[16px] leading-8 text-black/80">
           <p>
             「美容室ではきれいだったのに、自分ではどうしても同じ髪型にならない」「ワックスを付けても、すぐにつぶれてしまう」と悩んでいませんか？
           </p>
@@ -217,17 +217,17 @@ export default function MensHairDryingArticle({
             この記事では、髪型が乾かし方で決まる理由と、乾かす前の準備、基本の乾かし方6ステップ、髪型別・悩み別のポイントを解説します。
           </p>
           <div className="mt-7 rounded-[20px] border border-[#1677FF]/15 bg-[#EEF6FF] p-5">
-            <p className="text-[12px] font-black text-[#1677FF]">
+            <p className="text-[14px] font-black text-[#1677FF]">
               AKANUKE.AIの診断データより
             </p>
 
-            <p className="mt-3 text-[12px] font-medium leading-6 text-black/70">
+            <p className="mt-3 text-[14px] font-medium leading-7 text-black/70">
               AKANUKE.AIのAI診断の結果を集計したところ、髪の広がりを抑えてまとまりを良くするケアが、4件に3件（75.0%）の診断で必要と判定されました。髪のまとまりは、毎日の乾かし方で変わる部分が大きい項目です。
             </p>
 
             <Link
               href="/media/mens-akanuke-diagnosis-data"
-              className="mt-3 inline-block text-[12px] font-bold text-[#1677FF] transition hover:opacity-70"
+              className="mt-3 inline-block text-[14px] font-bold text-[#1677FF] transition hover:opacity-70"
             >
               診断データの記事を見る →
             </Link>
@@ -246,7 +246,7 @@ export default function MensHairDryingArticle({
             髪型は乾かし方で決まる理由
           </h2>
 
-          <div className="mt-6 text-[14px] leading-8 text-black/80">
+          <div className="mt-6 text-[16px] leading-8 text-black/80">
             <p>
               髪には、水にぬれると形を保つ結びつきの一部が切れ、乾くときにその形のまま固まる性質があります。寝ぐせが水でぬらすと直るのも、この性質によるものです。
             </p>
@@ -257,11 +257,11 @@ export default function MensHairDryingArticle({
           </div>
 
           <div className="mt-7 rounded-[20px] border border-[#1677FF]/15 bg-[#EEF6FF] p-5">
-            <p className="text-[12px] font-black text-[#1677FF]">
+            <p className="text-[14px] font-black text-[#1677FF]">
               ポイントは「根元」
             </p>
 
-            <p className="mt-3 text-[12px] font-medium leading-6 text-black/70">
+            <p className="mt-3 text-[14px] font-medium leading-7 text-black/70">
               髪の立ち上がりや流れる方向は、根元が乾くときに決まります。毛先ではなく、根元の乾かし方を意識しましょう。
             </p>
           </div>
@@ -275,7 +275,7 @@ export default function MensHairDryingArticle({
               sizes="(max-width: 640px) calc(100vw - 40px), (max-width: 1024px) 100vw, 680px"
               className="h-auto w-full"
             />
-            <figcaption className="px-4 py-3 text-[11px] font-medium leading-5 text-black/65">
+            <figcaption className="px-4 py-3 text-[13px] font-medium leading-6 text-black/65">
               根元が寝たまま乾くとトップがつぶれ、根元を立ち上げて乾かすとボリュームが出ます。※画像はイメージです。
             </figcaption>
           </figure>
@@ -293,7 +293,7 @@ export default function MensHairDryingArticle({
             乾かす前の準備
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
             <p>
               まず、タオルで髪の水分をしっかり取ります。頭皮をタオルで包むようにして指の腹で押さえ、毛先はタオルで挟んで軽く押さえます。ゴシゴシこすると、ぬれて傷みやすい髪に負担がかかります。
             </p>
@@ -316,7 +316,7 @@ export default function MensHairDryingArticle({
             メンズの基本の乾かし方6ステップ
           </h2>
 
-          <p className="mt-4 text-[13px] font-medium leading-7 text-black/70">
+          <p className="mt-4 text-[15px] font-medium leading-7 text-black/70">
             順番は「前髪 → 根元 → 毛先 → 冷風」です。慣れるまでは、鏡を見ながら1つずつ確認しましょう。
           </p>
 
@@ -329,7 +329,7 @@ export default function MensHairDryingArticle({
               sizes="(max-width: 640px) calc(100vw - 40px), (max-width: 1024px) 100vw, 680px"
               className="h-auto w-full"
             />
-            <figcaption className="px-4 py-3 text-[11px] font-medium leading-5 text-black/65">
+            <figcaption className="px-4 py-3 text-[13px] font-medium leading-6 text-black/65">
               前髪から始め、根元、トップ、全体の流れ、毛先の順に乾かし、最後に冷風で形を固定します。
             </figcaption>
           </figure>
@@ -350,12 +350,12 @@ export default function MensHairDryingArticle({
                       {step.title}
                     </h3>
 
-                    <p className="mt-3 text-[13px] leading-7 text-black/75">
+                    <p className="mt-3 text-[15px] leading-7 text-black/75">
                       {step.description}
                     </p>
 
                     <div className="mt-4 rounded-[14px] bg-[#FFF9D9] px-4 py-3">
-                      <p className="text-[11px] font-bold leading-6 text-black/65">
+                      <p className="text-[13px] font-bold leading-6 text-black/65">
                         <span className="mr-2 font-black text-[#9A7800]">
                           POINT
                         </span>
@@ -387,7 +387,7 @@ export default function MensHairDryingArticle({
             髪型別の乾かし方のポイント
           </h2>
 
-          <p className="mt-5 text-[14px] leading-8 text-black/80">
+          <p className="mt-5 text-[16px] leading-8 text-black/80">
             基本の手順に加えて、髪型ごとに意識したいポイントがあります。美容室で教わった乾かし方がある場合は、そちらを優先してください。
           </p>
 
@@ -397,11 +397,11 @@ export default function MensHairDryingArticle({
                 key={item.name}
                 className="rounded-[18px] border border-black/10 bg-[#F8FAFC] p-5"
               >
-                <h3 className="text-[15px] font-black">
+                <h3 className="text-[16px] font-black">
                   {item.name}
                 </h3>
 
-                <p className="mt-3 text-[12px] font-medium leading-6 text-black/70">
+                <p className="mt-3 text-[14px] font-medium leading-7 text-black/70">
                   {item.tip}
                 </p>
               </div>
@@ -436,16 +436,16 @@ export default function MensHairDryingArticle({
                 className="rounded-[18px] border border-black/10 bg-white p-5"
               >
                 <div className="flex items-start gap-3">
-                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#EEF6FF] text-[10px] font-black text-[#1677FF]">
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#EEF6FF] text-[11px] font-black text-[#1677FF]">
                     {index + 1}
                   </span>
 
                   <div>
-                    <h3 className="text-[15px] font-black">
+                    <h3 className="text-[16px] font-black">
                       {trouble.title}
                     </h3>
 
-                    <p className="mt-2 text-[12px] font-medium leading-6 text-black/70">
+                    <p className="mt-2 text-[14px] font-medium leading-7 text-black/70">
                       {trouble.description}
                     </p>
                   </div>
@@ -473,11 +473,11 @@ export default function MensHairDryingArticle({
                 key={mistake.title}
                 className="rounded-[18px] border border-black/10 bg-[#F8FAFC] p-5"
               >
-                <h3 className="text-[15px] font-black">
+                <h3 className="text-[16px] font-black">
                   {mistake.title}
                 </h3>
 
-                <p className="mt-2 text-[12px] font-medium leading-6 text-black/70">
+                <p className="mt-2 text-[14px] font-medium leading-7 text-black/70">
                   {mistake.description}
                 </p>
               </div>
@@ -506,7 +506,7 @@ export default function MensHairDryingArticle({
             顔全体の改善ポイントを確認
           </h2>
 
-          <p className="mt-4 text-[13px] font-medium leading-6 text-black/70">
+          <p className="mt-4 text-[15px] font-medium leading-6 text-black/70">
             AKANUKE.AIでは、顔写真をもとに髪型・眉毛・肌・全体の印象をAIが分析。自分はどこから整えるべきかを確認できます。
           </p>
 
@@ -531,7 +531,7 @@ export default function MensHairDryingArticle({
                 key={faq.question}
                 className="group overflow-hidden rounded-[16px] border border-black/10 bg-white"
               >
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-[13px] font-black">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-[15px] font-black">
                   {faq.question}
 
                   <span className="shrink-0 text-[#1677FF] transition group-open:rotate-180">
@@ -539,7 +539,7 @@ export default function MensHairDryingArticle({
                   </span>
                 </summary>
 
-                <p className="border-t border-black/5 px-5 py-4 text-[12px] font-medium leading-6 text-black/70">
+                <p className="border-t border-black/5 px-5 py-4 text-[14px] font-medium leading-7 text-black/70">
                   {faq.answer}
                 </p>
               </details>
@@ -561,7 +561,7 @@ export default function MensHairDryingArticle({
             髪型の土台は、根元の乾かし方で決まる
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
             <p>
               髪は乾くときの形で固まるため、髪型の大部分はドライヤーで決まります。タオルで水分をしっかり取り、前髪から、根元を中心に乾かしましょう。
             </p>

@@ -181,7 +181,7 @@ export default function MensSunscreenArticle({
               <li key={item.id}>
                 <a
                   href={`#${item.id}`}
-                  className="flex gap-3 text-[11px] font-medium leading-5 text-black/70 transition hover:text-[#1677FF]"
+                  className="flex gap-3 text-[13px] font-medium leading-6 text-black/70 transition hover:text-[#1677FF]"
                 >
                   <span className="shrink-0 font-black text-[#1677FF]">
                     {String(index + 1).padStart(2, "0")}
@@ -196,7 +196,7 @@ export default function MensSunscreenArticle({
       </aside>
 
       <div className="min-w-0">
-        <section className="text-[14px] leading-8 text-black/80">
+        <section className="text-[16px] leading-8 text-black/80">
           <p>
             「日焼け止めは塗っているのに、なぜか日焼けしている」「塗ると顔が白くなるから使いたくない」と感じていませんか？
           </p>
@@ -209,17 +209,17 @@ export default function MensSunscreenArticle({
             この記事では、男性が日焼け止めを使うべき理由と、製品の選び方、量の考え方、顔に塗る5つのステップ、塗り忘れやすい場所、塗り直しと落とし方を解説します。
           </p>
           <div className="mt-7 rounded-[20px] border border-[#1677FF]/15 bg-[#EEF6FF] p-5">
-            <p className="text-[12px] font-black text-[#1677FF]">
+            <p className="text-[14px] font-black text-[#1677FF]">
               AKANUKE.AIの診断データより
             </p>
 
-            <p className="mt-3 text-[12px] font-medium leading-6 text-black/70">
+            <p className="mt-3 text-[14px] font-medium leading-7 text-black/70">
               AKANUKE.AIのAI診断の結果を集計したところ、紫外線対策が27.9%の診断で必要と判定されました。また、最も多かったのは肌の色ムラ・くすみを整えるケア（86.8%）で、今の肌の印象を保つうえでも日焼け対策は欠かせません。
             </p>
 
             <Link
               href="/media/mens-akanuke-diagnosis-data"
-              className="mt-3 inline-block text-[12px] font-bold text-[#1677FF] transition hover:opacity-70"
+              className="mt-3 inline-block text-[14px] font-bold text-[#1677FF] transition hover:opacity-70"
             >
               診断データの記事を見る →
             </Link>
@@ -248,11 +248,11 @@ export default function MensSunscreenArticle({
                   REASON {String(index + 1).padStart(2, "0")}
                 </p>
 
-                <p className="mt-2 text-[13px] font-bold">
+                <p className="mt-2 text-[15px] font-bold">
                   {reason.title}
                 </p>
 
-                <p className="mt-2 text-[12px] leading-7 text-black/70">
+                <p className="mt-2 text-[14px] leading-7 text-black/70">
                   {reason.description}
                 </p>
               </div>
@@ -272,7 +272,7 @@ export default function MensSunscreenArticle({
             日焼け止めの選び方
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
             <p>
               SPFは、肌が赤くなる日焼けの原因になる紫外線（UV-B）を、PAは、肌が黒くなる原因になる紫外線（UV-A）を防ぐ効果の目安です。数値が高いほど効果は強くなりますが、高ければよいというわけではありません。
             </p>
@@ -294,15 +294,28 @@ export default function MensSunscreenArticle({
                   {type.name}
                 </h4>
 
-                <p className="mt-2 text-[12px] font-medium leading-6 text-black/70">
+                <p className="mt-2 text-[14px] font-medium leading-7 text-black/70">
                   {type.feature}
                 </p>
 
-                <p className="mt-2 text-[12px] font-bold leading-6 text-[#1677FF]">
+                <p className="mt-2 text-[14px] font-bold leading-7 text-[#1677FF]">
                   向いている場面：{type.suited}
                 </p>
               </div>
             ))}
+          </div>
+          <div className="mt-5 space-y-1 text-[13px] font-medium leading-6 text-black/50">
+            <p>
+              参考：
+              <a
+                href="https://www.env.go.jp/content/900410651.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline transition hover:text-[#1677FF]"
+              >
+                環境省「紫外線環境保健マニュアル2020」
+              </a>
+            </p>
           </div>
         </section>
 
@@ -318,23 +331,36 @@ export default function MensSunscreenArticle({
             量が足りないと、表示どおりの効果は出ない
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
             <p>
-              パッケージに書かれているSPFやPAの数値は、決められた量を肌に塗った状態で測定されたものです。多くの人が普段使っている量は、この量より少ないといわれています。量が少ないと、数値どおりの効果は得られません。
+              パッケージに書かれているSPFやPAの数値は、決められた量を肌に塗った状態で測定されたものです。環境省のマニュアルによると、SPFの測定では肌1cm²あたり2mgを塗っています。塗る量が少ないと、表示どおりの効果は期待できません。
             </p>
 
             <p className="mt-5">
-              まずは製品に書かれている使用量を確認し、その量を使いましょう。「少し多いかな」と感じるくらいが、実際には適量に近いことがほとんどです。
+              まずは製品に書かれている使用量を確認し、その量を使いましょう。環境省のマニュアルでは、顔に塗る量の目安として、手のひらに取ったときに一円玉を置いたくらいの面積が埋まる量を、2回重ねて塗る方法が紹介されています。
             </p>
           </div>
 
           <div className="mt-7 rounded-[20px] border border-[#1677FF]/15 bg-[#EEF6FF] p-5">
-            <p className="text-[12px] font-black text-[#1677FF]">
+            <p className="text-[14px] font-black text-[#1677FF]">
               白くなるのが気になる場合
             </p>
 
-            <p className="mt-3 text-[12px] font-medium leading-6 text-black/70">
+            <p className="mt-3 text-[14px] font-medium leading-7 text-black/70">
               量を減らすのではなく、白くなりにくい製品を選ぶか、半分ずつ2回に分けて薄く重ねるようにしましょう。量を減らすと、白くなりにくくなる代わりに、効果も弱くなります。
+            </p>
+          </div>
+          <div className="mt-5 space-y-1 text-[13px] font-medium leading-6 text-black/50">
+            <p>
+              参考：
+              <a
+                href="https://www.env.go.jp/content/900410651.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline transition hover:text-[#1677FF]"
+              >
+                環境省「紫外線環境保健マニュアル2020」
+              </a>
             </p>
           </div>
         </section>
@@ -351,7 +377,7 @@ export default function MensSunscreenArticle({
             顔に塗る基本の5ステップ
           </h2>
 
-          <p className="mt-4 text-[13px] font-medium leading-7 text-black/70">
+          <p className="mt-4 text-[15px] font-medium leading-7 text-black/70">
             ポイントは、5か所に分けて置いてから伸ばすことです。ムラと塗り残しを防げます。
           </p>
 
@@ -364,7 +390,7 @@ export default function MensSunscreenArticle({
               sizes="(max-width: 640px) calc(100vw - 40px), (max-width: 1024px) 100vw, 680px"
               className="h-auto w-full"
             />
-            <figcaption className="px-4 py-3 text-[11px] font-medium leading-5 text-black/65">
+            <figcaption className="px-4 py-3 text-[13px] font-medium leading-6 text-black/65">
               額・両頬・鼻・あごの5か所に分けて置いてから、内側から外側へ伸ばします。
             </figcaption>
           </figure>
@@ -385,12 +411,12 @@ export default function MensSunscreenArticle({
                       {step.title}
                     </h3>
 
-                    <p className="mt-3 text-[13px] leading-7 text-black/75">
+                    <p className="mt-3 text-[15px] leading-7 text-black/75">
                       {step.description}
                     </p>
 
                     <div className="mt-4 rounded-[14px] bg-[#FFF9D9] px-4 py-3">
-                      <p className="text-[11px] font-bold leading-6 text-black/65">
+                      <p className="text-[13px] font-bold leading-6 text-black/65">
                         <span className="mr-2 font-black text-[#9A7800]">
                           POINT
                         </span>
@@ -422,7 +448,7 @@ export default function MensSunscreenArticle({
             塗り忘れやすい4つの場所
           </h2>
 
-          <p className="mt-5 text-[14px] leading-8 text-black/80">
+          <p className="mt-5 text-[16px] leading-8 text-black/80">
             顔の正面はきちんと塗れていても、次の場所は塗り忘れが多く、そこだけ日焼けしてしまいがちです。
           </p>
 
@@ -435,7 +461,7 @@ export default function MensSunscreenArticle({
               sizes="(max-width: 640px) calc(100vw - 40px), (max-width: 1024px) 100vw, 680px"
               className="h-auto w-full"
             />
-            <figcaption className="px-4 py-3 text-[11px] font-medium leading-5 text-black/65">
+            <figcaption className="px-4 py-3 text-[13px] font-medium leading-6 text-black/65">
               鼻・頬骨、髪の生え際、耳、首の後ろは、塗り忘れやすい場所です。
             </figcaption>
           </figure>
@@ -446,11 +472,11 @@ export default function MensSunscreenArticle({
                 key={area.title}
                 className="rounded-[18px] border border-black/10 bg-[#F8FAFC] p-5"
               >
-                <h3 className="text-[15px] font-black">
+                <h3 className="text-[16px] font-black">
                   {area.title}
                 </h3>
 
-                <p className="mt-2 text-[12px] font-medium leading-6 text-black/70">
+                <p className="mt-2 text-[14px] font-medium leading-7 text-black/70">
                   {area.description}
                 </p>
               </div>
@@ -470,9 +496,9 @@ export default function MensSunscreenArticle({
             塗り直しの方法
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
             <p>
-              日焼け止めは、汗や皮脂、手でさわったときの摩擦などで、時間とともに少しずつ落ちていきます。屋外で長く過ごす日は、2〜3時間を目安に塗り直しましょう。汗をたくさんかいたり、タオルで顔をふいたりした後も、塗り直すタイミングです。
+              日焼け止めは、汗や皮脂、手でさわったときの摩擦などで、時間とともに少しずつ落ちていきます。環境省のマニュアルでは、落ちたと思ったときにすぐ重ね塗りするか、2〜3時間おきに塗り直すことがすすめられています。汗をたくさんかいたり、タオルで顔をふいたりした後も、塗り直すタイミングです。
             </p>
 
             <p className="mt-5">
@@ -486,6 +512,19 @@ export default function MensSunscreenArticle({
               title="メンズスキンケアの基本を見る"
               description="日焼け止めの前に行う、洗顔と保湿の基本を解説しています。"
             />
+          </div>
+          <div className="mt-5 space-y-1 text-[13px] font-medium leading-6 text-black/50">
+            <p>
+              参考：
+              <a
+                href="https://www.env.go.jp/content/900410651.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline transition hover:text-[#1677FF]"
+              >
+                環境省「紫外線環境保健マニュアル2020」
+              </a>
+            </p>
           </div>
         </section>
 
@@ -501,7 +540,7 @@ export default function MensSunscreenArticle({
             日焼け止めの落とし方
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
             <p>
               日焼け止めを使った日は、夜に必ず落とします。洗顔料だけで落とせる製品もあれば、クレンジングが必要な製品もあるため、パッケージの表示を確認しましょう。
             </p>
@@ -525,7 +564,7 @@ export default function MensSunscreenArticle({
             顔全体の改善ポイントを確認
           </h2>
 
-          <p className="mt-4 text-[13px] font-medium leading-6 text-black/70">
+          <p className="mt-4 text-[15px] font-medium leading-6 text-black/70">
             AKANUKE.AIでは、顔写真をもとに髪型・眉毛・肌・全体の印象をAIが分析。自分はどこから整えるべきかを確認できます。
           </p>
 
@@ -550,7 +589,7 @@ export default function MensSunscreenArticle({
                 key={faq.question}
                 className="group overflow-hidden rounded-[16px] border border-black/10 bg-white"
               >
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-[13px] font-black">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-[15px] font-black">
                   {faq.question}
 
                   <span className="shrink-0 text-[#1677FF] transition group-open:rotate-180">
@@ -558,7 +597,7 @@ export default function MensSunscreenArticle({
                   </span>
                 </summary>
 
-                <p className="border-t border-black/5 px-5 py-4 text-[12px] font-medium leading-6 text-black/70">
+                <p className="border-t border-black/5 px-5 py-4 text-[14px] font-medium leading-7 text-black/70">
                   {faq.answer}
                 </p>
               </details>
@@ -580,7 +619,7 @@ export default function MensSunscreenArticle({
             日焼け止めは、量と塗り直しで効果が決まる
           </h2>
 
-          <div className="mt-5 text-[14px] leading-8 text-black/80">
+          <div className="mt-5 text-[16px] leading-8 text-black/80">
             <p>
               日焼け止めは、生活の場面に合ったSPFとPAの製品を選び、製品の表示どおりの量を使うことが大切です。額・両頬・鼻・あごの5か所に置いてから伸ばし、耳や首、首の後ろまで塗りましょう。
             </p>

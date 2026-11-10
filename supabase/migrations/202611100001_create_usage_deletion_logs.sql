@@ -23,3 +23,7 @@ create table public.usage_deletion_logs (
 alter table public.usage_deletion_logs enable row level security;
 
 revoke all on table public.usage_deletion_logs from anon, authenticated;
+
+-- サーバー側（Secret key = service_role）からの読み書きを許可する
+-- これがないと「permission denied for table usage_deletion_logs」になる
+grant select, insert on table public.usage_deletion_logs to service_role;

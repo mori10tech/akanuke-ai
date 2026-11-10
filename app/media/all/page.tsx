@@ -159,7 +159,7 @@ export default async function AllArticlesPage({
                 {selectedCategory ? `${selectedCategory}の記事` : "すべての記事"}
               </h1>
 
-              <span className="shrink-0 pb-1 text-[11px] font-bold text-black/50">
+              <span className="shrink-0 pb-1 text-[13px] font-bold text-black/50">
                 全{articles.length}件
               </span>
             </div>
@@ -168,7 +168,7 @@ export default async function AllArticlesPage({
 
         <nav aria-label="記事カテゴリー" className="border-b border-black/10 bg-white">
           <div className="mx-auto flex w-full max-w-[1180px] gap-2 overflow-x-auto px-5 py-4">
-            <Link href="/media/all" scroll={true} aria-current={!selectedCategory ? "page" : undefined} className={`shrink-0 rounded-full px-4 py-2.5 text-[12px] font-bold ${!selectedCategory ? "bg-[#1677FF] text-white" : "border border-black/10 bg-[#F8FAFC] text-black/75"}`}>
+            <Link href="/media/all" scroll={true} aria-current={!selectedCategory ? "page" : undefined} className={`shrink-0 rounded-full px-4 py-2.5 text-[13px] font-bold ${!selectedCategory ? "bg-[#1677FF] text-white" : "border border-black/10 bg-[#F8FAFC] text-black/75"}`}>
               すべての記事
             </Link>
             {categories.map((category) => (
@@ -177,7 +177,7 @@ export default async function AllArticlesPage({
                 href={`/media/all?category=${encodeURIComponent(category)}`}
                 scroll={true}
                 aria-current={selectedCategory === category ? "page" : undefined}
-                className={`shrink-0 rounded-full px-4 py-2.5 text-[12px] font-bold transition ${selectedCategory === category ? "bg-[#1677FF] text-white" : "border border-black/10 bg-[#F8FAFC] text-black/75 hover:border-[#1677FF]/30 hover:text-[#1677FF]"}`}
+                className={`shrink-0 rounded-full px-4 py-2.5 text-[13px] font-bold transition ${selectedCategory === category ? "bg-[#1677FF] text-white" : "border border-black/10 bg-[#F8FAFC] text-black/75 hover:border-[#1677FF]/30 hover:text-[#1677FF]"}`}
               >
                 {category}
               </Link>
@@ -204,7 +204,7 @@ export default async function AllArticlesPage({
                   </div>
 
                   <div className="p-5 sm:p-6">
-                    <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-[10px] font-bold text-black/50">
+                    <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-[12px] font-bold text-black/50">
                       <time dateTime={article.publishedAt}>
                         {formatDate(article.publishedAt)}
                       </time>
@@ -218,11 +218,11 @@ export default async function AllArticlesPage({
                       {article.title}
                     </h2>
 
-                    <p className="mt-3 text-[12px] leading-6 text-black/65">
+                    <p className="mt-3 text-[14px] leading-7 text-black/65">
                       {article.description}
                     </p>
 
-                    <div className="mt-5 flex min-h-[46px] items-center justify-between rounded-[12px] bg-[#F7F9FC] px-4 text-[12px] font-black transition group-hover:bg-[#EEF6FF] group-hover:text-[#1677FF]">
+                    <div className="mt-5 flex min-h-[46px] items-center justify-between rounded-[12px] bg-[#F7F9FC] px-4 text-[14px] font-black transition group-hover:bg-[#EEF6FF] group-hover:text-[#1677FF]">
                       <span>記事を読む</span>
                       <ArrowRightIcon />
                     </div>
@@ -264,7 +264,7 @@ export default async function AllArticlesPage({
               自分に合う改善方法を知りたい方へ
             </h2>
 
-            <p className="mx-auto mt-4 max-w-[500px] text-[13px] font-medium leading-6 text-black/70">
+            <p className="mx-auto mt-4 max-w-[500px] text-[15px] font-medium leading-6 text-black/70">
               顔写真をもとに、髪型・眉毛・肌・全体の印象をAIが分析します。
             </p>
 

@@ -33,7 +33,7 @@ export default function JournalDiagnosisCta({
       <button
         type="button"
         onClick={handleDiagnosisStart}
-        className="group mt-6 flex min-h-[52px] w-full items-center justify-center rounded-[13px] bg-[#FFD400] px-5 text-[13px] font-black text-[#111111] shadow-[0_10px_24px_rgba(255,212,0,0.22)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_14px_30px_rgba(255,212,0,0.3)] active:scale-[0.98]"
+        className="group mt-6 flex min-h-[52px] w-full items-center justify-center rounded-[13px] bg-[#FFD400] px-5 text-[15px] font-black text-[#111111] shadow-[0_10px_24px_rgba(255,212,0,0.22)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_14px_30px_rgba(255,212,0,0.3)] active:scale-[0.98]"
       >
         <span>
           無料で診断をはじめる
@@ -49,7 +49,7 @@ export default function JournalDiagnosisCta({
         </span>
       </button>
 
-      <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-[10px] font-bold text-black/60">
+      <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-[12px] font-bold text-black/60">
         <span>約1分で完了</span>
         <span>無料で利用可能</span>
         <span>{audienceLabel}</span>
@@ -111,7 +111,7 @@ export default function JournalDiagnosisCta({
               />
             </div>
 
-            <p className="mt-5 text-[12px] font-medium leading-6 text-black/45">
+            <p className="mt-5 text-[13px] font-medium leading-6 text-black/45">
               LINEアプリがインストールされた
               <br />
               スマートフォンで読み取ってください。

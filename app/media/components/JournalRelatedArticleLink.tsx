@@ -31,17 +31,17 @@ export default function JournalRelatedArticleLink({
         </span>
       </div>
 
-      <p className="mt-4 text-[15px] font-black leading-6 text-[#111111]">
+      <p className="mt-4 text-[16px] font-black leading-6 text-[#111111]">
         {title}
       </p>
 
       {description && (
-        <p className="mt-2 text-[11px] font-medium leading-5 text-black/60">
+        <p className="mt-2 text-[13px] font-medium leading-6 text-black/60">
           {description}
         </p>
       )}
 
-      <p className="mt-auto pt-4 text-[11px] font-black text-[#1677FF]">
+      <p className="mt-auto pt-4 text-[13px] font-black text-[#1677FF]">
         記事を読む
       </p>
     </Link>

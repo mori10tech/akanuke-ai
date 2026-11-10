@@ -228,7 +228,6 @@ export default function MensBlueBeardArticle({
           </div>
         </section>
 
-
         <section
           id="cause"
           className="scroll-mt-24 pt-14"
@@ -403,7 +402,7 @@ export default function MensBlueBeardArticle({
               src="/media/articles/mens-blue-beard/mens-blue-beard-shaving.webp"
               alt="洗顔からシェービング剤の使用、髭剃り、保湿までの4ステップ"
               width={1672}
-              height={941}
+              height={572}
               loading="lazy"
               decoding="async"
               className="block h-auto w-full"
@@ -502,18 +501,6 @@ export default function MensBlueBeardArticle({
               色には、反対の色（補色）を重ねると互いに打ち消し合う性質があります。青の反対側にあるのがオレンジ系の色です。肌色のコンシーラーだけで青みを隠そうとすると、厚く塗ってもグレーっぽく見えることがありますが、先にオレンジ系で青みを打ち消してから肌色を重ねると、少ない量で自然に整えやすくなります。
             </p>
           </div>
-
-          <figure className="mt-7 overflow-hidden rounded-[18px]">
-            <img
-              src="/media/articles/mens-blue-beard/mens-blue-beard-concealer.webp"
-              alt="青髭をコンシーラーで自然にカバーする4つの手順"
-              width={1672}
-              height={941}
-              loading="lazy"
-              decoding="async"
-              className="block h-auto w-full"
-            />
-          </figure>
 
 <div className="mt-7">
   <JournalRelatedArticleLink

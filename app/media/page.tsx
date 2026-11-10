@@ -108,11 +108,11 @@ export default async function JournalTopPage({
 
             <div aria-hidden="true" className="mt-7 hidden h-px bg-[#111111] md:block" />
 
-            <p className="mt-4 text-[12px] font-bold text-[#111111] md:mt-6 md:text-[18px]">
+            <p className="mt-4 text-[14px] font-bold text-[#111111] md:mt-6 md:text-[18px]">
               メンズの垢抜け・美容を、分かりやすく。
             </p>
 
-            <p className="mt-2 text-[12px] leading-[1.8] text-[#4B5058] md:mt-3 md:whitespace-nowrap md:text-[13px]">
+            <p className="mt-2 text-[14px] leading-[1.8] text-[#4B5058] md:mt-3 md:whitespace-nowrap md:text-[15px]">
               髪型・眉毛・スキンケアなど、
               <br className="md:hidden" />
               男性が第一印象を整えるために役立つ情報を発信します。
@@ -138,7 +138,7 @@ export default async function JournalTopPage({
                   />
                 </div>
 
-                <div className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-2 text-[10px] font-bold text-black/50">
+                <div className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-2 text-[12px] font-bold text-black/50">
                   <span className="rounded-full bg-[#1677FF] px-2.5 py-1 text-[9px] font-black tracking-[0.12em] text-white">
                     FEATURED
                   </span>
@@ -152,7 +152,7 @@ export default async function JournalTopPage({
                   {featuredArticle.title}
                 </h2>
 
-                <p className="mt-3 text-[12px] leading-6 text-black/65 md:text-[13px]">
+                <p className="mt-3 text-[14px] leading-7 text-black/65 md:text-[15px]">
                   {featuredArticle.description}
                 </p>
               </Link>
@@ -177,7 +177,7 @@ export default async function JournalTopPage({
                       </div>
 
                       <div className="min-w-0">
-                        <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[10px] font-bold text-black/50">
+                        <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[12px] font-bold text-black/50">
                           <span className="text-[#1677FF]">{article.category}</span>
 
                           <time dateTime={article.publishedAt}>
@@ -185,7 +185,7 @@ export default async function JournalTopPage({
                           </time>
                         </div>
 
-                        <h3 className="mt-1.5 text-[13px] font-semibold leading-[1.6] tracking-[-0.02em] transition group-hover:text-[#1677FF] md:text-[14px]">
+                        <h3 className="mt-1.5 text-[15px] font-semibold leading-[1.6] tracking-[-0.02em] transition group-hover:text-[#1677FF] md:text-[16px]">
                           {article.title}
                         </h3>
                       </div>
@@ -196,7 +196,7 @@ export default async function JournalTopPage({
 
               <Link
                 href="/media/all"
-                className="mt-6 flex min-h-[48px] items-center justify-center rounded-[12px] bg-[#F7F9FC] px-5 text-[12px] font-black text-[#111111] transition hover:bg-[#EEF6FF] hover:text-[#1677FF]"
+                className="mt-6 flex min-h-[48px] items-center justify-center rounded-[12px] bg-[#F7F9FC] px-5 text-[14px] font-black text-[#111111] transition hover:bg-[#EEF6FF] hover:text-[#1677FF]"
               >
                 すべての記事を見る →
               </Link>

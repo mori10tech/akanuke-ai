@@ -7,7 +7,7 @@ type JournalPaginationProps = {
 };
 
 const baseClassName =
-  "flex h-11 min-w-11 shrink-0 items-center justify-center rounded-full px-4 text-[12px] font-bold";
+  "flex h-11 min-w-11 shrink-0 items-center justify-center rounded-full px-4 text-[14px] font-bold";
 
 const inactiveClassName =
   "border border-black/10 bg-[#F8FAFC] text-black/75 transition hover:border-[#1677FF]/30 hover:text-[#1677FF]";

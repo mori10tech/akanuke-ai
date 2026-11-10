@@ -489,7 +489,6 @@ export default function MensConcealerArticle({
           </div>
         </section>
 
-
         <section
 
           id="what-is"
@@ -835,20 +834,6 @@ export default function MensConcealerArticle({
             </p>
 
           </div>
-
-          <figure className="mt-7 overflow-hidden rounded-[20px] border border-black/10 bg-[#F8FAFC]">
-            <Image
-              src="/media/articles/mens-concealer/mens-concealer-beard-shadow.webp"
-              alt="青髭をコンシーラーでカバーする前後と使用手順のイメージ"
-              width={1672}
-              height={941}
-              sizes="(max-width: 640px) calc(100vw - 40px), (max-width: 1024px) 100vw, 680px"
-              className="h-auto w-full"
-            />
-            <figcaption className="px-4 py-3 text-[13px] font-medium leading-6 text-black/65">
-              青髭のカバー方法を示したAI生成イメージです。仕上がりには個人差があります。
-            </figcaption>
-          </figure>
 
           <div className="mt-7">
 

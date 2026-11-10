@@ -74,7 +74,7 @@ function SectionTitle({
   title: string;
 }) {
   return (
-    <div className="mb-4">
+    <div className="mb-3">
       <p className="text-[11px] font-bold tracking-[0.18em] text-[#1677FF]">
         {label}
       </p>
@@ -95,18 +95,21 @@ function StatCell({
   note?: string;
 }) {
   return (
-    <div className="rounded-[16px] bg-[#F7F9FC] px-5 py-4">
+    <div className="rounded-[16px] bg-[#F7F9FC] px-5 py-3">
       <p className="text-[12px] font-bold text-black/50">
         {label}
       </p>
-      <p className="mt-2 text-[28px] font-bold leading-none text-[#111111]">
-        {formatNumber(value)}
-      </p>
-      {note && (
-        <p className="mt-2 text-[11px] text-black/50">
-          {note}
+      {/* 縦の高さを抑えるため、補足は数字の右側に並べる */}
+      <div className="mt-2 flex items-end justify-between gap-2">
+        <p className="text-[28px] font-bold leading-none text-[#111111]">
+          {formatNumber(value)}
         </p>
-      )}
+        {note && (
+          <p className="text-right text-[11px] leading-tight text-black/50">
+            {note}
+          </p>
+        )}
+      </div>
     </div>
   );
 }
@@ -124,7 +127,7 @@ function PeriodRow({
 }) {
   return (
     <div>
-      <p className="mb-3 text-[13px] font-bold text-black/55">
+      <p className="mb-2 text-[13px] font-bold text-black/55">
         {title}
       </p>
       <div className="grid grid-cols-4 gap-3">
@@ -176,8 +179,8 @@ export default async function AdminStatsPage() {
 
   return (
     <main className="min-h-screen bg-white text-[#111111]">
-      <div className="mx-auto max-w-[1080px] px-10 py-12">
-        <header className="mb-10 flex items-end justify-between border-b border-black/10 pb-6">
+      <div className="mx-auto max-w-[1080px] px-10 py-8">
+        <header className="mb-6 flex items-end justify-between border-b border-black/10 pb-4">
           <div>
             <p className="text-[11px] font-bold tracking-[0.18em] text-[#1677FF]">
               AKANUKE.AI ADMIN
@@ -205,7 +208,7 @@ export default async function AdminStatsPage() {
           </div>
         </header>
 
-        <section className="mb-8 rounded-[22px] border border-black/10 bg-white p-6">
+        <section className="mb-5 rounded-[22px] border border-black/10 bg-white px-6 py-5">
           <SectionTitle
             label="SIGN UP"
             title="新規登録数"
@@ -218,12 +221,12 @@ export default async function AdminStatsPage() {
           />
         </section>
 
-        <section className="mb-8 rounded-[22px] border border-black/10 bg-white p-6">
+        <section className="mb-5 rounded-[22px] border border-black/10 bg-white px-6 py-5">
           <SectionTitle
             label="DIAGNOSIS"
             title="診断数・診断したユーザー数"
           />
-          <div className="space-y-6">
+          <div className="space-y-4">
             <PeriodRow
               title="診断数"
               counts={stats.diagnoses}

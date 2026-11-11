@@ -77,13 +77,22 @@ function StatCell({
   label,
   value,
   note,
+  highlight = false,
 }: {
   label: string;
   value: number;
   note?: string;
+  highlight?: boolean;
 }) {
   return (
-    <div className="rounded-[16px] bg-[#F7F9FC] px-5 py-3">
+    <div
+      className={`rounded-[16px] bg-[#F7F9FC] px-5 py-3 ${
+        // 累計を目立たせる細い青線（ring-inset なのでカードの大きさは変わらない）
+        highlight
+          ? "ring-1 ring-inset ring-[#1677FF]"
+          : ""
+      }`}
+    >
       <p className="text-[12px] font-bold text-black/50">
         {label}
       </p>
@@ -139,6 +148,7 @@ function PeriodRow({
         <StatCell
           label="累計"
           value={counts.total}
+          highlight
           note={totalNote}
         />
       </div>

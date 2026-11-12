@@ -426,7 +426,7 @@ export default function AkanukenaiManFeaturesArticle({
               自分では気づきにくい原因も、AKANUKE.AIなら顔写真から髪型・眉毛・肌・全体の印象をAIが分析。優先して改善したいポイントを整理します。
             </p>
 
-            <JournalDiagnosisCta />
+            <JournalDiagnosisCta placement="middle" />
           </section>
 
           <section

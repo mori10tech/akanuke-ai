@@ -327,6 +327,25 @@ export default function MensAkanukeDiagnosisDataArticle({
           </p>
         </section>
 
+        {/* 記事途中の診断CTA（クリック計測：placement="middle"）。デザインは末尾のCTAと共通 */}
+        <section className="mt-16 overflow-hidden rounded-[26px] border border-[#1677FF]/15 bg-gradient-to-br from-[#F7FBFF] via-white to-[#EEF6FF] px-6 py-9 shadow-[0_16px_40px_rgba(22,119,255,0.08)] sm:px-9">
+          <div className="inline-flex items-center rounded-full bg-[#EEF6FF] px-3 py-1.5">
+            <span className="text-[10px] font-black tracking-[0.16em] text-[#1677FF]">
+              AI BEAUTY DIAGNOSIS
+            </span>
+          </div>
+
+          <h2 className="mt-4 text-[22px] font-semibold sm:text-[26px] leading-[1.45] tracking-[-0.04em] text-[#111111]">
+            自分に必要なケアをAIで確認
+          </h2>
+
+          <p className="mt-4 text-[15px] font-medium leading-6 text-black/70">
+            ランキングは全体の傾向です。自分に当てはまるかは、人によって異なります。AKANUKE.AIなら、顔写真から髪型・眉毛・肌・全体の印象をAIが分析し、優先して改善したいポイントを確認できます。
+          </p>
+
+          <JournalDiagnosisCta placement="middle" />
+        </section>
+
         <section
           id="skin-tone"
           className="scroll-mt-24 pt-16"

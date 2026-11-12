@@ -1,24 +1,43 @@
 "use client";
 
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 import { appendAcquisitionToUrl } from "../../../lib/acquisition";
+import { trackEvent } from "../../../lib/analytics";
 
 const DIAGNOSIS_LIFF_URL =
   "https://liff.line.me/2011169942-wf6MoEy4?next=%2Fupload";
 
 type JournalDiagnosisCtaProps = {
   audienceLabel?: string;
+  /*
+   * 記事内のCTAの位置（クリック計測用）
+   * middle：記事途中のCTA / bottom：記事末尾のCTA
+   */
+  placement?: "middle" | "bottom";
 };
 
 export default function JournalDiagnosisCta({
   audienceLabel = "メンズ向け",
+  placement = "bottom",
 }: JournalDiagnosisCtaProps) {
+  const pathname = usePathname();
+
   const [isDiagnosisQrOpen, setIsDiagnosisQrOpen] =
     useState(false);
 
   const handleDiagnosisStart = () => {
+    /*
+     * どの記事の、どの位置のCTAが押されたかをGA4へ送る
+     * （PCでQRコードを表示する場合も、押された回数として数える）
+     */
+    trackEvent("diagnosis_cta_click", {
+      placement,
+      article_path: pathname,
+    });
+
     const isDesktop =
       window.matchMedia("(min-width: 768px)").matches;
 

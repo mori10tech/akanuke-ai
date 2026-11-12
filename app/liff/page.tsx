@@ -10,6 +10,11 @@ import liff from "@line/liff";
 import {
   createClient,
 } from "../../lib/supabase/client";
+import {
+  readAcquisitionFromUrl,
+  readStoredAcquisition,
+  type Acquisition,
+} from "../../lib/acquisition";
 
 const DEFAULT_NEXT =
   "/upload";
@@ -52,6 +57,7 @@ function getRedirectPath(
   path: string,
   loginCompleted: boolean,
   isNewUser = false,
+  acquisition: Acquisition | null = null,
 ) {
   if (!loginCompleted) {
     return path;
@@ -77,6 +83,22 @@ function getRedirectPath(
       "signup",
       "1",
     );
+
+    /*
+     * sign_upイベントに流入元を付けて送るため、
+     * 遷移先へ引き継ぐ（送信後にURLから削除する）
+     */
+    if (acquisition) {
+      url.searchParams.set(
+        "signup_src",
+        acquisition.source,
+      );
+
+      url.searchParams.set(
+        "signup_med",
+        acquisition.medium,
+      );
+    }
   }
 
   return `${url.pathname}${url.search}${url.hash}`;
@@ -128,6 +150,54 @@ function isNewlyCreatedUser(user: {
     ) <=
     NEW_USER_THRESHOLD_MS
   );
+}
+
+/*
+ * 新規ユーザーの流入元をSupabaseへ保存する
+ *
+ * 保存に失敗してもログインと遷移は止めない。
+ * 応答が遅い場合も待ち続けないよう、一定時間で打ち切る。
+ */
+const ACQUISITION_SAVE_TIMEOUT_MS =
+  3000;
+
+async function saveAcquisition(
+  acquisition: Acquisition | null,
+) {
+  const controller =
+    new AbortController();
+
+  const timer =
+    window.setTimeout(
+      () => controller.abort(),
+      ACQUISITION_SAVE_TIMEOUT_MS,
+    );
+
+  try {
+    await fetch(
+      "/api/acquisition",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type":
+            "application/json",
+        },
+        body: JSON.stringify(
+          acquisition ?? {},
+        ),
+        cache: "no-store",
+        signal:
+          controller.signal,
+      },
+    );
+  } catch (error) {
+    console.warn(
+      "Acquisition save error:",
+      error,
+    );
+  } finally {
+    window.clearTimeout(timer);
+  }
 }
 
 function getPageTitle(
@@ -264,6 +334,14 @@ export default function LiffPage() {
         const safeNext =
           getSafeNext();
 
+        /*
+         * 流入元はURLパラメータを優先する。
+         * LIFFの初期化前と初期化後の両方でURLを確認し、
+         * どちらにもなければ同じブラウザに保存された値を使う。
+         */
+        let acquisition =
+          readAcquisitionFromUrl();
+
         setPageTitle(
           getPageTitle(
             safeNext,
@@ -273,6 +351,11 @@ export default function LiffPage() {
         await liff.init({
           liffId,
         });
+
+        acquisition =
+          acquisition ??
+          readAcquisitionFromUrl() ??
+          readStoredAcquisition();
 
         /*
          * LINEアプリ外からLIFFを開いた場合のみ、
@@ -469,6 +552,12 @@ export default function LiffPage() {
             isNewlyCreatedUser(
               data.user,
             );
+
+          if (isNewUser) {
+            await saveAcquisition(
+              acquisition,
+            );
+          }
         }
 
         if (!authenticatedUser) {
@@ -507,6 +596,7 @@ export default function LiffPage() {
     resolvedNext,
     didSignIn,
     isNewUser,
+    acquisition,
   ),
 );
 
@@ -525,6 +615,7 @@ if (
     "/upload?mode=retry",
     didSignIn,
     isNewUser,
+    acquisition,
   ),
 );
 
@@ -540,6 +631,7 @@ if (
     safeNext,
     didSignIn,
     isNewUser,
+    acquisition,
   ),
 );
       } catch (error) {

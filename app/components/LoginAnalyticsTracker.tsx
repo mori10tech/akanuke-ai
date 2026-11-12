@@ -61,6 +61,19 @@ export default function LoginAnalyticsTracker() {
             "line",
           destination_path:
             pathname,
+          /*
+           * 初回訪問時の流入元（lib/acquisition.ts）
+           * LINEアプリ内ブラウザに切り替わると
+           * GA4の流入元が引き継がれないため、別途付ける
+           */
+          acquisition_source:
+            searchParams.get(
+              "signup_src",
+            ) ?? undefined,
+          acquisition_medium:
+            searchParams.get(
+              "signup_med",
+            ) ?? undefined,
         },
       );
     }
@@ -85,6 +98,14 @@ export default function LoginAnalyticsTracker() {
 
     url.searchParams.delete(
       "signup",
+    );
+
+    url.searchParams.delete(
+      "signup_src",
+    );
+
+    url.searchParams.delete(
+      "signup_med",
     );
 
     window.history.replaceState(

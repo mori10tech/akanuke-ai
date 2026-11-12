@@ -2,6 +2,11 @@ import type { User } from "@supabase/supabase-js";
 
 import { createAdminClient } from "../supabase/admin";
 import {
+  buildAcquisitionBreakdown,
+  fetchAcquisitionRows,
+  type AcquisitionBreakdown,
+} from "./acquisition";
+import {
   fetchDeletionTotals,
   type DeletionTotals,
 } from "./deletion-log";
@@ -62,6 +67,8 @@ export type AdminStats = {
   // 累計に足し戻した削除済みの分（退会・自動削除）
   deletionIncluded: DeletionTotals;
   trend: DailyTrendRow[];
+  // 流入元別の新規登録数（user_acquisitions の記録開始以降）
+  acquisitions: AcquisitionBreakdown;
   neverDiagnosedUsers: NeverDiagnosedUser[];
   neverDiagnosedTotal: number;
   reference: {
@@ -261,12 +268,17 @@ function emptyPeriodCount(): PeriodCount {
 }
 
 export async function getAdminStats(): Promise<AdminStats> {
-  const [users, diagnoses, deletionTotals] =
-    await Promise.all([
-      fetchAllUsers(),
-      fetchAllDiagnoses(),
-      fetchDeletionTotals(),
-    ]);
+  const [
+    users,
+    diagnoses,
+    deletionTotals,
+    acquisitionRows,
+  ] = await Promise.all([
+    fetchAllUsers(),
+    fetchAllDiagnoses(),
+    fetchDeletionTotals(),
+    fetchAcquisitionRows(),
+  ]);
 
   const now = new Date();
   const todayKey = toJstDateKey(now);
@@ -471,6 +483,21 @@ export async function getAdminStats(): Promise<AdminStats> {
     }
   }
 
+  /*
+   * 流入元別の新規登録数（本番ユーザーのみ・直近7日は日本時間）
+   */
+  const acquisitions =
+    buildAcquisitionBreakdown(
+      acquisitionRows,
+      (userId) =>
+        userCategoryById.get(userId) ===
+        "production",
+      (createdAt) =>
+        getPeriod(
+          toJstDateKey(createdAt),
+        ).last7Days,
+    );
+
   const neverDiagnosed =
     productionUsers
       .filter(
@@ -529,6 +556,7 @@ export async function getAdminStats(): Promise<AdminStats> {
     trend: [
       ...trendByDate.values(),
     ].reverse(),
+    acquisitions,
     neverDiagnosedUsers: neverDiagnosed
       .slice(0, NEVER_DIAGNOSED_LIMIT)
       .map((user) => ({

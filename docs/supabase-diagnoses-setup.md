@@ -8,11 +8,14 @@ Supabase Dashboardの「SQL Editor」を開き、次のファイルの内容を�
 supabase/migrations/202608180001_create_diagnoses.sql
 supabase/migrations/202608180002_add_diagnosis_images.sql
 supabase/migrations/202611100001_create_usage_deletion_logs.sql
+supabase/migrations/202611120001_create_user_acquisitions.sql
 ```
 
 上から順番に1ファイルずつ実行してください。実行済みのファイルは飛ばし、未実行のものだけ実行します。
 
 3つ目の`usage_deletion_logs`は、退会・自動削除の件数を管理画面の累計に含めるための記録テーブルです（個人を特定できる情報は保存しません）。
+
+4つ目の`user_acquisitions`は、新規ユーザーの流入元（初回訪問時の参照元）を記録するテーブルです。管理画面の「流入元別の新規登録数」に使います。退会時は自動で削除されます。
 
 ## 確認項目
 

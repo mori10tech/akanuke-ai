@@ -3,6 +3,8 @@
 import Image from "next/image";
 import { useState } from "react";
 
+import { appendAcquisitionToUrl } from "../../../lib/acquisition";
+
 const DIAGNOSIS_LIFF_URL =
   "https://liff.line.me/2011169942-wf6MoEy4?next=%2Fupload";
 
@@ -25,7 +27,9 @@ export default function JournalDiagnosisCta({
       return;
     }
 
-    window.location.href = DIAGNOSIS_LIFF_URL;
+    // 流入元をLINEアプリ内ブラウザへ引き継ぐ（lib/acquisition.ts）
+    window.location.href =
+      appendAcquisitionToUrl(DIAGNOSIS_LIFF_URL);
   };
 
   return (

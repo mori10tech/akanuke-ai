@@ -172,6 +172,97 @@ const WEEKDAY_LABELS = [
  * 直近30日の日別推移（日付を横に並べた表）
  * 数字で確認しやすいよう、1列＝1日、左から古い順・右端が今日
  */
+function AcquisitionTable({
+  acquisitions,
+}: {
+  acquisitions: AdminStats["acquisitions"];
+}) {
+  if (!acquisitions.available) {
+    return (
+      <p className="text-[13px] leading-relaxed text-black/50">
+        流入元の記録を取得できませんでした。Supabaseに user_acquisitions テーブルが作成されているか確認してください。
+      </p>
+    );
+  }
+
+  if (acquisitions.rows.length === 0) {
+    return (
+      <p className="text-[13px] leading-relaxed text-black/50">
+        まだ記録がありません。流入元の記録開始後の新規登録から集計されます。
+      </p>
+    );
+  }
+
+  return (
+    <>
+      <table className="w-full text-[13px]">
+        <colgroup>
+          <col />
+          <col className="w-[120px]" />
+          <col className="w-[120px]" />
+        </colgroup>
+        <thead>
+          <tr className="text-[11px] text-black/50">
+            <th className="pb-2 text-left font-bold">
+              流入元 / メディア
+            </th>
+            <th className="pb-2 text-right font-bold">
+              直近7日
+            </th>
+            <th className="pb-2 text-right font-bold">
+              記録開始以降
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {acquisitions.rows.map((row) => (
+            <tr
+              key={row.label}
+              className="border-t border-black/10"
+            >
+              <td className="py-2 font-bold text-[#111111]">
+                {row.label}
+              </td>
+              <td
+                className={`py-2 text-right font-bold ${
+                  row.last7Days === 0
+                    ? "text-black/20"
+                    : "text-[#111111]"
+                }`}
+              >
+                {formatNumber(row.last7Days)}
+              </td>
+              <td className="py-2 text-right text-[15px] font-bold text-[#111111]">
+                {formatNumber(row.total)}
+              </td>
+            </tr>
+          ))}
+          <tr className="border-t border-black/20">
+            <th className="py-2 text-left text-[12px] font-bold text-black/55">
+              合計
+            </th>
+            <td className="py-2 text-right font-bold text-[#111111]">
+              {formatNumber(
+                acquisitions.last7DaysTotal,
+              )}
+            </td>
+            <td className="py-2 text-right text-[15px] font-bold text-[#111111]">
+              {formatNumber(acquisitions.total)}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p className="mt-3 text-[12px] leading-relaxed text-black/50">
+        初回訪問時の流入元です（後から別の経路で来ても上書きしません）。
+        {acquisitions.since
+          ? `記録開始：${formatDateTime(acquisitions.since)}。`
+          : ""}
+        退会したユーザーの分は含みません。
+      </p>
+    </>
+  );
+}
+
 function TrendTable({
   trend,
   todayKey,
@@ -365,6 +456,18 @@ export default async function AdminStatsPage() {
             counts={stats.signups}
             showComparison
             totalNote={`うち退会 ${formatNumber(deleted.deletedUsers)}`}
+          />
+        </section>
+
+        <section className="mb-5 rounded-[22px] border border-black/10 bg-white px-6 py-5">
+          <SectionTitle
+            label="ACQUISITION"
+            title="流入元別の新規登録数"
+          />
+          <AcquisitionTable
+            acquisitions={
+              stats.acquisitions
+            }
           />
         </section>
 

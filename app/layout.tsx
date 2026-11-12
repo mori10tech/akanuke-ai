@@ -13,6 +13,7 @@ import { Suspense } from "react";
 
 import "./globals.css";
 
+import AcquisitionTracker from "./components/AcquisitionTracker";
 import LoginAnalyticsTracker from "./components/LoginAnalyticsTracker";
 
 const geistSans = Geist({
@@ -199,6 +200,8 @@ export default function RootLayout({
         <Suspense fallback={null}>
           <LoginAnalyticsTracker />
         </Suspense>
+
+        <AcquisitionTracker />
 
         {children}
 

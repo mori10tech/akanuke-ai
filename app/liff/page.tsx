@@ -51,6 +51,7 @@ function getSafeNext() {
 function getRedirectPath(
   path: string,
   loginCompleted: boolean,
+  isNewUser = false,
 ) {
   if (!loginCompleted) {
     return path;
@@ -67,7 +68,66 @@ function getRedirectPath(
     "1",
   );
 
+  /*
+   * 新規登録の場合のみ、
+   * GA4のsign_upイベント送信用の印を付ける。
+   */
+  if (isNewUser) {
+    url.searchParams.set(
+      "signup",
+      "1",
+    );
+  }
+
   return `${url.pathname}${url.search}${url.hash}`;
+}
+
+/*
+ * 今回のログインで作成されたユーザーかを判定する。
+ *
+ * 端末の時計に左右されないよう、
+ * Supabase側で記録された作成日時と
+ * 最終ログイン日時の差で判定する。
+ * 新規ユーザーはこの2つがほぼ同時刻になる。
+ */
+const NEW_USER_THRESHOLD_MS =
+  60 * 1000;
+
+function isNewlyCreatedUser(user: {
+  created_at?: string;
+  last_sign_in_at?: string;
+}) {
+  if (
+    !user.created_at ||
+    !user.last_sign_in_at
+  ) {
+    return false;
+  }
+
+  const createdAt =
+    Date.parse(
+      user.created_at,
+    );
+
+  const lastSignInAt =
+    Date.parse(
+      user.last_sign_in_at,
+    );
+
+  if (
+    Number.isNaN(createdAt) ||
+    Number.isNaN(lastSignInAt)
+  ) {
+    return false;
+  }
+
+  return (
+    Math.abs(
+      lastSignInAt -
+        createdAt,
+    ) <=
+    NEW_USER_THRESHOLD_MS
+  );
 }
 
 function getPageTitle(
@@ -352,6 +412,9 @@ export default function LiffPage() {
         let didSignIn =
   false;
 
+        let isNewUser =
+          false;
+
         /*
          * 既存の旧custom:lineセッションが残っている場合も含め、
          * custom:line-oidc以外なら
@@ -401,6 +464,11 @@ export default function LiffPage() {
 
           didSignIn =
             true;
+
+          isNewUser =
+            isNewlyCreatedUser(
+              data.user,
+            );
         }
 
         if (!authenticatedUser) {
@@ -438,6 +506,7 @@ export default function LiffPage() {
   getRedirectPath(
     resolvedNext,
     didSignIn,
+    isNewUser,
   ),
 );
 
@@ -455,6 +524,7 @@ if (
   getRedirectPath(
     "/upload?mode=retry",
     didSignIn,
+    isNewUser,
   ),
 );
 
@@ -469,6 +539,7 @@ if (
   getRedirectPath(
     safeNext,
     didSignIn,
+    isNewUser,
   ),
 );
       } catch (error) {

@@ -17,11 +17,12 @@ const nextConfig: NextConfig = {
        * Instagramプロフィールリンク用の短縮URL
        * 流入元をGA4で計測するためUTM付きのトップページへ転送する
        * 転送先を後から変更できるよう一時リダイレクト（307）にする
+       * utm_sourceはInstagramが自動付与する「ig」に表記を合わせる
        */
       {
         source: "/ig",
         destination:
-          "/?utm_source=instagram&utm_medium=social&utm_campaign=profile",
+          "/?utm_source=ig&utm_medium=social&utm_campaign=profile",
         permanent: false,
       },
     ];

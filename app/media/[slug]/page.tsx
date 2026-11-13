@@ -177,6 +177,13 @@ export async function generateMetadata({
           ]
         : undefined,
     },
+
+    twitter: {
+      card: "summary_large_image",
+      title: article.title,
+      description: article.description,
+      images: article.image ? [article.image] : undefined,
+    },
   };
 }
 

@@ -810,3 +810,10 @@ a {
     font-size: 12px;
   }
 }
+
+/* スマホ：ヘッダーにメニューボタンを並べるため、矢印を隠した分だけ余白を詰める */
+@media (max-width: 639px) {
+  .header-diagnosis-button {
+    padding-inline: 14px;
+  }
+}

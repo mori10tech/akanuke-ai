@@ -9,6 +9,7 @@ import {
   type ReactNode,
 } from "react";
 import Logo from "./components/Logo";
+import MobileMenu from "./components/MobileMenu";
 import { getAllArticles } from "../data/articles";
 import AdSenseAd from "./components/AdSenseAd";
 
@@ -528,7 +529,7 @@ export default function Home() {
   </Link>
 </nav>
 
-          <div className="flex items-center">
+          <div className="flex items-center gap-1 sm:gap-1.5 lg:gap-0">
   <Link
   href={DIAGNOSIS_LIFF_URL}
   onClick={handleDiagnosisStart}
@@ -539,13 +540,15 @@ export default function Home() {
 
     <span
   aria-hidden="true"
-  className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-black/10 text-[16px] leading-none"
+  className="hidden h-6 w-6 sm:grid shrink-0 place-items-center rounded-full bg-black/10 text-[16px] leading-none"
 >
   <span className="-translate-y-px">
     ›
   </span>
 </span>
   </Link>
+
+  <MobileMenu />
 </div>
         </div>
       </header>

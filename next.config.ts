@@ -25,6 +25,24 @@ const nextConfig: NextConfig = {
           "/?utm_source=ig&utm_medium=social&utm_campaign=profile",
         permanent: false,
       },
+      /*
+       * X（AKANUKE JOURNALアカウント）用の短縮URL
+       * 投稿やプロフィールにUTMパラメータが見えないようにする
+       * /x は記事一覧（プロフィールリンク用）、/x/記事slug は各記事へ転送する
+       * 転送先を後から変更できるよう一時リダイレクト（307）にする
+       */
+      {
+        source: "/x",
+        destination:
+          "/media?utm_source=x&utm_medium=social&utm_campaign=journal_profile",
+        permanent: false,
+      },
+      {
+        source: "/x/:slug",
+        destination:
+          "/media/:slug?utm_source=x&utm_medium=social&utm_campaign=journal",
+        permanent: false,
+      },
     ];
   },
 

@@ -621,25 +621,27 @@ export const articles: Article[] = [
     slug: "mens-akanuke-guide",
 
     title:
-      "【2026年版】メンズ垢抜け完全ガイド",
+      "メンズが垢抜ける方法10選｜髪型・眉毛・肌・服装を見られる距離別に解説",
 
     description:
-      "男性が垢抜けるために必要な髪型・眉毛・スキンケア・心象改善までを初心者向けに分かりやすく解説します。",
+      "メンズが垢抜けるための具体的な方法10個を、遠く・会話・近くの3つの距離別に解説。AI診断データで改善点に挙がりやすかった部分、お金をかけずにできること、逆効果になりやすいやりすぎも紹介します。",
 
     category: "メンズ垢抜け",
 
     publishedAt: "2026-08-05",
 
+    updatedAt: "2026-11-13",
+
     readingTime: "約10分",
 
-    image: "/media/mens-akanuke-guide.jpg",
+    image: "/media/mens-akanuke-guide.png",
 
     keywords: [
+      "メンズ 垢抜け 方法",
+      "男 垢抜ける 方法",
       "メンズ 垢抜け",
-      "男性 垢抜け 方法",
-      "メンズ 美容",
-      "清潔感 男性",
       "垢抜けたい 男",
+      "男性 垢抜け 方法",
     ],
   },
 ];
@@ -647,7 +649,6 @@ export const articles: Article[] = [
 const HIDDEN_ARTICLE_SLUGS = new Set([
   "mens-cleanliness-guide",
   "mens-beauty-beginner",
-  "mens-akanuke-guide",
 ]);
 
 function isPublishedArticle(article: Article): boolean {

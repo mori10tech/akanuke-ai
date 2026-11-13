@@ -8,9 +8,8 @@ import {
   getArticleBySlug,
 } from "../../../data/articles";
 
-import Logo from "../../components/Logo";
-
 import JournalFooter from "../components/JournalFooter";
+import JournalLogo from "../components/JournalLogo";
 import JournalServiceCta from "../components/JournalServiceCta";
 import { articleRegistry } from "./articleRegistry";
 import ArticleStructuredData from "./ArticleStructuredData";
@@ -50,13 +49,17 @@ function ArrowLeftIcon() {
 function ArticleHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-black/10 bg-white/95 backdrop-blur-xl">
-      <div className="mx-auto grid h-[64px] w-full max-w-[980px] grid-cols-[40px_minmax(0,1fr)_auto] items-center gap-2 px-3 sm:flex sm:h-[68px] sm:justify-between sm:gap-4 sm:px-5">
+      <div className="mx-auto grid h-[64px] w-full max-w-[980px] grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-2 px-3 sm:flex sm:h-[68px] sm:justify-between sm:gap-4 sm:px-5">
         <Link
           href="/media/all"
           aria-label="記事一覧へ戻る"
-          className="flex h-10 w-10 shrink-0 items-center justify-center text-black/50 transition hover:text-[#1677FF] sm:h-auto sm:w-auto sm:justify-start sm:gap-2 sm:text-[11px] sm:font-black"
+          className="flex h-10 shrink-0 items-center gap-1 pr-1 text-[11px] font-black text-black/50 transition hover:text-[#1677FF] sm:h-auto sm:gap-2"
         >
           <ArrowLeftIcon />
+
+          <span className="sm:hidden">
+            一覧
+          </span>
 
           <span className="hidden sm:inline">
             記事一覧
@@ -64,7 +67,7 @@ function ArticleHeader() {
         </Link>
 
         <div className="flex min-w-0 items-center justify-start sm:justify-center">
-          <Logo href="/" />
+          <JournalLogo />
         </div>
 
         <div className="shrink-0">
